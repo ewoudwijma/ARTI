@@ -1,0 +1,324 @@
+{
+  "program": {
+    "PROGRAM": "PROGRAM",
+    "variable": {
+      "ID": "Main"
+    },
+    "SEMI": ";",
+    "block": {
+      "declarations": {
+        "VAR": "VAR",
+        "variable_declaration": {
+          "ID": "y",
+          "COLON": ":",
+          "type_spec": {
+            "INTEGER": "INTEGER"
+          }
+        },
+        "SEMI": ";",
+        "procedure_declaration": {
+          "PROCEDURE": "PROCEDURE",
+          "ID": "Alpha",
+          "LPAREN": "(",
+          "formal_parameter_list": {
+            "formal_parameters": [
+              {
+                "ID": "a",
+                "COLON": ":",
+                "type_spec": {
+                  "INTEGER": "INTEGER"
+                }
+              },
+              {
+                "ID": "b",
+                "COLON": ":",
+                "type_spec": {
+                  "INTEGER": "INTEGER"
+                }
+              }
+            ],
+            "SEMI": ";"
+          },
+          "RPAREN": ")",
+          "SEMI": ";",
+          "block": {
+            "declarations": {
+              "VAR": "VAR",
+              "variable_declaration": {
+                "ID": "x",
+                "COLON": ":",
+                "type_spec": {
+                  "INTEGER": "INTEGER"
+                }
+              },
+              "SEMI": ";",
+              "procedure_declaration": {
+                "PROCEDURE": "PROCEDURE",
+                "ID": "Beta",
+                "LPAREN": "(",
+                "formal_parameter_list": {
+                  "formal_parameters": [
+                    {
+                      "ID": "a",
+                      "COLON": ":",
+                      "type_spec": {
+                        "INTEGER": "INTEGER"
+                      }
+                    },
+                    {
+                      "ID": "b",
+                      "COLON": ":",
+                      "type_spec": {
+                        "INTEGER": "INTEGER"
+                      }
+                    }
+                  ],
+                  "SEMI": ";"
+                },
+                "RPAREN": ")",
+                "SEMI": ";",
+                "block": {
+                  "declarations": {
+                    "VAR": "VAR",
+                    "variable_declaration": {
+                      "ID": "x",
+                      "COLON": ":",
+                      "type_spec": {
+                        "INTEGER": "INTEGER"
+                      }
+                    },
+                    "SEMI": ";"
+                  },
+                  "compound_statement": {
+                    "BEGIN": "BEGIN",
+                    "statement_list": {
+                      "statement": {
+                        "assignment_statement": {
+                          "variable": {
+                            "ID": "x"
+                          },
+                          "ASSIGN": ":=",
+                          "expr": {
+                            "term": [
+                              {
+                                "factor": [
+                                  {
+                                    "variable": {
+                                      "ID": "a"
+                                    }
+                                  },
+                                  {
+                                    "INTEGER_CONST": "10"
+                                  }
+                                ],
+                                "MUL": "*"
+                              },
+                              {
+                                "factor": [
+                                  {
+                                    "variable": {
+                                      "ID": "b"
+                                    }
+                                  },
+                                  {
+                                    "INTEGER_CONST": "2"
+                                  }
+                                ],
+                                "MUL": "*"
+                              }
+                            ],
+                            "PLUS": "+"
+                          }
+                        }
+                      },
+                      "SEMI": ";"
+                    },
+                    "END": "END"
+                  }
+                }
+              }
+            },
+            "compound_statement": {
+              "BEGIN": "BEGIN",
+              "statement_list": {
+                "statement": [
+                  {
+                    "assignment_statement": {
+                      "variable": {
+                        "ID": "x"
+                      },
+                      "ASSIGN": ":=",
+                      "expr": {
+                        "term": {
+                          "factor": [
+                            {
+                              "LPAREN": "(",
+                              "expr": {
+                                "term": [
+                                  {
+                                    "factor": {
+                                      "variable": {
+                                        "ID": "a"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "factor": {
+                                      "variable": {
+                                        "ID": "b"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "PLUS": "+"
+                              },
+                              "RPAREN": ")"
+                            },
+                            {
+                              "INTEGER_CONST": "2"
+                            }
+                          ],
+                          "MUL": "*"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "proccall_statement": {
+                      "ID": "Beta",
+                      "LPAREN": "(",
+                      "expr": [
+                        {
+                          "term": {
+                            "factor": {
+                              "INTEGER_CONST": "5"
+                            }
+                          }
+                        },
+                        {
+                          "term": {
+                            "factor": {
+                              "INTEGER_CONST": "10"
+                            }
+                          }
+                        }
+                      ],
+                      "COMMA": ",",
+                      "RPAREN": ")",
+                      "SEMI": ";"
+                    }
+                  }
+                ],
+                "SEMI": ";"
+              },
+              "END": "END"
+            }
+          }
+        }
+      },
+      "compound_statement": {
+        "BEGIN": "BEGIN",
+        "statement_list": {
+          "statement": [
+            {
+              "proccall_statement": {
+                "ID": "Alpha",
+                "LPAREN": "(",
+                "expr": [
+                  {
+                    "term": [
+                      {
+                        "factor": {
+                          "INTEGER_CONST": "3"
+                        }
+                      },
+                      {
+                        "factor": {
+                          "INTEGER_CONST": "5"
+                        }
+                      }
+                    ],
+                    "PLUS": "+"
+                  },
+                  {
+                    "term": {
+                      "factor": {
+                        "INTEGER_CONST": "7"
+                      }
+                    }
+                  }
+                ],
+                "COMMA": ",",
+                "RPAREN": ")",
+                "SEMI": ";"
+              }
+            },
+            {
+              "for_loop": {
+                "FOR": "FOR",
+                "assignment_statement": {
+                  "variable": {
+                    "ID": "y"
+                  },
+                  "ASSIGN": ":=",
+                  "expr": {
+                    "term": {
+                      "factor": {
+                        "INTEGER_CONST": "1"
+                      }
+                    }
+                  }
+                },
+                "TO": "TO",
+                "expr": {
+                  "term": {
+                    "factor": {
+                      "INTEGER_CONST": "10"
+                    }
+                  }
+                },
+                "DO": "DO",
+                "compound_statement": {
+                  "BEGIN": "BEGIN",
+                  "statement_list": {
+                    "statement": {
+                      "proccall_statement": {
+                        "ID": "Alpha",
+                        "LPAREN": "(",
+                        "expr": [
+                          {
+                            "term": {
+                              "factor": {
+                                "INTEGER_CONST": "35"
+                              }
+                            }
+                          },
+                          {
+                            "term": {
+                              "factor": {
+                                "variable": {
+                                  "ID": "y"
+                                }
+                              }
+                            }
+                          }
+                        ],
+                        "COMMA": ",",
+                        "RPAREN": ")",
+                        "SEMI": ";"
+                      }
+                    }
+                  },
+                  "END": "END"
+                },
+                "SEMI": ";"
+              }
+            }
+          ]
+        },
+        "END": "END"
+      }
+    },
+    "DOT": "."
+  }
+}
