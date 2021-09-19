@@ -1,10 +1,5 @@
 #define ARTI_DEBUG 1
 
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <sstream>
-
 using namespace std;
 
 #ifdef WLED_H
@@ -67,9 +62,9 @@ enum class ErrorCode {
   NONE
 };
 
-DynamicJsonDocument definitionJson(20480);
-DynamicJsonDocument tokensJson(20480);
-DynamicJsonDocument parseTreeJson(2048000);
+DynamicJsonDocument tokensJson(2048);
+DynamicJsonDocument definitionJson(8192);
+DynamicJsonDocument parseTreeJson(8192);
 
 class Token {
   private:
@@ -145,11 +140,13 @@ class Lexer {
       this->lineno = 1;
       this->column = 1;
 
-      deserializeJson(definitionJson, definitionText);
+      DeserializationError err = deserializeJson(definitionJson, definitionText);
+      if (err) {
+        DEBUG_ARTI("deserializeJson() failed with code %s\n", err.c_str());
+      }
     }
 
     void fillTokensJson() {
-
       //system tokens
       tokensJson["ID"] = "ID";
       tokensJson["INTEGER_CONST"] = "INTEGER_CONST";
@@ -157,17 +154,10 @@ class Lexer {
       // tokensJson["EOF"]  = "EOF";
 
       if (definitionJson["TOKENS"].is<JsonObject>()) {
-        for (JsonPair element : definitionJson["TOKENS"].as<JsonObject>()) {
-          string type = element.key().c_str();
-          string value = element.value();
-          // DEBUG_ARTI("%s\n", type, value);
-          tokensJson[type] = value;
-
+        for (JsonPair objectPair : definitionJson["TOKENS"].as<JsonObject>()) {
+          // DEBUG_ARTI("%s %s\n", objectPair.key().c_str(), objectPair.value().as<const char *>());
+          tokensJson[objectPair.key().c_str()] = objectPair.value();;
         }
-        // fstream parseTreeFile;
-        // parseTreeFile.open("tokensJson.json", ios::out);
-        // serializeJsonPretty(tokensJson, parseTreeFile);
-        // parseTreeFile.close();
       }
     } //fillTokensJson
 
@@ -297,14 +287,13 @@ class Lexer {
 
         uint8_t longestTokenLength = 0;
 
-        JsonObject root = tokensJson.as<JsonObject>();
-        for (JsonObject::iterator it=root.begin(); it!=root.end(); ++it) {
-          string value = it->value().as<const char*>();
+        for (JsonPair tokenPair: tokensJson.as<JsonObject>()) {
+          string value = tokenPair.value().as<const char*>();
           string current_string = this->text.substr(this->pos, value.length());
           // DEBUG_ARTI("%s\n", value, token_value);
           if (value == current_string && value.length() > longestTokenLength) {
             token_value = value;
-            token_type = it->key().c_str();
+            token_type = tokenPair.key().c_str();
             longestTokenLength = value.length();
           }
         }
@@ -340,14 +329,14 @@ struct LexerPosition {
 
 class Parser {
   private:
-    Lexer lexer;
+    Lexer *lexer;
     LexerPosition positions[100]; //should be array of pointers but for some reason get seg fault
     uint16_t positions_index = 0;
 
   public:
     Token current_token;
 
-    Parser(Lexer lexer) {
+    Parser(Lexer *lexer) {
       this->lexer = lexer;
       this->current_token = this->get_next_token();
     }
@@ -366,7 +355,7 @@ class Parser {
     }
 
     Token get_next_token() {
-      return this->lexer.get_next_token();
+      return this->lexer->get_next_token();
     }
 
     void error(ErrorCode error_code, Token token) {
@@ -387,10 +376,10 @@ class Parser {
   void push_position() {
     // DEBUG_ARTI("%s\n", "push_position ", positions_index, this->lexer.pos);
     // uint16_t index = positions_index%100;
-    positions[positions_index].pos = this->lexer.pos;
-    positions[positions_index].current_char = this->lexer.current_char;
-    positions[positions_index].lineno = this->lexer.lineno;
-    positions[positions_index].column = this->lexer.column;
+    positions[positions_index].pos = this->lexer->pos;
+    positions[positions_index].current_char = this->lexer->current_char;
+    positions[positions_index].lineno = this->lexer->lineno;
+    positions[positions_index].column = this->lexer->column;
     positions[positions_index].type = this->current_token.type;
     positions[positions_index].value = this->current_token.value;
     positions_index++;
@@ -399,12 +388,12 @@ class Parser {
   void pop_position() {
     if (positions_index > 0) {
       positions_index--;
-      // DEBUG_ARTI("%s\n", "pop_position ", positions_index, this->lexer.pos, " to ", positions[positions_index].pos);
+      // DEBUG_ARTI("%s\n", "pop_position ", positions_index, this->lexer->pos, " to ", positions[positions_index].pos);
       // uint16_t index = positions_index%100;
-      this->lexer.pos = positions[positions_index].pos;
-      this->lexer.current_char = positions[positions_index].current_char;
-      this->lexer.lineno = positions[positions_index].lineno;
-      this->lexer.column = positions[positions_index].column;
+      this->lexer->pos = positions[positions_index].pos;
+      this->lexer->current_char = positions[positions_index].current_char;
+      this->lexer->lineno = positions[positions_index].lineno;
+      this->lexer->column = positions[positions_index].column;
       this->current_token.type = positions[positions_index].type;
       this->current_token.value = positions[positions_index].value;
     }
@@ -469,12 +458,12 @@ class Parser {
           //   DEBUG_ARTI("%s\n", "array multiple 2 ", expression);
           // }
 
-          for (int i=0; i < expression.size() && result == Result::RESULTCONTINUE; i++) {
+          for (JsonVariant newExpression: expression.as<JsonArray>()) {
             //Save current position, in case some of the expressions in the or array go wrong (deadend), go back to the saved position and try the next
             if (operatorx == "or")
               push_position();
 
-            resultChild = parseExpression(parseTree, "", expression[i], depth + 1);//(operatorx == "")?"and":operatorx
+            resultChild = parseExpression(parseTree, "", newExpression, depth + 1);//(operatorx == "")?"and":operatorx
 
             if (operatorx == "*") resultChild = Result::RESULTCONTINUE; //0 or more always succesful
 
@@ -485,6 +474,9 @@ class Parser {
 
             if (operatorx == "or" && resultChild == Result::RESULTFAIL) //if fail, go back and try another
               pop_position();
+
+            if (result != Result::RESULTCONTINUE) 
+              break;
           }
           if ((operatorx == "or") && result == Result::RESULTCONTINUE) //still looking but nothing to look for
             result = Result::RESULTFAIL;
@@ -498,6 +490,7 @@ class Parser {
               // DEBUG_ARTI("%s parseTOken %s\n", spaces.c_str(), operatorx.c_str());//, expression.as<string>().c_str());
               // DEBUG_ARTI("%s\n", spaces, "istoken ok ", tokenType, tokenValue, current_token.type, current_token.value);
               // if (current_token.type == "ID" || current_token.type == "INTEGER" || current_token.type == "REAL" || current_token.type == "INTEGER_CONST" || current_token.type == "REAL_CONST" || current_token.type == "ID" || current_token.type == "ID" || current_token.type == "ID") {
+                DEBUG_ARTI("%s %s %s\n", spaces.c_str(), current_token.type.c_str(), current_token.value.c_str());
                 parseTree[current_token.type] = current_token.value;
                 // string output = parseTreeJson;
                 // //serializeJson(parseTreeJson, output);
@@ -554,14 +547,19 @@ class Parser {
       JsonObject expressionTree = expressionTreeDoc.createNestedObject();
       // expressionTree["name"] = symbol_name;
 
+      // serializeJson(expressionTree, et);
+      // DEBUG_ARTI("exprtree %s\n", et);
+      // DEBUG_ARTI("%s exprtree t)%s s) %s\n", spaces.c_str(), parseTree.as<string>().c_str(), symbol_name.c_str());
+
       JsonVariant expression = definitionJson[symbol_name];
+      DEBUG_ARTI("%s %s %s\n", spaces.c_str(), parseTree.as<string>().c_str(), symbol_name.c_str());
       result = parseExpression(expressionTree, "", expression, depth + 1);
 
       if (result != Result::RESULTFAIL) {
         //repeated symbol: check if expression is already array, if not make array of it
         if (parseTree.containsKey(symbol_name)) {
           if (parseTree[symbol_name].is<JsonObject>()) {
-            DynamicJsonDocument arrayDoc(20480);
+            DynamicJsonDocument arrayDoc(4096);
             JsonArray array = arrayDoc.createNestedArray();
             array.add(parseTree[symbol_name]);
             array.add(expressionTree);
@@ -573,7 +571,7 @@ class Parser {
             // DEBUG_ARTI("%s\n", spaces, "isArray (PROGRAMMER TEST!!!)", parseTree);
           }
           else {
-            // DEBUG_ARTI("%s\n", "Error check it...");
+            DEBUG_ARTI("%s\n", "Error check it...");
           }
 
           // parseTree[symbol_name+"1"] = expressionTree;
@@ -583,6 +581,7 @@ class Parser {
           parseTree[symbol_name] = expressionTree;
           // DEBUG_ARTI("%s\n", spaces, "  add new ", parseTree);
         }
+        DEBUG_ARTI("%s %s\n", spaces.c_str(), parseTree.as<string>().c_str());
       }
       if (result==Result::RESULTFAIL) {
         resultString = "Fail " + resultString;
@@ -790,9 +789,9 @@ class SemanticAnalyzer {
               else if (expression == "VarSymbol") {
                 //can be expression or array of expressions
                 if (value.is<JsonArray>()) {
-                  for (int i=0; i < value.size(); i++) {
-                    string param_name = value[i]["ID"];
-                    string param_type = value[i]["type_spec"];//current_scope.lookup(param.type_node.value);
+                  for (JsonObject newValue: value.as<JsonArray>()) {
+                    string param_name = newValue["ID"];
+                    string param_type = newValue["type_spec"];//current_scope.lookup(param.type_node.value);
                     Symbol* var_symbol = new Symbol(symbol_name, param_name, param_type);
                     current_scope->insert(var_symbol);
                     DEBUG_ARTI("%s var (from array) %s.%s of %s\n", spaces.c_str(), current_scope->scope_name.c_str(), param_name.c_str(), param_type.c_str());
@@ -828,9 +827,9 @@ class SemanticAnalyzer {
       }
       else { //not object
         if (parseTree.is<JsonArray>()) {
-          for (int i=0; i < parseTree.size(); i++) {
+          for (JsonVariant newParseTree: parseTree.as<JsonArray>()) {
             // DEBUG_ARTI("%s\n", spaces, "Array ", parseTree[i], "  ";
-            visit(parseTree[i], symbol_name, token, current_scope, depth + 1);
+            visit(newParseTree, symbol_name, token, current_scope, depth + 1);
           }
           // cout);
         }
@@ -857,7 +856,7 @@ class ActivationRecord {
         this->name = name;
         this->type = type;
         this->nesting_level = nesting_level;
-        this->members = new DynamicJsonDocument(1000);
+        this->members = new DynamicJsonDocument(1024);
         this->mem = this->members->createNestedObject();
     }
 
@@ -950,8 +949,8 @@ class Interpreter {
 
   public:
 
-  Interpreter(SemanticAnalyzer analyzer) {
-    this->global_scope = analyzer.global_scope;
+  Interpreter(SemanticAnalyzer *analyzer) {
+    this->global_scope = analyzer->global_scope;
   }
 
   void interpret() {
@@ -972,14 +971,14 @@ class Interpreter {
             // ["PLUS2", "factor"],
           // [ "MINUS2", "factor"],
 
-  JsonObject objectFromKeyValue(string key, JsonVariant value) {
-    DynamicJsonDocument newx(1000);
-    JsonObject newObject = newx.createNestedObject();
-    newObject[key] = value[key];
+  // JsonObject objectFromKeyValue(string key, JsonVariant value) {
+  //   DynamicJsonDocument newx(1024);
+  //   JsonObject newObject = newx.createNestedObject();
+  //   newObject[key] = value[key];
 
-    return newObject;
+  //   return newObject;
 
-  }
+  // }
 
     void visit(JsonVariant parseTree, string symbol_name = "", string token = "", uint8_t depth = 0) {
       string spaces = ""; for(int i = 0; i < depth; i++) spaces+= ' ';
@@ -1034,7 +1033,7 @@ class Interpreter {
                     JsonVariant valueExpr;
                     string result;
                     if (value["expr"].is<JsonArray>()) {
-                      DynamicJsonDocument newx(1000);
+                      DynamicJsonDocument newx(1024);
                       JsonObject newObject = newx.createNestedObject();
                       newObject["expr"] = value["expr"][i];
 
@@ -1088,7 +1087,7 @@ class Interpreter {
               else if (expression == "ForLoop") {
                 // DEBUG_ARTI("%s\n", spaces, expression, value);
 
-                DynamicJsonDocument newx(1000);
+                DynamicJsonDocument newx(1024);
                 JsonObject newObject = newx.createNestedObject();
                 newObject["assignment_statement"] = value["assignment_statement"];
 
@@ -1124,9 +1123,9 @@ class Interpreter {
       }
       else { //not object
         if (parseTree.is<JsonArray>()) {
-          for (int i=0; i < parseTree.size(); i++) {
+          for (JsonVariant newParseTree: parseTree.as<JsonArray>()) {
             // DEBUG_ARTI("%s\n", spaces, "Array ", parseTree[i], "  ";
-            visit(parseTree[i], symbol_name, token, depth + 1);
+            visit(newParseTree, symbol_name, token, depth + 1);
           }
           // cout);
         }
@@ -1140,36 +1139,37 @@ class Interpreter {
 };
 
 class ARTI {
+  private:
+  Lexer *lexer;
+  Parser *parser;
+  SemanticAnalyzer *semanticAnalyzer;
+  Interpreter *interpreter;
+  string definitionText;
+  string programText;
 public:
-  string run(string definitionText, string programText) {
+  ARTI(string definitionText, string programText) {
+    this->definitionText = definitionText;
+    this->programText = programText;
+  }
+
+  string parse() {
+
     string parseTreeText;
-        Lexer lexer = Lexer(definitionText, programText);
-        lexer.fillTokensJson();
-        try {
-          Parser parser = Parser(lexer);
-          parseTreeText = parser.parse();
-        }
-        catch (const std::exception& e)
-        {
-          // except (LexerError, ParserError) as e:;
-          cout << "Parser error " << e.what() << endl;;
-          // exit();
-        }
-
-        SemanticAnalyzer semanticAnalyzer = SemanticAnalyzer();
-        try {
-          semanticAnalyzer.analyse();
-        }
-        catch (const std::exception& e)
-        {
-          // except (LexerError, ParserError) as e:;
-          cout << "SemanticAnalyzer error " << e.what() << endl;
-          // exit();
-        }
-
-        Interpreter interpreter = Interpreter(semanticAnalyzer);
-        interpreter.interpret();// interpreter.print();
-
+    lexer = new Lexer(definitionText, programText);
+    lexer->fillTokensJson();
+    parser = new Parser(lexer);
+    parseTreeText = parser->parse();
     return parseTreeText;
   }
-};
+
+  void analyze() {
+    semanticAnalyzer = new SemanticAnalyzer();
+    semanticAnalyzer->analyse();
+  }
+
+  void interpret() {
+    interpreter = new Interpreter(semanticAnalyzer);
+    interpreter->interpret();// interpreter.print();
+  }
+
+}; //ARTI

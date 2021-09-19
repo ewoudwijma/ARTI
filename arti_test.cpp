@@ -1,5 +1,10 @@
 #include "arti.h"
 
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+
 int main() {
   fstream programFile;
   programFile.open("test.pas", ios::in);
@@ -21,8 +26,10 @@ int main() {
     stringstream compilerStream;
     compilerStream << compilerFile.rdbuf(); //read the file
 
-    ARTI arti = ARTI();
-    parseTreeFile << arti.run(compilerStream.str(), programStream.str());
+    ARTI arti = ARTI(compilerStream.str(), programStream.str());
+    parseTreeFile << arti.parse();
+    arti.analyze();
+    arti.interpret();
   }
 
   programFile.close();

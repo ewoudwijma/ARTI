@@ -1,183 +1,565 @@
 Parser PROGRAM PROGRAM
  program
+ null program
+   PROGRAM PROGRAM
     variable
+    {"PROGRAM":"PROGRAM"} variable
+     ID Main
+    {"PROGRAM":"PROGRAM","variable":{"ID":"Main"}}
+   SEMI ;
     block
+    {"PROGRAM":"PROGRAM","variable":{"ID":"Main"},"SEMI":";"} block
        declarations
+       {} declarations
+           VAR VAR
               variable_declaration
+              {"VAR":"VAR"} variable_declaration
+                ID y
+                COLON :
                  type_spec
+                 {"ID":"y","COLON":":"} type_spec
+                    INTEGER INTEGER
+                 {"ID":"y","COLON":":","type_spec":{"INTEGER":"INTEGER"}}
+              {"VAR":"VAR","variable_declaration":{"ID":"y","COLON":":","type_spec":{"INTEGER":"INTEGER"}}}
+             SEMI ;
            procedure_declaration
+           {"VAR":"VAR","variable_declaration":{"ID":"y","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"} procedure_declaration
+             PROCEDURE PROCEDURE
+             ID Alpha
+               LPAREN (
                 formal_parameter_list
+                {"PROCEDURE":"PROCEDURE","ID":"Alpha","LPAREN":"("} formal_parameter_list
                    formal_parameters
+                   {} formal_parameters
+                     ID a
+                     COLON :
                       type_spec
+                      {"ID":"a","COLON":":"} type_spec
+                         INTEGER INTEGER
+                      {"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}}
+                   {"formal_parameters":{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}}}
+                    SEMI ;
                      formal_parameters
+                     {"formal_parameters":{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"} formal_parameters
+                       ID b
+                       COLON :
                         type_spec
+                        {"ID":"b","COLON":":"} type_spec
+                           INTEGER INTEGER
+                        {"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}
+                     {"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"}
+                {"PROCEDURE":"PROCEDURE","ID":"Alpha","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"}}
+               RPAREN )
+             SEMI ;
               block
+              {"PROCEDURE":"PROCEDURE","ID":"Alpha","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";"} block
                  declarations
+                 {} declarations
+                     VAR VAR
                         variable_declaration
+                        {"VAR":"VAR"} variable_declaration
+                          ID x
+                          COLON :
                            type_spec
+                           {"ID":"x","COLON":":"} type_spec
+                              INTEGER INTEGER
+                           {"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}}
+                        {"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}}}
+                       SEMI ;
                      procedure_declaration
+                     {"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"} procedure_declaration
+                       PROCEDURE PROCEDURE
+                       ID Beta
+                         LPAREN (
                           formal_parameter_list
+                          {"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"("} formal_parameter_list
                              formal_parameters
+                             {} formal_parameters
+                               ID a
+                               COLON :
                                 type_spec
+                                {"ID":"a","COLON":":"} type_spec
+                                   INTEGER INTEGER
+                                {"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}}
+                             {"formal_parameters":{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}}}
+                              SEMI ;
                                formal_parameters
+                               {"formal_parameters":{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"} formal_parameters
+                                 ID b
+                                 COLON :
                                   type_spec
+                                  {"ID":"b","COLON":":"} type_spec
+                                     INTEGER INTEGER
+                                  {"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}
+                               {"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"}
+                          {"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"}}
+                         RPAREN )
+                       SEMI ;
                         block
+                        {"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";"} block
                            declarations
+                           {} declarations
+                               VAR VAR
                                   variable_declaration
+                                  {"VAR":"VAR"} variable_declaration
+                                    ID x
+                                    COLON :
                                      type_spec
+                                     {"ID":"x","COLON":":"} type_spec
+                                        INTEGER INTEGER
+                                     {"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}}
+                                  {"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}}}
+                                 SEMI ;
                                procedure_declaration
+                               {"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"} procedure_declaration
+                           {"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"}}
                            compound_statement
+                           {"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"}} compound_statement
+                             BEGIN BEGIN
                               statement_list
+                              {"BEGIN":"BEGIN"} statement_list
                                  statement
+                                 {} statement
                                      compound_statement
+                                     {} compound_statement
                                      proccall_statement
+                                     {} proccall_statement
+                                       ID x
                                      assignment_statement
+                                     {} assignment_statement
                                         variable
+                                        {} variable
+                                         ID x
+                                        {"variable":{"ID":"x"}}
+                                       ASSIGN :=
                                         expr
+                                        {"variable":{"ID":"x"},"ASSIGN":":="} expr
                                            term
+                                           {} term
                                               factor
+                                              {} factor
                                                   variable
+                                                  {} variable
+                                                   ID a
+                                                  {"variable":{"ID":"a"}}
+                                              {"factor":{"variable":{"ID":"a"}}}
+                                                 MUL *
                                                 factor
+                                                {"factor":{"variable":{"ID":"a"}},"MUL":"*"} factor
                                                     variable
+                                                    {} variable
+                                                   INTEGER_CONST 10
+                                                {"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"}
+                                           {"term":{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"}}
+                                              PLUS +
                                              term
+                                             {"term":{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},"PLUS":"+"} term
                                                 factor
+                                                {} factor
                                                     variable
+                                                    {} variable
+                                                     ID b
+                                                    {"variable":{"ID":"b"}}
+                                                {"factor":{"variable":{"ID":"b"}}}
+                                                   MUL *
                                                   factor
+                                                  {"factor":{"variable":{"ID":"b"}},"MUL":"*"} factor
                                                       variable
+                                                      {} variable
+                                                     INTEGER_CONST 2
+                                                  {"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}
+                                             {"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}
+                                        {"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}
+                                     {"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}}
+                                 {"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}}}
+                                  SEMI ;
                                    statement
+                                   {"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"} statement
                                        compound_statement
+                                       {} compound_statement
                                        proccall_statement
+                                       {} proccall_statement
                                        assignment_statement
+                                       {} assignment_statement
                                           variable
+                                          {} variable
                                        for_loop
+                                       {} for_loop
+                              {"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"}}
+                             END END
+                           {"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}
+                        {"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}}
+                       SEMI ;
+                     {"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}}}
+                 {"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}}}}
                  compound_statement
+                 {"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}}}} compound_statement
+                   BEGIN BEGIN
                     statement_list
+                    {"BEGIN":"BEGIN"} statement_list
                        statement
+                       {} statement
                            compound_statement
+                           {} compound_statement
                            proccall_statement
+                           {} proccall_statement
+                             ID x
                            assignment_statement
+                           {} assignment_statement
                               variable
+                              {} variable
+                               ID x
+                              {"variable":{"ID":"x"}}
+                             ASSIGN :=
                               expr
+                              {"variable":{"ID":"x"},"ASSIGN":":="} expr
                                  term
+                                 {} term
                                     factor
+                                    {} factor
                                         variable
+                                        {} variable
+                                        LPAREN (
                                          expr
+                                         {"LPAREN":"("} expr
                                             term
+                                            {} term
                                                factor
+                                               {} factor
                                                    variable
+                                                   {} variable
+                                                    ID a
+                                                   {"variable":{"ID":"a"}}
+                                               {"factor":{"variable":{"ID":"a"}}}
                                                  factor
+                                                 {"factor":{"variable":{"ID":"a"}}} factor
                                                      variable
+                                                     {} variable
+                                            {"term":{"factor":{"variable":{"ID":"a"}}}}
+                                               PLUS +
                                               term
+                                              {"term":{"factor":{"variable":{"ID":"a"}}},"PLUS":"+"} term
                                                  factor
+                                                 {} factor
                                                      variable
+                                                     {} variable
+                                                      ID b
+                                                     {"variable":{"ID":"b"}}
+                                                 {"factor":{"variable":{"ID":"b"}}}
                                                    factor
+                                                   {"factor":{"variable":{"ID":"b"}}} factor
                                                        variable
+                                                       {} variable
+                                              {"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"}
+                                         {"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"}}
+                                        RPAREN )
+                                    {"factor":{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"}}
+                                       MUL *
                                       factor
+                                      {"factor":{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},"MUL":"*"} factor
                                           variable
+                                          {} variable
+                                         INTEGER_CONST 2
+                                      {"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}
+                                 {"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}
                                    term
+                                   {"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}} term
                                       factor
+                                      {} factor
                                           variable
+                                          {} variable
+                              {"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}
+                           {"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}}
+                       {"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}}}
+                        SEMI ;
                          statement
+                         {"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}},"SEMI":";"} statement
                              compound_statement
+                             {} compound_statement
                              proccall_statement
+                             {} proccall_statement
+                               ID Beta
+                               LPAREN (
                                   expr
+                                  {"ID":"Beta","LPAREN":"("} expr
                                      term
+                                     {} term
                                         factor
+                                        {} factor
                                             variable
+                                            {} variable
+                                           INTEGER_CONST 5
+                                        {"factor":{"INTEGER_CONST":"5"}}
                                           factor
+                                          {"factor":{"INTEGER_CONST":"5"}} factor
                                               variable
+                                              {} variable
+                                     {"term":{"factor":{"INTEGER_CONST":"5"}}}
                                        term
+                                       {"term":{"factor":{"INTEGER_CONST":"5"}}} term
                                           factor
+                                          {} factor
                                               variable
+                                              {} variable
+                                  {"ID":"Beta","LPAREN":"(","expr":{"term":{"factor":{"INTEGER_CONST":"5"}}}}
+                                   COMMA ,
                                     expr
+                                    {"ID":"Beta","LPAREN":"(","expr":{"term":{"factor":{"INTEGER_CONST":"5"}}},"COMMA":","} expr
                                        term
+                                       {} term
                                           factor
+                                          {} factor
                                               variable
+                                              {} variable
+                                             INTEGER_CONST 10
+                                          {"factor":{"INTEGER_CONST":"10"}}
                                             factor
+                                            {"factor":{"INTEGER_CONST":"10"}} factor
                                                 variable
+                                                {} variable
+                                       {"term":{"factor":{"INTEGER_CONST":"10"}}}
                                          term
+                                         {"term":{"factor":{"INTEGER_CONST":"10"}}} term
                                             factor
+                                            {} factor
                                                 variable
+                                                {} variable
+                                    {"ID":"Beta","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"5"}}},{"term":{"factor":{"INTEGER_CONST":"10"}}}],"COMMA":","}
+                               RPAREN )
+                               SEMI ;
+                             {"proccall_statement":{"ID":"Beta","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"5"}}},{"term":{"factor":{"INTEGER_CONST":"10"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}
+                         {"statement":[{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}},{"proccall_statement":{"ID":"Beta","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"5"}}},{"term":{"factor":{"INTEGER_CONST":"10"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}],"SEMI":";"}
+                    {"BEGIN":"BEGIN","statement_list":{"statement":[{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}},{"proccall_statement":{"ID":"Beta","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"5"}}},{"term":{"factor":{"INTEGER_CONST":"10"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}],"SEMI":";"}}
+                   END END
+                 {"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}}},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":[{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}},{"proccall_statement":{"ID":"Beta","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"5"}}},{"term":{"factor":{"INTEGER_CONST":"10"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}],"SEMI":";"},"END":"END"}}
+              {"PROCEDURE":"PROCEDURE","ID":"Alpha","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}}},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":[{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}},{"proccall_statement":{"ID":"Beta","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"5"}}},{"term":{"factor":{"INTEGER_CONST":"10"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}],"SEMI":";"},"END":"END"}}}
+             SEMI ;
+           {"VAR":"VAR","variable_declaration":{"ID":"y","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Alpha","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}}},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":[{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}},{"proccall_statement":{"ID":"Beta","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"5"}}},{"term":{"factor":{"INTEGER_CONST":"10"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}],"SEMI":";"},"END":"END"}}}}
+       {"declarations":{"VAR":"VAR","variable_declaration":{"ID":"y","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Alpha","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}}},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":[{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}},{"proccall_statement":{"ID":"Beta","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"5"}}},{"term":{"factor":{"INTEGER_CONST":"10"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}],"SEMI":";"},"END":"END"}}}}}
        compound_statement
+       {"declarations":{"VAR":"VAR","variable_declaration":{"ID":"y","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Alpha","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}}},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":[{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}},{"proccall_statement":{"ID":"Beta","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"5"}}},{"term":{"factor":{"INTEGER_CONST":"10"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}],"SEMI":";"},"END":"END"}}}}} compound_statement
+         BEGIN BEGIN
           statement_list
+          {"BEGIN":"BEGIN"} statement_list
              statement
+             {} statement
                  compound_statement
+                 {} compound_statement
                  proccall_statement
+                 {} proccall_statement
+                   ID Alpha
+                   LPAREN (
                       expr
+                      {"ID":"Alpha","LPAREN":"("} expr
                          term
+                         {} term
                             factor
+                            {} factor
                                 variable
+                                {} variable
+                               INTEGER_CONST 3
+                            {"factor":{"INTEGER_CONST":"3"}}
                               factor
+                              {"factor":{"INTEGER_CONST":"3"}} factor
                                   variable
+                                  {} variable
+                         {"term":{"factor":{"INTEGER_CONST":"3"}}}
+                            PLUS +
                            term
+                           {"term":{"factor":{"INTEGER_CONST":"3"}},"PLUS":"+"} term
                               factor
+                              {} factor
                                   variable
+                                  {} variable
+                                 INTEGER_CONST 5
+                              {"factor":{"INTEGER_CONST":"5"}}
                                 factor
+                                {"factor":{"INTEGER_CONST":"5"}} factor
                                     variable
+                                    {} variable
+                           {"term":[{"factor":{"INTEGER_CONST":"3"}},{"factor":{"INTEGER_CONST":"5"}}],"PLUS":"+"}
+                      {"ID":"Alpha","LPAREN":"(","expr":{"term":[{"factor":{"INTEGER_CONST":"3"}},{"factor":{"INTEGER_CONST":"5"}}],"PLUS":"+"}}
+                       COMMA ,
                         expr
+                        {"ID":"Alpha","LPAREN":"(","expr":{"term":[{"factor":{"INTEGER_CONST":"3"}},{"factor":{"INTEGER_CONST":"5"}}],"PLUS":"+"},"COMMA":","} expr
                            term
+                           {} term
                               factor
+                              {} factor
                                   variable
+                                  {} variable
+                                 INTEGER_CONST 7
+                              {"factor":{"INTEGER_CONST":"7"}}
                                 factor
+                                {"factor":{"INTEGER_CONST":"7"}} factor
                                     variable
+                                    {} variable
+                           {"term":{"factor":{"INTEGER_CONST":"7"}}}
                              term
+                             {"term":{"factor":{"INTEGER_CONST":"7"}}} term
                                 factor
+                                {} factor
                                     variable
+                                    {} variable
+                        {"ID":"Alpha","LPAREN":"(","expr":[{"term":[{"factor":{"INTEGER_CONST":"3"}},{"factor":{"INTEGER_CONST":"5"}}],"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"7"}}}],"COMMA":","}
+                   RPAREN )
+                   SEMI ;
+                 {"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":[{"factor":{"INTEGER_CONST":"3"}},{"factor":{"INTEGER_CONST":"5"}}],"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"7"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}
+             {"statement":{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":[{"factor":{"INTEGER_CONST":"3"}},{"factor":{"INTEGER_CONST":"5"}}],"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"7"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}}
                statement
+               {"statement":{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":[{"factor":{"INTEGER_CONST":"3"}},{"factor":{"INTEGER_CONST":"5"}}],"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"7"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}} statement
                    compound_statement
+                   {} compound_statement
                    proccall_statement
+                   {} proccall_statement
                    assignment_statement
+                   {} assignment_statement
                       variable
+                      {} variable
                    for_loop
+                   {} for_loop
+                     FOR FOR
                       assignment_statement
+                      {"FOR":"FOR"} assignment_statement
                          variable
+                         {} variable
+                          ID y
+                         {"variable":{"ID":"y"}}
+                        ASSIGN :=
                          expr
+                         {"variable":{"ID":"y"},"ASSIGN":":="} expr
                             term
+                            {} term
                                factor
+                               {} factor
                                    variable
+                                   {} variable
+                                  INTEGER_CONST 1
+                               {"factor":{"INTEGER_CONST":"1"}}
                                  factor
+                                 {"factor":{"INTEGER_CONST":"1"}} factor
                                      variable
+                                     {} variable
+                            {"term":{"factor":{"INTEGER_CONST":"1"}}}
                               term
+                              {"term":{"factor":{"INTEGER_CONST":"1"}}} term
                                  factor
+                                 {} factor
                                      variable
+                                     {} variable
+                         {"variable":{"ID":"y"},"ASSIGN":":=","expr":{"term":{"factor":{"INTEGER_CONST":"1"}}}}
+                      {"FOR":"FOR","assignment_statement":{"variable":{"ID":"y"},"ASSIGN":":=","expr":{"term":{"factor":{"INTEGER_CONST":"1"}}}}}
+                     TO TO
                       expr
+                      {"FOR":"FOR","assignment_statement":{"variable":{"ID":"y"},"ASSIGN":":=","expr":{"term":{"factor":{"INTEGER_CONST":"1"}}}},"TO":"TO"} expr
                          term
+                         {} term
                             factor
+                            {} factor
                                 variable
+                                {} variable
+                               INTEGER_CONST 10
+                            {"factor":{"INTEGER_CONST":"10"}}
                               factor
+                              {"factor":{"INTEGER_CONST":"10"}} factor
                                   variable
+                                  {} variable
+                         {"term":{"factor":{"INTEGER_CONST":"10"}}}
                            term
+                           {"term":{"factor":{"INTEGER_CONST":"10"}}} term
                               factor
+                              {} factor
                                   variable
+                                  {} variable
+                      {"FOR":"FOR","assignment_statement":{"variable":{"ID":"y"},"ASSIGN":":=","expr":{"term":{"factor":{"INTEGER_CONST":"1"}}}},"TO":"TO","expr":{"term":{"factor":{"INTEGER_CONST":"10"}}}}
+                     DO DO
                       compound_statement
+                      {"FOR":"FOR","assignment_statement":{"variable":{"ID":"y"},"ASSIGN":":=","expr":{"term":{"factor":{"INTEGER_CONST":"1"}}}},"TO":"TO","expr":{"term":{"factor":{"INTEGER_CONST":"10"}}},"DO":"DO"} compound_statement
+                        BEGIN BEGIN
                          statement_list
+                         {"BEGIN":"BEGIN"} statement_list
                             statement
+                            {} statement
                                 compound_statement
+                                {} compound_statement
                                 proccall_statement
+                                {} proccall_statement
+                                  ID Alpha
+                                  LPAREN (
                                      expr
+                                     {"ID":"Alpha","LPAREN":"("} expr
                                         term
+                                        {} term
                                            factor
+                                           {} factor
                                                variable
+                                               {} variable
+                                              INTEGER_CONST 35
+                                           {"factor":{"INTEGER_CONST":"35"}}
                                              factor
+                                             {"factor":{"INTEGER_CONST":"35"}} factor
                                                  variable
+                                                 {} variable
+                                        {"term":{"factor":{"INTEGER_CONST":"35"}}}
                                           term
+                                          {"term":{"factor":{"INTEGER_CONST":"35"}}} term
                                              factor
+                                             {} factor
                                                  variable
+                                                 {} variable
+                                     {"ID":"Alpha","LPAREN":"(","expr":{"term":{"factor":{"INTEGER_CONST":"35"}}}}
+                                      COMMA ,
                                        expr
+                                       {"ID":"Alpha","LPAREN":"(","expr":{"term":{"factor":{"INTEGER_CONST":"35"}}},"COMMA":","} expr
                                           term
+                                          {} term
                                              factor
+                                             {} factor
                                                  variable
+                                                 {} variable
+                                                  ID y
+                                                 {"variable":{"ID":"y"}}
+                                             {"factor":{"variable":{"ID":"y"}}}
                                                factor
+                                               {"factor":{"variable":{"ID":"y"}}} factor
                                                    variable
+                                                   {} variable
+                                          {"term":{"factor":{"variable":{"ID":"y"}}}}
                                             term
+                                            {"term":{"factor":{"variable":{"ID":"y"}}}} term
                                                factor
+                                               {} factor
                                                    variable
+                                                   {} variable
+                                       {"ID":"Alpha","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"35"}}},{"term":{"factor":{"variable":{"ID":"y"}}}}],"COMMA":","}
+                                  RPAREN )
+                                  SEMI ;
+                                {"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"35"}}},{"term":{"factor":{"variable":{"ID":"y"}}}}],"COMMA":",","RPAREN":")","SEMI":";"}}
+                            {"statement":{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"35"}}},{"term":{"factor":{"variable":{"ID":"y"}}}}],"COMMA":",","RPAREN":")","SEMI":";"}}}
                               statement
+                              {"statement":{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"35"}}},{"term":{"factor":{"variable":{"ID":"y"}}}}],"COMMA":",","RPAREN":")","SEMI":";"}}} statement
                                   compound_statement
+                                  {} compound_statement
                                   proccall_statement
+                                  {} proccall_statement
                                   assignment_statement
+                                  {} assignment_statement
                                      variable
+                                     {} variable
                                   for_loop
+                                  {} for_loop
+                         {"BEGIN":"BEGIN","statement_list":{"statement":{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"35"}}},{"term":{"factor":{"variable":{"ID":"y"}}}}],"COMMA":",","RPAREN":")","SEMI":";"}}}}
+                        END END
+                      {"FOR":"FOR","assignment_statement":{"variable":{"ID":"y"},"ASSIGN":":=","expr":{"term":{"factor":{"INTEGER_CONST":"1"}}}},"TO":"TO","expr":{"term":{"factor":{"INTEGER_CONST":"10"}}},"DO":"DO","compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"35"}}},{"term":{"factor":{"variable":{"ID":"y"}}}}],"COMMA":",","RPAREN":")","SEMI":";"}}},"END":"END"}}
+                     SEMI ;
+                   {"for_loop":{"FOR":"FOR","assignment_statement":{"variable":{"ID":"y"},"ASSIGN":":=","expr":{"term":{"factor":{"INTEGER_CONST":"1"}}}},"TO":"TO","expr":{"term":{"factor":{"INTEGER_CONST":"10"}}},"DO":"DO","compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"35"}}},{"term":{"factor":{"variable":{"ID":"y"}}}}],"COMMA":",","RPAREN":")","SEMI":";"}}},"END":"END"},"SEMI":";"}}
+               {"statement":[{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":[{"factor":{"INTEGER_CONST":"3"}},{"factor":{"INTEGER_CONST":"5"}}],"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"7"}}}],"COMMA":",","RPAREN":")","SEMI":";"}},{"for_loop":{"FOR":"FOR","assignment_statement":{"variable":{"ID":"y"},"ASSIGN":":=","expr":{"term":{"factor":{"INTEGER_CONST":"1"}}}},"TO":"TO","expr":{"term":{"factor":{"INTEGER_CONST":"10"}}},"DO":"DO","compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"35"}}},{"term":{"factor":{"variable":{"ID":"y"}}}}],"COMMA":",","RPAREN":")","SEMI":";"}}},"END":"END"},"SEMI":";"}}]}
+          {"BEGIN":"BEGIN","statement_list":{"statement":[{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":[{"factor":{"INTEGER_CONST":"3"}},{"factor":{"INTEGER_CONST":"5"}}],"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"7"}}}],"COMMA":",","RPAREN":")","SEMI":";"}},{"for_loop":{"FOR":"FOR","assignment_statement":{"variable":{"ID":"y"},"ASSIGN":":=","expr":{"term":{"factor":{"INTEGER_CONST":"1"}}}},"TO":"TO","expr":{"term":{"factor":{"INTEGER_CONST":"10"}}},"DO":"DO","compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"35"}}},{"term":{"factor":{"variable":{"ID":"y"}}}}],"COMMA":",","RPAREN":")","SEMI":";"}}},"END":"END"},"SEMI":";"}}]}}
+         END END
+       {"declarations":{"VAR":"VAR","variable_declaration":{"ID":"y","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Alpha","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}}},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":[{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}},{"proccall_statement":{"ID":"Beta","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"5"}}},{"term":{"factor":{"INTEGER_CONST":"10"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}],"SEMI":";"},"END":"END"}}}},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":[{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":[{"factor":{"INTEGER_CONST":"3"}},{"factor":{"INTEGER_CONST":"5"}}],"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"7"}}}],"COMMA":",","RPAREN":")","SEMI":";"}},{"for_loop":{"FOR":"FOR","assignment_statement":{"variable":{"ID":"y"},"ASSIGN":":=","expr":{"term":{"factor":{"INTEGER_CONST":"1"}}}},"TO":"TO","expr":{"term":{"factor":{"INTEGER_CONST":"10"}}},"DO":"DO","compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"35"}}},{"term":{"factor":{"variable":{"ID":"y"}}}}],"COMMA":",","RPAREN":")","SEMI":";"}}},"END":"END"},"SEMI":";"}}]},"END":"END"}}
+    {"PROGRAM":"PROGRAM","variable":{"ID":"Main"},"SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"y","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Alpha","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}}},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":[{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}},{"proccall_statement":{"ID":"Beta","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"5"}}},{"term":{"factor":{"INTEGER_CONST":"10"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}],"SEMI":";"},"END":"END"}}}},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":[{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":[{"factor":{"INTEGER_CONST":"3"}},{"factor":{"INTEGER_CONST":"5"}}],"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"7"}}}],"COMMA":",","RPAREN":")","SEMI":";"}},{"for_loop":{"FOR":"FOR","assignment_statement":{"variable":{"ID":"y"},"ASSIGN":":=","expr":{"term":{"factor":{"INTEGER_CONST":"1"}}}},"TO":"TO","expr":{"term":{"factor":{"INTEGER_CONST":"10"}}},"DO":"DO","compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"35"}}},{"term":{"factor":{"variable":{"ID":"y"}}}}],"COMMA":",","RPAREN":")","SEMI":";"}}},"END":"END"},"SEMI":";"}}]},"END":"END"}}}
+   DOT .
+ {"program":{"PROGRAM":"PROGRAM","variable":{"ID":"Main"},"SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"y","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Alpha","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";","procedure_declaration":{"PROCEDURE":"PROCEDURE","ID":"Beta","LPAREN":"(","formal_parameter_list":{"formal_parameters":[{"ID":"a","COLON":":","type_spec":{"INTEGER":"INTEGER"}},{"ID":"b","COLON":":","type_spec":{"INTEGER":"INTEGER"}}],"SEMI":";"},"RPAREN":")","SEMI":";","block":{"declarations":{"VAR":"VAR","variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}},"SEMI":";"},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":[{"factor":[{"variable":{"ID":"a"}},{"INTEGER_CONST":"10"}],"MUL":"*"},{"factor":[{"variable":{"ID":"b"}},{"INTEGER_CONST":"2"}],"MUL":"*"}],"PLUS":"+"}}},"SEMI":";"},"END":"END"}}}},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":[{"assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=","expr":{"term":{"factor":[{"LPAREN":"(","expr":{"term":[{"factor":{"variable":{"ID":"a"}}},{"factor":{"variable":{"ID":"b"}}}],"PLUS":"+"},"RPAREN":")"},{"INTEGER_CONST":"2"}],"MUL":"*"}}}},{"proccall_statement":{"ID":"Beta","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"5"}}},{"term":{"factor":{"INTEGER_CONST":"10"}}}],"COMMA":",","RPAREN":")","SEMI":";"}}],"SEMI":";"},"END":"END"}}}},"compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":[{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":[{"factor":{"INTEGER_CONST":"3"}},{"factor":{"INTEGER_CONST":"5"}}],"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"7"}}}],"COMMA":",","RPAREN":")","SEMI":";"}},{"for_loop":{"FOR":"FOR","assignment_statement":{"variable":{"ID":"y"},"ASSIGN":":=","expr":{"term":{"factor":{"INTEGER_CONST":"1"}}}},"TO":"TO","expr":{"term":{"factor":{"INTEGER_CONST":"10"}}},"DO":"DO","compound_statement":{"BEGIN":"BEGIN","statement_list":{"statement":{"proccall_statement":{"ID":"Alpha","LPAREN":"(","expr":[{"term":{"factor":{"INTEGER_CONST":"35"}}},{"term":{"factor":{"variable":{"ID":"y"}}}}],"COMMA":",","RPAREN":")","SEMI":";"}}},"END":"END"},"SEMI":";"}}]},"END":"END"}},"DOT":"."}}
 
 Analyzer
  Program Main 1 0
