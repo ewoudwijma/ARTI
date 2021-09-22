@@ -5,7 +5,7 @@ using namespace std;
 #ifdef WLED_H
   #include "src/dependencies/json/ArduinoJson-v6.h"
 #else
-  #include "ArduinoJson-v6.18.3.h"
+  #include "ArduinoJson-recent.h"
 #endif
 
 #ifdef ESP32
@@ -64,7 +64,9 @@ enum class ErrorCode {
 
 DynamicJsonDocument tokensJson(2048);
 DynamicJsonDocument definitionJson(8192);
-DynamicJsonDocument parseTreeJson(8192);
+DynamicJsonDocument parseTreeJson(16384);
+
+string spaces = "                                                                                      ";
 
 class Token {
   private:
@@ -347,7 +349,11 @@ class Parser {
 
       DEBUG_ARTI("Parser %s %s\n", this->current_token.type.c_str(), this->current_token.value.c_str());
 
-      parseSymbol(parseTreeJson.as<JsonVariant>(), it->key().c_str()); //first symbol
+      string symbol_name = it->key().c_str();
+      Result result = visit(parseTreeJson.as<JsonVariant>(), symbol_name, "", definitionJson[symbol_name.c_str()], 0);
+
+      if (result == Result::RESULTFAIL)
+        DEBUG_ARTI("Program parsing failed (start=%s)\n", symbol_name.c_str());
 
       string parseTreeString = "";
       serializeJsonPretty(parseTreeJson, parseTreeString);
@@ -405,198 +411,153 @@ class Parser {
     RESULTCONTINUE,
   };
 
-    Result parseExpression(JsonVariant parseTree, string operatorx, JsonVariant expression, int depth = 0) {
-      string spaces = ""; for(int i = 0; i < depth; i++) spaces+= ' ';
-      string resultString = expression;
-      // serializeJson(expression, resultString);
-      Result result = Result::RESULTCONTINUE;
+  Result visit(JsonVariant parseTree, string symbol_name, string operatorx, JsonVariant expression, int depth = 0) {
+    Result result = Result::RESULTCONTINUE;
 
-      if (expression.is<JsonObject>()) {
-        resultString = "parse Object: " + operatorx + " " + resultString;
-        // DEBUG_ARTI("%s parseObject %s\n", spaces.c_str(), operatorx.c_str());//, expression.as<string>().c_str());
-        // DEBUG_ARTI("%s\n", spaces, resultString, expressionObject.size());
+    if (expression.is<JsonObject>()) {
+      // DEBUG_ARTI("%s parseObject %s\n", spaces.substr(0,depth).c_str(), operatorx.c_str());//, expression.as<string>().c_str());
 
-              for (JsonPair element : expression.as<JsonObject>()) {
-                string objectOperator = element.key().c_str();
-                JsonVariant objectExpression = element.value();
-                if (objectOperator == "*") {
-                  // DEBUG_ARTI("%s\n", "zero or more");
-                  parseExpression(parseTree, objectOperator, objectExpression, depth + 1); //no assign to result as optional
-                }
-                else if (objectOperator == "?") {
-                  // DEBUG_ARTI("%s\n", "zero or one (optional) ");
-                  parseExpression(parseTree, objectOperator, objectExpression, depth + 1); //no assign to result as optional
-                }
-                else if (objectOperator == "+") {
-                  // DEBUG_ARTI("%s\n", "one or more ");
-                  result = parseExpression(parseTree, objectOperator, objectExpression, depth + 1);
-                }
-                else if (objectOperator == "or") {
-                  // DEBUG_ARTI("%s\n", "or ");
-                  result = parseExpression(parseTree, objectOperator, objectExpression, depth + 1);
-                  if (result != Result::RESULTFAIL) result = Result::RESULTCONTINUE;
-                }
-                else {
-                  DEBUG_ARTI("%s %s %s\n", "undefined ", objectOperator.c_str(), objectExpression.as<string>().c_str());//.as<char*>()
-                  result = Result::RESULTFAIL;
-                }
-              }
-      }
-      else { //not object
-        if (expression.is<JsonArray>()) {
-          // bool failThis = false;
-          Result resultChild;
-          resultString = "parse Array: " + operatorx + " " + resultString;
-          // DEBUG_ARTI("%s parseArray %s\n", spaces.c_str(), operatorx.c_str());//, expression.as<string>().c_str());
-          // DEBUG_ARTI("%s\n", spaces, resultString, expression.size(), depth);
-          if (operatorx == "") 
-            operatorx = "and";
-
-          //check if unary or binary operator
-          // if (expression.size() > 1) {
-          //   DEBUG_ARTI("%s\n", "array multiple 1 ", parseTree);
-          //   DEBUG_ARTI("%s\n", "array multiple 2 ", expression);
-          // }
-
-          for (JsonVariant newExpression: expression.as<JsonArray>()) {
-            //Save current position, in case some of the expressions in the or array go wrong (deadend), go back to the saved position and try the next
-            if (operatorx == "or")
-              push_position();
-
-            resultChild = parseExpression(parseTree, "", newExpression, depth + 1);//(operatorx == "")?"and":operatorx
-
-            if (operatorx == "*") resultChild = Result::RESULTCONTINUE; //0 or more always succesful
-
-            if ((operatorx != "or") && resultChild != Result::RESULTCONTINUE) //result should be continue for and, *, +, ?
-              result = Result::RESULTFAIL;
-            if ((operatorx == "or") && resultChild != Result::RESULTFAIL) //Stop or continue is enough for an or
-              result = Result::RESULTSTOP;
-
-            if (operatorx == "or" && resultChild == Result::RESULTFAIL) //if fail, go back and try another
-              pop_position();
-
-            if (result != Result::RESULTCONTINUE) 
-              break;
-          }
-          if ((operatorx == "or") && result == Result::RESULTCONTINUE) //still looking but nothing to look for
-            result = Result::RESULTFAIL;
+      for (JsonPair element : expression.as<JsonObject>()) {
+        string objectOperator = element.key().c_str();
+        JsonVariant objectExpression = element.value();
+        if (objectOperator == "*") {
+          // DEBUG_ARTI("%s\n", "zero or more");
+          visit(parseTree, symbol_name, objectOperator, objectExpression, depth + 1); //no assign to result as optional
         }
-        else { //not array
-          string tokenType = expression.as<string>();
-
-          if (!tokensJson[tokenType].isNull()) {
-
-            if (this->current_token.type == tokenType) {
-              // DEBUG_ARTI("%s parseTOken %s\n", spaces.c_str(), operatorx.c_str());//, expression.as<string>().c_str());
-              // DEBUG_ARTI("%s\n", spaces, "istoken ok ", tokenType, tokenValue, current_token.type, current_token.value);
-              // if (current_token.type == "ID" || current_token.type == "INTEGER" || current_token.type == "REAL" || current_token.type == "INTEGER_CONST" || current_token.type == "REAL_CONST" || current_token.type == "ID" || current_token.type == "ID" || current_token.type == "ID") {
-                DEBUG_ARTI("%s %s %s\n", spaces.c_str(), current_token.type.c_str(), current_token.value.c_str());
-                parseTree[current_token.type] = current_token.value;
-                // string output = parseTreeJson;
-                // //serializeJson(parseTreeJson, output);
-                // cout <<" result ", output);
-              // }
-              if (tokenType == "PLUS2") { //debug for unary operators (wip)
-                // DEBUG_ARTI("%s\n", "array multiple 1 ", parseTree);
-                // DEBUG_ARTI("%s\n", "array multiple 2 ", expression);
-              }
-              eat(tokenType);
-            }
-            else {
-              // parseTree["deadend"] = tokenType + "<>" + current_token.type;
-              result = Result::RESULTFAIL;
-            }
-            resultString = "parse Token: " + operatorx + " " + resultString;
-            // DEBUG_ARTI("%s\n", spaces, resultString, parseTree);
-          }
-          else { //not object, array or token but symbol
-            string symbol_name = expression;
-            resultString = "parse Symbol: " + operatorx + " " + resultString;
-            // DEBUG_ARTI("%s\n", spaces, "parseExpression isSymbol ", operatorx, expression);
-            result = parseSymbol(parseTree, symbol_name, depth + 1);
-          }
-
+        else if (objectOperator == "?") {
+          // DEBUG_ARTI("%s\n", "zero or one (optional) ");
+          visit(parseTree, symbol_name, objectOperator, objectExpression, depth + 1); //no assign to result as optional
         }
-      }
-      // DEBUG_ARTI("%s\n", spaces, "tokenValue ", tokenValue, isArray, isToken, isObject);
-      if (result==Result::RESULTFAIL) {
-        resultString = "Fail " + resultString;
-        // parseTree["failexp"] = resultString;
-      }
-      else if (result==Result::RESULTSTOP)
-        resultString = "Stop " + resultString;
-      else
-        resultString = "Continue " + resultString;
-
-      // if (result!=Result::RESULTFAIL)
-      //   DEBUG_ARTI("%s\n", spaces, "} ", resultString, depth);
-      
-      return result;
-    } //parseExpression
-
-    Result parseSymbol(JsonVariant parseTree, string symbol_name, int depth = 0) {
-
-      string spaces = ""; for(int i = 0; i < depth; i++) spaces+= ' ';
-      string resultString = "parse Symbol " + symbol_name;
-      DEBUG_ARTI("%s %s\n", spaces.c_str(), symbol_name.c_str());
-
-      // DEBUG_ARTI("%s\n", spaces, "{");
-      Result result = Result::RESULTFAIL;
-
-      DynamicJsonDocument expressionTreeDoc(20480);
-      JsonObject expressionTree = expressionTreeDoc.createNestedObject();
-      // expressionTree["name"] = symbol_name;
-
-      // serializeJson(expressionTree, et);
-      // DEBUG_ARTI("exprtree %s\n", et);
-      // DEBUG_ARTI("%s exprtree t)%s s) %s\n", spaces.c_str(), parseTree.as<string>().c_str(), symbol_name.c_str());
-
-      JsonVariant expression = definitionJson[symbol_name];
-      DEBUG_ARTI("%s %s %s\n", spaces.c_str(), parseTree.as<string>().c_str(), symbol_name.c_str());
-      result = parseExpression(expressionTree, "", expression, depth + 1);
-
-      if (result != Result::RESULTFAIL) {
-        //repeated symbol: check if expression is already array, if not make array of it
-        if (parseTree.containsKey(symbol_name)) {
-          if (parseTree[symbol_name].is<JsonObject>()) {
-            DynamicJsonDocument arrayDoc(4096);
-            JsonArray array = arrayDoc.createNestedArray();
-            array.add(parseTree[symbol_name]);
-            array.add(expressionTree);
-            parseTree[symbol_name] = array; //now it is an array
-            // DEBUG_ARTI("%s\n", spaces, "isObject (now array) ", parseTree);
-          }
-          else if (parseTree[symbol_name].is<JsonArray>()) {
-            parseTree[symbol_name].add(expressionTree);
-            // DEBUG_ARTI("%s\n", spaces, "isArray (PROGRAMMER TEST!!!)", parseTree);
-          }
-          else {
-            DEBUG_ARTI("%s\n", "Error check it...");
-          }
-
-          // parseTree[symbol_name+"1"] = expressionTree;
-          // DEBUG_ARTI("%s\n", spaces, "  add new1 ", parseTree);
+        else if (objectOperator == "+") {
+          // DEBUG_ARTI("%s\n", "one or more ");
+          result = visit(parseTree, symbol_name, objectOperator, objectExpression, depth + 1);
+        }
+        else if (objectOperator == "or") {
+          // DEBUG_ARTI("%s\n", "or ");
+          result = visit(parseTree, symbol_name, objectOperator, objectExpression, depth + 1);
+          if (result != Result::RESULTFAIL) result = Result::RESULTCONTINUE;
         }
         else {
-          parseTree[symbol_name] = expressionTree;
-          // DEBUG_ARTI("%s\n", spaces, "  add new ", parseTree);
+          DEBUG_ARTI("%s %s %s\n", "undefined ", objectOperator.c_str(), objectExpression.as<string>().c_str());//.as<char*>()
+          result = Result::RESULTFAIL;
         }
-        DEBUG_ARTI("%s %s\n", spaces.c_str(), parseTree.as<string>().c_str());
       }
-      if (result==Result::RESULTFAIL) {
-        resultString = "Fail " + resultString;
-        // parseTree["failsym"] = resultString;
+    }
+    else { //not object
+      if (expression.is<JsonArray>()) {
+        // bool failThis = false;
+        Result resultChild;
+        // DEBUG_ARTI("%s parseArray %s\n", spaces.substr(0,depth).c_str(), operatorx.c_str());//, expression.as<string>().c_str());
+        if (operatorx == "") 
+          operatorx = "and";
+
+        //check if unary or binary operator
+        // if (expression.size() > 1) {
+        //   DEBUG_ARTI("%s\n", "array multiple 1 ", parseTree);
+        //   DEBUG_ARTI("%s\n", "array multiple 2 ", expression);
+        // }
+
+        for (JsonVariant newExpression: expression.as<JsonArray>()) {
+          //Save current position, in case some of the expressions in the or array go wrong (deadend), go back to the saved position and try the next
+          if (operatorx == "or")
+            push_position();
+
+          resultChild = visit(parseTree, symbol_name, "", newExpression, depth + 1);//(operatorx == "")?"and":operatorx
+
+          if (operatorx == "*") resultChild = Result::RESULTCONTINUE; //0 or more always succesful
+
+          if ((operatorx != "or") && resultChild != Result::RESULTCONTINUE) //result should be continue for and, *, +, ?
+            result = Result::RESULTFAIL;
+          if ((operatorx == "or") && resultChild != Result::RESULTFAIL) //Stop or continue is enough for an or
+            result = Result::RESULTSTOP;
+
+          if (operatorx == "or" && resultChild == Result::RESULTFAIL) //if fail, go back and try another
+            pop_position();
+
+          if (result != Result::RESULTCONTINUE) 
+            break;
+        }
+        if ((operatorx == "or") && result == Result::RESULTCONTINUE) //still looking but nothing to look for
+          result = Result::RESULTFAIL;
       }
-      else if (result==Result::RESULTSTOP)
-        resultString = "Stop " + resultString;
-      else
-        resultString = "Continue " + resultString;
+      else { //not array
+        string tokenType = expression.as<string>();
 
-      // if (result!=Result::RESULTFAIL)
-      //   DEBUG_ARTI("%s\n", spaces, "} ", resultString);
+        if (!tokensJson[tokenType].isNull()) {
 
-      return result;
-    } //parseSymbol
+          if (this->current_token.type == tokenType) {
+            // DEBUG_ARTI("%s parseTOken %s\n", spaces.substr(0,depth).c_str(), operatorx.c_str());//, expression.as<string>().c_str());
+            // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "istoken ok ", tokenType, tokenValue, current_token.type, current_token.value);
+            // if (current_token.type == "ID" || current_token.type == "INTEGER" || current_token.type == "REAL" || current_token.type == "INTEGER_CONST" || current_token.type == "REAL_CONST" || current_token.type == "ID" || current_token.type == "ID" || current_token.type == "ID") {
+            DEBUG_ARTI("%s %s %s\n", spaces.substr(0,depth).c_str(), current_token.type.c_str(), current_token.value.c_str());
+
+            if (symbol_name[symbol_name.length()-1] == '*') { //if list then add in array
+              JsonArray arr = parseTree[symbol_name].as<JsonArray>();
+              arr[arr.size()][current_token.type] = current_token.value; //add in last element of array
+            }
+            else
+                parseTree[symbol_name][current_token.type] = current_token.value;
+
+            if (tokenType == "PLUS2") { //debug for unary operators (wip)
+              // DEBUG_ARTI("%s\n", "array multiple 1 ", parseTree);
+              // DEBUG_ARTI("%s\n", "array multiple 2 ", expression);
+            }
+            eat(tokenType);
+          }
+          else {
+            // parseTree["deadend"] = tokenType + "<>" + current_token.type;
+            result = Result::RESULTFAIL;
+          }
+        }
+        else { //not object, array or token but symbol
+          string newSymbol_name = expression;
+          JsonVariant newParseTree;
+
+          DEBUG_ARTI("%s %s\n", spaces.substr(0,depth).c_str(), newSymbol_name.c_str());
+          // DEBUG_ARTI("%s %s %s\n", spaces.substr(0,depth).c_str(), parseTree[symbol_name].as<string>().c_str(), newSymbol_name.c_str());
+          JsonArray arr;
+          if (symbol_name[symbol_name.length()-1] == '*') { //if list then create/get array
+            if (parseTree[symbol_name].isNull()) { //create array
+              parseTree[symbol_name][0]["ccc"] = "array1"; //make the connection
+              arr = parseTree[symbol_name].as<JsonArray>();
+            }
+            else { //get array
+              arr = parseTree[symbol_name].as<JsonArray>();
+              arr[arr.size()]["ccc"] = "array2"; //make the connection, add new array item
+            }
+
+            newParseTree = arr[arr.size()-1];
+          }
+          else { //no list, create object
+            if (parseTree[symbol_name].isNull()) //no object yet
+              parseTree[symbol_name]["ccc"] = "list"; //make the connection, new object item
+
+            newParseTree = parseTree[symbol_name];
+          }
+
+          // DEBUG_ARTI("%s %s\n", spaces.substr(0,depth).c_str(), newSymbol_name.c_str());
+          result = visit(newParseTree, newSymbol_name, "", definitionJson[newSymbol_name], depth + 1);
+
+          newParseTree.remove("ccc"); //remove connector
+
+          if (result == Result::RESULTFAIL) {
+            newParseTree.remove(newSymbol_name); //remove result of visit
+
+          //   DEBUG_ARTI("%s psf %s %s\n", spaces.substr(0,depth).c_str(), parseTree[symbol_name].as<string>().c_str(), newSymbol_name.c_str());
+          if (symbol_name[symbol_name.length()-1] == '*') //if list then remove empty objecy
+            arr.remove(arr.size()-1);
+          // else
+          //   parseTree.remove(newSymbol_name); //this does not change anything...
+          } //f
+          // DEBUG_ARTI("%s %s\n", spaces.substr(0,depth).c_str(), parseTree[symbol_name].as<string>().c_str());
+
+        }
+      } //if array
+    } //if object
+    // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "tokenValue ", tokenValue, isArray, isToken, isObject);
+    
+     return result;
+  } //visit
 
 }; //Parser
 
@@ -693,19 +654,57 @@ class ScopedSymbolTable {
 
   void show(int depth = 0) {
 
-    string spaces = ""; for(int i = 0; i < depth; i++) spaces+= ' ';
-
-    // DEBUG_ARTI("%s\n", spaces, "show ", this->scope_name, " " , this->scope_level);
+    // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "show ", this->scope_name, " " , this->scope_level);
     for (int i=0; i<_symbolsIndex; i++) {
-      // DEBUG_ARTI("%s\n", spaces, "-symbols ", i, _symbols[i]->symbol_type, _symbols[i]->name, _symbols[i]->type);
+      // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "-symbols ", i, _symbols[i]->symbol_type, _symbols[i]->name, _symbols[i]->type);
     }
 
       for (int i=0; i<this->child_scopesIndex;i++) {
-        // DEBUG_ARTI("%s\n", spaces, "-detail ", i, this->child_scopes[i]->scope_name);
+        // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "-detail ", i, this->child_scopes[i]->scope_name);
         this->child_scopes[i]->show(depth + 1);
       }
   }
 }; //ScopedSymbolTable
+
+class TreeWalker {
+  private:
+  public:
+    TreeWalker() {
+    }
+
+    void walk(JsonVariant tree) {
+      DEBUG_ARTI("\nWalker\n");
+      visit(tree);
+    }
+
+    void visit(JsonVariant parseTree, string symbol_name = "", string token = "", uint8_t depth = 0) {
+
+
+      if (parseTree.is<JsonObject>()) {
+        for (JsonPair element : parseTree.as<JsonObject>()) {
+          string key = element.key().c_str();
+          JsonVariant value = element.value();
+          symbol_name = key;
+          DEBUG_ARTI("%s Visit object %s %s\n", spaces.substr(0,depth).c_str(), symbol_name.c_str(), token.c_str());
+          visit(value, symbol_name, token, depth + 1);
+        } // key values
+      }
+      else { //not object
+        if (parseTree.is<JsonArray>()) {
+          for (JsonVariant newParseTree: parseTree.as<JsonArray>()) {
+            DEBUG_ARTI("%s Visit array %s %s\n", spaces.substr(0,depth).c_str(), symbol_name.c_str(), token.c_str());
+            // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "Array ", parseTree[i], "  ";
+            visit(newParseTree, symbol_name, token, depth + 1);
+          }
+        }
+        else { //not array
+          DEBUG_ARTI("%s visit element %s\n", spaces.substr(0,depth).c_str(), parseTree.as<string>().c_str());
+        }
+      }
+    } //visit
+
+}; //TreeWalker
+
 
 class SemanticAnalyzer {
   private:
@@ -720,10 +719,9 @@ class SemanticAnalyzer {
       visit(parseTreeJson.as<JsonVariant>());
     }
 
-    void visit(JsonVariant parseTree, string symbol_name = "", string token = "", ScopedSymbolTable* current_scope = nullptr, uint8_t depth = 0) {
-      string spaces = ""; for(int i = 0; i < depth; i++) spaces+= ' ';
+    void visit(JsonVariant parseTree, string symbol_name = "", string token = "", ScopedSymbolTable* current_scope = nullptr, uint8_t depth = -1) {
 
-      // DEBUG_ARTI("%s Visit %s %s\n", spaces.c_str(), symbol_name.c_str(), token.c_str());
+      // DEBUG_ARTI("%s Visit %s %s\n", spaces.substr(0,depth).c_str(), symbol_name.c_str(), token.c_str());
 
       if (parseTree.is<JsonObject>()) {
         for (JsonPair element : parseTree.as<JsonObject>()) {
@@ -737,7 +735,7 @@ class SemanticAnalyzer {
             JsonVariant expression = definitionJson["SEMANTICS"][symbol_name];
             if (!expression.isNull())
             {
-              // DEBUG_ARTI("%s\n", spaces, "Symbol ", symbol_name,  " ", expression);
+              // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "Symbol ", symbol_name,  " ", expression);
               // JsonObject expressionObject = expression.as<JsonObject>();
               // JsonObject::iterator it = expressionObject.begin();
               // string keykey = it->key().c_str();
@@ -746,7 +744,7 @@ class SemanticAnalyzer {
                 string program_name = value["variable"]["ID"];
                 this->global_scope = new ScopedSymbolTable(program_name, 1, nullptr); //current_scope
 
-                DEBUG_ARTI("%s Program %s %d %d\n", spaces.c_str(), global_scope->scope_name.c_str(), global_scope->scope_level, global_scope->_symbolsIndex); 
+                DEBUG_ARTI("%s Program %s %d %d\n", spaces.substr(0,depth).c_str(), global_scope->scope_name.c_str(), global_scope->scope_level, global_scope->_symbolsIndex); 
 
                 // current_scope->child_scopes[current_scope->child_scopesIndex++] = this->global_scope;
                 // current_scope = global_scope;
@@ -754,7 +752,7 @@ class SemanticAnalyzer {
 
                 for (int i=0; i<global_scope->_symbolsIndex; i++) {
                   Symbol* symbol = global_scope->_symbols[i];
-                  DEBUG_ARTI("%s %d %s %s %s %d\n", spaces.c_str(), i, symbol->symbol_type.c_str(), symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
+                  DEBUG_ARTI("%s %d %s %s %s %d\n", spaces.substr(0,depth).c_str(), i, symbol->symbol_type.c_str(), symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
                 }
 
                 visitCalledAlready = true;
@@ -766,27 +764,28 @@ class SemanticAnalyzer {
                 Symbol* proc_symbol = new Symbol(symbol_name, proc_name);
                 current_scope->insert(proc_symbol);
 
-                DEBUG_ARTI("%s procedure %s.%s\n", spaces.c_str(), current_scope->scope_name.c_str(), proc_name.c_str());
+                DEBUG_ARTI("%s procedure %s %s\n", spaces.substr(0,depth).c_str(), current_scope->scope_name.c_str(), proc_name.c_str());
                 ScopedSymbolTable* procedure_scope = new ScopedSymbolTable(proc_name, current_scope->scope_level + 1, current_scope);
                 current_scope->child_scopes[current_scope->child_scopesIndex++] = procedure_scope;
                 proc_symbol->detail_scope = procedure_scope;
                 // DEBUG_ARTI("%s\n", "ASSIGNING ", proc_symbol->name, " " , procedure_scope->scope_name);
 
                 // current_scope = procedure_scope;
-                visit(value["formal_parameter_list"], symbol_name, token, procedure_scope, depth + 1);
+                visit(value["formal_parameter_list*"], symbol_name, token, procedure_scope, depth + 1);
 
                 visit(value["block"], symbol_name, token, procedure_scope, depth + 1);
 
-                // DEBUG_ARTI("%s\n", spaces, "end proc ", symbol_name, procedure_scope->scope_name, procedure_scope->scope_level, procedure_scope->_symbolsIndex); 
+                // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "end proc ", symbol_name, procedure_scope->scope_name, procedure_scope->scope_level, procedure_scope->_symbolsIndex); 
 
                 for (int i=0; i<procedure_scope->_symbolsIndex; i++) {
                   Symbol* symbol = procedure_scope->_symbols[i];
-                  DEBUG_ARTI("%s %d %s %s %s %d\n", spaces.c_str(), i, symbol->symbol_type.c_str(), symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
+                  DEBUG_ARTI("%s %d %s %s %s %d\n", spaces.substr(0,depth).c_str(), i, symbol->symbol_type.c_str(), symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
                 }
 
                 visitCalledAlready = true;
               }
               else if (expression == "VarSymbol") {
+                // DEBUG_ARTI("%s var (from array) %s %s %s\n", spaces.substr(0,depth).c_str(), current_scope->scope_name.c_str(), value.as<string>().c_str(), key.c_str());
                 //can be expression or array of expressions
                 if (value.is<JsonArray>()) {
                   for (JsonObject newValue: value.as<JsonArray>()) {
@@ -794,7 +793,7 @@ class SemanticAnalyzer {
                     string param_type = newValue["type_spec"];//current_scope.lookup(param.type_node.value);
                     Symbol* var_symbol = new Symbol(symbol_name, param_name, param_type);
                     current_scope->insert(var_symbol);
-                    DEBUG_ARTI("%s var (from array) %s.%s of %s\n", spaces.c_str(), current_scope->scope_name.c_str(), param_name.c_str(), param_type.c_str());
+                    DEBUG_ARTI("%s var (from array) %s.%s of %s\n", spaces.substr(0,depth).c_str(), current_scope->scope_name.c_str(), param_name.c_str(), param_type.c_str());
                   }
                 }
                 else {
@@ -802,24 +801,31 @@ class SemanticAnalyzer {
                   string param_type = value["type_spec"];//current_scope.lookup(param.type_node.value);
                   Symbol* var_symbol = new Symbol(symbol_name, param_name, param_type);
                   current_scope->insert(var_symbol);
-                  DEBUG_ARTI("%s var %s.%s of %s\n", spaces.c_str(), current_scope->scope_name.c_str(), param_name.c_str(), param_type.c_str());
+                  DEBUG_ARTI("%s var %s.%s of %s\n", spaces.substr(0,depth).c_str(), current_scope->scope_name.c_str(), param_name.c_str(), param_type.c_str());
                 }
               }
               else if (expression == "Assign") {
                 JsonVariant left = value["variable"]["ID"];
-                JsonVariant right = value["expr"];
-                DEBUG_ARTI("%s Assign %s =\n", spaces.c_str(), left.as<string>().c_str());
-                visit(right, symbol_name, token, current_scope, depth + 1);
+                // JsonVariant right = value["expr*"];
+                DEBUG_ARTI("%s Assign %s =\n", spaces.substr(0,depth).c_str(), left.as<string>().c_str());
+
+                DynamicJsonDocument newx(1024);
+                JsonObject newObject = newx.createNestedObject();
+                newObject["expr*"] = value["expr*"];
+
+                visit(newObject, symbol_name, token, current_scope, depth + 1);
                 visitCalledAlready = true;
               }
             } // is expression
+
           } // is symbol_name
 
           if (!tokensJson[key].isNull()) {
             token = key;
-            // DEBUG_ARTI("%s\n", spaces, "Token ", token);
+            // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "Token ", token);
           }
-          // DEBUG_ARTI("%s\n", spaces, "Object ", key, value);
+          // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "Object ", key, value);
+
           if (!visitCalledAlready)
             visit(value, symbol_name, token, current_scope, depth + 1);
 
@@ -828,14 +834,13 @@ class SemanticAnalyzer {
       else { //not object
         if (parseTree.is<JsonArray>()) {
           for (JsonVariant newParseTree: parseTree.as<JsonArray>()) {
-            // DEBUG_ARTI("%s\n", spaces, "Array ", parseTree[i], "  ";
+            // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "Array ", parseTree[i], "  ";
             visit(newParseTree, symbol_name, token, current_scope, depth + 1);
           }
-          // cout);
         }
         else { //not array
-          string element = parseTree;
-          // DEBUG_ARTI("%s\n", spaces, "Value ", element);
+          // string element = parseTree;
+          // DEBUG_ARTI("%s value notnot %s\n", spaces.substr(0,depth).c_str(), element.c_str());
           // if (definitionJson["SEMANTICS"][element])
         }
       }
@@ -906,6 +911,9 @@ class Calculator {
   }
 
   void push(string key, string value) {
+    // DEBUG_ARTI("calc push %s %s\n", key.c_str(), value.c_str());
+      stack[stack_index++] = value;
+    return;
     // bool doneSomething = true;
     if (key == "INTEGER_CONST") {
       stack[stack_index++] = value;
@@ -929,13 +937,14 @@ class Calculator {
   }
 
   string peek() {
-    // DEBUG_ARTI("%s\n", "Peek  ", stack[stack_index-1]);
+    // DEBUG_ARTI("Peek %s\n", stack[stack_index-1].c_str());
     return stack[stack_index-1];
   }
 
   string pop() {
-    stack_index--;
-    // DEBUG_ARTI("%s\n", "Pop  ", stack[stack_index]);
+    if (stack_index>0)
+      stack_index--;
+    // DEBUG_ARTI("Pop %s\n", stack[stack_index].c_str());
     return stack[stack_index];
   }
 
@@ -959,7 +968,7 @@ class Interpreter {
       DEBUG_ARTI("\ninterpret %s %d %d %d\n", global_scope->scope_name.c_str(), global_scope->scope_level, global_scope->_symbolsIndex, global_scope->child_scopesIndex); 
       for (int i=0; i<global_scope->_symbolsIndex; i++) {
         Symbol* symbol = global_scope->_symbols[i];
-        DEBUG_ARTI("%d %s %s %s %d\n", i, symbol->symbol_type.c_str(), symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
+        DEBUG_ARTI("scope %s %s %s %d\n", symbol->symbol_type.c_str(), symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
       }
     }
     else
@@ -981,7 +990,6 @@ class Interpreter {
   // }
 
     void visit(JsonVariant parseTree, string symbol_name = "", string token = "", uint8_t depth = 0) {
-      string spaces = ""; for(int i = 0; i < depth; i++) spaces+= ' ';
 
       if (parseTree.is<JsonObject>()) {
         for (JsonPair element : parseTree.as<JsonObject>()) {
@@ -995,13 +1003,13 @@ class Interpreter {
             JsonVariant expression = definitionJson["INTERPRETER"][symbol_name];
             if (!expression.isNull())
             {
-              // DEBUG_ARTI("%s\n", spaces, "Symbol ", symbol_name,  " ", expression);
+              // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "Symbol ", symbol_name,  " ", expression);
 
               if (expression == "Program") {
                 string program_name = value["variable"]["ID"];
 
                 ActivationRecord* ar = new ActivationRecord(program_name, "PROGRAM",1);
-                DEBUG_ARTI("%s %s %s %s\n", spaces.c_str(), expression.as<string>().c_str(), ar->name.c_str(), program_name.c_str());
+                DEBUG_ARTI("%s %s %s %s\n", spaces.substr(0,depth).c_str(), expression.as<string>().c_str(), ar->name.c_str(), program_name.c_str());
 
                 this->call_stack.push(ar);
 
@@ -1014,7 +1022,7 @@ class Interpreter {
               else if (expression == "Procedure") {
                 string proc_name = value["ID"];
                 Symbol* proc_symbol = this->global_scope->lookup(proc_name, true, true);
-                DEBUG_ARTI("%s %s %s\n", spaces.c_str(), expression.as<string>().c_str(), proc_name.c_str());
+                DEBUG_ARTI("%s Save block of %s\n", spaces.substr(0,depth).c_str(), proc_name.c_str());
                 proc_symbol->block = value["block"];
                 visitCalledAlready = true;
               }
@@ -1026,28 +1034,18 @@ class Interpreter {
 
                 ActivationRecord* ar = new ActivationRecord(proc_name, "PROCEDURE", proc_symbol->scope_level + 1);
 
-                DEBUG_ARTI("%s %s %s %s %s\n", spaces.c_str(), expression.as<string>().c_str(), ar->name.c_str(), proc_name.c_str(), proc_symbol->name.c_str());
+                DEBUG_ARTI("%s %s %s %s %s\n", spaces.substr(0,depth).c_str(), expression.as<string>().c_str(), ar->name.c_str(), proc_name.c_str(), proc_symbol->name.c_str());
 
-                for (int i=0; i<proc_symbol->detail_scope->_symbolsIndex;i++) {
+                visit(value["actual_parameter_list*"], symbol_name, token, depth + 1);
+
+                for (int i=proc_symbol->detail_scope->_symbolsIndex-1; i>=0;i--) { //backwards because popped in reversed order
                   if (proc_symbol->detail_scope->_symbols[i]->symbol_type == "formal_parameters") { //select formal parameters
-                    JsonVariant valueExpr;
-                    string result;
-                    if (value["expr"].is<JsonArray>()) {
-                      DynamicJsonDocument newx(1024);
-                      JsonObject newObject = newx.createNestedObject();
-                      newObject["expr"] = value["expr"][i];
-
-                      visit(newObject, symbol_name, token, depth + 1);
-                      valueExpr = value["expr"][i];
-                      result = calculator.pop();
-                    }
-                    else {
-                      visit(value["expr"], symbol_name, token, depth + 1);
-                      valueExpr = value["expr"];
-                      result = calculator.pop();
-                    }
-                    ar->set(proc_symbol->detail_scope->_symbols[i]->name, result);
-                    // DEBUG_ARTI("%s\n", spaces, "FP Assignment (pop) ", ar->name, proc_symbol->detail_scope->_symbols[i]->name, result);
+                  //{"ID":"Alpha","LPAREN":"(","actual_parameter_list*":[
+                    //      {"expr*":[{"term*":[{"factor":{"INTEGER_CONST":"3"}},{}]},{"PLUS":"+"},{"term*":[{"factor":{"INTEGER_CONST":"5"}},{}]}]},{"COMMA":","},
+                    //      {"expr*":[{"term*":[{"factor":{"INTEGER_CONST":"7"}},{}]},{}]}],"RPAREN":")","SEMI":";"} 
+                    string result = calculator.pop();
+                    ar->set(proc_symbol->detail_scope->_symbols[i]->name, result.c_str());
+                    DEBUG_ARTI("%s %s = %s\n", spaces.substr(0,depth).c_str(), proc_symbol->detail_scope->_symbols[i]->name.c_str(), result.c_str());
                   }
                 }
 
@@ -1055,8 +1053,29 @@ class Interpreter {
 
                 //find block of procedure... lookup procedure?
                 //visit block of procedure
-                // DEBUG_ARTI("%s\n", spaces, "procedure block ", proc_symbol->block);
+                // DEBUG_ARTI("%s proc block %s\n", spaces.substr(0,depth).c_str(), proc_symbol->block.as<string>().c_str());
 
+                //Terms tovisit [{"factor":{"LPAREN":"(",
+                //      "expr*":[{"term*":[{"factor":{"variable":{"ID":"a"}}}]},{"PLUS":"+"},{"term*":[{"factor":{"variable":{"ID":"b"}}}]}],
+                //                          "RPAREN":")"}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}] 
+                //Exprs tovisit [{"term*":[{"factor":{"variable":{"ID":"a"}}}]},{"PLUS":"+"},{"term*":[{"factor":{"variable":{"ID":"b"}}}]}] 
+
+                //{"declarations*":[
+                //     {"variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}}},
+                //     {"SEMI":";"}],
+                //"compound_statement":{
+                //    "BEGIN":"BEGIN",
+                //    "statement_list*":[
+                //       {"statement":{
+                //           "assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=",
+                //                  "expr*":[{"term*":[{"factor":{"variable":{"ID":"a"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"10"}}]},
+                //                           {"PLUS":"+"},
+                //                           {"term*":[{"factor":{"variable":{"ID":"b"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}
+                //                          ]       }
+                //                     }
+                //         },{"SEMI":";"}],
+                //    "END":"END"       }
+                //} 
                 visit(proc_symbol->block, symbol_name, token, depth + 1);
 
                 this->call_stack.pop();
@@ -1064,37 +1083,75 @@ class Interpreter {
                 visitCalledAlready = true;
                 } //proc_symbol != nullptr
                 else {
-                  DEBUG_ARTI("%s %s not found %s\n", spaces.c_str(), expression.as<string>().c_str(), proc_name.c_str());
+                  DEBUG_ARTI("%s %s not found %s\n", spaces.substr(0,depth).c_str(), expression.as<string>().c_str(), proc_name.c_str());
                 }
 
               }
               else if (expression == "Assign") {
-                visit(value["expr"], symbol_name, token, depth + 1);
+                DynamicJsonDocument newx(1024);
+                JsonObject newObject = newx.createNestedObject();
+                newObject["expr*"] = value["expr*"];
+
+                visit(newObject, symbol_name, token, depth + 1);
 
                 ActivationRecord* ar = this->call_stack.peek();
                 ar->set(value["variable"]["ID"], this->calculator.pop());
 
-                DEBUG_ARTI("%s Assign (pop) %s %s %s\n", spaces.c_str(), key.c_str(), value["variable"]["ID"].as<string>().c_str(), ar->get(value["variable"]["ID"]).c_str());
+                DEBUG_ARTI("%s %s := %s\n", spaces.substr(0,depth).c_str(), value["variable"]["ID"].as<string>().c_str(), ar->get(value["variable"]["ID"]).c_str());
 
+                visitCalledAlready = true;
+              }
+              else if (expression == "Exprs" || expression == "Terms") {
+                // DEBUG_ARTI("%s %s tovisit %s\n", spaces.substr(0,depth).c_str(), expression.as<string>().c_str(), value.as<string>().c_str());
+                string operatorx = "";
+                if (value.is<JsonArray>()) {
+                  JsonArray valueArray = value.as<JsonArray>();
+                  if (valueArray.size() >= 1) // visit first symbol 
+                    visit(valueArray[0], symbol_name, token, depth + 1);
+                  if (valueArray.size() >= 3) { // add operator and another symbol
+                    operatorx = valueArray[1].as<string>();
+                    // DEBUG_ARTI("%s %s operator %s\n", spaces.substr(0,depth).c_str(), expression.as<string>().c_str(), operatorx.c_str());
+                    visit(valueArray[2], symbol_name, token, depth + 1);
+                  }
+                  if (valueArray.size() != 1 && valueArray.size() != 3)
+                    DEBUG_ARTI("%s %s array not right size ?? (%d) %s %s \n", spaces.substr(0,depth).c_str(), expression.as<string>().c_str(), valueArray.size(), key.c_str(), value.as<string>().c_str());
+                }
+                else
+                  DEBUG_ARTI("%s %s not array?? %s %s \n", spaces.substr(0,depth).c_str(), key.c_str(), expression.as<string>().c_str(), value.as<string>().c_str());
+                if (operatorx.find("PLUS") != string::npos) {
+                  string right = calculator.pop();
+                  string left = calculator.pop();
+                  int result = stringToInt(left) + stringToInt(right);
+                  DEBUG_ARTI("%s %s + %s = %d\n", spaces.substr(0,depth).c_str(), left.c_str(), right.c_str(), result);
+                  calculator.push("PLUS", intToString(result));
+                }
+                if (operatorx.find("MUL") != string::npos) {
+                  string right = calculator.pop();
+                  string left = calculator.pop();
+                  int result = stringToInt(left) * stringToInt(right);
+                  DEBUG_ARTI("%s %s * %s = %d\n", spaces.substr(0,depth).c_str(), left.c_str(), right.c_str(), result);
+                  calculator.push("MUL", intToString(result));
+                }
                 visitCalledAlready = true;
               }
               else if (expression == "Variable") {
                 ActivationRecord* ar = this->call_stack.peek();
                 calculator.push(key, ar->get(value["ID"]));
-                DEBUG_ARTI("%s Calculator (push) %s %s %s %s\n", spaces.c_str(), key.c_str(), value["ID"].as<string>().c_str(), ar->get(value["ID"]).c_str(), calculator.peek().c_str());
+                DEBUG_ARTI("%s %s %s %s\n", spaces.substr(0,depth).c_str(), key.c_str(), value["ID"].as<string>().c_str(), ar->get(value["ID"]).c_str());
                 visitCalledAlready = true;
               }
               else if (expression == "ForLoop") {
-                // DEBUG_ARTI("%s\n", spaces, expression, value);
+                DEBUG_ARTI("%s for loop\n", spaces.substr(0,depth).c_str());
 
                 DynamicJsonDocument newx(1024);
                 JsonObject newObject = newx.createNestedObject();
                 newObject["assignment_statement"] = value["assignment_statement"];
 
                 visit(newObject, symbol_name, token, depth + 1);
-                visit(value["expr"], symbol_name, token, depth + 1);
+                visit(value["expr*"], symbol_name, token, depth + 1);
                 ActivationRecord* ar = this->call_stack.peek();
                 for (int i=0; i<2;i++) { //this is the current state of this project: adding for loops, of course the from and to should be derived from the code ;-)
+                  DEBUG_ARTI("%s iteration %d\n", spaces.substr(0,depth).c_str(), i);
                   ar->set("y", intToString(i));
                   visit(value["compound_statement"], symbol_name, token, depth + 1);
                 }
@@ -1104,17 +1161,17 @@ class Interpreter {
 
           } // is key is symbol_name
 
-          // DEBUG_ARTI("%s\n", spaces, "Object ", key, value);
+          // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "Object ", key, value);
           // if (key == "INTEGER_CONST" || key == "PLUS" || key == "MUL" || key == "LPAREN"  || key == "RPAREN" ) {
-          if (key == "INTEGER_CONST" || value == "+" || value == "*" || value == "("  || value == ")" ) {
+          if (key == "INTEGER_CONST") {// || value == "+" || value == "*") || value == "("  || value == ")" ) {
             calculator.push(key, value.as<string>());
-            // DEBUG_ARTI("%s\n", spaces, "Calculator (push) ", key, value, calculator.peek());
+            // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "Calculator (push) ", key, value, calculator.peek());
             visitCalledAlready = true;
           }
 
           if (!tokensJson[key].isNull()) { //if key is token
             token = key;
-            // DEBUG_ARTI("%s\n", spaces, "Token ", token);
+            // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "Token ", token);
           }
           if (!visitCalledAlready)
             visit(value, symbol_name, token, depth + 1);
@@ -1124,14 +1181,14 @@ class Interpreter {
       else { //not object
         if (parseTree.is<JsonArray>()) {
           for (JsonVariant newParseTree: parseTree.as<JsonArray>()) {
-            // DEBUG_ARTI("%s\n", spaces, "Array ", parseTree[i], "  ";
+            // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "Array ", parseTree[i], "  ";
             visit(newParseTree, symbol_name, token, depth + 1);
           }
           // cout);
         }
         else { //not array
           string element = parseTree;
-          // DEBUG_ARTI("%s\n", spaces, "not array not object but element ", element);
+          // DEBUG_ARTI("%s\n", spaces.substr(0,depth).c_str(), "not array not object but element ", element);
         }
       }
     }
@@ -1143,6 +1200,7 @@ class ARTI {
   Lexer *lexer;
   Parser *parser;
   SemanticAnalyzer *semanticAnalyzer;
+  TreeWalker *treeWalker;
   Interpreter *interpreter;
   string definitionText;
   string programText;
@@ -1162,6 +1220,10 @@ public:
     return parseTreeText;
   }
 
+  void walk() {
+    treeWalker = new TreeWalker();
+    treeWalker->walk(parseTreeJson.as<JsonVariant>());
+  }
   void analyze() {
     semanticAnalyzer = new SemanticAnalyzer();
     semanticAnalyzer->analyse();

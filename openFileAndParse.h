@@ -8,7 +8,7 @@
 
       if (!programFile || !compilerFile)
       {
-        cout << "Files not found: " << endl;
+        DEBUG_ARTI("Files not found\n");
       }
       else {
         string programContents = "";

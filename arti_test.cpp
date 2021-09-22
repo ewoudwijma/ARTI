@@ -28,6 +28,7 @@ int main() {
 
     ARTI arti = ARTI(compilerStream.str(), programStream.str());
     parseTreeFile << arti.parse();
+    // arti.walk();
     arti.analyze();
     arti.interpret();
   }

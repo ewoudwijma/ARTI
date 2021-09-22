@@ -7,10 +7,10 @@
           "DOT"
      ],
      "block": [
-          "declarations",
+          "declarations*",
           "compound_statement"
      ],
-     "declarations" : [
+     "declarations*" : [
           {"?": ["VAR", {"+": ["variable_declaration", "SEMI"]}]}, 
           {"*": "procedure_declaration" }
      ],
@@ -23,12 +23,12 @@
      "procedure_declaration" : [
           "PROCEDURE", 
           "ID", 
-          {"?": ["LPAREN", "formal_parameter_list", "RPAREN"]}, 
+          {"?": ["LPAREN", "formal_parameter_list*", "RPAREN"]}, 
           "SEMI", 
           "block", 
           "SEMI"
      ],
-     "formal_parameter_list" : ["formal_parameters", {"*":["SEMI", "formal_parameters"]}],
+     "formal_parameter_list*" : ["formal_parameters", {"*":["SEMI", "formal_parameters"]}],
      "formal_parameters" : [
           "ID", 
           {"*": ["COMMA", "ID"]}, 
@@ -38,40 +38,41 @@
      "type_spec" : {"or" : ["INTEGER", "REAL"]},
      "compound_statement" : [
           "BEGIN", 
-          "statement_list", 
+          "statement_list*", 
           "END"
      ],
-     "statement_list" : ["statement", {"*": ["SEMI", "statement"]}],
+     "statement_list*" : ["statement", {"*": ["SEMI", "statement"]}],
      "statement" : {"or": ["compound_statement",
                   "proccall_statement",
                   "assignment_statement","for_loop"]},
      "proccall_statement" : [
           "ID", 
           "LPAREN", 
-          {"?": ["expr", {"*": ["COMMA", "expr"]}]}, 
+          "actual_parameter_list*", 
           "RPAREN", "SEMI"
      ],
+     "actual_parameter_list*": {"?": ["expr*", {"*": ["COMMA", "expr*"]}]},
      "assignment_statement" : [
           "variable", 
           "ASSIGN", 
-          "expr"
+          "expr*"
      ],
      "empty" : [""],
-     "expr" : [
-          "term", 
-          {"*": [{"or": ["PLUS", "MINUS"]}, "term"]}
+     "expr*" : [
+          "term*", 
+          {"*": [{"or": ["PLUS", "MINUS"]}, "term*"]}
      ],
-     "term" : [
+     "term*" : [
           "factor", 
           {"*": [{"or": ["MUL", "INTEGER_DIV", "FLOAT_DIV"]}, "factor"]}
      ],
      "factor" : {"or": ["variable", 
           "INTEGER_CONST",
                "REAL_CONST",
-               [ "LPAREN", "expr", "RPAREN"]
+               [ "LPAREN", "expr*", "RPAREN"]
                ]},
      "variable": "ID",
-     "for_loop": ["FOR", "assignment_statement", "TO", "expr","DO","compound_statement","SEMI"],
+     "for_loop": ["FOR", "assignment_statement", "TO", "expr*","DO","compound_statement","SEMI"],
      "TOKENS":
 
           {
@@ -115,7 +116,9 @@
           "proccall_statement": "ProcedureCall",
           "variable": "Variable",
           "assignment_statement": "Assign",
-          "for_loop": "ForLoop"
+          "for_loop": "ForLoop",
+          "expr*": "Exprs",
+          "term*": "Terms"
      }
     
 }
