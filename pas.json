@@ -103,22 +103,22 @@
           },
      "SEMANTICS":
      {
-          "program": "Program",
-          "procedure_declaration": "Procedure",
-          "formal_parameters": "VarSymbol",
-          "variable_declaration": "VarSymbol",
-          "assignment_statement": "Assign"
+          "program": {"id":"Program", "name":"[\"variable\"][\"ID\"]", "block": "block"},
+          "procedure_declaration": {"id":"Procedure", "name":"ID", "formals": "formal_parameter_list*", "block": "block"},
+          "formal_parameters": {"id":"VarSymbol", "name":"ID", "type": "type_spec"},
+          "variable_declaration": {"id":"VarSymbol", "name":"ID", "type": "type_spec"},
+          "assignment_statement": {"id":"Assign", "name":"[\"variable\"][\"ID\"]", "value":"expr*"}
      },
      "INTERPRETER":
      {
-          "program": "Program",
-          "procedure_declaration": "Procedure",
-          "proccall_statement": "ProcedureCall",
-          "variable": "Variable",
-          "assignment_statement": "Assign",
-          "for_loop": "ForLoop",
-          "expr*": "Exprs",
-          "term*": "Terms"
+          "program": {"id":"Program", "name":"[\"variable\"][\"ID\"]", "block": "block"},
+          "procedure_declaration": {"id":"Procedure", "name":"ID", "block": "block"},
+          "proccall_statement": {"id":"ProcedureCall", "name":"ID", "actuals": "actual_parameter_list*"},
+          "variable": {"id":"Variable", "name":"ID"},
+          "assignment_statement": {"id":"Assign", "name":"[\"variable\"][\"ID\"]", "value":"expr*"},
+          "for_loop": {"id":"ForLoop", "from":"assignment_statement", "to":"expr*", "block":"compound_statement"},
+          "expr*": {"id":"Exprs"},
+          "term*": {"id":"Terms"}
      }
     
 }

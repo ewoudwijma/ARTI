@@ -4,36 +4,60 @@
 #include <fstream>
 #include <sstream>
 
+// char charFromProgramFile() {
+//   char byte;
+//   programFile.get(byte);
+//   if (programFile.eof())
+//     return -1;
+//   else {
+//     return byte;
+//   }
+// }
 
 int main() {
   fstream programFile;
   programFile.open("test.pas", ios::in);
 
-  fstream compilerFile;
-  compilerFile.open("pas.json", ios::in);
+  fstream definitionFile;
+  definitionFile.open("pas.json", ios::in);
 
   fstream parseTreeFile;
   parseTreeFile.open("parsetree.json", ios::out);
 
-  if (!programFile || !compilerFile)
+  if (!programFile || !definitionFile)
   {
-    cout << "Files not found: " << endl;
+    DEBUG_ARTI("Files not found:\n");
   }
   else {
-    stringstream programStream;
-    programStream << programFile.rdbuf(); //read the file
 
-    stringstream compilerStream;
-    compilerStream << compilerFile.rdbuf(); //read the file
+    //read program
+    char programText[1000];
+    programFile.read(programText, sizeof programText);
+    // DEBUG_ARTI("%s %d", programText, strlen(programText));
 
-    ARTI arti = ARTI(compilerStream.str(), programStream.str());
-    parseTreeFile << arti.parse();
-    // arti.walk();
+    ARTI arti = ARTI(programText);
+
+    //read definition
+    DeserializationError err = deserializeJson(definitionJson, definitionFile);
+    if (err) {
+      DEBUG_ARTI("deserializeJson() in Lexer failed with code %s\n", err.c_str());
+    }
+
+    arti.parse();
+
+    //write parseTree
+    serializeJsonPretty(parseTreeJson, parseTreeFile);
+
+    // char resultString[standardStringLenght];
+    // arti.walk(parseTreeJson.as<JsonVariant>(), resultString);
+    // DEBUG_ARTI("walk result %s", resultString);
+
     arti.analyze();
+
     arti.interpret();
   }
 
   programFile.close();
-  compilerFile.close();
+  definitionFile.close();
   parseTreeFile.close();
 }

@@ -288,7 +288,7 @@ Parser PROGRAM PROGRAM
   DOT .
 
 Analyzer
-                                                                                       Program Main 1 0
+ Program Main 1 0
    var Main.y of {"INTEGER":"INTEGER"}
    procedure Main Alpha
      var Alpha.a of {"INTEGER":"INTEGER"}
@@ -308,12 +308,13 @@ Analyzer
    2 variable_declaration x {"INTEGER":"INTEGER"} 2
    3 procedure_declaration Beta  2
       Assign y =
-                                                                                       0 variable_declaration y {"INTEGER":"INTEGER"} 1
-                                                                                       1 procedure_declaration Alpha  1
+ 0 variable_declaration y {"INTEGER":"INTEGER"} 1
+ 1 procedure_declaration Alpha  1
 
 interpret Main 1 2 1
 scope variable_declaration y {"INTEGER":"INTEGER"} 1
 scope procedure_declaration Alpha  1
+ program name ["variable"]["ID"]
  Program Main Main
     Save block of Alpha
       ProcedureCall Alpha Alpha Alpha

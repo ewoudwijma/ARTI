@@ -2,33 +2,60 @@
 
 
     void openFileAndParse() {
+      string parseOrLoad = "Parse";
       File programFile = WLED_FS.open("/test.pas", "r");
-      File compilerFile = WLED_FS.open("/pas.json", "r");
-      File parseTreeFile = WLED_FS.open("/parsetree.json", "w");
+      File definitionFile = WLED_FS.open("/pas.json", "r");
+      File parseTreeFile = WLED_FS.open(parseOrLoad=="Parse"?"/parsetreeOut.json":"/parsetree.json", parseOrLoad=="Parse"?"w":"r");
 
-      if (!programFile || !compilerFile)
+      if (!programFile || !definitionFile)
       {
         DEBUG_ARTI("Files not found\n");
       }
       else {
-        string programContents = "";
+
+        //read program
+        char programText[1000];
+        uint16_t index = 0;
         while(programFile.available()){
-          programContents += (char)programFile.read();
+          programText[index++] = (char)programFile.read();
+        }
+        programText[index - 1] = '\0';
+
+        ARTI arti = ARTI(programText);
+
+        //read definition
+        DeserializationError err = deserializeJson(definitionJson, definitionFile);
+        if (err) {
+          DEBUG_ARTI("deserializeJson() in Lexer failed with code %s\n", err.c_str());
         }
 
-        string compilerContents = "";
-        while(compilerFile.available()){
-          compilerContents += (char)compilerFile.read();
+        if (parseOrLoad == "Parse") {
+          arti.parse();
+
+          //write parseTree
+          serializeJsonPretty(parseTreeJson,  parseTreeFile);
+        }
+        else
+        {
+          //read parseTree
+          DeserializationError err = deserializeJson(parseTreeJson, parseTreeFile);
+          if (err) {
+            DEBUG_ARTI("deserializeJson() in loadParseTree failed with code %s\n", err.c_str());
+          }
+
         }
 
-        ARTI arti = ARTI(compilerContents.c_str(), programContents.c_str());
-        string buffer = arti.parse();
-        arti.analyze();
-        arti.interpret();
+        // char resultString[standardStringLenght];
+        // // strcpy(resultString, "");
+        // arti.walk(parseTreeJson.as<JsonVariant>(), resultString);
+        // DEBUG_ARTI("walk result %s", resultString);
+
+        // arti.analyze();
+        // arti.interpret();
 
       }
 
       programFile.close();
-      compilerFile.close();
+      definitionFile.close();
       parseTreeFile.close();
     } // openFileAndParse
