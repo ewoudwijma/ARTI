@@ -24,16 +24,6 @@ using namespace std;
   #define DEBUG_ARTI(x...)
 #endif
 
-string stringToUpper(string &s)
-{
-  string t = s;
-   for(unsigned int i = 0; i < s.length(); i++)
-  {
-    t[i] = toupper(s[i]);
-  }
-  return t;
-}
-
 int stringToInt(string value) {
   #ifdef ESP32
     return value.toInt();
@@ -79,14 +69,14 @@ class Token {
     uint16_t column;
   public:
     const char * type;
-    string value; 
+    char * value; 
     Token() {
       this->type = "NONE";
-      this->value = "";
+      this->value = strdup("");
       this->lineno = 0;
       this->column = 0;
     }
-    Token(const char * type, string value, uint16_t lineno=0, uint16_t column=0) {
+    Token(const char * type, char * value, uint16_t lineno=0, uint16_t column=0) {
       this->type = type;
       this->value = value;
       this->lineno = lineno;
@@ -98,28 +88,26 @@ class Error {
   public:
     ErrorCode error_code;
     Token token;
-    string message;
+    const char * message;
   public:
-    Error(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE","", 0, 0), string message="") {
+    Error(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE", strdup(""), 0, 0), const char * message = "") {
       this->error_code = error_code;
       this->token = token;
-      this->message = "typeid(this).name()" + message;
-      // DEBUG_ARTI("%s\n", "Error", this->token.type, " " <<this->token.value, this->message); //this->error_code, 
+      this->message = message;
+      DEBUG_ARTI("Error %s %s %s\n", this->token.type, this->token.value, this->message); //this->error_code, 
     }
 };
 
 class LexerError: public Error {
   public:
-    LexerError(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE","", 0, 0), string message="") {
-      // DEBUG_ARTI("%s\n", "LexerError", this->token.type, " " <<this->token.value, this->message); //this->error_code, 
-      throw("LexerError");
+    LexerError(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE", strdup(""), 0, 0), const char * message = "") {
+      DEBUG_ARTI("Lexer error %s %s %s\n", this->token.type, this->token.value, this->message); //this->error_code, 
     }
 };
 class ParserError: public Error {
   public:
-    ParserError(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE","", 0, 0), string message="") {
-      // DEBUG_ARTI("%s\n", "ParserError", this->token.type, " " <<this->token.value, this->message); //this->error_code, 
-      throw("ParserError");
+    ParserError(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE", strdup(""), 0, 0), const char * message = "") {
+      DEBUG_ARTI("Parser error %s %s %s\n", this->token.type, this->token.value, this->message); //this->error_code, 
     }
 };
 class SemanticError: public Error {};
@@ -165,9 +153,8 @@ class Lexer {
 
     void error() {
       DEBUG_ARTI("Lexer error on %c line %d col %d\n", this->current_char, this->lineno, this->column);
-      string message = "";
+      const char * message = "";
       LexerError x = LexerError(ErrorCode::NONE, Token(), message);
-      // LexerError x = LexerError(string(""),Token(),string(""));
       DEBUG_ARTI("%s\n", "LexerError");
     }
 
@@ -207,28 +194,32 @@ class Lexer {
     }
 
     Token number() {
-      Token token = Token("NONE", "", this->lineno, this->column);
+      Token token = Token("NONE", strdup(""), this->lineno, this->column);
 
-      string result = "";
+      char result[200] = "";
       while (this->current_char != -1 && isdigit(this->current_char)) {
-        result += this->current_char;
+        result[strlen(result)] = this->current_char;
         this->advance();
       }
       if (this->current_char == '.') {
-        result += this->current_char;
+        result[strlen(result)] = this->current_char;
         this->advance();
 
         while (this->current_char != -1 && isdigit(this->current_char)) {
-          result += this->current_char;
+          result[strlen(result)] = this->current_char;
           this->advance();
         }
 
+        result[strlen(result)] = '\0';
         token.type = "REAL_CONST";
-        token.value = result;
+        // token.value = result;
+        strncpy(token.value, result, strlen(result)); token.value[strlen(result)] = '\0';
       }
       else {
+        result[strlen(result)] = '\0';
         token.type = "INTEGER_CONST";
-        token.value = result;
+        // token.value = result;
+        strncpy(token.value, result, strlen(result)); token.value[strlen(result)] = '\0';
       }
 
       // DEBUG_ARTI("%s\n", "Number!!! ", token.type, token.value);
@@ -236,23 +227,31 @@ class Lexer {
     }
 
     Token id() {
-        Token token = Token("NONE", "", this->lineno, this->column);
+        Token token = Token("NONE", strdup(""), this->lineno, this->column);
 
-        string value = "";
+        char result[200] = "";
         while (this->current_char != -1 && isalnum(this->current_char)) {
-            value += this->current_char;
+            result[strlen(result)] = this->current_char;
             this->advance();
         }
+        result[strlen(result)] = '\0';
 
-        // DEBUG_ARTI("%s\n", "id ", token_type, token_type.size(), value);
-        if (tokensJson[stringToUpper(value)].isNull()) {
+        char resultUpper[200];
+        for (int i=0; i<strlen(result); i++)
+          resultUpper[i] = toupper(result[i]);
+        resultUpper[strlen(result)] = '\0';
+
+        // DEBUG_ARTI("upper %s [%s] [%s]\n", tokensJson[resultUpper].as<const char *>(), result, resultUpper);
+        if (tokensJson[resultUpper].isNull()) {
             // DEBUG_ARTI("%s\n", "  id empty ");
             token.type = "ID";
-            token.value = value;
+            // token.value = result;
+            strncpy(token.value, result, strlen(result)); token.value[strlen(result)] = '\0';
         }
         else {
-            token.type = tokensJson[stringToUpper(value)];
-            token.value = stringToUpper(value);
+            token.type = tokensJson[resultUpper];
+            strncpy(token.value, resultUpper, strlen(result)); token.value[strlen(result)] = '\0';
+            // token.value = resultUpper;
         }
 
         return token;
@@ -283,13 +282,13 @@ class Lexer {
 
         // findLongestMatchingToken(tokensJson, 1);
         const char * token_type = "";
-        const char * token_value = "";
+        char * token_value = strdup("");
           // token_value = token_value.append(1,this->current_char);
 
         uint8_t longestTokenLength = 0;
 
         for (JsonPair tokenPair: tokensJson.as<JsonObject>()) {
-          const char * value = tokenPair.value().as<const char*>();
+          char * value = strdup(tokenPair.value().as<const char *>());
           char current_string[100];
           strncpy(current_string, this->text + this->pos, 100);
           current_string[strlen(value)] = '\0';
@@ -314,7 +313,7 @@ class Lexer {
 
       }
 
-      return Token("EOF", "",0,0);
+      return Token("EOF", strdup(""),0,0);
 
     } //get_next_token
 
@@ -326,7 +325,7 @@ struct LexerPosition {
   uint16_t lineno;
   uint16_t column;
   const char * type;
-  string value;
+  char * value;
 };
 
 class Parser {
@@ -347,13 +346,13 @@ class Parser {
       JsonObject definitionObject = definitionJson.as<JsonObject>();
       JsonObject::iterator it = definitionObject.begin();
 
-      DEBUG_ARTI("Parser %s %s\n", this->current_token.type, this->current_token.value.c_str());
+      DEBUG_ARTI("Parser %s %s\n", this->current_token.type, this->current_token.value);
 
       const char * symbol_name = it->key().c_str();
       Result result = visit(parseTreeJson.as<JsonVariant>(), symbol_name, "", definitionJson[symbol_name], 0);
 
       if (result == Result::RESULTFAIL)
-        DEBUG_ARTI("Program parsing failed (start=%s)\n", symbol_name);
+        DEBUG_ARTI("Program parsing failed (%s)\n", symbol_name);
     }
 
     Token get_next_token() {
@@ -485,7 +484,7 @@ class Parser {
             // DEBUG_ARTI("%s parseTOken %s\n", spaces+50-depth, operatorx.c_str());//, expression.as<string>().c_str());
             // DEBUG_ARTI("%s\n", spaces+50-depth, "istoken ok ", token_type, tokenValue, current_token.type, current_token.value);
             // if (current_token.type == "ID" || current_token.type == "INTEGER" || current_token.type == "REAL" || current_token.type == "INTEGER_CONST" || current_token.type == "REAL_CONST" || current_token.type == "ID" || current_token.type == "ID" || current_token.type == "ID") {
-            DEBUG_ARTI("%s %s %s\n", spaces+50-depth, current_token.type, current_token.value.c_str());
+            DEBUG_ARTI("%s %s %s\n", spaces+50-depth, current_token.type, current_token.value);
 
             if (symbol_name[strlen(symbol_name)-1] == '*') { //if list then add in array
               JsonArray arr = parseTree[symbol_name].as<JsonArray>();
@@ -557,111 +556,6 @@ class Parser {
 
 }; //Parser
 
-class ScopedSymbolTable; //forward declaration
-
-class Symbol {
-  private:
-  public:
-  
-  string name;
-  string type;
-  uint8_t scope_level;
-  string symbol_type;
-  ScopedSymbolTable* scope = nullptr;
-  ScopedSymbolTable* detail_scope = nullptr;
-
-  JsonVariant block;
-
-  Symbol(string symbol_type, string name, string type = "") {
-    this->symbol_type = symbol_type;
-    this->name = name;
-    this->type = type;
-    this->scope_level = 0;
-  }
-}; //Symbol
-
-
-class ScopedSymbolTable {
-  private:
-  public:
-
-  Symbol* _symbols[100];
-  uint16_t _symbolsIndex = 0;
-  string scope_name;
-  int scope_level;
-  ScopedSymbolTable *enclosing_scope;
-  ScopedSymbolTable *child_scopes[100];
-  uint16_t child_scopesIndex = 0;
-
-  ScopedSymbolTable(string scope_name, int scope_level, ScopedSymbolTable *enclosing_scope = nullptr) {
-    // DEBUG_ARTI("%s\n", "ScopedSymbolTable ", scope_name, scope_level);
-    this->scope_name = scope_name;
-    this->scope_level = scope_level;
-    this->enclosing_scope = enclosing_scope;
-  }
-
-  void init_builtins() {
-        // this->insert(BuiltinTypeSymbol('INTEGER'));
-        // this->insert(BuiltinTypeSymbol('REAL'));
-  }
-
-  #define _SHOULD_LOG_SCOPE
-  void log(string msg) {
-    #ifdef _SHOULD_LOG_SCOPE
-      // DEBUG_ARTI("%s\n", "Log scope ", msg);
-    #endif
-  }
-
-  void insert(Symbol* symbol) {
-    this->log("Insert: " + symbol->name);
-    symbol->scope_level = this->scope_level;
-    symbol->scope = this;
-    this->_symbols[_symbolsIndex] = symbol;
-    _symbolsIndex++;
-  }
-
-  Symbol* lookup(string name, bool current_scope_only=false, bool child_scopes_included=false) {
-    // this->log("Lookup: " + name + " " + this->scope_name);
-    // DEBUG_ARTI("%s\n", "lookup ", name, this->scope_name, _symbolsIndex, child_scopesIndex);
-    //  'symbol' is either an instance of the Symbol class or None;
-    for (int i=0; i<_symbolsIndex; i++) {
-      // DEBUG_ARTI("%s\n", "  symbols ", i, _symbols[i]->symbol_type, _symbols[i]->name, _symbols[i]->type, _symbols[i]->scope_level);
-      if (_symbols[i]->name == name)
-        return _symbols[i];
-    }
-
-    if (child_scopes_included) {
-      for (int i=0; i<this->child_scopesIndex;i++) {
-        // DEBUG_ARTI("%s\n", "  detail ", i, this->child_scopes[i]->scope_name);
-        Symbol* symbol = this->child_scopes[i]->lookup(name, current_scope_only, child_scopes_included);
-        if (symbol != nullptr) //symbol found
-          return symbol;
-      }
-    }
-
-    if (current_scope_only)
-      return nullptr;
-    // # recursively go up the chain and lookup the name;
-    if (this->enclosing_scope != nullptr)
-      return this->enclosing_scope->lookup(name);
-    
-    return nullptr;
-  } //lookup
-
-  void show(int depth = 0) {
-
-    // DEBUG_ARTI("%s\n", spaces+50-depth, "show ", this->scope_name, " " , this->scope_level);
-    for (int i=0; i<_symbolsIndex; i++) {
-      // DEBUG_ARTI("%s\n", spaces+50-depth, "-symbols ", i, _symbols[i]->symbol_type, _symbols[i]->name, _symbols[i]->type);
-    }
-
-      for (int i=0; i<this->child_scopesIndex;i++) {
-        // DEBUG_ARTI("%s\n", spaces+50-depth, "-detail ", i, this->child_scopes[i]->scope_name);
-        this->child_scopes[i]->show(depth + 1);
-      }
-  }
-}; //ScopedSymbolTable
-
 #define standardStringLenght 4000
 
 void concatenate(char * string1, const char * string2, uint16_t length = 0) {
@@ -717,6 +611,106 @@ class TreeWalker {
 
 }; //TreeWalker
 
+class ScopedSymbolTable; //forward declaration
+
+class Symbol {
+  private:
+  public:
+  
+  char symbol_type[100];
+  string name;
+  string type;
+  uint8_t scope_level;
+  ScopedSymbolTable* scope = nullptr;
+  ScopedSymbolTable* detail_scope = nullptr;
+
+  JsonVariant block;
+
+  Symbol(const char * symbol_type, string name, string type = "") {
+    strncpy(this->symbol_type, symbol_type, strlen(symbol_type)); this->symbol_type[strlen(symbol_type)] = '\0';
+    // this->symbol_type = symbol_type;
+    this->name = name;
+    this->type = type;
+    this->scope_level = 0;
+  }
+}; //Symbol
+
+
+class ScopedSymbolTable {
+  private:
+  public:
+
+  Symbol* _symbols[100];
+  uint16_t _symbolsIndex = 0;
+  string scope_name;
+  int scope_level;
+  ScopedSymbolTable *enclosing_scope;
+  ScopedSymbolTable *child_scopes[100];
+  uint16_t child_scopesIndex = 0;
+
+  ScopedSymbolTable(string scope_name, int scope_level, ScopedSymbolTable *enclosing_scope = nullptr) {
+    // DEBUG_ARTI("%s\n", "ScopedSymbolTable ", scope_name, scope_level);
+    this->scope_name = scope_name;
+    this->scope_level = scope_level;
+    this->enclosing_scope = enclosing_scope;
+  }
+
+  void init_builtins() {
+        // this->insert(BuiltinTypeSymbol('INTEGER'));
+        // this->insert(BuiltinTypeSymbol('REAL'));
+  }
+
+  void insert(Symbol* symbol) {
+    #ifdef _SHOULD_LOG_SCOPE
+      DEBUG_ARTI("Log scope Insert %s\n", symbol->name.c_str());
+    #endif
+    symbol->scope_level = this->scope_level;
+    symbol->scope = this;
+    this->_symbols[_symbolsIndex] = symbol;
+    _symbolsIndex++;
+  }
+
+  Symbol* lookup(string name, bool current_scope_only=false, bool child_scopes_included=false) {
+    // this->log("Lookup: " + name + " " + this->scope_name);
+    // DEBUG_ARTI("%s\n", "lookup ", name, this->scope_name, _symbolsIndex, child_scopesIndex);
+    //  'symbol' is either an instance of the Symbol class or None;
+    for (int i=0; i<_symbolsIndex; i++) {
+      // DEBUG_ARTI("%s\n", "  symbols ", i, _symbols[i]->symbol_type, _symbols[i]->name, _symbols[i]->type, _symbols[i]->scope_level);
+      if (_symbols[i]->name == name) //replace with strcmp!!!
+        return _symbols[i];
+    }
+
+    if (child_scopes_included) {
+      for (int i=0; i<this->child_scopesIndex;i++) {
+        // DEBUG_ARTI("%s\n", "  detail ", i, this->child_scopes[i]->scope_name);
+        Symbol* symbol = this->child_scopes[i]->lookup(name, current_scope_only, child_scopes_included);
+        if (symbol != nullptr) //symbol found
+          return symbol;
+      }
+    }
+
+    if (current_scope_only)
+      return nullptr;
+    // # recursively go up the chain and lookup the name;
+    if (this->enclosing_scope != nullptr)
+      return this->enclosing_scope->lookup(name);
+    
+    return nullptr;
+  } //lookup
+
+  void show(int depth = 0) {
+
+    // DEBUG_ARTI("%s\n", spaces+50-depth, "show ", this->scope_name, " " , this->scope_level);
+    for (int i=0; i<_symbolsIndex; i++) {
+      // DEBUG_ARTI("%s\n", spaces+50-depth, "-symbols ", i, _symbols[i]->symbol_type, _symbols[i]->name, _symbols[i]->type);
+    }
+
+      for (int i=0; i<this->child_scopesIndex;i++) {
+        // DEBUG_ARTI("%s\n", spaces+50-depth, "-detail ", i, this->child_scopes[i]->scope_name);
+        this->child_scopes[i]->show(depth + 1);
+      }
+  }
+}; //ScopedSymbolTable
 
 class SemanticAnalyzer {
   private:
@@ -731,14 +725,14 @@ class SemanticAnalyzer {
       visit(parseTreeJson.as<JsonVariant>());
     }
 
-    void visit(JsonVariant parseTree, string treeElement = "", string symbol_name = "", string token = "", ScopedSymbolTable* current_scope = nullptr, uint8_t depth = -1) {
+    void visit(JsonVariant parseTree, const char * treeElement = "", const char * symbol_name = "", const char * token = "", ScopedSymbolTable* current_scope = nullptr, uint8_t depth = -1) {
 
       // DEBUG_ARTI("%s Visit %s %s\n", spaces+50-depth, symbol_name.c_str(), token.c_str());
 
       if (parseTree.is<JsonObject>()) {
         for (JsonPair element : parseTree.as<JsonObject>()) {
-        if (treeElement == "" || treeElement == element.key().c_str() ) {
-          string key = element.key().c_str();
+        if (strcmp(treeElement, "") == 0 || strcmp(treeElement, element.key().c_str()) == 0 ) {
+          const char * key = element.key().c_str();
           JsonVariant value = element.value();
 
           bool visitCalledAlready = false;
@@ -760,7 +754,7 @@ class SemanticAnalyzer {
 
                 for (int i=0; i<global_scope->_symbolsIndex; i++) {
                   Symbol* symbol = global_scope->_symbols[i];
-                  DEBUG_ARTI("%s %d %s %s %s %d\n", spaces+50-depth, i, symbol->symbol_type.c_str(), symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
+                  DEBUG_ARTI("%s %d %s %s %s %d\n", spaces+50-depth, i, symbol->symbol_type, symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
                 }
 
                 visitCalledAlready = true;
@@ -787,7 +781,7 @@ class SemanticAnalyzer {
 
                 for (int i=0; i<procedure_scope->_symbolsIndex; i++) {
                   Symbol* symbol = procedure_scope->_symbols[i];
-                  DEBUG_ARTI("%s %d %s %s %s %d\n", spaces+50-depth, i, symbol->symbol_type.c_str(), symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
+                  DEBUG_ARTI("%s %d %s %s %s %d\n", spaces+50-depth, i, symbol->symbol_type, symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
                 }
 
                 visitCalledAlready = true;
@@ -973,7 +967,7 @@ class Interpreter {
       DEBUG_ARTI("\ninterpret %s %d %d %d\n", global_scope->scope_name.c_str(), global_scope->scope_level, global_scope->_symbolsIndex, global_scope->child_scopesIndex); 
       for (int i=0; i<global_scope->_symbolsIndex; i++) {
         Symbol* symbol = global_scope->_symbols[i];
-        DEBUG_ARTI("scope %s %s %s %d\n", symbol->symbol_type.c_str(), symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
+        DEBUG_ARTI("scope %s %s %s %d\n", symbol->symbol_type, symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
       }
     }
     else
@@ -985,12 +979,12 @@ class Interpreter {
             // ["PLUS2", "factor"],
           // [ "MINUS2", "factor"],
 
-    void visit(JsonVariant parseTree, string treeElement = "", string symbol_name = "", string token = "", uint8_t depth = 0) {
+    void visit(JsonVariant parseTree, const char * treeElement = "", const char * symbol_name = "", const char * token = "", uint8_t depth = 0) {
 
       if (parseTree.is<JsonObject>()) {
         for (JsonPair element : parseTree.as<JsonObject>()) {
-        if (treeElement == "" || treeElement == element.key().c_str() ) {
-          string key = element.key().c_str();
+        if (strcmp(treeElement, "") == 0 || strcmp(treeElement, element.key().c_str()) == 0 ) {
+          const char * key = element.key().c_str();
           JsonVariant value = element.value();
 
           bool visitCalledAlready = false;
@@ -1037,7 +1031,7 @@ class Interpreter {
                 visit(value[expression["actuals"].as<string>()], "", symbol_name, token, depth + 1);
 
                 for (int i=proc_symbol->detail_scope->_symbolsIndex-1; i>=0;i--) { //backwards because popped in reversed order
-                  if (proc_symbol->detail_scope->_symbols[i]->symbol_type == "formal_parameters") { //select formal parameters
+                  if (strcmp(proc_symbol->detail_scope->_symbols[i]->symbol_type, "formal_parameters") == 0) { //select formal parameters
                   //{"ID":"Alpha","LPAREN":"(","actual_parameter_list*":[
                     //      {"expr*":[{"term*":[{"factor":{"INTEGER_CONST":"3"}},{}]},{"PLUS":"+"},{"term*":[{"factor":{"INTEGER_CONST":"5"}},{}]}]},{"COMMA":","},
                     //      {"expr*":[{"term*":[{"factor":{"INTEGER_CONST":"7"}},{}]},{}]}],"RPAREN":")","SEMI":";"} 
@@ -1087,7 +1081,7 @@ class Interpreter {
               }
               else if (expression["id"] == "Assign") {
 
-                visit(value, expression["value"].as<string>(), symbol_name, token, depth + 1);
+                visit(value, expression["value"], symbol_name, token, depth + 1);
 
                 ActivationRecord* ar = this->call_stack.peek();
                 ar->set(value["variable"]["ID"], this->calculator.pop());
@@ -1109,10 +1103,10 @@ class Interpreter {
                     visit(valueArray[2], "", symbol_name, token, depth + 1);
                   }
                   if (valueArray.size() != 1 && valueArray.size() != 3)
-                    DEBUG_ARTI("%s %s array not right size ?? (%d) %s %s \n", spaces+50-depth, expression["id"].as<const char *>(), valueArray.size(), key.c_str(), value.as<string>().c_str());
+                    DEBUG_ARTI("%s %s array not right size ?? (%d) %s %s \n", spaces+50-depth, expression["id"].as<const char *>(), valueArray.size(), key, value.as<string>().c_str());
                 }
                 else
-                  DEBUG_ARTI("%s %s not array?? %s %s \n", spaces+50-depth, key.c_str(), expression["id"].as<const char *>(), value.as<string>().c_str());
+                  DEBUG_ARTI("%s %s not array?? %s %s \n", spaces+50-depth, key, expression["id"].as<const char *>(), value.as<string>().c_str());
                 if (contains(operatorx, "PLUS")) {
                   string right = calculator.pop();
                   string left = calculator.pop();
@@ -1132,13 +1126,13 @@ class Interpreter {
               else if (expression["id"] == "Variable") {
                 ActivationRecord* ar = this->call_stack.peek();
                 calculator.push(key, ar->get(value[expression["name"].as<string>()]));
-                DEBUG_ARTI("%s %s %s %s\n", spaces+50-depth, key.c_str(), value[expression["name"].as<string>()].as<const char *>(), ar->get(value[expression["name"].as<string>()]).c_str());
+                DEBUG_ARTI("%s %s %s %s\n", spaces+50-depth, key, value[expression["name"].as<string>()].as<const char *>(), ar->get(value[expression["name"].as<string>()]).c_str());
                 visitCalledAlready = true;
               }
               else if (expression["id"] == "ForLoop") {
                 DEBUG_ARTI("%s for loop\n", spaces+50-depth);
 
-                visit(value, expression["from"].as<string>(), symbol_name, token, depth + 1);
+                visit(value, expression["from"], symbol_name, token, depth + 1);
                 visit(value[expression["to"].as<string>()], "", symbol_name, token, depth + 1);
                 ActivationRecord* ar = this->call_stack.peek();
                 for (int i=0; i<2;i++) { //this is the current state of this project: adding for loops, of course the from and to should be derived from the code ;-)

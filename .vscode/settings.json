@@ -7,6 +7,7 @@
         "xlocale": "cpp",
         "xiosbase": "cpp",
         "istream": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "xlocinfo": "cpp"
     }
 }
