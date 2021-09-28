@@ -1,5 +1,7 @@
 #define ARTI_DEBUG 1
 // #define ARDUINOJSON_DEFAULT_NESTING_LIMIT 100
+#define charLength 30
+#define arrayLength 30
 
 using namespace std;
 
@@ -7,11 +9,6 @@ using namespace std;
   #include "src/dependencies/json/ArduinoJson-v6.h"
 #else
   #include "ArduinoJson-recent.h"
-#endif
-
-#ifdef ESP32
-  #define string String
-  #define substr(x,y) substring(x, x+y)
 #endif
 
 #ifdef ARTI_DEBUG
@@ -24,31 +21,10 @@ using namespace std;
   #define DEBUG_ARTI(x...)
 #endif
 
-int stringToInt(string value) {
-  #ifdef ESP32
-    return value.toInt();
-  #else
-    return stoi(value);
-  #endif
+const char * intToCharString(int value) {
+  char buffer[charLength];
+  return itoa(value, buffer, 10);
 }
-
-string intToString(int value) {
-  #ifdef ESP32
-    return String(value);
-  #else
-    return to_string(value);
-  #endif
-}
-
-bool contains(string value, string value2) {
-  #ifdef ESP32
-    return value.indexOf(value2) > 0;
-  #else
-    return value.find(value2) != string::npos;
-  #endif
-}
-
-//https://ruslanspivak.com/lsbasi-part19/
 
 enum class ErrorCode {
   UNEXPECTED_TOKEN,
@@ -69,16 +45,16 @@ class Token {
     uint16_t column;
   public:
     const char * type;
-    char * value; 
+    char value[charLength]; 
     Token() {
       this->type = "NONE";
-      this->value = strdup("");
+      strcpy(this->value, "");
       this->lineno = 0;
       this->column = 0;
     }
-    Token(const char * type, char * value, uint16_t lineno=0, uint16_t column=0) {
+    Token(const char * type, const char * value, uint16_t lineno=0, uint16_t column=0) {
       this->type = type;
-      this->value = value;
+      strcpy(this->value, value);
       this->lineno = lineno;
       this->column = column;
     }
@@ -90,7 +66,7 @@ class Error {
     Token token;
     const char * message;
   public:
-    Error(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE", strdup(""), 0, 0), const char * message = "") {
+    Error(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE", "", 0, 0), const char * message = "") {
       this->error_code = error_code;
       this->token = token;
       this->message = message;
@@ -100,13 +76,13 @@ class Error {
 
 class LexerError: public Error {
   public:
-    LexerError(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE", strdup(""), 0, 0), const char * message = "") {
+    LexerError(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE", "", 0, 0), const char * message = "") {
       DEBUG_ARTI("Lexer error %s %s %s\n", this->token.type, this->token.value, this->message); //this->error_code, 
     }
 };
 class ParserError: public Error {
   public:
-    ParserError(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE", strdup(""), 0, 0), const char * message = "") {
+    ParserError(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE", "", 0, 0), const char * message = "") {
       DEBUG_ARTI("Parser error %s %s %s\n", this->token.type, this->token.value, this->message); //this->error_code, 
     }
 };
@@ -194,9 +170,9 @@ class Lexer {
     }
 
     Token number() {
-      Token token = Token("NONE", strdup(""), this->lineno, this->column);
+      Token token = Token("NONE", "", this->lineno, this->column);
 
-      char result[200] = "";
+      char result[charLength] = "";
       while (this->current_char != -1 && isdigit(this->current_char)) {
         result[strlen(result)] = this->current_char;
         this->advance();
@@ -212,14 +188,13 @@ class Lexer {
 
         result[strlen(result)] = '\0';
         token.type = "REAL_CONST";
-        // token.value = result;
-        strncpy(token.value, result, strlen(result)); token.value[strlen(result)] = '\0';
+        strcpy(token.value, result);
       }
       else {
         result[strlen(result)] = '\0';
         token.type = "INTEGER_CONST";
         // token.value = result;
-        strncpy(token.value, result, strlen(result)); token.value[strlen(result)] = '\0';
+        strcpy(token.value, result);
       }
 
       // DEBUG_ARTI("%s\n", "Number!!! ", token.type, token.value);
@@ -227,31 +202,28 @@ class Lexer {
     }
 
     Token id() {
-        Token token = Token("NONE", strdup(""), this->lineno, this->column);
+        Token token = Token("NONE", "", this->lineno, this->column);
 
-        char result[200] = "";
+        char result[charLength] = "";
         while (this->current_char != -1 && isalnum(this->current_char)) {
             result[strlen(result)] = this->current_char;
             this->advance();
         }
         result[strlen(result)] = '\0';
 
-        char resultUpper[200];
-        for (int i=0; i<strlen(result); i++)
-          resultUpper[i] = toupper(result[i]);
-        resultUpper[strlen(result)] = '\0';
+        char resultUpper[charLength];
+        strcpy(resultUpper, result);
+        strupr(resultUpper);
 
         // DEBUG_ARTI("upper %s [%s] [%s]\n", tokensJson[resultUpper].as<const char *>(), result, resultUpper);
         if (tokensJson[resultUpper].isNull()) {
             // DEBUG_ARTI("%s\n", "  id empty ");
             token.type = "ID";
-            // token.value = result;
-            strncpy(token.value, result, strlen(result)); token.value[strlen(result)] = '\0';
+            strcpy(token.value, result);
         }
         else {
             token.type = tokensJson[resultUpper];
-            strncpy(token.value, resultUpper, strlen(result)); token.value[strlen(result)] = '\0';
-            // token.value = resultUpper;
+            strcpy(token.value, resultUpper);
         }
 
         return token;
@@ -282,17 +254,17 @@ class Lexer {
 
         // findLongestMatchingToken(tokensJson, 1);
         const char * token_type = "";
-        char * token_value = strdup("");
+        const char * token_value = "";
           // token_value = token_value.append(1,this->current_char);
 
         uint8_t longestTokenLength = 0;
 
         for (JsonPair tokenPair: tokensJson.as<JsonObject>()) {
-          char * value = strdup(tokenPair.value().as<const char *>());
-          char current_string[100];
-          strncpy(current_string, this->text + this->pos, 100);
-          current_string[strlen(value)] = '\0';
-          if (strcmp(value, current_string) == 0 && strlen(value) > longestTokenLength) {
+          const char * value = tokenPair.value().as<const char *>();
+          char currentValue[charLength];
+          strncpy(currentValue, this->text + this->pos, charLength);
+          currentValue[strlen(value)] = '\0';
+          if (strcmp(value, currentValue) == 0 && strlen(value) > longestTokenLength) {
             token_value = value;
             token_type = tokenPair.key().c_str();
             longestTokenLength = strlen(value);
@@ -313,7 +285,7 @@ class Lexer {
 
       }
 
-      return Token("EOF", strdup(""),0,0);
+      return Token("EOF", "",0,0);
 
     } //get_next_token
 
@@ -325,7 +297,7 @@ struct LexerPosition {
   uint16_t lineno;
   uint16_t column;
   const char * type;
-  char * value;
+  char value[charLength];
 };
 
 class Parser {
@@ -382,7 +354,7 @@ class Parser {
     positions[positions_index].lineno = this->lexer->lineno;
     positions[positions_index].column = this->lexer->column;
     positions[positions_index].type = this->current_token.type;
-    positions[positions_index].value = this->current_token.value;
+    strcpy(positions[positions_index].value, this->current_token.value);
     positions_index++;
   }
 
@@ -396,7 +368,7 @@ class Parser {
       this->lexer->lineno = positions[positions_index].lineno;
       this->lexer->column = positions[positions_index].column;
       this->current_token.type = positions[positions_index].type;
-      this->current_token.value = positions[positions_index].value;
+      strcpy(this->current_token.value, positions[positions_index].value);
     }
   }
 
@@ -617,20 +589,19 @@ class Symbol {
   private:
   public:
   
-  char symbol_type[100];
-  string name;
-  string type;
+  char symbol_type[charLength];
+  char name[charLength];
+  char type[charLength];
   uint8_t scope_level;
   ScopedSymbolTable* scope = nullptr;
   ScopedSymbolTable* detail_scope = nullptr;
 
   JsonVariant block;
 
-  Symbol(const char * symbol_type, string name, string type = "") {
-    strncpy(this->symbol_type, symbol_type, strlen(symbol_type)); this->symbol_type[strlen(symbol_type)] = '\0';
-    // this->symbol_type = symbol_type;
-    this->name = name;
-    this->type = type;
+  Symbol(const char * symbol_type, const char * name, const char * type = "") {
+    strcpy(this->symbol_type, symbol_type);
+    strcpy(this->name, name);
+    strcpy(this->type, type);
     this->scope_level = 0;
   }
 }; //Symbol
@@ -642,15 +613,15 @@ class ScopedSymbolTable {
 
   Symbol* _symbols[100];
   uint16_t _symbolsIndex = 0;
-  string scope_name;
+  char scope_name[charLength];
   int scope_level;
   ScopedSymbolTable *enclosing_scope;
   ScopedSymbolTable *child_scopes[100];
   uint16_t child_scopesIndex = 0;
 
-  ScopedSymbolTable(string scope_name, int scope_level, ScopedSymbolTable *enclosing_scope = nullptr) {
+  ScopedSymbolTable(const char * scope_name, int scope_level, ScopedSymbolTable *enclosing_scope = nullptr) {
     // DEBUG_ARTI("%s\n", "ScopedSymbolTable ", scope_name, scope_level);
-    this->scope_name = scope_name;
+    strcpy(this->scope_name, scope_name);
     this->scope_level = scope_level;
     this->enclosing_scope = enclosing_scope;
   }
@@ -670,13 +641,13 @@ class ScopedSymbolTable {
     _symbolsIndex++;
   }
 
-  Symbol* lookup(string name, bool current_scope_only=false, bool child_scopes_included=false) {
+  Symbol* lookup(const char * name, bool current_scope_only=false, bool child_scopes_included=false) {
     // this->log("Lookup: " + name + " " + this->scope_name);
     // DEBUG_ARTI("%s\n", "lookup ", name, this->scope_name, _symbolsIndex, child_scopesIndex);
     //  'symbol' is either an instance of the Symbol class or None;
     for (int i=0; i<_symbolsIndex; i++) {
       // DEBUG_ARTI("%s\n", "  symbols ", i, _symbols[i]->symbol_type, _symbols[i]->name, _symbols[i]->type, _symbols[i]->scope_level);
-      if (_symbols[i]->name == name) //replace with strcmp!!!
+      if (strcmp(_symbols[i]->name, name) == 0) //replace with strcmp!!!
         return _symbols[i];
     }
 
@@ -742,73 +713,73 @@ class SemanticAnalyzer {
             JsonVariant expression = definitionJson["SEMANTICS"][symbol_name];
             if (!expression.isNull())
             {
-              if (expression["id"] == "Program") {
-                string program_name = value["variable"]["ID"];
+              if (strcmp(expression["id"], "Program") == 0) {
+                const char * program_name = value["variable"]["ID"];
                 this->global_scope = new ScopedSymbolTable(program_name, 1, nullptr); //current_scope
 
-                DEBUG_ARTI("%s Program %s %d %d\n", spaces+50-depth, global_scope->scope_name.c_str(), global_scope->scope_level, global_scope->_symbolsIndex); 
+                DEBUG_ARTI("%s Program %s %d %d\n", spaces+50-depth, global_scope->scope_name, global_scope->scope_level, global_scope->_symbolsIndex); 
 
                 // current_scope->child_scopes[current_scope->child_scopesIndex++] = this->global_scope;
                 // current_scope = global_scope;
-                visit(value[expression["block"].as<string>()], "", symbol_name, token, this->global_scope, depth + 1);
+                visit(value[expression["block"].as<const char *>()], "", symbol_name, token, this->global_scope, depth + 1);
 
                 for (int i=0; i<global_scope->_symbolsIndex; i++) {
                   Symbol* symbol = global_scope->_symbols[i];
-                  DEBUG_ARTI("%s %d %s %s %s %d\n", spaces+50-depth, i, symbol->symbol_type, symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
+                  DEBUG_ARTI("%s %d %s %s %s %d\n", spaces+50-depth, i, symbol->symbol_type, symbol->name, symbol->type, symbol->scope_level); 
                 }
 
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "Procedure") {
+              else if (strcmp(expression["id"], "Procedure") == 0) {
 
                 //find the procedure name (so we must know this is a procedure...)
-                string proc_name = value[expression["name"].as<string>()];
+                const char * proc_name = value[expression["name"].as<const char *>()];
                 Symbol* proc_symbol = new Symbol(symbol_name, proc_name);
                 current_scope->insert(proc_symbol);
 
-                DEBUG_ARTI("%s procedure %s %s\n", spaces+50-depth, current_scope->scope_name.c_str(), proc_name.c_str());
+                DEBUG_ARTI("%s procedure %s %s\n", spaces+50-depth, current_scope->scope_name, proc_name);
                 ScopedSymbolTable* procedure_scope = new ScopedSymbolTable(proc_name, current_scope->scope_level + 1, current_scope);
                 current_scope->child_scopes[current_scope->child_scopesIndex++] = procedure_scope;
                 proc_symbol->detail_scope = procedure_scope;
                 // DEBUG_ARTI("%s\n", "ASSIGNING ", proc_symbol->name, " " , procedure_scope->scope_name);
 
                 // current_scope = procedure_scope;
-                visit(value[expression["formals"].as<string>()], "", symbol_name, token, procedure_scope, depth + 1);
+                visit(value[expression["formals"].as<const char *>()], "", symbol_name, token, procedure_scope, depth + 1);
 
-                visit(value[expression["block"].as<string>()], "", symbol_name, token, procedure_scope, depth + 1);
+                visit(value[expression["block"].as<const char *>()], "", symbol_name, token, procedure_scope, depth + 1);
 
                 // DEBUG_ARTI("%s\n", spaces+50-depth, "end proc ", symbol_name, procedure_scope->scope_name, procedure_scope->scope_level, procedure_scope->_symbolsIndex); 
 
                 for (int i=0; i<procedure_scope->_symbolsIndex; i++) {
                   Symbol* symbol = procedure_scope->_symbols[i];
-                  DEBUG_ARTI("%s %d %s %s %s %d\n", spaces+50-depth, i, symbol->symbol_type, symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
+                  DEBUG_ARTI("%s %d %s %s %s %d\n", spaces+50-depth, i, symbol->symbol_type, symbol->name, symbol->type, symbol->scope_level); 
                 }
 
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "VarSymbol") {
-                // DEBUG_ARTI("%s var (from array) %s %s %s\n", spaces+50-depth, current_scope->scope_name.c_str(), value.as<string>().c_str(), key.c_str());
+              else if (strcmp(expression["id"], "VarSymbol") == 0) {
+                // DEBUG_ARTI("%s var (from array) %s %s %s\n", spaces+50-depth, current_scope->scope_name.c_str(), value.as<const char *>().c_str(), key.c_str());
                 //can be expression or array of expressions
                 if (value.is<JsonArray>()) {
                   for (JsonObject newValue: value.as<JsonArray>()) {
-                    string param_name = newValue[expression["name"].as<string>()];
-                    string param_type = newValue[expression["type"].as<string>()];//current_scope.lookup(param.type_node.value);
+                    const char * param_name = newValue[expression["name"].as<const char *>()];
+                    char param_type[charLength]; strcpy(param_type, newValue[expression["type"].as<const char *>()].as<string>().c_str());//current_scope.lookup(param.type_node.value); //need string
                     Symbol* var_symbol = new Symbol(symbol_name, param_name, param_type);
                     current_scope->insert(var_symbol);
-                    DEBUG_ARTI("%s var (from array) %s.%s of %s\n", spaces+50-depth, current_scope->scope_name.c_str(), param_name.c_str(), param_type.c_str());
+                    DEBUG_ARTI("%s var (from array) %s.%s of %s\n", spaces+50-depth, current_scope->scope_name, param_name, param_type);
                   }
                 }
                 else {
-                  string param_name = value[expression["name"].as<string>()];
-                  string param_type = value[expression["type"].as<string>()];//current_scope.lookup(param.type_node.value);
+                  const char * param_name = value[expression["name"].as<const char *>()];
+                  char param_type[charLength]; strcpy(param_type, value[expression["type"].as<const char *>()].as<string>().c_str());//current_scope.lookup(param.type_node.value); //need string
                   Symbol* var_symbol = new Symbol(symbol_name, param_name, param_type);
                   current_scope->insert(var_symbol);
-                  DEBUG_ARTI("%s var %s.%s of %s\n", spaces+50-depth, current_scope->scope_name.c_str(), param_name.c_str(), param_type.c_str());
+                  DEBUG_ARTI("%s var %s.%s of %s\n", spaces+50-depth, current_scope->scope_name, param_name, param_type);
                 }
               }
-              else if (expression["id"] == "Assign") {
+              else if (strcmp(expression["id"], "Assign") == 0) {
                 JsonVariant left = value["variable"]["ID"];
-                // JsonVariant right = value[expression["value"].as<string>()];
+                // JsonVariant right = value[expression["value"].as<const char *>()];
                 DEBUG_ARTI("%s Assign %s =\n", spaces+50-depth, left.as<const char *>());
 
                 visit(value, expression["value"], symbol_name, token, current_scope, depth + 1);
@@ -850,29 +821,25 @@ class SemanticAnalyzer {
 class ActivationRecord {
   private:
   public:
-    string name;
-    string type;
+    char name[charLength];
+    char type[charLength];
     int nesting_level;
     DynamicJsonDocument *members;
     JsonObject mem;
 
-    ActivationRecord(string name, string type, int nesting_level) {
-        this->name = name;
-        this->type = type;
+    ActivationRecord(const char * name, const char * type, int nesting_level) {
+        strcpy(this->name, name);
+        strcpy(this->type, type);
         this->nesting_level = nesting_level;
         this->members = new DynamicJsonDocument(1024);
         this->mem = this->members->createNestedObject();
     }
 
-    void set(string key, string value) {
-      // JsonObject mem = members->as<JsonObject>();
-      mem[key] = value;
-      // cout <<"Set ", key, value, mem);
-        // this->members[key] = value;
+    void set(const char * key, const char * value) {
+      mem[key] = strdup(value);
     }
-    string get(string key) {
-        // return this->members.get(key);
-      // JsonObject mem = members->as<JsonObject>();
+
+    const char * get(const char * key) {
       return mem[key];
     }
 }; //ActivationRecord
@@ -902,45 +869,24 @@ class CallStack {
 
 class Calculator {
   private:
-    string stack[100];
+    char stack[100][charLength];
     uint8_t stack_index = 0;
   public:
   Calculator() {
 
   }
 
-  void push(string key, string value) {
+  void push(const char * key, const char * value) {
     // DEBUG_ARTI("calc push %s %s\n", key.c_str(), value.c_str());
-      stack[stack_index++] = value;
-    return;
-    // bool doneSomething = true;
-    if (key == "INTEGER_CONST") {
-      stack[stack_index++] = value;
-    }
-    else if (key == "variable") {
-      stack[stack_index++] = value;
-    }
-    else if (key == "PLUS") {
-      stack[stack_index-2] = intToString(stringToInt(stack[stack_index-2]) + stringToInt(stack[stack_index-1]));
-      stack_index--;
-    }
-    else if (key == "MUL") {
-      stack[stack_index-2] = intToString(stringToInt(stack[stack_index-2]) * stringToInt(stack[stack_index-1]));
-      stack_index--;
-    }
-    // else
-    //   doneSomething = false;
-
-    // if (doneSomething)
-    //   DEBUG_ARTI("%s\n", "Push ", key, value, stack[stack_index-1]);
+      strcpy(stack[stack_index++], value);
   }
 
-  string peek() {
+  const char * peek() {
     // DEBUG_ARTI("Peek %s\n", stack[stack_index-1].c_str());
     return stack[stack_index-1];
   }
 
-  string pop() {
+  const char * pop() {
     if (stack_index>0)
       stack_index--;
     // DEBUG_ARTI("Pop %s\n", stack[stack_index].c_str());
@@ -964,10 +910,10 @@ class Interpreter {
   void interpret() {
     if (global_scope != nullptr) { //due to undefined procedures??? wip
 
-      DEBUG_ARTI("\ninterpret %s %d %d %d\n", global_scope->scope_name.c_str(), global_scope->scope_level, global_scope->_symbolsIndex, global_scope->child_scopesIndex); 
+      DEBUG_ARTI("\ninterpret %s %d %d %d\n", global_scope->scope_name, global_scope->scope_level, global_scope->_symbolsIndex, global_scope->child_scopesIndex); 
       for (int i=0; i<global_scope->_symbolsIndex; i++) {
         Symbol* symbol = global_scope->_symbols[i];
-        DEBUG_ARTI("scope %s %s %s %d\n", symbol->symbol_type, symbol->name.c_str(), symbol->type.c_str(), symbol->scope_level); 
+        DEBUG_ARTI("scope %s %s %s %d\n", symbol->symbol_type, symbol->name, symbol->type, symbol->scope_level); 
       }
     }
     else
@@ -996,48 +942,48 @@ class Interpreter {
             {
               // DEBUG_ARTI("%s\n", spaces+50-depth, "Symbol ", symbol_name,  " ", expression);
 
-              if (expression["id"] == "Program") {
+              if (strcmp(expression["id"], "Program") == 0) {
                 DEBUG_ARTI("%s program name %s\n", spaces+50-depth, expression["name"].as<const char *>());
-                string program_name = value["variable"]["ID"];
+                const char * program_name = value["variable"]["ID"];
 
                 ActivationRecord* ar = new ActivationRecord(program_name, "PROGRAM",1);
-                DEBUG_ARTI("%s %s %s %s\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name.c_str(), program_name.c_str());
+                DEBUG_ARTI("%s %s %s %s\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, program_name);
 
                 this->call_stack.push(ar);
 
-                visit(value[expression["block"].as<string>()], "", symbol_name, token, depth + 1);
+                visit(value[expression["block"].as<const char *>()], "", symbol_name, token, depth + 1);
 
                 this->call_stack.pop();
 
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "Procedure") {
-                string proc_name = value[expression["name"].as<string>()];
+              else if (strcmp(expression["id"], "Procedure") == 0) {
+                const char * proc_name = value[expression["name"].as<const char *>()]; //as string is needed!!!
                 Symbol* proc_symbol = this->global_scope->lookup(proc_name, true, true);
-                DEBUG_ARTI("%s Save block of %s\n", spaces+50-depth, proc_name.c_str());
-                proc_symbol->block = value[expression["block"].as<string>()];
+                DEBUG_ARTI("%s Save block of %s\n", spaces+50-depth, proc_name);
+                proc_symbol->block = value[expression["block"].as<const char *>()];
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "ProcedureCall") {
-                string proc_name = value[expression["name"].as<string>()];
+              else if (strcmp(expression["id"], "ProcedureCall") == 0) {
+                const char * proc_name = value[expression["name"].as<const char *>()]; //as string is needed!!!
                 Symbol* proc_symbol = this->global_scope->lookup(proc_name, true, true);
 
                 if (proc_symbol != nullptr) { //calling undefined function: pre-defined functions e.g. print
 
                 ActivationRecord* ar = new ActivationRecord(proc_name, "PROCEDURE", proc_symbol->scope_level + 1);
 
-                DEBUG_ARTI("%s %s %s %s %s\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name.c_str(), proc_name.c_str(), proc_symbol->name.c_str());
+                DEBUG_ARTI("%s %s %s %s %s\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, proc_name, proc_symbol->name);
 
-                visit(value[expression["actuals"].as<string>()], "", symbol_name, token, depth + 1);
+                visit(value[expression["actuals"].as<const char *>()], "", symbol_name, token, depth + 1);
 
                 for (int i=proc_symbol->detail_scope->_symbolsIndex-1; i>=0;i--) { //backwards because popped in reversed order
                   if (strcmp(proc_symbol->detail_scope->_symbols[i]->symbol_type, "formal_parameters") == 0) { //select formal parameters
                   //{"ID":"Alpha","LPAREN":"(","actual_parameter_list*":[
                     //      {"expr*":[{"term*":[{"factor":{"INTEGER_CONST":"3"}},{}]},{"PLUS":"+"},{"term*":[{"factor":{"INTEGER_CONST":"5"}},{}]}]},{"COMMA":","},
                     //      {"expr*":[{"term*":[{"factor":{"INTEGER_CONST":"7"}},{}]},{}]}],"RPAREN":")","SEMI":";"} 
-                    string result = calculator.pop();
-                    ar->set(proc_symbol->detail_scope->_symbols[i]->name, result.c_str());
-                    DEBUG_ARTI("%s %s = %s\n", spaces+50-depth, proc_symbol->detail_scope->_symbols[i]->name.c_str(), result.c_str());
+                    const char * result = calculator.pop();
+                    ar->set(proc_symbol->detail_scope->_symbols[i]->name, result);
+                    DEBUG_ARTI("%s %s = %s\n", spaces+50-depth, proc_symbol->detail_scope->_symbols[i]->name, result);
                   }
                 }
 
@@ -1075,7 +1021,7 @@ class Interpreter {
                 visitCalledAlready = true;
                 } //proc_symbol != nullptr
                 else {
-                  DEBUG_ARTI("%s %s not found %s\n", spaces+50-depth, expression["id"].as<const char *>(), proc_name.c_str());
+                  DEBUG_ARTI("%s %s not found %s\n", spaces+50-depth, expression["id"].as<const char *>(), proc_name);
                 }
 
               }
@@ -1086,19 +1032,19 @@ class Interpreter {
                 ActivationRecord* ar = this->call_stack.peek();
                 ar->set(value["variable"]["ID"], this->calculator.pop());
 
-                DEBUG_ARTI("%s %s := %s\n", spaces+50-depth, value["variable"]["ID"].as<const char *>(), ar->get(value["variable"]["ID"]).c_str());
+                DEBUG_ARTI("%s %s := %s\n", spaces+50-depth, value["variable"]["ID"].as<const char *>(), ar->get(value["variable"]["ID"]));
 
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "Exprs" || expression["id"] == "Terms") {
+              else if (strcmp(expression["id"], "Exprs") == 0 || strcmp(expression["id"], "Terms") == 0) {
                 // DEBUG_ARTI("%s %s tovisit %s\n", spaces+50-depth, expression["id"].as<const char *>(), value.as<string>().c_str());
-                string operatorx = "";
+                const char * operatorx = "";
                 if (value.is<JsonArray>()) {
                   JsonArray valueArray = value.as<JsonArray>();
                   if (valueArray.size() >= 1) // visit first symbol 
                     visit(valueArray[0], "", symbol_name, token, depth + 1);
                   if (valueArray.size() >= 3) { // add operator and another symbol
-                    operatorx = valueArray[1].as<string>();
+                    operatorx = valueArray[1].as<string>().c_str(); // as string because contains Jsonbject
                     // DEBUG_ARTI("%s %s operator %s\n", spaces+50-depth, expression["id"].as<const char *>(), operatorx.c_str());
                     visit(valueArray[2], "", symbol_name, token, depth + 1);
                   }
@@ -1107,38 +1053,39 @@ class Interpreter {
                 }
                 else
                   DEBUG_ARTI("%s %s not array?? %s %s \n", spaces+50-depth, key, expression["id"].as<const char *>(), value.as<string>().c_str());
-                if (contains(operatorx, "PLUS")) {
-                  string right = calculator.pop();
-                  string left = calculator.pop();
-                  int result = stringToInt(left) + stringToInt(right);
-                  DEBUG_ARTI("%s %s + %s = %d\n", spaces+50-depth, left.c_str(), right.c_str(), result);
-                  calculator.push("PLUS", intToString(result));
+                // DEBUG_ARTI("%s operatorx %s\n", spaces+50-depth, operatorx);
+                if (strstr(operatorx, "PLUS")) {
+                  const char * right = calculator.pop();
+                  const char * left = calculator.pop();
+                  int result = atoi(left) + atoi(right);
+                  DEBUG_ARTI("%s %s + %s = %d\n", spaces+50-depth, left, right, result);
+                  calculator.push("PLUS", intToCharString(result));
                 }
-                if (contains(operatorx, "MUL")) {
-                  string right = calculator.pop();
-                  string left = calculator.pop();
-                  int result = stringToInt(left) * stringToInt(right);
-                  DEBUG_ARTI("%s %s * %s = %d\n", spaces+50-depth, left.c_str(), right.c_str(), result);
-                  calculator.push("MUL", intToString(result));
+                if (strstr(operatorx, "MUL")) {
+                  const char * right = calculator.pop();
+                  const char * left = calculator.pop();
+                  int result = atoi(left) * atoi(right);
+                  DEBUG_ARTI("%s %s * %s = %d\n", spaces+50-depth, left, right, result);
+                  calculator.push("MUL", intToCharString(result));
                 }
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "Variable") {
+              else if (strcmp(expression["id"], "Variable") == 0) {
                 ActivationRecord* ar = this->call_stack.peek();
-                calculator.push(key, ar->get(value[expression["name"].as<string>()]));
-                DEBUG_ARTI("%s %s %s %s\n", spaces+50-depth, key, value[expression["name"].as<string>()].as<const char *>(), ar->get(value[expression["name"].as<string>()]).c_str());
+                calculator.push(key, ar->get(value[expression["name"].as<const char *>()]));
+                DEBUG_ARTI("%s %s %s %s\n", spaces+50-depth, key, value[expression["name"].as<const char *>()].as<const char *>(), ar->get(value[expression["name"].as<const char *>()]));
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "ForLoop") {
+              else if (strcmp(expression["id"], "ForLoop") == 0) {
                 DEBUG_ARTI("%s for loop\n", spaces+50-depth);
 
                 visit(value, expression["from"], symbol_name, token, depth + 1);
-                visit(value[expression["to"].as<string>()], "", symbol_name, token, depth + 1);
+                visit(value[expression["to"].as<const char *>()], "", symbol_name, token, depth + 1);
                 ActivationRecord* ar = this->call_stack.peek();
                 for (int i=0; i<2;i++) { //this is the current state of this project: adding for loops, of course the from and to should be derived from the code ;-)
                   DEBUG_ARTI("%s iteration %d\n", spaces+50-depth, i);
-                  ar->set("y", intToString(i));
-                  visit(value[expression["block"].as<string>()], "", symbol_name, token, depth + 1);
+                  ar->set("y", intToCharString(i));
+                  visit(value[expression["block"].as<const char *>()], "", symbol_name, token, depth + 1);
                 }
                 visitCalledAlready = true;
               }
@@ -1148,8 +1095,8 @@ class Interpreter {
 
           // DEBUG_ARTI("%s\n", spaces+50-depth, "Object ", key, value);
           // if (key == "INTEGER_CONST" || key == "PLUS" || key == "MUL" || key == "LPAREN"  || key == "RPAREN" ) {
-          if (key == "INTEGER_CONST") {// || value == "+" || value == "*") || value == "("  || value == ")" ) {
-            calculator.push(key, value.as<string>());
+          if (strcmp(key, "INTEGER_CONST") == 0) {// || value == "+" || value == "*") || value == "("  || value == ")" ) {
+            calculator.push(key, value.as<const char *>());
             // DEBUG_ARTI("%s\n", spaces+50-depth, "Calculator (push) ", key, value, calculator.peek());
             visitCalledAlready = true;
           }
@@ -1171,7 +1118,7 @@ class Interpreter {
           }
         }
         else { //not array
-          string element = parseTree;
+          const char * element = parseTree.as<const char *>();
           // DEBUG_ARTI("%s\n", spaces+50-depth, "not array not object but element ", element);
         }
       }
@@ -1201,8 +1148,6 @@ public:
   }
 
   void parse() {
-
-    string parseTreeText;
     lexer = new Lexer(this->programText);
     lexer->fillTokensJson();
     parser = new Parser(this->lexer);

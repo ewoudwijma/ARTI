@@ -55,6 +55,7 @@ int main() {
     arti.analyze();
 
     arti.interpret();
+    // printf("Done!!!\n");
   }
 
   programFile.close();

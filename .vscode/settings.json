@@ -8,6 +8,8 @@
         "xiosbase": "cpp",
         "istream": "cpp",
         "iostream": "cpp",
-        "xlocinfo": "cpp"
+        "xlocinfo": "cpp",
+        "system_error": "cpp",
+        "string": "cpp"
     }
 }
