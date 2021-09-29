@@ -1,0 +1,30 @@
+Parser PROGRAM PROGRAM
+  PROGRAM PROGRAM
+  variable
+   ID Main
+  declarations*
+     procedure_declaration
+       FUNCTION FUNCTION
+       ID init
+         LPAREN (
+         formal_parameter_list*
+            formal_parameters
+         RPAREN )
+       block
+         compound_statement
+           CURLYOPEN {
+           statement_list*
+              statement
+                 compound_statement
+                 proccall_statement
+                 assignment_statement
+                   variable
+                 for_loop
+           CURLYCLOSE }
+
+Analyzer
+ Program Main 1 0
+
+interpret Main 1 0 0
+ program name ["variable"]["ID"]
+ Program Main Main

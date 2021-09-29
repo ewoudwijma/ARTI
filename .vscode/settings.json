@@ -10,6 +10,7 @@
         "iostream": "cpp",
         "xlocinfo": "cpp",
         "system_error": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "iosfwd": "cpp"
     }
 }

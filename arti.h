@@ -1,5 +1,6 @@
-#define ARTI_DEBUG 1
-// #define ARDUINOJSON_DEFAULT_NESTING_LIMIT 100
+// #define ARTI_DEBUG 1
+#define ARTI_LOG 1
+// #define ARDUINOJSON_DEFAULT_NESTING_LIMIT 100 //set this in ArduinoJson!!!
 #define charLength 30
 #define arrayLength 30
 
@@ -18,7 +19,23 @@ using namespace std;
     #define DEBUG_ARTI printf
   #endif
 #else
-  #define DEBUG_ARTI(x...)
+  #ifdef ARTI_LOG
+    #ifdef ESP32
+      File logFile;
+      #define DEBUG_ARTI(...) logFile.print("["); logFile.printf(__VA_ARGS__);logFile.print("]")
+    #else
+      FILE * logFile;
+      #define DEBUG_ARTI(...) fprintf(logFile, __VA_ARGS__)
+    #endif
+  #else
+    #define DEBUG_ARTI(...)
+  #endif
+#endif
+
+#ifndef ESP32
+  #include <iostream>
+  #include <fstream>
+  #include <sstream>
 #endif
 
 const char * intToCharString(int value) {
@@ -38,6 +55,7 @@ DynamicJsonDocument definitionJson(8192);
 DynamicJsonDocument parseTreeJson(16384);
 
 const char * spaces = "                                                  ";
+bool errorOccurred = false;
 
 class Token {
   private:
@@ -71,6 +89,7 @@ class Error {
       this->token = token;
       this->message = message;
       DEBUG_ARTI("Error %s %s %s\n", this->token.type, this->token.value, this->message); //this->error_code, 
+      errorOccurred = true;
     }
 };
 
@@ -78,12 +97,14 @@ class LexerError: public Error {
   public:
     LexerError(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE", "", 0, 0), const char * message = "") {
       DEBUG_ARTI("Lexer error %s %s %s\n", this->token.type, this->token.value, this->message); //this->error_code, 
+      errorOccurred = true;
     }
 };
 class ParserError: public Error {
   public:
     ParserError(ErrorCode error_code=ErrorCode::NONE, Token token=Token("NONE", "", 0, 0), const char * message = "") {
       DEBUG_ARTI("Parser error %s %s %s\n", this->token.type, this->token.value, this->message); //this->error_code, 
+      errorOccurred = true;
     }
 };
 class SemanticError: public Error {};
@@ -132,6 +153,7 @@ class Lexer {
       const char * message = "";
       LexerError x = LexerError(ErrorCode::NONE, Token(), message);
       DEBUG_ARTI("%s\n", "LexerError");
+      errorOccurred = true;
     }
 
     void advance() {
@@ -230,19 +252,20 @@ class Lexer {
     }
 
     Token get_next_token() {
+      if (errorOccurred) return Token("EOF", "",0,0);
 
-      while (this->current_char != -1 && this->pos <= strlen(this->text) - 1) {
-        // DEBUG_ARTI("%s\n", "get_next_token ", this->current_char);
+      while (this->current_char != -1 && this->pos <= strlen(this->text) - 1 && !errorOccurred) {
+        // DEBUG_ARTI("get_next_token %c\n", this->current_char);
         if (isspace(this->current_char)) {
           this->skip_whitespace();
           continue;
         }
 
-        if (this->current_char == '{') {
-          this->advance();
-          this->skip_comment();
-          continue;
-        }
+        // if (this->current_char == '{') {
+        //   this->advance();
+        //   this->skip_comment();
+        //   continue;
+        // }
 
         if (isalpha(this->current_char)) {
           return this->id();
@@ -336,10 +359,10 @@ class Parser {
     }
 
     void eat(const char * token_type) {
-      // DEBUG_ARTI("%s\n", "try to eat ", this->current_token.type, "-", token_type);
+      // DEBUG_ARTI("try to eat %s %s\n", this->current_token.type, token_type);
       if (strcmp(this->current_token.type, token_type) == 0) {
         this->current_token = this->get_next_token();
-        // DEBUG_ARTI("%s\n", "eating ", token_type, " -> ", this->current_token.type, this->current_token.value);
+        // DEBUG_ARTI("eating %s -> %s %s\n", token_type, this->current_token.type, this->current_token.value);
       }
       else {
         this->error(ErrorCode::UNEXPECTED_TOKEN, this->current_token);
@@ -379,10 +402,11 @@ class Parser {
   };
 
   Result visit(JsonVariant parseTree, const char * symbol_name, const char * operatorx, JsonVariant expression, int depth = 0) {
+    if (errorOccurred) return Result::RESULTFAIL;
     Result result = Result::RESULTCONTINUE;
 
     if (expression.is<JsonObject>()) {
-      // DEBUG_ARTI("%s parseObject %s\n", spaces+50-depth, operatorx.c_str());//, expression.as<string>().c_str());
+      // DEBUG_ARTI("%s visit Object %s %s %s\n", spaces+50-depth, symbol_name, operatorx, expression.as<string>().c_str());
 
       for (JsonPair element : expression.as<JsonObject>()) {
         const char * objectOperator = element.key().c_str();
@@ -412,9 +436,8 @@ class Parser {
     }
     else { //not object
       if (expression.is<JsonArray>()) {
-        // bool failThis = false;
+        // DEBUG_ARTI("%s visit Array %s %s %s\n", spaces+50-depth, symbol_name, operatorx, expression.as<string>().c_str());
         Result resultChild;
-        // DEBUG_ARTI("%s parseArray %s\n", spaces+50-depth, operatorx.c_str());//, expression.as<string>().c_str());
         if (strcmp(operatorx, "") == 0) 
           operatorx = "and";
 
@@ -450,11 +473,11 @@ class Parser {
       else { //not array
         const char * token_type = expression;
 
+        //if token
         if (!tokensJson[token_type].isNull()) {
 
           if (strcmp(this->current_token.type, token_type) == 0) {
-            // DEBUG_ARTI("%s parseTOken %s\n", spaces+50-depth, operatorx.c_str());//, expression.as<string>().c_str());
-            // DEBUG_ARTI("%s\n", spaces+50-depth, "istoken ok ", token_type, tokenValue, current_token.type, current_token.value);
+            // DEBUG_ARTI("%s visit token %s %s\n", spaces+50-depth, this->current_token.type, token_type);//, expression.as<string>().c_str());
             // if (current_token.type == "ID" || current_token.type == "INTEGER" || current_token.type == "REAL" || current_token.type == "INTEGER_CONST" || current_token.type == "REAL_CONST" || current_token.type == "ID" || current_token.type == "ID" || current_token.type == "ID") {
             DEBUG_ARTI("%s %s %s\n", spaces+50-depth, current_token.type, current_token.value);
 
@@ -472,6 +495,7 @@ class Parser {
             eat(token_type);
           }
           else {
+            // DEBUG_ARTI("%s visit deadend %s %s\n", spaces+50-depth, this->current_token.type, token_type);//, expression.as<string>().c_str());
             // parseTree["deadend"] = token_type + "<>" + current_token.type;
             result = Result::RESULTFAIL;
           }
@@ -502,7 +526,7 @@ class Parser {
             newParseTree = parseTree[symbol_name];
           }
 
-          // DEBUG_ARTI("%s %s\n", spaces+50-depth, newSymbol_name.c_str());
+          // DEBUG_ARTI("%s %s\n", spaces+50-depth, newSymbol_name);
           result = visit(newParseTree, newSymbol_name, "", definitionJson[newSymbol_name], depth + 1);
 
           newParseTree.remove("ccc"); //remove connector
@@ -1127,16 +1151,15 @@ class Interpreter {
 };
 
 class ARTI {
-  private:
+private:
   Lexer *lexer;
   Parser *parser;
   SemanticAnalyzer *semanticAnalyzer;
   TreeWalker *treeWalker;
   Interpreter *interpreter;
-  const char * programText;
+  char programText[1000];
 public:
-  ARTI(const char * programText) {
-    this->programText = programText;
+  ARTI() {
 
     // char byte = charFromProgramFile();
     // while (byte != -1) {
@@ -1173,5 +1196,144 @@ public:
     interpreter = new Interpreter(semanticAnalyzer);
     interpreter->interpret();// interpreter.print();
   }
+
+  #ifdef ESP32
+  void openFileAndParse(const char *definitionName, const char *programName) {
+      char parseOrLoad[charLength] = "NoParse";
+
+      File definitionFile = WLED_FS.open(definitionName, "r");
+
+      File programFile = WLED_FS.open(programName, "r");
+
+      char parseTreeName[charLength];
+      strcpy(parseTreeName, programName);
+      if (strcmp(parseOrLoad, "Parse") == 0 )
+        strcpy(parseTreeName, "Gen");
+      strcat(parseTreeName, ".json");
+      File parseTreeFile = WLED_FS.open(parseTreeName, (strcmp(parseOrLoad, "Parse")==0)?"w":"r");
+
+      #ifdef ARTI_LOG
+        char logFileName[charLength];
+        strcpy(logFileName, "/");
+        strcpy(logFileName, programName);
+        strcat(logFileName, ".log");
+
+        logFile = WLED_FS.open(logFileName,"w");
+      #endif
+
+      if (!programFile || !definitionFile)
+      {
+        DEBUG_ARTI("Files not found\n");
+      }
+      else {
+
+        //read program
+        uint16_t index = 0;
+        while(programFile.available()){
+          programText[index++] = (char)programFile.read();
+        }
+        programText[index] = '\0';
+
+        //read definition
+        DeserializationError err = deserializeJson(definitionJson, definitionFile);
+        if (err) {
+          DEBUG_ARTI("deserializeJson() in Lexer failed with code %s\n", err.c_str());
+        }
+
+        if (strcmp(parseOrLoad, "Parse") == 0) {
+          this->parse();
+
+          //write parseTree
+          serializeJsonPretty(parseTreeJson,  parseTreeFile);
+        }
+        else
+        {
+          //read parseTree
+          DeserializationError err = deserializeJson(parseTreeJson, parseTreeFile);
+          if (err) {
+            DEBUG_ARTI("deserializeJson() in loadParseTree failed with code %s\n", err.c_str());
+          }
+
+        }
+
+        // char resultString[standardStringLenght];
+        // // strcpy(resultString, "");
+        // arti.walk(parseTreeJson.as<JsonVariant>(), resultString);
+        // DEBUG_ARTI("walk result %s", resultString);
+
+        this->analyze();
+
+      }
+
+      programFile.close();
+      definitionFile.close();
+      parseTreeFile.close();
+      #ifdef ARTI_LOG
+        logFile.close();
+      #endif
+
+  } // openFileAndParse
+  #else
+    void openFileAndParse(const char *definitionName, const char *programName) {
+      fstream definitionFile;
+      definitionFile.open(definitionName, ios::in);
+
+      fstream programFile;
+      programFile.open(programName, ios::in);
+
+      char parseTreeName[charLength];
+      strcpy(parseTreeName, programName);
+      strcat(parseTreeName, ".json");
+
+      fstream parseTreeFile;
+      parseTreeFile.open(parseTreeName, ios::out);
+
+      #ifdef ARTI_LOG
+        char logFileName[charLength];
+        strcpy(logFileName, programName);
+        strcat(logFileName, ".log");
+
+        logFile = fopen (logFileName,"w");
+      #endif
+
+      if (!programFile || !definitionFile)
+      {
+        DEBUG_ARTI("Files not found:\n");
+      }
+      else {
+
+        //read program
+        programFile.read(programText, sizeof programText);
+        programText[programFile.gcount()] = '\0';
+        // DEBUG_ARTI("%s %d", programText, strlen(programText));
+
+        //read definition
+        DeserializationError err = deserializeJson(definitionJson, definitionFile);
+        if (err) {
+          DEBUG_ARTI("deserializeJson() in Lexer failed with code %s\n", err.c_str());
+        }
+
+        this->parse();
+
+        //write parseTree
+        serializeJsonPretty(parseTreeJson, parseTreeFile);
+
+        // char resultString[standardStringLenght];
+        // arti.walk(parseTreeJson.as<JsonVariant>(), resultString);
+        // DEBUG_ARTI("walk result %s", resultString);
+
+        this->analyze();
+
+        // printf("Done!!!\n");
+      }
+
+      programFile.close();
+      definitionFile.close();
+      parseTreeFile.close();
+      #ifdef ARTI_LOG
+        // fclose (logFile); //should not be closed as still streaming...
+      #endif
+    } // openFileAndParse
+  #endif
 
 }; //ARTI

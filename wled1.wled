@@ -1,0 +1,10 @@
+program Main
+   function init() {
+
+   }
+   function before() {
+
+   }
+   function render(index) {
+
+   }

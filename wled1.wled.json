@@ -1,0 +1,26 @@
+{
+  "program": {
+    "PROGRAM": "PROGRAM",
+    "variable": {
+      "ID": "Main"
+    },
+    "declarations*": [
+      {
+        "procedure_declaration": {
+          "FUNCTION": "FUNCTION",
+          "ID": "init",
+          "LPAREN": "(",
+          "formal_parameter_list*": [],
+          "RPAREN": ")",
+          "block": {
+            "compound_statement": {
+              "CURLYOPEN": "{",
+              "statement_list*": [],
+              "CURLYCLOSE": "}"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
