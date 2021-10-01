@@ -11,6 +11,7 @@
         "xlocinfo": "cpp",
         "system_error": "cpp",
         "string": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "fstream": "cpp"
     }
 }

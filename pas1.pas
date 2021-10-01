@@ -11,6 +11,12 @@ var x : integer;
       x := a * 10 + b * 2;
    end;
 
+   procedure Gamma(a : integer; b : integer);
+   var x : integer;
+   begin
+      x := a * 10 + b * 2;
+   end;
+
 begin
    x := (a + b ) * 2;
 

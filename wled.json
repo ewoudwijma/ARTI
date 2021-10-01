@@ -2,19 +2,25 @@
      "program": [
           "PROGRAM",
           "variable",
-          "declarations*"
+          "CURLYOPEN", 
+          "block",
+          "CURLYCLOSE"
      ],
      "block": [
+          "declarations*",
           "compound_statement"
      ],
      "declarations*" : [
-          {"*": "procedure_declaration" }
+          {"*": "variable_declaration"}, 
+          {"*": "procedure_declaration"}
      ],
      "variable_declaration" : [
           "ID", 
-          {"*": ["COMMA", "ID"]}, 
-          "COLON", 
-          "type_spec"
+          "EQUALSIGN", 
+          "ARRAY", 
+          "LPAREN",
+          "variable", 
+          "RPAREN"
      ],
      "procedure_declaration" : [
           "FUNCTION", 
@@ -24,10 +30,7 @@
      ],
      "formal_parameter_list*" : {"?": ["formal_parameters", {"*":["SEMI", "formal_parameters"]}]},
      "formal_parameters" : [
-          "ID", 
-          {"*": ["COMMA", "ID"]}, 
-          "COLON", 
-          "type_spec"
+          "ID"
      ],
      "type_spec" : {"or" : ["INTEGER", "REAL"]},
      "compound_statement" : [
@@ -43,14 +46,16 @@
           "ID", 
           "LPAREN", 
           "actual_parameter_list*", 
-          "RPAREN", "SEMI"
+          "RPAREN"
      ],
      "actual_parameter_list*": {"?": ["expr*", {"*": ["COMMA", "expr*"]}]},
      "assignment_statement" : [
-          "variable", 
-          "ASSIGN", 
+          "variableassignment", 
+          "EQUALSIGN", 
           "expr*"
      ],
+     "variableassignment" : {"or": ["arrayvariable", "variable"]},
+     "arrayvariable": ["variable", "LBRACKET", "expr*", "RBRACKET"],
      "empty" : [""],
      "expr*" : [
           "term*", 
@@ -66,7 +71,7 @@
                [ "LPAREN", "expr*", "RPAREN"]
                ]},
      "variable": "ID",
-     "for_loop": ["FOR", "assignment_statement", "TO", "expr*","DO","compound_statement","SEMI"],
+     "for_loop": ["FOR", "assignment_statement", "TO", "expr*","DO","compound_statement"],
      "TOKENS":
 
           {
@@ -76,11 +81,13 @@
           "FLOAT_DIV": "/",
           "LPAREN": "(",
           "RPAREN": ")",
+          "LBRACKET": "[",
+          "RBRACKET": "]",
           "SEMI": ";",
           "DOT": ".",
           "COLON": ":",
           "COMMA": ",",
-    
+          "EQUALSIGN": "=",
           "ASSIGN": ":=",
     
           "PROGRAM": "PROGRAM",
@@ -93,7 +100,8 @@
           "CURLYCLOSE": "}",
           "FOR": "FOR",
           "TO": "TO",
-          "DO": "DO"
+          "DO": "DO",
+          "ARRAY": "ARRAY"
           },
      "SEMANTICS":
      {

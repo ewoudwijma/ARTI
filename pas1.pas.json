@@ -172,6 +172,116 @@
                       }
                     }
                   }
+                },
+                {
+                  "procedure_declaration": {
+                    "PROCEDURE": "PROCEDURE",
+                    "ID": "Gamma",
+                    "LPAREN": "(",
+                    "formal_parameter_list*": [
+                      {
+                        "formal_parameters": {
+                          "ID": "a",
+                          "COLON": ":",
+                          "type_spec": {
+                            "INTEGER": "INTEGER"
+                          }
+                        }
+                      },
+                      {
+                        "SEMI": ";"
+                      },
+                      {
+                        "formal_parameters": {
+                          "ID": "b",
+                          "COLON": ":",
+                          "type_spec": {
+                            "INTEGER": "INTEGER"
+                          }
+                        }
+                      }
+                    ],
+                    "RPAREN": ")",
+                    "SEMI": ";",
+                    "block": {
+                      "declarations*": [
+                        {
+                          "variable_declaration": {
+                            "ID": "x",
+                            "COLON": ":",
+                            "type_spec": {
+                              "INTEGER": "INTEGER"
+                            }
+                          }
+                        },
+                        {
+                          "SEMI": ";"
+                        }
+                      ],
+                      "compound_statement": {
+                        "BEGIN": "BEGIN",
+                        "statement_list*": [
+                          {
+                            "statement": {
+                              "assignment_statement": {
+                                "variable": {
+                                  "ID": "x"
+                                },
+                                "ASSIGN": ":=",
+                                "expr*": [
+                                  {
+                                    "term*": [
+                                      {
+                                        "factor": {
+                                          "variable": {
+                                            "ID": "a"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "MUL": "*"
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "10"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "PLUS": "+"
+                                  },
+                                  {
+                                    "term*": [
+                                      {
+                                        "factor": {
+                                          "variable": {
+                                            "ID": "b"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "MUL": "*"
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "2"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "SEMI": ";"
+                          }
+                        ],
+                        "END": "END"
+                      }
+                    }
+                  }
                 }
               ],
               "compound_statement": {
@@ -273,10 +383,12 @@
                             ]
                           }
                         ],
-                        "RPAREN": ")",
-                        "SEMI": ";"
+                        "RPAREN": ")"
                       }
                     }
+                  },
+                  {
+                    "SEMI": ";"
                   }
                 ],
                 "END": "END"
@@ -336,10 +448,12 @@
                     ]
                   }
                 ],
-                "RPAREN": ")",
-                "SEMI": ";"
+                "RPAREN": ")"
               }
             }
+          },
+          {
+            "SEMI": ";"
           },
           {
             "statement": {
@@ -416,17 +530,21 @@
                               ]
                             }
                           ],
-                          "RPAREN": ")",
-                          "SEMI": ";"
+                          "RPAREN": ")"
                         }
                       }
+                    },
+                    {
+                      "SEMI": ";"
                     }
                   ],
                   "END": "END"
-                },
-                "SEMI": ";"
+                }
               }
             }
+          },
+          {
+            "SEMI": ";"
           }
         ],
         "END": "END"

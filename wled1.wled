@@ -1,10 +1,16 @@
 program Main
+{
+   pixels = array(pixelCount)
+
    function init() {
 
    }
+
    function before() {
-
+      pixels[3] = 10;
    }
+
    function render(index) {
-
    }
+   {}
+}

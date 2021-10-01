@@ -1,291 +1,518 @@
 Parser PROGRAM PROGRAM
-  PROGRAM PROGRAM
-  variable
-   ID Main
-  SEMI ;
-  block
-    declarations*
-        VAR VAR
-          variable_declaration
-            ID y
-            COLON :
-            type_spec
-               INTEGER INTEGER
-          SEMI ;
-       procedure_declaration
-         PROCEDURE PROCEDURE
-         ID Alpha
-           LPAREN (
-           formal_parameter_list*
-             formal_parameters
-               ID a
-               COLON :
-               type_spec
-                  INTEGER INTEGER
-               SEMI ;
-               formal_parameters
-                 ID b
-                 COLON :
-                 type_spec
-                    INTEGER INTEGER
-           RPAREN )
-         SEMI ;
-         block
-           declarations*
-               VAR VAR
-                 variable_declaration
-                   ID x
-                   COLON :
-                   type_spec
-                      INTEGER INTEGER
-                 SEMI ;
-              procedure_declaration
-                PROCEDURE PROCEDURE
-                ID Beta
-                  LPAREN (
-                  formal_parameter_list*
-                    formal_parameters
-                      ID a
-                      COLON :
-                      type_spec
-                         INTEGER INTEGER
-                      SEMI ;
-                      formal_parameters
-                        ID b
-                        COLON :
-                        type_spec
-                           INTEGER INTEGER
-                  RPAREN )
-                SEMI ;
-                block
-                  declarations*
-                      VAR VAR
-                        variable_declaration
-                          ID x
-                          COLON :
-                          type_spec
-                             INTEGER INTEGER
-                        SEMI ;
-                     procedure_declaration
-                  compound_statement
-                    BEGIN BEGIN
-                    statement_list*
-                      statement
-                         compound_statement
-                         proccall_statement
-                           ID x
-                         assignment_statement
-                           variable
-                            ID x
-                           ASSIGN :=
-                           expr*
-                             term*
-                               factor
-                                  variable
-                                   ID a
-                                   MUL *
-                                 factor
-                                    variable
-                                    INTEGER_CONST 10
-                                 PLUS +
-                               term*
-                                 factor
-                                    variable
-                                     ID b
-                                     MUL *
-                                   factor
-                                      variable
-                                      INTEGER_CONST 2
-                        SEMI ;
-                        statement
-                           compound_statement
-                           proccall_statement
-                           assignment_statement
-                             variable
-                           for_loop
-                    END END
-                SEMI ;
-           compound_statement
-             BEGIN BEGIN
-             statement_list*
-               statement
-                  compound_statement
-                  proccall_statement
-                    ID x
-                  assignment_statement
-                    variable
-                     ID x
-                    ASSIGN :=
-                    expr*
-                      term*
-                        factor
-                           variable
-                            LPAREN (
-                            expr*
-                              term*
-                                factor
-                                   variable
-                                    ID a
-                                  factor
-                                     variable
-                                  PLUS +
-                                term*
-                                  factor
-                                     variable
-                                      ID b
-                                    factor
-                                       variable
-                            RPAREN )
-                            MUL *
-                          factor
-                             variable
-                             INTEGER_CONST 2
-                        term*
-                          factor
-                             variable
-                 SEMI ;
-                 statement
-                    compound_statement
-                    proccall_statement
-                      ID Beta
-                      LPAREN (
-                      actual_parameter_list*
-                         expr*
-                           term*
-                             factor
-                                variable
-                                INTEGER_CONST 5
-                               factor
-                                  variable
-                             term*
-                               factor
-                                  variable
-                           COMMA ,
-                           expr*
-                             term*
-                               factor
-                                  variable
-                                  INTEGER_CONST 10
-                                 factor
-                                    variable
-                               term*
-                                 factor
-                                    variable
-                      RPAREN )
-                      SEMI ;
-             END END
-         SEMI ;
-    compound_statement
-      BEGIN BEGIN
-      statement_list*
-        statement
-           compound_statement
-           proccall_statement
-             ID Alpha
-             LPAREN (
-             actual_parameter_list*
-                expr*
-                  term*
-                    factor
-                       variable
-                       INTEGER_CONST 3
-                      factor
-                         variable
-                      PLUS +
-                    term*
-                      factor
-                         variable
-                         INTEGER_CONST 5
-                        factor
-                           variable
-                  COMMA ,
-                  expr*
-                    term*
-                      factor
-                         variable
-                         INTEGER_CONST 7
-                        factor
-                           variable
-                      term*
-                        factor
-                           variable
-             RPAREN )
-             SEMI ;
-          statement
-             compound_statement
-             proccall_statement
-             assignment_statement
-               variable
-             for_loop
-               FOR FOR
-               assignment_statement
-                 variable
-                  ID y
-                 ASSIGN :=
-                 expr*
-                   term*
-                     factor
-                        variable
-                        INTEGER_CONST 1
-                       factor
-                          variable
-                     term*
-                       factor
-                          variable
-               TO TO
-               expr*
-                 term*
-                   factor
-                      variable
-                      INTEGER_CONST 10
-                     factor
-                        variable
-                   term*
-                     factor
-                        variable
-               DO DO
-               compound_statement
-                 BEGIN BEGIN
-                 statement_list*
-                   statement
-                      compound_statement
-                      proccall_statement
-                        ID Alpha
-                        LPAREN (
-                        actual_parameter_list*
-                           expr*
-                             term*
-                               factor
-                                  variable
-                                  INTEGER_CONST 35
-                                 factor
-                                    variable
-                               term*
-                                 factor
-                                    variable
-                             COMMA ,
-                             expr*
-                               term*
-                                 factor
-                                    variable
-                                     ID y
-                                   factor
-                                      variable
-                                 term*
-                                   factor
-                                      variable
-                        RPAREN )
-                        SEMI ;
-                     statement
-                        compound_statement
-                        proccall_statement
-                        assignment_statement
-                          variable
-                        for_loop
-                 END END
-               SEMI ;
-      END END
-  DOT .
+  PROGRAM PROGRAM -> [ID Main]
+  variable ID
+   ID Main -> [SEMI ;]
+  success variable
+  SEMI ; -> [VAR VAR]
+  block ["declarations*","compound_statement"]
+    declarations* [{"?":["VAR",{"+":["variable_declaration","SEMI"]}]},{"*":"procedure_declaration"}]
+        VAR VAR -> [ID y]
+          variable_declaration ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+            ID y -> [COLON :]
+            COLON : -> [INTEGER INTEGER]
+            type_spec {"or":["INTEGER","REAL"]}
+               INTEGER INTEGER -> [SEMI ;]
+            success type_spec
+          success variable_declaration
+          SEMI ; -> [PROCEDURE PROCEDURE]
+          variable_declaration ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+          fail variable_declaration
+       procedure_declaration ["PROCEDURE","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"SEMI","block","SEMI"]
+         PROCEDURE PROCEDURE -> [ID Alpha]
+         ID Alpha -> [LPAREN (]
+           LPAREN ( -> [ID a]
+           formal_parameter_list* ["formal_parameters",{"*":["SEMI","formal_parameters"]}]
+             formal_parameters ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+               ID a -> [COLON :]
+               COLON : -> [INTEGER INTEGER]
+               type_spec {"or":["INTEGER","REAL"]}
+                  INTEGER INTEGER -> [SEMI ;]
+               success type_spec
+             success formal_parameters
+               SEMI ; -> [ID b]
+               formal_parameters ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+                 ID b -> [COLON :]
+                 COLON : -> [INTEGER INTEGER]
+                 type_spec {"or":["INTEGER","REAL"]}
+                    INTEGER INTEGER -> [RPAREN )]
+                 success type_spec
+               success formal_parameters
+           success formal_parameter_list*
+           RPAREN ) -> [SEMI ;]
+         SEMI ; -> [VAR VAR]
+         block ["declarations*","compound_statement"]
+           declarations* [{"?":["VAR",{"+":["variable_declaration","SEMI"]}]},{"*":"procedure_declaration"}]
+               VAR VAR -> [ID x]
+                 variable_declaration ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+                   ID x -> [COLON :]
+                   COLON : -> [INTEGER INTEGER]
+                   type_spec {"or":["INTEGER","REAL"]}
+                      INTEGER INTEGER -> [SEMI ;]
+                   success type_spec
+                 success variable_declaration
+                 SEMI ; -> [PROCEDURE PROCEDURE]
+                 variable_declaration ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+                 fail variable_declaration
+              procedure_declaration ["PROCEDURE","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"SEMI","block","SEMI"]
+                PROCEDURE PROCEDURE -> [ID Beta]
+                ID Beta -> [LPAREN (]
+                  LPAREN ( -> [ID a]
+                  formal_parameter_list* ["formal_parameters",{"*":["SEMI","formal_parameters"]}]
+                    formal_parameters ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+                      ID a -> [COLON :]
+                      COLON : -> [INTEGER INTEGER]
+                      type_spec {"or":["INTEGER","REAL"]}
+                         INTEGER INTEGER -> [SEMI ;]
+                      success type_spec
+                    success formal_parameters
+                      SEMI ; -> [ID b]
+                      formal_parameters ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+                        ID b -> [COLON :]
+                        COLON : -> [INTEGER INTEGER]
+                        type_spec {"or":["INTEGER","REAL"]}
+                           INTEGER INTEGER -> [RPAREN )]
+                        success type_spec
+                      success formal_parameters
+                  success formal_parameter_list*
+                  RPAREN ) -> [SEMI ;]
+                SEMI ; -> [VAR VAR]
+                block ["declarations*","compound_statement"]
+                  declarations* [{"?":["VAR",{"+":["variable_declaration","SEMI"]}]},{"*":"procedure_declaration"}]
+                      VAR VAR -> [ID x]
+                        variable_declaration ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+                          ID x -> [COLON :]
+                          COLON : -> [INTEGER INTEGER]
+                          type_spec {"or":["INTEGER","REAL"]}
+                             INTEGER INTEGER -> [SEMI ;]
+                          success type_spec
+                        success variable_declaration
+                        SEMI ; -> [BEGIN BEGIN]
+                        variable_declaration ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+                        fail variable_declaration
+                     procedure_declaration ["PROCEDURE","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"SEMI","block","SEMI"]
+                     fail procedure_declaration
+                  success declarations*
+                  compound_statement ["BEGIN","statement_list*","END"]
+                    BEGIN BEGIN -> [ID x]
+                    statement_list* ["statement",{"*":["SEMI","statement"]}]
+                      statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                         compound_statement ["BEGIN","statement_list*","END"]
+                         fail compound_statement
+                         proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                           ID x -> [ASSIGN :=]
+                         fail proccall_statement
+                         assignment_statement ["variable","ASSIGN","expr*"]
+                           variable ID
+                            ID x -> [ASSIGN :=]
+                           success variable
+                           ASSIGN := -> [ID a]
+                           expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                             term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                               factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                  variable ID
+                                   ID a -> [MUL *]
+                                  success variable
+                               success factor
+                                   MUL * -> [INTEGER_CONST 10]
+                                 factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                    variable ID
+                                    fail variable
+                                    INTEGER_CONST 10 -> [PLUS +]
+                                 success factor
+                             success term*
+                                 PLUS + -> [ID b]
+                               term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                                 factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                    variable ID
+                                     ID b -> [MUL *]
+                                    success variable
+                                 success factor
+                                     MUL * -> [INTEGER_CONST 2]
+                                   factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                      variable ID
+                                      fail variable
+                                      INTEGER_CONST 2 -> [SEMI ;]
+                                   success factor
+                               success term*
+                           success expr*
+                         success assignment_statement
+                      success statement
+                        SEMI ; -> [END END]
+                        statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                           compound_statement ["BEGIN","statement_list*","END"]
+                           fail compound_statement
+                           proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                           fail proccall_statement
+                           assignment_statement ["variable","ASSIGN","expr*"]
+                             variable ID
+                             fail variable
+                           fail assignment_statement
+                           for_loop ["FOR","assignment_statement","TO","expr*","DO","compound_statement"]
+                           fail for_loop
+                        fail statement
+                    success statement_list*
+                    END END -> [SEMI ;]
+                  success compound_statement
+                success block
+                SEMI ; -> [PROCEDURE PROCEDURE]
+              success procedure_declaration
+              procedure_declaration ["PROCEDURE","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"SEMI","block","SEMI"]
+                PROCEDURE PROCEDURE -> [ID Gamma]
+                ID Gamma -> [LPAREN (]
+                  LPAREN ( -> [ID a]
+                  formal_parameter_list* ["formal_parameters",{"*":["SEMI","formal_parameters"]}]
+                    formal_parameters ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+                      ID a -> [COLON :]
+                      COLON : -> [INTEGER INTEGER]
+                      type_spec {"or":["INTEGER","REAL"]}
+                         INTEGER INTEGER -> [SEMI ;]
+                      success type_spec
+                    success formal_parameters
+                      SEMI ; -> [ID b]
+                      formal_parameters ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+                        ID b -> [COLON :]
+                        COLON : -> [INTEGER INTEGER]
+                        type_spec {"or":["INTEGER","REAL"]}
+                           INTEGER INTEGER -> [RPAREN )]
+                        success type_spec
+                      success formal_parameters
+                  success formal_parameter_list*
+                  RPAREN ) -> [SEMI ;]
+                SEMI ; -> [VAR VAR]
+                block ["declarations*","compound_statement"]
+                  declarations* [{"?":["VAR",{"+":["variable_declaration","SEMI"]}]},{"*":"procedure_declaration"}]
+                      VAR VAR -> [ID x]
+                        variable_declaration ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+                          ID x -> [COLON :]
+                          COLON : -> [INTEGER INTEGER]
+                          type_spec {"or":["INTEGER","REAL"]}
+                             INTEGER INTEGER -> [SEMI ;]
+                          success type_spec
+                        success variable_declaration
+                        SEMI ; -> [BEGIN BEGIN]
+                        variable_declaration ["ID",{"*":["COMMA","ID"]},"COLON","type_spec"]
+                        fail variable_declaration
+                     procedure_declaration ["PROCEDURE","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"SEMI","block","SEMI"]
+                     fail procedure_declaration
+                  success declarations*
+                  compound_statement ["BEGIN","statement_list*","END"]
+                    BEGIN BEGIN -> [ID x]
+                    statement_list* ["statement",{"*":["SEMI","statement"]}]
+                      statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                         compound_statement ["BEGIN","statement_list*","END"]
+                         fail compound_statement
+                         proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                           ID x -> [ASSIGN :=]
+                         fail proccall_statement
+                         assignment_statement ["variable","ASSIGN","expr*"]
+                           variable ID
+                            ID x -> [ASSIGN :=]
+                           success variable
+                           ASSIGN := -> [ID a]
+                           expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                             term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                               factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                  variable ID
+                                   ID a -> [MUL *]
+                                  success variable
+                               success factor
+                                   MUL * -> [INTEGER_CONST 10]
+                                 factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                    variable ID
+                                    fail variable
+                                    INTEGER_CONST 10 -> [PLUS +]
+                                 success factor
+                             success term*
+                                 PLUS + -> [ID b]
+                               term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                                 factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                    variable ID
+                                     ID b -> [MUL *]
+                                    success variable
+                                 success factor
+                                     MUL * -> [INTEGER_CONST 2]
+                                   factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                      variable ID
+                                      fail variable
+                                      INTEGER_CONST 2 -> [SEMI ;]
+                                   success factor
+                               success term*
+                           success expr*
+                         success assignment_statement
+                      success statement
+                        SEMI ; -> [END END]
+                        statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                           compound_statement ["BEGIN","statement_list*","END"]
+                           fail compound_statement
+                           proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                           fail proccall_statement
+                           assignment_statement ["variable","ASSIGN","expr*"]
+                             variable ID
+                             fail variable
+                           fail assignment_statement
+                           for_loop ["FOR","assignment_statement","TO","expr*","DO","compound_statement"]
+                           fail for_loop
+                        fail statement
+                    success statement_list*
+                    END END -> [SEMI ;]
+                  success compound_statement
+                success block
+                SEMI ; -> [BEGIN BEGIN]
+              success procedure_declaration
+              procedure_declaration ["PROCEDURE","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"SEMI","block","SEMI"]
+              fail procedure_declaration
+           success declarations*
+           compound_statement ["BEGIN","statement_list*","END"]
+             BEGIN BEGIN -> [ID x]
+             statement_list* ["statement",{"*":["SEMI","statement"]}]
+               statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                  compound_statement ["BEGIN","statement_list*","END"]
+                  fail compound_statement
+                  proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                    ID x -> [ASSIGN :=]
+                  fail proccall_statement
+                  assignment_statement ["variable","ASSIGN","expr*"]
+                    variable ID
+                     ID x -> [ASSIGN :=]
+                    success variable
+                    ASSIGN := -> [LPAREN (]
+                    expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                      term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                        factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                           variable ID
+                           fail variable
+                            LPAREN ( -> [ID a]
+                            expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                              term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                                factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                   variable ID
+                                    ID a -> [PLUS +]
+                                   success variable
+                                success factor
+                              success term*
+                                  PLUS + -> [ID b]
+                                term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                                  factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                     variable ID
+                                      ID b -> [RPAREN )]
+                                     success variable
+                                  success factor
+                                success term*
+                            success expr*
+                            RPAREN ) -> [MUL *]
+                        success factor
+                            MUL * -> [INTEGER_CONST 2]
+                          factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                             variable ID
+                             fail variable
+                             INTEGER_CONST 2 -> [SEMI ;]
+                          success factor
+                      success term*
+                    success expr*
+                  success assignment_statement
+               success statement
+                 SEMI ; -> [ID Beta]
+                 statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                    compound_statement ["BEGIN","statement_list*","END"]
+                    fail compound_statement
+                    proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                      ID Beta -> [LPAREN (]
+                      LPAREN ( -> [INTEGER_CONST 5]
+                      actual_parameter_list* {"?":["expr*",{"*":["COMMA","expr*"]}]}
+                         expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                           term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                             factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                variable ID
+                                fail variable
+                                INTEGER_CONST 5 -> [COMMA ,]
+                             success factor
+                           success term*
+                         success expr*
+                           COMMA , -> [INTEGER_CONST 10]
+                           expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                             term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                               factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                  variable ID
+                                  fail variable
+                                  INTEGER_CONST 10 -> [RPAREN )]
+                               success factor
+                             success term*
+                           success expr*
+                      success actual_parameter_list*
+                      RPAREN ) -> [SEMI ;]
+                    success proccall_statement
+                 success statement
+                 SEMI ; -> [END END]
+                 statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                    compound_statement ["BEGIN","statement_list*","END"]
+                    fail compound_statement
+                    proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                    fail proccall_statement
+                    assignment_statement ["variable","ASSIGN","expr*"]
+                      variable ID
+                      fail variable
+                    fail assignment_statement
+                    for_loop ["FOR","assignment_statement","TO","expr*","DO","compound_statement"]
+                    fail for_loop
+                 fail statement
+             success statement_list*
+             END END -> [SEMI ;]
+           success compound_statement
+         success block
+         SEMI ; -> [BEGIN BEGIN]
+       success procedure_declaration
+       procedure_declaration ["PROCEDURE","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"SEMI","block","SEMI"]
+       fail procedure_declaration
+    success declarations*
+    compound_statement ["BEGIN","statement_list*","END"]
+      BEGIN BEGIN -> [ID Alpha]
+      statement_list* ["statement",{"*":["SEMI","statement"]}]
+        statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+           compound_statement ["BEGIN","statement_list*","END"]
+           fail compound_statement
+           proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+             ID Alpha -> [LPAREN (]
+             LPAREN ( -> [INTEGER_CONST 3]
+             actual_parameter_list* {"?":["expr*",{"*":["COMMA","expr*"]}]}
+                expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                  term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                    factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                       variable ID
+                       fail variable
+                       INTEGER_CONST 3 -> [PLUS +]
+                    success factor
+                  success term*
+                      PLUS + -> [INTEGER_CONST 5]
+                    term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                      factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                         variable ID
+                         fail variable
+                         INTEGER_CONST 5 -> [COMMA ,]
+                      success factor
+                    success term*
+                success expr*
+                  COMMA , -> [INTEGER_CONST 7]
+                  expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                    term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                      factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                         variable ID
+                         fail variable
+                         INTEGER_CONST 7 -> [RPAREN )]
+                      success factor
+                    success term*
+                  success expr*
+             success actual_parameter_list*
+             RPAREN ) -> [SEMI ;]
+           success proccall_statement
+        success statement
+          SEMI ; -> [FOR FOR]
+          statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+             compound_statement ["BEGIN","statement_list*","END"]
+             fail compound_statement
+             proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+             fail proccall_statement
+             assignment_statement ["variable","ASSIGN","expr*"]
+               variable ID
+               fail variable
+             fail assignment_statement
+             for_loop ["FOR","assignment_statement","TO","expr*","DO","compound_statement"]
+               FOR FOR -> [ID y]
+               assignment_statement ["variable","ASSIGN","expr*"]
+                 variable ID
+                  ID y -> [ASSIGN :=]
+                 success variable
+                 ASSIGN := -> [INTEGER_CONST 1]
+                 expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                   term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                     factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                        variable ID
+                        fail variable
+                        INTEGER_CONST 1 -> [TO TO]
+                     success factor
+                   success term*
+                 success expr*
+               success assignment_statement
+               TO TO -> [INTEGER_CONST 10]
+               expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                 term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                   factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                      variable ID
+                      fail variable
+                      INTEGER_CONST 10 -> [DO DO]
+                   success factor
+                 success term*
+               success expr*
+               DO DO -> [BEGIN BEGIN]
+               compound_statement ["BEGIN","statement_list*","END"]
+                 BEGIN BEGIN -> [ID Alpha]
+                 statement_list* ["statement",{"*":["SEMI","statement"]}]
+                   statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                      compound_statement ["BEGIN","statement_list*","END"]
+                      fail compound_statement
+                      proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                        ID Alpha -> [LPAREN (]
+                        LPAREN ( -> [INTEGER_CONST 35]
+                        actual_parameter_list* {"?":["expr*",{"*":["COMMA","expr*"]}]}
+                           expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                             term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                               factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                  variable ID
+                                  fail variable
+                                  INTEGER_CONST 35 -> [COMMA ,]
+                               success factor
+                             success term*
+                           success expr*
+                             COMMA , -> [ID y]
+                             expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                               term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                                 factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                    variable ID
+                                     ID y -> [RPAREN )]
+                                    success variable
+                                 success factor
+                               success term*
+                             success expr*
+                        success actual_parameter_list*
+                        RPAREN ) -> [SEMI ;]
+                      success proccall_statement
+                   success statement
+                     SEMI ; -> [END END]
+                     statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                        compound_statement ["BEGIN","statement_list*","END"]
+                        fail compound_statement
+                        proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                        fail proccall_statement
+                        assignment_statement ["variable","ASSIGN","expr*"]
+                          variable ID
+                          fail variable
+                        fail assignment_statement
+                        for_loop ["FOR","assignment_statement","TO","expr*","DO","compound_statement"]
+                        fail for_loop
+                     fail statement
+                 success statement_list*
+                 END END -> [SEMI ;]
+               success compound_statement
+             success for_loop
+          success statement
+          SEMI ; -> [END END]
+          statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+             compound_statement ["BEGIN","statement_list*","END"]
+             fail compound_statement
+             proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+             fail proccall_statement
+             assignment_statement ["variable","ASSIGN","expr*"]
+               variable ID
+               fail variable
+             fail assignment_statement
+             for_loop ["FOR","assignment_statement","TO","expr*","DO","compound_statement"]
+             fail for_loop
+          fail statement
+      success statement_list*
+      END END -> [DOT .]
+    success compound_statement
+  success block
+  DOT . -> [EOF ]
+Parsed until (35,6) 469 of 469
 
 Analyzer
  Program Main 1 0
@@ -302,11 +529,20 @@ Analyzer
       0 formal_parameters a {"INTEGER":"INTEGER"} 3
       1 formal_parameters b {"INTEGER":"INTEGER"} 3
       2 variable_declaration x {"INTEGER":"INTEGER"} 3
+      procedure Alpha Gamma
+        var Gamma.a of {"INTEGER":"INTEGER"}
+        var Gamma.b of {"INTEGER":"INTEGER"}
+         var Gamma.x of {"INTEGER":"INTEGER"}
+           Assign x =
+      0 formal_parameters a {"INTEGER":"INTEGER"} 3
+      1 formal_parameters b {"INTEGER":"INTEGER"} 3
+      2 variable_declaration x {"INTEGER":"INTEGER"} 3
         Assign x =
    0 formal_parameters a {"INTEGER":"INTEGER"} 2
    1 formal_parameters b {"INTEGER":"INTEGER"} 2
    2 variable_declaration x {"INTEGER":"INTEGER"} 2
    3 procedure_declaration Beta  2
+   4 procedure_declaration Gamma  2
       Assign y =
  0 variable_declaration y {"INTEGER":"INTEGER"} 1
  1 procedure_declaration Alpha  1
@@ -322,6 +558,7 @@ scope procedure_declaration Alpha  1
       b = 7
       a = 8
          Save block of Beta
+         Save block of Gamma
                   variable a 8
                   variable b 7
                8 + 7 = 15
@@ -344,6 +581,7 @@ scope procedure_declaration Alpha  1
           b = 0
           a = 35
              Save block of Beta
+             Save block of Gamma
                       variable a 35
                       variable b 0
                    35 + 0 = 35
@@ -364,6 +602,7 @@ scope procedure_declaration Alpha  1
           b = 1
           a = 35
              Save block of Beta
+             Save block of Gamma
                       variable a 35
                       variable b 1
                    35 + 1 = 36

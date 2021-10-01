@@ -111,8 +111,8 @@ class SemanticError: public Error {};
 
 class Lexer {
   private:
-    const char * text;
   public:
+    const char * text;
     uint16_t pos;
     char current_char;
     uint16_t lineno;
@@ -346,6 +346,7 @@ class Parser {
       const char * symbol_name = it->key().c_str();
       Result result = visit(parseTreeJson.as<JsonVariant>(), symbol_name, "", definitionJson[symbol_name], 0);
 
+      DEBUG_ARTI("Parsed until (%d,%d) %d of %d\n", this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text));
       if (result == Result::RESULTFAIL)
         DEBUG_ARTI("Program parsing failed (%s)\n", symbol_name);
     }
@@ -402,6 +403,10 @@ class Parser {
   };
 
   Result visit(JsonVariant parseTree, const char * symbol_name, const char * operatorx, JsonVariant expression, int depth = 0) {
+    if (depth > 50) {
+      DEBUG_ARTI("Error too deep %d\n", depth);
+      errorOccurred = true;
+    }
     if (errorOccurred) return Result::RESULTFAIL;
     Result result = Result::RESULTCONTINUE;
 
@@ -411,33 +416,59 @@ class Parser {
       for (JsonPair element : expression.as<JsonObject>()) {
         const char * objectOperator = element.key().c_str();
         JsonVariant objectExpression = element.value();
-        if (strcmp(objectOperator, "*") == 0) {
-          // DEBUG_ARTI("%s\n", "zero or more");
-          visit(parseTree, symbol_name, objectOperator, objectExpression, depth + 1); //no assign to result as optional
-        }
-        else if (strcmp(objectOperator, "?") == 0) {
-          // DEBUG_ARTI("%s\n", "zero or one (optional) ");
-          visit(parseTree, symbol_name, objectOperator, objectExpression, depth + 1); //no assign to result as optional
-        }
-        else if (strcmp(objectOperator, "+") == 0) {
-          // DEBUG_ARTI("%s\n", "one or more ");
-          result = visit(parseTree, symbol_name, objectOperator, objectExpression, depth + 1);
-        }
-        else if (strcmp(objectOperator, "or") == 0) {
+
+        //and: see 'is array'
+        if (strcmp(objectOperator, "or") == 0) {
           // DEBUG_ARTI("%s\n", "or ");
           result = visit(parseTree, symbol_name, objectOperator, objectExpression, depth + 1);
           if (result != Result::RESULTFAIL) result = Result::RESULTCONTINUE;
         }
         else {
-          DEBUG_ARTI("%s %s %s\n", "undefined ", objectOperator, objectExpression.as<const char *>());
-          result = Result::RESULTFAIL;
-        }
-      }
+          Result resultChild = Result::RESULTCONTINUE;
+          uint8_t counter = 0;
+          while (resultChild == Result::RESULTCONTINUE) {
+            // DEBUG_ARTI("Before %d (%d,%d) %d of %d %s\n", resultChild, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text), objectExpression.as<string>().c_str());
+            resultChild = visit(parseTree, symbol_name, objectOperator, objectExpression, depth + 1); //no assign to result as optional
+            // DEBUG_ARTI("After %d (%d,%d) %d of %d %s\n", resultChild, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text), objectExpression.as<string>().c_str());
+
+            if (strcmp(objectOperator, "?") == 0) { //zero or one iteration, also continue of visit not continue
+              resultChild = Result::RESULTCONTINUE;
+              break; 
+            }
+            else if (strcmp(objectOperator, "+") == 0) { //one or more iterations, stop if first visit not continue
+              if (counter == 0) {
+                if (resultChild != Result::RESULTCONTINUE)
+                  break;
+              } 
+              else {
+                if (resultChild != Result::RESULTCONTINUE) {
+                  resultChild = Result::RESULTCONTINUE;  //always continue
+                  break;
+                }
+              }
+            }
+            else if (strcmp(objectOperator, "*") == 0) { //zero or more iterations, stop if visit not continue
+              if (resultChild != Result::RESULTCONTINUE) {
+                resultChild = Result::RESULTCONTINUE;  //always continue
+                break;
+              }
+            }
+            else {
+              DEBUG_ARTI("%s %s %s\n", "undefined ", objectOperator, objectExpression.as<const char *>());
+              result = Result::RESULTFAIL;
+            }
+            counter++;
+          } //while
+          result = resultChild;
+        } //not or
+      } //for
     }
     else { //not object
       if (expression.is<JsonArray>()) {
         // DEBUG_ARTI("%s visit Array %s %s %s\n", spaces+50-depth, symbol_name, operatorx, expression.as<string>().c_str());
+
         Result resultChild;
+
         if (strcmp(operatorx, "") == 0) 
           operatorx = "and";
 
@@ -453,22 +484,33 @@ class Parser {
             push_position();
 
           resultChild = visit(parseTree, symbol_name, "", newExpression, depth + 1);//(operatorx == "")?"and":operatorx
+          // DEBUG_ARTI("%s visited Array element %d %s \n", spaces+50-depth, resultChild, newExpression.as<string>().c_str());
 
-          if (strcmp(operatorx, "*") == 0) resultChild = Result::RESULTCONTINUE; //0 or more always succesful
+          if (strcmp(operatorx, "or") == 0) {
+            if (resultChild == Result::RESULTFAIL) {//if fail, go back and try another
+              // result = Result::RESULTCONTINUE;
+              pop_position();
+            }
+            else {
+              result = Result::RESULTSTOP;  //Stop or continue is enough for an or
+              positions_index--;
+            }
+          }
+          else {
+            if (resultChild != Result::RESULTCONTINUE) //for and, ?, + and *; each result should continue
+              result = Result::RESULTFAIL;
+          } 
 
-          if ((strcmp(operatorx, "or") != 0) && resultChild != Result::RESULTCONTINUE) //result should be continue for and, *, +, ?
-            result = Result::RESULTFAIL;
-          if ((strcmp(operatorx, "or") == 0) && resultChild != Result::RESULTFAIL) //Stop or continue is enough for an or
-            result = Result::RESULTSTOP;
-
-          if (strcmp(operatorx, "or") == 0 && resultChild == Result::RESULTFAIL) //if fail, go back and try another
-            pop_position();
-
-          if (result != Result::RESULTCONTINUE) 
+          if (result != Result::RESULTCONTINUE) //if no reason to continue then stop
             break;
-        }
-        if ((strcmp(operatorx, "or") == 0) && result == Result::RESULTCONTINUE) //still looking but nothing to look for
-          result = Result::RESULTFAIL;
+        } //for
+
+        if (strcmp(operatorx, "or") == 0) {
+          if (result == Result::RESULTCONTINUE) //still looking but nothing to look for
+            result = Result::RESULTFAIL;
+        } 
+
+        // DEBUG_ARTI("%s visited Array %d %s %s %s\n", spaces+50-depth, result, symbol_name, operatorx, expression.as<string>().c_str());
       }
       else { //not array
         const char * token_type = expression;
@@ -479,7 +521,7 @@ class Parser {
           if (strcmp(this->current_token.type, token_type) == 0) {
             // DEBUG_ARTI("%s visit token %s %s\n", spaces+50-depth, this->current_token.type, token_type);//, expression.as<string>().c_str());
             // if (current_token.type == "ID" || current_token.type == "INTEGER" || current_token.type == "REAL" || current_token.type == "INTEGER_CONST" || current_token.type == "REAL_CONST" || current_token.type == "ID" || current_token.type == "ID" || current_token.type == "ID") {
-            DEBUG_ARTI("%s %s %s\n", spaces+50-depth, current_token.type, current_token.value);
+            DEBUG_ARTI("%s %s %s", spaces+50-depth, current_token.type, current_token.value);
 
             if (symbol_name[strlen(symbol_name)-1] == '*') { //if list then add in array
               JsonArray arr = parseTree[symbol_name].as<JsonArray>();
@@ -493,6 +535,7 @@ class Parser {
               // DEBUG_ARTI("%s\n", "array multiple 2 ", expression);
             }
             eat(token_type);
+            DEBUG_ARTI(" -> [%s %s]\n", current_token.type, current_token.value);
           }
           else {
             // DEBUG_ARTI("%s visit deadend %s %s\n", spaces+50-depth, this->current_token.type, token_type);//, expression.as<string>().c_str());
@@ -504,45 +547,56 @@ class Parser {
           const char * newSymbol_name = expression;
           JsonVariant newParseTree;
 
-          DEBUG_ARTI("%s %s\n", spaces+50-depth, newSymbol_name);
-          // DEBUG_ARTI("%s %s %s\n", spaces+50-depth, parseTree[symbol_name].as<const char *>(), newSymbol_name.c_str());
+          DEBUG_ARTI("%s %s %s\n", spaces+50-depth, newSymbol_name, definitionJson[newSymbol_name].as<string>().c_str());
           JsonArray arr;
-          if (symbol_name[strlen(symbol_name)-1] == '*') { //if list then create/get array
-            if (parseTree[symbol_name].isNull()) { //create array
-              parseTree[symbol_name][0]["ccc"] = "array1"; //make the connection
-              arr = parseTree[symbol_name].as<JsonArray>();
+          if (!parseTreeJson.overflowed()) {
+            if (symbol_name[strlen(symbol_name)-1] == '*') { //if list then create/get array
+              if (parseTree[symbol_name].isNull()) { //create array
+                parseTree[symbol_name][0]["ccc"] = "array1"; //make the connection
+                arr = parseTree[symbol_name].as<JsonArray>();
+              }
+              else { //get array
+                arr = parseTree[symbol_name].as<JsonArray>();
+                arr[arr.size()]["ccc"] = "array2"; //make the connection, add new array item
+              }
+
+              newParseTree = arr[arr.size()-1];
             }
-            else { //get array
-              arr = parseTree[symbol_name].as<JsonArray>();
-              arr[arr.size()]["ccc"] = "array2"; //make the connection, add new array item
+            else { //no list, create object
+              if (parseTree[symbol_name].isNull()) //no object yet
+                parseTree[symbol_name]["ccc"] = "list"; //make the connection, new object item
+
+              newParseTree = parseTree[symbol_name];
             }
 
-            newParseTree = arr[arr.size()-1];
+            // DEBUG_ARTI("%s %s\n", spaces+50-depth, newSymbol_name);
+            result = visit(newParseTree, newSymbol_name, "", definitionJson[newSymbol_name], depth + 1);
+
+            newParseTree.remove("ccc"); //remove connector
+
+            if (result == Result::RESULTFAIL) {
+              DEBUG_ARTI("%s fail %s\n", spaces+50-depth, newSymbol_name);
+              newParseTree.remove(newSymbol_name); //remove result of visit
+
+              //   DEBUG_ARTI("%s psf %s %s\n", spaces+50-depth, parseTree[symbol_name].as<const char *>(), newSymbol_name.c_str());
+              if (symbol_name[strlen(symbol_name)-1] == '*') //if list then remove empty objecy
+                arr.remove(arr.size()-1);
+              // else
+              //   parseTree.remove(newSymbol_name); //this does not change anything...
+            }
+            else {
+              DEBUG_ARTI("%s success %s\n", spaces+50-depth, newSymbol_name);
+            }
+            // DEBUG_ARTI("%s %s\n", spaces+50-depth, parseTree[symbol_name].as<const char *>());
           }
-          else { //no list, create object
-            if (parseTree[symbol_name].isNull()) //no object yet
-              parseTree[symbol_name]["ccc"] = "list"; //make the connection, new object item
-
-            newParseTree = parseTree[symbol_name];
+          else {
+            result = Result::RESULTFAIL;
+            errorOccurred = true;
+            DEBUG_ARTI("%s %s %s\n", spaces+50-depth, newSymbol_name);
+            DEBUG_ARTI("Error parsetree overflowing %d of %d\n", parseTreeJson.memoryUsage(), parseTreeJson.capacity());
           }
 
-          // DEBUG_ARTI("%s %s\n", spaces+50-depth, newSymbol_name);
-          result = visit(newParseTree, newSymbol_name, "", definitionJson[newSymbol_name], depth + 1);
-
-          newParseTree.remove("ccc"); //remove connector
-
-          if (result == Result::RESULTFAIL) {
-            newParseTree.remove(newSymbol_name); //remove result of visit
-
-          //   DEBUG_ARTI("%s psf %s %s\n", spaces+50-depth, parseTree[symbol_name].as<const char *>(), newSymbol_name.c_str());
-          if (symbol_name[strlen(symbol_name)-1] == '*') //if list then remove empty objecy
-            arr.remove(arr.size()-1);
-          // else
-          //   parseTree.remove(newSymbol_name); //this does not change anything...
-          } //f
-          // DEBUG_ARTI("%s %s\n", spaces+50-depth, parseTree[symbol_name].as<const char *>());
-
-        }
+        } //symbol
       } //if array
     } //if object
     // DEBUG_ARTI("%s\n", spaces+50-depth, "tokenValue ", tokenValue, isArray, isToken, isObject);
@@ -722,7 +776,7 @@ class SemanticAnalyzer {
 
     void visit(JsonVariant parseTree, const char * treeElement = "", const char * symbol_name = "", const char * token = "", ScopedSymbolTable* current_scope = nullptr, uint8_t depth = -1) {
 
-      // DEBUG_ARTI("%s Visit %s %s\n", spaces+50-depth, symbol_name.c_str(), token.c_str());
+      // DEBUG_ARTI("%s Visit %s %s %s %s\n", spaces+50-depth, treeElement, symbol_name, token, parseTree.as<string>().c_str());
 
       if (parseTree.is<JsonObject>()) {
         for (JsonPair element : parseTree.as<JsonObject>()) {
@@ -730,6 +784,7 @@ class SemanticAnalyzer {
           const char * key = element.key().c_str();
           JsonVariant value = element.value();
 
+          // DEBUG_ARTI("%s Visit element %s %s\n", spaces+50-depth, key, value.as<string>().c_str());
           bool visitCalledAlready = false;
 
           if (!definitionJson[key].isNull()) { //if key is symbol_name
@@ -817,7 +872,7 @@ class SemanticAnalyzer {
             token = key;
             // DEBUG_ARTI("%s\n", spaces+50-depth, "Token ", token);
           }
-          // DEBUG_ARTI("%s\n", spaces+50-depth, "Object ", key, value);
+          // DEBUG_ARTI("%s Object %s %d\n", spaces+50-depth, key, value, visitCalledAlready);
 
           if (!visitCalledAlready)
             visit(value, "", symbol_name, token, current_scope, depth + 1);
@@ -864,7 +919,10 @@ class ActivationRecord {
     }
 
     const char * get(const char * key) {
-      return mem[key];
+      if (mem[key].isNull())
+        return "";
+      else
+        return mem[key];
     }
 }; //ActivationRecord
 
@@ -950,6 +1008,8 @@ class Interpreter {
           // [ "MINUS2", "factor"],
 
     void visit(JsonVariant parseTree, const char * treeElement = "", const char * symbol_name = "", const char * token = "", uint8_t depth = 0) {
+
+      // DEBUG_ARTI("%s Visit %s %s %s %s\n", spaces+50-depth, treeElement, symbol_name, token, parseTree.as<string>().c_str());
 
       if (parseTree.is<JsonObject>()) {
         for (JsonPair element : parseTree.as<JsonObject>()) {
@@ -1096,8 +1156,9 @@ class Interpreter {
               }
               else if (strcmp(expression["id"], "Variable") == 0) {
                 ActivationRecord* ar = this->call_stack.peek();
-                calculator.push(key, ar->get(value[expression["name"].as<const char *>()]));
-                DEBUG_ARTI("%s %s %s %s\n", spaces+50-depth, key, value[expression["name"].as<const char *>()].as<const char *>(), ar->get(value[expression["name"].as<const char *>()]));
+                const char * nameValue = ar->get(value[expression["name"].as<const char *>()]);
+                calculator.push(key, nameValue);
+                DEBUG_ARTI("%s %s %s %s\n", spaces+50-depth, key, value[expression["name"].as<const char *>()].as<const char *>(), nameValue);
                 visitCalledAlready = true;
               }
               else if (strcmp(expression["id"], "ForLoop") == 0) {
@@ -1158,6 +1219,15 @@ private:
   TreeWalker *treeWalker;
   Interpreter *interpreter;
   char programText[1000];
+  #ifdef ESP32
+    File definitionFile;
+    File programFile;
+    File parseTreeFile;
+  #else
+    fstream definitionFile;
+    fstream programFile;
+    fstream parseTreeFile;
+  #endif
 public:
   ARTI() {
 
@@ -1201,16 +1271,16 @@ public:
   void openFileAndParse(const char *definitionName, const char *programName) {
       char parseOrLoad[charLength] = "NoParse";
 
-      File definitionFile = WLED_FS.open(definitionName, "r");
+      definitionFile = WLED_FS.open(definitionName, "r");
 
-      File programFile = WLED_FS.open(programName, "r");
+      programFile = WLED_FS.open(programName, "r");
 
       char parseTreeName[charLength];
       strcpy(parseTreeName, programName);
       if (strcmp(parseOrLoad, "Parse") == 0 )
         strcpy(parseTreeName, "Gen");
       strcat(parseTreeName, ".json");
-      File parseTreeFile = WLED_FS.open(parseTreeName, (strcmp(parseOrLoad, "Parse")==0)?"w":"r");
+      parseTreeFile = WLED_FS.open(parseTreeName, (strcmp(parseOrLoad, "Parse")==0)?"w":"r");
 
       #ifdef ARTI_LOG
         char logFileName[charLength];
@@ -1265,27 +1335,17 @@ public:
 
       }
 
-      programFile.close();
-      definitionFile.close();
-      parseTreeFile.close();
-      #ifdef ARTI_LOG
-        logFile.close();
-      #endif
-
   } // openFileAndParse
   #else
     void openFileAndParse(const char *definitionName, const char *programName) {
-      fstream definitionFile;
       definitionFile.open(definitionName, ios::in);
 
-      fstream programFile;
       programFile.open(programName, ios::in);
 
       char parseTreeName[charLength];
       strcpy(parseTreeName, programName);
       strcat(parseTreeName, ".json");
 
-      fstream parseTreeFile;
       parseTreeFile.open(parseTreeName, ios::out);
 
       #ifdef ARTI_LOG
@@ -1327,13 +1387,20 @@ public:
         // printf("Done!!!\n");
       }
 
+    } // openFileAndParse
+  #endif
+
+  void close() {
       programFile.close();
       definitionFile.close();
       parseTreeFile.close();
       #ifdef ARTI_LOG
-        // fclose (logFile); //should not be closed as still streaming...
+        #ifdef ESP32
+          logFile.close();
+        #else
+          fclose (logFile); //should not be closed as still streaming...
+        #endif
       #endif
-    } // openFileAndParse
-  #endif
+  }
 
 }; //ARTI

@@ -4,23 +4,127 @@
     "variable": {
       "ID": "Main"
     },
-    "declarations*": [
-      {
-        "procedure_declaration": {
-          "FUNCTION": "FUNCTION",
-          "ID": "init",
-          "LPAREN": "(",
-          "formal_parameter_list*": [],
-          "RPAREN": ")",
-          "block": {
-            "compound_statement": {
-              "CURLYOPEN": "{",
-              "statement_list*": [],
-              "CURLYCLOSE": "}"
+    "CURLYOPEN": "{",
+    "block": {
+      "declarations*": [
+        {
+          "variable_declaration": {
+            "ID": "pixels",
+            "EQUALSIGN": "=",
+            "ARRAY": "ARRAY",
+            "LPAREN": "(",
+            "variable": {
+              "ID": "pixelCount"
+            },
+            "RPAREN": ")"
+          }
+        },
+        {
+          "procedure_declaration": {
+            "FUNCTION": "FUNCTION",
+            "ID": "init",
+            "LPAREN": "(",
+            "formal_parameter_list*": [],
+            "RPAREN": ")",
+            "block": {
+              "declarations*": [],
+              "compound_statement": {
+                "CURLYOPEN": "{",
+                "statement_list*": [],
+                "CURLYCLOSE": "}"
+              }
+            }
+          }
+        },
+        {
+          "procedure_declaration": {
+            "FUNCTION": "FUNCTION",
+            "ID": "before",
+            "LPAREN": "(",
+            "formal_parameter_list*": [],
+            "RPAREN": ")",
+            "block": {
+              "declarations*": [],
+              "compound_statement": {
+                "CURLYOPEN": "{",
+                "statement_list*": [
+                  {
+                    "statement": {
+                      "assignment_statement": {
+                        "variableassignment": {
+                          "arrayvariable": {
+                            "variable": {
+                              "ID": "pixels"
+                            },
+                            "LBRACKET": "[",
+                            "expr*": [
+                              {
+                                "term*": [
+                                  {
+                                    "factor": {
+                                      "INTEGER_CONST": "3"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            "RBRACKET": "]"
+                          }
+                        },
+                        "EQUALSIGN": "=",
+                        "expr*": [
+                          {
+                            "term*": [
+                              {
+                                "factor": {
+                                  "INTEGER_CONST": "10"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "SEMI": ";"
+                  }
+                ],
+                "CURLYCLOSE": "}"
+              }
+            }
+          }
+        },
+        {
+          "procedure_declaration": {
+            "FUNCTION": "FUNCTION",
+            "ID": "render",
+            "LPAREN": "(",
+            "formal_parameter_list*": [
+              {
+                "formal_parameters": {
+                  "ID": "index"
+                }
+              }
+            ],
+            "RPAREN": ")",
+            "block": {
+              "declarations*": [],
+              "compound_statement": {
+                "CURLYOPEN": "{",
+                "statement_list*": [],
+                "CURLYCLOSE": "}"
+              }
             }
           }
         }
+      ],
+      "compound_statement": {
+        "CURLYOPEN": "{",
+        "statement_list*": [],
+        "CURLYCLOSE": "}"
       }
-    ]
+    },
+    "CURLYCLOSE": "}"
   }
 }

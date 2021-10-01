@@ -1,30 +1,241 @@
 Parser PROGRAM PROGRAM
-  PROGRAM PROGRAM
-  variable
-   ID Main
-  declarations*
-     procedure_declaration
-       FUNCTION FUNCTION
-       ID init
-         LPAREN (
-         formal_parameter_list*
-            formal_parameters
-         RPAREN )
-       block
-         compound_statement
-           CURLYOPEN {
-           statement_list*
-              statement
-                 compound_statement
-                 proccall_statement
-                 assignment_statement
-                   variable
-                 for_loop
-           CURLYCLOSE }
+  PROGRAM PROGRAM -> [ID Main]
+  variable ID
+   ID Main -> [CURLYOPEN {]
+  success variable
+  CURLYOPEN { -> [ID pixels]
+  block ["declarations*","compound_statement"]
+    declarations* [{"*":"variable_declaration"},{"*":"procedure_declaration"}]
+       variable_declaration ["ID","EQUALSIGN","ARRAY","LPAREN","variable","RPAREN"]
+         ID pixels -> [EQUALSIGN =]
+         EQUALSIGN = -> [ARRAY ARRAY]
+         ARRAY ARRAY -> [LPAREN (]
+         LPAREN ( -> [ID pixelCount]
+         variable ID
+          ID pixelCount -> [RPAREN )]
+         success variable
+         RPAREN ) -> [FUNCTION FUNCTION]
+       success variable_declaration
+       variable_declaration ["ID","EQUALSIGN","ARRAY","LPAREN","variable","RPAREN"]
+       fail variable_declaration
+       procedure_declaration ["FUNCTION","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"block"]
+         FUNCTION FUNCTION -> [ID init]
+         ID init -> [LPAREN (]
+           LPAREN ( -> [RPAREN )]
+           formal_parameter_list* {"?":["formal_parameters",{"*":["SEMI","formal_parameters"]}]}
+              formal_parameters ["ID"]
+              fail formal_parameters
+           success formal_parameter_list*
+           RPAREN ) -> [CURLYOPEN {]
+         block ["declarations*","compound_statement"]
+           declarations* [{"*":"variable_declaration"},{"*":"procedure_declaration"}]
+              variable_declaration ["ID","EQUALSIGN","ARRAY","LPAREN","variable","RPAREN"]
+              fail variable_declaration
+              procedure_declaration ["FUNCTION","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"block"]
+              fail procedure_declaration
+           success declarations*
+           compound_statement ["CURLYOPEN","statement_list*","CURLYCLOSE"]
+             CURLYOPEN { -> [CURLYCLOSE }]
+             statement_list* {"?":["statement",{"*":["SEMI","statement"]}]}
+                statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                   compound_statement ["CURLYOPEN","statement_list*","CURLYCLOSE"]
+                   fail compound_statement
+                   proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                   fail proccall_statement
+                   assignment_statement ["variableassignment","EQUALSIGN","expr*"]
+                     variableassignment {"or":["arrayvariable","variable"]}
+                        arrayvariable ["variable","LBRACKET","expr*","RBRACKET"]
+                          variable ID
+                          fail variable
+                        fail arrayvariable
+                        variable ID
+                        fail variable
+                     fail variableassignment
+                   fail assignment_statement
+                   for_loop ["FOR","assignment_statement","TO","expr*","DO","compound_statement"]
+                   fail for_loop
+                fail statement
+             success statement_list*
+             CURLYCLOSE } -> [FUNCTION FUNCTION]
+           success compound_statement
+         success block
+       success procedure_declaration
+       procedure_declaration ["FUNCTION","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"block"]
+         FUNCTION FUNCTION -> [ID before]
+         ID before -> [LPAREN (]
+           LPAREN ( -> [RPAREN )]
+           formal_parameter_list* {"?":["formal_parameters",{"*":["SEMI","formal_parameters"]}]}
+              formal_parameters ["ID"]
+              fail formal_parameters
+           success formal_parameter_list*
+           RPAREN ) -> [CURLYOPEN {]
+         block ["declarations*","compound_statement"]
+           declarations* [{"*":"variable_declaration"},{"*":"procedure_declaration"}]
+              variable_declaration ["ID","EQUALSIGN","ARRAY","LPAREN","variable","RPAREN"]
+              fail variable_declaration
+              procedure_declaration ["FUNCTION","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"block"]
+              fail procedure_declaration
+           success declarations*
+           compound_statement ["CURLYOPEN","statement_list*","CURLYCLOSE"]
+             CURLYOPEN { -> [ID pixels]
+             statement_list* {"?":["statement",{"*":["SEMI","statement"]}]}
+                statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                   compound_statement ["CURLYOPEN","statement_list*","CURLYCLOSE"]
+                   fail compound_statement
+                   proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                     ID pixels -> [LBRACKET []
+                   fail proccall_statement
+                   assignment_statement ["variableassignment","EQUALSIGN","expr*"]
+                     variableassignment {"or":["arrayvariable","variable"]}
+                        arrayvariable ["variable","LBRACKET","expr*","RBRACKET"]
+                          variable ID
+                           ID pixels -> [LBRACKET []
+                          success variable
+                          LBRACKET [ -> [INTEGER_CONST 3]
+                          expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                            term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                              factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                                 variable ID
+                                 fail variable
+                                 INTEGER_CONST 3 -> [RBRACKET ]]
+                              success factor
+                            success term*
+                          success expr*
+                          RBRACKET ] -> [EQUALSIGN =]
+                        success arrayvariable
+                     success variableassignment
+                     EQUALSIGN = -> [INTEGER_CONST 10]
+                     expr* ["term*",{"*":[{"or":["PLUS","MINUS"]},"term*"]}]
+                       term* ["factor",{"*":[{"or":["MUL","INTEGER_DIV","FLOAT_DIV"]},"factor"]}]
+                         factor {"or":["variable","INTEGER_CONST","REAL_CONST",["LPAREN","expr*","RPAREN"]]}
+                            variable ID
+                            fail variable
+                            INTEGER_CONST 10 -> [SEMI ;]
+                         success factor
+                       success term*
+                     success expr*
+                   success assignment_statement
+                success statement
+                  SEMI ; -> [CURLYCLOSE }]
+                  statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                     compound_statement ["CURLYOPEN","statement_list*","CURLYCLOSE"]
+                     fail compound_statement
+                     proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                     fail proccall_statement
+                     assignment_statement ["variableassignment","EQUALSIGN","expr*"]
+                       variableassignment {"or":["arrayvariable","variable"]}
+                          arrayvariable ["variable","LBRACKET","expr*","RBRACKET"]
+                            variable ID
+                            fail variable
+                          fail arrayvariable
+                          variable ID
+                          fail variable
+                       fail variableassignment
+                     fail assignment_statement
+                     for_loop ["FOR","assignment_statement","TO","expr*","DO","compound_statement"]
+                     fail for_loop
+                  fail statement
+             success statement_list*
+             CURLYCLOSE } -> [FUNCTION FUNCTION]
+           success compound_statement
+         success block
+       success procedure_declaration
+       procedure_declaration ["FUNCTION","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"block"]
+         FUNCTION FUNCTION -> [ID render]
+         ID render -> [LPAREN (]
+           LPAREN ( -> [ID index]
+           formal_parameter_list* {"?":["formal_parameters",{"*":["SEMI","formal_parameters"]}]}
+              formal_parameters ["ID"]
+                ID index -> [RPAREN )]
+              success formal_parameters
+           success formal_parameter_list*
+           RPAREN ) -> [CURLYOPEN {]
+         block ["declarations*","compound_statement"]
+           declarations* [{"*":"variable_declaration"},{"*":"procedure_declaration"}]
+              variable_declaration ["ID","EQUALSIGN","ARRAY","LPAREN","variable","RPAREN"]
+              fail variable_declaration
+              procedure_declaration ["FUNCTION","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"block"]
+              fail procedure_declaration
+           success declarations*
+           compound_statement ["CURLYOPEN","statement_list*","CURLYCLOSE"]
+             CURLYOPEN { -> [CURLYCLOSE }]
+             statement_list* {"?":["statement",{"*":["SEMI","statement"]}]}
+                statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+                   compound_statement ["CURLYOPEN","statement_list*","CURLYCLOSE"]
+                   fail compound_statement
+                   proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+                   fail proccall_statement
+                   assignment_statement ["variableassignment","EQUALSIGN","expr*"]
+                     variableassignment {"or":["arrayvariable","variable"]}
+                        arrayvariable ["variable","LBRACKET","expr*","RBRACKET"]
+                          variable ID
+                          fail variable
+                        fail arrayvariable
+                        variable ID
+                        fail variable
+                     fail variableassignment
+                   fail assignment_statement
+                   for_loop ["FOR","assignment_statement","TO","expr*","DO","compound_statement"]
+                   fail for_loop
+                fail statement
+             success statement_list*
+             CURLYCLOSE } -> [CURLYOPEN {]
+           success compound_statement
+         success block
+       success procedure_declaration
+       procedure_declaration ["FUNCTION","ID",{"?":["LPAREN","formal_parameter_list*","RPAREN"]},"block"]
+       fail procedure_declaration
+    success declarations*
+    compound_statement ["CURLYOPEN","statement_list*","CURLYCLOSE"]
+      CURLYOPEN { -> [CURLYCLOSE }]
+      statement_list* {"?":["statement",{"*":["SEMI","statement"]}]}
+         statement {"or":["compound_statement","proccall_statement","assignment_statement","for_loop"]}
+            compound_statement ["CURLYOPEN","statement_list*","CURLYCLOSE"]
+            fail compound_statement
+            proccall_statement ["ID","LPAREN","actual_parameter_list*","RPAREN"]
+            fail proccall_statement
+            assignment_statement ["variableassignment","EQUALSIGN","expr*"]
+              variableassignment {"or":["arrayvariable","variable"]}
+                 arrayvariable ["variable","LBRACKET","expr*","RBRACKET"]
+                   variable ID
+                   fail variable
+                 fail arrayvariable
+                 variable ID
+                 fail variable
+              fail variableassignment
+            fail assignment_statement
+            for_loop ["FOR","assignment_statement","TO","expr*","DO","compound_statement"]
+            fail for_loop
+         fail statement
+      success statement_list*
+      CURLYCLOSE } -> [CURLYCLOSE }]
+    success compound_statement
+  success block
+  CURLYCLOSE } -> [EOF ]
+Parsed until (16,1) 165 of 165
 
 Analyzer
  Program Main 1 0
+   var Main.pixels of null
+   procedure Main init
+   procedure Main before
+        Assign (null) =
+   procedure Main render
+     var render.index of null
+   0 formal_parameters index null 2
+ 0 variable_declaration pixels null 1
+ 1 procedure_declaration init  1
+ 2 procedure_declaration before  1
+ 3 procedure_declaration render  1
 
-interpret Main 1 0 0
+interpret Main 1 4 3
+scope variable_declaration pixels null 1
+scope procedure_declaration init  1
+scope procedure_declaration before  1
+scope procedure_declaration render  1
  program name ["variable"]["ID"]
  Program Main Main
+     variable pixelCount 
+    Save block of init
+    Save block of before
+    Save block of render

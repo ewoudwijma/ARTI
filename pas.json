@@ -49,7 +49,7 @@
           "ID", 
           "LPAREN", 
           "actual_parameter_list*", 
-          "RPAREN", "SEMI"
+          "RPAREN"
      ],
      "actual_parameter_list*": {"?": ["expr*", {"*": ["COMMA", "expr*"]}]},
      "assignment_statement" : [
@@ -72,7 +72,7 @@
                [ "LPAREN", "expr*", "RPAREN"]
                ]},
      "variable": "ID",
-     "for_loop": ["FOR", "assignment_statement", "TO", "expr*","DO","compound_statement","SEMI"],
+     "for_loop": ["FOR", "assignment_statement", "TO", "expr*","DO","compound_statement"],
      "TOKENS":
 
           {
