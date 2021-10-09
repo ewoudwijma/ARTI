@@ -1,8 +1,6 @@
 Parser PROGRAM PROGRAM
   PROGRAM PROGRAM -> [ID Main]
-  variable
-   ID Main -> [SEMI ;]
-  success variable
+  ID Main -> [SEMI ;]
   SEMI ; -> [VAR VAR]
   block
     declarations*
@@ -550,7 +548,7 @@ Analyzer
 interpret Main 1 2 1
 scope variable_declaration y {"INTEGER":"INTEGER"} 1
 scope procedure_declaration Alpha  1
- program name ["variable"]["ID"]
+ program name ID
  Program Main Main
     Save block of Alpha
       ProcedureCall Alpha Alpha Alpha
@@ -559,13 +557,17 @@ scope procedure_declaration Alpha  1
       a = 8
          Save block of Beta
          Save block of Gamma
+                  variable a = 8
+                  variable b = 7
                8 + 7 = 15
              15 * 2 = 30
            x := 30
            ProcedureCall Beta Beta Beta
            b = 10
            a = 5
+                    variable a = 5
                   5 * 10 = 50
+                    variable b = 10
                   10 * 2 = 20
                  50 + 20 = 70
                 x := 70
@@ -573,33 +575,46 @@ scope procedure_declaration Alpha  1
        y := 1
       iteration 0
           ProcedureCall Alpha Alpha Alpha
+               variable y = 0
           b = 0
           a = 35
              Save block of Beta
              Save block of Gamma
+                      variable a = 35
+                      variable b = 0
                    35 + 0 = 35
                  35 * 2 = 70
                x := 70
                ProcedureCall Beta Beta Beta
                b = 10
                a = 5
+                        variable a = 5
                       5 * 10 = 50
+                        variable b = 10
                       10 * 2 = 20
                      50 + 20 = 70
                     x := 70
       iteration 1
           ProcedureCall Alpha Alpha Alpha
+               variable y = 1
           b = 1
           a = 35
              Save block of Beta
              Save block of Gamma
+                      variable a = 35
+                      variable b = 1
                    35 + 1 = 36
                  36 * 2 = 72
                x := 72
                ProcedureCall Beta Beta Beta
                b = 10
                a = 5
+                        variable a = 5
                       5 * 10 = 50
+                        variable b = 10
                       10 * 2 = 20
                      50 + 20 = 70
                     x := 70
+def mem 7133 of 8192 6815104 23
+prog size 469
+par mem 15923 of 18760 6815104 1

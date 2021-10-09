@@ -63,10 +63,6 @@ enum class ErrorCode {
   NONE
 };
 
-DynamicJsonDocument tokensJson(2048);
-DynamicJsonDocument definitionJson(8192);
-DynamicJsonDocument parseTreeJson(16384);
-
 #ifdef ESP32
   const char spaces[51] PROGMEM = "                                                  ";
 #else
@@ -147,28 +143,17 @@ class Lexer {
     char current_char;
     uint16_t lineno;
     uint16_t column;
-    Lexer(const char * programText) {
+    JsonObject definitionJson;
+
+    Lexer(const char * programText, JsonObject definitionJson) {
       // DEBUG_ARTI1("%s\n", "Lexer init");
       this->text = programText;
+      this->definitionJson = definitionJson;
       this->pos = 0;
       this->current_char = this->text[this->pos];
       this->lineno = 1;
       this->column = 1;
     }
-
-    void fillTokensJson() {
-      //system tokens
-      tokensJson["ID"] = "ID";
-      tokensJson["INTEGER_CONST"] = "INTEGER_CONST";
-      tokensJson["REAL_CONST"] = "REAL_CONST";
-      // tokensJson["EOF"]  = "EOF";
-
-      if (definitionJson["TOKENS"].is<JsonObject>()) {
-        for (JsonPair objectPair : definitionJson["TOKENS"].as<JsonObject>()) {
-          tokensJson[objectPair.key()] = objectPair.value();;
-        }
-      }
-    } //fillTokensJson
 
     void error() {
       ERROR_ARTI("Lexer error on %c line %d col %d\n", this->current_char, this->lineno, this->column);
@@ -256,14 +241,14 @@ class Lexer {
         strcpy(resultUpper, result);
         strupr(resultUpper);
 
-        // DEBUG_ARTI1("upper %s [%s] [%s]\n", tokensJson[resultUpper].as<const char *>(), result, resultUpper);
-        if (tokensJson[resultUpper].isNull()) {
+        // DEBUG_ARTI1("upper %s [%s] [%s]\n", definitionJson["TOKENS"][resultUpper].as<const char *>(), result, resultUpper);
+        if (definitionJson["TOKENS"][resultUpper].isNull()) {
             // DEBUG_ARTI1("%s\n", "  id empty ");
             strcpy(token->type, "ID");
             strcpy(token->value, result);
         }
         else {
-            strcpy(token->type, tokensJson[resultUpper]);
+            strcpy(token->type, definitionJson["TOKENS"][resultUpper]);
             strcpy(token->value, resultUpper);
         }
 
@@ -294,13 +279,13 @@ class Lexer {
           return this->number();
         }
 
-        // findLongestMatchingToken(tokensJson, 1);
+        // findLongestMatchingToken
         char token_type[charLength] = "";
         char token_value[charLength] = "";
 
         uint8_t longestTokenLength = 0;
 
-        for (JsonPair tokenPair: tokensJson.as<JsonObject>()) {
+        for (JsonPair tokenPair: definitionJson["TOKENS"].as<JsonObject>()) {
           const char * value = tokenPair.value();
           char currentValue[charLength];
           strncpy(currentValue, this->text + this->pos, charLength);
@@ -340,28 +325,32 @@ struct LexerPosition {
   char value[charLength];
 };
 
+#define nrOfPositions 20
+
 class Parser {
   private:
     Lexer *lexer;
-    LexerPosition positions[100]; //should be array of pointers but for some reason get seg fault
+    LexerPosition positions[nrOfPositions]; //should be array of pointers but for some reason get seg fault (because a struct and not a class...)
     uint16_t positions_index = 0;
+    JsonVariant parseTreeJson;
 
   public:
     Token *current_token;
 
-    Parser(Lexer *lexer) {
+    Parser(Lexer *lexer, JsonVariant parseTreeJson) {
       this->lexer = lexer;
+      this->parseTreeJson = parseTreeJson;
+
       this->current_token = this->get_next_token();
     }
 
     void parse() {
-      JsonObject definitionObject = definitionJson.as<JsonObject>();
-      JsonObject::iterator it = definitionObject.begin();
+      JsonObject::iterator it = lexer->definitionJson.begin();
 
       DEBUG_ARTI1("Parser %s %s\n", this->current_token->type, this->current_token->value);
 
       const char * symbol_name = it->key().c_str();
-      Result result = visit(parseTreeJson.as<JsonVariant>(), symbol_name, "", definitionJson[symbol_name], 0);
+      Result result = visit(parseTreeJson, symbol_name, nullptr, lexer->definitionJson[symbol_name], 0);
 
       if (this->lexer->pos != strlen(this->lexer->text))
         ERROR_ARTI("Symbol %s Program not entirely parsed (%d,%d) %d of %d\n", symbol_name, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text));
@@ -392,21 +381,23 @@ class Parser {
 
   void push_position() {
     // DEBUG_ARTI1("%s\n", "push_position ", positions_index, this->lexer.pos);
-    // uint16_t index = positions_index%100;
-    positions[positions_index].pos = this->lexer->pos;
-    positions[positions_index].current_char = this->lexer->current_char;
-    positions[positions_index].lineno = this->lexer->lineno;
-    positions[positions_index].column = this->lexer->column;
-    strcpy(positions[positions_index].type, this->current_token->type);
-    strcpy(positions[positions_index].value, this->current_token->value);
-    positions_index++;
+    if (positions_index < nrOfPositions) {
+      positions[positions_index].pos = this->lexer->pos;
+      positions[positions_index].current_char = this->lexer->current_char;
+      positions[positions_index].lineno = this->lexer->lineno;
+      positions[positions_index].column = this->lexer->column;
+      strcpy(positions[positions_index].type, this->current_token->type);
+      strcpy(positions[positions_index].value, this->current_token->value);
+      positions_index++;
+    }
+    else
+      ERROR_ARTI("not enough positions %d\n", nrOfPositions);
   }
 
   void pop_position() {
     if (positions_index > 0) {
       positions_index--;
       // DEBUG_ARTI1("%s\n", "pop_position ", positions_index, this->lexer->pos, " to ", positions[positions_index].pos);
-      // uint16_t index = positions_index%100;
       this->lexer->pos = positions[positions_index].pos;
       this->lexer->current_char = positions[positions_index].current_char;
       this->lexer->lineno = positions[positions_index].lineno;
@@ -414,6 +405,8 @@ class Parser {
       strcpy(this->current_token->type, positions[positions_index].type);
       strcpy(this->current_token->value, positions[positions_index].value);
     }
+    else
+      ERROR_ARTI("no positions saved\n");
   }
 
   enum class  Result {
@@ -492,7 +485,7 @@ class Parser {
 
         Result resultChild;
 
-        if (strcmp(operatorx, "") == 0) 
+        if (operatorx == nullptr) 
           operatorx = "and";
 
         //check if unary or binary operator
@@ -506,7 +499,7 @@ class Parser {
           if (strcmp(operatorx , "or") == 0)
             push_position();
 
-          resultChild = visit(parseTree, symbol_name, "", newExpression, depth + 1);//(operatorx == "")?"and":operatorx
+          resultChild = visit(parseTree, symbol_name, nullptr, newExpression, depth + 1);//(operatorx == "")?"and":operatorx
           // DEBUG_ARTI1("%s visited Array element %d %s \n", spaces+50-depth, resultChild, newExpression.as<String>().c_str());
 
           if (strcmp(operatorx, "or") == 0) {
@@ -539,7 +532,7 @@ class Parser {
         const char * token_type = expression;
 
         //if token
-        if (!tokensJson[token_type].isNull()) {
+        if (!lexer->definitionJson["TOKENS"][token_type].isNull()) {
 
           if (strcmp(this->current_token->type, token_type) == 0) {
             // DEBUG_ARTI1("%s visit token %s %s\n", spaces+50-depth, this->current_token->type, token_type);//, expression.as<String>().c_str());
@@ -580,52 +573,44 @@ class Parser {
 
           DEBUG_ARTI1("%s %s\n", spaces+50-depth, newSymbol_name);
           JsonArray arr;
-          if (!parseTreeJson.overflowed()) {
-            if (symbol_name[strlen(symbol_name)-1] == '*') { //if list then create/get array
-              if (parseTree[symbol_name].isNull()) { //create array
-                parseTree[symbol_name][0]["ccc"] = "array1"; //make the connection
-                arr = parseTree[symbol_name].as<JsonArray>();
-              }
-              else { //get array
-                arr = parseTree[symbol_name].as<JsonArray>();
-                arr[arr.size()]["ccc"] = "array2"; //make the connection, add new array item
-              }
-
-              newParseTree = arr[arr.size()-1];
+          if (symbol_name[strlen(symbol_name)-1] == '*') { //if list then create/get array
+            if (parseTree[symbol_name].isNull()) { //create array
+              parseTree[symbol_name][0]["ccc"] = "array1"; //make the connection
+              arr = parseTree[symbol_name].as<JsonArray>();
             }
-            else { //no list, create object
-              if (parseTree[symbol_name].isNull()) //no object yet
-                parseTree[symbol_name]["ccc"] = "list"; //make the connection, new object item
-
-              newParseTree = parseTree[symbol_name];
+            else { //get array
+              arr = parseTree[symbol_name].as<JsonArray>();
+              arr[arr.size()]["ccc"] = "array2"; //make the connection, add new array item
             }
 
-            // DEBUG_ARTI1("%s %s\n", spaces+50-depth, newSymbol_name);
-            result = visit(newParseTree, newSymbol_name, "", definitionJson[newSymbol_name], depth + 1);
+            newParseTree = arr[arr.size()-1];
+          }
+          else { //no list, create object
+            if (parseTree[symbol_name].isNull()) //no object yet
+              parseTree[symbol_name]["ccc"] = "list"; //make the connection, new object item
 
-            newParseTree.remove("ccc"); //remove connector
+            newParseTree = parseTree[symbol_name];
+          }
 
-            if (result == Result::RESULTFAIL) {
-              DEBUG_ARTI1("%s fail %s\n", spaces+50-depth, newSymbol_name);
-              newParseTree.remove(newSymbol_name); //remove result of visit
+          // DEBUG_ARTI1("%s %s\n", spaces+50-depth, newSymbol_name);
+          result = visit(newParseTree, newSymbol_name, nullptr, lexer->definitionJson[newSymbol_name], depth + 1);
 
-              //   DEBUG_ARTI1("%s psf %s %s\n", spaces+50-depth, parseTree[symbol_name].as<const char *>(), newSymbol_name.c_str());
-              if (symbol_name[strlen(symbol_name)-1] == '*') //if list then remove empty objecy
-                arr.remove(arr.size()-1);
-              // else
-              //   parseTree.remove(newSymbol_name); //this does not change anything...
-            }
-            else {
-              DEBUG_ARTI1("%s success %s\n", spaces+50-depth, newSymbol_name);
-            }
-            // DEBUG_ARTI1("%s %s\n", spaces+50-depth, parseTree[symbol_name].as<const char *>());
+          newParseTree.remove("ccc"); //remove connector
+
+          if (result == Result::RESULTFAIL) {
+            DEBUG_ARTI1("%s fail %s\n", spaces+50-depth, newSymbol_name);
+            newParseTree.remove(newSymbol_name); //remove result of visit
+
+            //   DEBUG_ARTI1("%s psf %s %s\n", spaces+50-depth, parseTree[symbol_name].as<const char *>(), newSymbol_name.c_str());
+            if (symbol_name[strlen(symbol_name)-1] == '*') //if list then remove empty objecy
+              arr.remove(arr.size()-1);
+            // else
+            //   parseTree.remove(newSymbol_name); //this does not change anything...
           }
           else {
-            result = Result::RESULTFAIL;
-            errorOccurred = true;
-            ERROR_ARTI("%s %s\n", spaces+50-depth, newSymbol_name);
-            ERROR_ARTI("Error parsetree overflowing %d of %d\n", parseTreeJson.memoryUsage(), parseTreeJson.capacity());
+            DEBUG_ARTI1("%s success %s\n", spaces+50-depth, newSymbol_name);
           }
+          // DEBUG_ARTI1("%s %s\n", spaces+50-depth, parseTree[symbol_name].as<const char *>());
 
         } //symbol
       } //if array
@@ -715,17 +700,19 @@ class Symbol {
   }
 }; //Symbol
 
+#define nrOfSymbolsPerScope 20 //add checks
+#define nrOfChildScope 20 //add checks
 
 class ScopedSymbolTable {
   private:
   public:
 
-  Symbol* _symbols[100];
+  Symbol* _symbols[nrOfSymbolsPerScope];
   uint16_t _symbolsIndex = 0;
   char scope_name[charLength];
   int scope_level;
   ScopedSymbolTable *enclosing_scope;
-  ScopedSymbolTable *child_scopes[100];
+  ScopedSymbolTable *child_scopes[nrOfChildScope];
   uint16_t child_scopesIndex = 0;
 
   ScopedSymbolTable(const char * scope_name, int scope_level, ScopedSymbolTable *enclosing_scope = nullptr) {
@@ -796,13 +783,17 @@ class SemanticAnalyzer {
   private:
   public:
     ScopedSymbolTable *global_scope = nullptr;
+    JsonObject definitionJson;
+    JsonVariant parseTreeJson;
 
-    SemanticAnalyzer() {
+    SemanticAnalyzer(JsonObject definitionJson, JsonVariant parseTreeJson) {
+      this->definitionJson = definitionJson;
+      this->parseTreeJson = parseTreeJson;
     }
 
-    void analyse() {
+    void analyze() {
       DEBUG_ARTI1("\nAnalyzer\n");
-      visit(parseTreeJson.as<JsonVariant>());
+      visit(parseTreeJson);
     }
 
     void visit(JsonVariant parseTree, const char * treeElement = nullptr, const char * symbol_name = nullptr, const char * token = nullptr, ScopedSymbolTable* current_scope = nullptr, uint8_t depth = 0) {
@@ -824,7 +815,8 @@ class SemanticAnalyzer {
             if (!expression.isNull())
             {
               if (expression["id"] == "Program") {
-                const char * program_name = value["variable"]["ID"];
+                const char * expression_name = expression["name"];
+                const char * program_name = value[expression_name];
                 this->global_scope = new ScopedSymbolTable(program_name, 1, nullptr); //current_scope
 
                 DEBUG_ARTI1("%s Program %s %d %d\n", spaces+50-depth, global_scope->scope_name, global_scope->scope_level, global_scope->_symbolsIndex); 
@@ -843,7 +835,8 @@ class SemanticAnalyzer {
               else if (expression["id"] == "Procedure") {
 
                 //find the procedure name (so we must know this is a procedure...)
-                const char * proc_name = value[expression["name"].as<const char *>()];
+                const char * expression_name = expression["name"];//.as<const char *>();
+                const char * proc_name = value[expression_name];
                 Symbol* proc_symbol = new Symbol(symbol_name, proc_name);
                 current_scope->insert(proc_symbol);
 
@@ -881,7 +874,12 @@ class SemanticAnalyzer {
                 }
                 else {
                   const char * param_name = value[expression["name"].as<const char *>()];
-                  char param_type[charLength]; strcpy(param_type, value[expression["type"].as<const char *>()].as<string>().c_str());//current_scope.lookup(param.type_node.value); //need string
+                  const char * expression_type = expression["type"];//.as<const char *>();
+                  char param_type[charLength]; 
+                  if (!value[expression_type].isNull())
+                    strcpy(param_type, value[expression_type].as<string>().c_str());//current_scope.lookup(param.type_node.value); //need string
+                  else
+                    strcpy(param_type, "notype");
                   Symbol* var_symbol = new Symbol(symbol_name, param_name, param_type);
                   current_scope->insert(var_symbol);
                   DEBUG_ARTI1("%s var %s.%s of %s\n", spaces+50-depth, current_scope->scope_name, param_name, param_type);
@@ -899,7 +897,7 @@ class SemanticAnalyzer {
 
           } // is symbol_name
 
-          if (!tokensJson[key].isNull()) {
+          if (!this->definitionJson["TOKENS"][key].isNull()) {
             token = key;
             // DEBUG_ARTI1("%s\n", spaces+50-depth, "Token ", token);
           }
@@ -990,12 +988,12 @@ class Calculator {
   }
 
   void push(const char * key, const char * value) {
-    if (stack_index < arrayLength) {
+    if (stack_index < arrayLength && value != nullptr) {
       // DEBUG_ARTI1("calc push %s %s\n", key, value);
       strcpy(stack[stack_index++], value);
     }
     else
-      ERROR_ARTI("Calc stack full\n");
+      ERROR_ARTI("Calc stack full %d of %d or value is null\n", stack_index, arrayLength);
   }
 
   const char * peek() {
@@ -1017,23 +1015,24 @@ class Calculator {
 class Interpreter {
   private:
   CallStack *call_stack;
-  ScopedSymbolTable *global_scope;
+  SemanticAnalyzer *analyzer;
   Calculator *calculator;
 
   public:
 
   Interpreter(SemanticAnalyzer *analyzer) {
-    this->global_scope = analyzer->global_scope;
+    this->analyzer = analyzer;
+
     call_stack = new CallStack();
     calculator = new Calculator();
   }
 
   void interpret() {
-    if (this->global_scope != nullptr) { //due to undefined procedures??? wip
+    if (this->analyzer->global_scope != nullptr) { //due to undefined procedures??? wip
 
-      DEBUG_ARTI1("\ninterpret %s %d %d %d\n", global_scope->scope_name, global_scope->scope_level, global_scope->_symbolsIndex, global_scope->child_scopesIndex); 
-      for (int i=0; i<global_scope->_symbolsIndex; i++) {
-        Symbol* symbol = global_scope->_symbols[i];
+      DEBUG_ARTI1("\ninterpret %s %d %d %d\n", analyzer->global_scope->scope_name, analyzer->global_scope->scope_level, analyzer->global_scope->_symbolsIndex, analyzer->global_scope->child_scopesIndex); 
+      for (int i=0; i<analyzer->global_scope->_symbolsIndex; i++) {
+        Symbol* symbol = analyzer->global_scope->_symbols[i];
         DEBUG_ARTI1("scope %s %s %s %d\n", symbol->symbol_type, symbol->name, symbol->type, symbol->scope_level); 
       }
     }
@@ -1042,7 +1041,7 @@ class Interpreter {
       ERROR_ARTI("Interpret global scope is nullptr\n");
     }
 
-    visit(parseTreeJson.as<JsonVariant>());
+    visit(analyzer->parseTreeJson);
   }
 
             // ["PLUS2", "factor"],
@@ -1060,38 +1059,45 @@ class Interpreter {
 
           bool visitCalledAlready = false;
 
-          if (!definitionJson[key].isNull()) { //if key is symbol_name
+          if (!this->analyzer->definitionJson[key].isNull()) { //if key is symbol_name
             symbol_name = key;
-            JsonVariant expression = definitionJson["INTERPRETER"][symbol_name];
+            JsonVariant expression = this->analyzer->definitionJson["INTERPRETER"][symbol_name];
             if (!expression.isNull())
             {
               // DEBUG_ARTI1("%s\n", spaces+50-depth, "Symbol ", symbol_name,  " ", expression);
 
               if (expression["id"] == "Program") {
-                DEBUG_ARTI1("%s program name %s\n", spaces+50-depth, expression["name"].as<const char *>());
-                const char * program_name = value["variable"]["ID"];
+                const char * expression_name = expression["name"];
+                DEBUG_ARTI1("%s program name %s\n", spaces+50-depth, expression_name);
+                const char * program_name = value[expression_name];
 
-                ActivationRecord* ar = new ActivationRecord(program_name, "PROGRAM",1);
-                DEBUG_ARTI1("%s %s %s %s\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, program_name);
+                if (!value[expression_name].isNull()) {
+                  ActivationRecord* ar = new ActivationRecord(program_name, "PROGRAM",1);
+                  DEBUG_ARTI1("%s %s %s %s\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, program_name);
 
-                this->call_stack->push(ar);
+                  this->call_stack->push(ar);
+                }
+                else
+                  ERROR_ARTI("program name null\n");
 
                 visit(value[expression["block"].as<const char *>()], nullptr, symbol_name, token, depth + 1);
 
-                this->call_stack->pop();
+                if (!value[expression_name].isNull()) {
+                  this->call_stack->pop();
+                }
 
                 visitCalledAlready = true;
               }
               else if (expression["id"] == "Procedure") {
                 const char * proc_name = value[expression["name"].as<const char *>()]; //as string is needed!!!
-                Symbol* proc_symbol = this->global_scope->lookup(proc_name, true, true);
+                Symbol* proc_symbol = this->analyzer->global_scope->lookup(proc_name, true, true);
                 DEBUG_ARTI1("%s Save block of %s\n", spaces+50-depth, proc_name);
                 proc_symbol->block = value[expression["block"].as<const char *>()];
                 visitCalledAlready = true;
               }
               else if (expression["id"] == "ProcedureCall") {
                 const char * proc_name = value[expression["name"].as<const char *>()]; //as string is needed!!!
-                Symbol* proc_symbol = this->global_scope->lookup(proc_name, true, true);
+                Symbol* proc_symbol = this->analyzer->global_scope->lookup(proc_name, true, true);
 
                 if (proc_symbol != nullptr) { //calling undefined function: pre-defined functions e.g. print
 
@@ -1205,11 +1211,14 @@ class Interpreter {
               }
               else if (expression["id"] == "Variable") {
                 ActivationRecord* ar = this->call_stack->peek();
-                const char * nameValue = ar->get(value[expression["name"].as<const char *>()]);
+                const char * expression_name = expression["name"];
+                const char * nameValue = ar->get(value[expression_name]);
 
+                #ifndef ESP32 //for some weird reason this causes a crash on esp32
+                  DEBUG_ARTI1("%s %s %s = %s\n", spaces+50-depth, key, value[expression_name].as<const char *>(), nameValue); //key is variable_declaration name is ID
+                #endif
                 calculator->push(key, nameValue);
 
-                // DEBUG_ARTI1("%s %s %s\n", spaces+50-depth, key, nameValue); //for some weird reason this causes a crash
                 visitCalledAlready = true;
               }
               else if (expression["id"] == "ForLoop") {
@@ -1240,7 +1249,7 @@ class Interpreter {
             visitCalledAlready = true;
           }
 
-          if (!tokensJson[key].isNull()) { //if key is token
+          if (!analyzer->definitionJson["TOKENS"][key].isNull()) { //if key is token
             token = key;
             // DEBUG_ARTI1("%s\n", spaces+50-depth, "Token ", token);
           }
@@ -1265,6 +1274,8 @@ class Interpreter {
 
 };
 
+#define programTextSize 1000
+
 class ARTI {
 private:
   Lexer *lexer;
@@ -1278,11 +1289,14 @@ private:
     File programFile;
     File parseTreeFile;
   #else
-    char programText[1000];
+    char programText[programTextSize];
     fstream definitionFile;
     fstream programFile;
     fstream parseTreeFile;
   #endif
+
+  DynamicJsonDocument *definitionJson;
+  DynamicJsonDocument *parseTreeJson;
 public:
   ARTI() {
 
@@ -1295,14 +1309,124 @@ public:
 
   }
 
-  void parse() {
-    lexer = new Lexer(this->programText);
-    lexer->fillTokensJson();
-    parser = new Parser(this->lexer);
-    parser->parse();
-  }
+  void openFileAndParse(const char *definitionName, const char *programName) {
+      char parseOrLoad[charLength] = "Parse";
 
-  void walk(JsonVariant tree, char * resultString) {
+      //open logFile
+      #ifndef ARTI_DEBUGORLOG
+        char logFileName[charLength];
+        #ifdef ESP32
+          strcpy(logFileName, "/");
+        #endif
+        strcpy(logFileName, programName);
+        strcat(logFileName, ".log");
+
+        #ifdef ESP32
+          logFile = WLED_FS.open(logFileName,"w");
+        #else
+          logFile = fopen (logFileName,"w");
+        #endif
+      #endif
+
+      #ifdef ESP32
+        definitionFile = WLED_FS.open(definitionName, "r");
+        DEBUG_ARTI1("RAM left %d", esp_get_free_heap_size());
+      #else
+        definitionFile.open(definitionName, ios::in);
+        // DEBUG_ARTI1("def size %d\n", definitionFile.tellg());
+      #endif
+      if (!definitionFile)
+        ERROR_ARTI("Definition file %s not found\n", definitionName);
+      else
+      {
+        //open definitionFile
+        definitionJson = new DynamicJsonDocument(8192);
+        // mandatory tokens:
+        //  "ID": "ID",
+        //  "INTEGER_CONST": "INTEGER_CONST",
+        //  "REAL_CONST": "REAL_CONST",
+
+
+        DeserializationError err = deserializeJson(*definitionJson, definitionFile);
+        if (err) {
+          ERROR_ARTI("deserializeJson() of definition failed with code %s\n", err.c_str());
+        }
+        definitionFile.close();
+
+        #ifdef ESP32
+          programFile = WLED_FS.open(programName, "r");
+        #else
+          programFile.open(programName, ios::in);
+        #endif
+        if (!programFile)
+          ERROR_ARTI("Program file %s not found\n", programName);
+        else
+        {
+          //open programFile
+          #ifdef ESP32
+            uint16_t programFileSize = programFile.size();
+            programText = (char *)malloc(programFileSize+1);
+            programFile.read((uint8_t*)programText, programFileSize);
+            programText[programFileSize] = '\0';
+          #else
+            programFile.read(programText, programTextSize); //sizeof programText
+            programText[programFile.gcount()] = '\0';
+          #endif
+          programFile.close();
+
+          //open parseTreeFile
+          char parseTreeName[charLength];
+          strcpy(parseTreeName, programName);
+          // if (strcmp(parseOrLoad, "Parse") == 0 )
+          //   strcpy(parseTreeName, "Gen");
+          strcat(parseTreeName, ".json");
+          #ifdef ESP32
+            parseTreeFile = WLED_FS.open(parseTreeName, (strcmp(parseOrLoad, "Parse")==0)?"w":"r");
+          #else
+            parseTreeFile.open(parseTreeName, ios::out);
+          #endif
+
+          parseTreeJson = new DynamicJsonDocument(strlen(programText) * 40);
+
+          //parse
+          if (strcmp(parseOrLoad, "Parse") == 0) {
+
+            lexer = new Lexer(this->programText, definitionJson->as<JsonObject>());
+            parser = new Parser(this->lexer, parseTreeJson->as<JsonVariant>());
+            parser->parse();
+
+            //write parseTree
+            serializeJsonPretty(*parseTreeJson,  parseTreeFile);
+          }
+          else
+          {
+            //read parseTree
+            DeserializationError err = deserializeJson(*parseTreeJson, parseTreeFile);
+            if (err) {
+              ERROR_ARTI("deserializeJson() of parseTree failed with code %s\n", err.c_str());
+            }
+          }
+          #ifdef ESP32
+            free(programText);
+          #endif
+
+          parseTreeFile.close();
+
+          // char resultString[standardStringLenght];
+          // // strcpy(resultString, "");
+          // arti.walk(parseTreeJson->as<JsonVariant>(), resultString);
+            // DEBUG_ARTI1("walk result %s", resultString);
+
+          //analyze
+          semanticAnalyzer = new SemanticAnalyzer(definitionJson->as<JsonObject>(), parseTreeJson->as<JsonVariant>());
+          semanticAnalyzer->analyze();
+
+        } //programFile
+      } //definitionFilee
+
+  } // openFileAndParse
+
+    void walk(JsonVariant tree, char * resultString) {
     treeWalker = new TreeWalker();
     // DeserializationError err = deserializeJson(definitionJson, definitionText);
     // if (err) {
@@ -1312,149 +1436,17 @@ public:
     treeWalker->walk(tree, resultString);
   }
 
-  void analyze() {
-    semanticAnalyzer = new SemanticAnalyzer();
-    semanticAnalyzer->analyse();
-  }
-
   void interpret() {
     interpreter = new Interpreter(semanticAnalyzer);
     interpreter->interpret();// interpreter.print();
   }
 
-  #ifdef ESP32
-  void openFileAndParse(const char *definitionName, const char *programName) {
-      char parseOrLoad[charLength] = "Parse";
-
-      DEBUG_ARTI1("RAM left %d", esp_get_free_heap_size());
-
-      definitionFile = WLED_FS.open(definitionName, "r");
-
-      programFile = WLED_FS.open(programName, "r");
-
-      char parseTreeName[charLength];
-      strcpy(parseTreeName, programName);
-      // if (strcmp(parseOrLoad, "Parse") == 0 )
-      //   strcpy(parseTreeName, "Gen");
-      strcat(parseTreeName, ".json");
-      parseTreeFile = WLED_FS.open(parseTreeName, (strcmp(parseOrLoad, "Parse")==0)?"w":"r");
-
-      #ifndef ARTI_DEBUGORLOG
-        char logFileName[charLength];
-        strcpy(logFileName, "/");
-        strcpy(logFileName, programName);
-        strcat(logFileName, ".log");
-
-        logFile = WLED_FS.open(logFileName,"w");
-      #endif
-
-      if (!programFile || !definitionFile)
-      {
-        DEBUG_ARTI1("Files not found\n");
-      }
-      else {
-
-        programText = (char *)malloc(sizeof(char) * 1024);
-
-        //read program
-        uint16_t index = 0;
-        while(programFile.available()){
-          programText[index++] = (char)programFile.read();
-        }
-        programText[index] = '\0';
-
-        //read definition
-        DeserializationError err = deserializeJson(definitionJson, definitionFile);
-        if (err) {
-          DEBUG_ARTI1("deserializeJson() in Lexer failed with code %s\n", err.c_str());
-        }
-
-        if (strcmp(parseOrLoad, "Parse") == 0) {
-          this->parse();
-
-          //write parseTree
-          serializeJsonPretty(parseTreeJson,  parseTreeFile);
-        }
-        else
-        {
-          //read parseTree
-          DeserializationError err = deserializeJson(parseTreeJson, parseTreeFile);
-          if (err) {
-            DEBUG_ARTI1("deserializeJson() in loadParseTree failed with code %s\n", err.c_str());
-          }
-
-        }
-
-        free(programText);
-
-        // char resultString[standardStringLenght];
-        // // strcpy(resultString, "");
-        // arti.walk(parseTreeJson.as<JsonVariant>(), resultString);
-        // DEBUG_ARTI1("walk result %s", resultString);
-
-        this->analyze();
-
-      }
-
-  } // openFileAndParse
-  #else
-    void openFileAndParse(const char *definitionName, const char *programName) {
-      definitionFile.open(definitionName, ios::in);
-
-      programFile.open(programName, ios::in);
-
-      char parseTreeName[charLength];
-      strcpy(parseTreeName, programName);
-      strcat(parseTreeName, ".json");
-
-      parseTreeFile.open(parseTreeName, ios::out);
-
-      #ifndef ARTI_DEBUGORLOG
-        char logFileName[charLength];
-        strcpy(logFileName, programName);
-        strcat(logFileName, ".log");
-
-        logFile = fopen (logFileName,"w");
-      #endif
-
-      if (!programFile || !definitionFile)
-      {
-        DEBUG_ARTI1("Files not found:\n");
-      }
-      else {
-
-        //read program
-        programFile.read(programText, sizeof programText);
-        programText[programFile.gcount()] = '\0';
-        // DEBUG_ARTI1("%s %d", programText, strlen(programText));
-
-        //read definition
-        DeserializationError err = deserializeJson(definitionJson, definitionFile);
-        if (err) {
-          DEBUG_ARTI1("deserializeJson() in Lexer failed with code %s\n", err.c_str());
-        }
-
-        this->parse();
-
-        //write parseTree
-        serializeJsonPretty(parseTreeJson, parseTreeFile);
-
-        // char resultString[standardStringLenght];
-        // arti.walk(parseTreeJson.as<JsonVariant>(), resultString);
-        // DEBUG_ARTI1("walk result %s", resultString);
-
-        this->analyze();
-
-        // printf("Done!!!\n");
-      }
-
-    } // openFileAndParse
-  #endif
-
   void close() {
-      programFile.close();
-      definitionFile.close();
-      parseTreeFile.close();
+          DEBUG_ARTI1("def mem %d of %d %d %d\n", definitionJson->memoryUsage(), definitionJson->capacity(), definitionJson->memoryPool() ,definitionJson->size());
+          DEBUG_ARTI1("par mem %d of %d %d %d\n", parseTreeJson->memoryUsage(), parseTreeJson->capacity(), parseTreeJson->memoryPool() ,parseTreeJson->size());
+          DEBUG_ARTI1("prog size %d factor %d\n", strlen(programText), parseTreeJson->memoryUsage() / strlen(programText));
+          //199 -> 6905 (34.69)
+          //469 -> 15923 (33.95)
       #ifndef ARTI_DEBUGORLOG
         #ifdef ESP32
           logFile.close();

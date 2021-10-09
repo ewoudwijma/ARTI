@@ -1,16 +1,14 @@
 {
   "program": {
     "PROGRAM": "PROGRAM",
-    "variable": {
-      "ID": "Main"
-    },
+    "ID": "Main",
     "CURLYOPEN": "{",
     "block": {
       "declarations*": [
         {
           "variable_declaration": {
             "ID": "pixels",
-            "EQUALSIGN": "=",
+            "COLON": ":",
             "ARRAY": "ARRAY",
             "LPAREN": "(",
             "variable": {
@@ -121,7 +119,34 @@
       ],
       "compound_statement": {
         "CURLYOPEN": "{",
-        "statement_list*": [],
+        "statement_list*": [
+          {
+            "statement": {
+              "proccall_statement": {
+                "ID": "init",
+                "LPAREN": "(",
+                "actual_parameter_list*": [],
+                "RPAREN": ")"
+              }
+            }
+          },
+          {
+            "SEMI": ";"
+          },
+          {
+            "statement": {
+              "proccall_statement": {
+                "ID": "before",
+                "LPAREN": "(",
+                "actual_parameter_list*": [],
+                "RPAREN": ")"
+              }
+            }
+          },
+          {
+            "SEMI": ";"
+          }
+        ],
         "CURLYCLOSE": "}"
       }
     },

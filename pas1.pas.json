@@ -1,9 +1,7 @@
 {
   "program": {
     "PROGRAM": "PROGRAM",
-    "variable": {
-      "ID": "Main"
-    },
+    "ID": "Main",
     "SEMI": ";",
     "block": {
       "declarations*": [

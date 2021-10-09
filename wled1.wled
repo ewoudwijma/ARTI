@@ -1,6 +1,6 @@
 program Main
 {
-   pixels = array(pixelCount)
+   pixels: array(pixelCount)
 
    function init() {
 
@@ -12,5 +12,9 @@ program Main
 
    function render(index) {
    }
-   {}
+
+   {
+      init();
+      before();
+   }
 }

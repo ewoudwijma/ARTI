@@ -11,14 +11,13 @@
 // }
 
 int main() {
-  ARTI arti = ARTI();
+  ARTI *arti = new ARTI();
 
-  arti.openFileAndParse("pas.json", "pas1.pas");
-  // arti.openFileAndParse("wled.json", "wled1.wled");
+  // arti->openFileAndParse("pas.json", "pas1.pas");
+  arti->openFileAndParse("wled.json", "wled1.wled");
 
-  arti.interpret();
-  
+  arti->interpret();
   printf("done");
 
-  arti.close();
+  arti->close();
 }

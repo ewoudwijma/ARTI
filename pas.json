@@ -1,7 +1,7 @@
 {
      "program": [
           "PROGRAM",
-          "variable",
+          "ID",
           "SEMI",
           "block",
           "DOT"
@@ -76,6 +76,9 @@
      "TOKENS":
 
           {
+          "ID": "ID",
+          "INTEGER_CONST": "INTEGER_CONST",
+          "REAL_CONST": "REAL_CONST",
           "PLUS": "+",
           "MINUS": "-",
           "MUL": "*",
@@ -103,7 +106,7 @@
           },
      "SEMANTICS":
      {
-          "program": {"id":"Program", "name":"[\"variable\"][\"ID\"]", "block": "block"},
+          "program": {"id":"Program", "name":"ID", "block": "block"},
           "procedure_declaration": {"id":"Procedure", "name":"ID", "formals": "formal_parameter_list*", "block": "block"},
           "formal_parameters": {"id":"VarSymbol", "name":"ID", "type": "type_spec"},
           "variable_declaration": {"id":"VarSymbol", "name":"ID", "type": "type_spec"},
@@ -111,7 +114,7 @@
      },
      "INTERPRETER":
      {
-          "program": {"id":"Program", "name":"[\"variable\"][\"ID\"]", "block": "block"},
+          "program": {"id":"Program", "name":"ID", "block": "block"},
           "procedure_declaration": {"id":"Procedure", "name":"ID", "block": "block"},
           "proccall_statement": {"id":"ProcedureCall", "name":"ID", "actuals": "actual_parameter_list*"},
           "variable": {"id":"Variable", "name":"ID"},

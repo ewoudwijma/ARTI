@@ -12,6 +12,8 @@
         "system_error": "cpp",
         "string": "cpp",
         "iosfwd": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "typeinfo": "cpp",
+        "new": "cpp"
     }
 }
