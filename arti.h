@@ -609,6 +609,7 @@ class Parser {
           }
           else {
             DEBUG_ARTI1("%s success %s\n", spaces+50-depth, newSymbol_name);
+            // DEBUG_ARTI1("%s success %s %s\n", spaces+50-depth, newSymbol_name, parseTree.as<string>().c_str());
           }
           // DEBUG_ARTI1("%s %s\n", spaces+50-depth, parseTree[symbol_name].as<const char *>());
 
@@ -798,15 +799,15 @@ class SemanticAnalyzer {
 
     void visit(JsonVariant parseTree, const char * treeElement = nullptr, const char * symbol_name = nullptr, const char * token = nullptr, ScopedSymbolTable* current_scope = nullptr, uint8_t depth = 0) {
 
-      // DEBUG_ARTI1("%s Visit %s %s %s\n", spaces+50-depth, stringOrEmpty(treeElement), stringOrEmpty(symbol_name), stringOrEmpty(token)); //, parseTree.as<String>().c_str()
-
       if (parseTree.is<JsonObject>()) {
+        // DEBUG_ARTI1("%s Visit object %s %s %s\n", spaces+50-depth, stringOrEmpty(treeElement), stringOrEmpty(symbol_name), stringOrEmpty(token)); //, parseTree.as<String>().c_str()
+
         for (JsonPair element : parseTree.as<JsonObject>()) {
         if (treeElement == nullptr || strcmp(treeElement, element.key().c_str()) == 0 ) {
           const char * key = element.key().c_str();
           JsonVariant value = element.value();
 
-          // DEBUG_ARTI1("%s Visit element %s %s\n", spaces+50-depth, key, value.as<String>().c_str());
+          // DEBUG_ARTI1("%s Visit element %s %s\n", spaces+50-depth, key, value.as<string>().c_str());
           bool visitCalledAlready = false;
 
           if (!definitionJson[key].isNull()) { //if key is symbol_name
@@ -816,61 +817,71 @@ class SemanticAnalyzer {
             {
               if (expression["id"] == "Program") {
                 const char * expression_name = expression["name"];
+                const char * expression_block = expression["block"];
                 const char * program_name = value[expression_name];
                 this->global_scope = new ScopedSymbolTable(program_name, 1, nullptr); //current_scope
 
                 DEBUG_ARTI1("%s Program %s %d %d\n", spaces+50-depth, global_scope->scope_name, global_scope->scope_level, global_scope->_symbolsIndex); 
 
-                // current_scope->child_scopes[current_scope->child_scopesIndex++] = this->global_scope;
-                // current_scope = global_scope;
-                visit(value[expression["block"].as<const char *>()], nullptr, symbol_name, token, this->global_scope, depth + 1);
+                if (value[expression_block].isNull())
+                  ERROR_ARTI("%s Program %s: no block %s in parseTree\n", spaces+50-depth, program_name, expression_block); 
+                else {
+                 // current_scope->child_scopes[current_scope->child_scopesIndex++] = this->global_scope;
+                  // current_scope = global_scope;
+                  visit(value[expression_block], nullptr, symbol_name, token, this->global_scope, depth + 1);
+                }
 
                 for (int i=0; i<global_scope->_symbolsIndex; i++) {
                   Symbol* symbol = global_scope->_symbols[i];
-                  DEBUG_ARTI1("%s %d %s %s %s %d\n", spaces+50-depth, i, symbol->symbol_type, symbol->name, symbol->type, symbol->scope_level); 
+                  DEBUG_ARTI1("%s %d %s %s.%s %s %d\n", spaces+50-depth, i, symbol->symbol_type, global_scope->scope_name, symbol->name, symbol->type, symbol->scope_level); 
                 }
 
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "Procedure") {
+              else if (expression["id"] == "Function") {
 
-                //find the procedure name (so we must know this is a procedure...)
+                //find the function name (so we must know this is a function...)
                 const char * expression_name = expression["name"];//.as<const char *>();
+                const char * expression_block = expression["block"];
                 const char * proc_name = value[expression_name];
-                Symbol* proc_symbol = new Symbol(symbol_name, proc_name);
+                Symbol* proc_symbol = new Symbol(expression["id"], proc_name);
                 current_scope->insert(proc_symbol);
 
-                DEBUG_ARTI1("%s procedure %s %s\n", spaces+50-depth, current_scope->scope_name, proc_name);
-                ScopedSymbolTable* procedure_scope = new ScopedSymbolTable(proc_name, current_scope->scope_level + 1, current_scope);
-                current_scope->child_scopes[current_scope->child_scopesIndex++] = procedure_scope;
-                proc_symbol->detail_scope = procedure_scope;
-                // DEBUG_ARTI1("%s\n", "ASSIGNING ", proc_symbol->name, " " , procedure_scope->scope_name);
+                DEBUG_ARTI1("%s Function %s.%s\n", spaces+50-depth, current_scope->scope_name, proc_name);
+                ScopedSymbolTable* function_scope = new ScopedSymbolTable(proc_name, current_scope->scope_level + 1, current_scope);
+                current_scope->child_scopes[current_scope->child_scopesIndex++] = function_scope;
+                proc_symbol->detail_scope = function_scope;
+                // DEBUG_ARTI1("%s\n", "ASSIGNING ", proc_symbol->name, " " , function_scope->scope_name);
 
-                // current_scope = procedure_scope;
-                visit(value[expression["formals"].as<const char *>()], nullptr, symbol_name, token, procedure_scope, depth + 1);
+                // current_scope = function_scope;
+                visit(value[expression["formals"].as<const char *>()], nullptr, symbol_name, token, function_scope, depth + 1);
 
-                visit(value[expression["block"].as<const char *>()], nullptr, symbol_name, token, procedure_scope, depth + 1);
+                if (value[expression_block].isNull())
+                  ERROR_ARTI("%s Program %s: no block %s in parseTree\n", spaces+50-depth, proc_name, expression_block); 
+                else
+                  visit(value[expression_block], nullptr, symbol_name, token, function_scope, depth + 1);
 
-                // DEBUG_ARTI1("%s\n", spaces+50-depth, "end proc ", symbol_name, procedure_scope->scope_name, procedure_scope->scope_level, procedure_scope->_symbolsIndex); 
+                // DEBUG_ARTI1("%s\n", spaces+50-depth, "end proc ", symbol_name, function_scope->scope_name, function_scope->scope_level, function_scope->_symbolsIndex); 
 
-                for (int i=0; i<procedure_scope->_symbolsIndex; i++) {
-                  Symbol* symbol = procedure_scope->_symbols[i];
-                  DEBUG_ARTI1("%s %d %s %s %s %d\n", spaces+50-depth, i, symbol->symbol_type, symbol->name, symbol->type, symbol->scope_level); 
+                for (int i=0; i<function_scope->_symbolsIndex; i++) {
+                  Symbol* symbol = function_scope->_symbols[i];
+                  DEBUG_ARTI1("%s %d %s %s.%s %s %d\n", spaces+50-depth, i, symbol->symbol_type, function_scope->scope_name, symbol->name, symbol->type, symbol->scope_level); 
                 }
 
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "VarSymbol") {
+              else if (expression["id"] == "Var" || expression["id"] == "Formal") {
                 // DEBUG_ARTI1("%s var (from array) %s %s %s\n", spaces+50-depth, current_scope->scope_name.c_str(), value.as<const char *>().c_str(), key.c_str());
                 //can be expression or array of expressions
                 if (value.is<JsonArray>()) {
-                  for (JsonObject newValue: value.as<JsonArray>()) {
-                    const char * param_name = newValue[expression["name"].as<const char *>()];
-                    char param_type[charLength]; strcpy(param_type, newValue[expression["type"].as<const char *>()].as<string>().c_str());//current_scope.lookup(param.type_node.value); //need string
-                    Symbol* var_symbol = new Symbol(symbol_name, param_name, param_type);
-                    current_scope->insert(var_symbol);
-                    DEBUG_ARTI1("%s var (from array) %s.%s of %s\n", spaces+50-depth, current_scope->scope_name, param_name, param_type);
-                  }
+                  ERROR_ARTI("Var or formal should not be an array %s\n", value.as<string>().c_str());
+                  // for (JsonObject newValue: value.as<JsonArray>()) {
+                  //   const char * param_name = newValue[expression["name"].as<const char *>()];
+                  //   char param_type[charLength]; strcpy(param_type, newValue[expression["type"].as<const char *>()].as<string>().c_str());//current_scope.lookup(param.type_node.value); //need string
+                  //   Symbol* var_symbol = new Symbol(expression["id"], param_name, param_type);
+                  //   current_scope->insert(var_symbol);
+                  //   DEBUG_ARTI1("%s var (from array) %s.%s of %s\n", spaces+50-depth, current_scope->scope_name, param_name, param_type);
+                  // }
                 }
                 else {
                   const char * param_name = value[expression["name"].as<const char *>()];
@@ -880,17 +891,41 @@ class SemanticAnalyzer {
                     strcpy(param_type, value[expression_type].as<string>().c_str());//current_scope.lookup(param.type_node.value); //need string
                   else
                     strcpy(param_type, "notype");
-                  Symbol* var_symbol = new Symbol(symbol_name, param_name, param_type);
+                  Symbol* var_symbol = new Symbol(expression["id"], param_name, param_type);
                   current_scope->insert(var_symbol);
-                  DEBUG_ARTI1("%s var %s.%s of %s\n", spaces+50-depth, current_scope->scope_name, param_name, param_type);
+                  DEBUG_ARTI1("%s Var %s.%s of %s\n", spaces+50-depth, current_scope->scope_name, param_name, param_type);
                 }
               }
               else if (expression["id"] == "Assign") {
-                JsonVariant left = value["variable"]["ID"];
-                // JsonVariant right = value[expression["value"].as<const char *>()];
-                DEBUG_ARTI1("%s Assign %s =\n", spaces+50-depth, left.as<const char *>());
+                const char * expression_name = expression["name"];
+                JsonVariant left = value[expression_name]["ID"];
 
-                visit(value, expression["value"], symbol_name, token, current_scope, depth + 1);
+                const char * expression_value = expression["value"];
+                char param_type[charLength]; 
+                strcpy(param_type, "notype");
+
+                // JsonVariant right = value[expression_value];
+
+                if (!value[expression_value].isNull()) { //value assignment
+                  DEBUG_ARTI1("%s Assign %s = {value (not of interest during analyze...) %s}\n", spaces+50-depth, left.as<const char *>(), value[expression_value].as<string>().c_str());
+                  visit(value, expression_value, symbol_name, token, current_scope, depth + 1);
+                }
+                else
+                  ERROR_ARTI("%s Assign %s: no value in parseTree\n", spaces+50-depth, left.as<const char *>()); 
+
+                //is it already a defined var, if not add
+                Symbol* var_symbol = current_scope->lookup(left.as<const char *>()); //lookup here and parent scopes
+                if (var_symbol == nullptr) {
+                  const char * param_name = left;
+                  if (param_name != nullptr) {
+                    var_symbol = new Symbol(expression["id"], param_name, param_type);
+                    current_scope->insert(var_symbol);
+                    DEBUG_ARTI1("%s Var (assign) %s.%s of %s\n", spaces+50-depth, current_scope->scope_name, param_name, param_type);
+                  }
+                  else
+                    DEBUG_ARTI1("%s Var (not assign) %s.%s of %s\n", spaces+50-depth, current_scope->scope_name, param_name, param_type);
+                }
+
                 visitCalledAlready = true;
               }
             } // is expression["id"]
@@ -911,6 +946,7 @@ class SemanticAnalyzer {
       }
       else { //not object
         if (parseTree.is<JsonArray>()) {
+          // DEBUG_ARTI1("%s Visit array %s %s %s\n", spaces+50-depth, stringOrEmpty(treeElement), stringOrEmpty(symbol_name), stringOrEmpty(token)); //, parseTree.as<String>().c_str()
           for (JsonVariant newParseTree: parseTree.as<JsonArray>()) {
             // DEBUG_ARTI1("%s\n", spaces+50-depth, "Array ", parseTree[i], "  ";
             visit(newParseTree, nullptr, symbol_name, token, current_scope, depth + 1);
@@ -918,7 +954,7 @@ class SemanticAnalyzer {
         }
         else { //not array
           // string element = parseTree;
-          // DEBUG_ARTI1("%s value notnot %s\n", spaces+50-depth, element.c_str());
+          // DEBUG_ARTI1("%s value notnot %s\n", spaces+50-depth, parseTree.as<string>().c_str());
           // if (definitionJson["SEMANTICS"][element])
         }
       }
@@ -979,12 +1015,12 @@ class CallStack {
 }; //CallStack
 
 class Calculator {
-  private:
-    char stack[arrayLength][charLength];
-    uint8_t stack_index = 0;
-  public:
-  Calculator() {
+private:
+public:
+  char stack[arrayLength][charLength];
+  uint8_t stack_index = 0;
 
+  Calculator() {
   }
 
   void push(const char * key, const char * value) {
@@ -1002,12 +1038,15 @@ class Calculator {
   }
 
   const char * pop() {
-    if (stack_index>0)
+    if (stack_index>0) {
       stack_index--;
-    else
+      return stack[stack_index];
+    }
+    else {
       ERROR_ARTI("Calc stack empty\n");
     // DEBUG_ARTI1("Calc Pop %s\n", stack[stack_index]);
-    return stack[stack_index];
+      return "novalue";
+    }
   }
 
 }; //Calculator
@@ -1028,20 +1067,21 @@ class Interpreter {
   }
 
   void interpret() {
-    if (this->analyzer->global_scope != nullptr) { //due to undefined procedures??? wip
+    if (this->analyzer != nullptr) { //due to undefined functions??? wip
 
       DEBUG_ARTI1("\ninterpret %s %d %d %d\n", analyzer->global_scope->scope_name, analyzer->global_scope->scope_level, analyzer->global_scope->_symbolsIndex, analyzer->global_scope->child_scopesIndex); 
       for (int i=0; i<analyzer->global_scope->_symbolsIndex; i++) {
         Symbol* symbol = analyzer->global_scope->_symbols[i];
-        DEBUG_ARTI1("scope %s %s %s %d\n", symbol->symbol_type, symbol->name, symbol->type, symbol->scope_level); 
+        DEBUG_ARTI1("scope %s %s.%s %s %d\n", symbol->symbol_type, analyzer->global_scope->scope_name, symbol->name, symbol->type, symbol->scope_level); 
       }
+
+      visit(analyzer->parseTreeJson);
     }
     else
     {
-      ERROR_ARTI("Interpret global scope is nullptr\n");
+      ERROR_ARTI("\nInterpret global scope is nullptr\n");
     }
 
-    visit(analyzer->parseTreeJson);
   }
 
             // ["PLUS2", "factor"],
@@ -1068,6 +1108,7 @@ class Interpreter {
 
               if (expression["id"] == "Program") {
                 const char * expression_name = expression["name"];
+                const char * expression_block = expression["block"];
                 DEBUG_ARTI1("%s program name %s\n", spaces+50-depth, expression_name);
                 const char * program_name = value[expression_name];
 
@@ -1080,7 +1121,10 @@ class Interpreter {
                 else
                   ERROR_ARTI("program name null\n");
 
-                visit(value[expression["block"].as<const char *>()], nullptr, symbol_name, token, depth + 1);
+                if (value[expression_block].isNull())
+                  ERROR_ARTI("%s Program %s: no block %s in parseTree\n", spaces+50-depth, program_name, expression_block); 
+                else
+                  visit(value[expression_block], nullptr, symbol_name, token, depth + 1);
 
                 if (!value[expression_name].isNull()) {
                   this->call_stack->pop();
@@ -1088,66 +1132,47 @@ class Interpreter {
 
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "Procedure") {
+              else if (expression["id"] == "Function") {
+                const char * expression_block = expression["block"];
                 const char * proc_name = value[expression["name"].as<const char *>()]; //as string is needed!!!
                 Symbol* proc_symbol = this->analyzer->global_scope->lookup(proc_name, true, true);
                 DEBUG_ARTI1("%s Save block of %s\n", spaces+50-depth, proc_name);
-                proc_symbol->block = value[expression["block"].as<const char *>()];
+                proc_symbol->block = value[expression_block];
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "ProcedureCall") {
+              else if (expression["id"] == "Call") {
                 const char * proc_name = value[expression["name"].as<const char *>()]; //as string is needed!!!
                 Symbol* proc_symbol = this->analyzer->global_scope->lookup(proc_name, true, true);
 
                 if (proc_symbol != nullptr) { //calling undefined function: pre-defined functions e.g. print
 
-                  ActivationRecord* ar = new ActivationRecord(proc_name, "PROCEDURE", proc_symbol->scope_level + 1);
+                  ActivationRecord* ar = new ActivationRecord(proc_name, "Function", proc_symbol->scope_level + 1);
 
                   DEBUG_ARTI1("%s %s %s %s %s\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, proc_name, proc_symbol->name);
 
                   visit(value[expression["actuals"].as<const char *>()], nullptr, symbol_name, token, depth + 1);
 
                   for (int i=proc_symbol->detail_scope->_symbolsIndex-1; i>=0;i--) { //backwards because popped in reversed order
-                    if (strcmp(proc_symbol->detail_scope->_symbols[i]->symbol_type, "formal_parameters") == 0) { //select formal parameters
-                    //{"ID":"Alpha","LPAREN":"(","actual_parameter_list*":[
-                      //      {"expr*":[{"term*":[{"factor":{"INTEGER_CONST":"3"}},{}]},{"PLUS":"+"},{"term*":[{"factor":{"INTEGER_CONST":"5"}},{}]}]},{"COMMA":","},
-                      //      {"expr*":[{"term*":[{"factor":{"INTEGER_CONST":"7"}},{}]},{}]}],"RPAREN":")","SEMI":";"} 
+                    if (strcmp(proc_symbol->detail_scope->_symbols[i]->symbol_type, "Formal") == 0) { //select formal parameters
                       const char * result = calculator->pop();
                       ar->set(proc_symbol->detail_scope->_symbols[i]->name, result);
-                      DEBUG_ARTI1("%s %s = %s\n", spaces+50-depth, proc_symbol->detail_scope->_symbols[i]->name, result);
+                      DEBUG_ARTI1("%s Actual %s = %s (pop)\n", spaces+50-depth, proc_symbol->detail_scope->_symbols[i]->name, result);
                     }
                   }
 
                   this->call_stack->push(ar);
 
-                  //find block of procedure... lookup procedure?
-                  //visit block of procedure
+                  //find block of function... lookup function?
+                  //visit block of function
                   // DEBUG_ARTI1("%s proc block %s\n", spaces+50-depth, proc_symbol->block.as<string>().c_str());
 
-                  //Terms tovisit [{"factor":{"LPAREN":"(",
-                  //      "expr*":[{"term*":[{"factor":{"variable":{"ID":"a"}}}]},{"PLUS":"+"},{"term*":[{"factor":{"variable":{"ID":"b"}}}]}],
-                  //                          "RPAREN":")"}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}] 
-                  //Exprs tovisit [{"term*":[{"factor":{"variable":{"ID":"a"}}}]},{"PLUS":"+"},{"term*":[{"factor":{"variable":{"ID":"b"}}}]}] 
-
-                  //{"declarations*":[
-                  //     {"variable_declaration":{"ID":"x","COLON":":","type_spec":{"INTEGER":"INTEGER"}}},
-                  //     {"SEMI":";"}],
-                  //"compound_statement":{
-                  //    "BEGIN":"BEGIN",
-                  //    "statement_list*":[
-                  //       {"statement":{
-                  //           "assignment_statement":{"variable":{"ID":"x"},"ASSIGN":":=",
-                  //                  "expr*":[{"term*":[{"factor":{"variable":{"ID":"a"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"10"}}]},
-                  //                           {"PLUS":"+"},
-                  //                           {"term*":[{"factor":{"variable":{"ID":"b"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}
-                  //                          ]       }
-                  //                     }
-                  //         },{"SEMI":";"}],
-                  //    "END":"END"       }
-                  //} 
                   visit(proc_symbol->block, nullptr, symbol_name, token, depth + 1);
 
                   this->call_stack->pop();
+
+                  char cr[charLength] = "CallResult tbd of ";
+                  strcat(cr, proc_name);
+                  calculator->push("Call", cr);
 
                   visitCalledAlready = true;
                 } //proc_symbol != nullptr
@@ -1157,13 +1182,36 @@ class Interpreter {
 
               }
               else if (expression["id"] == "Assign") {
+                const char * expression_value = expression["value"];
+                const char * expression_indices = expression["indices"]; //array indices
+                const char * expression_name = expression["name"];
 
-                visit(value, expression["value"], symbol_name, token, depth + 1);
+                if (!value[expression_value].isNull()) { //value assignment
+                  visit(value, expression["value"], symbol_name, token, depth + 1); //value pushed
 
-                ActivationRecord* ar = this->call_stack->peek();
-                ar->set(value["variable"]["ID"], this->calculator->pop());
+                  char indices[charLength];
+                  strcpy(indices, "");
+                  if (!value[expression_indices].isNull()) {
+                    strcat(indices, "[");
+                    uint8_t oldIndex = calculator->stack_index;
+                    visit(value, expression["indices"], symbol_name, token, depth + 1); //value pushed
+                    char sep[3] = "";
+                    for (uint8_t i = oldIndex; i<=calculator->stack_index; i++) {
+                      strcat(indices, sep);
+                      strcat(indices, this->calculator->stack[i]);
+                      strcpy(sep, ",");
+                    }
+                    for (uint8_t i = oldIndex; i<=calculator->stack_index; i++) {
+                      this->calculator->pop();
+                    }
+                    strcat(indices, "]");
+                  }
 
-                DEBUG_ARTI1("%s %s := %s\n", spaces+50-depth, value["variable"]["ID"].as<const char *>(), ar->get(value["variable"]["ID"]));
+                  ActivationRecord* ar = this->call_stack->peek();
+                  ar->set(value[expression_name]["ID"], this->calculator->pop());
+
+                  DEBUG_ARTI1("%s %s%s := %s (pop)\n", spaces+50-depth, value[expression_name]["ID"].as<const char *>(), indices, ar->get(value[expression_name]["ID"]));
+                }
 
                 visitCalledAlready = true;
               }
@@ -1209,13 +1257,13 @@ class Interpreter {
                 }
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "Variable") {
+              else if (expression["id"] == "Var") {
                 ActivationRecord* ar = this->call_stack->peek();
                 const char * expression_name = expression["name"];
                 const char * nameValue = ar->get(value[expression_name]);
 
                 #ifndef ESP32 //for some weird reason this causes a crash on esp32
-                  DEBUG_ARTI1("%s %s %s = %s\n", spaces+50-depth, key, value[expression_name].as<const char *>(), nameValue); //key is variable_declaration name is ID
+                  DEBUG_ARTI1("%s %s %s = %s (push)\n", spaces+50-depth, key, value[expression_name].as<const char *>(), nameValue); //key is variable_declaration name is ID
                 #endif
                 calculator->push(key, nameValue);
 
@@ -1224,6 +1272,7 @@ class Interpreter {
               else if (expression["id"] == "ForLoop") {
                 DEBUG_ARTI1("%s for loop\n", spaces+50-depth);
 
+                const char * expression_block = expression["block"];
                 visit(value, expression["from"], symbol_name, token, depth + 1);
                 visit(value[expression["to"].as<const char *>()], nullptr, symbol_name, token, depth + 1);
                 ActivationRecord* ar = this->call_stack->peek();
@@ -1234,7 +1283,7 @@ class Interpreter {
                   itoa(i, resultChar, 10);
 
                   ar->set("y", resultChar);
-                  visit(value[expression["block"].as<const char *>()], nullptr, symbol_name, token, depth + 1);
+                  visit(value[expression_block], nullptr, symbol_name, token, depth + 1);
                 }
                 visitCalledAlready = true;
               }
@@ -1245,7 +1294,7 @@ class Interpreter {
           // if (key == "INTEGER_CONST" || key == "PLUS" || key == "MUL" || key == "LPAREN"  || key == "RPAREN" ) {
           if (strcmp(key, "INTEGER_CONST") == 0) {// || value == "+" || value == "*") || value == "("  || value == ")" ) {
             calculator->push(key, value.as<const char *>());
-            // DEBUG_ARTI1("%s\n", spaces+50-depth, "Calculator (push) ", key, value, calculator.peek());
+            DEBUG_ARTI1("%s Push %s %s %s\n", spaces+50-depth, key, value.as<const char *>(), calculator->peek());
             visitCalledAlready = true;
           }
 
@@ -1280,7 +1329,7 @@ class ARTI {
 private:
   Lexer *lexer;
   Parser *parser;
-  SemanticAnalyzer *semanticAnalyzer;
+  SemanticAnalyzer *semanticAnalyzer = nullptr;
   TreeWalker *treeWalker;
   Interpreter *interpreter;
   #ifdef ESP32
@@ -1386,7 +1435,7 @@ public:
             parseTreeFile.open(parseTreeName, ios::out);
           #endif
 
-          parseTreeJson = new DynamicJsonDocument(strlen(programText) * 40);
+          parseTreeJson = new DynamicJsonDocument(strlen(programText) * 50);
 
           //parse
           if (strcmp(parseOrLoad, "Parse") == 0) {
@@ -1442,8 +1491,8 @@ public:
   }
 
   void close() {
-          DEBUG_ARTI1("def mem %d of %d %d %d\n", definitionJson->memoryUsage(), definitionJson->capacity(), definitionJson->memoryPool() ,definitionJson->size());
-          DEBUG_ARTI1("par mem %d of %d %d %d\n", parseTreeJson->memoryUsage(), parseTreeJson->capacity(), parseTreeJson->memoryPool() ,parseTreeJson->size());
+          DEBUG_ARTI1("def mem %d of %d %d %d\n", definitionJson->memoryUsage(), definitionJson->capacity(), definitionJson->memoryPool().capacity(), definitionJson->size());
+          DEBUG_ARTI1("par mem %d of %d %d %d\n", parseTreeJson->memoryUsage(), parseTreeJson->capacity(), parseTreeJson->memoryPool().capacity(), parseTreeJson->size());
           DEBUG_ARTI1("prog size %d factor %d\n", strlen(programText), parseTreeJson->memoryUsage() / strlen(programText));
           //199 -> 6905 (34.69)
           //469 -> 15923 (33.95)

@@ -14,6 +14,7 @@
         "iosfwd": "cpp",
         "fstream": "cpp",
         "typeinfo": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "*.tcc": "cpp"
     }
 }

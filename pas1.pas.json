@@ -112,7 +112,7 @@
                           {
                             "statement": {
                               "assignment_statement": {
-                                "variable": {
+                                "varleft": {
                                   "ID": "x"
                                 },
                                 "ASSIGN": ":=",
@@ -222,7 +222,7 @@
                           {
                             "statement": {
                               "assignment_statement": {
-                                "variable": {
+                                "varleft": {
                                   "ID": "x"
                                 },
                                 "ASSIGN": ":=",
@@ -288,7 +288,7 @@
                   {
                     "statement": {
                       "assignment_statement": {
-                        "variable": {
+                        "varleft": {
                           "ID": "x"
                         },
                         "ASSIGN": ":=",
@@ -458,7 +458,7 @@
               "for_loop": {
                 "FOR": "FOR",
                 "assignment_statement": {
-                  "variable": {
+                  "varleft": {
                     "ID": "y"
                   },
                   "ASSIGN": ":=",

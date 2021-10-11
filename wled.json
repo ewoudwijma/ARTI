@@ -1,129 +1,71 @@
 {
-     "program": [
-          "PROGRAM",
-          "ID",
-          "CURLYOPEN", 
-          "block",
-          "CURLYCLOSE"
-     ],
-     "block": [
-          "declarations*",
-          "compound_statement"
-     ],
-     "declarations*" : [
-          {"*": "variable_declaration"}, 
-          {"*": "procedure_declaration"}
-     ],
-     "variable_declaration" : [
-          "ID", 
-          "COLON", 
-          "ARRAY", 
-          "LPAREN",
-          "variable", 
-          "RPAREN"
-     ],
-     "procedure_declaration" : [
-          "FUNCTION", 
-          "ID", 
-          {"?": ["LPAREN", "formal_parameter_list*", "RPAREN"]}, 
-          "block"
-     ],
-     "formal_parameter_list*" : {"?": ["formal_parameters", {"*":["SEMI", "formal_parameters"]}]},
-     "formal_parameters" : [
-          "ID"
-     ],
-     "type_spec" : {"or" : ["INTEGER", "REAL"]},
-     "compound_statement" : [
-          "CURLYOPEN", 
-          "statement_list*", 
-          "CURLYCLOSE"
-     ],
-     "statement_list*" : {"?": ["statement", {"*": ["SEMI", "statement"]}]},
-     "statement" : {"or": ["compound_statement",
-                  "proccall_statement",
-                  "assignment_statement","for_loop"]},
-     "proccall_statement" : [
-          "ID", 
-          "LPAREN", 
-          "actual_parameter_list*", 
-          "RPAREN"
-     ],
-     "actual_parameter_list*": {"?": ["expr*", {"*": ["COMMA", "expr*"]}]},
-     "assignment_statement" : [
-          "variableassignment", 
-          "EQUALSIGN", 
-          "expr*"
-     ],
-     "variableassignment" : {"or": ["arrayvariable", "variable"]},
-     "arrayvariable": ["variable", "LBRACKET", "expr*", "RBRACKET"],
-     "empty" : [""],
-     "expr*" : [
-          "term*", 
-          {"*": [{"or": ["PLUS", "MINUS"]}, "term*"]}
-     ],
-     "term*" : [
-          "factor", 
-          {"*": [{"or": ["MUL", "INTEGER_DIV", "FLOAT_DIV"]}, "factor"]}
-     ],
-     "factor" : {"or": ["variable", 
-          "INTEGER_CONST",
-               "REAL_CONST",
-               [ "LPAREN", "expr*", "RPAREN"]
-               ]},
-     "variable": "ID",
-     "for_loop": ["FOR", "assignment_statement", "TO", "expr*","DO","compound_statement"],
-     "TOKENS":
+  "program": ["PROGRAM", "ID", "compound"],
+  "compound" : ["CURLYOPEN", "block*", "CURLYCLOSE"],
+  "block*": {"*": {"or" : ["variable", "function", "statement"]}},
+  "variable" : ["VAR", "ID"],
+  "function" : ["FUNCTION", "ID", {"?": ["LPAREN", "formals*", "RPAREN"]}, "compound"],
+  "formals*" : {"?": ["formal", {"*":["COMMA", "formal"]}]},
+  "formal" : "ID",
+  "statement" : {"or": ["compound", "call", "assign","for_loop"]},
+  "call" : ["ID", "LPAREN", "actuals*", "RPAREN"],
+  "actuals*": {"?": ["expr*", {"*": ["COMMA", "expr*"]}]},
+  "assign" : ["varleft", {"?": ["LBRACKET", "indices*", "RBRACKET"]}, "EQUAL", "expr*"],
+  "indices*" : ["expr*", {"*": ["COMMA", "expr*"]}],
+  "expr*" : [ "term*", {"*": [{"or": ["PLUS", "MINUS"]}, "term*"]}],
+  "term*" : [ "factor", {"*": [{"or": ["MUL", "INTEGER_DIV", "FLOAT_DIV"]}, "factor"]}],
+  "factor" : {"or": ["call", "varref", "INTEGER_CONST", "REAL_CONST", ["LPAREN", "expr*", "RPAREN"]]},
+  "varref": "ID",
+  "varleft": "ID",
+  "for_loop": ["FOR", "assign", "TO", "expr*","DO","compound"],
 
-          {
-          "ID": "ID",
-          "INTEGER_CONST": "INTEGER_CONST",
-          "REAL_CONST": "REAL_CONST",
-          "PLUS": "+",
-          "MINUS": "-",
-          "MUL": "*",
-          "FLOAT_DIV": "/",
-          "LPAREN": "(",
-          "RPAREN": ")",
-          "LBRACKET": "[",
-          "RBRACKET": "]",
-          "SEMI": ";",
-          "DOT": ".",
-          "COLON": ":",
-          "COMMA": ",",
-          "EQUALSIGN": "=",
-          "ASSIGN": ":=",
-    
-          "PROGRAM": "PROGRAM",
-          "INTEGER": "INTEGER",
-          "REAL": "REAL",
-          "INTEGER_DIV": "DIV",
-          "VAR": "VAR",
-          "FUNCTION": "FUNCTION",
-          "CURLYOPEN": "{",
-          "CURLYCLOSE": "}",
-          "FOR": "FOR",
-          "TO": "TO",
-          "DO": "DO",
-          "ARRAY": "ARRAY"
+  "TOKENS":
+  {
+    "ID": "ID",
+    "INTEGER_CONST": "INTEGER_CONST",
+    "REAL_CONST": "REAL_CONST",
+    "PLUS": "+",
+    "MINUS": "-",
+    "MUL": "*",
+    "FLOAT_DIV": "/",
+    "LPAREN": "(",
+    "RPAREN": ")",
+    "LBRACKET": "[",
+    "RBRACKET": "]",
+    "COMMA": ",",
+    "EQUAL": "=",
+
+    "PROGRAM": "PROGRAM",
+    "INTEGER": "INTEGER",
+    "REAL": "REAL",
+    "INTEGER_DIV": "DIV",
+    "VAR": "VAR",
+    "FUNCTION": "FUNCTION",
+    "CURLYOPEN": "{",
+    "CURLYCLOSE": "}",
+    "FOR": "FOR",
+    "TO": "TO",
+    "DO": "DO"
           },
-     "SEMANTICS":
-     {
-          "program": {"id":"Program", "name":"ID", "block": "block"},
-          "procedure_declaration": {"id":"Procedure", "name":"ID", "formals": "formal_parameter_list*", "block": "block"},
-          "formal_parameters": {"id":"VarSymbol", "name":"ID", "type": "type_spec"},
-          "variable_declaration": {"id":"VarSymbol", "name":"ID", "type": "type_spec"},
-          "assignment_statement": {"id":"Assign", "name":"[\"variable\"][\"ID\"]", "value":"expr*"}
-     },
-     "INTERPRETER":
-     {
-          "program": {"id":"Program", "name":"ID", "block": "block"},
-          "procedure_declaration": {"id":"Procedure", "name":"ID", "block": "block"},
-          "proccall_statement": {"id":"ProcedureCall", "name":"ID", "actuals": "actual_parameter_list*"},
-          "variable": {"id":"Variable", "name":"ID"},
-          "assignment_statement": {"id":"Assign", "name":"[\"variable\"][\"ID\"]", "value":"expr*"},
-          "for_loop": {"id":"ForLoop", "from":"assignment_statement", "to":"expr*", "block":"compound_statement"},
-          "expr*": {"id":"Exprs"},
-          "term*": {"id":"Terms"}
-     }
-    
+
+  "SEMANTICS":
+  {
+    "program": {"id":"Program", "name":"ID", "block": "compound"},
+    "function": {"id":"Function", "name":"ID", "formals": "formals*", "block": "compound"},
+    "formal": {"id":"Formal", "name":"ID", "type": "type"},
+    "variable": {"id":"Var", "name":"ID", "type": "type"},
+    "assign": {"id":"Assign", "name":"varleft", "value":"expr*"}
+  },
+
+  "INTERPRETER":
+  {
+    "program": {"id":"Program", "name":"ID", "block": "compound"},
+    "function": {"id":"Function", "name":"ID", "block": "compound"},
+    "call": {"id":"Call", "name":"ID", "actuals": "actuals*"},
+    "varref": {"id":"Var", "name":"ID"},
+    "assign": {"id":"Assign", "name":"varleft", "value":"expr*", "indices":"indices*"},
+    "for_loop": {"id":"ForLoop", "from":"assign", "to":"expr*", "block":"compound"},
+    "expr*": {"id":"Exprs"},
+    "term*": {"id":"Terms"}
+  }
+
 }

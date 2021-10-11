@@ -1,286 +1,445 @@
 Parser PROGRAM PROGRAM
   PROGRAM PROGRAM -> [ID Main]
   ID Main -> [CURLYOPEN {]
-  CURLYOPEN { -> [ID pixels]
-  block
-    declarations*
-       variable_declaration
-         ID pixels -> [COLON :]
-         COLON : -> [ARRAY ARRAY]
-         ARRAY ARRAY -> [LPAREN (]
-         LPAREN ( -> [ID pixelCount]
-         variable
-          ID pixelCount -> [RPAREN )]
-         success variable
-         RPAREN ) -> [FUNCTION FUNCTION]
-       success variable_declaration
-       variable_declaration
-       fail variable_declaration
-       procedure_declaration
-         FUNCTION FUNCTION -> [ID init]
-         ID init -> [LPAREN (]
-           LPAREN ( -> [RPAREN )]
-           formal_parameter_list*
-              formal_parameters
-              fail formal_parameters
-           success formal_parameter_list*
-           RPAREN ) -> [CURLYOPEN {]
-         block
-           declarations*
-              variable_declaration
-              fail variable_declaration
-              procedure_declaration
-              fail procedure_declaration
-           success declarations*
-           compound_statement
-             CURLYOPEN { -> [CURLYCLOSE }]
-             statement_list*
+  compound
+    CURLYOPEN { -> [ID pixelCount]
+    block*
+        variable
+        fail variable
+        function
+        fail function
+        statement
+           compound
+           fail compound
+           call
+             ID pixelCount -> [EQUAL =]
+           fail call
+           assign
+             varleft
+              ID pixelCount -> [EQUAL =]
+             success varleft
+             EQUAL = -> [INTEGER_CONST 30]
+             expr*
+               term*
+                 factor
+                    call
+                    fail call
+                    varref
+                    fail varref
+                    INTEGER_CONST 30 -> [ID pixels]
+                 success factor
+               success term*
+             success expr*
+           success assign
+        success statement
+        variable
+        fail variable
+        function
+        fail function
+        statement
+           compound
+           fail compound
+           call
+             ID pixels -> [EQUAL =]
+           fail call
+           assign
+             varleft
+              ID pixels -> [EQUAL =]
+             success varleft
+             EQUAL = -> [ID array]
+             expr*
+               term*
+                 factor
+                    call
+                      ID array -> [LPAREN (]
+                      LPAREN ( -> [ID pixelCount]
+                      actuals*
+                         expr*
+                           term*
+                             factor
+                                call
+                                  ID pixelCount -> [COMMA ,]
+                                fail call
+                                varref
+                                 ID pixelCount -> [COMMA ,]
+                                success varref
+                             success factor
+                           success term*
+                         success expr*
+                           COMMA , -> [ID pixelCount]
+                           expr*
+                             term*
+                               factor
+                                  call
+                                    ID pixelCount -> [RPAREN )]
+                                  fail call
+                                  varref
+                                   ID pixelCount -> [RPAREN )]
+                                  success varref
+                               success factor
+                             success term*
+                           success expr*
+                      success actuals*
+                      RPAREN ) -> [FUNCTION FUNCTION]
+                    success call
+                 success factor
+               success term*
+             success expr*
+           success assign
+        success statement
+        variable
+        fail variable
+        function
+          FUNCTION FUNCTION -> [ID init]
+          ID init -> [LPAREN (]
+            LPAREN ( -> [RPAREN )]
+            formals*
+               formal
+               fail formal
+            success formals*
+            RPAREN ) -> [CURLYOPEN {]
+          compound
+            CURLYOPEN { -> [CURLYCLOSE }]
+            block*
+                variable
+                fail variable
+                function
+                fail function
                 statement
-                   compound_statement
-                   fail compound_statement
-                   proccall_statement
-                   fail proccall_statement
-                   assignment_statement
-                     variableassignment
-                        arrayvariable
-                          variable
-                          fail variable
-                        fail arrayvariable
-                        variable
-                        fail variable
-                     fail variableassignment
-                   fail assignment_statement
+                   compound
+                   fail compound
+                   call
+                   fail call
+                   assign
+                     varleft
+                     fail varleft
+                   fail assign
                    for_loop
                    fail for_loop
                 fail statement
-             success statement_list*
-             CURLYCLOSE } -> [FUNCTION FUNCTION]
-           success compound_statement
-         success block
-       success procedure_declaration
-       procedure_declaration
-         FUNCTION FUNCTION -> [ID before]
-         ID before -> [LPAREN (]
-           LPAREN ( -> [RPAREN )]
-           formal_parameter_list*
-              formal_parameters
-              fail formal_parameters
-           success formal_parameter_list*
-           RPAREN ) -> [CURLYOPEN {]
-         block
-           declarations*
-              variable_declaration
-              fail variable_declaration
-              procedure_declaration
-              fail procedure_declaration
-           success declarations*
-           compound_statement
-             CURLYOPEN { -> [ID pixels]
-             statement_list*
+            success block*
+            CURLYCLOSE } -> [FUNCTION FUNCTION]
+          success compound
+        success function
+        variable
+        fail variable
+        function
+          FUNCTION FUNCTION -> [ID before]
+          ID before -> [LPAREN (]
+            LPAREN ( -> [RPAREN )]
+            formals*
+               formal
+               fail formal
+            success formals*
+            RPAREN ) -> [CURLYOPEN {]
+          compound
+            CURLYOPEN { -> [ID pixels]
+            block*
+                variable
+                fail variable
+                function
+                fail function
                 statement
-                   compound_statement
-                   fail compound_statement
-                   proccall_statement
+                   compound
+                   fail compound
+                   call
                      ID pixels -> [LBRACKET []
-                   fail proccall_statement
-                   assignment_statement
-                     variableassignment
-                        arrayvariable
-                          variable
-                           ID pixels -> [LBRACKET []
-                          success variable
-                          LBRACKET [ -> [INTEGER_CONST 3]
-                          expr*
-                            term*
-                              factor
-                                 variable
-                                 fail variable
-                                 INTEGER_CONST 3 -> [RBRACKET ]]
-                              success factor
-                            success term*
-                          success expr*
-                          RBRACKET ] -> [EQUALSIGN =]
-                        success arrayvariable
-                     success variableassignment
-                     EQUALSIGN = -> [INTEGER_CONST 10]
+                   fail call
+                   assign
+                     varleft
+                      ID pixels -> [LBRACKET []
+                     success varleft
+                       LBRACKET [ -> [INTEGER_CONST 3]
+                       indices*
+                         expr*
+                           term*
+                             factor
+                                call
+                                fail call
+                                varref
+                                fail varref
+                                INTEGER_CONST 3 -> [COMMA ,]
+                             success factor
+                           success term*
+                         success expr*
+                           COMMA , -> [INTEGER_CONST 7]
+                           expr*
+                             term*
+                               factor
+                                  call
+                                  fail call
+                                  varref
+                                  fail varref
+                                  INTEGER_CONST 7 -> [RBRACKET ]]
+                               success factor
+                             success term*
+                           success expr*
+                       success indices*
+                       RBRACKET ] -> [EQUAL =]
+                     EQUAL = -> [INTEGER_CONST 10]
                      expr*
                        term*
                          factor
-                            variable
-                            fail variable
-                            INTEGER_CONST 10 -> [SEMI ;]
+                            call
+                            fail call
+                            varref
+                            fail varref
+                            INTEGER_CONST 10 -> [CURLYCLOSE }]
                          success factor
                        success term*
                      success expr*
-                   success assignment_statement
+                   success assign
                 success statement
-                  SEMI ; -> [CURLYCLOSE }]
-                  statement
-                     compound_statement
-                     fail compound_statement
-                     proccall_statement
-                     fail proccall_statement
-                     assignment_statement
-                       variableassignment
-                          arrayvariable
-                            variable
-                            fail variable
-                          fail arrayvariable
-                          variable
-                          fail variable
-                       fail variableassignment
-                     fail assignment_statement
-                     for_loop
-                     fail for_loop
-                  fail statement
-             success statement_list*
-             CURLYCLOSE } -> [FUNCTION FUNCTION]
-           success compound_statement
-         success block
-       success procedure_declaration
-       procedure_declaration
-         FUNCTION FUNCTION -> [ID render]
-         ID render -> [LPAREN (]
-           LPAREN ( -> [ID index]
-           formal_parameter_list*
-              formal_parameters
-                ID index -> [RPAREN )]
-              success formal_parameters
-           success formal_parameter_list*
-           RPAREN ) -> [CURLYOPEN {]
-         block
-           declarations*
-              variable_declaration
-              fail variable_declaration
-              procedure_declaration
-              fail procedure_declaration
-           success declarations*
-           compound_statement
-             CURLYOPEN { -> [CURLYCLOSE }]
-             statement_list*
+                variable
+                fail variable
+                function
+                fail function
                 statement
-                   compound_statement
-                   fail compound_statement
-                   proccall_statement
-                   fail proccall_statement
-                   assignment_statement
-                     variableassignment
-                        arrayvariable
-                          variable
-                          fail variable
-                        fail arrayvariable
-                        variable
-                        fail variable
-                     fail variableassignment
-                   fail assignment_statement
+                   compound
+                   fail compound
+                   call
+                   fail call
+                   assign
+                     varleft
+                     fail varleft
+                   fail assign
                    for_loop
                    fail for_loop
                 fail statement
-             success statement_list*
-             CURLYCLOSE } -> [CURLYOPEN {]
-           success compound_statement
-         success block
-       success procedure_declaration
-       procedure_declaration
-       fail procedure_declaration
-    success declarations*
-    compound_statement
-      CURLYOPEN { -> [ID init]
-      statement_list*
-         statement
-            compound_statement
-            fail compound_statement
-            proccall_statement
-              ID init -> [LPAREN (]
-              LPAREN ( -> [RPAREN )]
-              actual_parameter_list*
-                 expr*
-                   term*
-                     factor
-                        variable
-                        fail variable
-                     fail factor
-                   fail term*
-                 fail expr*
-              success actual_parameter_list*
-              RPAREN ) -> [SEMI ;]
-            success proccall_statement
-         success statement
-           SEMI ; -> [ID before]
-           statement
-              compound_statement
-              fail compound_statement
-              proccall_statement
-                ID before -> [LPAREN (]
-                LPAREN ( -> [RPAREN )]
-                actual_parameter_list*
-                   expr*
-                     term*
-                       factor
-                          variable
-                          fail variable
-                       fail factor
-                     fail term*
-                   fail expr*
-                success actual_parameter_list*
-                RPAREN ) -> [SEMI ;]
-              success proccall_statement
-           success statement
-           SEMI ; -> [CURLYCLOSE }]
-           statement
-              compound_statement
-              fail compound_statement
-              proccall_statement
-              fail proccall_statement
-              assignment_statement
-                variableassignment
-                   arrayvariable
-                     variable
-                     fail variable
-                   fail arrayvariable
-                   variable
-                   fail variable
-                fail variableassignment
-              fail assignment_statement
-              for_loop
-              fail for_loop
-           fail statement
-      success statement_list*
-      CURLYCLOSE } -> [CURLYCLOSE }]
-    success compound_statement
-  success block
-  CURLYCLOSE }
-Symbol program Parsed until (20,1) 199 of 199
+            success block*
+            CURLYCLOSE } -> [FUNCTION FUNCTION]
+          success compound
+        success function
+        variable
+        fail variable
+        function
+          FUNCTION FUNCTION -> [ID render]
+          ID render -> [LPAREN (]
+            LPAREN ( -> [ID index]
+            formals*
+               formal
+                ID index -> [COMMA ,]
+               success formal
+                 COMMA , -> [ID index2]
+                 formal
+                  ID index2 -> [RPAREN )]
+                 success formal
+            success formals*
+            RPAREN ) -> [CURLYOPEN {]
+          compound
+            CURLYOPEN { -> [CURLYCLOSE }]
+            block*
+                variable
+                fail variable
+                function
+                fail function
+                statement
+                   compound
+                   fail compound
+                   call
+                   fail call
+                   assign
+                     varleft
+                     fail varleft
+                   fail assign
+                   for_loop
+                   fail for_loop
+                fail statement
+            success block*
+            CURLYCLOSE } -> [FUNCTION FUNCTION]
+          success compound
+        success function
+        variable
+        fail variable
+        function
+          FUNCTION FUNCTION -> [ID array]
+          ID array -> [LPAREN (]
+            LPAREN ( -> [ID index]
+            formals*
+               formal
+                ID index -> [COMMA ,]
+               success formal
+                 COMMA , -> [ID index2]
+                 formal
+                  ID index2 -> [RPAREN )]
+                 success formal
+            success formals*
+            RPAREN ) -> [CURLYOPEN {]
+          compound
+            CURLYOPEN { -> [CURLYCLOSE }]
+            block*
+                variable
+                fail variable
+                function
+                fail function
+                statement
+                   compound
+                   fail compound
+                   call
+                   fail call
+                   assign
+                     varleft
+                     fail varleft
+                   fail assign
+                   for_loop
+                   fail for_loop
+                fail statement
+            success block*
+            CURLYCLOSE } -> [CURLYOPEN {]
+          success compound
+        success function
+        variable
+        fail variable
+        function
+        fail function
+        statement
+           compound
+             CURLYOPEN { -> [ID init]
+             block*
+                 variable
+                 fail variable
+                 function
+                 fail function
+                 statement
+                    compound
+                    fail compound
+                    call
+                      ID init -> [LPAREN (]
+                      LPAREN ( -> [RPAREN )]
+                      actuals*
+                         expr*
+                           term*
+                             factor
+                                call
+                                fail call
+                                varref
+                                fail varref
+                             fail factor
+                           fail term*
+                         fail expr*
+                      success actuals*
+                      RPAREN ) -> [ID before]
+                    success call
+                 success statement
+                 variable
+                 fail variable
+                 function
+                 fail function
+                 statement
+                    compound
+                    fail compound
+                    call
+                      ID before -> [LPAREN (]
+                      LPAREN ( -> [RPAREN )]
+                      actuals*
+                         expr*
+                           term*
+                             factor
+                                call
+                                fail call
+                                varref
+                                fail varref
+                             fail factor
+                           fail term*
+                         fail expr*
+                      success actuals*
+                      RPAREN ) -> [CURLYCLOSE }]
+                    success call
+                 success statement
+                 variable
+                 fail variable
+                 function
+                 fail function
+                 statement
+                    compound
+                    fail compound
+                    call
+                    fail call
+                    assign
+                      varleft
+                      fail varleft
+                    fail assign
+                    for_loop
+                    fail for_loop
+                 fail statement
+             success block*
+             CURLYCLOSE } -> [CURLYCLOSE }]
+           success compound
+        success statement
+        variable
+        fail variable
+        function
+        fail function
+        statement
+           compound
+           fail compound
+           call
+           fail call
+           assign
+             varleft
+             fail varleft
+           fail assign
+           for_loop
+           fail for_loop
+        fail statement
+    success block*
+    CURLYCLOSE }
+  success compound
+Symbol program Parsed until (25,1) 286 of 286
 
 Analyzer
  Program Main 1 0
-    var Main.pixels of notype
-    procedure Main init
-    procedure Main before
-         Assign (null) =
-    procedure Main render
-      var render.index of notype
-    0 formal_parameters index notype 2
- 0 variable_declaration pixels notype 1
- 1 procedure_declaration init  1
- 2 procedure_declaration before  1
- 3 procedure_declaration render  1
+     Assign pixelCount = {value (not of interest during analyze...) [{"term*":[{"factor":{"INTEGER_CONST":"30"}}]}]}
+     Var (assign) Main.pixelCount of notype
+     Assign pixels = {value (not of interest during analyze...) [{"term*":[{"factor":{"call":{"ID":"array","LPAREN":"(","actuals*":[{"expr*":[{"term*":[{"factor":{"varref":{"ID":"pixelCount"}}}]}]},{"COMMA":","},{"expr*":[{"term*":[{"factor":{"varref":{"ID":"pixelCount"}}}]}]}],"RPAREN":")"}}}]}]}
+     Var (assign) Main.pixels of notype
+    Function Main.init
+    Function Main.before
+        Assign pixels = {value (not of interest during analyze...) [{"term*":[{"factor":{"INTEGER_CONST":"10"}}]}]}
+    Function Main.render
+      Var render.index of notype
+      Var render.index2 of notype
+    0 Formal render.index notype 2
+    1 Formal render.index2 notype 2
+    Function Main.array
+      Var array.index of notype
+      Var array.index2 of notype
+    0 Formal array.index notype 2
+    1 Formal array.index2 notype 2
+ 0 Assign Main.pixelCount notype 1
+ 1 Assign Main.pixels notype 1
+ 2 Function Main.init  1
+ 3 Function Main.before  1
+ 4 Function Main.render  1
+ 5 Function Main.array  1
 
-interpret Main 1 4 3
-scope variable_declaration pixels notype 1
-scope procedure_declaration init  1
-scope procedure_declaration before  1
-scope procedure_declaration render  1
+interpret Main 1 6 4
+scope Assign Main.pixelCount notype 1
+scope Assign Main.pixels notype 1
+scope Function Main.init  1
+scope Function Main.before  1
+scope Function Main.render  1
+scope Function Main.array  1
  program name ID
  Program Main Main
-     variable pixelCount = (null)
-Calc stack full 0 of 30 or value is null
+         Push INTEGER_CONST 30 30
+     pixelCount := 30 (pop)
+         Call array array array
+              varref pixelCount = 30 (push)
+              varref pixelCount = 30 (push)
+         Actual index2 = 30 (pop)
+         Actual index = 30 (pop)
+     pixels := CallResult tbd of array (pop)
     Save block of init
     Save block of before
     Save block of render
-      ProcedureCall init init init
-      ProcedureCall before before before
-           (null) := (null)
-def mem 7252 of 8192 6815104 25
-par mem 6905 of 7960 6815104 1
-prog size 199 factor 34
+    Save block of array
+         Call init init init
+         Call before before before
+                 Push INTEGER_CONST 10 10
+                   Push INTEGER_CONST 3 3
+                   Push INTEGER_CONST 7 7
+             pixels[3,7,] := 10 (pop)
+def mem 6318 of 8192 8192 21
+par mem 11002 of 14304 14304 1
+prog size 286 factor 38

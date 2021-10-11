@@ -53,7 +53,7 @@
      ],
      "actual_parameter_list*": {"?": ["expr*", {"*": ["COMMA", "expr*"]}]},
      "assignment_statement" : [
-          "variable", 
+          "varleft", 
           "ASSIGN", 
           "expr*"
      ],
@@ -69,12 +69,13 @@
      "factor" : {"or": ["variable", 
           "INTEGER_CONST",
                "REAL_CONST",
-               [ "LPAREN", "expr*", "RPAREN"]
+               ["LPAREN", "expr*", "RPAREN"]
                ]},
      "variable": "ID",
+     "varleft": "ID",
      "for_loop": ["FOR", "assignment_statement", "TO", "expr*","DO","compound_statement"],
-     "TOKENS":
 
+     "TOKENS":
           {
           "ID": "ID",
           "INTEGER_CONST": "INTEGER_CONST",
@@ -104,21 +105,23 @@
           "TO": "TO",
           "DO": "DO"
           },
+
      "SEMANTICS":
      {
           "program": {"id":"Program", "name":"ID", "block": "block"},
-          "procedure_declaration": {"id":"Procedure", "name":"ID", "formals": "formal_parameter_list*", "block": "block"},
-          "formal_parameters": {"id":"VarSymbol", "name":"ID", "type": "type_spec"},
-          "variable_declaration": {"id":"VarSymbol", "name":"ID", "type": "type_spec"},
-          "assignment_statement": {"id":"Assign", "name":"[\"variable\"][\"ID\"]", "value":"expr*"}
+          "procedure_declaration": {"id":"Function", "name":"ID", "formals": "formal_parameter_list*", "block": "block"},
+          "formal_parameters": {"id":"Formal", "name":"ID", "type": "type_spec"},
+          "variable_declaration": {"id":"Var", "name":"ID", "type": "type_spec"},
+          "assignment_statement": {"id":"Assign", "name":"varleft", "value":"expr*"}
      },
+
      "INTERPRETER":
      {
           "program": {"id":"Program", "name":"ID", "block": "block"},
-          "procedure_declaration": {"id":"Procedure", "name":"ID", "block": "block"},
-          "proccall_statement": {"id":"ProcedureCall", "name":"ID", "actuals": "actual_parameter_list*"},
-          "variable": {"id":"Variable", "name":"ID"},
-          "assignment_statement": {"id":"Assign", "name":"[\"variable\"][\"ID\"]", "value":"expr*"},
+          "procedure_declaration": {"id":"Function", "name":"ID", "block": "block"},
+          "proccall_statement": {"id":"Call", "name":"ID", "actuals": "actual_parameter_list*"},
+          "variable": {"id":"Var", "name":"ID"},
+          "assignment_statement": {"id":"Assign", "name":"varleft", "value":"expr*"},
           "for_loop": {"id":"ForLoop", "from":"assignment_statement", "to":"expr*", "block":"compound_statement"},
           "expr*": {"id":"Exprs"},
           "term*": {"id":"Terms"}

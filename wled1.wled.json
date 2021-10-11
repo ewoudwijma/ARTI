@@ -2,154 +2,261 @@
   "program": {
     "PROGRAM": "PROGRAM",
     "ID": "Main",
-    "CURLYOPEN": "{",
-    "block": {
-      "declarations*": [
+    "compound": {
+      "CURLYOPEN": "{",
+      "block*": [
         {
-          "variable_declaration": {
-            "ID": "pixels",
-            "COLON": ":",
-            "ARRAY": "ARRAY",
-            "LPAREN": "(",
-            "variable": {
-              "ID": "pixelCount"
-            },
-            "RPAREN": ")"
+          "statement": {
+            "assign": {
+              "varleft": {
+                "ID": "pixelCount"
+              },
+              "EQUAL": "=",
+              "expr*": [
+                {
+                  "term*": [
+                    {
+                      "factor": {
+                        "INTEGER_CONST": "30"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           }
         },
         {
-          "procedure_declaration": {
+          "statement": {
+            "assign": {
+              "varleft": {
+                "ID": "pixels"
+              },
+              "EQUAL": "=",
+              "expr*": [
+                {
+                  "term*": [
+                    {
+                      "factor": {
+                        "call": {
+                          "ID": "array",
+                          "LPAREN": "(",
+                          "actuals*": [
+                            {
+                              "expr*": [
+                                {
+                                  "term*": [
+                                    {
+                                      "factor": {
+                                        "varref": {
+                                          "ID": "pixelCount"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "COMMA": ","
+                            },
+                            {
+                              "expr*": [
+                                {
+                                  "term*": [
+                                    {
+                                      "factor": {
+                                        "varref": {
+                                          "ID": "pixelCount"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "RPAREN": ")"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "function": {
             "FUNCTION": "FUNCTION",
             "ID": "init",
             "LPAREN": "(",
-            "formal_parameter_list*": [],
+            "formals*": [],
             "RPAREN": ")",
-            "block": {
-              "declarations*": [],
-              "compound_statement": {
-                "CURLYOPEN": "{",
-                "statement_list*": [],
-                "CURLYCLOSE": "}"
-              }
+            "compound": {
+              "CURLYOPEN": "{",
+              "block*": [],
+              "CURLYCLOSE": "}"
             }
           }
         },
         {
-          "procedure_declaration": {
+          "function": {
             "FUNCTION": "FUNCTION",
             "ID": "before",
             "LPAREN": "(",
-            "formal_parameter_list*": [],
+            "formals*": [],
             "RPAREN": ")",
-            "block": {
-              "declarations*": [],
-              "compound_statement": {
-                "CURLYOPEN": "{",
-                "statement_list*": [
-                  {
-                    "statement": {
-                      "assignment_statement": {
-                        "variableassignment": {
-                          "arrayvariable": {
-                            "variable": {
-                              "ID": "pixels"
-                            },
-                            "LBRACKET": "[",
-                            "expr*": [
-                              {
-                                "term*": [
-                                  {
-                                    "factor": {
-                                      "INTEGER_CONST": "3"
-                                    }
+            "compound": {
+              "CURLYOPEN": "{",
+              "block*": [
+                {
+                  "statement": {
+                    "assign": {
+                      "varleft": {
+                        "ID": "pixels"
+                      },
+                      "LBRACKET": "[",
+                      "indices*": [
+                        {
+                          "expr*": [
+                            {
+                              "term*": [
+                                {
+                                  "factor": {
+                                    "INTEGER_CONST": "3"
                                   }
-                                ]
-                              }
-                            ],
-                            "RBRACKET": "]"
-                          }
-                        },
-                        "EQUALSIGN": "=",
-                        "expr*": [
-                          {
-                            "term*": [
-                              {
-                                "factor": {
-                                  "INTEGER_CONST": "10"
                                 }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "COMMA": ","
+                        },
+                        {
+                          "expr*": [
+                            {
+                              "term*": [
+                                {
+                                  "factor": {
+                                    "INTEGER_CONST": "7"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "RBRACKET": "]",
+                      "EQUAL": "=",
+                      "expr*": [
+                        {
+                          "term*": [
+                            {
+                              "factor": {
+                                "INTEGER_CONST": "10"
                               }
-                            ]
-                          }
-                        ]
-                      }
+                            }
+                          ]
+                        }
+                      ]
                     }
-                  },
-                  {
-                    "SEMI": ";"
                   }
-                ],
-                "CURLYCLOSE": "}"
-              }
+                }
+              ],
+              "CURLYCLOSE": "}"
             }
           }
         },
         {
-          "procedure_declaration": {
+          "function": {
             "FUNCTION": "FUNCTION",
             "ID": "render",
             "LPAREN": "(",
-            "formal_parameter_list*": [
+            "formals*": [
               {
-                "formal_parameters": {
+                "formal": {
                   "ID": "index"
+                }
+              },
+              {
+                "COMMA": ","
+              },
+              {
+                "formal": {
+                  "ID": "index2"
                 }
               }
             ],
             "RPAREN": ")",
-            "block": {
-              "declarations*": [],
-              "compound_statement": {
-                "CURLYOPEN": "{",
-                "statement_list*": [],
-                "CURLYCLOSE": "}"
+            "compound": {
+              "CURLYOPEN": "{",
+              "block*": [],
+              "CURLYCLOSE": "}"
+            }
+          }
+        },
+        {
+          "function": {
+            "FUNCTION": "FUNCTION",
+            "ID": "array",
+            "LPAREN": "(",
+            "formals*": [
+              {
+                "formal": {
+                  "ID": "index"
+                }
+              },
+              {
+                "COMMA": ","
+              },
+              {
+                "formal": {
+                  "ID": "index2"
+                }
               }
+            ],
+            "RPAREN": ")",
+            "compound": {
+              "CURLYOPEN": "{",
+              "block*": [],
+              "CURLYCLOSE": "}"
+            }
+          }
+        },
+        {
+          "statement": {
+            "compound": {
+              "CURLYOPEN": "{",
+              "block*": [
+                {
+                  "statement": {
+                    "call": {
+                      "ID": "init",
+                      "LPAREN": "(",
+                      "actuals*": [],
+                      "RPAREN": ")"
+                    }
+                  }
+                },
+                {
+                  "statement": {
+                    "call": {
+                      "ID": "before",
+                      "LPAREN": "(",
+                      "actuals*": [],
+                      "RPAREN": ")"
+                    }
+                  }
+                }
+              ],
+              "CURLYCLOSE": "}"
             }
           }
         }
       ],
-      "compound_statement": {
-        "CURLYOPEN": "{",
-        "statement_list*": [
-          {
-            "statement": {
-              "proccall_statement": {
-                "ID": "init",
-                "LPAREN": "(",
-                "actual_parameter_list*": [],
-                "RPAREN": ")"
-              }
-            }
-          },
-          {
-            "SEMI": ";"
-          },
-          {
-            "statement": {
-              "proccall_statement": {
-                "ID": "before",
-                "LPAREN": "(",
-                "actual_parameter_list*": [],
-                "RPAREN": ")"
-              }
-            }
-          },
-          {
-            "SEMI": ";"
-          }
-        ],
-        "CURLYCLOSE": "}"
-      }
-    },
-    "CURLYCLOSE": "}"
+      "CURLYCLOSE": "}"
+    }
   }
 }

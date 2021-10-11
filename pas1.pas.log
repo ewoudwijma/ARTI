@@ -100,9 +100,9 @@ Parser PROGRAM PROGRAM
                            ID x -> [ASSIGN :=]
                          fail proccall_statement
                          assignment_statement
-                           variable
+                           varleft
                             ID x -> [ASSIGN :=]
-                           success variable
+                           success varleft
                            ASSIGN := -> [ID a]
                            expr*
                              term*
@@ -142,8 +142,8 @@ Parser PROGRAM PROGRAM
                            proccall_statement
                            fail proccall_statement
                            assignment_statement
-                             variable
-                             fail variable
+                             varleft
+                             fail varleft
                            fail assignment_statement
                            for_loop
                            fail for_loop
@@ -203,9 +203,9 @@ Parser PROGRAM PROGRAM
                            ID x -> [ASSIGN :=]
                          fail proccall_statement
                          assignment_statement
-                           variable
+                           varleft
                             ID x -> [ASSIGN :=]
-                           success variable
+                           success varleft
                            ASSIGN := -> [ID a]
                            expr*
                              term*
@@ -245,8 +245,8 @@ Parser PROGRAM PROGRAM
                            proccall_statement
                            fail proccall_statement
                            assignment_statement
-                             variable
-                             fail variable
+                             varleft
+                             fail varleft
                            fail assignment_statement
                            for_loop
                            fail for_loop
@@ -270,9 +270,9 @@ Parser PROGRAM PROGRAM
                     ID x -> [ASSIGN :=]
                   fail proccall_statement
                   assignment_statement
-                    variable
+                    varleft
                      ID x -> [ASSIGN :=]
-                    success variable
+                    success varleft
                     ASSIGN := -> [LPAREN (]
                     expr*
                       term*
@@ -347,8 +347,8 @@ Parser PROGRAM PROGRAM
                     proccall_statement
                     fail proccall_statement
                     assignment_statement
-                      variable
-                      fail variable
+                      varleft
+                      fail varleft
                     fail assignment_statement
                     for_loop
                     fail for_loop
@@ -410,15 +410,15 @@ Parser PROGRAM PROGRAM
              proccall_statement
              fail proccall_statement
              assignment_statement
-               variable
-               fail variable
+               varleft
+               fail varleft
              fail assignment_statement
              for_loop
                FOR FOR -> [ID y]
                assignment_statement
-                 variable
+                 varleft
                   ID y -> [ASSIGN :=]
-                 success variable
+                 success varleft
                  ASSIGN := -> [INTEGER_CONST 1]
                  expr*
                    term*
@@ -481,8 +481,8 @@ Parser PROGRAM PROGRAM
                         proccall_statement
                         fail proccall_statement
                         assignment_statement
-                          variable
-                          fail variable
+                          varleft
+                          fail varleft
                         fail assignment_statement
                         for_loop
                         fail for_loop
@@ -499,8 +499,8 @@ Parser PROGRAM PROGRAM
              proccall_statement
              fail proccall_statement
              assignment_statement
-               variable
-               fail variable
+               varleft
+               fail varleft
              fail assignment_statement
              for_loop
              fail for_loop
@@ -514,107 +514,129 @@ Symbol program Parsed until (35,6) 469 of 469
 
 Analyzer
  Program Main 1 0
-    var Main.y of {"INTEGER":"INTEGER"}
-    procedure Main Alpha
-      var Alpha.a of {"INTEGER":"INTEGER"}
-      var Alpha.b of {"INTEGER":"INTEGER"}
-       var Alpha.x of {"INTEGER":"INTEGER"}
-       procedure Alpha Beta
-         var Beta.a of {"INTEGER":"INTEGER"}
-         var Beta.b of {"INTEGER":"INTEGER"}
-          var Beta.x of {"INTEGER":"INTEGER"}
-            Assign x =
-       0 formal_parameters a {"INTEGER":"INTEGER"} 3
-       1 formal_parameters b {"INTEGER":"INTEGER"} 3
-       2 variable_declaration x {"INTEGER":"INTEGER"} 3
-       procedure Alpha Gamma
-         var Gamma.a of {"INTEGER":"INTEGER"}
-         var Gamma.b of {"INTEGER":"INTEGER"}
-          var Gamma.x of {"INTEGER":"INTEGER"}
-            Assign x =
-       0 formal_parameters a {"INTEGER":"INTEGER"} 3
-       1 formal_parameters b {"INTEGER":"INTEGER"} 3
-       2 variable_declaration x {"INTEGER":"INTEGER"} 3
-         Assign x =
-    0 formal_parameters a {"INTEGER":"INTEGER"} 2
-    1 formal_parameters b {"INTEGER":"INTEGER"} 2
-    2 variable_declaration x {"INTEGER":"INTEGER"} 2
-    3 procedure_declaration Beta  2
-    4 procedure_declaration Gamma  2
-       Assign y =
- 0 variable_declaration y {"INTEGER":"INTEGER"} 1
- 1 procedure_declaration Alpha  1
+    Var Main.y of {"INTEGER":"INTEGER"}
+    Function Main.Alpha
+      Var Alpha.a of {"INTEGER":"INTEGER"}
+      Var Alpha.b of {"INTEGER":"INTEGER"}
+       Var Alpha.x of {"INTEGER":"INTEGER"}
+       Function Alpha.Beta
+         Var Beta.a of {"INTEGER":"INTEGER"}
+         Var Beta.b of {"INTEGER":"INTEGER"}
+          Var Beta.x of {"INTEGER":"INTEGER"}
+            Assign x = {value (not of interest during analyze...) [{"term*":[{"factor":{"variable":{"ID":"a"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"10"}}]},{"PLUS":"+"},{"term*":[{"factor":{"variable":{"ID":"b"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}]}
+       0 Formal Beta.a {"INTEGER":"INTEGER"} 3
+       1 Formal Beta.b {"INTEGER":"INTEGER"} 3
+       2 Var Beta.x {"INTEGER":"INTEGER"} 3
+       Function Alpha.Gamma
+         Var Gamma.a of {"INTEGER":"INTEGER"}
+         Var Gamma.b of {"INTEGER":"INTEGER"}
+          Var Gamma.x of {"INTEGER":"INTEGER"}
+            Assign x = {value (not of interest during analyze...) [{"term*":[{"factor":{"variable":{"ID":"a"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"10"}}]},{"PLUS":"+"},{"term*":[{"factor":{"variable":{"ID":"b"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}]}
+       0 Formal Gamma.a {"INTEGER":"INTEGER"} 3
+       1 Formal Gamma.b {"INTEGER":"INTEGER"} 3
+       2 Var Gamma.x {"INTEGER":"INTEGER"} 3
+         Assign x = {value (not of interest during analyze...) [{"term*":[{"factor":{"LPAREN":"(","expr*":[{"term*":[{"factor":{"variable":{"ID":"a"}}}]},{"PLUS":"+"},{"term*":[{"factor":{"variable":{"ID":"b"}}}]}],"RPAREN":")"}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}]}
+    0 Formal Alpha.a {"INTEGER":"INTEGER"} 2
+    1 Formal Alpha.b {"INTEGER":"INTEGER"} 2
+    2 Var Alpha.x {"INTEGER":"INTEGER"} 2
+    3 Function Alpha.Beta  2
+    4 Function Alpha.Gamma  2
+       Assign y = {value (not of interest during analyze...) [{"term*":[{"factor":{"INTEGER_CONST":"1"}}]}]}
+ 0 Var Main.y {"INTEGER":"INTEGER"} 1
+ 1 Function Main.Alpha  1
 
 interpret Main 1 2 1
-scope variable_declaration y {"INTEGER":"INTEGER"} 1
-scope procedure_declaration Alpha  1
+scope Var Main.y {"INTEGER":"INTEGER"} 1
+scope Function Main.Alpha  1
  program name ID
  Program Main Main
     Save block of Alpha
-      ProcedureCall Alpha Alpha Alpha
+      Call Alpha Alpha Alpha
+           Push INTEGER_CONST 3 3
+           Push INTEGER_CONST 5 5
         3 + 5 = 8
-      b = 7
-      a = 8
+           Push INTEGER_CONST 7 7
+      Actual b = 7 (pop)
+      Actual a = 8 (pop)
          Save block of Beta
          Save block of Gamma
-                  variable a = 8
-                  variable b = 7
+                  variable a = 8 (push)
+                  variable b = 7 (push)
                8 + 7 = 15
+               Push INTEGER_CONST 2 2
              15 * 2 = 30
-           x := 30
-           ProcedureCall Beta Beta Beta
-           b = 10
-           a = 5
-                    variable a = 5
+           x := 30 (pop)
+           Call Beta Beta Beta
+                Push INTEGER_CONST 5 5
+                Push INTEGER_CONST 10 10
+           Actual b = 10 (pop)
+           Actual a = 5 (pop)
+                    variable a = 5 (push)
+                    Push INTEGER_CONST 10 10
                   5 * 10 = 50
-                    variable b = 10
+                    variable b = 10 (push)
+                    Push INTEGER_CONST 2 2
                   10 * 2 = 20
                  50 + 20 = 70
-                x := 70
+                x := 70 (pop)
       for loop
-       y := 1
+           Push INTEGER_CONST 1 1
+       y := 1 (pop)
+          Push INTEGER_CONST 10 10
       iteration 0
-          ProcedureCall Alpha Alpha Alpha
-               variable y = 0
-          b = 0
-          a = 35
+          Call Alpha Alpha Alpha
+               Push INTEGER_CONST 35 35
+               variable y = 0 (push)
+          Actual b = 0 (pop)
+          Actual a = 35 (pop)
              Save block of Beta
              Save block of Gamma
-                      variable a = 35
-                      variable b = 0
+                      variable a = 35 (push)
+                      variable b = 0 (push)
                    35 + 0 = 35
+                   Push INTEGER_CONST 2 2
                  35 * 2 = 70
-               x := 70
-               ProcedureCall Beta Beta Beta
-               b = 10
-               a = 5
-                        variable a = 5
+               x := 70 (pop)
+               Call Beta Beta Beta
+                    Push INTEGER_CONST 5 5
+                    Push INTEGER_CONST 10 10
+               Actual b = 10 (pop)
+               Actual a = 5 (pop)
+                        variable a = 5 (push)
+                        Push INTEGER_CONST 10 10
                       5 * 10 = 50
-                        variable b = 10
+                        variable b = 10 (push)
+                        Push INTEGER_CONST 2 2
                       10 * 2 = 20
                      50 + 20 = 70
-                    x := 70
+                    x := 70 (pop)
       iteration 1
-          ProcedureCall Alpha Alpha Alpha
-               variable y = 1
-          b = 1
-          a = 35
+          Call Alpha Alpha Alpha
+               Push INTEGER_CONST 35 35
+               variable y = 1 (push)
+          Actual b = 1 (pop)
+          Actual a = 35 (pop)
              Save block of Beta
              Save block of Gamma
-                      variable a = 35
-                      variable b = 1
+                      variable a = 35 (push)
+                      variable b = 1 (push)
                    35 + 1 = 36
+                   Push INTEGER_CONST 2 2
                  36 * 2 = 72
-               x := 72
-               ProcedureCall Beta Beta Beta
-               b = 10
-               a = 5
-                        variable a = 5
+               x := 72 (pop)
+               Call Beta Beta Beta
+                    Push INTEGER_CONST 5 5
+                    Push INTEGER_CONST 10 10
+               Actual b = 10 (pop)
+               Actual a = 5 (pop)
+                        variable a = 5 (push)
+                        Push INTEGER_CONST 10 10
                       5 * 10 = 50
-                        variable b = 10
+                        variable b = 10 (push)
+                        Push INTEGER_CONST 2 2
                       10 * 2 = 20
                      50 + 20 = 70
-                    x := 70
-def mem 7133 of 8192 6815104 23
-prog size 469
-par mem 15923 of 18760 6815104 1
+                    x := 70 (pop)
+def mem 7136 of 8192 8192 24
+par mem 15923 of 23456 23456 1
+prog size 469 factor 33
