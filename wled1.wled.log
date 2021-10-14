@@ -2,7 +2,7 @@ Parser PROGRAM PROGRAM
   PROGRAM PROGRAM -> [ID Main]
   ID Main -> [CURLYOPEN {]
   compound
-    CURLYOPEN { -> [ID pixelCount]
+    CURLYOPEN { -> [ID ledCount]
     block*
         variable
         fail variable
@@ -12,13 +12,13 @@ Parser PROGRAM PROGRAM
            compound
            fail compound
            call
-             ID pixelCount -> [EQUAL =]
+             ID ledCount -> [EQUAL =]
            fail call
            assign
              varleft
-              ID pixelCount -> [EQUAL =]
+              ID ledCount -> [EQUAL =]
              success varleft
-             EQUAL = -> [INTEGER_CONST 30]
+             EQUAL = -> [INTEGER_CONST 2]
              expr*
                term*
                  factor
@@ -26,7 +26,7 @@ Parser PROGRAM PROGRAM
                     fail call
                     varref
                     fail varref
-                    INTEGER_CONST 30 -> [ID pixels]
+                    INTEGER_CONST 2 -> [ID leds]
                  success factor
                success term*
              success expr*
@@ -40,11 +40,11 @@ Parser PROGRAM PROGRAM
            compound
            fail compound
            call
-             ID pixels -> [EQUAL =]
+             ID leds -> [EQUAL =]
            fail call
            assign
              varleft
-              ID pixels -> [EQUAL =]
+              ID leds -> [EQUAL =]
              success varleft
              EQUAL = -> [ID array]
              expr*
@@ -52,29 +52,29 @@ Parser PROGRAM PROGRAM
                  factor
                     call
                       ID array -> [LPAREN (]
-                      LPAREN ( -> [ID pixelCount]
+                      LPAREN ( -> [ID ledCount]
                       actuals*
                          expr*
                            term*
                              factor
                                 call
-                                  ID pixelCount -> [COMMA ,]
+                                  ID ledCount -> [COMMA ,]
                                 fail call
                                 varref
-                                 ID pixelCount -> [COMMA ,]
+                                 ID ledCount -> [COMMA ,]
                                 success varref
                              success factor
                            success term*
                          success expr*
-                           COMMA , -> [ID pixelCount]
+                           COMMA , -> [ID ledCount]
                            expr*
                              term*
                                factor
                                   call
-                                    ID pixelCount -> [RPAREN )]
+                                    ID ledCount -> [RPAREN )]
                                   fail call
                                   varref
-                                   ID pixelCount -> [RPAREN )]
+                                   ID ledCount -> [RPAREN )]
                                   success varref
                                success factor
                              success term*
@@ -99,7 +99,7 @@ Parser PROGRAM PROGRAM
             success formals*
             RPAREN ) -> [CURLYOPEN {]
           compound
-            CURLYOPEN { -> [CURLYCLOSE }]
+            CURLYOPEN { -> [ID leds]
             block*
                 variable
                 fail variable
@@ -109,45 +109,11 @@ Parser PROGRAM PROGRAM
                    compound
                    fail compound
                    call
+                     ID leds -> [LBRACKET []
                    fail call
                    assign
                      varleft
-                     fail varleft
-                   fail assign
-                   for_loop
-                   fail for_loop
-                fail statement
-            success block*
-            CURLYCLOSE } -> [FUNCTION FUNCTION]
-          success compound
-        success function
-        variable
-        fail variable
-        function
-          FUNCTION FUNCTION -> [ID before]
-          ID before -> [LPAREN (]
-            LPAREN ( -> [RPAREN )]
-            formals*
-               formal
-               fail formal
-            success formals*
-            RPAREN ) -> [CURLYOPEN {]
-          compound
-            CURLYOPEN { -> [ID pixels]
-            block*
-                variable
-                fail variable
-                function
-                fail function
-                statement
-                   compound
-                   fail compound
-                   call
-                     ID pixels -> [LBRACKET []
-                   fail call
-                   assign
-                     varleft
-                      ID pixels -> [LBRACKET []
+                      ID leds -> [LBRACKET []
                      success varleft
                        LBRACKET [ -> [INTEGER_CONST 3]
                        indices*
@@ -203,8 +169,10 @@ Parser PROGRAM PROGRAM
                      varleft
                      fail varleft
                    fail assign
-                   for_loop
-                   fail for_loop
+                   for
+                   fail for
+                   if
+                   fail if
                 fail statement
             success block*
             CURLYCLOSE } -> [FUNCTION FUNCTION]
@@ -213,21 +181,16 @@ Parser PROGRAM PROGRAM
         variable
         fail variable
         function
-          FUNCTION FUNCTION -> [ID render]
-          ID render -> [LPAREN (]
-            LPAREN ( -> [ID index]
+          FUNCTION FUNCTION -> [ID before]
+          ID before -> [LPAREN (]
+            LPAREN ( -> [RPAREN )]
             formals*
                formal
-                ID index -> [COMMA ,]
-               success formal
-                 COMMA , -> [ID index2]
-                 formal
-                  ID index2 -> [RPAREN )]
-                 success formal
+               fail formal
             success formals*
             RPAREN ) -> [CURLYOPEN {]
           compound
-            CURLYOPEN { -> [CURLYCLOSE }]
+            CURLYOPEN { -> [FOR FOR]
             block*
                 variable
                 fail variable
@@ -242,8 +205,258 @@ Parser PROGRAM PROGRAM
                      varleft
                      fail varleft
                    fail assign
-                   for_loop
-                   fail for_loop
+                   for
+                     FOR FOR -> [LPAREN (]
+                     LPAREN ( -> [ID i]
+                     assign
+                       varleft
+                        ID i -> [EQUAL =]
+                       success varleft
+                       EQUAL = -> [INTEGER_CONST 0]
+                       expr*
+                         term*
+                           factor
+                              call
+                              fail call
+                              varref
+                              fail varref
+                              INTEGER_CONST 0 -> [SEMI ;]
+                           success factor
+                         success term*
+                       success expr*
+                     success assign
+                     SEMI ; -> [ID i]
+                     expr*
+                       term*
+                         factor
+                            call
+                              ID i -> [SMALLER <]
+                            fail call
+                            varref
+                             ID i -> [SMALLER <]
+                            success varref
+                         success factor
+                       success term*
+                           SMALLER < -> [ID ledCount]
+                         term*
+                           factor
+                              call
+                                ID ledCount -> [SEMI ;]
+                              fail call
+                              varref
+                               ID ledCount -> [SEMI ;]
+                              success varref
+                           success factor
+                         success term*
+                     success expr*
+                     SEMI ; -> [ID i]
+                     increment
+                      assign
+                        varleft
+                         ID i -> [EQUAL =]
+                        success varleft
+                        EQUAL = -> [ID i]
+                        expr*
+                          term*
+                            factor
+                               call
+                                 ID i -> [PLUS +]
+                               fail call
+                               varref
+                                ID i -> [PLUS +]
+                               success varref
+                            success factor
+                          success term*
+                              PLUS + -> [INTEGER_CONST 1]
+                            term*
+                              factor
+                                 call
+                                 fail call
+                                 varref
+                                 fail varref
+                                 INTEGER_CONST 1 -> [RPAREN )]
+                              success factor
+                            success term*
+                        success expr*
+                      success assign
+                     success increment
+                     RPAREN ) -> [CURLYOPEN {]
+                     compound
+                       CURLYOPEN { -> [ID setPixelColor]
+                       block*
+                           variable
+                           fail variable
+                           function
+                           fail function
+                           statement
+                              compound
+                              fail compound
+                              call
+                                ID setPixelColor -> [LPAREN (]
+                                LPAREN ( -> [ID i]
+                                actuals*
+                                   expr*
+                                     term*
+                                       factor
+                                          call
+                                            ID i -> [COMMA ,]
+                                          fail call
+                                          varref
+                                           ID i -> [COMMA ,]
+                                          success varref
+                                       success factor
+                                     success term*
+                                   success expr*
+                                     COMMA , -> [ID i]
+                                     expr*
+                                       term*
+                                         factor
+                                            call
+                                              ID i -> [MUL *]
+                                            fail call
+                                            varref
+                                             ID i -> [MUL *]
+                                            success varref
+                                         success factor
+                                             MUL * -> [INTEGER_CONST 5]
+                                           factor
+                                              call
+                                              fail call
+                                              varref
+                                              fail varref
+                                              INTEGER_CONST 5 -> [RPAREN )]
+                                           success factor
+                                       success term*
+                                     success expr*
+                                success actuals*
+                                RPAREN ) -> [CURLYCLOSE }]
+                              success call
+                           success statement
+                           variable
+                           fail variable
+                           function
+                           fail function
+                           statement
+                              compound
+                              fail compound
+                              call
+                              fail call
+                              assign
+                                varleft
+                                fail varleft
+                              fail assign
+                              for
+                              fail for
+                              if
+                              fail if
+                           fail statement
+                       success block*
+                       CURLYCLOSE } -> [CURLYCLOSE }]
+                     success compound
+                   success for
+                success statement
+                variable
+                fail variable
+                function
+                fail function
+                statement
+                   compound
+                   fail compound
+                   call
+                   fail call
+                   assign
+                     varleft
+                     fail varleft
+                   fail assign
+                   for
+                   fail for
+                   if
+                   fail if
+                fail statement
+            success block*
+            CURLYCLOSE } -> [FUNCTION FUNCTION]
+          success compound
+        success function
+        variable
+        fail variable
+        function
+          FUNCTION FUNCTION -> [ID render]
+          ID render -> [LPAREN (]
+            LPAREN ( -> [ID index]
+            formals*
+               formal
+                ID index -> [RPAREN )]
+               success formal
+            success formals*
+            RPAREN ) -> [CURLYOPEN {]
+          compound
+            CURLYOPEN { -> [ID setPixelColor]
+            block*
+                variable
+                fail variable
+                function
+                fail function
+                statement
+                   compound
+                   fail compound
+                   call
+                     ID setPixelColor -> [LPAREN (]
+                     LPAREN ( -> [ID index]
+                     actuals*
+                        expr*
+                          term*
+                            factor
+                               call
+                                 ID index -> [COMMA ,]
+                               fail call
+                               varref
+                                ID index -> [COMMA ,]
+                               success varref
+                            success factor
+                          success term*
+                        success expr*
+                          COMMA , -> [ID index]
+                          expr*
+                            term*
+                              factor
+                                 call
+                                   ID index -> [MUL *]
+                                 fail call
+                                 varref
+                                  ID index -> [MUL *]
+                                 success varref
+                              success factor
+                                  MUL * -> [INTEGER_CONST 5]
+                                factor
+                                   call
+                                   fail call
+                                   varref
+                                   fail varref
+                                   INTEGER_CONST 5 -> [RPAREN )]
+                                success factor
+                            success term*
+                          success expr*
+                     success actuals*
+                     RPAREN ) -> [CURLYCLOSE }]
+                   success call
+                success statement
+                variable
+                fail variable
+                function
+                fail function
+                statement
+                   compound
+                   fail compound
+                   call
+                   fail call
+                   assign
+                     varleft
+                     fail varleft
+                   fail assign
+                   for
+                   fail for
+                   if
+                   fail if
                 fail statement
             success block*
             CURLYCLOSE } -> [FUNCTION FUNCTION]
@@ -266,6 +479,92 @@ Parser PROGRAM PROGRAM
             success formals*
             RPAREN ) -> [CURLYOPEN {]
           compound
+            CURLYOPEN { -> [ID leds]
+            block*
+                variable
+                fail variable
+                function
+                fail function
+                statement
+                   compound
+                   fail compound
+                   call
+                     ID leds -> [LBRACKET []
+                   fail call
+                   assign
+                     varleft
+                      ID leds -> [LBRACKET []
+                     success varleft
+                       LBRACKET [ -> [ID index]
+                       indices*
+                         expr*
+                           term*
+                             factor
+                                call
+                                  ID index -> [RBRACKET ]]
+                                fail call
+                                varref
+                                 ID index -> [RBRACKET ]]
+                                success varref
+                             success factor
+                           success term*
+                         success expr*
+                       success indices*
+                       RBRACKET ] -> [EQUAL =]
+                     EQUAL = -> [ID index2]
+                     expr*
+                       term*
+                         factor
+                            call
+                              ID index2 -> [CURLYCLOSE }]
+                            fail call
+                            varref
+                             ID index2 -> [CURLYCLOSE }]
+                            success varref
+                         success factor
+                       success term*
+                     success expr*
+                   success assign
+                success statement
+                variable
+                fail variable
+                function
+                fail function
+                statement
+                   compound
+                   fail compound
+                   call
+                   fail call
+                   assign
+                     varleft
+                     fail varleft
+                   fail assign
+                   for
+                   fail for
+                   if
+                   fail if
+                fail statement
+            success block*
+            CURLYCLOSE } -> [FUNCTION FUNCTION]
+          success compound
+        success function
+        variable
+        fail variable
+        function
+          FUNCTION FUNCTION -> [ID setPixelColor]
+          ID setPixelColor -> [LPAREN (]
+            LPAREN ( -> [ID pixelNr]
+            formals*
+               formal
+                ID pixelNr -> [COMMA ,]
+               success formal
+                 COMMA , -> [ID colorNr]
+                 formal
+                  ID colorNr -> [RPAREN )]
+                 success formal
+            success formals*
+            RPAREN ) -> [CURLYOPEN {]
+          compound
             CURLYOPEN { -> [CURLYCLOSE }]
             block*
                 variable
@@ -281,8 +580,10 @@ Parser PROGRAM PROGRAM
                      varleft
                      fail varleft
                    fail assign
-                   for_loop
-                   fail for_loop
+                   for
+                   fail for
+                   if
+                   fail if
                 fail statement
             success block*
             CURLYCLOSE } -> [CURLYOPEN {]
@@ -359,8 +660,10 @@ Parser PROGRAM PROGRAM
                       varleft
                       fail varleft
                     fail assign
-                    for_loop
-                    fail for_loop
+                    for
+                    fail for
+                    if
+                    fail if
                  fail statement
              success block*
              CURLYCLOSE } -> [CURLYCLOSE }]
@@ -379,67 +682,130 @@ Parser PROGRAM PROGRAM
              varleft
              fail varleft
            fail assign
-           for_loop
-           fail for_loop
+           for
+           fail for
+           if
+           fail if
         fail statement
     success block*
     CURLYCLOSE }
   success compound
-Symbol program Parsed until (25,1) 286 of 286
+Symbol program Parsed until (31,1) 473 of 473
 
 Analyzer
  Program Main 1 0
-     Assign pixelCount = {value (not of interest during analyze...) [{"term*":[{"factor":{"INTEGER_CONST":"30"}}]}]}
-     Var (assign) Main.pixelCount of notype
-     Assign pixels = {value (not of interest during analyze...) [{"term*":[{"factor":{"call":{"ID":"array","LPAREN":"(","actuals*":[{"expr*":[{"term*":[{"factor":{"varref":{"ID":"pixelCount"}}}]}]},{"COMMA":","},{"expr*":[{"term*":[{"factor":{"varref":{"ID":"pixelCount"}}}]}]}],"RPAREN":")"}}}]}]}
-     Var (assign) Main.pixels of notype
+     Assign ledCount = {value (not of interest during analyze...)}
+     Var (assign) Main.ledCount of notype
+     Assign leds = {value (not of interest during analyze...)}
+     Var (assign) Main.leds of notype
     Function Main.init
+        Assign leds = {value (not of interest during analyze...)}
     Function Main.before
-        Assign pixels = {value (not of interest during analyze...) [{"term*":[{"factor":{"INTEGER_CONST":"10"}}]}]}
+         Assign i = {value (not of interest during analyze...)}
+         Var (assign) before.i of notype
+          Assign i = {value (not of interest during analyze...)}
+    0 Assign before.i notype 2
     Function Main.render
       Var render.index of notype
-      Var render.index2 of notype
     0 Formal render.index notype 2
-    1 Formal render.index2 notype 2
     Function Main.array
       Var array.index of notype
       Var array.index2 of notype
+        Assign leds = {value (not of interest during analyze...)}
     0 Formal array.index notype 2
     1 Formal array.index2 notype 2
- 0 Assign Main.pixelCount notype 1
- 1 Assign Main.pixels notype 1
+    Function Main.setPixelColor
+      Var setPixelColor.pixelNr of notype
+      Var setPixelColor.colorNr of notype
+    0 Formal setPixelColor.pixelNr notype 2
+    1 Formal setPixelColor.colorNr notype 2
+ 0 Assign Main.ledCount notype 1
+ 1 Assign Main.leds notype 1
  2 Function Main.init  1
  3 Function Main.before  1
  4 Function Main.render  1
  5 Function Main.array  1
+ 6 Function Main.setPixelColor  1
 
-interpret Main 1 6 4
-scope Assign Main.pixelCount notype 1
-scope Assign Main.pixels notype 1
+interpret Main 1 7 5
+scope Assign Main.ledCount notype 1
+scope Assign Main.leds notype 1
 scope Function Main.init  1
 scope Function Main.before  1
 scope Function Main.render  1
 scope Function Main.array  1
+scope Function Main.setPixelColor  1
  program name ID
  Program Main Main
-         Push INTEGER_CONST 30 30
-     pixelCount := 30 (pop)
-         Call array array array
-              varref pixelCount = 30 (push)
-              varref pixelCount = 30 (push)
-         Actual index2 = 30 (pop)
-         Actual index = 30 (pop)
-     pixels := CallResult tbd of array (pop)
+         Push INTEGER_CONST 2
+     Main.ledCount := 2 (pop)
+         Call array
+              Var Main.ledCount = 2 (push)
+              Var Main.ledCount = 2 (push)
+         Actual array.index = 2 (pop)
+         Actual array.index2 = 2 (pop)
+     Main.leds := CallResult tbd of array (pop)
     Save block of init
     Save block of before
     Save block of render
     Save block of array
-         Call init init init
-         Call before before before
-                 Push INTEGER_CONST 10 10
-                   Push INTEGER_CONST 3 3
-                   Push INTEGER_CONST 7 7
-             pixels[3,7,] := 10 (pop)
-def mem 6318 of 8192 8192 21
-par mem 11002 of 14304 14304 1
-prog size 286 factor 38
+    Save block of setPixelColor
+         Call init
+                 Push INTEGER_CONST 10
+                   Push INTEGER_CONST 3
+                   Push INTEGER_CONST 7
+             init.leds[3,7] := 10 (pop)
+         Call before
+             For
+             from
+                  Push INTEGER_CONST 0
+              before.i := 0 (pop)
+             iteration
+             check to condition
+                 Var before.i = 0 (push)
+                 Var Main.ledCount = 2 (push)
+              0 < 2 = 1
+             1 => run block
+                 Call setPixelColor
+                      Var before.i = 0 (push)
+                      Var before.i = 0 (push)
+                      Push INTEGER_CONST 5
+                    0 * 5 = 0
+                 Actual setPixelColor.pixelNr = 0 (pop)
+                 Actual setPixelColor.colorNr = 0 (pop)
+                 special function  setPixelColor
+             assign next value
+                  Var before.i = 0 (push)
+                  Push INTEGER_CONST 1
+               0 + 1 = 1
+              before.i := 1 (pop)
+             iteration
+             check to condition
+                 Var before.i = 1 (push)
+                 Var Main.ledCount = 2 (push)
+              1 < 2 = 1
+             1 => run block
+                 Call setPixelColor
+                      Var before.i = 1 (push)
+                      Var before.i = 1 (push)
+                      Push INTEGER_CONST 5
+                    1 * 5 = 5
+                 Actual setPixelColor.pixelNr = 1 (pop)
+                 Actual setPixelColor.colorNr = 5 (pop)
+                 special function  setPixelColor
+             assign next value
+                  Var before.i = 1 (push)
+                  Push INTEGER_CONST 1
+               1 + 1 = 2
+              before.i := 2 (pop)
+             iteration
+             check to condition
+                 Var before.i = 2 (push)
+                 Var Main.ledCount = 2 (push)
+              2 < 2 = 0
+             0 => end of For
+def mem 7032 of 8192 8192 24
+def mem 7032 of 8192 8192 24
+par mem 19677 of 23656 23656 1
+prog size 473 factor 41
+par mem 10397 of 23656 23656 1

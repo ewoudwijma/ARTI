@@ -6,17 +6,20 @@
   "function" : ["FUNCTION", "ID", {"?": ["LPAREN", "formals*", "RPAREN"]}, "compound"],
   "formals*" : {"?": ["formal", {"*":["COMMA", "formal"]}]},
   "formal" : "ID",
-  "statement" : {"or": ["compound", "call", "assign","for_loop"]},
+  "statement" : {"or": ["compound", "call", "assign","for", "if"]},
   "call" : ["ID", "LPAREN", "actuals*", "RPAREN"],
   "actuals*": {"?": ["expr*", {"*": ["COMMA", "expr*"]}]},
   "assign" : ["varleft", {"?": ["LBRACKET", "indices*", "RBRACKET"]}, "EQUAL", "expr*"],
   "indices*" : ["expr*", {"*": ["COMMA", "expr*"]}],
-  "expr*" : [ "term*", {"*": [{"or": ["PLUS", "MINUS"]}, "term*"]}],
+  "expr*" : [ "term*", {"*": [{"or": ["PLUS", "MINUS", "EQUAL", "SMALLER"]}, "term*"]}],
   "term*" : [ "factor", {"*": [{"or": ["MUL", "INTEGER_DIV", "FLOAT_DIV"]}, "factor"]}],
   "factor" : {"or": ["call", "varref", "INTEGER_CONST", "REAL_CONST", ["LPAREN", "expr*", "RPAREN"]]},
   "varref": "ID",
   "varleft": "ID",
-  "for_loop": ["FOR", "assign", "TO", "expr*","DO","compound"],
+  "for": ["FOR", "LPAREN", "assign", "SEMI", "expr*", "SEMI", "increment", "RPAREN", "compound"],
+  "increment": "assign",
+  "if": ["IF", "LPAREN", "expr*", "RPAREN", "compound", "ELSE", "elseCompound"],
+  "elseCompound": "compound",
 
   "TOKENS":
   {
@@ -33,6 +36,8 @@
     "RBRACKET": "]",
     "COMMA": ",",
     "EQUAL": "=",
+    "SMALLER": "<",
+    "SEMI": ";",
 
     "PROGRAM": "PROGRAM",
     "INTEGER": "INTEGER",
@@ -44,8 +49,10 @@
     "CURLYCLOSE": "}",
     "FOR": "FOR",
     "TO": "TO",
-    "DO": "DO"
-          },
+    "DO": "DO",
+    "IF": "IF",
+    "ELSE": "ELSE"
+  },
 
   "SEMANTICS":
   {
@@ -63,7 +70,7 @@
     "call": {"id":"Call", "name":"ID", "actuals": "actuals*"},
     "varref": {"id":"Var", "name":"ID"},
     "assign": {"id":"Assign", "name":"varleft", "value":"expr*", "indices":"indices*"},
-    "for_loop": {"id":"ForLoop", "from":"assign", "to":"expr*", "block":"compound"},
+    "for": {"id":"For", "from":"assign", "to":"expr*", "increment": "increment", "block":"compound"},
     "expr*": {"id":"Exprs"},
     "term*": {"id":"Terms"}
   }

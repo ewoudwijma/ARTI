@@ -27,7 +27,7 @@ begin
 
    Alpha(3 + 5, 7);  
 
-   FOR y:=1 TO 10 DO 
+   FOR y:=1 TO 2 DO 
    begin
       Alpha(35, y);
    end;

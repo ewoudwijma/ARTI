@@ -122,7 +122,7 @@
           "proccall_statement": {"id":"Call", "name":"ID", "actuals": "actual_parameter_list*"},
           "variable": {"id":"Var", "name":"ID"},
           "assignment_statement": {"id":"Assign", "name":"varleft", "value":"expr*"},
-          "for_loop": {"id":"ForLoop", "from":"assignment_statement", "to":"expr*", "block":"compound_statement"},
+          "for_loop": {"id":"For", "from":"assignment_statement", "to":"expr*", "block":"compound_statement"},
           "expr*": {"id":"Exprs"},
           "term*": {"id":"Terms"}
      }

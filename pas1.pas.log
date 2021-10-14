@@ -430,13 +430,13 @@ Parser PROGRAM PROGRAM
                    success term*
                  success expr*
                success assignment_statement
-               TO TO -> [INTEGER_CONST 10]
+               TO TO -> [INTEGER_CONST 2]
                expr*
                  term*
                    factor
                       variable
                       fail variable
-                      INTEGER_CONST 10 -> [DO DO]
+                      INTEGER_CONST 2 -> [DO DO]
                    success factor
                  success term*
                success expr*
@@ -510,7 +510,7 @@ Parser PROGRAM PROGRAM
     success compound_statement
   success block
   DOT .
-Symbol program Parsed until (35,6) 469 of 469
+Symbol program Parsed until (35,6) 468 of 468
 
 Analyzer
  Program Main 1 0
@@ -523,7 +523,7 @@ Analyzer
          Var Beta.a of {"INTEGER":"INTEGER"}
          Var Beta.b of {"INTEGER":"INTEGER"}
           Var Beta.x of {"INTEGER":"INTEGER"}
-            Assign x = {value (not of interest during analyze...) [{"term*":[{"factor":{"variable":{"ID":"a"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"10"}}]},{"PLUS":"+"},{"term*":[{"factor":{"variable":{"ID":"b"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}]}
+            Assign x = {value (not of interest during analyze...)}
        0 Formal Beta.a {"INTEGER":"INTEGER"} 3
        1 Formal Beta.b {"INTEGER":"INTEGER"} 3
        2 Var Beta.x {"INTEGER":"INTEGER"} 3
@@ -531,17 +531,17 @@ Analyzer
          Var Gamma.a of {"INTEGER":"INTEGER"}
          Var Gamma.b of {"INTEGER":"INTEGER"}
           Var Gamma.x of {"INTEGER":"INTEGER"}
-            Assign x = {value (not of interest during analyze...) [{"term*":[{"factor":{"variable":{"ID":"a"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"10"}}]},{"PLUS":"+"},{"term*":[{"factor":{"variable":{"ID":"b"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}]}
+            Assign x = {value (not of interest during analyze...)}
        0 Formal Gamma.a {"INTEGER":"INTEGER"} 3
        1 Formal Gamma.b {"INTEGER":"INTEGER"} 3
        2 Var Gamma.x {"INTEGER":"INTEGER"} 3
-         Assign x = {value (not of interest during analyze...) [{"term*":[{"factor":{"LPAREN":"(","expr*":[{"term*":[{"factor":{"variable":{"ID":"a"}}}]},{"PLUS":"+"},{"term*":[{"factor":{"variable":{"ID":"b"}}}]}],"RPAREN":")"}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}]}
+         Assign x = {value (not of interest during analyze...)}
     0 Formal Alpha.a {"INTEGER":"INTEGER"} 2
     1 Formal Alpha.b {"INTEGER":"INTEGER"} 2
     2 Var Alpha.x {"INTEGER":"INTEGER"} 2
     3 Function Alpha.Beta  2
     4 Function Alpha.Gamma  2
-       Assign y = {value (not of interest during analyze...) [{"term*":[{"factor":{"INTEGER_CONST":"1"}}]}]}
+       Assign y = {value (not of interest during analyze...)}
  0 Var Main.y {"INTEGER":"INTEGER"} 1
  1 Function Main.Alpha  1
 
@@ -551,92 +551,107 @@ scope Function Main.Alpha  1
  program name ID
  Program Main Main
     Save block of Alpha
-      Call Alpha Alpha Alpha
-           Push INTEGER_CONST 3 3
-           Push INTEGER_CONST 5 5
+      Call Alpha
+           Push INTEGER_CONST 3
+           Push INTEGER_CONST 5
         3 + 5 = 8
-           Push INTEGER_CONST 7 7
-      Actual b = 7 (pop)
-      Actual a = 8 (pop)
+           Push INTEGER_CONST 7
+      Actual Alpha.a = 8 (pop)
+      Actual Alpha.b = 7 (pop)
          Save block of Beta
          Save block of Gamma
-                  variable a = 8 (push)
-                  variable b = 7 (push)
+                  Var Alpha.a = 8 (push)
+                  Var Alpha.b = 7 (push)
                8 + 7 = 15
-               Push INTEGER_CONST 2 2
+               Push INTEGER_CONST 2
              15 * 2 = 30
-           x := 30 (pop)
-           Call Beta Beta Beta
-                Push INTEGER_CONST 5 5
-                Push INTEGER_CONST 10 10
-           Actual b = 10 (pop)
-           Actual a = 5 (pop)
-                    variable a = 5 (push)
-                    Push INTEGER_CONST 10 10
+           Alpha.x := 30 (pop)
+           Call Beta
+                Push INTEGER_CONST 5
+                Push INTEGER_CONST 10
+           Actual Beta.a = 5 (pop)
+           Actual Beta.b = 10 (pop)
+                    Var Beta.a = 5 (push)
+                    Push INTEGER_CONST 10
                   5 * 10 = 50
-                    variable b = 10 (push)
-                    Push INTEGER_CONST 2 2
+                    Var Beta.b = 10 (push)
+                    Push INTEGER_CONST 2
                   10 * 2 = 20
                  50 + 20 = 70
-                x := 70 (pop)
-      for loop
-           Push INTEGER_CONST 1 1
-       y := 1 (pop)
-          Push INTEGER_CONST 10 10
-      iteration 0
-          Call Alpha Alpha Alpha
-               Push INTEGER_CONST 35 35
-               variable y = 0 (push)
-          Actual b = 0 (pop)
-          Actual a = 35 (pop)
+                Beta.x := 70 (pop)
+      For
+      from
+           Push INTEGER_CONST 1
+       Main.y := 1 (pop)
+      iteration
+      check to condition
+          Push INTEGER_CONST 2
+      Main.y 1 <= 2 = 1
+      1 => run block
+          Call Alpha
+               Push INTEGER_CONST 35
+               Var Main.y = 1 (push)
+          Actual Alpha.a = 35 (pop)
+          Actual Alpha.b = 1 (pop)
              Save block of Beta
              Save block of Gamma
-                      variable a = 35 (push)
-                      variable b = 0 (push)
-                   35 + 0 = 35
-                   Push INTEGER_CONST 2 2
-                 35 * 2 = 70
-               x := 70 (pop)
-               Call Beta Beta Beta
-                    Push INTEGER_CONST 5 5
-                    Push INTEGER_CONST 10 10
-               Actual b = 10 (pop)
-               Actual a = 5 (pop)
-                        variable a = 5 (push)
-                        Push INTEGER_CONST 10 10
-                      5 * 10 = 50
-                        variable b = 10 (push)
-                        Push INTEGER_CONST 2 2
-                      10 * 2 = 20
-                     50 + 20 = 70
-                    x := 70 (pop)
-      iteration 1
-          Call Alpha Alpha Alpha
-               Push INTEGER_CONST 35 35
-               variable y = 1 (push)
-          Actual b = 1 (pop)
-          Actual a = 35 (pop)
-             Save block of Beta
-             Save block of Gamma
-                      variable a = 35 (push)
-                      variable b = 1 (push)
+                      Var Alpha.a = 35 (push)
+                      Var Alpha.b = 1 (push)
                    35 + 1 = 36
-                   Push INTEGER_CONST 2 2
+                   Push INTEGER_CONST 2
                  36 * 2 = 72
-               x := 72 (pop)
-               Call Beta Beta Beta
-                    Push INTEGER_CONST 5 5
-                    Push INTEGER_CONST 10 10
-               Actual b = 10 (pop)
-               Actual a = 5 (pop)
-                        variable a = 5 (push)
-                        Push INTEGER_CONST 10 10
+               Alpha.x := 72 (pop)
+               Call Beta
+                    Push INTEGER_CONST 5
+                    Push INTEGER_CONST 10
+               Actual Beta.a = 5 (pop)
+               Actual Beta.b = 10 (pop)
+                        Var Beta.a = 5 (push)
+                        Push INTEGER_CONST 10
                       5 * 10 = 50
-                        variable b = 10 (push)
-                        Push INTEGER_CONST 2 2
+                        Var Beta.b = 10 (push)
+                        Push INTEGER_CONST 2
                       10 * 2 = 20
                      50 + 20 = 70
-                    x := 70 (pop)
-def mem 7136 of 8192 8192 24
-par mem 15923 of 23456 23456 1
-prog size 469 factor 33
+                    Beta.x := 70 (pop)
+      iteration
+      check to condition
+          Push INTEGER_CONST 2
+      Main.y 2 <= 2 = 1
+      1 => run block
+          Call Alpha
+               Push INTEGER_CONST 35
+               Var Main.y = 2 (push)
+          Actual Alpha.a = 35 (pop)
+          Actual Alpha.b = 2 (pop)
+             Save block of Beta
+             Save block of Gamma
+                      Var Alpha.a = 35 (push)
+                      Var Alpha.b = 2 (push)
+                   35 + 2 = 37
+                   Push INTEGER_CONST 2
+                 37 * 2 = 74
+               Alpha.x := 74 (pop)
+               Call Beta
+                    Push INTEGER_CONST 5
+                    Push INTEGER_CONST 10
+               Actual Beta.a = 5 (pop)
+               Actual Beta.b = 10 (pop)
+                        Var Beta.a = 5 (push)
+                        Push INTEGER_CONST 10
+                      5 * 10 = 50
+                        Var Beta.b = 10 (push)
+                        Push INTEGER_CONST 2
+                      10 * 2 = 20
+                     50 + 20 = 70
+                    Beta.x := 70 (pop)
+      iteration
+      check to condition
+          Push INTEGER_CONST 2
+      Main.y 3 <= 2 = 0
+      0 => end of For
+def mem 7132 of 8192 8192 24
+def mem 7132 of 8192 8192 24
+par mem 15923 of 23400 23400 1
+prog size 468 factor 34
+par mem 11027 of 23400 23400 1

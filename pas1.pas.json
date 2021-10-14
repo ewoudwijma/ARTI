@@ -480,7 +480,7 @@
                     "term*": [
                       {
                         "factor": {
-                          "INTEGER_CONST": "10"
+                          "INTEGER_CONST": "2"
                         }
                       }
                     ]
