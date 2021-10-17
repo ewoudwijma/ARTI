@@ -11,7 +11,7 @@
   "actuals*": {"?": ["expr*", {"*": ["COMMA", "expr*"]}]},
   "assign" : ["varleft", {"?": ["LBRACKET", "indices*", "RBRACKET"]}, "EQUAL", "expr*"],
   "indices*" : ["expr*", {"*": ["COMMA", "expr*"]}],
-  "expr*" : [ "term*", {"*": [{"or": ["PLUS", "MINUS", "EQUAL", "SMALLER"]}, "term*"]}],
+  "expr*" : [ "term*", {"*": [{"or": ["PLUS", "MINUS", "EQUAL", "SMALLER", "GREATER"]}, "term*"]}],
   "term*" : [ "factor", {"*": [{"or": ["MUL", "INTEGER_DIV", "FLOAT_DIV"]}, "factor"]}],
   "factor" : {"or": ["call", "varref", "INTEGER_CONST", "REAL_CONST", ["LPAREN", "expr*", "RPAREN"]]},
   "varref": "ID",
@@ -37,6 +37,7 @@
     "COMMA": ",",
     "EQUAL": "=",
     "SMALLER": "<",
+    "GREATER": ">",
     "SEMI": ";",
 
     "PROGRAM": "PROGRAM",
@@ -59,20 +60,19 @@
     "program": {"id":"Program", "name":"ID", "block": "compound"},
     "function": {"id":"Function", "name":"ID", "formals": "formals*", "block": "compound"},
     "formal": {"id":"Formal", "name":"ID", "type": "type"},
-    "variable": {"id":"Var", "name":"ID", "type": "type"},
-    "assign": {"id":"Assign", "name":"varleft", "value":"expr*"}
-  },
-
-  "INTERPRETER":
-  {
-    "program": {"id":"Program", "name":"ID", "block": "compound"},
-    "function": {"id":"Function", "name":"ID", "block": "compound"},
     "call": {"id":"Call", "name":"ID", "actuals": "actuals*"},
-    "varref": {"id":"Var", "name":"ID"},
-    "assign": {"id":"Assign", "name":"varleft", "value":"expr*", "indices":"indices*"},
+    "variable": {"id":"Var", "name":"ID", "type": "type"},
+    "varref": {"id":"VarRef", "name":"ID"},
+    "assign": {"id":"Assign", "name":"varleft", "indices":"indices*", "value":"expr*"},
     "for": {"id":"For", "from":"assign", "to":"expr*", "increment": "increment", "block":"compound"},
     "expr*": {"id":"Exprs"},
     "term*": {"id":"Terms"}
+  },
+
+  "EXTERNALS":
+  {
+    "setPixelColor": {"pixelNr":"int", "color":"int"},
+    "array": {"width":"int", "height":"int", "return": "tbd"}
   }
 
 }

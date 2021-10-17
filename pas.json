@@ -111,16 +111,9 @@
           "program": {"id":"Program", "name":"ID", "block": "block"},
           "procedure_declaration": {"id":"Function", "name":"ID", "formals": "formal_parameter_list*", "block": "block"},
           "formal_parameters": {"id":"Formal", "name":"ID", "type": "type_spec"},
-          "variable_declaration": {"id":"Var", "name":"ID", "type": "type_spec"},
-          "assignment_statement": {"id":"Assign", "name":"varleft", "value":"expr*"}
-     },
-
-     "INTERPRETER":
-     {
-          "program": {"id":"Program", "name":"ID", "block": "block"},
-          "procedure_declaration": {"id":"Function", "name":"ID", "block": "block"},
           "proccall_statement": {"id":"Call", "name":"ID", "actuals": "actual_parameter_list*"},
-          "variable": {"id":"Var", "name":"ID"},
+          "variable_declaration": {"id":"Var", "name":"ID", "type": "type_spec"},
+          "variable": {"id":"VarRef", "name":"ID"},
           "assignment_statement": {"id":"Assign", "name":"varleft", "value":"expr*"},
           "for_loop": {"id":"For", "from":"assignment_statement", "to":"expr*", "block":"compound_statement"},
           "expr*": {"id":"Exprs"},

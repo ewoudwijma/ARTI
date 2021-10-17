@@ -22,11 +22,15 @@
 int main() {
   ARTI *arti = new ARTI();
 
-  // arti->openFileAndParse("pas.json", "pas1.pas");
-  // arti->interpret();
+  arti->openFileAndParse("pas.json", "pas1.pas");
+  arti->analyze();
+  arti->interpret();
 
-  arti->openFileAndParse("wled.json", "wled1.wled");
-  arti->interpret("before");
+  // arti->openFileAndParse("wled.json", "wled1.wled");
+  // arti->analyze();
+  // arti->interpret();
+  // arti->interpret("renderFrame");
+  // arti->interpret("renderFrame");
 
   printf("done\n");
 

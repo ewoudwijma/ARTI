@@ -1,31 +1,10 @@
 program Main
 {
-   ledCount = 2
-   leds = array(ledCount, ledCount)
+   pixelCounter = 0
 
-   function init() {
-      leds[3,7] = 10
+   function renderFrame() {
+     setPixelColor(pixelCounter, pixelCounter)
+     pixelCounter = pixelCounter + 1
    }
-
-   function before() {
-      for (i = 0; i < ledCount; i = i + 1) {
-            setPixelColor(i, i * 5)
-      }
-   }
-
-   function render(index) {
-     setPixelColor(index, index * 5)
-   }
-   
-   function array(index, index2) {
-      leds[index] = index2
-   }
-   
-   function setPixelColor(pixelNr, colorNr) {
-   }
-   
-   {
-      init()
-      before()
-   }
+  
 }

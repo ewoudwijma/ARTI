@@ -511,6 +511,8 @@ Parser PROGRAM PROGRAM
   success block
   DOT .
 Symbol program Parsed until (35,6) 468 of 468
+Destruct Lexer
+Destruct Parser
 
 Analyzer
  Program Main 1 0
@@ -545,7 +547,7 @@ Analyzer
  0 Var Main.y {"INTEGER":"INTEGER"} 1
  1 Function Main.Alpha  1
 
-interpret Main 1 2 1
+interpret Main 1 2
 scope Var Main.y {"INTEGER":"INTEGER"} 1
 scope Function Main.Alpha  1
  program name ID
@@ -560,8 +562,8 @@ scope Function Main.Alpha  1
       Actual Alpha.b = 7 (pop)
          Save block of Beta
          Save block of Gamma
-                  Var Alpha.a = 8 (push)
-                  Var Alpha.b = 7 (push)
+                  VarRef Alpha.a = 8 (push)
+                  VarRef Alpha.b = 7 (push)
                8 + 7 = 15
                Push INTEGER_CONST 2
              15 * 2 = 30
@@ -571,14 +573,16 @@ scope Function Main.Alpha  1
                 Push INTEGER_CONST 10
            Actual Beta.a = 5 (pop)
            Actual Beta.b = 10 (pop)
-                    Var Beta.a = 5 (push)
+                    VarRef Beta.a = 5 (push)
                     Push INTEGER_CONST 10
                   5 * 10 = 50
-                    Var Beta.b = 10 (push)
+                    VarRef Beta.b = 10 (push)
                     Push INTEGER_CONST 2
                   10 * 2 = 20
                  50 + 20 = 70
                 Beta.x := 70 (pop)
+Destruct activation record Beta
+Destruct activation record Alpha
       For
       from
            Push INTEGER_CONST 1
@@ -590,13 +594,13 @@ scope Function Main.Alpha  1
       1 => run block
           Call Alpha
                Push INTEGER_CONST 35
-               Var Main.y = 1 (push)
+               VarRef Main.y = 1 (push)
           Actual Alpha.a = 35 (pop)
           Actual Alpha.b = 1 (pop)
              Save block of Beta
              Save block of Gamma
-                      Var Alpha.a = 35 (push)
-                      Var Alpha.b = 1 (push)
+                      VarRef Alpha.a = 35 (push)
+                      VarRef Alpha.b = 1 (push)
                    35 + 1 = 36
                    Push INTEGER_CONST 2
                  36 * 2 = 72
@@ -606,14 +610,16 @@ scope Function Main.Alpha  1
                     Push INTEGER_CONST 10
                Actual Beta.a = 5 (pop)
                Actual Beta.b = 10 (pop)
-                        Var Beta.a = 5 (push)
+                        VarRef Beta.a = 5 (push)
                         Push INTEGER_CONST 10
                       5 * 10 = 50
-                        Var Beta.b = 10 (push)
+                        VarRef Beta.b = 10 (push)
                         Push INTEGER_CONST 2
                       10 * 2 = 20
                      50 + 20 = 70
                     Beta.x := 70 (pop)
+Destruct activation record Beta
+Destruct activation record Alpha
       iteration
       check to condition
           Push INTEGER_CONST 2
@@ -621,13 +627,13 @@ scope Function Main.Alpha  1
       1 => run block
           Call Alpha
                Push INTEGER_CONST 35
-               Var Main.y = 2 (push)
+               VarRef Main.y = 2 (push)
           Actual Alpha.a = 35 (pop)
           Actual Alpha.b = 2 (pop)
              Save block of Beta
              Save block of Gamma
-                      Var Alpha.a = 35 (push)
-                      Var Alpha.b = 2 (push)
+                      VarRef Alpha.a = 35 (push)
+                      VarRef Alpha.b = 2 (push)
                    35 + 2 = 37
                    Push INTEGER_CONST 2
                  37 * 2 = 74
@@ -637,21 +643,26 @@ scope Function Main.Alpha  1
                     Push INTEGER_CONST 10
                Actual Beta.a = 5 (pop)
                Actual Beta.b = 10 (pop)
-                        Var Beta.a = 5 (push)
+                        VarRef Beta.a = 5 (push)
                         Push INTEGER_CONST 10
                       5 * 10 = 50
-                        Var Beta.b = 10 (push)
+                        VarRef Beta.b = 10 (push)
                         Push INTEGER_CONST 2
                       10 * 2 = 20
                      50 + 20 = 70
                     Beta.x := 70 (pop)
+Destruct activation record Beta
+Destruct activation record Alpha
       iteration
       check to condition
           Push INTEGER_CONST 2
       Main.y 3 <= 2 = 0
       0 => end of For
-def mem 7132 of 8192 8192 24
-def mem 7132 of 8192 8192 24
+Destruct valueStack
+Destruct Interpreter
+Destruct callstack
+def mem 6711 of 12192 12192 23
+def mem 6711 of 12192 12192 23
 par mem 15923 of 23400 23400 1
 prog size 468 factor 34
 par mem 11027 of 23400 23400 1

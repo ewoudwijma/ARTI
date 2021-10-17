@@ -9,7 +9,7 @@
           "statement": {
             "assign": {
               "varleft": {
-                "ID": "ledCount"
+                "ID": "pixelCounter"
               },
               "EQUAL": "=",
               "expr*": [
@@ -17,67 +17,7 @@
                   "term*": [
                     {
                       "factor": {
-                        "INTEGER_CONST": "2"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        {
-          "statement": {
-            "assign": {
-              "varleft": {
-                "ID": "leds"
-              },
-              "EQUAL": "=",
-              "expr*": [
-                {
-                  "term*": [
-                    {
-                      "factor": {
-                        "call": {
-                          "ID": "array",
-                          "LPAREN": "(",
-                          "actuals*": [
-                            {
-                              "expr*": [
-                                {
-                                  "term*": [
-                                    {
-                                      "factor": {
-                                        "varref": {
-                                          "ID": "ledCount"
-                                        }
-                                      }
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "COMMA": ","
-                            },
-                            {
-                              "expr*": [
-                                {
-                                  "term*": [
-                                    {
-                                      "factor": {
-                                        "varref": {
-                                          "ID": "ledCount"
-                                        }
-                                      }
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ],
-                          "RPAREN": ")"
-                        }
+                        "INTEGER_CONST": "0"
                       }
                     }
                   ]
@@ -89,244 +29,9 @@
         {
           "function": {
             "FUNCTION": "FUNCTION",
-            "ID": "init",
+            "ID": "renderFrame",
             "LPAREN": "(",
             "formals*": [],
-            "RPAREN": ")",
-            "compound": {
-              "CURLYOPEN": "{",
-              "block*": [
-                {
-                  "statement": {
-                    "assign": {
-                      "varleft": {
-                        "ID": "leds"
-                      },
-                      "LBRACKET": "[",
-                      "indices*": [
-                        {
-                          "expr*": [
-                            {
-                              "term*": [
-                                {
-                                  "factor": {
-                                    "INTEGER_CONST": "3"
-                                  }
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "COMMA": ","
-                        },
-                        {
-                          "expr*": [
-                            {
-                              "term*": [
-                                {
-                                  "factor": {
-                                    "INTEGER_CONST": "7"
-                                  }
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ],
-                      "RBRACKET": "]",
-                      "EQUAL": "=",
-                      "expr*": [
-                        {
-                          "term*": [
-                            {
-                              "factor": {
-                                "INTEGER_CONST": "10"
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              ],
-              "CURLYCLOSE": "}"
-            }
-          }
-        },
-        {
-          "function": {
-            "FUNCTION": "FUNCTION",
-            "ID": "before",
-            "LPAREN": "(",
-            "formals*": [],
-            "RPAREN": ")",
-            "compound": {
-              "CURLYOPEN": "{",
-              "block*": [
-                {
-                  "statement": {
-                    "for": {
-                      "FOR": "FOR",
-                      "LPAREN": "(",
-                      "assign": {
-                        "varleft": {
-                          "ID": "i"
-                        },
-                        "EQUAL": "=",
-                        "expr*": [
-                          {
-                            "term*": [
-                              {
-                                "factor": {
-                                  "INTEGER_CONST": "0"
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      "SEMI": ";",
-                      "expr*": [
-                        {
-                          "term*": [
-                            {
-                              "factor": {
-                                "varref": {
-                                  "ID": "i"
-                                }
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "SMALLER": "<"
-                        },
-                        {
-                          "term*": [
-                            {
-                              "factor": {
-                                "varref": {
-                                  "ID": "ledCount"
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      "increment": {
-                        "assign": {
-                          "varleft": {
-                            "ID": "i"
-                          },
-                          "EQUAL": "=",
-                          "expr*": [
-                            {
-                              "term*": [
-                                {
-                                  "factor": {
-                                    "varref": {
-                                      "ID": "i"
-                                    }
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "PLUS": "+"
-                            },
-                            {
-                              "term*": [
-                                {
-                                  "factor": {
-                                    "INTEGER_CONST": "1"
-                                  }
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      },
-                      "RPAREN": ")",
-                      "compound": {
-                        "CURLYOPEN": "{",
-                        "block*": [
-                          {
-                            "statement": {
-                              "call": {
-                                "ID": "setPixelColor",
-                                "LPAREN": "(",
-                                "actuals*": [
-                                  {
-                                    "expr*": [
-                                      {
-                                        "term*": [
-                                          {
-                                            "factor": {
-                                              "varref": {
-                                                "ID": "i"
-                                              }
-                                            }
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "COMMA": ","
-                                  },
-                                  {
-                                    "expr*": [
-                                      {
-                                        "term*": [
-                                          {
-                                            "factor": {
-                                              "varref": {
-                                                "ID": "i"
-                                              }
-                                            }
-                                          },
-                                          {
-                                            "MUL": "*"
-                                          },
-                                          {
-                                            "factor": {
-                                              "INTEGER_CONST": "5"
-                                            }
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                ],
-                                "RPAREN": ")"
-                              }
-                            }
-                          }
-                        ],
-                        "CURLYCLOSE": "}"
-                      }
-                    }
-                  }
-                }
-              ],
-              "CURLYCLOSE": "}"
-            }
-          }
-        },
-        {
-          "function": {
-            "FUNCTION": "FUNCTION",
-            "ID": "render",
-            "LPAREN": "(",
-            "formals*": [
-              {
-                "formal": {
-                  "ID": "index"
-                }
-              }
-            ],
             "RPAREN": ")",
             "compound": {
               "CURLYOPEN": "{",
@@ -344,7 +49,7 @@
                                 {
                                   "factor": {
                                     "varref": {
-                                      "ID": "index"
+                                      "ID": "pixelCounter"
                                     }
                                   }
                                 }
@@ -362,16 +67,8 @@
                                 {
                                   "factor": {
                                     "varref": {
-                                      "ID": "index"
+                                      "ID": "pixelCounter"
                                     }
-                                  }
-                                },
-                                {
-                                  "MUL": "*"
-                                },
-                                {
-                                  "factor": {
-                                    "INTEGER_CONST": "5"
                                   }
                                 }
                               ]
@@ -382,61 +79,13 @@
                       "RPAREN": ")"
                     }
                   }
-                }
-              ],
-              "CURLYCLOSE": "}"
-            }
-          }
-        },
-        {
-          "function": {
-            "FUNCTION": "FUNCTION",
-            "ID": "array",
-            "LPAREN": "(",
-            "formals*": [
-              {
-                "formal": {
-                  "ID": "index"
-                }
-              },
-              {
-                "COMMA": ","
-              },
-              {
-                "formal": {
-                  "ID": "index2"
-                }
-              }
-            ],
-            "RPAREN": ")",
-            "compound": {
-              "CURLYOPEN": "{",
-              "block*": [
+                },
                 {
                   "statement": {
                     "assign": {
                       "varleft": {
-                        "ID": "leds"
+                        "ID": "pixelCounter"
                       },
-                      "LBRACKET": "[",
-                      "indices*": [
-                        {
-                          "expr*": [
-                            {
-                              "term*": [
-                                {
-                                  "factor": {
-                                    "varref": {
-                                      "ID": "index"
-                                    }
-                                  }
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ],
-                      "RBRACKET": "]",
                       "EQUAL": "=",
                       "expr*": [
                         {
@@ -444,71 +93,25 @@
                             {
                               "factor": {
                                 "varref": {
-                                  "ID": "index2"
+                                  "ID": "pixelCounter"
                                 }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "PLUS": "+"
+                        },
+                        {
+                          "term*": [
+                            {
+                              "factor": {
+                                "INTEGER_CONST": "1"
                               }
                             }
                           ]
                         }
                       ]
-                    }
-                  }
-                }
-              ],
-              "CURLYCLOSE": "}"
-            }
-          }
-        },
-        {
-          "function": {
-            "FUNCTION": "FUNCTION",
-            "ID": "setPixelColor",
-            "LPAREN": "(",
-            "formals*": [
-              {
-                "formal": {
-                  "ID": "pixelNr"
-                }
-              },
-              {
-                "COMMA": ","
-              },
-              {
-                "formal": {
-                  "ID": "colorNr"
-                }
-              }
-            ],
-            "RPAREN": ")",
-            "compound": {
-              "CURLYOPEN": "{",
-              "block*": [],
-              "CURLYCLOSE": "}"
-            }
-          }
-        },
-        {
-          "statement": {
-            "compound": {
-              "CURLYOPEN": "{",
-              "block*": [
-                {
-                  "statement": {
-                    "call": {
-                      "ID": "init",
-                      "LPAREN": "(",
-                      "actuals*": [],
-                      "RPAREN": ")"
-                    }
-                  }
-                },
-                {
-                  "statement": {
-                    "call": {
-                      "ID": "before",
-                      "LPAREN": "(",
-                      "actuals*": [],
-                      "RPAREN": ")"
                     }
                   }
                 }
