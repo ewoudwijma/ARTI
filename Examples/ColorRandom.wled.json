@@ -1,0 +1,147 @@
+{
+  "program": {
+    "PROGRAM": "PROGRAM",
+    "ID": "ColorRandom",
+    "block": {
+      "LCURL": "{",
+      "*": [
+        {
+          "function": {
+            "FUNCTION": "FUNCTION",
+            "ID": "renderFrame",
+            "LPAREN": "(",
+            "formals": {},
+            "RPAREN": ")",
+            "block": {
+              "LCURL": "{",
+              "*": [
+                {
+                  "for": {
+                    "FOR": "FOR",
+                    "LPAREN": "(",
+                    "assign": {
+                      "varleft": {
+                        "ID": "i"
+                      },
+                      "EQUAL": "=",
+                      "expr": {
+                        "term": {
+                          "INTEGER_CONST": "0"
+                        }
+                      }
+                    },
+                    "SEMI": ";",
+                    "expr": {
+                      "term": {
+                        "varref": {
+                          "ID": "i"
+                        }
+                      },
+                      "*": [
+                        {
+                          "SMALLER": "<"
+                        },
+                        {
+                          "term": {
+                            "varref": {
+                              "ID": "ledCount"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "increment": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "i"
+                        },
+                        "EQUAL": "=",
+                        "expr": {
+                          "term": {
+                            "varref": {
+                              "ID": "i"
+                            }
+                          },
+                          "*": [
+                            {
+                              "PLUS": "+"
+                            },
+                            {
+                              "term": {
+                                "INTEGER_CONST": "1"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "RPAREN": ")",
+                    "block": {
+                      "LCURL": "{",
+                      "*": [
+                        {
+                          "assign": {
+                            "varleft": {
+                              "ID": "color"
+                            },
+                            "EQUAL": "=",
+                            "expr": {
+                              "term": {
+                                "call": {
+                                  "ID": "random",
+                                  "LPAREN": "(",
+                                  "actuals": {},
+                                  "RPAREN": ")"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "call": {
+                            "ID": "setPixelColor",
+                            "LPAREN": "(",
+                            "actuals": {
+                              "expr": {
+                                "term": {
+                                  "varref": {
+                                    "ID": "i"
+                                  }
+                                }
+                              },
+                              "*": [
+                                {
+                                  "COMMA": ","
+                                },
+                                {
+                                  "expr": {
+                                    "term": {
+                                      "varref": {
+                                        "ID": "color"
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            "RPAREN": ")"
+                          }
+                        },
+                        {}
+                      ],
+                      "RCURL": "}"
+                    }
+                  }
+                },
+                {}
+              ],
+              "RCURL": "}"
+            }
+          }
+        },
+        {}
+      ],
+      "RCURL": "}"
+    }
+  }
+}

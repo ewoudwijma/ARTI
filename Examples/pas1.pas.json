@@ -1,0 +1,486 @@
+{
+  "program": {
+    "PROGRAM": "PROGRAM",
+    "ID": "Main",
+    "SEMI": ";",
+    "block": {
+      "declarations": {
+        "VAR": "VAR",
+        "*": [
+          {
+            "variable_declaration": {
+              "ID": "y",
+              "COLON": ":",
+              "type_spec": {
+                "INTEGER": "INTEGER"
+              }
+            }
+          },
+          {
+            "SEMI": ";"
+          },
+          {},
+          {
+            "procedure_declaration": {
+              "PROCEDURE": "PROCEDURE",
+              "ID": "Alpha",
+              "LPAREN": "(",
+              "formal_parameter_list": {
+                "formal_parameters": {
+                  "ID": "a",
+                  "COLON": ":",
+                  "type_spec": {
+                    "INTEGER": "INTEGER"
+                  }
+                },
+                "*": [
+                  {
+                    "SEMI": ";"
+                  },
+                  {
+                    "formal_parameters": {
+                      "ID": "b",
+                      "COLON": ":",
+                      "type_spec": {
+                        "INTEGER": "INTEGER"
+                      }
+                    }
+                  }
+                ]
+              },
+              "RPAREN": ")",
+              "SEMI": ";",
+              "block": {
+                "declarations": {
+                  "VAR": "VAR",
+                  "*": [
+                    {
+                      "variable_declaration": {
+                        "ID": "x",
+                        "COLON": ":",
+                        "type_spec": {
+                          "INTEGER": "INTEGER"
+                        }
+                      }
+                    },
+                    {
+                      "SEMI": ";"
+                    },
+                    {},
+                    {
+                      "procedure_declaration": {
+                        "PROCEDURE": "PROCEDURE",
+                        "ID": "Beta",
+                        "LPAREN": "(",
+                        "formal_parameter_list": {
+                          "formal_parameters": {
+                            "ID": "a",
+                            "COLON": ":",
+                            "type_spec": {
+                              "INTEGER": "INTEGER"
+                            }
+                          },
+                          "*": [
+                            {
+                              "SEMI": ";"
+                            },
+                            {
+                              "formal_parameters": {
+                                "ID": "b",
+                                "COLON": ":",
+                                "type_spec": {
+                                  "INTEGER": "INTEGER"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "RPAREN": ")",
+                        "SEMI": ";",
+                        "block": {
+                          "declarations": {
+                            "VAR": "VAR",
+                            "*": [
+                              {
+                                "variable_declaration": {
+                                  "ID": "x",
+                                  "COLON": ":",
+                                  "type_spec": {
+                                    "INTEGER": "INTEGER"
+                                  }
+                                }
+                              },
+                              {
+                                "SEMI": ";"
+                              },
+                              {},
+                              {}
+                            ]
+                          },
+                          "compound_statement": {
+                            "BEGIN": "BEGIN",
+                            "statement_list": {
+                              "assignment_statement": {
+                                "varleft": {
+                                  "ID": "x"
+                                },
+                                "ASSIGN": ":=",
+                                "expr": {
+                                  "term": {
+                                    "variable": {
+                                      "ID": "a"
+                                    },
+                                    "*": [
+                                      {
+                                        "MUL": "*"
+                                      },
+                                      {
+                                        "INTEGER_CONST": "10"
+                                      }
+                                    ]
+                                  },
+                                  "*": [
+                                    {
+                                      "PLUS": "+"
+                                    },
+                                    {
+                                      "term": {
+                                        "variable": {
+                                          "ID": "b"
+                                        },
+                                        "*": [
+                                          {
+                                            "MUL": "*"
+                                          },
+                                          {
+                                            "INTEGER_CONST": "2"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "*": [
+                                {
+                                  "SEMI": ";"
+                                },
+                                {}
+                              ]
+                            },
+                            "END": "END"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "procedure_declaration": {
+                        "PROCEDURE": "PROCEDURE",
+                        "ID": "Gamma",
+                        "LPAREN": "(",
+                        "formal_parameter_list": {
+                          "formal_parameters": {
+                            "ID": "a",
+                            "COLON": ":",
+                            "type_spec": {
+                              "INTEGER": "INTEGER"
+                            }
+                          },
+                          "*": [
+                            {
+                              "SEMI": ";"
+                            },
+                            {
+                              "formal_parameters": {
+                                "ID": "b",
+                                "COLON": ":",
+                                "type_spec": {
+                                  "INTEGER": "INTEGER"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "RPAREN": ")",
+                        "SEMI": ";",
+                        "block": {
+                          "declarations": {
+                            "VAR": "VAR",
+                            "*": [
+                              {
+                                "variable_declaration": {
+                                  "ID": "x",
+                                  "COLON": ":",
+                                  "type_spec": {
+                                    "INTEGER": "INTEGER"
+                                  }
+                                }
+                              },
+                              {
+                                "SEMI": ";"
+                              },
+                              {},
+                              {}
+                            ]
+                          },
+                          "compound_statement": {
+                            "BEGIN": "BEGIN",
+                            "statement_list": {
+                              "assignment_statement": {
+                                "varleft": {
+                                  "ID": "x"
+                                },
+                                "ASSIGN": ":=",
+                                "expr": {
+                                  "term": {
+                                    "variable": {
+                                      "ID": "a"
+                                    },
+                                    "*": [
+                                      {
+                                        "MUL": "*"
+                                      },
+                                      {
+                                        "INTEGER_CONST": "10"
+                                      }
+                                    ]
+                                  },
+                                  "*": [
+                                    {
+                                      "PLUS": "+"
+                                    },
+                                    {
+                                      "term": {
+                                        "variable": {
+                                          "ID": "b"
+                                        },
+                                        "*": [
+                                          {
+                                            "MUL": "*"
+                                          },
+                                          {
+                                            "INTEGER_CONST": "2"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "*": [
+                                {
+                                  "SEMI": ";"
+                                },
+                                {}
+                              ]
+                            },
+                            "END": "END"
+                          }
+                        }
+                      }
+                    },
+                    {}
+                  ]
+                },
+                "compound_statement": {
+                  "BEGIN": "BEGIN",
+                  "statement_list": {
+                    "assignment_statement": {
+                      "varleft": {
+                        "ID": "x"
+                      },
+                      "ASSIGN": ":=",
+                      "expr": {
+                        "term": {
+                          "factor": {
+                            "LPAREN": "(",
+                            "expr": {
+                              "term": {
+                                "variable": {
+                                  "ID": "a"
+                                }
+                              },
+                              "*": [
+                                {
+                                  "PLUS": "+"
+                                },
+                                {
+                                  "term": {
+                                    "variable": {
+                                      "ID": "b"
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            "RPAREN": ")"
+                          },
+                          "*": [
+                            {
+                              "MUL": "*"
+                            },
+                            {
+                              "INTEGER_CONST": "2"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "*": [
+                      {
+                        "SEMI": ";"
+                      },
+                      {
+                        "proccall_statement": {
+                          "ID": "Beta",
+                          "LPAREN": "(",
+                          "actual_parameter_list": {
+                            "expr": {
+                              "term": {
+                                "INTEGER_CONST": "5"
+                              }
+                            },
+                            "*": [
+                              {
+                                "COMMA": ","
+                              },
+                              {
+                                "expr": {
+                                  "term": {
+                                    "INTEGER_CONST": "10"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "RPAREN": ")"
+                        }
+                      },
+                      {
+                        "SEMI": ";"
+                      },
+                      {}
+                    ]
+                  },
+                  "END": "END"
+                }
+              }
+            }
+          },
+          {}
+        ]
+      },
+      "compound_statement": {
+        "BEGIN": "BEGIN",
+        "statement_list": {
+          "proccall_statement": {
+            "ID": "Alpha",
+            "LPAREN": "(",
+            "actual_parameter_list": {
+              "expr": {
+                "term": {
+                  "INTEGER_CONST": "3"
+                },
+                "*": [
+                  {
+                    "PLUS": "+"
+                  },
+                  {
+                    "term": {
+                      "INTEGER_CONST": "5"
+                    }
+                  }
+                ]
+              },
+              "*": [
+                {
+                  "COMMA": ","
+                },
+                {
+                  "expr": {
+                    "term": {
+                      "INTEGER_CONST": "7"
+                    }
+                  }
+                }
+              ]
+            },
+            "RPAREN": ")"
+          },
+          "*": [
+            {
+              "SEMI": ";"
+            },
+            {
+              "for_loop": {
+                "FOR": "FOR",
+                "assignment_statement": {
+                  "varleft": {
+                    "ID": "y"
+                  },
+                  "ASSIGN": ":=",
+                  "expr": {
+                    "term": {
+                      "INTEGER_CONST": "1"
+                    }
+                  }
+                },
+                "TO": "TO",
+                "expr": {
+                  "term": {
+                    "INTEGER_CONST": "2"
+                  }
+                },
+                "DO": "DO",
+                "compound_statement": {
+                  "BEGIN": "BEGIN",
+                  "statement_list": {
+                    "proccall_statement": {
+                      "ID": "Alpha",
+                      "LPAREN": "(",
+                      "actual_parameter_list": {
+                        "expr": {
+                          "term": {
+                            "INTEGER_CONST": "35"
+                          }
+                        },
+                        "*": [
+                          {
+                            "COMMA": ","
+                          },
+                          {
+                            "expr": {
+                              "term": {
+                                "variable": {
+                                  "ID": "y"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "RPAREN": ")"
+                    },
+                    "*": [
+                      {
+                        "SEMI": ";"
+                      },
+                      {}
+                    ]
+                  },
+                  "END": "END"
+                }
+              }
+            },
+            {
+              "SEMI": ";"
+            },
+            {}
+          ]
+        },
+        "END": "END"
+      }
+    },
+    "DOT": "."
+  }
+}

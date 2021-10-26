@@ -1,0 +1,1040 @@
+Parser PROGRAM PROGRAM
+ PROGRAM PROGRAM -> [ID ColorFade] 0
+ ID ColorFade -> [LCURL {] 0
+ block 0
+  LCURL { -> [ID leds] 1
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     ID leds -> [EQUAL =] 4
+     success varleft
+     EQUAL = -> [ID array] 4
+     expr 4
+      term 5
+       factor 6
+        call 7
+         ID array -> [LPAREN (] 8
+         LPAREN ( -> [ID ledCount] 8
+         actuals 8
+          expr 9
+           term 10
+            factor 11
+             call 12
+              ID ledCount -> [COMMA ,] 13
+             fail call
+             varref 12
+             ID ledCount -> [COMMA ,] 12
+             success varref
+            symbol to shrink factor
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+          remove multiple key
+          remove multiple empty
+          success expr
+           COMMA , -> [ID ledCount] 10
+           expr 10
+            term 11
+             factor 12
+              call 13
+               ID ledCount -> [RPAREN )] 14
+              fail call
+              varref 13
+              ID ledCount -> [RPAREN )] 13
+              success varref
+             symbol to shrink factor
+             success factor
+            remove multiple key
+            remove multiple empty
+            success term
+           remove multiple key
+           remove multiple empty
+           success expr
+         remove multiple key
+         success actuals
+         RPAREN ) -> [ID pixelCounter] 8
+        success call
+       symbol to shrink factor
+       success factor
+      remove multiple key
+      remove multiple empty
+      success term
+     remove multiple key
+     remove multiple empty
+     success expr
+    success assign
+   symbol to shrink statement
+   success statement
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     ID pixelCounter -> [EQUAL =] 4
+     success varleft
+     EQUAL = -> [INTEGER_CONST 0] 4
+     expr 4
+      term 5
+       factor 6
+        call 7
+        fail call
+        varref 7
+        fail varref
+        INTEGER_CONST 0 -> [FUNCTION FUNCTION] 7
+       symbol to shrink factor
+       success factor
+      remove multiple key
+      remove multiple empty
+      success term
+     remove multiple key
+     remove multiple empty
+     success expr
+    success assign
+   symbol to shrink statement
+   success statement
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     fail varleft
+    fail assign
+    function 3
+     FUNCTION FUNCTION -> [ID init] 4
+     ID init -> [LPAREN (] 4
+      LPAREN ( -> [RPAREN )] 5
+      formals 5
+       formal 6
+       fail formal
+      success formals
+      RPAREN ) -> [LCURL {] 5
+     block 4
+      LCURL { -> [ID leds] 5
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID leds -> [LBRACKET [] 8
+         success varleft
+          LBRACKET [ -> [INTEGER_CONST 3] 9
+          indices 9
+           expr 10
+            term 11
+             factor 12
+              call 13
+              fail call
+              varref 13
+              fail varref
+              INTEGER_CONST 3 -> [COMMA ,] 13
+             symbol to shrink factor
+             success factor
+            remove multiple key
+            remove multiple empty
+            success term
+           remove multiple key
+           remove multiple empty
+           success expr
+            COMMA , -> [INTEGER_CONST 7] 11
+            expr 11
+             term 12
+              factor 13
+               call 14
+               fail call
+               varref 14
+               fail varref
+               INTEGER_CONST 7 -> [RBRACKET ]] 14
+              symbol to shrink factor
+              success factor
+             remove multiple key
+             remove multiple empty
+             success term
+            remove multiple key
+            remove multiple empty
+            success expr
+          remove multiple key
+          success indices
+          RBRACKET ] -> [EQUAL =] 9
+         EQUAL = -> [INTEGER_CONST 10] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+            fail call
+            varref 11
+            fail varref
+            INTEGER_CONST 10 -> [FOR FOR] 11
+           symbol to shrink factor
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+         remove multiple key
+         remove multiple empty
+         success expr
+        success assign
+       symbol to shrink statement
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+         FOR FOR -> [LPAREN (] 8
+         LPAREN ( -> [ID i] 8
+         assign 8
+          varleft 9
+          ID i -> [EQUAL =] 9
+          success varleft
+          EQUAL = -> [INTEGER_CONST 0] 9
+          expr 9
+           term 10
+            factor 11
+             call 12
+             fail call
+             varref 12
+             fail varref
+             INTEGER_CONST 0 -> [SEMI ;] 12
+            symbol to shrink factor
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+          remove multiple key
+          remove multiple empty
+          success expr
+         success assign
+         SEMI ; -> [ID i] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID i -> [SMALLER <] 12
+            fail call
+            varref 11
+            ID i -> [SMALLER <] 11
+            success varref
+           symbol to shrink factor
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+            SMALLER < -> [ID ledCount] 11
+           term 10
+            factor 11
+             call 12
+              ID ledCount -> [SEMI ;] 13
+             fail call
+             varref 12
+             ID ledCount -> [SEMI ;] 12
+             success varref
+            symbol to shrink factor
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+         remove multiple key
+         success expr
+         SEMI ; -> [ID i] 8
+         increment 8
+          assign 9
+           varleft 10
+           ID i -> [EQUAL =] 10
+           success varleft
+           EQUAL = -> [ID i] 10
+           expr 10
+            term 11
+             factor 12
+              call 13
+               ID i -> [PLUS +] 14
+              fail call
+              varref 13
+              ID i -> [PLUS +] 13
+              success varref
+             symbol to shrink factor
+             success factor
+            remove multiple key
+            remove multiple empty
+            success term
+              PLUS + -> [INTEGER_CONST 1] 13
+             term 12
+              factor 13
+               call 14
+               fail call
+               varref 14
+               fail varref
+               INTEGER_CONST 1 -> [RPAREN )] 14
+              symbol to shrink factor
+              success factor
+             remove multiple key
+             remove multiple empty
+             success term
+           remove multiple key
+           success expr
+          success assign
+         success increment
+         RPAREN ) -> [LCURL {] 8
+         block 8
+          LCURL { -> [ID setPixelColor] 9
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             ID setPixelColor -> [LPAREN (] 12
+             success varleft
+            fail assign
+            function 11
+            fail function
+            call 11
+             ID setPixelColor -> [LPAREN (] 12
+             LPAREN ( -> [ID i] 12
+             actuals 12
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                  ID i -> [COMMA ,] 17
+                 fail call
+                 varref 16
+                 ID i -> [COMMA ,] 16
+                 success varref
+                symbol to shrink factor
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+              remove multiple key
+              remove multiple empty
+              success expr
+               COMMA , -> [ID pixelCounter] 14
+               expr 14
+                term 15
+                 factor 16
+                  call 17
+                   ID pixelCounter -> [RPAREN )] 18
+                  fail call
+                  varref 17
+                  ID pixelCounter -> [RPAREN )] 17
+                  success varref
+                 symbol to shrink factor
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+               remove multiple key
+               remove multiple empty
+               success expr
+             remove multiple key
+             success actuals
+             RPAREN ) -> [RCURL }] 12
+            success call
+           symbol to shrink statement
+           success statement
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             fail varleft
+            fail assign
+            function 11
+            fail function
+            call 11
+            fail call
+            for 11
+            fail for
+            if 11
+            fail if
+            block 11
+            fail block
+           fail statement
+          RCURL } -> [RCURL }] 9
+         remove multiple key
+         success block
+        success for
+       symbol to shrink statement
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+        fail for
+        if 7
+        fail if
+        block 7
+        fail block
+       fail statement
+      RCURL } -> [FUNCTION FUNCTION] 5
+     remove multiple key
+     success block
+    success function
+   symbol to shrink statement
+   success statement
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     fail varleft
+    fail assign
+    function 3
+     FUNCTION FUNCTION -> [ID before] 4
+     ID before -> [LPAREN (] 4
+      LPAREN ( -> [RPAREN )] 5
+      formals 5
+       formal 6
+       fail formal
+      success formals
+      RPAREN ) -> [LCURL {] 5
+     block 4
+      LCURL { -> [ID setPixelColor] 5
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID setPixelColor -> [LPAREN (] 8
+         success varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+         ID setPixelColor -> [LPAREN (] 8
+         LPAREN ( -> [ID pixelCounter] 8
+         actuals 8
+          expr 9
+           term 10
+            factor 11
+             call 12
+              ID pixelCounter -> [COMMA ,] 13
+             fail call
+             varref 12
+             ID pixelCounter -> [COMMA ,] 12
+             success varref
+            symbol to shrink factor
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+          remove multiple key
+          remove multiple empty
+          success expr
+           COMMA , -> [ID pixelCounter] 10
+           expr 10
+            term 11
+             factor 12
+              call 13
+               ID pixelCounter -> [RPAREN )] 14
+              fail call
+              varref 13
+              ID pixelCounter -> [RPAREN )] 13
+              success varref
+             symbol to shrink factor
+             success factor
+            remove multiple key
+            remove multiple empty
+            success term
+           remove multiple key
+           remove multiple empty
+           success expr
+         remove multiple key
+         success actuals
+         RPAREN ) -> [ID pixelCounter] 8
+        success call
+       symbol to shrink statement
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID pixelCounter -> [EQUAL =] 8
+         success varleft
+         EQUAL = -> [ID pixelCounter] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID pixelCounter -> [PLUS +] 12
+            fail call
+            varref 11
+            ID pixelCounter -> [PLUS +] 11
+            success varref
+           symbol to shrink factor
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+            PLUS + -> [INTEGER_CONST 1] 11
+           term 10
+            factor 11
+             call 12
+             fail call
+             varref 12
+             fail varref
+             INTEGER_CONST 1 -> [RCURL }] 12
+            symbol to shrink factor
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+         remove multiple key
+         success expr
+        success assign
+       symbol to shrink statement
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+        fail for
+        if 7
+        fail if
+        block 7
+        fail block
+       fail statement
+      RCURL } -> [FUNCTION FUNCTION] 5
+     remove multiple key
+     success block
+    success function
+   symbol to shrink statement
+   success statement
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     fail varleft
+    fail assign
+    function 3
+     FUNCTION FUNCTION -> [ID renderFrame] 4
+     ID renderFrame -> [LPAREN (] 4
+      LPAREN ( -> [RPAREN )] 5
+      formals 5
+       formal 6
+       fail formal
+      success formals
+      RPAREN ) -> [LCURL {] 5
+     block 4
+      LCURL { -> [FOR FOR] 5
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+         FOR FOR -> [LPAREN (] 8
+         LPAREN ( -> [ID i] 8
+         assign 8
+          varleft 9
+          ID i -> [EQUAL =] 9
+          success varleft
+          EQUAL = -> [INTEGER_CONST 0] 9
+          expr 9
+           term 10
+            factor 11
+             call 12
+             fail call
+             varref 12
+             fail varref
+             INTEGER_CONST 0 -> [SEMI ;] 12
+            symbol to shrink factor
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+          remove multiple key
+          remove multiple empty
+          success expr
+         success assign
+         SEMI ; -> [ID i] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID i -> [SMALLER <] 12
+            fail call
+            varref 11
+            ID i -> [SMALLER <] 11
+            success varref
+           symbol to shrink factor
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+            SMALLER < -> [ID ledCount] 11
+           term 10
+            factor 11
+             call 12
+              ID ledCount -> [SEMI ;] 13
+             fail call
+             varref 12
+             ID ledCount -> [SEMI ;] 12
+             success varref
+            symbol to shrink factor
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+         remove multiple key
+         success expr
+         SEMI ; -> [ID i] 8
+         increment 8
+          assign 9
+           varleft 10
+           ID i -> [EQUAL =] 10
+           success varleft
+           EQUAL = -> [ID i] 10
+           expr 10
+            term 11
+             factor 12
+              call 13
+               ID i -> [PLUS +] 14
+              fail call
+              varref 13
+              ID i -> [PLUS +] 13
+              success varref
+             symbol to shrink factor
+             success factor
+            remove multiple key
+            remove multiple empty
+            success term
+              PLUS + -> [INTEGER_CONST 1] 13
+             term 12
+              factor 13
+               call 14
+               fail call
+               varref 14
+               fail varref
+               INTEGER_CONST 1 -> [RPAREN )] 14
+              symbol to shrink factor
+              success factor
+             remove multiple key
+             remove multiple empty
+             success term
+           remove multiple key
+           success expr
+          success assign
+         success increment
+         RPAREN ) -> [LCURL {] 8
+         block 8
+          LCURL { -> [ID setPixelColor] 9
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             ID setPixelColor -> [LPAREN (] 12
+             success varleft
+            fail assign
+            function 11
+            fail function
+            call 11
+             ID setPixelColor -> [LPAREN (] 12
+             LPAREN ( -> [ID i] 12
+             actuals 12
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                  ID i -> [COMMA ,] 17
+                 fail call
+                 varref 16
+                 ID i -> [COMMA ,] 16
+                 success varref
+                symbol to shrink factor
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+              remove multiple key
+              remove multiple empty
+              success expr
+               COMMA , -> [ID pixelCounter] 14
+               expr 14
+                term 15
+                 factor 16
+                  call 17
+                   ID pixelCounter -> [PLUS +] 18
+                  fail call
+                  varref 17
+                  ID pixelCounter -> [PLUS +] 17
+                  success varref
+                 symbol to shrink factor
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+                  PLUS + -> [ID i] 17
+                 term 16
+                  factor 17
+                   call 18
+                    ID i -> [RPAREN )] 19
+                   fail call
+                   varref 18
+                   ID i -> [RPAREN )] 18
+                   success varref
+                  symbol to shrink factor
+                  success factor
+                 remove multiple key
+                 remove multiple empty
+                 success term
+               remove multiple key
+               success expr
+             remove multiple key
+             success actuals
+             RPAREN ) -> [RCURL }] 12
+            success call
+           symbol to shrink statement
+           success statement
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             fail varleft
+            fail assign
+            function 11
+            fail function
+            call 11
+            fail call
+            for 11
+            fail for
+            if 11
+            fail if
+            block 11
+            fail block
+           fail statement
+          RCURL } -> [ID pixelCounter] 9
+         remove multiple key
+         success block
+        success for
+       symbol to shrink statement
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID pixelCounter -> [EQUAL =] 8
+         success varleft
+         EQUAL = -> [ID pixelCounter] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID pixelCounter -> [PLUS +] 12
+            fail call
+            varref 11
+            ID pixelCounter -> [PLUS +] 11
+            success varref
+           symbol to shrink factor
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+            PLUS + -> [INTEGER_CONST 1] 11
+           term 10
+            factor 11
+             call 12
+             fail call
+             varref 12
+             fail varref
+             INTEGER_CONST 1 -> [RCURL }] 12
+            symbol to shrink factor
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+         remove multiple key
+         success expr
+        success assign
+       symbol to shrink statement
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+        fail for
+        if 7
+        fail if
+        block 7
+        fail block
+       fail statement
+      RCURL } -> [RCURL }] 5
+     remove multiple key
+     success block
+    success function
+   symbol to shrink statement
+   success statement
+par mem 37380 of 38104 38104 1 0 22
+par mem 37380 of 38104 38104 1 0 22
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     fail varleft
+    fail assign
+    function 3
+    fail function
+    call 3
+    fail call
+    for 3
+    fail for
+    if 3
+    fail if
+    block 3
+    fail block
+   fail statement
+  RCURL } 1
+ remove multiple key
+ success block
+Symbol program Parsed until (25,1) 508 of 508
+par mem 37572 of 38104 38104 1 0 22
+prog size 508 factor 73
+par mem 9060 of 38104 38104 1 0 22
+Destruct Lexer
+Destruct Parser
+
+Analyzer
+ Program ColorFade 1 0
+    Assign leds = {value (not of interest during analyze...)}
+    Var (assign) ColorFade.leds of notype
+    Assign pixelCounter = {value (not of interest during analyze...)}
+    Var (assign) ColorFade.pixelCounter of notype
+    Function ColorFade.init
+       Assign leds = {value (not of interest during analyze...)}
+        Assign i = {value (not of interest during analyze...)}
+        Var (assign) init.i of notype
+         Assign i = {value (not of interest during analyze...)}
+    0 Assign init.i notype 2
+    Function ColorFade.before
+       Assign pixelCounter = {value (not of interest during analyze...)}
+    Function ColorFade.renderFrame
+        Assign i = {value (not of interest during analyze...)}
+        Var (assign) renderFrame.i of notype
+         Assign i = {value (not of interest during analyze...)}
+       Assign pixelCounter = {value (not of interest during analyze...)}
+    0 Assign renderFrame.i notype 2
+ 0 Assign ColorFade.leds notype 1
+ 1 Assign ColorFade.pixelCounter notype 1
+ 2 Function ColorFade.init  1
+ 3 Function ColorFade.before  1
+ 4 Function ColorFade.renderFrame  1
+
+interpret ColorFade 1 5
+ program name ID
+ Program ColorFade ColorFade
+          VarRef ext.ledCount = 3 (push 1)
+            VarRef ext.ledCount = 3 (push 2)
+       Call array(3, 3)
+    ColorFade.leds := array return tbd (pop 0)
+       INTEGER_CONST 0 (Push 1)
+    ColorFade.pixelCounter := 0 (pop 0)
+    Save block of init
+    Save block of before
+    Save block of renderFrame
+         Call renderFrame (1)
+            For (0)
+            from
+                INTEGER_CONST 0 (Push 1)
+             renderFrame.i := 0 (pop 0)
+            iteration
+            check to condition
+               VarRef renderFrame.i = 0 (push 1)
+                SMALLER < (Push 2)
+                 VarRef ext.ledCount = 3 (push 3)
+             0 < 3 = 1 (push 1)
+            (pop 0)
+            1 => run block
+                  VarRef renderFrame.i = 0 (push 1)
+                    VarRef ColorFade.pixelCounter = 0 (push 2)
+                     PLUS + (Push 3)
+                      VarRef renderFrame.i = 0 (push 4)
+                  0 + 0 = 0 (push 2)
+               Call setPixelColor(0, 0)
+            assign next value
+                VarRef renderFrame.i = 0 (push 1)
+                 PLUS + (Push 2)
+                  INTEGER_CONST 1 (Push 3)
+              0 + 1 = 1 (push 1)
+             renderFrame.i := 1 (pop 0)
+            iteration
+            check to condition
+               VarRef renderFrame.i = 1 (push 1)
+                SMALLER < (Push 2)
+                 VarRef ext.ledCount = 3 (push 3)
+             1 < 3 = 1 (push 1)
+            (pop 0)
+            1 => run block
+                  VarRef renderFrame.i = 1 (push 1)
+                    VarRef ColorFade.pixelCounter = 0 (push 2)
+                     PLUS + (Push 3)
+                      VarRef renderFrame.i = 1 (push 4)
+                  0 + 1 = 1 (push 2)
+               Call setPixelColor(1, 1)
+            assign next value
+                VarRef renderFrame.i = 1 (push 1)
+                 PLUS + (Push 2)
+                  INTEGER_CONST 1 (Push 3)
+              1 + 1 = 2 (push 1)
+             renderFrame.i := 2 (pop 0)
+            iteration
+            check to condition
+               VarRef renderFrame.i = 2 (push 1)
+                SMALLER < (Push 2)
+                 VarRef ext.ledCount = 3 (push 3)
+             2 < 3 = 1 (push 1)
+            (pop 0)
+            1 => run block
+                  VarRef renderFrame.i = 2 (push 1)
+                    VarRef ColorFade.pixelCounter = 0 (push 2)
+                     PLUS + (Push 3)
+                      VarRef renderFrame.i = 2 (push 4)
+                  0 + 2 = 2 (push 2)
+               Call setPixelColor(2, 2)
+            assign next value
+                VarRef renderFrame.i = 2 (push 1)
+                 PLUS + (Push 2)
+                  INTEGER_CONST 1 (Push 3)
+              2 + 1 = 3 (push 1)
+             renderFrame.i := 3 (pop 0)
+            iteration
+            check to condition
+               VarRef renderFrame.i = 3 (push 1)
+                SMALLER < (Push 2)
+                 VarRef ext.ledCount = 3 (push 3)
+             3 < 3 = 0 (push 1)
+            (pop 0)
+            0 => end of For
+               VarRef ColorFade.pixelCounter = 0 (push 1)
+                PLUS + (Push 2)
+                 INTEGER_CONST 1 (Push 3)
+             0 + 1 = 1 (push 1)
+            ColorFade.pixelCounter := 1 (pop 0)
+Destruct activation record renderFrame
+         Call renderFrame (1)
+            For (0)
+            from
+                INTEGER_CONST 0 (Push 1)
+             renderFrame.i := 0 (pop 0)
+            iteration
+            check to condition
+               VarRef renderFrame.i = 0 (push 1)
+                SMALLER < (Push 2)
+                 VarRef ext.ledCount = 3 (push 3)
+             0 < 3 = 1 (push 1)
+            (pop 0)
+            1 => run block
+                  VarRef renderFrame.i = 0 (push 1)
+                    VarRef ColorFade.pixelCounter = 1 (push 2)
+                     PLUS + (Push 3)
+                      VarRef renderFrame.i = 0 (push 4)
+                  1 + 0 = 1 (push 2)
+               Call setPixelColor(0, 1)
+            assign next value
+                VarRef renderFrame.i = 0 (push 1)
+                 PLUS + (Push 2)
+                  INTEGER_CONST 1 (Push 3)
+              0 + 1 = 1 (push 1)
+             renderFrame.i := 1 (pop 0)
+            iteration
+            check to condition
+               VarRef renderFrame.i = 1 (push 1)
+                SMALLER < (Push 2)
+                 VarRef ext.ledCount = 3 (push 3)
+             1 < 3 = 1 (push 1)
+            (pop 0)
+            1 => run block
+                  VarRef renderFrame.i = 1 (push 1)
+                    VarRef ColorFade.pixelCounter = 1 (push 2)
+                     PLUS + (Push 3)
+                      VarRef renderFrame.i = 1 (push 4)
+                  1 + 1 = 2 (push 2)
+               Call setPixelColor(1, 2)
+            assign next value
+                VarRef renderFrame.i = 1 (push 1)
+                 PLUS + (Push 2)
+                  INTEGER_CONST 1 (Push 3)
+              1 + 1 = 2 (push 1)
+             renderFrame.i := 2 (pop 0)
+            iteration
+            check to condition
+               VarRef renderFrame.i = 2 (push 1)
+                SMALLER < (Push 2)
+                 VarRef ext.ledCount = 3 (push 3)
+             2 < 3 = 1 (push 1)
+            (pop 0)
+            1 => run block
+                  VarRef renderFrame.i = 2 (push 1)
+                    VarRef ColorFade.pixelCounter = 1 (push 2)
+                     PLUS + (Push 3)
+                      VarRef renderFrame.i = 2 (push 4)
+                  1 + 2 = 3 (push 2)
+               Call setPixelColor(2, 3)
+            assign next value
+                VarRef renderFrame.i = 2 (push 1)
+                 PLUS + (Push 2)
+                  INTEGER_CONST 1 (Push 3)
+              2 + 1 = 3 (push 1)
+             renderFrame.i := 3 (pop 0)
+            iteration
+            check to condition
+               VarRef renderFrame.i = 3 (push 1)
+                SMALLER < (Push 2)
+                 VarRef ext.ledCount = 3 (push 3)
+             3 < 3 = 0 (push 1)
+            (pop 0)
+            0 => end of For
+               VarRef ColorFade.pixelCounter = 1 (push 1)
+                PLUS + (Push 2)
+                 INTEGER_CONST 1 (Push 3)
+             1 + 1 = 2 (push 1)
+            ColorFade.pixelCounter := 2 (pop 0)
+Destruct activation record renderFrame
+Destruct callstack
+Destruct valueStack
+Destruct Interpreter
+def mem 7277 of 12192 12192 24 0 6

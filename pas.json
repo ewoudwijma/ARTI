@@ -1,123 +1,129 @@
 {
-     "program": [
-          "PROGRAM",
-          "ID",
-          "SEMI",
-          "block",
-          "DOT"
-     ],
-     "block": [
-          "declarations*",
-          "compound_statement"
-     ],
-     "declarations*" : [
-          {"?": ["VAR", {"+": ["variable_declaration", "SEMI"]}]}, 
-          {"*": "procedure_declaration" }
-     ],
-     "variable_declaration" : [
-          "ID", 
-          {"*": ["COMMA", "ID"]}, 
-          "COLON", 
-          "type_spec"
-     ],
-     "procedure_declaration" : [
-          "PROCEDURE", 
-          "ID", 
-          {"?": ["LPAREN", "formal_parameter_list*", "RPAREN"]}, 
-          "SEMI", 
-          "block", 
-          "SEMI"
-     ],
-     "formal_parameter_list*" : ["formal_parameters", {"*":["SEMI", "formal_parameters"]}],
-     "formal_parameters" : [
-          "ID", 
-          {"*": ["COMMA", "ID"]}, 
-          "COLON", 
-          "type_spec"
-     ],
-     "type_spec" : {"or" : ["INTEGER", "REAL"]},
-     "compound_statement" : [
-          "BEGIN", 
-          "statement_list*", 
-          "END"
-     ],
-     "statement_list*" : ["statement", {"*": ["SEMI", "statement"]}],
-     "statement" : {"or": ["compound_statement",
-                  "proccall_statement",
-                  "assignment_statement","for_loop"]},
-     "proccall_statement" : [
-          "ID", 
-          "LPAREN", 
-          "actual_parameter_list*", 
-          "RPAREN"
-     ],
-     "actual_parameter_list*": {"?": ["expr*", {"*": ["COMMA", "expr*"]}]},
-     "assignment_statement" : [
-          "varleft", 
-          "ASSIGN", 
-          "expr*"
-     ],
-     "empty" : [""],
-     "expr*" : [
-          "term*", 
-          {"*": [{"or": ["PLUS", "MINUS"]}, "term*"]}
-     ],
-     "term*" : [
-          "factor", 
-          {"*": [{"or": ["MUL", "INTEGER_DIV", "FLOAT_DIV"]}, "factor"]}
-     ],
-     "factor" : {"or": ["variable", 
-          "INTEGER_CONST",
-               "REAL_CONST",
-               ["LPAREN", "expr*", "RPAREN"]
-               ]},
-     "variable": "ID",
-     "varleft": "ID",
-     "for_loop": ["FOR", "assignment_statement", "TO", "expr*","DO","compound_statement"],
+  "meta": {"version": "0.0.3", "start":"program"},
+  "program": [
+    "PROGRAM",
+    "ID",
+    "SEMI",
+    "block",
+    "DOT"
+  ],
+  "block": [
+    "declarations",
+    "compound_statement"
+  ],
+  "declarations" : [
+    {"?": ["VAR", {"+": ["variable_declaration", "SEMI"]}]}, 
+    {"*": ["procedure_declaration"] }
+  ],
+  "variable_declaration" : [
+    "ID", 
+    {"*": ["COMMA", "ID"]}, 
+    "COLON", 
+    "type_spec"
+  ],
+  "procedure_declaration" : [
+    "PROCEDURE", 
+    "ID", 
+    {"?": ["LPAREN", "formal_parameter_list", "RPAREN"]}, 
+    "SEMI", 
+    "block", 
+    "SEMI"
+  ],
+  "formal_parameter_list" : ["formal_parameters", {"*":["SEMI", "formal_parameters"]}],
+  "formal_parameters" : [
+    "ID", 
+    {"*": ["COMMA", "ID"]}, 
+    "COLON", 
+    "type_spec"
+  ],
+  "type_spec" : {"|" : ["INTEGER", "REAL"]},
+  "compound_statement" : [
+    "BEGIN", 
+    "statement_list", 
+    "END"
+  ],
+  "statement_list" : ["statement", {"*": ["SEMI", "statement"]}],
+  "statement" : {"|": ["compound_statement",
+    "proccall_statement",
+    "assignment_statement","for_loop"]},
+  "proccall_statement" : [
+    "ID", 
+    "LPAREN", 
+    "actual_parameter_list", 
+    "RPAREN"
+  ],
+  "actual_parameter_list": {"?": ["expr", {"*": ["COMMA", "expr"]}]},
+  "assignment_statement" : [
+    "varleft", 
+    "ASSIGN", 
+    "expr"
+  ],
+  "empty" : [""],
+  "expr" : [
+    "term", 
+    {"*": [{"|": ["PLUS", "MINUS"]}, "term"]}
+  ],
+  "term" : [
+    "factor", 
+    {"*": [{"|": ["MUL", "INTEGER_DIV", "FLOAT_DIV"]}, "factor"]}
+  ],
+  "factor" : {"|": ["variable", 
+    "INTEGER_CONST",
+    "REAL_CONST",
+    ["LPAREN", "expr", "RPAREN"]
+   ]},
+  "variable": "ID",
+  "varleft": "ID",
+  "for_loop": ["FOR", "assignment_statement", "TO", "expr","DO","compound_statement"],
 
-     "TOKENS":
-          {
-          "ID": "ID",
-          "INTEGER_CONST": "INTEGER_CONST",
-          "REAL_CONST": "REAL_CONST",
-          "PLUS": "+",
-          "MINUS": "-",
-          "MUL": "*",
-          "FLOAT_DIV": "/",
-          "LPAREN": "(",
-          "RPAREN": ")",
-          "SEMI": ";",
-          "DOT": ".",
-          "COLON": ":",
-          "COMMA": ",",
+  "TOKENS":
+  {
+    "ID": "ID",
+    "INTEGER_CONST": "INTEGER_CONST",
+    "REAL_CONST": "REAL_CONST",
+    "PLUS": "+",
+    "MINUS": "-",
+    "MUL": "*",
+    "FLOAT_DIV": "/",
+    "LPAREN": "(",
+    "RPAREN": ")",
+    "SEMI": ";",
+    "DOT": ".",
+    "COLON": ":",
+    "COMMA": ",",
     
-          "ASSIGN": ":=",
+    "ASSIGN": ":=",
     
-          "PROGRAM": "PROGRAM",
-          "INTEGER": "INTEGER",
-          "REAL": "REAL",
-          "INTEGER_DIV": "DIV",
-          "VAR": "VAR",
-          "PROCEDURE": "PROCEDURE",
-          "BEGIN": "BEGIN",
-          "END": "END",
-          "FOR": "FOR",
-          "TO": "TO",
-          "DO": "DO"
-          },
+    "PROGRAM": "PROGRAM",
+    "INTEGER": "INTEGER",
+    "REAL": "REAL",
+    "INTEGER_DIV": "DIV",
+    "VAR": "VAR",
+    "PROCEDURE": "PROCEDURE",
+    "BEGIN": "BEGIN",
+    "END": "END",
+    "FOR": "FOR",
+    "TO": "TO",
+    "DO": "DO"
+  },
 
-     "SEMANTICS":
-     {
-          "program": {"id":"Program", "name":"ID", "block": "block"},
-          "procedure_declaration": {"id":"Function", "name":"ID", "formals": "formal_parameter_list*", "block": "block"},
-          "formal_parameters": {"id":"Formal", "name":"ID", "type": "type_spec"},
-          "proccall_statement": {"id":"Call", "name":"ID", "actuals": "actual_parameter_list*"},
-          "variable_declaration": {"id":"Var", "name":"ID", "type": "type_spec"},
-          "variable": {"id":"VarRef", "name":"ID"},
-          "assignment_statement": {"id":"Assign", "name":"varleft", "value":"expr*"},
-          "for_loop": {"id":"For", "from":"assignment_statement", "to":"expr*", "block":"compound_statement"},
-          "expr*": {"id":"Exprs"},
-          "term*": {"id":"Terms"}
-     }
-    
+  "SEMANTICS":
+  {
+    "program": {"id":"Program", "name":"ID", "block": "block"},
+    "procedure_declaration": {"id":"Function", "name":"ID", "formals": "formal_parameter_list", "block": "block"},
+    "formal_parameters": {"id":"Formal", "name":"ID", "type": "type_spec"},
+    "proccall_statement": {"id":"Call", "name":"ID", "actuals": "actual_parameter_list"},
+    "variable_declaration": {"id":"Var", "name":"ID", "type": "type_spec"},
+    "variable": {"id":"VarRef", "name":"ID"},
+    "assignment_statement": {"id":"Assign", "name":"varleft", "value":"expr"},
+    "for_loop": {"id":"For", "from":"assignment_statement", "to":"expr", "block":"compound_statement"},
+    "expr": {"id":"Expr"},
+    "term": {"id":"Term"}
+  },
+ 
+  "EXTERNALS":
+  {
+    "printf": {"args": "__VA_ARGS__"}
+  }
+   
 }

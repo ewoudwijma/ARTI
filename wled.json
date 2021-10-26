@@ -1,25 +1,25 @@
 {
-  "program": ["PROGRAM", "ID", "compound"],
-  "compound" : ["CURLYOPEN", "block*", "CURLYCLOSE"],
-  "block*": {"*": {"or" : ["variable", "function", "statement"]}},
+  "meta": {"version": "0.0.3", "start":"program"},
+  "program": ["PROGRAM","ID","block"],
+  "block" : ["LCURL",{"*": ["statement"]},"RCURL"],
+  "statement" : {"|":["variable","assign","function","call","for", "if","block"]},
   "variable" : ["VAR", "ID"],
-  "function" : ["FUNCTION", "ID", {"?": ["LPAREN", "formals*", "RPAREN"]}, "compound"],
-  "formals*" : {"?": ["formal", {"*":["COMMA", "formal"]}]},
+  "assign" : ["varleft", {"?": ["LBRACKET", "indices", "RBRACKET"]}, "EQUAL", "expr"],
+  "indices" : ["expr", {"*": ["COMMA", "expr"]}],
+  "function" : ["FUNCTION", "ID", {"?": ["LPAREN", "formals", "RPAREN"]}, "block"],
+  "formals" : {"?":["formal",{"*":["COMMA","formal"]}]},
   "formal" : "ID",
-  "statement" : {"or": ["compound", "call", "assign","for", "if"]},
-  "call" : ["ID", "LPAREN", "actuals*", "RPAREN"],
-  "actuals*": {"?": ["expr*", {"*": ["COMMA", "expr*"]}]},
-  "assign" : ["varleft", {"?": ["LBRACKET", "indices*", "RBRACKET"]}, "EQUAL", "expr*"],
-  "indices*" : ["expr*", {"*": ["COMMA", "expr*"]}],
-  "expr*" : [ "term*", {"*": [{"or": ["PLUS", "MINUS", "EQUAL", "SMALLER", "GREATER"]}, "term*"]}],
-  "term*" : [ "factor", {"*": [{"or": ["MUL", "INTEGER_DIV", "FLOAT_DIV"]}, "factor"]}],
-  "factor" : {"or": ["call", "varref", "INTEGER_CONST", "REAL_CONST", ["LPAREN", "expr*", "RPAREN"]]},
+  "call" : ["ID", "LPAREN", "actuals", "RPAREN"],
+  "actuals": {"?": ["expr", {"*": ["COMMA", "expr"]}]},
+  "for": ["FOR", "LPAREN", "assign", "SEMI", "expr", "SEMI", "increment", "RPAREN", "block"],
+  "increment": ["assign"],
+  "if": ["IF", "LPAREN", "expr", "RPAREN", "block", "ELSE", "elseCompound"],
+  "elseCompound": ["block"],
+  "expr" : [ "term", {"*": [{"|": ["PLUS", "MINUS", "EQUAL", "SMALLER", "GREATER"]}, "term"]}],
+  "term" : [ "factor", {"*": [{"|": ["MUL", "INTEGER_DIV", "FLOAT_DIV"]}, "factor"]}],
+  "factor" : {"|": ["call", "varref", "INTEGER_CONST", "REAL_CONST", ["LPAREN", "expr", "RPAREN"]]},
   "varref": "ID",
   "varleft": "ID",
-  "for": ["FOR", "LPAREN", "assign", "SEMI", "expr*", "SEMI", "increment", "RPAREN", "compound"],
-  "increment": "assign",
-  "if": ["IF", "LPAREN", "expr*", "RPAREN", "compound", "ELSE", "elseCompound"],
-  "elseCompound": "compound",
 
   "TOKENS":
   {
@@ -46,8 +46,8 @@
     "INTEGER_DIV": "DIV",
     "VAR": "VAR",
     "FUNCTION": "FUNCTION",
-    "CURLYOPEN": "{",
-    "CURLYCLOSE": "}",
+    "LCURL": "{",
+    "RCURL": "}",
     "FOR": "FOR",
     "TO": "TO",
     "DO": "DO",
@@ -57,22 +57,25 @@
 
   "SEMANTICS":
   {
-    "program": {"id":"Program", "name":"ID", "block": "compound"},
-    "function": {"id":"Function", "name":"ID", "formals": "formals*", "block": "compound"},
-    "formal": {"id":"Formal", "name":"ID", "type": "type"},
-    "call": {"id":"Call", "name":"ID", "actuals": "actuals*"},
+    "program": {"id":"Program", "name":"ID", "block": "block"},
     "variable": {"id":"Var", "name":"ID", "type": "type"},
-    "varref": {"id":"VarRef", "name":"ID"},
-    "assign": {"id":"Assign", "name":"varleft", "indices":"indices*", "value":"expr*"},
-    "for": {"id":"For", "from":"assign", "to":"expr*", "increment": "increment", "block":"compound"},
-    "expr*": {"id":"Exprs"},
-    "term*": {"id":"Terms"}
+    "assign": {"id":"Assign", "name":"varleft", "indices":"indices", "value":"expr"},
+    "function": {"id":"Function", "name":"ID", "formals": "formals", "block": "block"},
+    "formal": {"id":"Formal", "name":"ID", "type": "type"},
+    "call": {"id":"Call", "name":"ID", "actuals": "actuals"},
+    "for": {"id":"For", "from":"assign", "to":"expr", "increment": "increment", "block":"block"},
+    "expr": {"id":"Expr"},
+    "term": {"id":"Term"},
+    "varref": {"id":"VarRef", "name":"ID"}
   },
 
   "EXTERNALS":
   {
     "setPixelColor": {"pixelNr":"int", "color":"int"},
-    "array": {"width":"int", "height":"int", "return": "tbd"}
+    "array": {"width":"int", "height":"int", "return": "tbd"},
+    "random": {"return": "int"},
+    "printf": {"args": "__VA_ARGS__"},
+    "ledCount": {}
   }
 
 }

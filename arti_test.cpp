@@ -22,17 +22,26 @@
 int main() {
   ARTI *arti = new ARTI();
 
-  arti->openFileAndParse("pas.json", "pas1.pas");
+  char definitionFile[charLength];
+  char programFile[charLength];
+  
+  // strcpy(definitionFile, "pas.json"); strcpy(programFile, "pas1.pas");
+  // strcpy(definitionFile, "wled.json"); strcpy(programFile, "ColorWalk.wled");
+  // strcpy(definitionFile, "wled.json"); strcpy(programFile, "ColorFade.wled");
+  strcpy(definitionFile, "wled.json"); strcpy(programFile, "Examples/ColorRandom.wled");
+  // strcpy(definitionFile, "wled.json"); strcpy(programFile, "Kitt.wled");
+
+  arti->openFileAndParse(definitionFile, programFile);
   arti->analyze();
   arti->interpret();
 
-  // arti->openFileAndParse("wled.json", "wled1.wled");
-  // arti->analyze();
-  // arti->interpret();
-  // arti->interpret("renderFrame");
-  // arti->interpret("renderFrame");
+  if (strcmp(definitionFile, "wled.json") == 0) {
+    arti->interpret("renderFrame");
+    arti->interpret("renderFrame");
+  }
 
   printf("done\n");
-
   arti->close();
+
+
 }

@@ -1,0 +1,135 @@
+{
+  "program": {
+    "PROGRAM": "PROGRAM",
+    "ID": "Kitt",
+    "block": {
+      "LCURL": "{",
+      "*": [
+        {
+          "assign": {
+            "varleft": {
+              "ID": "pixelCounter"
+            },
+            "EQUAL": "=",
+            "expr": {
+              "term": {
+                "INTEGER_CONST": "0"
+              }
+            }
+          }
+        },
+        {
+          "function": {
+            "FUNCTION": "FUNCTION",
+            "ID": "renderFrame",
+            "LPAREN": "(",
+            "formals": {},
+            "RPAREN": ")",
+            "block": {
+              "LCURL": "{",
+              "*": [
+                {
+                  "call": {
+                    "ID": "setPixelColor",
+                    "LPAREN": "(",
+                    "actuals": {
+                      "expr": {
+                        "term": {
+                          "varref": {
+                            "ID": "pixelCounter"
+                          }
+                        }
+                      },
+                      "*": [
+                        {
+                          "COMMA": ","
+                        },
+                        {
+                          "expr": {
+                            "term": {
+                              "varref": {
+                                "ID": "pixelCounter"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "RPAREN": ")"
+                  }
+                },
+                {
+                  "call": {
+                    "ID": "setPixelColor",
+                    "LPAREN": "(",
+                    "actuals": {
+                      "expr": {
+                        "term": {
+                          "varref": {
+                            "ID": "pixelCounter"
+                          }
+                        },
+                        "*": [
+                          {
+                            "MINUS": "-"
+                          },
+                          {
+                            "term": {
+                              "INTEGER_CONST": "1"
+                            }
+                          }
+                        ]
+                      },
+                      "*": [
+                        {
+                          "COMMA": ","
+                        },
+                        {
+                          "expr": {
+                            "term": {
+                              "INTEGER_CONST": "0"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "RPAREN": ")"
+                  }
+                },
+                {
+                  "assign": {
+                    "varleft": {
+                      "ID": "pixelCounter"
+                    },
+                    "EQUAL": "=",
+                    "expr": {
+                      "term": {
+                        "varref": {
+                          "ID": "pixelCounter"
+                        }
+                      },
+                      "*": [
+                        {
+                          "PLUS": "+"
+                        },
+                        {
+                          "term": {
+                            "INTEGER_CONST": "1"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {}
+              ],
+              "RCURL": "}"
+            }
+          }
+        },
+        {}
+      ],
+      "RCURL": "}"
+    }
+  }
+}

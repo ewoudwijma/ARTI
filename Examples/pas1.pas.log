@@ -1,0 +1,793 @@
+Parser PROGRAM PROGRAM
+ PROGRAM PROGRAM -> [ID Main] 0
+ ID Main -> [SEMI ;] 0
+ SEMI ; -> [VAR VAR] 0
+ block 0
+  declarations 1
+    VAR VAR -> [ID y] 3
+     variable_declaration 4
+      ID y -> [COLON :] 5
+      COLON : -> [INTEGER INTEGER] 5
+      type_spec 5
+       INTEGER INTEGER -> [SEMI ;] 6
+      success type_spec
+     remove multiple key
+     remove multiple empty
+     success variable_declaration
+     SEMI ; -> [PROCEDURE PROCEDURE] 4
+     variable_declaration 4
+     fail variable_declaration
+    procedure_declaration 3
+     PROCEDURE PROCEDURE -> [ID Alpha] 4
+     ID Alpha -> [LPAREN (] 4
+      LPAREN ( -> [ID a] 5
+      formal_parameter_list 5
+       formal_parameters 6
+        ID a -> [COLON :] 7
+        COLON : -> [INTEGER INTEGER] 7
+        type_spec 7
+         INTEGER INTEGER -> [SEMI ;] 8
+        success type_spec
+       remove multiple key
+       remove multiple empty
+       success formal_parameters
+        SEMI ; -> [ID b] 7
+        formal_parameters 7
+         ID b -> [COLON :] 8
+         COLON : -> [INTEGER INTEGER] 8
+         type_spec 8
+          INTEGER INTEGER -> [RPAREN )] 9
+         success type_spec
+        remove multiple key
+        remove multiple empty
+        success formal_parameters
+      remove multiple key
+      success formal_parameter_list
+      RPAREN ) -> [SEMI ;] 5
+     SEMI ; -> [VAR VAR] 4
+     block 4
+      declarations 5
+        VAR VAR -> [ID x] 7
+         variable_declaration 8
+          ID x -> [COLON :] 9
+          COLON : -> [INTEGER INTEGER] 9
+          type_spec 9
+           INTEGER INTEGER -> [SEMI ;] 10
+          success type_spec
+         remove multiple key
+         remove multiple empty
+         success variable_declaration
+         SEMI ; -> [PROCEDURE PROCEDURE] 8
+         variable_declaration 8
+         fail variable_declaration
+        procedure_declaration 7
+         PROCEDURE PROCEDURE -> [ID Beta] 8
+         ID Beta -> [LPAREN (] 8
+          LPAREN ( -> [ID a] 9
+          formal_parameter_list 9
+           formal_parameters 10
+            ID a -> [COLON :] 11
+            COLON : -> [INTEGER INTEGER] 11
+            type_spec 11
+             INTEGER INTEGER -> [SEMI ;] 12
+            success type_spec
+           remove multiple key
+           remove multiple empty
+           success formal_parameters
+            SEMI ; -> [ID b] 11
+            formal_parameters 11
+             ID b -> [COLON :] 12
+             COLON : -> [INTEGER INTEGER] 12
+             type_spec 12
+              INTEGER INTEGER -> [RPAREN )] 13
+             success type_spec
+            remove multiple key
+            remove multiple empty
+            success formal_parameters
+          remove multiple key
+          success formal_parameter_list
+          RPAREN ) -> [SEMI ;] 9
+         SEMI ; -> [VAR VAR] 8
+         block 8
+          declarations 9
+            VAR VAR -> [ID x] 11
+             variable_declaration 12
+              ID x -> [COLON :] 13
+              COLON : -> [INTEGER INTEGER] 13
+              type_spec 13
+               INTEGER INTEGER -> [SEMI ;] 14
+              success type_spec
+             remove multiple key
+             remove multiple empty
+             success variable_declaration
+             SEMI ; -> [BEGIN BEGIN] 12
+             variable_declaration 12
+             fail variable_declaration
+            procedure_declaration 11
+            fail procedure_declaration
+          remove multiple key
+          success declarations
+          compound_statement 9
+           BEGIN BEGIN -> [ID x] 10
+           statement_list 10
+            statement 11
+             compound_statement 12
+             fail compound_statement
+             proccall_statement 12
+              ID x -> [ASSIGN :=] 13
+             fail proccall_statement
+             assignment_statement 12
+              varleft 13
+              ID x -> [ASSIGN :=] 13
+              success varleft
+              ASSIGN := -> [ID a] 13
+              expr 13
+               term 14
+                factor 15
+                 variable 16
+                 ID a -> [MUL *] 16
+                 success variable
+                symbol to shrink factor
+                success factor
+                  MUL * -> [INTEGER_CONST 10] 17
+                 factor 16
+                  variable 17
+                  fail variable
+                  INTEGER_CONST 10 -> [PLUS +] 17
+                 symbol to shrink factor
+                 success factor
+               remove multiple key
+               success term
+                 PLUS + -> [ID b] 16
+                term 15
+                 factor 16
+                  variable 17
+                  ID b -> [MUL *] 17
+                  success variable
+                 symbol to shrink factor
+                 success factor
+                   MUL * -> [INTEGER_CONST 2] 18
+                  factor 17
+                   variable 18
+                   fail variable
+                   INTEGER_CONST 2 -> [SEMI ;] 18
+                  symbol to shrink factor
+                  success factor
+                remove multiple key
+                success term
+              remove multiple key
+              success expr
+             success assignment_statement
+            symbol to shrink statement
+            success statement
+             SEMI ; -> [END END] 12
+             statement 12
+              compound_statement 13
+              fail compound_statement
+              proccall_statement 13
+              fail proccall_statement
+              assignment_statement 13
+               varleft 14
+               fail varleft
+              fail assignment_statement
+              for_loop 13
+              fail for_loop
+             fail statement
+           remove multiple key
+           success statement_list
+           END END -> [SEMI ;] 10
+          success compound_statement
+         success block
+         SEMI ; -> [PROCEDURE PROCEDURE] 8
+        success procedure_declaration
+        procedure_declaration 7
+         PROCEDURE PROCEDURE -> [ID Gamma] 8
+         ID Gamma -> [LPAREN (] 8
+          LPAREN ( -> [ID a] 9
+          formal_parameter_list 9
+           formal_parameters 10
+            ID a -> [COLON :] 11
+            COLON : -> [INTEGER INTEGER] 11
+            type_spec 11
+             INTEGER INTEGER -> [SEMI ;] 12
+            success type_spec
+           remove multiple key
+           remove multiple empty
+           success formal_parameters
+            SEMI ; -> [ID b] 11
+            formal_parameters 11
+             ID b -> [COLON :] 12
+             COLON : -> [INTEGER INTEGER] 12
+             type_spec 12
+              INTEGER INTEGER -> [RPAREN )] 13
+             success type_spec
+            remove multiple key
+            remove multiple empty
+            success formal_parameters
+          remove multiple key
+          success formal_parameter_list
+          RPAREN ) -> [SEMI ;] 9
+         SEMI ; -> [VAR VAR] 8
+         block 8
+          declarations 9
+            VAR VAR -> [ID x] 11
+             variable_declaration 12
+              ID x -> [COLON :] 13
+              COLON : -> [INTEGER INTEGER] 13
+              type_spec 13
+               INTEGER INTEGER -> [SEMI ;] 14
+              success type_spec
+             remove multiple key
+             remove multiple empty
+             success variable_declaration
+             SEMI ; -> [BEGIN BEGIN] 12
+             variable_declaration 12
+             fail variable_declaration
+            procedure_declaration 11
+            fail procedure_declaration
+          remove multiple key
+          success declarations
+          compound_statement 9
+           BEGIN BEGIN -> [ID x] 10
+           statement_list 10
+            statement 11
+             compound_statement 12
+             fail compound_statement
+             proccall_statement 12
+              ID x -> [ASSIGN :=] 13
+             fail proccall_statement
+             assignment_statement 12
+              varleft 13
+              ID x -> [ASSIGN :=] 13
+              success varleft
+              ASSIGN := -> [ID a] 13
+              expr 13
+               term 14
+                factor 15
+                 variable 16
+                 ID a -> [MUL *] 16
+                 success variable
+                symbol to shrink factor
+                success factor
+                  MUL * -> [INTEGER_CONST 10] 17
+                 factor 16
+                  variable 17
+                  fail variable
+                  INTEGER_CONST 10 -> [PLUS +] 17
+                 symbol to shrink factor
+                 success factor
+               remove multiple key
+               success term
+                 PLUS + -> [ID b] 16
+                term 15
+                 factor 16
+                  variable 17
+                  ID b -> [MUL *] 17
+                  success variable
+                 symbol to shrink factor
+                 success factor
+                   MUL * -> [INTEGER_CONST 2] 18
+                  factor 17
+                   variable 18
+                   fail variable
+                   INTEGER_CONST 2 -> [SEMI ;] 18
+                  symbol to shrink factor
+                  success factor
+                remove multiple key
+                success term
+              remove multiple key
+              success expr
+             success assignment_statement
+            symbol to shrink statement
+            success statement
+             SEMI ; -> [END END] 12
+             statement 12
+              compound_statement 13
+              fail compound_statement
+              proccall_statement 13
+              fail proccall_statement
+              assignment_statement 13
+               varleft 14
+               fail varleft
+              fail assignment_statement
+              for_loop 13
+              fail for_loop
+             fail statement
+           remove multiple key
+           success statement_list
+           END END -> [SEMI ;] 10
+          success compound_statement
+         success block
+         SEMI ; -> [BEGIN BEGIN] 8
+        success procedure_declaration
+        procedure_declaration 7
+        fail procedure_declaration
+      remove multiple key
+      success declarations
+      compound_statement 5
+       BEGIN BEGIN -> [ID x] 6
+       statement_list 6
+        statement 7
+         compound_statement 8
+         fail compound_statement
+         proccall_statement 8
+          ID x -> [ASSIGN :=] 9
+         fail proccall_statement
+         assignment_statement 8
+          varleft 9
+          ID x -> [ASSIGN :=] 9
+          success varleft
+          ASSIGN := -> [LPAREN (] 9
+          expr 9
+           term 10
+            factor 11
+             variable 12
+             fail variable
+              LPAREN ( -> [ID a] 13
+              expr 13
+               term 14
+                factor 15
+                 variable 16
+                 ID a -> [PLUS +] 16
+                 success variable
+                symbol to shrink factor
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+                 PLUS + -> [ID b] 16
+                term 15
+                 factor 16
+                  variable 17
+                  ID b -> [RPAREN )] 17
+                  success variable
+                 symbol to shrink factor
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+              remove multiple key
+              success expr
+              RPAREN ) -> [MUL *] 13
+            success factor
+              MUL * -> [INTEGER_CONST 2] 13
+             factor 12
+              variable 13
+              fail variable
+              INTEGER_CONST 2 -> [SEMI ;] 13
+             symbol to shrink factor
+             success factor
+           remove multiple key
+           success term
+          remove multiple key
+          remove multiple empty
+          success expr
+         success assignment_statement
+        symbol to shrink statement
+        success statement
+         SEMI ; -> [ID Beta] 8
+         statement 8
+          compound_statement 9
+          fail compound_statement
+          proccall_statement 9
+           ID Beta -> [LPAREN (] 10
+           LPAREN ( -> [INTEGER_CONST 5] 10
+           actual_parameter_list 10
+            expr 11
+             term 12
+              factor 13
+               variable 14
+               fail variable
+               INTEGER_CONST 5 -> [COMMA ,] 14
+              symbol to shrink factor
+              success factor
+             remove multiple key
+             remove multiple empty
+             success term
+            remove multiple key
+            remove multiple empty
+            success expr
+             COMMA , -> [INTEGER_CONST 10] 12
+             expr 12
+              term 13
+               factor 14
+                variable 15
+                fail variable
+                INTEGER_CONST 10 -> [RPAREN )] 15
+               symbol to shrink factor
+               success factor
+              remove multiple key
+              remove multiple empty
+              success term
+             remove multiple key
+             remove multiple empty
+             success expr
+           remove multiple key
+           success actual_parameter_list
+           RPAREN ) -> [SEMI ;] 10
+          success proccall_statement
+         symbol to shrink statement
+         success statement
+         SEMI ; -> [END END] 8
+         statement 8
+          compound_statement 9
+          fail compound_statement
+          proccall_statement 9
+          fail proccall_statement
+          assignment_statement 9
+           varleft 10
+           fail varleft
+          fail assignment_statement
+          for_loop 9
+          fail for_loop
+         fail statement
+       remove multiple key
+       success statement_list
+       END END -> [SEMI ;] 6
+      success compound_statement
+     success block
+     SEMI ; -> [BEGIN BEGIN] 4
+    success procedure_declaration
+    procedure_declaration 3
+    fail procedure_declaration
+  remove multiple key
+  success declarations
+  compound_statement 1
+   BEGIN BEGIN -> [ID Alpha] 2
+   statement_list 2
+    statement 3
+     compound_statement 4
+     fail compound_statement
+     proccall_statement 4
+      ID Alpha -> [LPAREN (] 5
+      LPAREN ( -> [INTEGER_CONST 3] 5
+      actual_parameter_list 5
+       expr 6
+        term 7
+         factor 8
+          variable 9
+          fail variable
+          INTEGER_CONST 3 -> [PLUS +] 9
+         symbol to shrink factor
+         success factor
+        remove multiple key
+        remove multiple empty
+        success term
+          PLUS + -> [INTEGER_CONST 5] 9
+         term 8
+          factor 9
+           variable 10
+           fail variable
+           INTEGER_CONST 5 -> [COMMA ,] 10
+          symbol to shrink factor
+          success factor
+         remove multiple key
+         remove multiple empty
+         success term
+       remove multiple key
+       success expr
+        COMMA , -> [INTEGER_CONST 7] 7
+        expr 7
+         term 8
+          factor 9
+           variable 10
+           fail variable
+           INTEGER_CONST 7 -> [RPAREN )] 10
+          symbol to shrink factor
+          success factor
+         remove multiple key
+         remove multiple empty
+         success term
+        remove multiple key
+        remove multiple empty
+        success expr
+      remove multiple key
+      success actual_parameter_list
+      RPAREN ) -> [SEMI ;] 5
+     success proccall_statement
+    symbol to shrink statement
+    success statement
+     SEMI ; -> [FOR FOR] 4
+     statement 4
+      compound_statement 5
+      fail compound_statement
+      proccall_statement 5
+      fail proccall_statement
+      assignment_statement 5
+       varleft 6
+       fail varleft
+      fail assignment_statement
+      for_loop 5
+       FOR FOR -> [ID y] 6
+       assignment_statement 6
+        varleft 7
+        ID y -> [ASSIGN :=] 7
+        success varleft
+        ASSIGN := -> [INTEGER_CONST 1] 7
+        expr 7
+         term 8
+          factor 9
+           variable 10
+           fail variable
+           INTEGER_CONST 1 -> [TO TO] 10
+          symbol to shrink factor
+          success factor
+         remove multiple key
+         remove multiple empty
+         success term
+        remove multiple key
+        remove multiple empty
+        success expr
+       success assignment_statement
+       TO TO -> [INTEGER_CONST 2] 6
+       expr 6
+        term 7
+         factor 8
+          variable 9
+          fail variable
+          INTEGER_CONST 2 -> [DO DO] 9
+         symbol to shrink factor
+         success factor
+        remove multiple key
+        remove multiple empty
+        success term
+       remove multiple key
+       remove multiple empty
+       success expr
+       DO DO -> [BEGIN BEGIN] 6
+       compound_statement 6
+        BEGIN BEGIN -> [ID Alpha] 7
+        statement_list 7
+         statement 8
+          compound_statement 9
+          fail compound_statement
+          proccall_statement 9
+           ID Alpha -> [LPAREN (] 10
+           LPAREN ( -> [INTEGER_CONST 35] 10
+           actual_parameter_list 10
+            expr 11
+             term 12
+              factor 13
+               variable 14
+               fail variable
+               INTEGER_CONST 35 -> [COMMA ,] 14
+              symbol to shrink factor
+              success factor
+             remove multiple key
+             remove multiple empty
+             success term
+            remove multiple key
+            remove multiple empty
+            success expr
+             COMMA , -> [ID y] 12
+             expr 12
+              term 13
+               factor 14
+                variable 15
+                ID y -> [RPAREN )] 15
+                success variable
+               symbol to shrink factor
+               success factor
+              remove multiple key
+              remove multiple empty
+              success term
+             remove multiple key
+             remove multiple empty
+             success expr
+           remove multiple key
+           success actual_parameter_list
+           RPAREN ) -> [SEMI ;] 10
+          success proccall_statement
+         symbol to shrink statement
+         success statement
+          SEMI ; -> [END END] 9
+          statement 9
+           compound_statement 10
+           fail compound_statement
+           proccall_statement 10
+           fail proccall_statement
+           assignment_statement 10
+            varleft 11
+            fail varleft
+           fail assignment_statement
+           for_loop 10
+           fail for_loop
+          fail statement
+        remove multiple key
+        success statement_list
+        END END -> [SEMI ;] 7
+       success compound_statement
+      success for_loop
+     symbol to shrink statement
+     success statement
+     SEMI ; -> [END END] 4
+     statement 4
+      compound_statement 5
+      fail compound_statement
+      proccall_statement 5
+      fail proccall_statement
+      assignment_statement 5
+       varleft 6
+       fail varleft
+      fail assignment_statement
+      for_loop 5
+      fail for_loop
+     fail statement
+   remove multiple key
+   success statement_list
+   END END -> [DOT .] 2
+  success compound_statement
+ success block
+ DOT . 0
+Symbol program Parsed until (35,6) 468 of 468
+par mem 23991 of 35104 35104 1 0 22
+prog size 468 factor 51
+par mem 10231 of 35104 35104 1 0 22
+Destruct Lexer
+Destruct Parser
+
+Analyzer
+ Program Main 1 0
+     Var Main.y of {"INTEGER":"INTEGER"}
+     Function Main.Alpha
+      Var Alpha.a of {"INTEGER":"INTEGER"}
+        Var Alpha.b of {"INTEGER":"INTEGER"}
+         Var Alpha.x of {"INTEGER":"INTEGER"}
+         Function Alpha.Beta
+          Var Beta.a of {"INTEGER":"INTEGER"}
+            Var Beta.b of {"INTEGER":"INTEGER"}
+             Var Beta.x of {"INTEGER":"INTEGER"}
+            Assign x = {value (not of interest during analyze...)}
+         0 Formal Beta.a {"INTEGER":"INTEGER"} 3
+         1 Formal Beta.b {"INTEGER":"INTEGER"} 3
+         2 Var Beta.x {"INTEGER":"INTEGER"} 3
+         Function Alpha.Gamma
+          Var Gamma.a of {"INTEGER":"INTEGER"}
+            Var Gamma.b of {"INTEGER":"INTEGER"}
+             Var Gamma.x of {"INTEGER":"INTEGER"}
+            Assign x = {value (not of interest during analyze...)}
+         0 Formal Gamma.a {"INTEGER":"INTEGER"} 3
+         1 Formal Gamma.b {"INTEGER":"INTEGER"} 3
+         2 Var Gamma.x {"INTEGER":"INTEGER"} 3
+        Assign x = {value (not of interest during analyze...)}
+     0 Formal Alpha.a {"INTEGER":"INTEGER"} 2
+     1 Formal Alpha.b {"INTEGER":"INTEGER"} 2
+     2 Var Alpha.x {"INTEGER":"INTEGER"} 2
+     3 Function Alpha.Beta  2
+     4 Function Alpha.Gamma  2
+       Assign y = {value (not of interest during analyze...)}
+ 0 Var Main.y {"INTEGER":"INTEGER"} 1
+ 1 Function Main.Alpha  1
+
+interpret Main 1 2
+ program name ID
+ Program Main Main
+     Save block of Alpha
+    Call Alpha
+       INTEGER_CONST 3 (Push 1)
+        PLUS + (Push 2)
+         INTEGER_CONST 5 (Push 3)
+     3 + 5 = 8 (push 1)
+         INTEGER_CONST 7 (Push 2)
+    Actual Alpha.a = 8 (pop 2)
+    Actual Alpha.b = 7 (pop 2)
+        Save block of Beta
+        Save block of Gamma
+             VarRef Alpha.a = 8 (push 1)
+              PLUS + (Push 2)
+               VarRef Alpha.b = 7 (push 3)
+           8 + 7 = 15 (push 1)
+            MUL * (Push 2)
+            INTEGER_CONST 2 (Push 3)
+         15 * 2 = 30 (push 1)
+       Alpha.x := 30 (pop 0)
+         Call Beta
+            INTEGER_CONST 5 (Push 1)
+              INTEGER_CONST 10 (Push 2)
+         Actual Beta.a = 5 (pop 2)
+         Actual Beta.b = 10 (pop 2)
+               VarRef Beta.a = 5 (push 1)
+                 MUL * (Push 2)
+                 INTEGER_CONST 10 (Push 3)
+              5 * 10 = 50 (push 1)
+                PLUS + (Push 2)
+                 VarRef Beta.b = 10 (push 3)
+                   MUL * (Push 4)
+                   INTEGER_CONST 2 (Push 5)
+                10 * 2 = 20 (push 3)
+             50 + 20 = 70 (push 1)
+            Beta.x := 70 (pop 0)
+Destruct activation record Beta
+Destruct activation record Alpha
+      For (0)
+      from
+          INTEGER_CONST 1 (Push 1)
+       Main.y := 1 (pop 0)
+      iteration
+      check to condition
+         INTEGER_CONST 2 (Push 1)
+      (pop 0)
+      Main.y 1 <= 2 = 1
+      1 => run block
+        Call Alpha
+           INTEGER_CONST 35 (Push 1)
+             VarRef Main.y = 1 (push 2)
+        Actual Alpha.a = 35 (pop 2)
+        Actual Alpha.b = 1 (pop 2)
+            Save block of Beta
+            Save block of Gamma
+                 VarRef Alpha.a = 35 (push 1)
+                  PLUS + (Push 2)
+                   VarRef Alpha.b = 1 (push 3)
+               35 + 1 = 36 (push 1)
+                MUL * (Push 2)
+                INTEGER_CONST 2 (Push 3)
+             36 * 2 = 72 (push 1)
+           Alpha.x := 72 (pop 0)
+             Call Beta
+                INTEGER_CONST 5 (Push 1)
+                  INTEGER_CONST 10 (Push 2)
+             Actual Beta.a = 5 (pop 2)
+             Actual Beta.b = 10 (pop 2)
+                   VarRef Beta.a = 5 (push 1)
+                     MUL * (Push 2)
+                     INTEGER_CONST 10 (Push 3)
+                  5 * 10 = 50 (push 1)
+                    PLUS + (Push 2)
+                     VarRef Beta.b = 10 (push 3)
+                       MUL * (Push 4)
+                       INTEGER_CONST 2 (Push 5)
+                    10 * 2 = 20 (push 3)
+                 50 + 20 = 70 (push 1)
+                Beta.x := 70 (pop 0)
+Destruct activation record Beta
+Destruct activation record Alpha
+      iteration
+      check to condition
+         INTEGER_CONST 2 (Push 1)
+      (pop 0)
+      Main.y 2 <= 2 = 1
+      1 => run block
+        Call Alpha
+           INTEGER_CONST 35 (Push 1)
+             VarRef Main.y = 2 (push 2)
+        Actual Alpha.a = 35 (pop 2)
+        Actual Alpha.b = 2 (pop 2)
+            Save block of Beta
+            Save block of Gamma
+                 VarRef Alpha.a = 35 (push 1)
+                  PLUS + (Push 2)
+                   VarRef Alpha.b = 2 (push 3)
+               35 + 2 = 37 (push 1)
+                MUL * (Push 2)
+                INTEGER_CONST 2 (Push 3)
+             37 * 2 = 74 (push 1)
+           Alpha.x := 74 (pop 0)
+             Call Beta
+                INTEGER_CONST 5 (Push 1)
+                  INTEGER_CONST 10 (Push 2)
+             Actual Beta.a = 5 (pop 2)
+             Actual Beta.b = 10 (pop 2)
+                   VarRef Beta.a = 5 (push 1)
+                     MUL * (Push 2)
+                     INTEGER_CONST 10 (Push 3)
+                  5 * 10 = 50 (push 1)
+                    PLUS + (Push 2)
+                     VarRef Beta.b = 10 (push 3)
+                       MUL * (Push 4)
+                       INTEGER_CONST 2 (Push 5)
+                    10 * 2 = 20 (push 3)
+                 50 + 20 = 70 (push 1)
+                Beta.x := 70 (pop 0)
+Destruct activation record Beta
+Destruct activation record Alpha
+      iteration
+      check to condition
+         INTEGER_CONST 2 (Push 1)
+      (pop 0)
+      Main.y 3 <= 2 = 0
+      0 => end of For
+Destruct callstack
+Destruct valueStack
+Destruct Interpreter
+def mem 6985 of 12192 12192 25 0 6

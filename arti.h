@@ -1,63 +1,94 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti.h
-   @version 0.0.2
+   @version 0.0.3
    @date    20211017
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
    @remarks
-          - #define ARDUINOJSON_DEFAULT_NESTING_LIMIT 100 //set this in ArduinoJson!!!
+          - #define ARDUINOJSON_DEFAULT_NESTING_LIMIT 100 //set this in ArduinoJson!!!, currently not necessary...
+   @done
+   @later
+          - expression[""]  variables
+          - add comments
+          - add print
+          - Add real
+          - Add div
+          - Add <=, >=, ++, --
+          - if-statement
+          - Code review (memory leaks, wled: select effect multiple times causes crash)
+          - WLED: *arti in SEGENV.data
+          - Embedded: run all demos at once (not working well for some reason)
+          - WLED: add more functions
+          - WLED: ledcount to SEGLEN (now _virtualSegmentLength not found...)
+          - remove std::string (now only in logging)
+          - add integer and real stacks
+          - deploy on mac
+          - move code from interpreter to analyzer to speed up interpreting
+          - initialize * to nullptr
+   @progress
+          - KITT demo
+          - wled plugin (include setup and loop...)
+          - for some weird reason this causes a crash on esp32
    @todo
-          - eexpression[""]  variables
-          - *arti in segments
- */
+          - 
+  */
+
+#pragma once
 
 #ifdef ESP32 //want to use a WLED variable here, but WLED_H is set in wled.h...
-  #include "wled.h"
+  #include "arti_wled_plugin.h"
 #endif
 
 #ifdef WLED_H
   #include "src/dependencies/json/ArduinoJson-v6.h"
+  #define ARTI_SERIALORFILE 1
+  #define ARTI_ERROR 1
   // #define ARTI_DEBUG 1
-  #define ARTI_DEBUGORLOG 1
   #define ARTI_MEMORY 1
 #else //embedded
+  #define ARTI_ERROR 1
   #define ARTI_DEBUG 1
+  #define ARTI_RUNLOG 1
   #include "ArduinoJson-recent.h"
 #endif
 
-#define ARTI_ERROR 1
-
-#ifdef ARTI_DEBUGORLOG
+#ifdef ARTI_SERIALORFILE
   #ifdef ESP32
-    #define DEBUG_ARTI0(...) Serial.printf(__VA_ARGS__)
+    #define OUTPUT_ARTI(...) Serial.printf(__VA_ARGS__)
   #else
-    #define DEBUG_ARTI0 printf
+    #define OUTPUT_ARTI printf
   #endif
 #else
   #ifdef ESP32
     File logFile;
-    #define DEBUG_ARTI0(...) logFile.printf(__VA_ARGS__)
+    #define OUTPUT_ARTI(...) logFile.printf(__VA_ARGS__)
   #else
     FILE * logFile;
-    #define DEBUG_ARTI0(...) fprintf(logFile, __VA_ARGS__)
+    #define OUTPUT_ARTI(...) fprintf(logFile, __VA_ARGS__)
   #endif
 #endif
 
 #ifdef ARTI_DEBUG
-    #define DEBUG_ARTI(...) DEBUG_ARTI0(__VA_ARGS__)
+    #define DEBUG_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
 #else
     #define DEBUG_ARTI(...)
 #endif
 
+#ifdef ARTI_RUNLOG
+    #define RUNLOG_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
+#else
+    #define RUNLOG_ARTI(...)
+#endif
+
 #ifdef ARTI_ERROR
-    #define ERROR_ARTI(...) DEBUG_ARTI0(__VA_ARGS__)
+    #define ERROR_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
 #else
     #define ERROR_ARTI(...)
 #endif
 
 #ifdef ARTI_MEMORY
-    #define MEMORY_ARTI(...) DEBUG_ARTI0(__VA_ARGS__)
+    #define MEMORY_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
 #else
     #define MEMORY_ARTI(...)
 #endif
@@ -372,6 +403,9 @@ struct LexerPosition {
 };
 
 #define nrOfPositions 20
+#define ResultFail 0
+#define ResultStop 2
+#define ResultContinue 1
 
 class Parser {
   private:
@@ -394,21 +428,31 @@ class Parser {
     DEBUG_ARTI("Destruct Parser\n");
   }
 
-    void parse() {
-      JsonObject::iterator it = lexer->definitionJson.begin();
+  void parse() {
+    JsonObject::iterator objectIterator = lexer->definitionJson.begin();
 
-      DEBUG_ARTI("Parser %s %s\n", this->current_token->type, this->current_token->value);
+    DEBUG_ARTI("Parser %s %s\n", this->current_token->type, this->current_token->value);
 
-      const char * symbol_name = it->key().c_str();
-      Result result = visit(parseTreeJson, symbol_name, nullptr, lexer->definitionJson[symbol_name], 0);
+    JsonObject metaData = objectIterator->value();
+    const char * version = metaData["version"];
+    if (strcmp(version, "0.0.3") < 0)
+      ERROR_ARTI("Parser: Version of definition file (%s %d) should be 0.0.4 or higher\n", version, strcmp(version, "0.0.3"));
+    else {
+      const char * startSymbol = metaData["start"];
+      if (startSymbol != nullptr) {
+        uint8_t result = visit(parseTreeJson, startSymbol, '&', lexer->definitionJson[startSymbol], 0);
 
-      if (this->lexer->pos != strlen(this->lexer->text))
-        ERROR_ARTI("Symbol %s Program not entirely parsed (%u,%u) %u of %u\n", symbol_name, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text));
-      else if (result == Result::RESULTFAIL)
-        ERROR_ARTI("Symbol %s Program parsing failed (%u,%u) %u of %u\n", symbol_name, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text));
+        if (this->lexer->pos != strlen(this->lexer->text))
+          ERROR_ARTI("Symbol %s Program not entirely parsed (%u,%u) %u of %u\n", startSymbol, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text));
+        else if (result == ResultFail)
+          ERROR_ARTI("Symbol %s Program parsing failed (%u,%u) %u of %u\n", startSymbol, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text));
+        else
+          DEBUG_ARTI("Symbol %s Parsed until (%u,%u) %u of %u\n", startSymbol, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text));
+      }
       else
-        DEBUG_ARTI("Symbol %s Parsed until (%u,%u) %u of %u\n", symbol_name, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text));
+        ERROR_ARTI("Parser: No start symbol found in definition file\n");
     }
+  }
 
     Token *get_next_token() {
       return this->lexer->get_next_token();
@@ -462,131 +506,134 @@ class Parser {
       ERROR_ARTI("no positions saved\n");
   }
 
-  enum class  Result {
-    RESULTFAIL,
-    RESULTSTOP,
-    RESULTCONTINUE,
-  };
-
-  Result visit(JsonVariant parseTree, const char * symbol_name, const char * operatorx, JsonVariant expression, uint8_t depth = 0) {
+  uint8_t visit(JsonVariant parseTree, const char * symbol_name, char operatorx, JsonVariant expression, uint8_t depth = 0) {
     if (depth > 50) {
       ERROR_ARTI("Error too deep %u\n", depth);
       errorOccurred = true;
     }
-    if (errorOccurred) return Result::RESULTFAIL;
+    if (errorOccurred) return ResultFail;
 
-    Result result = Result::RESULTCONTINUE;
+    uint8_t result = ResultContinue;
 
-    // DEBUG_ARTI("%s Visit %s %s\n", spaces+50-depth, stringOrEmpty(symbol_name), stringOrEmpty(operatorx)); //, expression.as<String>().c_str()
+    uint8_t resultChild = ResultContinue;
 
-    if (expression.is<JsonObject>()) {
-      // DEBUG_ARTI("%s visit Object %s %s %s\n", spaces+50-depth, symbol_name, operatorx, expression.as<String>().c_str());
+    //check if unary or binary operator
+    // if (expression.size() > 1) {
+    //   DEBUG_ARTI("%s\n", "array multiple 1 ", parseTree);
+    //   DEBUG_ARTI("%s\n", "array multiple 2 ", expression);
+    // }
 
-      for (JsonPair element : expression.as<JsonObject>()) {
-        const char * objectOperator = element.key().c_str();
-        JsonVariant objectExpression = element.value();
+    if (expression.is<JsonArray>()) { //should always be the case
+      for (JsonVariant arrayElement: expression.as<JsonArray>()) {
 
-        //and: see 'is array'
-        if (strcmp(objectOperator, "or") == 0) {
-          // DEBUG_ARTI("%s\n", "or ");
-          result = visit(parseTree, symbol_name, objectOperator, objectExpression, depth + 1);
-          if (result != Result::RESULTFAIL) result = Result::RESULTCONTINUE;
-        }
-        else {
-          Result resultChild = Result::RESULTCONTINUE;
-          uint8_t counter = 0;
-          while (resultChild == Result::RESULTCONTINUE) {
-            // DEBUG_ARTI("Before %u (%u.%u) %u of %u %s\n", resultChild, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text), objectExpression.as<String>().c_str());
-            resultChild = visit(parseTree, symbol_name, objectOperator, objectExpression, depth + 1); //no assign to result as optional
-            // DEBUG_ARTI("After %u (%u.%u) %u of %u %s\n", resultChild, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text), objectExpression.as<String>().c_str());
+        // DEBUG_ARTI("%s Array element %s\n", spaces+50-depth, arrayElement.as<std::string>().c_str());
 
-            if (strcmp(objectOperator, "?") == 0) { //zero or one iteration, also continue of visit not continue
-              resultChild = Result::RESULTCONTINUE;
-              break; 
-            }
-            else if (strcmp(objectOperator, "+") == 0) { //one or more iterations, stop if first visit not continue
-              if (counter == 0) {
-                if (resultChild != Result::RESULTCONTINUE)
-                  break;
-              } 
-              else {
-                if (resultChild != Result::RESULTCONTINUE) {
-                  resultChild = Result::RESULTCONTINUE;  //always continue
-                  break;
-                }
-              }
-            }
-            else if (strcmp(objectOperator, "*") == 0) { //zero or more iterations, stop if visit not continue
-              if (resultChild != Result::RESULTCONTINUE) {
-                resultChild = Result::RESULTCONTINUE;  //always continue
-                break;
-              }
-            }
-            else {
-              ERROR_ARTI("%s %s %s\n", "undefined ", objectOperator, objectExpression.as<const char *>());
-              result = Result::RESULTFAIL;
-            }
-            counter++;
-          } //while
-          result = resultChild;
-        } //not or
-      } //for
-    }
-    else { //not object
-      if (expression.is<JsonArray>()) {
-        // DEBUG_ARTI("%s visit Array %s %s %s\n", spaces+50-depth, symbol_name, operatorx, expression.as<String>().c_str());
+        JsonVariant nextExpression = arrayElement;
+        const char * nextSymbol_name = symbol_name;
+        JsonVariant nextParseTree = parseTree;
+        JsonArray arr;
 
-        Result resultChild;
+        JsonVariant symbolExpression = lexer->definitionJson[arrayElement.as<const char *>()];
 
-        if (operatorx == nullptr) 
-          operatorx = "and";
+        if (!symbolExpression.isNull()) { //is arrayElement a Symbol e.g. "compound" : ["CURLYOPEN", "block*", "CURLYCLOSE"],
 
-        //check if unary or binary operator
-        // if (expression.size() > 1) {
-        //   DEBUG_ARTI("%s\n", "array multiple 1 ", parseTree);
-        //   DEBUG_ARTI("%s\n", "array multiple 2 ", expression);
-        // }
+          // DEBUG_ARTI("%s New Symbol %s %s %s\n", spaces+50-depth, parseTree.as<std::string>().c_str(), symbol_name, nextExpression.as<std::string>().c_str());
+          nextSymbol_name = arrayElement.as<const char *>();
+          nextExpression = symbolExpression;
 
-        for (JsonVariant newExpression: expression.as<JsonArray>()) {
-          //Save current position, in case some of the expressions in the or array go wrong (deadend), go back to the saved position and try the next
-          if (strcmp(operatorx , "or") == 0)
-            push_position();
+          DEBUG_ARTI("%s %s %u\n", spaces+50-depth, nextSymbol_name, depth); //, parseTree.as<std::string>().c_str()
 
-          resultChild = visit(parseTree, symbol_name, nullptr, newExpression, depth + 1);//(operatorx == "")?"and":operatorx
-          // DEBUG_ARTI("%s visited Array element %u %s \n", spaces+50-depth, resultChild, newExpression.as<String>().c_str());
+          if (parseTree.is<JsonArray>()) {
 
-          if (strcmp(operatorx, "or") == 0) {
-            if (resultChild == Result::RESULTFAIL) {//if fail, go back and try another
-              // result = Result::RESULTCONTINUE;
-              pop_position();
-            }
-            else {
-              result = Result::RESULTSTOP;  //Stop or continue is enough for an or
-              positions_index--;
-            }
+            parseTree[parseTree.size()][nextSymbol_name]["connect"] = "array";
+            // DEBUG_ARTI("%s New Symbol to array %s %s %u %s\n", spaces+50-depth, symbol_name, nextSymbol_name, depth, parseTree.as<std::string>().c_str());
+            nextParseTree = parseTree[parseTree.size()-1]; //nextparsetree is last element in the array (which is always an object)
           }
-          else {
-            if (resultChild != Result::RESULTCONTINUE) //for and, ?, + and *; each result should continue
-              result = Result::RESULTFAIL;
-          } 
+          else 
+          { //no list, create object
+            if (parseTree[symbol_name].isNull()) //no object yet
+              parseTree[symbol_name]["connect"] = "object"; //make the connection, new object item
 
-          if (result != Result::RESULTCONTINUE) //if no reason to continue then stop
-            break;
-        } //for
+            // DEBUG_ARTI("%s New Symbol %s %s %u %s\n", spaces+50-depth, symbol_name, nextSymbol_name, depth, parseTree.as<std::string>().c_str());
+            nextParseTree = parseTree[symbol_name];
+          }
+        }
 
-        if (strcmp(operatorx, "or") == 0) {
-          if (result == Result::RESULTCONTINUE) //still looking but nothing to look for
-            result = Result::RESULTFAIL;
-        } 
+        // DEBUG_ARTI("%s Next expression %s\n", spaces+50-depth, nextExpression.as<std::string>().c_str());
 
-        // DEBUG_ARTI("%s visited Array %u %s %s %s\n", spaces+50-depth, result, symbol_name, operatorx, expression.as<String>().c_str());
-      }
-      else { //not array
-        const char * token_type = expression;
+        if (operatorx == '|')
+          push_position();
 
-        //if token
-        if (!lexer->definitionJson["TOKENS"][token_type].isNull()) {
+        if (nextExpression.is<JsonObject>()) { // e.g. {"?":["LPAREN","formals*","RPAREN"]}
+          // DEBUG_ARTI("%s Visit Object %s %c %s\n", spaces+50-depth, stringOrEmpty(nextSymbol_name), operatorx, nextExpression.as<std::string>().c_str());
 
+          JsonObject::iterator objectIterator = nextExpression.as<JsonObject>().begin();
+          char objectOperator = objectIterator->key().c_str()[0];
+          JsonVariant objectElement = objectIterator->value();
+
+          if (objectElement.is<JsonArray>()) {
+
+            if (objectOperator == '*' || objectOperator == '+') {
+              nextParseTree[nextSymbol_name]["*"][0] = "multiple";
+              nextParseTree = nextParseTree[nextSymbol_name]["*"];
+              // DEBUG_ARTI("%s multiple / array found %s %s %s\n", spaces+50-depth, nextSymbol_name, nextExpression.as<std::string>().c_str(), nextParseTree.as<std::string>().c_str());
+            }
+
+            //and: see 'is array'
+            if (objectOperator == '|') {
+              // DEBUG_ARTI("%s\n", "or ");
+              resultChild = visit(nextParseTree, nextSymbol_name, objectOperator, objectElement, depth + 1);
+              if (resultChild != ResultFail) resultChild = ResultContinue;
+            }
+            else {
+              uint8_t resultChild2 = ResultContinue;
+              uint8_t counter = 0;
+              while (resultChild2 == ResultContinue) {
+                // DEBUG_ARTI("Before %u (%u.%u) %u of %u %s\n", resultChild2, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text), objectExpression.as<String>().c_str());
+                resultChild2 = visit(nextParseTree, nextSymbol_name, objectOperator, objectElement, depth + 1); //no assign to result as optional
+                // DEBUG_ARTI("After %u (%u.%u) %u of %u %s\n", resultChild2, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text), objectExpression.as<String>().c_str());
+
+                if (objectOperator == '?') { //zero or one iteration, also continue of visit not continue
+                  resultChild2 = ResultContinue;
+                  break; 
+                }
+                else if (objectOperator == '+') { //one or more iterations, stop if first visit not continue
+                  if (counter == 0) {
+                    if (resultChild2 != ResultContinue)
+                      break;
+                  } 
+                  else {
+                    if (resultChild2 != ResultContinue) {
+                      resultChild2 = ResultContinue;  //always continue
+                      break;
+                    }
+                  }
+                }
+                else if (objectOperator == '*') { //zero or more iterations, stop if visit not continue
+                  if (resultChild2 != ResultContinue) {
+                    resultChild2 = ResultContinue;  //always continue
+                    break;
+                  }
+                }
+                else {
+                  ERROR_ARTI("%s Programming error: undefined %c %s\n", spaces+50-depth, objectOperator, objectElement.as<const char *>());
+                  resultChild2 = ResultFail;
+                }
+                counter++;
+              } //while
+              resultChild = resultChild2;
+            } //not or
+          } // element is array
+          else
+            ERROR_ARTI("%s Definition error: should be an array %s %c %s\n", spaces+50-depth, stringOrEmpty(nextSymbol_name), operatorx, objectElement.as<std::string>().c_str());
+        }
+        else if (nextExpression.is<JsonArray>()) { // e.g. ["LPAREN", "expr*", "RPAREN"]
+          // DEBUG_ARTI("%s Visit Array %s %c %s\n", spaces+50-depth, stringOrEmpty(nextSymbol_name), operatorx, nextExpression.as<std::string>().c_str());
+          resultChild = visit(nextParseTree, nextSymbol_name, '&', nextExpression, depth + 1); // every array element starts with '&' (operatorx is for result of all elements of array)
+        }
+        else if (!lexer->definitionJson["TOKENS"][nextExpression.as<const char *>()].isNull()) { // token e.g. "ID"
+          const char * token_type = nextExpression;
+          // DEBUG_ARTI("%s Visit Token %s %c %s\n", spaces+50-depth, stringOrEmpty(nextSymbol_name), operatorx, nextExpression.as<const char *>());
           if (strcmp(this->current_token->type, token_type) == 0) {
             // DEBUG_ARTI("%s visit token %s %s\n", spaces+50-depth, this->current_token->type, token_type);//, expression.as<String>().c_str());
             // if (current_token->type == "ID" || current_token->type == "INTEGER" || current_token->type == "REAL" || current_token->type == "INTEGER_CONST" || current_token->type == "REAL_CONST" || current_token->type == "ID" || current_token->type == "ID" || current_token->type == "ID") {
@@ -594,12 +641,13 @@ class Parser {
               DEBUG_ARTI("%s %s %s", spaces+50-depth, current_token->type, current_token->value);
             }
 
-            if (symbol_name[strlen(symbol_name)-1] == '*') { //if list then add in array
-              JsonArray arr = parseTree[symbol_name].as<JsonArray>();
+            if (nextParseTree.is<JsonArray>()) {
+              // DEBUG_ARTI("( %s Add token in array %s %s %s %c )", spaces+50-depth, nextSymbol_name, current_token->type, current_token->value, operatorx);
+              JsonArray arr = nextParseTree.as<JsonArray>();
               arr[arr.size()][current_token->type] = current_token->value; //add in last element of array
             }
             else
-                parseTree[symbol_name][current_token->type] = current_token->value;
+                nextParseTree[nextSymbol_name][current_token->type] = current_token->value;
 
             if (strcmp(token_type, "PLUS2") == 0) { //debug for unary operators (wip)
               // DEBUG_ARTI("%s\n", "array multiple 1 ", parseTree);
@@ -609,74 +657,158 @@ class Parser {
             eat(token_type);
 
             if (current_token != nullptr) {
-              DEBUG_ARTI(" -> [%s %s]\n", current_token->type, current_token->value);
+              DEBUG_ARTI(" -> [%s %s]", current_token->type, current_token->value);
             }
-            else
-              DEBUG_ARTI("\n");
+            DEBUG_ARTI(" %d\n", depth);
+            resultChild = ResultContinue;
+          }
+          else { //deadend
+            // DEBUG_ARTI("%s visit deadend %s %s %s\n", spaces+50-depth, this->current_token->type, token_type, nextParseTree.as<std::string>().c_str());//, expression.as<String>().c_str());
+            resultChild = ResultFail;
+          }
+        } // if token
+        else { //arrayElement is not a symbol, not a token, not an array and not an object
+          if (lexer->definitionJson[nextExpression.as<const char *>()].isNull())
+            ERROR_ARTI("%s Programming error: %s not a symbol, token, array or object in %s\n", spaces+50-depth, nextExpression.as<const char *>(), stringOrEmpty(nextSymbol_name));
+          else
+            ERROR_ARTI("%s Definition error: \"%s\": \"%s\" symbol should be embedded in array\n", spaces+50-depth, stringOrEmpty(nextSymbol_name), nextExpression.as<const char *>());
+        } //nextExpression is not a token
+
+        if (!symbolExpression.isNull()) { //if symbol
+          nextParseTree.remove("connect"); //remove connector
+
+          if (resultChild == ResultFail) { //remove result of visit
+            nextParseTree.remove(nextSymbol_name); //remove the failed stuff
+
+            DEBUG_ARTI("%s fail %s\n", spaces+50-depth, nextSymbol_name);
+          }
+          else { //success
+            //make the parsetree as small as possible to let the interpreter run as fast as possible:
+            //for each symbol
+            //- check if * multiple is one of the elements, if only "multiple" then remove all, otherwise only multiple element
+            //- check if a symbol is not used in analyzer / interpreter and ha only one element: go to the parent and replace itself with its child
+
+            if (nextParseTree.is<JsonObject>()) { //Symbols trees are always objects e.g. {"term": {"factor": {"varref": {..}},"*": ["multiple"]}}
+              for (JsonPair symbolObjectPair : nextParseTree.as<JsonObject>()) {
+                const char * symbolObjectKey = symbolObjectPair.key().c_str();
+                JsonVariant symbolObjectValue = symbolObjectPair.value();
+
+                if (symbolObjectValue.is<JsonObject>()) { // e.g. {"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple"]}}
+                  for (JsonPair symbolObjectObject : symbolObjectValue.as<JsonObject>()) {
+
+                    if (symbolObjectObject.value().is<JsonArray>()) {
+                      JsonArray symbolObjectObjectArray = symbolObjectObject.value().as<JsonArray>();
+                      for (JsonArray::iterator it=symbolObjectObjectArray.begin(); it!=symbolObjectObjectArray.end(); ++it) {
+                        if ((*it) == "multiple") {
+                          DEBUG_ARTI("%s remove multiple key\n", spaces+50-depth);
+                          symbolObjectObjectArray.remove(it);
+                        }
+                      }
+                      if (symbolObjectObjectArray.size() == 0) {
+                        DEBUG_ARTI("%s remove multiple empty\n", spaces+50-depth);
+                        symbolObjectValue.remove("*");
+                      }
+                    }
+                  } //for symbol object objects
+                } //if symbol object has object
+
+                //symbolObjectKey should be a symbol on itself and the value must consist of one element
+                if (!lexer->definitionJson[symbolObjectKey].isNull() && symbolObjectValue.size()==1) {
+
+                  bool found = false;
+                  for (JsonPair semanticsPair : lexer->definitionJson["SEMANTICS"].as<JsonObject>()) {
+                    const char * semanticsKey = semanticsPair.key().c_str();
+                    JsonVariant semanticsValue = semanticsPair.value();
+
+                    // DEBUG_ARTI("%s semantics %s", spaces+50-depth, semanticsKey);
+                    if (strcmp(symbolObjectKey, semanticsKey) == 0){
+                      found = true;
+                      break;
+                    }
+                    for (JsonPair semanticsVariables : semanticsValue.as<JsonObject>()) {
+                      const char * variableKey = semanticsVariables.key().c_str();
+                      JsonVariant variableValue = semanticsVariables.value();
+                      // DEBUG_ARTI(" %s", variableValue.as<std::string>().c_str());
+                      if (variableValue.is<const char *>() && strcmp(symbolObjectKey, variableValue.as<const char *>()) == 0) {
+                        found = true;
+                        break;
+                      }
+                    }
+                    // DEBUG_ARTI("\n");
+                  }
+
+                  if (!found) { // not used in analyzer / interpreter
+                    DEBUG_ARTI("%s symbol to shrink %s\n", spaces+50-depth, symbolObjectKey);
+                    if (parseTree.is<JsonObject>()) {
+                      JsonObject parseTreeObject = parseTree.as<JsonObject>();
+                      for (JsonObject::iterator it=parseTreeObject.begin(); it!=parseTreeObject.end(); ++it) {
+                        const char * parseTreeObjectKey = it->key().c_str();
+                        JsonVariant parseTreeObjectValue = it->value();
+                        if (parseTreeObjectValue == nextParseTree) //find the right element to replace
+                        {
+                          parseTree[parseTreeObjectKey] = symbolObjectValue;
+                          // DEBUG_ARTI("%s Shrink object %s %s\n", spaces+50-depth, symbolObjectKey, symbolObjectValue.as<std::string>().c_str());
+                          // DEBUG_ARTI("%s Shrink object %s %s\n", spaces+50-depth, symbolObjectKey, nextParseTree.as<std::string>().c_str());
+                          // DEBUG_ARTI("%s Shrink object %s %s\n", spaces+50-depth, symbolObjectKey, parseTree.as<std::string>().c_str());
+                        }
+                      }
+                    }
+                    else if (parseTree.is<JsonArray>()) {
+                      JsonArray parseTreeArray = parseTree.as<JsonArray>();
+                      for (int i=0; i<parseTreeArray.size();i++) {
+                        if (parseTreeArray[i] == nextParseTree) { //find the right element to replace
+                          parseTreeArray[i] = symbolObjectValue;
+                          // DEBUG_ARTI("%s Shrink array %s %s\n", spaces+50-depth, symbolObjectKey, symbolObjectValue.as<std::string>().c_str());
+                          // DEBUG_ARTI("%s Shrink array %s %s\n", spaces+50-depth, symbolObjectKey, nextParseTree.as<std::string>().c_str());
+                          // DEBUG_ARTI("%s Shrink array %s %s\n", spaces+50-depth, symbolObjectKey, parseTree.as<std::string>().c_str());
+                        }
+                      }
+                    }
+                    // DEBUG_ARTI("%s symbol to shrink done %s %s\n", spaces+50-depth, symbolObjectKey, symbolObjectValue.as<std::string>().c_str());
+                  }
+                } // symbolObjectKey should by a symbol on itself and value is one element
+              } //for symbol objects
+            } //if symbol has object
+
+            DEBUG_ARTI("%s success %s\n", spaces+50-depth, nextSymbol_name);
+          }
+        } // if symbol
+
+        //determine result of arrayElement
+        if (operatorx == '|') {
+          if (resultChild == ResultFail) {//if fail, go back and try another
+            // result = ResultContinue;
+            pop_position();
           }
           else {
-            // DEBUG_ARTI("%s visit deadend %s %s\n", spaces+50-depth, this->current_token->type, token_type);//, expression.as<String>().c_str());
-            // parseTree["deadend"] = token_type + "<>" + current_token->type;
-            result = Result::RESULTFAIL;
+            result = ResultStop;  //Stop or continue is enough for an or
+            positions_index--;
           }
         }
-        else { //not object, array or token but symbol
-          const char * newSymbol_name = expression;
-          JsonVariant newParseTree;
+        else {
+          if (resultChild != ResultContinue) //for and, ?, + and *; each result should continue
+            result = ResultFail;
+        } 
 
-          DEBUG_ARTI("%s %s\n", spaces+50-depth, newSymbol_name);
-          JsonArray arr;
-          if (symbol_name[strlen(symbol_name)-1] == '*') { //if list then create/get array
-            if (parseTree[symbol_name].isNull()) { //create array
-              parseTree[symbol_name][0]["ccc"] = "array1"; //make the connection
-              arr = parseTree[symbol_name].as<JsonArray>();
-            }
-            else { //get array
-              arr = parseTree[symbol_name].as<JsonArray>();
-              arr[arr.size()]["ccc"] = "array2"; //make the connection, add new array item
-            }
+        if (result != ResultContinue) //if no reason to continue then stop
+          break;
 
-            newParseTree = arr[arr.size()-1];
-          }
-          else { //no list, create object
-            if (parseTree[symbol_name].isNull()) //no object yet
-              parseTree[symbol_name]["ccc"] = "list"; //make the connection, new object item
+      } //for arrayelement
 
-            newParseTree = parseTree[symbol_name];
-          }
+      if (operatorx == '|') {
+        if (result != ResultStop) //still looking but nothing to look for
+          result = ResultFail;
+      }
+    }
+    else { //should never happen
+      ERROR_ARTI("%s Programming error: no array %s %c %s\n", spaces+50-depth, stringOrEmpty(symbol_name), operatorx, expression.as<std::string>().c_str());
+    }
 
-          // DEBUG_ARTI("%s %s\n", spaces+50-depth, newSymbol_name);
-          result = visit(newParseTree, newSymbol_name, nullptr, lexer->definitionJson[newSymbol_name], depth + 1);
+    return result;
 
-          newParseTree.remove("ccc"); //remove connector
-
-          if (result == Result::RESULTFAIL) {
-            DEBUG_ARTI("%s fail %s\n", spaces+50-depth, newSymbol_name);
-            newParseTree.remove(newSymbol_name); //remove result of visit
-
-            //   DEBUG_ARTI("%s psf %s %s\n", spaces+50-depth, parseTree[symbol_name].as<const char *>(), newSymbol_name.c_str());
-            if (symbol_name[strlen(symbol_name)-1] == '*') //if list then remove empty objecy
-              arr.remove(arr.size()-1);
-            // else
-            //   parseTree.remove(newSymbol_name); //this does not change anything...
-          }
-          else {
-            DEBUG_ARTI("%s success %s\n", spaces+50-depth, newSymbol_name);
-            // DEBUG_ARTI("%s success %s %s\n", spaces+50-depth, newSymbol_name, parseTree.as<String>().c_str());
-          }
-          // DEBUG_ARTI("%s %s\n", spaces+50-depth, parseTree[symbol_name].as<const char *>());
-
-        } //symbol
-      } //if array
-    } //if object
-    // DEBUG_ARTI("%s\n", spaces+50-depth, "tokenValue ", tokenValue, isArray, isToken, isObject);
-    
-     return result;
   } //visit
 
 }; //Parser
-
-#define standardStringLenght 4000
 
 class ScopedSymbolTable; //forward declaration
 
@@ -787,6 +919,7 @@ class SemanticAnalyzer {
 
   ~SemanticAnalyzer() {
     MEMORY_ARTI("Destruct SemanticAnalyzer\n");
+    delete global_scope; global_scope = nullptr;
   }
 
   void analyze() {
@@ -799,10 +932,10 @@ class SemanticAnalyzer {
     if (parseTree.is<JsonObject>()) {
       // DEBUG_ARTI("%s Visit object %s %s %s\n", spaces+50-depth, stringOrEmpty(treeElement), stringOrEmpty(symbol_name), stringOrEmpty(token)); //, parseTree.as<String>().c_str()
 
-      for (JsonPair element : parseTree.as<JsonObject>()) {
-        if (treeElement == nullptr || strcmp(treeElement, element.key().c_str()) == 0 ) { //in case there are more elements in the object and you want to visit only one
-          const char * key = element.key().c_str();
-          JsonVariant value = element.value();
+      for (JsonPair parseTreePair : parseTree.as<JsonObject>()) {
+        if (treeElement == nullptr || strcmp(treeElement, parseTreePair.key().c_str()) == 0 ) { //in case there are more elements in the object and you want to visit only one
+          const char * key = parseTreePair.key().c_str();
+          JsonVariant value = parseTreePair.value();
 
           // DEBUG_ARTI("%s Visit element %s %s\n", spaces+50-depth, key, value.as<String>().c_str());
           bool visitCalledAlready = false;
@@ -917,9 +1050,22 @@ class SemanticAnalyzer {
               else if (expression["id"] == "VarRef") {
                 const char * expression_name = expression["name"];
                 const char * variable_name = value[expression_name];
-                Symbol* var_symbol = current_scope->lookup(variable_name); //lookup here and parent scopes
-                if (var_symbol == nullptr)
-                  ERROR_ARTI("%s Variable %s not found in scope %s\n", spaces+50-depth, variable_name, current_scope->scope_name); 
+
+                //check if external variable
+                bool found = false;
+                for (JsonPair externalsPair: definitionJson["EXTERNALS"].as<JsonObject>()) {
+                  const char * key = externalsPair.key().c_str();
+                  if (strcmp(variable_name, key) == 0) {
+                    // visit(value[expression["actuals"].as<const char *>()], nullptr, symbol_name, token, current_scope, depth + 1);
+                    found = true;
+                  }
+                }
+                if (!found) {
+                  Symbol* var_symbol = current_scope->lookup(variable_name); //lookup here and parent scopes
+                  if (var_symbol == nullptr)
+                    ERROR_ARTI("%s Variable %s not found in scope %s\n", spaces+50-depth, variable_name, current_scope->scope_name); 
+                }
+
                 visitCalledAlready = true;
               }
               else if (expression["id"] == "Call") {
@@ -947,6 +1093,7 @@ class SemanticAnalyzer {
                     ERROR_ARTI("%s Function %s not found in scope %s\n", spaces+50-depth, function_name, current_scope->scope_name); 
                   }
                 } //external functions
+
                 visitCalledAlready = true;
               } // if expression["id"]
 
@@ -1012,7 +1159,7 @@ class ActivationRecord {
     }
 
     ~ActivationRecord() {
-      DEBUG_ARTI("Destruct activation record %s\n", name);
+      RUNLOG_ARTI("Destruct activation record %s\n", name);
       free(members);
     }
 
@@ -1022,7 +1169,7 @@ class ActivationRecord {
         if (strcmp(members[i].key, key) == 0) {
           strcpy(members[i].value, value);
           strcpy(lastSet, key);
-          // DEBUG_ARTI("Set %s %s\n", key, value);
+          // RUNLOG_ARTI("Set %s %s\n", key, value);
           return;
         }
       }
@@ -1032,7 +1179,7 @@ class ActivationRecord {
           strcpy(members[membersCounter].value, value);
         strcpy(lastSet, key);
         membersCounter++;
-        // DEBUG_ARTI("Set %s %s\n", key, value);
+        // RUNLOG_ARTI("Set %s %s\n", key, value);
       }
       else
         ERROR_ARTI("ActivationRecord no room for new vars\n");
@@ -1040,7 +1187,7 @@ class ActivationRecord {
 
     const char * get(const char * key) {
       for (uint8_t i = 0; i<membersCounter; i++) {
-        // DEBUG_ARTI("Get %s %s %s", key, members[i].key, members[i].value);
+        // RUNLOG_ARTI("Get %s %s %s", key, members[i].key, members[i].value);
         if (strcmp(members[i].key, key) == 0) {
           return members[i].value;
         }
@@ -1060,13 +1207,13 @@ public:
   }
 
   ~CallStack() {
-    DEBUG_ARTI("Destruct callstack\n");
+    RUNLOG_ARTI("Destruct callstack\n");
   }
 
 
     void push(ActivationRecord* ar) {
       if (recordsCounter < nrOfRecords) {
-        // DEBUG_ARTI("%s\n", "Push ", ar->name);
+        // RUNLOG_ARTI("%s\n", "Push ", ar->name);
         this->records[recordsCounter++] = ar;
       }
       else
@@ -1075,7 +1222,7 @@ public:
 
     ActivationRecord* pop() {
       if (recordsCounter > 0) {
-        // DEBUG_ARTI("%s\n", "Pop ", this->peek()->name);
+        // RUNLOG_ARTI("%s\n", "Pop ", this->peek()->name);
         return this->records[recordsCounter--];
       }
       else {
@@ -1099,12 +1246,12 @@ public:
   }
 
   ~ValueStack() {
-    DEBUG_ARTI("Destruct valueStack\n");
+    RUNLOG_ARTI("Destruct valueStack\n");
   }
 
-  void push(const char * key, const char * value) {
+  void push(const char * value) {
     if (stack_index < arrayLength && value != nullptr) {
-      // DEBUG_ARTI("calc push %s %s\n", key, value);
+      // RUNLOG_ARTI("calc push %s %s\n", key, value);
       strcpy(stack[stack_index++], value);
     }
     else {
@@ -1118,7 +1265,7 @@ public:
   }
 
   const char * peek() {
-    // DEBUG_ARTI("Calc Peek %s\n", stack[stack_index-1]);
+    // RUNLOG_ARTI("Calc Peek %s\n", stack[stack_index-1]);
     return stack[stack_index-1];
   }
 
@@ -1129,7 +1276,7 @@ public:
     }
     else {
       ERROR_ARTI("Pop value stack empty\n");
-    // DEBUG_ARTI("Calc Pop %s\n", stack[stack_index]);
+    // RUNLOG_ARTI("Calc Pop %s\n", stack[stack_index]);
       return "novalue";
     }
   }
@@ -1154,7 +1301,7 @@ class Interpreter {
 
   ~Interpreter() {
     delete valueStack; valueStack = nullptr;
-    DEBUG_ARTI("Destruct Interpreter\n");
+    RUNLOG_ARTI("Destruct Interpreter\n");
   }
 
   void interpret(const char * function_name = nullptr) {
@@ -1163,11 +1310,7 @@ class Interpreter {
     if (function_name == nullptr) {
       if (this->analyzer != nullptr) { //due to undefined functions??? wip
 
-        DEBUG_ARTI("\ninterpret %s %u %u\n", analyzer->global_scope->scope_name, analyzer->global_scope->scope_level, analyzer->global_scope->symbolsIndex); 
-        for (uint8_t i=0; i<analyzer->global_scope->symbolsIndex; i++) {
-          Symbol* symbol = analyzer->global_scope->symbols[i];
-          DEBUG_ARTI("scope %s %s.%s %s %u\n", symbol->symbol_type, analyzer->global_scope->scope_name, symbol->name, symbol->type, symbol->scope_level); 
-        }
+        RUNLOG_ARTI("\ninterpret %s %u %u\n", analyzer->global_scope->scope_name, analyzer->global_scope->scope_level, analyzer->global_scope->symbolsIndex); 
 
         visit(analyzer->parseTreeJson);
       }
@@ -1178,36 +1321,32 @@ class Interpreter {
     }
     else { //Call only function_name (no parameters)
       uint8_t depth = 8;
-                Symbol* function_symbol = this->analyzer->global_scope->lookup(function_name);
+      Symbol* function_symbol = this->analyzer->global_scope->lookup(function_name);
 
-                if (function_symbol != nullptr) { //calling undefined function: pre-defined functions e.g. print
+      if (function_symbol != nullptr) { //calling undefined function: pre-defined functions e.g. print
 
-                  // MEMORY_ARTI("%s Heap Call %s < %u\n", spaces+50-depth, function_name, esp_get_free_heap_size());
+        // MEMORY_ARTI("%s Heap Call %s < %u\n", spaces+50-depth, function_name, esp_get_free_heap_size());
 
-                  ActivationRecord* ar = new ActivationRecord(function_name, "Function", function_symbol->scope_level + 1);
+        ActivationRecord* ar = new ActivationRecord(function_name, "Function", function_symbol->scope_level + 1);
 
-                  DEBUG_ARTI("%s %s %s (%d)\n", spaces+50-depth, "Call", function_name, this->callStack->recordsCounter);
+        RUNLOG_ARTI("%s %s %s (%u)\n", spaces+50-depth, "Call", function_name, this->callStack->recordsCounter);
 
-                    this->callStack->push(ar);
+        this->callStack->push(ar);
 
-                    //find block of function... lookup function?
-                    //visit block of function
-                    // DEBUG_ARTI("%s function block %s\n", spaces+50-depth, function_symbol->block.as<String>().c_str());
+        //find block of function... lookup function?
+        //visit block of function
+        // RUNLOG_ARTI("%s function block %s\n", spaces+50-depth, function_symbol->block.as<String>().c_str());
 
-                    visit(function_symbol->block, nullptr, nullptr, nullptr, this->analyzer->global_scope, depth + 1);
+        visit(function_symbol->block, nullptr, nullptr, nullptr, this->analyzer->global_scope, depth + 1);
 
-                    this->callStack->pop();
+        this->callStack->pop();
 
-                    char cr[charLength] = "CallResult tbd of ";
-                    strcat(cr, function_name);
-                    valueStack->push("Call", cr);
+        delete ar; ar = nullptr;
 
-                    delete ar; ar = nullptr;
-
-                } //function_symbol != nullptr
-                else {
-                  DEBUG_ARTI("%s %s not found %s\n", spaces+50-depth, "Call", function_name);
-                }
+      } //function_symbol != nullptr
+      else {
+        RUNLOG_ARTI("%s %s not found %s\n", spaces+50-depth, "Call", function_name);
+      }
 
     }
 
@@ -1218,13 +1357,13 @@ class Interpreter {
 
   void visit(JsonVariant parseTree, const char * treeElement = nullptr, const char * symbol_name = nullptr, const char * token = nullptr, ScopedSymbolTable* current_scope = nullptr, uint8_t depth = 0) {
 
-    // DEBUG_ARTI("%s Visit %s %s %s\n", spaces+50-depth, stringOrEmpty(treeElement), stringOrEmpty(symbol_name), stringOrEmpty(token)); //, parseTree.as<String>().c_str()
+    // RUNLOG_ARTI("%s Visit %s %s %s %u\n", spaces+50-depth, stringOrEmpty(treeElement), stringOrEmpty(symbol_name), stringOrEmpty(token), depth); //, parseTree.as<String>().c_str()
 
     if (parseTree.is<JsonObject>()) {
-      for (JsonPair element : parseTree.as<JsonObject>()) {
-        if (treeElement == nullptr || strcmp(treeElement, element.key().c_str()) == 0 ) {
-          const char * key = element.key().c_str();
-          JsonVariant value = element.value();
+      for (JsonPair parseTreePair : parseTree.as<JsonObject>()) {
+        if (treeElement == nullptr || strcmp(treeElement, parseTreePair.key().c_str()) == 0 ) {
+          const char * key = parseTreePair.key().c_str();
+          JsonVariant value = parseTreePair.value();
 
           bool visitCalledAlready = false;
 
@@ -1233,19 +1372,19 @@ class Interpreter {
             JsonVariant expression = this->analyzer->definitionJson["SEMANTICS"][symbol_name];
             if (!expression.isNull())
             {
-              // DEBUG_ARTI("%s Symbol %s %s\n", spaces+50-depth, symbol_name,  expression.as<std::string>().c_str());
+              // RUNLOG_ARTI("%s Symbol %s %s\n", spaces+50-depth, symbol_name,  expression.as<std::string>().c_str());
 
               // const char * expression_id = expression["id"];
               // MEMORY_ARTI("%s Heap %s < %u\n", spaces+50-depth, expression_id, esp_get_free_heap_size());
               if (expression["id"] == "Program") {
                 const char * expression_name = expression["name"];
                 const char * expression_block = expression["block"];
-                DEBUG_ARTI("%s program name %s\n", spaces+50-depth, expression_name);
+                RUNLOG_ARTI("%s program name %s\n", spaces+50-depth, expression_name);
                 const char * program_name = value[expression_name];
 
                 if (!value[expression_name].isNull()) {
                   ActivationRecord* ar = new ActivationRecord(program_name, "PROGRAM", 1);
-                  DEBUG_ARTI("%s %s %s %s\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, program_name);
+                  RUNLOG_ARTI("%s %s %s %s\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, program_name);
 
                   this->callStack->push(ar);
                   if (value[expression_block].isNull())
@@ -1266,7 +1405,7 @@ class Interpreter {
                 const char * expression_block = expression["block"];
                 const char * function_name = value[expression["name"].as<const char *>()];
                 Symbol* function_symbol = current_scope->lookup(function_name);
-                DEBUG_ARTI("%s Save block of %s\n", spaces+50-depth, function_name);
+                RUNLOG_ARTI("%s Save block of %s\n", spaces+50-depth, function_name);
                 function_symbol->block = value[expression_block];
                 visitCalledAlready = true;
               }
@@ -1282,40 +1421,43 @@ class Interpreter {
 
                     visit(value[expression["actuals"].as<const char *>()], nullptr, symbol_name, token, current_scope, depth + 1);
 
-                    bool returnFound = false;
+                    char returnValue[charLength] = "";
 
                     #ifdef WLED_H
-                      // MEMORY_ARTI("%s %s %u %u (%u)\n", spaces+50-depth, function_name, par1, par2, esp_get_free_heap_size());
-                      if (strcmp(function_name, "setPixelColor") == 0)
-                        strip.setPixelColor(atoi(this->valueStack->stack[lastIndex]), strip.color_wheel(atoi(this->valueStack->stack[lastIndex+1])));
+                      wled_functions(returnValue, function_name, this->valueStack->stack[lastIndex], this->valueStack->stack[lastIndex+1]);
+                    #else
+                      if (strcmp(function_name, "random") == 0)
+                        itoa(rand(), returnValue, 10);
+                      if (strcmp(function_name, "array") == 0)
+                        strcpy(returnValue, "array return tbd");
                     #endif
 
                     #ifndef WLED_H
-                      printf("%s Call %s(", spaces+50-depth, function_name);
+                      RUNLOG_ARTI("%s Call %s(", spaces+50-depth, function_name);
+                      char sep[3] = "";
                     #endif
-                    char sep[3] = "";
                     for (JsonPair actualsPair: externalsPair.value().as<JsonObject>()) {
                       const char * name = actualsPair.key().c_str();
                       // JsonVariant type = actualsPair.value();
                       if (strcmp(name, "return") != 0) {
                         #ifndef WLED_H
-                          printf("%s%s", sep, this->valueStack->stack[lastIndex++]);
+                          RUNLOG_ARTI("%s%s", sep, this->valueStack->stack[lastIndex++]);
                           strcpy(sep, ", ");
                         #endif
                       }
-                      else
-                        returnFound = true;
+                      else {
+                        // strcat(returnValue, "CallResult tbd of ");
+                        // strcat(returnValue, function_name);
+                      }
                     }
                     #ifndef WLED_H
-                      printf(")\n");
+                      RUNLOG_ARTI(")\n");
                     #endif
 
                     valueStack->stack_index = oldIndex;
 
-                    if (returnFound) {
-                      char cr[charLength] = "CallResult tbd of ";
-                      strcat(cr, function_name);
-                      valueStack->push("Call", cr);
+                    if (strcmp(returnValue, "") != 0) {
+                      valueStack->push(returnValue);
                     }
 
                     found = true;
@@ -1329,7 +1471,7 @@ class Interpreter {
 
                     ActivationRecord* ar = new ActivationRecord(function_name, "Function", function_symbol->scope_level + 1);
 
-                    DEBUG_ARTI("%s %s %s\n", spaces+50-depth, expression["id"].as<const char *>(), function_name);
+                    RUNLOG_ARTI("%s %s %s\n", spaces+50-depth, expression["id"].as<const char *>(), function_name);
 
                     uint8_t oldIndex = valueStack->stack_index;
                     uint8_t lastIndex = valueStack->stack_index;
@@ -1340,7 +1482,7 @@ class Interpreter {
                       if (strcmp(function_symbol->function_scope->symbols[i]->symbol_type, "Formal") == 0) { //select formal parameters
                         const char * result = this->valueStack->stack[lastIndex++];
                         ar->set(function_symbol->function_scope->symbols[i]->name, result);
-                        DEBUG_ARTI("%s Actual %s.%s = %s (pop)\n", spaces+50-depth, function_name, function_symbol->function_scope->symbols[i]->name, result);
+                        RUNLOG_ARTI("%s Actual %s.%s = %s (pop %u)\n", spaces+50-depth, function_name, function_symbol->function_scope->symbols[i]->name, result, valueStack->stack_index);
                       }
                     }
 
@@ -1350,7 +1492,7 @@ class Interpreter {
 
                     //find block of function... lookup function?
                     //visit block of function
-                    // DEBUG_ARTI("%s function block %s\n", spaces+50-depth, function_symbol->block.as<String>().c_str());
+                    // RUNLOG_ARTI("%s function block %s\n", spaces+50-depth, function_symbol->block.as<String>().c_str());
 
                     visit(function_symbol->block, nullptr, symbol_name, token, function_symbol->function_scope, depth + 1);
 
@@ -1358,13 +1500,14 @@ class Interpreter {
 
                     delete ar; ar =  nullptr;
 
-                    char cr[charLength] = "CallResult tbd of ";
-                    strcat(cr, function_name);
-                    valueStack->push("Call", cr);
+                    //tbd if syntax supports returnvalue
+                    // char callResult[charLength] = "CallResult tbd of ";
+                    // strcat(callResult, function_name);
+                    // valueStack->push(callResult);
 
                   } //function_symbol != nullptr
                   else {
-                    DEBUG_ARTI("%s %s not found %s\n", spaces+50-depth, expression["id"].as<const char *>(), function_name);
+                    RUNLOG_ARTI("%s %s not found %s\n", spaces+50-depth, expression["id"].as<const char *>(), function_name);
                   }
                 } //external functions
 
@@ -1401,19 +1544,19 @@ class Interpreter {
 
                   //check already defined in this scope
 
-
                   if (function_symbol != nullptr) { //var already exist
                     //calculate the index in the call stack to find the right ar
                     uint8_t index = this->callStack->recordsCounter - 1 - (this->callStack->peek()->nesting_level - function_symbol->scope_level);
-                    //  DEBUG_ARTI("%s %s %s.%s = %s (push) %s %d-%d = %d (%d)\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, variable_name, varValue, function_symbol->name, this->callStack->peek()->nesting_level,function_symbol->scope_level, index,  this->callStack->recordsCounter); //key is variable_declaration name is ID
+                    //  RUNLOG_ARTI("%s %s %s.%s = %s (push) %s %d-%d = %d (%d)\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, variable_name, varValue, function_symbol->name, this->callStack->peek()->nesting_level,function_symbol->scope_level, index,  this->callStack->recordsCounter); //key is variable_declaration name is ID
                     ar = this->callStack->records[index];
                   }
                   else { //var created here
                     ar = this->callStack->peek();
                   }
+
                   ar->set(variable_name, this->valueStack->pop());
 
-                  DEBUG_ARTI("%s %s.%s%s := %s (pop)\n", spaces+50-depth, ar->name, variable_name, indices, ar->get(variable_name));
+                  RUNLOG_ARTI("%s %s.%s%s := %s (pop %u)\n", spaces+50-depth, ar->name, variable_name, indices, ar->get(variable_name), this->valueStack->stack_index);
                 }
                 else {
                   ERROR_ARTI("%s Assign %s has no value\n", spaces+50-depth, expression_name);
@@ -1421,78 +1564,38 @@ class Interpreter {
 
                 visitCalledAlready = true;
               }
-              else if (expression["id"] == "Exprs" || expression["id"] == "Terms") {
-                // DEBUG_ARTI("%s %s tovisit %s\n", spaces+50-depth, expression["id"].as<const char *>(), value.as<String>().c_str());
-                if (value.is<JsonArray>()) {
-                  JsonArray valueArray = value.as<JsonArray>();
+              else if (expression["id"] == "Expr" || expression["id"] == "Term") {
+                // RUNLOG_ARTI("%s %s tovisit %s\n", spaces+50-depth, expression["id"].as<const char *>(), value.as<std::string>().c_str());
 
-                  if (valueArray.size() >= 1) // visit first symbol 
-                    visit(valueArray[0], nullptr, symbol_name, token, current_scope, depth + 1); //pushes result
+                uint8_t oldIndex = valueStack->stack_index;
 
-                  // assuming expression contains 1 operand and 2 operators
-                  if (valueArray.size() >= 3) { // add operator and another symbol
-                    char operatorx[charLength];
-                    serializeJson(valueArray[1], operatorx);
-                    // DEBUG_ARTI("%s %s operator %s %s\n", spaces+50-depth, expression["id"].as<const char *>(), operatorx, value.as<String>().c_str());
-                    visit(valueArray[2], nullptr, symbol_name, token, current_scope, depth + 1); //pushes result
+                visit(value, nullptr, symbol_name, token, current_scope, depth + 1); //pushes results
 
-                    // DEBUG_ARTI("%s operatorx %s\n", spaces+50-depth, operatorx);
-                    if (strstr(operatorx, "PLUS")) {
-                      const char * right = valueStack->pop();
-                      const char * left = valueStack->pop();
-                      int evaluation = atoi(left) + atoi(right);
-                      DEBUG_ARTI("%s %s + %s = %d\n", spaces+50-depth, left, right, evaluation);
+                if (valueStack->stack_index - oldIndex == 3) {
+                  // RUNLOG_ARTI("%s %s visited (%u)\n", spaces+50-depth, expression["id"].as<const char *>(), valueStack->stack_index - oldIndex);
+                  const char * left = valueStack->stack[oldIndex];
+                  const char * operatorx = valueStack->stack[oldIndex + 1];
+                  const char * right = valueStack->stack[oldIndex + 2];
 
-                      char evalChar[charLength];
-                      itoa(evaluation, evalChar, 10);
+                  valueStack->stack_index = oldIndex;
+  
+                  int evaluation = 0;
+                  if (strcmp(operatorx, "+") == 0)
+                    evaluation = atoi(left) + atoi(right);
+                  else if (strcmp(operatorx, "-") == 0)
+                    evaluation = atoi(left) - atoi(right);
+                  else if (strcmp(operatorx, "*") == 0)
+                    evaluation = atoi(left) * atoi(right);
+                  else if (strcmp(operatorx, "<") == 0)
+                    evaluation = atoi(left) < atoi(right);
+                  else if (strcmp(operatorx, ">") == 0)
+                    evaluation = atoi(left) > atoi(right);
 
-                      valueStack->push(operatorx, evalChar);
-                    }
-                    else if (strstr(operatorx, "MUL")) {
-                      const char * right = valueStack->pop();
-                      const char * left = valueStack->pop();
-                      int evaluation = atoi(left) * atoi(right);
-                      DEBUG_ARTI("%s %s * %s = %d\n", spaces+50-depth, left, right, evaluation);
-
-                      char evalChar[charLength];
-                      itoa(evaluation, evalChar, 10);
-
-                      valueStack->push(operatorx, evalChar);
-                    }
-                    else if (strstr(operatorx, "SMALLER")) {
-                      const char * right = valueStack->pop();
-                      const char * left = valueStack->pop();
-                      int evaluation = atoi(left) < atoi(right);
-                      DEBUG_ARTI("%s %s < %s = %d\n", spaces+50-depth, left, right, evaluation);
-
-                      char evalChar[charLength];
-                      itoa(evaluation, evalChar, 10);
-
-                      valueStack->push(operatorx, evalChar);
-                    }
-                    else if (strstr(operatorx, "GREATER")) {
-                      const char * right = valueStack->pop();
-                      const char * left = valueStack->pop();
-                      int evaluation = atoi(left) > atoi(right);
-                      DEBUG_ARTI("%s %s > %s = %d\n", spaces+50-depth, left, right, evaluation);
-
-                      char evalChar[charLength];
-                      itoa(evaluation, evalChar, 10);
-
-                      valueStack->push(operatorx, evalChar);
-                    }
-                    else {
-                      const char * right = valueStack->pop();
-                      const char * left = valueStack->pop();
-                      ERROR_ARTI("%s %s ? %s = ? (%s unknown)\n", spaces+50-depth, left, right, operatorx);
-                    }
-                  }
-
-                  if (valueArray.size() != 1 && valueArray.size() != 3)
-                    ERROR_ARTI("%s %s array not right size ?? (%u) %s\n", spaces+50-depth, expression["id"].as<const char *>(), valueArray.size(), key); //, value.as<String>().c_str()
+                  RUNLOG_ARTI("%s %s %s %s = %d (push %u)\n", spaces+50-depth, left, operatorx, right, evaluation, valueStack->stack_index+1);
+                  char evalChar[charLength];
+                  itoa(evaluation, evalChar, 10);
+                  valueStack->push(evalChar);
                 }
-                else
-                  ERROR_ARTI("%s %s not array?? %s\n", spaces+50-depth, key, expression["id"].as<const char *>()); //, value.as<String>().c_str()
 
                 visitCalledAlready = true;
               }
@@ -1500,39 +1603,67 @@ class Interpreter {
                 const char * expression_name = expression["name"]; //ID (key="varref")
                 const char * variable_name = value[expression_name];
 
-                ActivationRecord* ar = this->callStack->peek();
-                const char * varValue = ar->get(variable_name);
+                                //check if external function
+                bool found = false;
+                for (JsonPair externalsPair: analyzer->definitionJson["EXTERNALS"].as<JsonObject>()) {
+                  if (strcmp(variable_name, externalsPair.key().c_str()) == 0) {
 
-                if (strcmp(varValue, "empty") == 0) {
-                  //find the scope level of the variable
-                  Symbol* function_symbol = current_scope->lookup(variable_name);
-                  //calculate the index in the call stack to find the right ar
-                  uint8_t index = this->callStack->recordsCounter - 1 - (this->callStack->peek()->nesting_level - function_symbol->scope_level);
-                  //  DEBUG_ARTI("%s %s %s.%s = %s (push) %s %d-%d = %d (%d)\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, variable_name, varValue, function_symbol->name, this->callStack->peek()->nesting_level,function_symbol->scope_level, index,  this->callStack->recordsCounter); //key is variable_declaration name is ID
-                  ar = this->callStack->records[index];
+                    char returnValue[charLength] = "";
+
+                    #ifdef WLED_H
+                      // MEMORY_ARTI("%s %s %u %u (%u)\n", spaces+50-depth, function_name, par1, par2, esp_get_free_heap_size());
+                      wled_functions(returnValue, "ledCount");
+                    #else
+                      if (strcmp(variable_name, "ledCount") == 0)
+                        strcpy(returnValue, "3");
+                    #endif
+
+
+                    if (strcmp(returnValue, "") != 0) {
+                      valueStack->push(returnValue);
+                    }
+
+                    RUNLOG_ARTI("%s %s ext.%s = %s (push %u)\n", spaces+50-depth, expression["id"].as<const char *>(), variable_name, returnValue, valueStack->stack_index); //key is variable_declaration name is ID
+
+                    found = true;
+                  }
                 }
 
-                if (ar != nullptr) {
-                  varValue = ar->get(variable_name);
+                if (!found) {
+                  ActivationRecord* ar = this->callStack->peek();
+                  const char * varValue = ar->get(variable_name);
 
-                  #ifndef ESP32 //for some weird reason this causes a crash on esp32
-                    DEBUG_ARTI("%s %s %s.%s = %s (push)\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, variable_name, varValue); //key is variable_declaration name is ID
-                  #endif
-                  valueStack->push(variable_name, varValue);
-                }
-                else {
-                  ERROR_ARTI("%s Var %s unknown \n", spaces+50-depth, variable_name);
-                  valueStack->push(variable_name, "unknown");
+                  if (strcmp(varValue, "empty") == 0) {
+                    //find the scope level of the variable
+                    Symbol* function_symbol = current_scope->lookup(variable_name);
+                    //calculate the index in the call stack to find the right ar
+                    uint8_t index = this->callStack->recordsCounter - 1 - (this->callStack->peek()->nesting_level - function_symbol->scope_level);
+                    //  RUNLOG_ARTI("%s %s %s.%s = %s (push) %s %d-%d = %d (%d)\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, variable_name, varValue, function_symbol->name, this->callStack->peek()->nesting_level,function_symbol->scope_level, index,  this->callStack->recordsCounter); //key is variable_declaration name is ID
+                    ar = this->callStack->records[index];
+                  }
+
+                  if (ar != nullptr) {
+                    varValue = ar->get(variable_name);
+
+                    valueStack->push(varValue);
+                    #ifndef ESP32 //for some weird reason this causes a crash on esp32
+                      RUNLOG_ARTI("%s %s %s.%s = %s (push %u)\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, variable_name, varValue, valueStack->stack_index); //key is variable_declaration name is ID
+                    #endif
+                  }
+                  else {
+                    ERROR_ARTI("%s Var %s unknown \n", spaces+50-depth, variable_name);
+                    valueStack->push("unknown");
+                  }
                 }
 
                 visitCalledAlready = true;
               }
               else if (expression["id"] == "For") {
-                DEBUG_ARTI("%s For\n", spaces+50-depth);
+                RUNLOG_ARTI("%s For (%u)\n", spaces+50-depth, valueStack->stack_index);
 
                 const char * expression_block = expression["block"];
 
-                DEBUG_ARTI("%s from\n", spaces+50-depth);
+                RUNLOG_ARTI("%s from\n", spaces+50-depth);
                 visit(value, expression["from"], symbol_name, token, current_scope, depth + 1); //creates the assignment
                 ActivationRecord* ar = this->callStack->peek();
                 const char * fromVarName = ar->lastSet;
@@ -1540,24 +1671,26 @@ class Interpreter {
                 bool continuex = true;
                 uint16_t counter = 0;
                 while (continuex && counter < 1000) { //to avoid endless loops
-                  DEBUG_ARTI("%s iteration\n", spaces+50-depth);
+                  RUNLOG_ARTI("%s iteration\n", spaces+50-depth);
 
-                  DEBUG_ARTI("%s check to condition\n", spaces+50-depth);
+                  RUNLOG_ARTI("%s check to condition\n", spaces+50-depth);
                   visit(value, expression["to"], symbol_name, token, current_scope, depth + 1); //pushes result of to
 
                   const char * toResult = valueStack->pop();
 
+                  RUNLOG_ARTI("%s (pop %u)\n", spaces+50-depth, valueStack->stack_index);
+
                   if (strcmp(toResult, "1") == 0) { //toResult is true
-                    DEBUG_ARTI("%s 1 => run block\n", spaces+50-depth);
+                    RUNLOG_ARTI("%s 1 => run block\n", spaces+50-depth);
                     visit(value[expression_block], nullptr, symbol_name, token, current_scope, depth + 1);
 
-                    DEBUG_ARTI("%s assign next value\n", spaces+50-depth);
+                    RUNLOG_ARTI("%s assign next value\n", spaces+50-depth);
                     visit(value[expression["increment"].as<const char *>()], nullptr, symbol_name, token, current_scope, depth + 1); //pushes increment result
                     // MEMORY_ARTI("%s Iteration %u %u\n", spaces+50-depth, counter, esp_get_free_heap_size());
                   }
                   else {
                     if (strcmp(toResult, "0") == 0) { //toResult is false
-                      DEBUG_ARTI("%s 0 => end of For\n", spaces+50-depth);
+                      RUNLOG_ARTI("%s 0 => end of For\n", spaces+50-depth);
                       continuex = false;
                     }
                     else { // toResult is a value (e.g. in pascal)
@@ -1565,10 +1698,10 @@ class Interpreter {
                       const char * varValue = ar->get(fromVarName);
 
                       int evaluation = atoi(varValue) <= atoi(toResult);
-                      DEBUG_ARTI("%s %s.%s %s <= %s = %d\n", spaces+50-depth, ar->name, fromVarName, varValue, toResult, evaluation);
+                      RUNLOG_ARTI("%s %s.%s %s <= %s = %d\n", spaces+50-depth, ar->name, fromVarName, varValue, toResult, evaluation);
 
                       if (evaluation == 1) {
-                        DEBUG_ARTI("%s 1 => run block\n", spaces+50-depth);
+                        RUNLOG_ARTI("%s 1 => run block\n", spaces+50-depth);
                         visit(value[expression_block], nullptr, symbol_name, token, current_scope, depth + 1);
 
                         //increment
@@ -1577,7 +1710,7 @@ class Interpreter {
                         ar->set(fromVarName, evalChar);
                       }
                       else {
-                        DEBUG_ARTI("%s 0 => end of For\n", spaces+50-depth);
+                        RUNLOG_ARTI("%s 0 => end of For\n", spaces+50-depth);
                         continuex = false;
                       }
 
@@ -1597,40 +1730,39 @@ class Interpreter {
 
          } // is key is symbol_name
 
-          // DEBUG_ARTI("%s\n", spaces+50-depth, "Object ", key, value);
-          // if (key == "INTEGER_CONST" || key == "PLUS" || key == "MUL" || key == "LPAREN"  || key == "RPAREN" ) {
-          if (strcmp(key, "INTEGER_CONST") == 0) {// || value == "+" || value == "*") || value == "("  || value == ")" ) {
-            valueStack->push("INTEGER_CONST", value);
+          // RUNLOG_ARTI("%s\n", spaces+50-depth, "Object ", key, value);
+          if (strcmp(key, "INTEGER_CONST") == 0 || value == "+" || value == "-" || value == "*" || value == ">" || value == "<" ) { // || value == "(" || value == ")" 
+            valueStack->push(value);
             #ifndef ESP32  //for some weird reason this causes a crash on esp32
-              DEBUG_ARTI("%s Push %s %s\n", spaces+50-depth, key, value.as<const char *>());
+              RUNLOG_ARTI("%s %s %s (Push %u)\n", spaces+50-depth, key, value.as<const char *>(), valueStack->stack_index);
             #endif
             visitCalledAlready = true;
           }
 
           if (!analyzer->definitionJson["TOKENS"][key].isNull()) { //if key is token
             token = key;
-            // DEBUG_ARTI("%s\n", spaces+50-depth, "Token ", token);
+            // RUNLOG_ARTI("%s\n", spaces+50-depth, "Token ", token);
           }
           if (!visitCalledAlready)
             visit(value, nullptr, symbol_name, token, current_scope, depth + 1);
         }
-      } // for (JsonPair
+      } // for (JsonPair)
     }
     else { //not object
       if (parseTree.is<JsonArray>()) {
         for (JsonVariant newParseTree: parseTree.as<JsonArray>()) {
-          // DEBUG_ARTI("%s\n", spaces+50-depth, "Array ", parseTree[i], "  ";
+          // RUNLOG_ARTI("%s\n", spaces+50-depth, "Array ", parseTree[i], "  ";
           visit(newParseTree, nullptr, symbol_name, token, current_scope, depth + 1);
         }
       }
       else { //not array
         // const char * element = parseTree.as<const char *>();
-        // DEBUG_ARTI("%s\n", spaces+50-depth, "not array not object but element ", element);
+        // RUNLOG_ARTI("%s\n", spaces+50-depth, "not array not object but element ", element);
       }
     }
   } //visit
 
-};
+}; //interpreter
 
 #define programTextSize 1000
 
@@ -1639,24 +1771,22 @@ private:
   Lexer *lexer;
   Parser *parser;
   SemanticAnalyzer *semanticAnalyzer = nullptr;
-  Interpreter *interpreter;
+  Interpreter *interpreter = nullptr;
+  char * programText;
   #ifdef ESP32
-    char * programText;
     File definitionFile;
     File programFile;
     File parseTreeFile;
   #else
-    char * programText;
-    // char programText[programTextSize];
     std::fstream definitionFile;
     std::fstream programFile;
     std::fstream parseTreeFile;
   #endif
   uint16_t programFileSize;
 
-  DynamicJsonDocument *definitionJson;
-  DynamicJsonDocument *parseTreeJson;
-  CallStack *callStack;
+  DynamicJsonDocument *definitionJsonDoc = nullptr;
+  DynamicJsonDocument *parseTreeJsonDoc = nullptr;
+  CallStack *callStack = nullptr;
 public:
   ARTI() {
 
@@ -1678,7 +1808,7 @@ public:
       char parseOrLoad[charLength] = "Parse";
 
       //open logFile
-      #ifndef ARTI_DEBUGORLOG
+      #ifndef ARTI_SERIALORFILE
         char logFileName[charLength];
         #ifdef ESP32
           strcpy(logFileName, "/");
@@ -1713,14 +1843,14 @@ public:
       else
       {
         //open definitionFile
-        definitionJson = new DynamicJsonDocument(12192);
+        definitionJsonDoc = new DynamicJsonDocument(12192);
         // mandatory tokens:
         //  "ID": "ID",
         //  "INTEGER_CONST": "INTEGER_CONST",
         //  "REAL_CONST": "REAL_CONST",
 
 
-        DeserializationError err = deserializeJson(*definitionJson, definitionFile);
+        DeserializationError err = deserializeJson(*definitionJsonDoc, definitionFile);
         if (err) {
           ERROR_ARTI("deserializeJson() of definition failed with code %s\n", err.c_str());
         }
@@ -1765,10 +1895,10 @@ public:
             #else
               parseTreeFile = FS.open(parseTreeName, (strcmp(parseOrLoad, "Parse")==0)?"w":"r");
             #endif
-            parseTreeJson = new DynamicJsonDocument(strlen(programText) * 25); //why less memory on esp32???
+            parseTreeJsonDoc = new DynamicJsonDocument(strlen(programText) * 50); //less memory on esp32: 32 vs 64 bit?
           #else
             parseTreeFile.open(parseTreeName, std::ios::out);
-            parseTreeJson = new DynamicJsonDocument(strlen(programText) * 50);
+            parseTreeJsonDoc = new DynamicJsonDocument(strlen(programText) * 100);
           #endif
 
           MEMORY_ARTI("Heap DynamicJsonDocuments > %u (%lums)\n", esp_get_free_heap_size(), millis());
@@ -1776,20 +1906,27 @@ public:
           //parse
           if (strcmp(parseOrLoad, "Parse") == 0) {
 
-            lexer = new Lexer(this->programText, definitionJson->as<JsonObject>());
-            parser = new Parser(this->lexer, parseTreeJson->as<JsonVariant>());
+            lexer = new Lexer(this->programText, definitionJsonDoc->as<JsonObject>());
+            parser = new Parser(this->lexer, parseTreeJsonDoc->as<JsonVariant>());
             parser->parse();
+
+            DEBUG_ARTI("par mem %u of %u %u %u %u %u\n", parseTreeJsonDoc->memoryUsage(), parseTreeJsonDoc->capacity(), parseTreeJsonDoc->memoryPool().capacity(), parseTreeJsonDoc->size(), parseTreeJsonDoc->overflowed(), parseTreeJsonDoc->nesting());
+            DEBUG_ARTI("prog size %u factor %u\n", programFileSize, parseTreeJsonDoc->memoryUsage() / programFileSize);
+            parseTreeJsonDoc->garbageCollect();
+            DEBUG_ARTI("par mem %u of %u %u %u %u %u\n", parseTreeJsonDoc->memoryUsage(), parseTreeJsonDoc->capacity(), parseTreeJsonDoc->memoryPool().capacity(), parseTreeJsonDoc->size(), parseTreeJsonDoc->overflowed(), parseTreeJsonDoc->nesting());
+            //199 -> 6905 (34.69)
+            //469 -> 15923 (33.95)
 
             delete lexer; lexer =  nullptr;
             delete parser; parser =  nullptr;
 
             //write parseTree
-            serializeJsonPretty(*parseTreeJson,  parseTreeFile);
+            serializeJsonPretty(*parseTreeJsonDoc,  parseTreeFile);
           }
           else
           {
             //read parseTree
-            DeserializationError err = deserializeJson(*parseTreeJson, parseTreeFile);
+            DeserializationError err = deserializeJson(*parseTreeJsonDoc, parseTreeFile);
             if (err) {
               ERROR_ARTI("deserializeJson() of parseTree failed with code %s\n", err.c_str());
             }
@@ -1809,45 +1946,50 @@ public:
   void analyze(const char * function_name = nullptr) {
     MEMORY_ARTI("Heap analyze < %u\n", esp_get_free_heap_size());
 
-    //analyze
-    semanticAnalyzer = new SemanticAnalyzer(definitionJson->as<JsonObject>(), parseTreeJson->as<JsonVariant>());
-    semanticAnalyzer->analyze();
+    if (parseTreeJsonDoc == nullptr || parseTreeJsonDoc->isNull())
+      ERROR_ARTI("Analyze: No parsetree created\n");
+    else {
+      //analyze
+      semanticAnalyzer = new SemanticAnalyzer(definitionJsonDoc->as<JsonObject>(), parseTreeJsonDoc->as<JsonVariant>());
+      semanticAnalyzer->analyze();
 
-    callStack = new CallStack();
+      callStack = new CallStack();
+      interpreter = new Interpreter(semanticAnalyzer, callStack);
 
-    MEMORY_ARTI("Heap analyze > %u (%lums)\n", esp_get_free_heap_size(), millis());
+      MEMORY_ARTI("Heap analyze > %u (%lums)\n", esp_get_free_heap_size(), millis());
+    }
+
+    //flush does not seem to work... further testing needed
+    #ifndef ARTI_SERIALORFILE
+      #ifdef ESP32
+        logFile.flush();
+      #else
+        fflush(logFile);
+      #endif
+    #endif
   }
 
   void interpret(const char * function_name = nullptr) {
-    interpreter = new Interpreter(semanticAnalyzer, callStack);
-    interpreter->interpret(function_name);
-
-    delete interpreter; interpreter = nullptr;
+    if (parseTreeJsonDoc == nullptr || parseTreeJsonDoc->isNull())
+      ERROR_ARTI("Interpret %s: No parsetree created\n", function_name);
+    else {
+      interpreter->interpret(function_name);
+    }
   }
 
   void close() {
-    delete semanticAnalyzer->global_scope; semanticAnalyzer->global_scope = nullptr;
-    delete semanticAnalyzer; semanticAnalyzer = nullptr;
-    delete callStack; callStack = nullptr;
+    if (semanticAnalyzer != nullptr) delete semanticAnalyzer; semanticAnalyzer = nullptr;
+    if (callStack != nullptr) {delete callStack; callStack = nullptr;}
+    if (interpreter != nullptr) delete interpreter; interpreter = nullptr;
 
-    if (definitionJson != nullptr) {
-      DEBUG_ARTI("def mem %u of %u %u %u\n", definitionJson->memoryUsage(), definitionJson->capacity(), definitionJson->memoryPool().capacity(), definitionJson->size());
-      definitionJson->garbageCollect();
-      DEBUG_ARTI("def mem %u of %u %u %u\n", definitionJson->memoryUsage(), definitionJson->capacity(), definitionJson->memoryPool().capacity(), definitionJson->size());
+    if (definitionJsonDoc != nullptr) {
+      DEBUG_ARTI("def mem %u of %u %u %u %u %u\n", definitionJsonDoc->memoryUsage(), definitionJsonDoc->capacity(), definitionJsonDoc->memoryPool().capacity(), definitionJsonDoc->size(), definitionJsonDoc->overflowed(), definitionJsonDoc->nesting());
     }
-    if (parseTreeJson != nullptr) {
-      DEBUG_ARTI("par mem %u of %u %u %u\n", parseTreeJson->memoryUsage(), parseTreeJson->capacity(), parseTreeJson->memoryPool().capacity(), parseTreeJson->size());
-      DEBUG_ARTI("prog size %u factor %u\n", programFileSize, parseTreeJson->memoryUsage() / programFileSize);
-      parseTreeJson->garbageCollect();
-      DEBUG_ARTI("par mem %u of %u %u %u\n", parseTreeJson->memoryUsage(), parseTreeJson->capacity(), parseTreeJson->memoryPool().capacity(), parseTreeJson->size());
-      //199 -> 6905 (34.69)
-      //469 -> 15923 (33.95)
-    }
-    #ifndef ARTI_DEBUGORLOG
+    #ifndef ARTI_SERIALORFILE
       #ifdef ESP32
         logFile.close();
       #else
-        fclose (logFile); //should not be closed as still streaming...
+        fclose(logFile);
       #endif
     #endif
 

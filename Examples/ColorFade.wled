@@ -1,6 +1,5 @@
-program Main
+program ColorFade
 {
-   ledCount = 3
    leds = array(ledCount, ledCount)
    pixelCounter = 0
 
@@ -16,7 +15,7 @@ program Main
      pixelCounter = pixelCounter + 1
    }
 
-   function renderFrame(index) {
+   function renderFrame() {
       for (i = 0; i < ledCount; i = i + 1) {
             setPixelColor(i, pixelCounter + i)
       }
