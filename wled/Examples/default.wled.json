@@ -1,7 +1,7 @@
 {
   "program": {
     "PROGRAM": "PROGRAM",
-    "ID": "Kitt",
+    "ID": "ColorWalk",
     "block": {
       "LCURL": "{",
       "*": [
@@ -10,7 +10,7 @@
             "varleft": {
               "ID": "pixelCounter"
             },
-            "EQUAL": "=",
+            "ASSIGN": "=",
             "expr": {
               "term": {
                 "INTEGER_CONST": "0"
@@ -59,49 +59,11 @@
                   }
                 },
                 {
-                  "call": {
-                    "ID": "setPixelColor",
-                    "LPAREN": "(",
-                    "actuals": {
-                      "expr": {
-                        "term": {
-                          "varref": {
-                            "ID": "pixelCounter"
-                          }
-                        },
-                        "*": [
-                          {
-                            "MINUS": "-"
-                          },
-                          {
-                            "term": {
-                              "INTEGER_CONST": "1"
-                            }
-                          }
-                        ]
-                      },
-                      "*": [
-                        {
-                          "COMMA": ","
-                        },
-                        {
-                          "expr": {
-                            "term": {
-                              "INTEGER_CONST": "0"
-                            }
-                          }
-                        }
-                      ]
-                    },
-                    "RPAREN": ")"
-                  }
-                },
-                {
                   "assign": {
                     "varleft": {
                       "ID": "pixelCounter"
                     },
-                    "EQUAL": "=",
+                    "ASSIGN": "=",
                     "expr": {
                       "term": {
                         "varref": {

@@ -25,23 +25,36 @@ int main() {
   char definitionFile[charLength];
   char programFile[charLength];
   
-  // strcpy(definitionFile, "pas.json"); strcpy(programFile, "pas1.pas");
-  // strcpy(definitionFile, "wled.json"); strcpy(programFile, "ColorWalk.wled");
-  // strcpy(definitionFile, "wled.json"); strcpy(programFile, "ColorFade.wled");
-  strcpy(definitionFile, "wled.json"); strcpy(programFile, "Examples/ColorRandom.wled");
-  // strcpy(definitionFile, "wled.json"); strcpy(programFile, "Kitt.wled");
+  // strcpy(definitionFile, "pas.json"); strcpy(programFile, "Examples/pas1.pas");
+  // strcpy(definitionFile, "wled.json"); strcpy(programFile, "Examples/default.wled");
+  // strcpy(definitionFile, "wled.json"); strcpy(programFile, "Examples/ColorFade.wled");
+  // strcpy(definitionFile, "wled.json"); strcpy(programFile, "Examples/ColorRandom.wled");
+  strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Kitt.wled");
 
-  arti->openFileAndParse(definitionFile, programFile);
-  arti->analyze();
-  arti->interpret();
+  printf("open %s and %s\n", definitionFile, programFile);
 
-  if (strcmp(definitionFile, "wled.json") == 0) {
-    arti->interpret("renderFrame");
-    arti->interpret("renderFrame");
+  if (arti->openFileAndParse(definitionFile, programFile)) {
+    if (arti->analyze()) {
+      if (arti->interpret()) {
+        if (strstr(definitionFile, "wled")) {
+          uint8_t nrOfTimes = 2;
+          if (strstr(programFile, "Kitt"))
+            nrOfTimes = 4;
+
+          for (uint8_t i=0; i<nrOfTimes; i++)
+            arti->interpret("renderFrame");
+        }
+
+        printf("done\n");
+      }
+      else 
+        printf("interpret fail\n");
+    }
+    else
+      printf("analyze fail\n");
   }
+  else
+    printf("parse fail\n");
 
-  printf("done\n");
   arti->close();
-
-
 }

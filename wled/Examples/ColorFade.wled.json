@@ -10,7 +10,7 @@
             "varleft": {
               "ID": "leds"
             },
-            "EQUAL": "=",
+            "ASSIGN": "=",
             "expr": {
               "term": {
                 "call": {
@@ -50,7 +50,7 @@
             "varleft": {
               "ID": "pixelCounter"
             },
-            "EQUAL": "=",
+            "ASSIGN": "=",
             "expr": {
               "term": {
                 "INTEGER_CONST": "0"
@@ -94,7 +94,7 @@
                       ]
                     },
                     "RBRACKET": "]",
-                    "EQUAL": "=",
+                    "ASSIGN": "=",
                     "expr": {
                       "term": {
                         "INTEGER_CONST": "10"
@@ -110,7 +110,7 @@
                       "varleft": {
                         "ID": "i"
                       },
-                      "EQUAL": "=",
+                      "ASSIGN": "=",
                       "expr": {
                         "term": {
                           "INTEGER_CONST": "0"
@@ -126,7 +126,7 @@
                       },
                       "*": [
                         {
-                          "SMALLER": "<"
+                          "LT": "<"
                         },
                         {
                           "term": {
@@ -142,7 +142,7 @@
                         "varleft": {
                           "ID": "i"
                         },
-                        "EQUAL": "=",
+                        "ASSIGN": "=",
                         "expr": {
                           "term": {
                             "varref": {
@@ -253,7 +253,7 @@
                     "varleft": {
                       "ID": "pixelCounter"
                     },
-                    "EQUAL": "=",
+                    "ASSIGN": "=",
                     "expr": {
                       "term": {
                         "varref": {
@@ -297,7 +297,7 @@
                       "varleft": {
                         "ID": "i"
                       },
-                      "EQUAL": "=",
+                      "ASSIGN": "=",
                       "expr": {
                         "term": {
                           "INTEGER_CONST": "0"
@@ -313,7 +313,7 @@
                       },
                       "*": [
                         {
-                          "SMALLER": "<"
+                          "LT": "<"
                         },
                         {
                           "term": {
@@ -329,7 +329,7 @@
                         "varleft": {
                           "ID": "i"
                         },
-                        "EQUAL": "=",
+                        "ASSIGN": "=",
                         "expr": {
                           "term": {
                             "varref": {
@@ -406,7 +406,7 @@
                     "varleft": {
                       "ID": "pixelCounter"
                     },
-                    "EQUAL": "=",
+                    "ASSIGN": "=",
                     "expr": {
                       "term": {
                         "varref": {

@@ -165,109 +165,22 @@
                                 {
                                   "SEMI": ";"
                                 },
-                                {}
-                              ]
-                            },
-                            "END": "END"
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "procedure_declaration": {
-                        "PROCEDURE": "PROCEDURE",
-                        "ID": "Gamma",
-                        "LPAREN": "(",
-                        "formal_parameter_list": {
-                          "formal_parameters": {
-                            "ID": "a",
-                            "COLON": ":",
-                            "type_spec": {
-                              "INTEGER": "INTEGER"
-                            }
-                          },
-                          "*": [
-                            {
-                              "SEMI": ";"
-                            },
-                            {
-                              "formal_parameters": {
-                                "ID": "b",
-                                "COLON": ":",
-                                "type_spec": {
-                                  "INTEGER": "INTEGER"
-                                }
-                              }
-                            }
-                          ]
-                        },
-                        "RPAREN": ")",
-                        "SEMI": ";",
-                        "block": {
-                          "declarations": {
-                            "VAR": "VAR",
-                            "*": [
-                              {
-                                "variable_declaration": {
-                                  "ID": "x",
-                                  "COLON": ":",
-                                  "type_spec": {
-                                    "INTEGER": "INTEGER"
-                                  }
-                                }
-                              },
-                              {
-                                "SEMI": ";"
-                              },
-                              {},
-                              {}
-                            ]
-                          },
-                          "compound_statement": {
-                            "BEGIN": "BEGIN",
-                            "statement_list": {
-                              "assignment_statement": {
-                                "varleft": {
-                                  "ID": "x"
-                                },
-                                "ASSIGN": ":=",
-                                "expr": {
-                                  "term": {
-                                    "variable": {
-                                      "ID": "a"
-                                    },
-                                    "*": [
-                                      {
-                                        "MUL": "*"
-                                      },
-                                      {
-                                        "INTEGER_CONST": "10"
-                                      }
-                                    ]
-                                  },
-                                  "*": [
-                                    {
-                                      "PLUS": "+"
-                                    },
-                                    {
-                                      "term": {
-                                        "variable": {
-                                          "ID": "b"
-                                        },
-                                        "*": [
-                                          {
-                                            "MUL": "*"
-                                          },
-                                          {
-                                            "INTEGER_CONST": "2"
+                                {
+                                  "proccall_statement": {
+                                    "ID": "printf",
+                                    "LPAREN": "(",
+                                    "actual_parameter_list": {
+                                      "expr": {
+                                        "term": {
+                                          "variable": {
+                                            "ID": "x"
                                           }
-                                        ]
+                                        }
                                       }
-                                    }
-                                  ]
-                                }
-                              },
-                              "*": [
+                                    },
+                                    "RPAREN": ")"
+                                  }
+                                },
                                 {
                                   "SEMI": ";"
                                 },
@@ -327,6 +240,37 @@
                       }
                     },
                     "*": [
+                      {
+                        "SEMI": ";"
+                      },
+                      {
+                        "proccall_statement": {
+                          "ID": "printf",
+                          "LPAREN": "(",
+                          "actual_parameter_list": {
+                            "expr": {
+                              "term": {
+                                "variable": {
+                                  "ID": "x"
+                                }
+                              }
+                            },
+                            "*": [
+                              {
+                                "COMMA": ","
+                              },
+                              {
+                                "expr": {
+                                  "term": {
+                                    "INTEGER_CONST": "1"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "RPAREN": ")"
+                        }
+                      },
                       {
                         "SEMI": ";"
                       },

@@ -8,9 +8,9 @@ Parser PROGRAM PROGRAM
     fail variable
     assign 3
      varleft 4
-     ID pixelCounter -> [EQUAL =] 4
+     ID pixelCounter -> [ASSIGN =] 4
      success varleft
-     EQUAL = -> [INTEGER_CONST 0] 4
+     ASSIGN = -> [INTEGER_CONST 0] 4
      expr 4
       term 5
        factor 6
@@ -108,9 +108,9 @@ Parser PROGRAM PROGRAM
         fail variable
         assign 7
          varleft 8
-         ID pixelCounter -> [EQUAL =] 8
+         ID pixelCounter -> [ASSIGN =] 8
          success varleft
-         EQUAL = -> [ID pixelCounter] 8
+         ASSIGN = -> [ID pixelCounter] 8
          expr 8
           term 9
            factor 10
@@ -189,9 +189,9 @@ Parser PROGRAM PROGRAM
  remove multiple key
  success block
 Symbol program Parsed until (10,1) 162 of 162
-par mem 7248 of 12152 12152 1 0 16
+par mem 7249 of 16200 16200 1 0 16
 prog size 162 factor 44
-par mem 2096 of 12152 12152 1 0 16
+par mem 2097 of 16200 16200 1 0 16
 Destruct Lexer
 Destruct Parser
 
@@ -214,6 +214,7 @@ interpret ColorWalk 1 2
                VarRef ColorWalk.pixelCounter = 0 (push 1)
                  VarRef ColorWalk.pixelCounter = 0 (push 2)
             Call setPixelColor(0, 0)
+setPixelColor(0, 0)
                VarRef ColorWalk.pixelCounter = 0 (push 1)
                 PLUS + (Push 2)
                  INTEGER_CONST 1 (Push 3)
@@ -224,6 +225,7 @@ Destruct activation record renderFrame
                VarRef ColorWalk.pixelCounter = 1 (push 1)
                  VarRef ColorWalk.pixelCounter = 1 (push 2)
             Call setPixelColor(1, 1)
+setPixelColor(1, 1)
                VarRef ColorWalk.pixelCounter = 1 (push 1)
                 PLUS + (Push 2)
                  INTEGER_CONST 1 (Push 3)
@@ -233,4 +235,4 @@ Destruct activation record renderFrame
 Destruct callstack
 Destruct valueStack
 Destruct Interpreter
-def mem 7277 of 12192 12192 24 0 6
+def mem 7737 of 12192 12192 24 0 6

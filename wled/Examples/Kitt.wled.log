@@ -1,0 +1,869 @@
+Parser PROGRAM PROGRAM
+ PROGRAM PROGRAM -> [ID Kitt] 0
+ ID Kitt -> [LCURL {] 0
+ block 0
+  LCURL { -> [ID pixelCounter] 1
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     ID pixelCounter -> [ASSIGN =] 4
+     success varleft
+     ASSIGN = -> [INTEGER_CONST 0] 4
+     expr 4
+      term 5
+       factor 6
+        call 7
+        fail call
+        varref 7
+        fail varref
+        INTEGER_CONST 0 -> [ID goingUp] 7
+       success factor
+      remove multiple key
+      remove multiple empty
+      success term
+     remove multiple key
+     remove multiple empty
+     success expr
+    success assign
+   success statement
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     ID goingUp -> [ASSIGN =] 4
+     success varleft
+     ASSIGN = -> [INTEGER_CONST 1] 4
+     expr 4
+      term 5
+       factor 6
+        call 7
+        fail call
+        varref 7
+        fail varref
+        INTEGER_CONST 1 -> [FUNCTION FUNCTION] 7
+       success factor
+      remove multiple key
+      remove multiple empty
+      success term
+     remove multiple key
+     remove multiple empty
+     success expr
+    success assign
+   success statement
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     fail varleft
+    fail assign
+    function 3
+     FUNCTION FUNCTION -> [ID renderFrame] 4
+     ID renderFrame -> [LPAREN (] 4
+      LPAREN ( -> [RPAREN )] 5
+      formals 5
+       formal 6
+       fail formal
+      success formals
+      RPAREN ) -> [LCURL {] 5
+     block 4
+      LCURL { -> [IF IF] 5
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+        fail for
+        if 7
+         IF IF -> [LPAREN (] 8
+         LPAREN ( -> [ID pixelCounter] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID pixelCounter -> [GT >] 12
+            fail call
+            varref 11
+            ID pixelCounter -> [GT >] 11
+            success varref
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+            GT > -> [LPAREN (] 11
+           term 10
+            factor 11
+             call 12
+             fail call
+             varref 12
+             fail varref
+              LPAREN ( -> [ID ledCount] 13
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                  ID ledCount -> [MINUS -] 17
+                 fail call
+                 varref 16
+                 ID ledCount -> [MINUS -] 16
+                 success varref
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+                 MINUS - -> [INTEGER_CONST 5] 16
+                term 15
+                 factor 16
+                  call 17
+                  fail call
+                  varref 17
+                  fail varref
+                  INTEGER_CONST 5 -> [RPAREN )] 17
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+              remove multiple key
+              success expr
+              RPAREN ) -> [RPAREN )] 13
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+         remove multiple key
+         success expr
+         RPAREN ) -> [LCURL {] 8
+         block 8
+          LCURL { -> [ID goingUp] 9
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             ID goingUp -> [ASSIGN =] 12
+             success varleft
+             ASSIGN = -> [INTEGER_CONST 0] 12
+             expr 12
+              term 13
+               factor 14
+                call 15
+                fail call
+                varref 15
+                fail varref
+                INTEGER_CONST 0 -> [RCURL }] 15
+               success factor
+              remove multiple key
+              remove multiple empty
+              success term
+             remove multiple key
+             remove multiple empty
+             success expr
+            success assign
+           success statement
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             fail varleft
+            fail assign
+            function 11
+            fail function
+            call 11
+            fail call
+            for 11
+            fail for
+            if 11
+            fail if
+            block 11
+            fail block
+           fail statement
+          RCURL } -> [IF IF] 9
+         remove multiple key
+         success block
+        success if
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+        fail for
+        if 7
+         IF IF -> [LPAREN (] 8
+         LPAREN ( -> [ID pixelCounter] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID pixelCounter -> [EQ ==] 12
+            fail call
+            varref 11
+            ID pixelCounter -> [EQ ==] 11
+            success varref
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+            EQ == -> [INTEGER_CONST 0] 11
+           term 10
+            factor 11
+             call 12
+             fail call
+             varref 12
+             fail varref
+             INTEGER_CONST 0 -> [RPAREN )] 12
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+         remove multiple key
+         success expr
+         RPAREN ) -> [LCURL {] 8
+         block 8
+          LCURL { -> [ID goingUp] 9
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             ID goingUp -> [ASSIGN =] 12
+             success varleft
+             ASSIGN = -> [INTEGER_CONST 1] 12
+             expr 12
+              term 13
+               factor 14
+                call 15
+                fail call
+                varref 15
+                fail varref
+                INTEGER_CONST 1 -> [RCURL }] 15
+               success factor
+              remove multiple key
+              remove multiple empty
+              success term
+             remove multiple key
+             remove multiple empty
+             success expr
+            success assign
+           success statement
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             fail varleft
+            fail assign
+            function 11
+            fail function
+            call 11
+            fail call
+            for 11
+            fail for
+            if 11
+            fail if
+            block 11
+            fail block
+           fail statement
+          RCURL } -> [ID setPixelColor] 9
+         remove multiple key
+         success block
+        success if
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID setPixelColor -> [LPAREN (] 8
+         success varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+         ID setPixelColor -> [LPAREN (] 8
+         LPAREN ( -> [ID pixelCounter] 8
+         actuals 8
+          expr 9
+           term 10
+            factor 11
+             call 12
+              ID pixelCounter -> [COMMA ,] 13
+             fail call
+             varref 12
+             ID pixelCounter -> [COMMA ,] 12
+             success varref
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+          remove multiple key
+          remove multiple empty
+          success expr
+           COMMA , -> [ID pixelCounter] 10
+           expr 10
+            term 11
+             factor 12
+              call 13
+               ID pixelCounter -> [RPAREN )] 14
+              fail call
+              varref 13
+              ID pixelCounter -> [RPAREN )] 13
+              success varref
+             success factor
+            remove multiple key
+            remove multiple empty
+            success term
+           remove multiple key
+           remove multiple empty
+           success expr
+         remove multiple key
+         success actuals
+         RPAREN ) -> [IF IF] 8
+        success call
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+        fail for
+        if 7
+         IF IF -> [LPAREN (] 8
+         LPAREN ( -> [ID goingUp] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID goingUp -> [RPAREN )] 12
+            fail call
+            varref 11
+            ID goingUp -> [RPAREN )] 11
+            success varref
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+         remove multiple key
+         remove multiple empty
+         success expr
+         RPAREN ) -> [LCURL {] 8
+         block 8
+          LCURL { -> [ID setPixelColor] 9
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             ID setPixelColor -> [LPAREN (] 12
+             success varleft
+            fail assign
+            function 11
+            fail function
+            call 11
+             ID setPixelColor -> [LPAREN (] 12
+             LPAREN ( -> [ID pixelCounter] 12
+             actuals 12
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                  ID pixelCounter -> [MINUS -] 17
+                 fail call
+                 varref 16
+                 ID pixelCounter -> [MINUS -] 16
+                 success varref
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+                 MINUS - -> [INTEGER_CONST 5] 16
+                term 15
+                 factor 16
+                  call 17
+                  fail call
+                  varref 17
+                  fail varref
+                  INTEGER_CONST 5 -> [COMMA ,] 17
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+              remove multiple key
+              success expr
+               COMMA , -> [INTEGER_CONST 0] 14
+               expr 14
+                term 15
+                 factor 16
+                  call 17
+                  fail call
+                  varref 17
+                  fail varref
+                  INTEGER_CONST 0 -> [RPAREN )] 17
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+               remove multiple key
+               remove multiple empty
+               success expr
+             remove multiple key
+             success actuals
+             RPAREN ) -> [ID pixelCounter] 12
+            success call
+           success statement
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             ID pixelCounter -> [ASSIGN =] 12
+             success varleft
+             ASSIGN = -> [ID pixelCounter] 12
+             expr 12
+              term 13
+               factor 14
+                call 15
+                 ID pixelCounter -> [PLUS +] 16
+                fail call
+                varref 15
+                ID pixelCounter -> [PLUS +] 15
+                success varref
+               success factor
+              remove multiple key
+              remove multiple empty
+              success term
+                PLUS + -> [INTEGER_CONST 1] 15
+               term 14
+                factor 15
+                 call 16
+                 fail call
+                 varref 16
+                 fail varref
+                 INTEGER_CONST 1 -> [RCURL }] 16
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+             remove multiple key
+             success expr
+            success assign
+           success statement
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             fail varleft
+            fail assign
+            function 11
+            fail function
+            call 11
+            fail call
+            for 11
+            fail for
+            if 11
+            fail if
+            block 11
+            fail block
+           fail statement
+          RCURL } -> [ELSE ELSE] 9
+         remove multiple key
+         success block
+          ELSE ELSE -> [LCURL {] 9
+          elseBlock 9
+           block 10
+            LCURL { -> [ID setPixelColor] 11
+             statement 12
+              variable 13
+              fail variable
+              assign 13
+               varleft 14
+               ID setPixelColor -> [LPAREN (] 14
+               success varleft
+              fail assign
+              function 13
+              fail function
+              call 13
+               ID setPixelColor -> [LPAREN (] 14
+               LPAREN ( -> [ID pixelCounter] 14
+               actuals 14
+                expr 15
+                 term 16
+                  factor 17
+                   call 18
+                    ID pixelCounter -> [PLUS +] 19
+                   fail call
+                   varref 18
+                   ID pixelCounter -> [PLUS +] 18
+                   success varref
+                  success factor
+                 remove multiple key
+                 remove multiple empty
+                 success term
+                   PLUS + -> [INTEGER_CONST 5] 18
+                  term 17
+                   factor 18
+                    call 19
+                    fail call
+                    varref 19
+                    fail varref
+                    INTEGER_CONST 5 -> [COMMA ,] 19
+                   success factor
+                  remove multiple key
+                  remove multiple empty
+                  success term
+                remove multiple key
+                success expr
+                 COMMA , -> [INTEGER_CONST 0] 16
+                 expr 16
+                  term 17
+                   factor 18
+                    call 19
+                    fail call
+                    varref 19
+                    fail varref
+                    INTEGER_CONST 0 -> [RPAREN )] 19
+                   success factor
+                  remove multiple key
+                  remove multiple empty
+                  success term
+                 remove multiple key
+                 remove multiple empty
+                 success expr
+               remove multiple key
+               success actuals
+               RPAREN ) -> [ID pixelCounter] 14
+              success call
+             success statement
+             statement 12
+              variable 13
+              fail variable
+              assign 13
+               varleft 14
+               ID pixelCounter -> [ASSIGN =] 14
+               success varleft
+               ASSIGN = -> [ID pixelCounter] 14
+               expr 14
+                term 15
+                 factor 16
+                  call 17
+                   ID pixelCounter -> [MINUS -] 18
+                  fail call
+                  varref 17
+                  ID pixelCounter -> [MINUS -] 17
+                  success varref
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+                  MINUS - -> [INTEGER_CONST 1] 17
+                 term 16
+                  factor 17
+                   call 18
+                   fail call
+                   varref 18
+                   fail varref
+                   INTEGER_CONST 1 -> [RCURL }] 18
+                  success factor
+                 remove multiple key
+                 remove multiple empty
+                 success term
+               remove multiple key
+               success expr
+              success assign
+             success statement
+             statement 12
+              variable 13
+              fail variable
+              assign 13
+               varleft 14
+               fail varleft
+              fail assign
+              function 13
+              fail function
+              call 13
+              fail call
+              for 13
+              fail for
+              if 13
+              fail if
+              block 13
+              fail block
+             fail statement
+            RCURL } -> [RCURL }] 11
+           remove multiple key
+           success block
+          success elseBlock
+        success if
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+        fail for
+        if 7
+        fail if
+        block 7
+        fail block
+       fail statement
+      RCURL } -> [RCURL }] 5
+     remove multiple key
+     success block
+    success function
+   success statement
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     fail varleft
+    fail assign
+    function 3
+    fail function
+    call 3
+    fail call
+    for 3
+    fail for
+    if 3
+    fail if
+    block 3
+    fail block
+   fail statement
+  RCURL } 1
+ remove multiple key
+ success block
+Symbol program Parsed until (24,1) 463 of 463
+par mem 15674 of 46304 46304 1 0 24
+prog size 463 factor 33
+par mem 8314 of 46304 46304 1 0 24
+Destruct Lexer
+Destruct Parser
+
+Analyzer
+ Program Kitt 1 0
+     Assign pixelCounter = {value (not of interest during analyze...)}
+     Var (assign) Kitt.pixelCounter of notype
+     Assign goingUp = {value (not of interest during analyze...)}
+     Var (assign) Kitt.goingUp of notype
+     Function Kitt.renderFrame
+              Assign goingUp = {value (not of interest during analyze...)}
+              Assign goingUp = {value (not of interest during analyze...)}
+              Assign pixelCounter = {value (not of interest during analyze...)}
+               Assign pixelCounter = {value (not of interest during analyze...)}
+ 0 Assign Kitt.pixelCounter notype 1
+ 1 Assign Kitt.goingUp notype 1
+ 2 Function Kitt.renderFrame  1
+
+interpret Kitt 1 3
+ program name ID
+ Program Kitt Kitt
+         INTEGER_CONST 0 (Push 1)
+     Kitt.pixelCounter := 0 (pop 0)
+         INTEGER_CONST 1 (Push 1)
+     Kitt.goingUp := 1 (pop 0)
+     Save block of renderFrame
+         Call renderFrame (1)
+             If (0)
+             if condition 
+                 VarRef Kitt.pixelCounter = 0 (push 1)
+                 GT > (Push 2)
+                      VarRef ext.ledCount = 3 (push 3)
+                      MINUS - (Push 4)
+                        INTEGER_CONST 5 (Push 5)
+                   3 - 5 = -2 (push 3)
+              0 > -2 = 1 (push 1)
+             (pop 0)
+                      INTEGER_CONST 0 (Push 1)
+                  Kitt.goingUp := 0 (pop 0)
+             If (0)
+             if condition 
+                 VarRef Kitt.pixelCounter = 0 (push 1)
+                 EQ == (Push 2)
+                   INTEGER_CONST 0 (Push 3)
+              0 == 0 = 1 (push 1)
+             (pop 0)
+                      INTEGER_CONST 1 (Push 1)
+                  Kitt.goingUp := 1 (pop 0)
+                 VarRef Kitt.pixelCounter = 0 (push 1)
+                   VarRef Kitt.pixelCounter = 0 (push 2)
+             Call setPixelColor(0, 0)
+setPixelColor(0, 0)
+             If (0)
+             if condition 
+                 VarRef Kitt.goingUp = 1 (push 1)
+             (pop 0)
+                      VarRef Kitt.pixelCounter = 0 (push 1)
+                      MINUS - (Push 2)
+                        INTEGER_CONST 5 (Push 3)
+                   0 - 5 = -5 (push 1)
+                        INTEGER_CONST 0 (Push 2)
+                  Call setPixelColor(-5, 0)
+setPixelColor(-5, 0)
+                      VarRef Kitt.pixelCounter = 0 (push 1)
+                      PLUS + (Push 2)
+                        INTEGER_CONST 1 (Push 3)
+                   0 + 1 = 1 (push 1)
+                  Kitt.pixelCounter := 1 (pop 0)
+Destruct activation record renderFrame
+         Call renderFrame (1)
+             If (0)
+             if condition 
+                 VarRef Kitt.pixelCounter = 1 (push 1)
+                 GT > (Push 2)
+                      VarRef ext.ledCount = 3 (push 3)
+                      MINUS - (Push 4)
+                        INTEGER_CONST 5 (Push 5)
+                   3 - 5 = -2 (push 3)
+              1 > -2 = 1 (push 1)
+             (pop 0)
+                      INTEGER_CONST 0 (Push 1)
+                  Kitt.goingUp := 0 (pop 0)
+             If (0)
+             if condition 
+                 VarRef Kitt.pixelCounter = 1 (push 1)
+                 EQ == (Push 2)
+                   INTEGER_CONST 0 (Push 3)
+              1 == 0 = 0 (push 1)
+             (pop 0)
+                 VarRef Kitt.pixelCounter = 1 (push 1)
+                   VarRef Kitt.pixelCounter = 1 (push 2)
+             Call setPixelColor(1, 1)
+setPixelColor(1, 1)
+             If (0)
+             if condition 
+                 VarRef Kitt.goingUp = 0 (push 1)
+             (pop 0)
+                       VarRef Kitt.pixelCounter = 1 (push 1)
+                       PLUS + (Push 2)
+                         INTEGER_CONST 5 (Push 3)
+                    1 + 5 = 6 (push 1)
+                         INTEGER_CONST 0 (Push 2)
+                   Call setPixelColor(6, 0)
+setPixelColor(6, 0)
+                       VarRef Kitt.pixelCounter = 1 (push 1)
+                       MINUS - (Push 2)
+                         INTEGER_CONST 1 (Push 3)
+                    1 - 1 = 0 (push 1)
+                   Kitt.pixelCounter := 0 (pop 0)
+Destruct activation record renderFrame
+         Call renderFrame (1)
+             If (0)
+             if condition 
+                 VarRef Kitt.pixelCounter = 0 (push 1)
+                 GT > (Push 2)
+                      VarRef ext.ledCount = 3 (push 3)
+                      MINUS - (Push 4)
+                        INTEGER_CONST 5 (Push 5)
+                   3 - 5 = -2 (push 3)
+              0 > -2 = 1 (push 1)
+             (pop 0)
+                      INTEGER_CONST 0 (Push 1)
+                  Kitt.goingUp := 0 (pop 0)
+             If (0)
+             if condition 
+                 VarRef Kitt.pixelCounter = 0 (push 1)
+                 EQ == (Push 2)
+                   INTEGER_CONST 0 (Push 3)
+              0 == 0 = 1 (push 1)
+             (pop 0)
+                      INTEGER_CONST 1 (Push 1)
+                  Kitt.goingUp := 1 (pop 0)
+                 VarRef Kitt.pixelCounter = 0 (push 1)
+                   VarRef Kitt.pixelCounter = 0 (push 2)
+             Call setPixelColor(0, 0)
+setPixelColor(0, 0)
+             If (0)
+             if condition 
+                 VarRef Kitt.goingUp = 1 (push 1)
+             (pop 0)
+                      VarRef Kitt.pixelCounter = 0 (push 1)
+                      MINUS - (Push 2)
+                        INTEGER_CONST 5 (Push 3)
+                   0 - 5 = -5 (push 1)
+                        INTEGER_CONST 0 (Push 2)
+                  Call setPixelColor(-5, 0)
+setPixelColor(-5, 0)
+                      VarRef Kitt.pixelCounter = 0 (push 1)
+                      PLUS + (Push 2)
+                        INTEGER_CONST 1 (Push 3)
+                   0 + 1 = 1 (push 1)
+                  Kitt.pixelCounter := 1 (pop 0)
+Destruct activation record renderFrame
+         Call renderFrame (1)
+             If (0)
+             if condition 
+                 VarRef Kitt.pixelCounter = 1 (push 1)
+                 GT > (Push 2)
+                      VarRef ext.ledCount = 3 (push 3)
+                      MINUS - (Push 4)
+                        INTEGER_CONST 5 (Push 5)
+                   3 - 5 = -2 (push 3)
+              1 > -2 = 1 (push 1)
+             (pop 0)
+                      INTEGER_CONST 0 (Push 1)
+                  Kitt.goingUp := 0 (pop 0)
+             If (0)
+             if condition 
+                 VarRef Kitt.pixelCounter = 1 (push 1)
+                 EQ == (Push 2)
+                   INTEGER_CONST 0 (Push 3)
+              1 == 0 = 0 (push 1)
+             (pop 0)
+                 VarRef Kitt.pixelCounter = 1 (push 1)
+                   VarRef Kitt.pixelCounter = 1 (push 2)
+             Call setPixelColor(1, 1)
+setPixelColor(1, 1)
+             If (0)
+             if condition 
+                 VarRef Kitt.goingUp = 0 (push 1)
+             (pop 0)
+                       VarRef Kitt.pixelCounter = 1 (push 1)
+                       PLUS + (Push 2)
+                         INTEGER_CONST 5 (Push 3)
+                    1 + 5 = 6 (push 1)
+                         INTEGER_CONST 0 (Push 2)
+                   Call setPixelColor(6, 0)
+setPixelColor(6, 0)
+                       VarRef Kitt.pixelCounter = 1 (push 1)
+                       MINUS - (Push 2)
+                         INTEGER_CONST 1 (Push 3)
+                    1 - 1 = 0 (push 1)
+                   Kitt.pixelCounter := 0 (pop 0)
+Destruct activation record renderFrame
+Destruct callstack
+Destruct valueStack
+Destruct Interpreter
+def mem 7729 of 12192 12192 24 0 6

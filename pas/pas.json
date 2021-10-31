@@ -1,5 +1,5 @@
 {
-  "meta": {"version": "0.0.3", "start":"program"},
+  "meta": {"version": "0.0.4", "start":"program"},
   "program": [
     "PROGRAM",
     "ID",
@@ -116,7 +116,7 @@
     "variable_declaration": {"id":"Var", "name":"ID", "type": "type_spec"},
     "variable": {"id":"VarRef", "name":"ID"},
     "assignment_statement": {"id":"Assign", "name":"varleft", "value":"expr"},
-    "for_loop": {"id":"For", "from":"assignment_statement", "to":"expr", "block":"compound_statement"},
+    "for_loop": {"id":"For", "from":"assignment_statement", "condition":"expr", "block":"compound_statement"},
     "expr": {"id":"Expr"},
     "term": {"id":"Term"}
   },

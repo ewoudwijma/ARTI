@@ -37,9 +37,9 @@ Parser PROGRAM PROGRAM
          LPAREN ( -> [ID i] 8
          assign 8
           varleft 9
-          ID i -> [EQUAL =] 9
+          ID i -> [ASSIGN =] 9
           success varleft
-          EQUAL = -> [INTEGER_CONST 0] 9
+          ASSIGN = -> [INTEGER_CONST 0] 9
           expr 9
            term 10
             factor 11
@@ -62,17 +62,17 @@ Parser PROGRAM PROGRAM
           term 9
            factor 10
             call 11
-             ID i -> [SMALLER <] 12
+             ID i -> [LT <] 12
             fail call
             varref 11
-            ID i -> [SMALLER <] 11
+            ID i -> [LT <] 11
             success varref
            symbol to shrink factor
            success factor
           remove multiple key
           remove multiple empty
           success term
-            SMALLER < -> [ID ledCount] 11
+            LT < -> [ID ledCount] 11
            term 10
             factor 11
              call 12
@@ -92,9 +92,9 @@ Parser PROGRAM PROGRAM
          increment 8
           assign 9
            varleft 10
-           ID i -> [EQUAL =] 10
+           ID i -> [ASSIGN =] 10
            success varleft
-           EQUAL = -> [ID i] 10
+           ASSIGN = -> [ID i] 10
            expr 10
             term 11
              factor 12
@@ -134,9 +134,9 @@ Parser PROGRAM PROGRAM
             fail variable
             assign 11
              varleft 12
-             ID color -> [EQUAL =] 12
+             ID color -> [ASSIGN =] 12
              success varleft
-             EQUAL = -> [ID random] 12
+             ASSIGN = -> [ID random] 12
              expr 12
               term 13
                factor 14
@@ -293,9 +293,9 @@ Parser PROGRAM PROGRAM
  remove multiple key
  success block
 Symbol program Parsed until (9,1) 168 of 168
-par mem 13234 of 16800 16800 1 0 20
+par mem 13230 of 16800 16800 1 0 20
 prog size 168 factor 78
-par mem 3186 of 16800 16800 1 0 20
+par mem 3182 of 16800 16800 1 0 20
 Destruct Lexer
 Destruct Parser
 
@@ -323,7 +323,7 @@ interpret ColorRandom 1 1
             iteration
             check to condition
                VarRef renderFrame.i = 0 (push 1)
-                SMALLER < (Push 2)
+                LT < (Push 2)
                  VarRef ext.ledCount = 3 (push 3)
              0 < 3 = 1 (push 1)
             (pop 0)
@@ -333,6 +333,7 @@ interpret ColorRandom 1 1
                   VarRef renderFrame.i = 0 (push 1)
                     VarRef renderFrame.color = 41 (push 2)
                Call setPixelColor(0, 41)
+setPixelColor(0, 41)
             assign next value
                 VarRef renderFrame.i = 0 (push 1)
                  PLUS + (Push 2)
@@ -342,7 +343,7 @@ interpret ColorRandom 1 1
             iteration
             check to condition
                VarRef renderFrame.i = 1 (push 1)
-                SMALLER < (Push 2)
+                LT < (Push 2)
                  VarRef ext.ledCount = 3 (push 3)
              1 < 3 = 1 (push 1)
             (pop 0)
@@ -352,6 +353,7 @@ interpret ColorRandom 1 1
                   VarRef renderFrame.i = 1 (push 1)
                     VarRef renderFrame.color = 18467 (push 2)
                Call setPixelColor(1, 18467)
+setPixelColor(1, 18467)
             assign next value
                 VarRef renderFrame.i = 1 (push 1)
                  PLUS + (Push 2)
@@ -361,7 +363,7 @@ interpret ColorRandom 1 1
             iteration
             check to condition
                VarRef renderFrame.i = 2 (push 1)
-                SMALLER < (Push 2)
+                LT < (Push 2)
                  VarRef ext.ledCount = 3 (push 3)
              2 < 3 = 1 (push 1)
             (pop 0)
@@ -371,6 +373,7 @@ interpret ColorRandom 1 1
                   VarRef renderFrame.i = 2 (push 1)
                     VarRef renderFrame.color = 6334 (push 2)
                Call setPixelColor(2, 6334)
+setPixelColor(2, 6334)
             assign next value
                 VarRef renderFrame.i = 2 (push 1)
                  PLUS + (Push 2)
@@ -380,7 +383,7 @@ interpret ColorRandom 1 1
             iteration
             check to condition
                VarRef renderFrame.i = 3 (push 1)
-                SMALLER < (Push 2)
+                LT < (Push 2)
                  VarRef ext.ledCount = 3 (push 3)
              3 < 3 = 0 (push 1)
             (pop 0)
@@ -394,7 +397,7 @@ Destruct activation record renderFrame
             iteration
             check to condition
                VarRef renderFrame.i = 0 (push 1)
-                SMALLER < (Push 2)
+                LT < (Push 2)
                  VarRef ext.ledCount = 3 (push 3)
              0 < 3 = 1 (push 1)
             (pop 0)
@@ -404,6 +407,7 @@ Destruct activation record renderFrame
                   VarRef renderFrame.i = 0 (push 1)
                     VarRef renderFrame.color = 26500 (push 2)
                Call setPixelColor(0, 26500)
+setPixelColor(0, 26500)
             assign next value
                 VarRef renderFrame.i = 0 (push 1)
                  PLUS + (Push 2)
@@ -413,7 +417,7 @@ Destruct activation record renderFrame
             iteration
             check to condition
                VarRef renderFrame.i = 1 (push 1)
-                SMALLER < (Push 2)
+                LT < (Push 2)
                  VarRef ext.ledCount = 3 (push 3)
              1 < 3 = 1 (push 1)
             (pop 0)
@@ -423,6 +427,7 @@ Destruct activation record renderFrame
                   VarRef renderFrame.i = 1 (push 1)
                     VarRef renderFrame.color = 19169 (push 2)
                Call setPixelColor(1, 19169)
+setPixelColor(1, 19169)
             assign next value
                 VarRef renderFrame.i = 1 (push 1)
                  PLUS + (Push 2)
@@ -432,7 +437,7 @@ Destruct activation record renderFrame
             iteration
             check to condition
                VarRef renderFrame.i = 2 (push 1)
-                SMALLER < (Push 2)
+                LT < (Push 2)
                  VarRef ext.ledCount = 3 (push 3)
              2 < 3 = 1 (push 1)
             (pop 0)
@@ -442,6 +447,7 @@ Destruct activation record renderFrame
                   VarRef renderFrame.i = 2 (push 1)
                     VarRef renderFrame.color = 15724 (push 2)
                Call setPixelColor(2, 15724)
+setPixelColor(2, 15724)
             assign next value
                 VarRef renderFrame.i = 2 (push 1)
                  PLUS + (Push 2)
@@ -451,7 +457,7 @@ Destruct activation record renderFrame
             iteration
             check to condition
                VarRef renderFrame.i = 3 (push 1)
-                SMALLER < (Push 2)
+                LT < (Push 2)
                  VarRef ext.ledCount = 3 (push 3)
              3 < 3 = 0 (push 1)
             (pop 0)
@@ -460,4 +466,4 @@ Destruct activation record renderFrame
 Destruct callstack
 Destruct valueStack
 Destruct Interpreter
-def mem 7277 of 12192 12192 24 0 6
+def mem 7737 of 12192 12192 24 0 6

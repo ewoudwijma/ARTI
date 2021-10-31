@@ -9,18 +9,14 @@ var x : integer;
    var x : integer;
    begin
       x := a * 10 + b * 2;
-   end;
-
-   procedure Gamma(a : integer; b : integer);
-   var x : integer;
-   begin
-      x := a * 10 + b * 2;
+      printf(x);
    end;
 
 begin
    x := (a + b ) * 2;
+   printf(x,1);
 
-   Beta(5, 10);      
+   Beta(5, 10);
 end;
 
 begin 

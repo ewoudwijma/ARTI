@@ -23,7 +23,7 @@
                       "varleft": {
                         "ID": "i"
                       },
-                      "EQUAL": "=",
+                      "ASSIGN": "=",
                       "expr": {
                         "term": {
                           "INTEGER_CONST": "0"
@@ -39,7 +39,7 @@
                       },
                       "*": [
                         {
-                          "SMALLER": "<"
+                          "LT": "<"
                         },
                         {
                           "term": {
@@ -55,7 +55,7 @@
                         "varleft": {
                           "ID": "i"
                         },
-                        "EQUAL": "=",
+                        "ASSIGN": "=",
                         "expr": {
                           "term": {
                             "varref": {
@@ -84,7 +84,7 @@
                             "varleft": {
                               "ID": "color"
                             },
-                            "EQUAL": "=",
+                            "ASSIGN": "=",
                             "expr": {
                               "term": {
                                 "call": {

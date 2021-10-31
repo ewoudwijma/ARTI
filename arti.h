@@ -1,66 +1,105 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti.h
-   @version 0.0.3
-   @date    20211017
+   @version 0.0.4
+   @date    20211030
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
    @remarks
           - #define ARDUINOJSON_DEFAULT_NESTING_LIMIT 100 //set this in ArduinoJson!!!, currently not necessary...
-   @done
+          - IF UPDATING THIS FILE IN THE WLED REPO, SEND A PULL REQUEST TO https://github.com/ewoudwijma/ARTI AS WELL!!!
    @later
-          - expression[""]  variables
-          - add comments
-          - add print
-          - Add real
-          - Add div
-          - Add <=, >=, ++, --
+          - Code improvememt
+            - expression[""]  variables
+            - remove std::string (now only in logging)
+            - move code from interpreter to analyzer to speed up interpreting
+            - initialize * to nullptr
+            - See for some weird reason this causes a crash on esp32
+            - remove error classes
+            - Code review (memory leaks, wled: select effect multiple times causes crash)
+            - Embedded: run all demos at once (not working well for some reason)
+            - tried SEGENV.aux0 but that looks to be overwritten!!! (dangling pointer???)
+          - Definition improvements
+            - add comments
+            - Add real
+            - Add div
+            - support string (e.g. for print)
+            - add integer and real stacks
+            - Add ++, --, +=, -=
+            - print every x seconds (to use it in loops. e.g. to show free memory)
+          - WLED improvements
+            - WLED: *arti in SEGENV.data
+            - WLED: add more functions
+            - WLED: ledCount to SEGLEN (now _virtualSegmentLength not found...)
+            - wled plugin include setup and loop...
+            - upload files in wled ui (instead of /edit)
+            - add sliders
+   @done
+          - wled plugin
+          - add define to enable the right plugin (now wled hardcoded)
+          - Add <=, >=, ==, !=
           - if-statement
-          - Code review (memory leaks, wled: select effect multiple times causes crash)
-          - WLED: *arti in SEGENV.data
-          - Embedded: run all demos at once (not working well for some reason)
-          - WLED: add more functions
-          - WLED: ledcount to SEGLEN (now _virtualSegmentLength not found...)
-          - remove std::string (now only in logging)
-          - add integer and real stacks
-          - deploy on mac
-          - move code from interpreter to analyzer to speed up interpreting
-          - initialize * to nullptr
-   @progress
+          - colorwalk -> default.wled
           - KITT demo
-          - wled plugin (include setup and loop...)
-          - for some weird reason this causes a crash on esp32
-   @todo
+          - move wled stuff to wled folder (before commit)
+          - check what happens in wled if no def and program file uploaded
+          - if error then blink 
+          - no parsetree file save on arduino
+          - add print integers
+   @progress
           - 
+   @todo
+          - Shrink unused parseTree levels causes crash on arduino (now if false)
   */
 
 #pragma once
 
-#ifdef ESP32 //want to use a WLED variable here, but WLED_H is set in wled.h...
-  #include "arti_wled_plugin.h"
+#ifdef ESP32 //ESP32 is set in wled context
+  #include "wled.h" //setting WLED_H, see below
 #endif
 
-#ifdef WLED_H
+// For testing porposes, definitions should not only run on Arduino but also on Windows etc. 
+// Because compiling on arduino takes seriously more time than on Windows.
+// The plugin.h files replace native arduino calls by windows simulated calls (e.g. setPixelColor will become printf)
+#define ARTI_WLED 1
+#define ARTI_PAS 2
+#define ARTI_ARDUINO 3
+#define ARTI_EMBEDDED 4
+#define ARTI_SERIAL 5
+#define ARTI_FILE 6
+
+#define ARTI_DEFINITION ARTI_WLED // currently also pas runs fine on this as it has no own functions and variables
+// #define ARTI_DEFINITION ARTI_PAS
+#ifdef WLED_H // (set in wled.h) small trick to set ARDUINO using WLED context, in other contexts, set manually or find another trick
+  #define ARTI_PLATFORM ARTI_ARDUINO // else on Windows/Linux/Mac...
+#endif
+
+#if ARTI_PLATFORM == ARTI_ARDUINO
+  #include "wled.h"
   #include "src/dependencies/json/ArduinoJson-v6.h"
-  #define ARTI_SERIALORFILE 1
-  #define ARTI_ERROR 1
+  #define ARTI_OUTPUT ARTI_SERIAL //print output to serial
+  #define ARTI_ERROR 1 //shows lexer, parser, analyzer and interpreter errors
   // #define ARTI_DEBUG 1
-  #define ARTI_MEMORY 1
+  // #define ARTI_RUNLOG 1 //if set on arduino this will create massive amounts of output (as ran in a loop)
+  #define ARTI_MEMORY 1 //to do analyses of memory usage, trace memoryleaks
+  // #define ARTI_PRINT 1 //will show the printf calls
 #else //embedded
+  #include "dependencies/ArduinoJson-recent.h"
+  #define ARTI_OUTPUT ARTI_FILE //print output to file (e.g. default.wled.log)
   #define ARTI_ERROR 1
   #define ARTI_DEBUG 1
   #define ARTI_RUNLOG 1
-  #include "ArduinoJson-recent.h"
+  #define ARTI_PRINT 1
 #endif
 
-#ifdef ARTI_SERIALORFILE
-  #ifdef ESP32
+#if ARTI_OUTPUT == ARTI_SERIAL
+  #if ARTI_PLATFORM == ARTI_ARDUINO
     #define OUTPUT_ARTI(...) Serial.printf(__VA_ARGS__)
   #else
     #define OUTPUT_ARTI printf
   #endif
 #else
-  #ifdef ESP32
+  #if ARTI_PLATFORM == ARTI_ARDUINO
     File logFile;
     #define OUTPUT_ARTI(...) logFile.printf(__VA_ARGS__)
   #else
@@ -81,6 +120,12 @@
     #define RUNLOG_ARTI(...)
 #endif
 
+#ifdef ARTI_PRINT
+    #define PRINT_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
+#else
+    #define PRINT_ARTI(...)
+#endif
+
 #ifdef ARTI_ERROR
     #define ERROR_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
 #else
@@ -93,10 +138,18 @@
     #define MEMORY_ARTI(...)
 #endif
 
+#if ARTI_DEFINITION == ARTI_WLED
+  #if ARTI_PLATFORM == ARTI_ARDUINO
+    #include "arti_wled_plugin.h"
+  #else
+    #include "wled/arti_wled_plugin.h"
+  #endif
+#endif
+
 #define charLength 30
 #define arrayLength 30
 
-#ifdef ESP32
+#if ARTI_PLATFORM == ARTI_ARDUINO
   const char spaces[51] PROGMEM = "                                                  ";
 #else
   #include <iostream>
@@ -428,30 +481,37 @@ class Parser {
     DEBUG_ARTI("Destruct Parser\n");
   }
 
-  void parse() {
+  bool parse() {
     JsonObject::iterator objectIterator = lexer->definitionJson.begin();
 
     DEBUG_ARTI("Parser %s %s\n", this->current_token->type, this->current_token->value);
 
     JsonObject metaData = objectIterator->value();
     const char * version = metaData["version"];
-    if (strcmp(version, "0.0.3") < 0)
-      ERROR_ARTI("Parser: Version of definition file (%s %d) should be 0.0.4 or higher\n", version, strcmp(version, "0.0.3"));
+    if (strcmp(version, "0.0.4") < 0) {
+      ERROR_ARTI("Parser: Version of definition file (%s) should be 0.0.4 or higher\n", version);
+      return false;
+    }
     else {
       const char * startSymbol = metaData["start"];
       if (startSymbol != nullptr) {
         uint8_t result = visit(parseTreeJson, startSymbol, '&', lexer->definitionJson[startSymbol], 0);
 
-        if (this->lexer->pos != strlen(this->lexer->text))
+        if (this->lexer->pos != strlen(this->lexer->text)) {
           ERROR_ARTI("Symbol %s Program not entirely parsed (%u,%u) %u of %u\n", startSymbol, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text));
-        else if (result == ResultFail)
+          return false;
+        }
+        else if (result == ResultFail) {
           ERROR_ARTI("Symbol %s Program parsing failed (%u,%u) %u of %u\n", startSymbol, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text));
+          return false;
+        }
         else
           DEBUG_ARTI("Symbol %s Parsed until (%u,%u) %u of %u\n", startSymbol, this->lexer->lineno, this->lexer->column, this->lexer->pos, strlen(this->lexer->text));
       }
       else
         ERROR_ARTI("Parser: No start symbol found in definition file\n");
     }
+    return true;
   }
 
     Token *get_next_token() {
@@ -686,7 +746,7 @@ class Parser {
             //make the parsetree as small as possible to let the interpreter run as fast as possible:
             //for each symbol
             //- check if * multiple is one of the elements, if only "multiple" then remove all, otherwise only multiple element
-            //- check if a symbol is not used in analyzer / interpreter and ha only one element: go to the parent and replace itself with its child
+            //- check if a symbol is not used in analyzer / interpreter and has only one element: go to the parent and replace itself with its child (shrink)
 
             if (nextParseTree.is<JsonObject>()) { //Symbols trees are always objects e.g. {"term": {"factor": {"varref": {..}},"*": ["multiple"]}}
               for (JsonPair symbolObjectPair : nextParseTree.as<JsonObject>()) {
@@ -713,7 +773,7 @@ class Parser {
                 } //if symbol object has object
 
                 //symbolObjectKey should be a symbol on itself and the value must consist of one element
-                if (!lexer->definitionJson[symbolObjectKey].isNull() && symbolObjectValue.size()==1) {
+                if (false && !lexer->definitionJson[symbolObjectKey].isNull() && symbolObjectValue.size()==1) { //disabled as causing crash on Arduino
 
                   bool found = false;
                   for (JsonPair semanticsPair : lexer->definitionJson["SEMANTICS"].as<JsonObject>()) {
@@ -726,7 +786,6 @@ class Parser {
                       break;
                     }
                     for (JsonPair semanticsVariables : semanticsValue.as<JsonObject>()) {
-                      const char * variableKey = semanticsVariables.key().c_str();
                       JsonVariant variableValue = semanticsVariables.value();
                       // DEBUG_ARTI(" %s", variableValue.as<std::string>().c_str());
                       if (variableValue.is<const char *>() && strcmp(symbolObjectKey, variableValue.as<const char *>()) == 0) {
@@ -961,10 +1020,12 @@ class SemanticAnalyzer {
                   visit(value[expression_block], nullptr, symbol_name, token, this->global_scope, depth + 1);
                 }
 
-                for (uint8_t i=0; i<global_scope->symbolsIndex; i++) {
-                  Symbol* symbol = global_scope->symbols[i];
-                  DEBUG_ARTI("%s %u %s %s.%s %s %u\n", spaces+50-depth, i, symbol->symbol_type, global_scope->scope_name, symbol->name, symbol->type, symbol->scope_level); 
-                }
+                #ifdef ARTI_DEBUG
+                  for (uint8_t i=0; i<global_scope->symbolsIndex; i++) {
+                    Symbol* symbol = global_scope->symbols[i];
+                    DEBUG_ARTI("%s %u %s %s.%s %s %u\n", spaces+50-depth, i, symbol->symbol_type, global_scope->scope_name, symbol->name, symbol->type, symbol->scope_level); 
+                  }
+                #endif
 
                 visitCalledAlready = true;
               }
@@ -992,10 +1053,12 @@ class SemanticAnalyzer {
 
                 // DEBUG_ARTI("%s\n", spaces+50-depth, "end function ", symbol_name, function_scope->scope_name, function_scope->scope_level, function_scope->symbolsIndex); 
 
-                for (uint8_t i=0; i<function_scope->symbolsIndex; i++) {
-                  Symbol* symbol = function_scope->symbols[i];
-                  DEBUG_ARTI("%s %u %s %s.%s %s %u\n", spaces+50-depth, i, symbol->symbol_type, function_scope->scope_name, symbol->name, symbol->type, symbol->scope_level); 
-                }
+                #ifdef ARTI_DEBUG
+                  for (uint8_t i=0; i<function_scope->symbolsIndex; i++) {
+                    Symbol* symbol = function_scope->symbols[i];
+                    DEBUG_ARTI("%s %u %s %s.%s %s %u\n", spaces+50-depth, i, symbol->symbol_type, function_scope->scope_name, symbol->name, symbol->type, symbol->scope_level); 
+                  }
+                #endif
 
                 visitCalledAlready = true;
               }
@@ -1304,7 +1367,7 @@ class Interpreter {
     RUNLOG_ARTI("Destruct Interpreter\n");
   }
 
-  void interpret(const char * function_name = nullptr) {
+  bool interpret(const char * function_name = nullptr) {
     this->function_name = function_name;
 
     if (function_name == nullptr) {
@@ -1317,6 +1380,7 @@ class Interpreter {
       else
       {
         ERROR_ARTI("\nInterpret global scope is nullptr\n");
+        return false;
       }
     }
     else { //Call only function_name (no parameters)
@@ -1349,6 +1413,7 @@ class Interpreter {
       }
 
     }
+    return true;
 
   } //interpret
 
@@ -1417,41 +1482,32 @@ class Interpreter {
                 for (JsonPair externalsPair: analyzer->definitionJson["EXTERNALS"].as<JsonObject>()) {
                   if (strcmp(function_name, externalsPair.key().c_str()) == 0) {
                     uint8_t oldIndex = valueStack->stack_index;
-                    uint8_t lastIndex = valueStack->stack_index;
 
                     visit(value[expression["actuals"].as<const char *>()], nullptr, symbol_name, token, current_scope, depth + 1);
 
                     char returnValue[charLength] = "";
 
-                    #ifdef WLED_H
-                      wled_functions(returnValue, function_name, this->valueStack->stack[lastIndex], this->valueStack->stack[lastIndex+1]);
-                    #else
-                      if (strcmp(function_name, "random") == 0)
-                        itoa(rand(), returnValue, 10);
-                      if (strcmp(function_name, "array") == 0)
-                        strcpy(returnValue, "array return tbd");
-                    #endif
-
-                    #ifndef WLED_H
+                    #if ARTI_PLATFORM != ARTI_ARDUINO
+                      uint8_t lastIndex = oldIndex;
                       RUNLOG_ARTI("%s Call %s(", spaces+50-depth, function_name);
                       char sep[3] = "";
-                    #endif
-                    for (JsonPair actualsPair: externalsPair.value().as<JsonObject>()) {
-                      const char * name = actualsPair.key().c_str();
-                      // JsonVariant type = actualsPair.value();
-                      if (strcmp(name, "return") != 0) {
-                        #ifndef WLED_H
-                          RUNLOG_ARTI("%s%s", sep, this->valueStack->stack[lastIndex++]);
+                      for (JsonPair actualsPair: externalsPair.value().as<JsonObject>()) {
+                        const char * name = actualsPair.key().c_str();
+                        // JsonVariant type = actualsPair.value();
+                        if (strcmp(name, "return") != 0) {
+                          RUNLOG_ARTI("%s%s", sep, valueStack->stack[lastIndex++]);
                           strcpy(sep, ", ");
-                        #endif
+                        }
+                        else {
+                          // strcat(returnValue, "CallResult tbd of ");
+                          // strcat(returnValue, function_name);
+                        }
                       }
-                      else {
-                        // strcat(returnValue, "CallResult tbd of ");
-                        // strcat(returnValue, function_name);
-                      }
-                    }
-                    #ifndef WLED_H
                       RUNLOG_ARTI(")\n");
+                    #endif
+
+                    #if ARTI_DEFINITION == ARTI_WLED
+                      wled_functions(returnValue, function_name, valueStack->stack[oldIndex], (valueStack->stack_index - oldIndex>1)?valueStack->stack[oldIndex+1]:"");
                     #endif
 
                     valueStack->stack_index = oldIndex;
@@ -1480,7 +1536,7 @@ class Interpreter {
 
                     for (uint8_t i=0; i<function_symbol->function_scope->symbolsIndex; i++) { //backwards because popped in reversed order
                       if (strcmp(function_symbol->function_scope->symbols[i]->symbol_type, "Formal") == 0) { //select formal parameters
-                        const char * result = this->valueStack->stack[lastIndex++];
+                        const char * result = valueStack->stack[lastIndex++];
                         ar->set(function_symbol->function_scope->symbols[i]->name, result);
                         RUNLOG_ARTI("%s Actual %s.%s = %s (pop %u)\n", spaces+50-depth, function_name, function_symbol->function_scope->symbols[i]->name, result, valueStack->stack_index);
                       }
@@ -1531,7 +1587,7 @@ class Interpreter {
                     char sep[3] = "";
                     for (uint8_t i = oldIndex; i< valueStack->stack_index; i++) {
                       strcat(indices, sep);
-                      strcat(indices, this->valueStack->stack[i]);
+                      strcat(indices, valueStack->stack[i]);
                       strcpy(sep, ",");
                     }
                     valueStack->stack_index = oldIndex;
@@ -1554,9 +1610,9 @@ class Interpreter {
                     ar = this->callStack->peek();
                   }
 
-                  ar->set(variable_name, this->valueStack->pop());
+                  ar->set(variable_name, valueStack->pop());
 
-                  RUNLOG_ARTI("%s %s.%s%s := %s (pop %u)\n", spaces+50-depth, ar->name, variable_name, indices, ar->get(variable_name), this->valueStack->stack_index);
+                  RUNLOG_ARTI("%s %s.%s%s := %s (pop %u)\n", spaces+50-depth, ar->name, variable_name, indices, ar->get(variable_name), valueStack->stack_index);
                 }
                 else {
                   ERROR_ARTI("%s Assign %s has no value\n", spaces+50-depth, expression_name);
@@ -1586,10 +1642,18 @@ class Interpreter {
                     evaluation = atoi(left) - atoi(right);
                   else if (strcmp(operatorx, "*") == 0)
                     evaluation = atoi(left) * atoi(right);
+                  else if (strcmp(operatorx, "==") == 0)
+                    evaluation = atoi(left) == atoi(right);
+                  else if (strcmp(operatorx, "!=") == 0)
+                    evaluation = atoi(left) != atoi(right);
                   else if (strcmp(operatorx, "<") == 0)
                     evaluation = atoi(left) < atoi(right);
+                  else if (strcmp(operatorx, "<=") == 0)
+                    evaluation = atoi(left) <= atoi(right);
                   else if (strcmp(operatorx, ">") == 0)
                     evaluation = atoi(left) > atoi(right);
+                  else if (strcmp(operatorx, ">=") == 0)
+                    evaluation = atoi(left) >= atoi(right);
 
                   RUNLOG_ARTI("%s %s %s %s = %d (push %u)\n", spaces+50-depth, left, operatorx, right, evaluation, valueStack->stack_index+1);
                   char evalChar[charLength];
@@ -1610,14 +1674,9 @@ class Interpreter {
 
                     char returnValue[charLength] = "";
 
-                    #ifdef WLED_H
-                      // MEMORY_ARTI("%s %s %u %u (%u)\n", spaces+50-depth, function_name, par1, par2, esp_get_free_heap_size());
-                      wled_functions(returnValue, "ledCount");
-                    #else
-                      if (strcmp(variable_name, "ledCount") == 0)
-                        strcpy(returnValue, "3");
+                    #if ARTI_DEFINITION == ARTI_WLED
+                      wled_functions(returnValue, variable_name);
                     #endif
-
 
                     if (strcmp(returnValue, "") != 0) {
                       valueStack->push(returnValue);
@@ -1646,7 +1705,7 @@ class Interpreter {
                     varValue = ar->get(variable_name);
 
                     valueStack->push(varValue);
-                    #ifndef ESP32 //for some weird reason this causes a crash on esp32
+                    #if ARTI_PLATFORM != ARTI_ARDUINO  //for some weird reason this causes a crash on esp32
                       RUNLOG_ARTI("%s %s %s.%s = %s (push %u)\n", spaces+50-depth, expression["id"].as<const char *>(), ar->name, variable_name, varValue, valueStack->stack_index); //key is variable_declaration name is ID
                     #endif
                   }
@@ -1674,13 +1733,13 @@ class Interpreter {
                   RUNLOG_ARTI("%s iteration\n", spaces+50-depth);
 
                   RUNLOG_ARTI("%s check to condition\n", spaces+50-depth);
-                  visit(value, expression["to"], symbol_name, token, current_scope, depth + 1); //pushes result of to
+                  visit(value, expression["condition"], symbol_name, token, current_scope, depth + 1); //pushes result of to
 
-                  const char * toResult = valueStack->pop();
+                  const char * conditionResult = valueStack->pop();
 
                   RUNLOG_ARTI("%s (pop %u)\n", spaces+50-depth, valueStack->stack_index);
 
-                  if (strcmp(toResult, "1") == 0) { //toResult is true
+                  if (strcmp(conditionResult, "1") == 0) { //conditionResult is true
                     RUNLOG_ARTI("%s 1 => run block\n", spaces+50-depth);
                     visit(value[expression_block], nullptr, symbol_name, token, current_scope, depth + 1);
 
@@ -1689,16 +1748,16 @@ class Interpreter {
                     // MEMORY_ARTI("%s Iteration %u %u\n", spaces+50-depth, counter, esp_get_free_heap_size());
                   }
                   else {
-                    if (strcmp(toResult, "0") == 0) { //toResult is false
+                    if (strcmp(conditionResult, "0") == 0) { //conditionResult is false
                       RUNLOG_ARTI("%s 0 => end of For\n", spaces+50-depth);
                       continuex = false;
                     }
-                    else { // toResult is a value (e.g. in pascal)
+                    else { // conditionResult is a value (e.g. in pascal)
                       //get the variable from assignment
                       const char * varValue = ar->get(fromVarName);
 
-                      int evaluation = atoi(varValue) <= atoi(toResult);
-                      RUNLOG_ARTI("%s %s.%s %s <= %s = %d\n", spaces+50-depth, ar->name, fromVarName, varValue, toResult, evaluation);
+                      int evaluation = atoi(varValue) <= atoi(conditionResult);
+                      RUNLOG_ARTI("%s %s.%s %s <= %s = %d\n", spaces+50-depth, ar->name, fromVarName, varValue, conditionResult, evaluation);
 
                       if (evaluation == 1) {
                         RUNLOG_ARTI("%s 1 => run block\n", spaces+50-depth);
@@ -1725,15 +1784,39 @@ class Interpreter {
 
                 visitCalledAlready = true;
               }  //if expression["id"]
+              else if (expression["id"] == "If") {
+                RUNLOG_ARTI("%s If (%u)\n", spaces+50-depth, valueStack->stack_index);
+
+                RUNLOG_ARTI("%s if condition \n", spaces+50-depth);
+                visit(value, expression["condition"], symbol_name, token, current_scope, depth + 1);
+
+                const char * conditionResult = valueStack->pop();
+
+                RUNLOG_ARTI("%s (pop %u)\n", spaces+50-depth, valueStack->stack_index);
+
+                if (strcmp(conditionResult, "1") == 0) //conditionResult is true
+                  visit(value, expression["true"], symbol_name, token, current_scope, depth + 1);
+                else
+                  visit(value, expression["false"], symbol_name, token, current_scope, depth + 1);
+
+                // ActivationRecord* ar = this->callStack->peek();
+                // const char * fromVarName = ar->lastSet;
+
+                visitCalledAlready = true;
+              }  //if expression["id"]
+
               // MEMORY_ARTI("%s Heap %s > %u\n", spaces+50-depth, expression_id, esp_get_free_heap_size());
             } //if expression not null
 
          } // is key is symbol_name
 
           // RUNLOG_ARTI("%s\n", spaces+50-depth, "Object ", key, value);
-          if (strcmp(key, "INTEGER_CONST") == 0 || value == "+" || value == "-" || value == "*" || value == ">" || value == "<" ) { // || value == "(" || value == ")" 
+          if (strcmp(key, "INTEGER_CONST") == 0 || 
+                          value == "+" || value == "-" || value == "*" || 
+                          value == "==" || value == "!=-" || 
+                          value == ">" || value == ">=" || value == "<" || value == "<=") {
             valueStack->push(value);
-            #ifndef ESP32  //for some weird reason this causes a crash on esp32
+            #if ARTI_PLATFORM != ARTI_ARDUINO  //for some weird reason this causes a crash on esp32
               RUNLOG_ARTI("%s %s %s (Push %u)\n", spaces+50-depth, key, value.as<const char *>(), valueStack->stack_index);
             #endif
             visitCalledAlready = true;
@@ -1773,10 +1856,10 @@ private:
   SemanticAnalyzer *semanticAnalyzer = nullptr;
   Interpreter *interpreter = nullptr;
   char * programText;
-  #ifdef ESP32
+  #if ARTI_PLATFORM == ARTI_ARDUINO
     File definitionFile;
     File programFile;
-    File parseTreeFile;
+    // File parseTreeFile;
   #else
     std::fstream definitionFile;
     std::fstream programFile;
@@ -1803,21 +1886,21 @@ public:
     DEBUG_ARTI("Destruct ARTI\n");
   }
 
-  void openFileAndParse(const char *definitionName, const char *programName) {
+  bool openFileAndParse(const char *definitionName, const char *programName) {
     MEMORY_ARTI("Heap OFP < %u (%lums) %s %s\n", esp_get_free_heap_size(), millis(), definitionName, programName);
       char parseOrLoad[charLength] = "Parse";
 
       //open logFile
-      #ifndef ARTI_SERIALORFILE
+      #if ARTI_OUTPUT == ARTI_FILE
         char logFileName[charLength];
-        #ifdef ESP32
+        #if ARTI_PLATFORM == ARTI_ARDUINO
           strcpy(logFileName, "/");
         #endif
         strcpy(logFileName, programName);
         strcat(logFileName, ".log");
 
-        #ifdef ESP32
-          #ifdef WLED_H
+        #if ARTI_PLATFORM == ARTI_ARDUINO
+          #if ARTI_DEFINITION == ARTI_WLED
             logFile = WLED_FS.open(logFileName,"w");
           #else
             logFile = FS.open(logFileName,"w");
@@ -1827,8 +1910,8 @@ public:
         #endif
       #endif
 
-      #ifdef ESP32
-        #ifdef WLED_H
+      #if ARTI_PLATFORM == ARTI_ARDUINO
+        #if ARTI_DEFINITION == ARTI_WLED
           definitionFile = WLED_FS.open(definitionName, "r");
         #else
           definitionFile = FS.open(definitionName, "r");
@@ -1838,8 +1921,10 @@ public:
       #endif
         // DEBUG_ARTI("def size %lu\n", definitionFile.tellg());
       MEMORY_ARTI("Heap open definition file > %u\n", esp_get_free_heap_size());
-      if (!definitionFile)
+      if (!definitionFile) {
         ERROR_ARTI("Definition file %s not found\n", definitionName);
+        return false;
+      }
       else
       {
         //open definitionFile
@@ -1853,11 +1938,12 @@ public:
         DeserializationError err = deserializeJson(*definitionJsonDoc, definitionFile);
         if (err) {
           ERROR_ARTI("deserializeJson() of definition failed with code %s\n", err.c_str());
+          return false;
         }
         definitionFile.close();
 
-        #ifdef ESP32
-          #ifdef WLED_H
+        #if ARTI_PLATFORM == ARTI_ARDUINO
+          #if ARTI_DEFINITION == ARTI_WLED
             programFile = WLED_FS.open(programName, "r");
           #else
             programFile = FS.open(programName, "r");
@@ -1865,12 +1951,14 @@ public:
         #else
           programFile.open(programName, std::ios::in);
         #endif
-        if (!programFile)
+        if (!programFile) {
           ERROR_ARTI("Program file %s not found\n", programName);
+          return  false;
+        }
         else
         {
           //open programFile
-          #ifdef ESP32
+          #if ARTI_PLATFORM == ARTI_ARDUINO
             programFileSize = programFile.size();
             programText = (char *)malloc(programFileSize+1);
             programFile.read((byte *)programText, programFileSize);
@@ -1889,13 +1977,13 @@ public:
           // if (strcmp(parseOrLoad, "Parse") == 0 )
           //   strcpy(parseTreeName, "Gen");
           strcat(parseTreeName, ".json");
-          #ifdef ESP32
-            #ifdef WLED_H
-              parseTreeFile = WLED_FS.open(parseTreeName, (strcmp(parseOrLoad, "Parse")==0)?"w":"r");
-            #else
-              parseTreeFile = FS.open(parseTreeName, (strcmp(parseOrLoad, "Parse")==0)?"w":"r");
-            #endif
-            parseTreeJsonDoc = new DynamicJsonDocument(strlen(programText) * 50); //less memory on esp32: 32 vs 64 bit?
+          #if ARTI_PLATFORM == ARTI_ARDUINO
+            // #if ARTI_DEFINITION == ARTI_WLED
+            //   parseTreeFile = WLED_FS.open(parseTreeName, (strcmp(parseOrLoad, "Parse")==0)?"w":"r");
+            // #else
+            //   parseTreeFile = FS.open(parseTreeName, (strcmp(parseOrLoad, "Parse")==0)?"w":"r");
+            // #endif
+            parseTreeJsonDoc = new DynamicJsonDocument(strlen(programText) * 50); //less memory on arduino: 32 vs 64 bit?
           #else
             parseTreeFile.open(parseTreeName, std::ios::out);
             parseTreeJsonDoc = new DynamicJsonDocument(strlen(programText) * 100);
@@ -1908,7 +1996,8 @@ public:
 
             lexer = new Lexer(this->programText, definitionJsonDoc->as<JsonObject>());
             parser = new Parser(this->lexer, parseTreeJsonDoc->as<JsonVariant>());
-            parser->parse();
+            if (!parser->parse())
+              return false;;
 
             DEBUG_ARTI("par mem %u of %u %u %u %u %u\n", parseTreeJsonDoc->memoryUsage(), parseTreeJsonDoc->capacity(), parseTreeJsonDoc->memoryPool().capacity(), parseTreeJsonDoc->size(), parseTreeJsonDoc->overflowed(), parseTreeJsonDoc->nesting());
             DEBUG_ARTI("prog size %u factor %u\n", programFileSize, parseTreeJsonDoc->memoryUsage() / programFileSize);
@@ -1921,33 +2010,39 @@ public:
             delete parser; parser =  nullptr;
 
             //write parseTree
-            serializeJsonPretty(*parseTreeJsonDoc,  parseTreeFile);
+            #if ARTI_PLATFORM != ARTI_ARDUINO
+              serializeJsonPretty(*parseTreeJsonDoc,  parseTreeFile);
+              parseTreeFile.close();
+            #endif
           }
           else
           {
             //read parseTree
-            DeserializationError err = deserializeJson(*parseTreeJsonDoc, parseTreeFile);
-            if (err) {
-              ERROR_ARTI("deserializeJson() of parseTree failed with code %s\n", err.c_str());
-            }
+            // DeserializationError err = deserializeJson(*parseTreeJsonDoc, parseTreeFile);
+            // if (err) {
+            //   ERROR_ARTI("deserializeJson() of parseTree failed with code %s\n", err.c_str());
+            //   return false;
+            // }
           }
-          #ifdef ESP32
+
+          #if ARTI_PLATFORM == ARTI_ARDUINO //not on windows???
             free(programText);
           #endif
-
-          parseTreeFile.close();
 
           MEMORY_ARTI("Heap parse > %u (%lums)\n", esp_get_free_heap_size(), millis());
 
         } //programFile
       } //definitionFilee
+    return true;
   } // openFileAndParse
 
-  void analyze(const char * function_name = nullptr) {
+  bool analyze(const char * function_name = nullptr) {
     MEMORY_ARTI("Heap analyze < %u\n", esp_get_free_heap_size());
 
-    if (parseTreeJsonDoc == nullptr || parseTreeJsonDoc->isNull())
+    if (parseTreeJsonDoc == nullptr || parseTreeJsonDoc->isNull()) {
       ERROR_ARTI("Analyze: No parsetree created\n");
+      return false;
+    }
     else {
       //analyze
       semanticAnalyzer = new SemanticAnalyzer(definitionJsonDoc->as<JsonObject>(), parseTreeJsonDoc->as<JsonVariant>());
@@ -1960,21 +2055,25 @@ public:
     }
 
     //flush does not seem to work... further testing needed
-    #ifndef ARTI_SERIALORFILE
-      #ifdef ESP32
+    #if ARTI_OUTPUT == ARTI_FILE
+      #if ARTI_PLATFORM == ARTI_ARDUINO
         logFile.flush();
       #else
         fflush(logFile);
       #endif
     #endif
+    return true;
   }
 
-  void interpret(const char * function_name = nullptr) {
-    if (parseTreeJsonDoc == nullptr || parseTreeJsonDoc->isNull())
+  bool interpret(const char * function_name = nullptr) {
+    if (parseTreeJsonDoc == nullptr || parseTreeJsonDoc->isNull()) {
       ERROR_ARTI("Interpret %s: No parsetree created\n", function_name);
+      return false;
+    }
     else {
       interpreter->interpret(function_name);
     }
+    return true;
   }
 
   void close() {
@@ -1985,8 +2084,8 @@ public:
     if (definitionJsonDoc != nullptr) {
       DEBUG_ARTI("def mem %u of %u %u %u %u %u\n", definitionJsonDoc->memoryUsage(), definitionJsonDoc->capacity(), definitionJsonDoc->memoryPool().capacity(), definitionJsonDoc->size(), definitionJsonDoc->overflowed(), definitionJsonDoc->nesting());
     }
-    #ifndef ARTI_SERIALORFILE
-      #ifdef ESP32
+    #if ARTI_OUTPUT == ARTI_FILE
+      #if ARTI_PLATFORM == ARTI_ARDUINO
         logFile.close();
       #else
         fclose(logFile);
