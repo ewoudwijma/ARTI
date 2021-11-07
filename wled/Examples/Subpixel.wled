@@ -1,0 +1,20 @@
+program Subpixel
+{
+
+  function renderFrame() {
+    t = millis() / 1000
+    t = sin(t)
+    t = t + 1
+    t = t / 2
+    t = t * ledCount
+    for (i = 0; i < ledCount; i = i + 1)
+    {
+      diff = abs(t - i)
+      if (diff > 2) { diff = 2 }
+      bri = 256 - diff * 128
+      leds[i] = hsv(0, 255, bri)
+    }
+    setPixels(leds)
+  }
+
+}

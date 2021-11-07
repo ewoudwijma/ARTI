@@ -19,7 +19,6 @@ Parser PROGRAM PROGRAM
         varref 7
         fail varref
         INTEGER_CONST 0 -> [FUNCTION FUNCTION] 7
-       symbol to shrink factor
        success factor
       remove multiple key
       remove multiple empty
@@ -28,7 +27,6 @@ Parser PROGRAM PROGRAM
      remove multiple empty
      success expr
     success assign
-   symbol to shrink statement
    success statement
    statement 2
     variable 3
@@ -71,7 +69,6 @@ Parser PROGRAM PROGRAM
              varref 12
              ID pixelCounter -> [COMMA ,] 12
              success varref
-            symbol to shrink factor
             success factor
            remove multiple key
            remove multiple empty
@@ -89,7 +86,6 @@ Parser PROGRAM PROGRAM
               varref 13
               ID pixelCounter -> [RPAREN )] 13
               success varref
-             symbol to shrink factor
              success factor
             remove multiple key
             remove multiple empty
@@ -101,7 +97,6 @@ Parser PROGRAM PROGRAM
          success actuals
          RPAREN ) -> [ID pixelCounter] 8
         success call
-       symbol to shrink statement
        success statement
        statement 6
         variable 7
@@ -120,7 +115,6 @@ Parser PROGRAM PROGRAM
             varref 11
             ID pixelCounter -> [PLUS +] 11
             success varref
-           symbol to shrink factor
            success factor
           remove multiple key
           remove multiple empty
@@ -133,7 +127,6 @@ Parser PROGRAM PROGRAM
              varref 12
              fail varref
              INTEGER_CONST 1 -> [RCURL }] 12
-            symbol to shrink factor
             success factor
            remove multiple key
            remove multiple empty
@@ -141,7 +134,6 @@ Parser PROGRAM PROGRAM
          remove multiple key
          success expr
         success assign
-       symbol to shrink statement
        success statement
        statement 6
         variable 7
@@ -165,7 +157,6 @@ Parser PROGRAM PROGRAM
      remove multiple key
      success block
     success function
-   symbol to shrink statement
    success statement
    statement 2
     variable 3
@@ -189,50 +180,54 @@ Parser PROGRAM PROGRAM
  remove multiple key
  success block
 Symbol program Parsed until (10,1) 162 of 162
-par mem 7249 of 16200 16200 1 0 16
-prog size 162 factor 44
-par mem 2097 of 16200 16200 1 0 16
+par mem 4369 of 16200 16200 1 0 19
+prog size 162 factor 26
 Destruct Lexer
 Destruct Parser
 
 Analyzer
  Program ColorWalk 1 0
-    Assign pixelCounter = {value (not of interest during analyze...)}
-    Var (assign) ColorWalk.pixelCounter of notype
-    Function ColorWalk.renderFrame
-       Assign pixelCounter = {value (not of interest during analyze...)}
+     Assign ColorWalk.pixelCounter of notype
+     Assign pixelCounter = (4)
+     Function ColorWalk.renderFrame
+         extfunc setPixelColor
+             VarRef found pixelCounter (12)
+               VarRef found pixelCounter (14)
+         Assign pixelCounter = (8)
+             VarRef found pixelCounter (12)
  0 Assign ColorWalk.pixelCounter notype 1
  1 Function ColorWalk.renderFrame  1
 
 interpret ColorWalk 1 2
  program name ID
  Program ColorWalk ColorWalk
-       INTEGER_CONST 0 (Push 1)
-    ColorWalk.pixelCounter := 0 (pop 0)
-    Save block of renderFrame
+         INTEGER_CONST 0 (Push 1)
+     ColorWalk.pixelCounter := 0.000000 (pop 0)
+     Save block of renderFrame
          Call renderFrame (1)
-               VarRef ColorWalk.pixelCounter = 0 (push 1)
-                 VarRef ColorWalk.pixelCounter = 0 (push 2)
-            Call setPixelColor(0, 0)
-setPixelColor(0, 0)
-               VarRef ColorWalk.pixelCounter = 0 (push 1)
-                PLUS + (Push 2)
-                 INTEGER_CONST 1 (Push 3)
-             0 + 1 = 1 (push 1)
-            ColorWalk.pixelCounter := 1 (pop 0)
+                 VarRef ColorWalk.pixelCounter = 0.000000 (push 1)
+                   VarRef ColorWalk.pixelCounter = 0.000000 (push 2)
+setPixelColor(0.000000, 0.000000)
+             Call setPixelColor(0.000000, 0.000000)
+                 VarRef ColorWalk.pixelCounter = 0.000000 (push 1)
+                 PLUS + (Push 2)
+                   INTEGER_CONST 1 (Push 3)
+              0.000000 + 1.000000 = 1.000000 (push 1)
+             ColorWalk.pixelCounter := 1.000000 (pop 0)
 Destruct activation record renderFrame
          Call renderFrame (1)
-               VarRef ColorWalk.pixelCounter = 1 (push 1)
-                 VarRef ColorWalk.pixelCounter = 1 (push 2)
-            Call setPixelColor(1, 1)
-setPixelColor(1, 1)
-               VarRef ColorWalk.pixelCounter = 1 (push 1)
-                PLUS + (Push 2)
-                 INTEGER_CONST 1 (Push 3)
-             1 + 1 = 2 (push 1)
-            ColorWalk.pixelCounter := 2 (pop 0)
+                 VarRef ColorWalk.pixelCounter = 1.000000 (push 1)
+                   VarRef ColorWalk.pixelCounter = 1.000000 (push 2)
+setPixelColor(1.000000, 1.000000)
+             Call setPixelColor(1.000000, 1.000000)
+                 VarRef ColorWalk.pixelCounter = 1.000000 (push 1)
+                 PLUS + (Push 2)
+                   INTEGER_CONST 1 (Push 3)
+              1.000000 + 1.000000 = 2.000000 (push 1)
+             ColorWalk.pixelCounter := 2.000000 (pop 0)
 Destruct activation record renderFrame
 Destruct callstack
 Destruct valueStack
 Destruct Interpreter
-def mem 7737 of 12192 12192 24 0 6
+def mem 9236 of 12192 12192 24 0 6
+def mem 4369 of 16200 16200 1 0 19

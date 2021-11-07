@@ -1,0 +1,24 @@
+program PhaseShift
+{
+
+  pixelCounter = 3
+  countAdd = 1
+
+  function renderFrame() {
+
+    for (i = 0; i < ledCount; i = i + 1) {
+      setPixelColor(i, i * pixelCounter)
+    }
+
+    pixelCounter = pixelCounter + countAdd
+
+    if (pixelCounter > 15 ) {
+      countAdd = 0 - 1
+    }
+
+    if (pixelCounter < 3 ) {
+      countAdd = 1
+    }
+
+  }
+}

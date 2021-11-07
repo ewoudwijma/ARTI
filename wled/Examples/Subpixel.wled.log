@@ -1,0 +1,1110 @@
+Parser PROGRAM PROGRAM
+ PROGRAM PROGRAM -> [ID Subpixel] 0
+ ID Subpixel -> [LCURL {] 0
+ block 0
+  LCURL { -> [FUNCTION FUNCTION] 1
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     fail varleft
+    fail assign
+    function 3
+     FUNCTION FUNCTION -> [ID renderFrame] 4
+     ID renderFrame -> [LPAREN (] 4
+      LPAREN ( -> [RPAREN )] 5
+      formals 5
+       formal 6
+       fail formal
+      success formals
+      RPAREN ) -> [LCURL {] 5
+     block 4
+      LCURL { -> [ID t] 5
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID t -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID millis] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID millis -> [LPAREN (] 12
+             LPAREN ( -> [RPAREN )] 12
+             actuals 12
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                 fail call
+                 varref 16
+                 fail varref
+                fail factor
+               fail term
+              fail expr
+             success actuals
+             RPAREN ) -> [DIV /] 12
+            success call
+           success factor
+             DIV / -> [INTEGER_CONST 1000] 12
+            factor 11
+             call 12
+             fail call
+             varref 12
+             fail varref
+             INTEGER_CONST 1000 -> [ID t] 12
+            success factor
+          remove multiple key
+          success term
+         remove multiple key
+         remove multiple empty
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID t -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID sin] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID sin -> [LPAREN (] 12
+             LPAREN ( -> [ID t] 12
+             actuals 12
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                  ID t -> [RPAREN )] 17
+                 fail call
+                 varref 16
+                 ID t -> [RPAREN )] 16
+                 success varref
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+              remove multiple key
+              remove multiple empty
+              success expr
+             remove multiple key
+             remove multiple empty
+             success actuals
+             RPAREN ) -> [ID t] 12
+            success call
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+         remove multiple key
+         remove multiple empty
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID t -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID t] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID t -> [PLUS +] 12
+            fail call
+            varref 11
+            ID t -> [PLUS +] 11
+            success varref
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+            PLUS + -> [INTEGER_CONST 1] 11
+           term 10
+            factor 11
+             call 12
+             fail call
+             varref 12
+             fail varref
+             INTEGER_CONST 1 -> [ID t] 12
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+         remove multiple key
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID t -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID t] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID t -> [DIV /] 12
+            fail call
+            varref 11
+            ID t -> [DIV /] 11
+            success varref
+           success factor
+             DIV / -> [INTEGER_CONST 2] 12
+            factor 11
+             call 12
+             fail call
+             varref 12
+             fail varref
+             INTEGER_CONST 2 -> [ID t] 12
+            success factor
+          remove multiple key
+          success term
+         remove multiple key
+         remove multiple empty
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID t -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID t] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID t -> [MUL *] 12
+            fail call
+            varref 11
+            ID t -> [MUL *] 11
+            success varref
+           success factor
+             MUL * -> [ID ledCount] 12
+            factor 11
+             call 12
+              ID ledCount -> [FOR FOR] 13
+             fail call
+             varref 12
+             ID ledCount -> [FOR FOR] 12
+             success varref
+            success factor
+          remove multiple key
+          success term
+         remove multiple key
+         remove multiple empty
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+         FOR FOR -> [LPAREN (] 8
+         LPAREN ( -> [ID i] 8
+         assign 8
+          varleft 9
+          ID i -> [ASSIGN =] 9
+          success varleft
+          ASSIGN = -> [INTEGER_CONST 0] 9
+          expr 9
+           term 10
+            factor 11
+             call 12
+             fail call
+             varref 12
+             fail varref
+             INTEGER_CONST 0 -> [SEMI ;] 12
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+          remove multiple key
+          remove multiple empty
+          success expr
+         success assign
+         SEMI ; -> [ID i] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID i -> [LT <] 12
+            fail call
+            varref 11
+            ID i -> [LT <] 11
+            success varref
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+            LT < -> [ID ledCount] 11
+           term 10
+            factor 11
+             call 12
+              ID ledCount -> [SEMI ;] 13
+             fail call
+             varref 12
+             ID ledCount -> [SEMI ;] 12
+             success varref
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+         remove multiple key
+         success expr
+         SEMI ; -> [ID i] 8
+         increment 8
+          assign 9
+           varleft 10
+           ID i -> [ASSIGN =] 10
+           success varleft
+           ASSIGN = -> [ID i] 10
+           expr 10
+            term 11
+             factor 12
+              call 13
+               ID i -> [PLUS +] 14
+              fail call
+              varref 13
+              ID i -> [PLUS +] 13
+              success varref
+             success factor
+            remove multiple key
+            remove multiple empty
+            success term
+              PLUS + -> [INTEGER_CONST 1] 13
+             term 12
+              factor 13
+               call 14
+               fail call
+               varref 14
+               fail varref
+               INTEGER_CONST 1 -> [RPAREN )] 14
+              success factor
+             remove multiple key
+             remove multiple empty
+             success term
+           remove multiple key
+           success expr
+          success assign
+         success increment
+         RPAREN ) -> [LCURL {] 8
+         block 8
+          LCURL { -> [ID diff] 9
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             ID diff -> [ASSIGN =] 12
+             success varleft
+             ASSIGN = -> [ID abs] 12
+             expr 12
+              term 13
+               factor 14
+                call 15
+                 ID abs -> [LPAREN (] 16
+                 LPAREN ( -> [ID t] 16
+                 actuals 16
+                  expr 17
+                   term 18
+                    factor 19
+                     call 20
+                      ID t -> [MINUS -] 21
+                     fail call
+                     varref 20
+                     ID t -> [MINUS -] 20
+                     success varref
+                    success factor
+                   remove multiple key
+                   remove multiple empty
+                   success term
+                     MINUS - -> [ID i] 20
+                    term 19
+                     factor 20
+                      call 21
+                       ID i -> [RPAREN )] 22
+                      fail call
+                      varref 21
+                      ID i -> [RPAREN )] 21
+                      success varref
+                     success factor
+                    remove multiple key
+                    remove multiple empty
+                    success term
+                  remove multiple key
+                  success expr
+                 remove multiple key
+                 remove multiple empty
+                 success actuals
+                 RPAREN ) -> [IF IF] 16
+                success call
+               success factor
+              remove multiple key
+              remove multiple empty
+              success term
+             remove multiple key
+             remove multiple empty
+             success expr
+            success assign
+           success statement
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             fail varleft
+            fail assign
+            function 11
+            fail function
+            call 11
+            fail call
+            for 11
+            fail for
+            if 11
+             IF IF -> [LPAREN (] 12
+             LPAREN ( -> [ID diff] 12
+             expr 12
+              term 13
+               factor 14
+                call 15
+                 ID diff -> [GT >] 16
+                fail call
+                varref 15
+                ID diff -> [GT >] 15
+                success varref
+               success factor
+              remove multiple key
+              remove multiple empty
+              success term
+                GT > -> [INTEGER_CONST 2] 15
+               term 14
+                factor 15
+                 call 16
+                 fail call
+                 varref 16
+                 fail varref
+                 INTEGER_CONST 2 -> [RPAREN )] 16
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+             remove multiple key
+             success expr
+             RPAREN ) -> [LCURL {] 12
+             block 12
+              LCURL { -> [ID diff] 13
+               statement 14
+                variable 15
+                fail variable
+                assign 15
+                 varleft 16
+                 ID diff -> [ASSIGN =] 16
+                 success varleft
+                 ASSIGN = -> [INTEGER_CONST 2] 16
+                 expr 16
+                  term 17
+                   factor 18
+                    call 19
+                    fail call
+                    varref 19
+                    fail varref
+                    INTEGER_CONST 2 -> [RCURL }] 19
+                   success factor
+                  remove multiple key
+                  remove multiple empty
+                  success term
+                 remove multiple key
+                 remove multiple empty
+                 success expr
+                success assign
+               success statement
+               statement 14
+                variable 15
+                fail variable
+                assign 15
+                 varleft 16
+                 fail varleft
+                fail assign
+                function 15
+                fail function
+                call 15
+                fail call
+                for 15
+                fail for
+                if 15
+                fail if
+                block 15
+                fail block
+               fail statement
+              RCURL } -> [ID bri] 13
+             remove multiple key
+             success block
+            success if
+           success statement
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             ID bri -> [ASSIGN =] 12
+             success varleft
+             ASSIGN = -> [INTEGER_CONST 256] 12
+             expr 12
+              term 13
+               factor 14
+                call 15
+                fail call
+                varref 15
+                fail varref
+                INTEGER_CONST 256 -> [MINUS -] 15
+               success factor
+              remove multiple key
+              remove multiple empty
+              success term
+                MINUS - -> [ID diff] 15
+               term 14
+                factor 15
+                 call 16
+                  ID diff -> [MUL *] 17
+                 fail call
+                 varref 16
+                 ID diff -> [MUL *] 16
+                 success varref
+                success factor
+                  MUL * -> [INTEGER_CONST 128] 17
+                 factor 16
+                  call 17
+                  fail call
+                  varref 17
+                  fail varref
+                  INTEGER_CONST 128 -> [ID leds] 17
+                 success factor
+               remove multiple key
+               success term
+             remove multiple key
+             success expr
+            success assign
+           success statement
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             ID leds -> [LBRACKET [] 12
+             success varleft
+              LBRACKET [ -> [ID i] 13
+              indices 13
+               expr 14
+                term 15
+                 factor 16
+                  call 17
+                   ID i -> [RBRACKET ]] 18
+                  fail call
+                  varref 17
+                  ID i -> [RBRACKET ]] 17
+                  success varref
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+               remove multiple key
+               remove multiple empty
+               success expr
+              remove multiple key
+              remove multiple empty
+              success indices
+              RBRACKET ] -> [ASSIGN =] 13
+             ASSIGN = -> [ID hsv] 12
+             expr 12
+              term 13
+               factor 14
+                call 15
+                 ID hsv -> [LPAREN (] 16
+                 LPAREN ( -> [INTEGER_CONST 0] 16
+                 actuals 16
+                  expr 17
+                   term 18
+                    factor 19
+                     call 20
+                     fail call
+                     varref 20
+                     fail varref
+                     INTEGER_CONST 0 -> [COMMA ,] 20
+                    success factor
+                   remove multiple key
+                   remove multiple empty
+                   success term
+                  remove multiple key
+                  remove multiple empty
+                  success expr
+                   COMMA , -> [INTEGER_CONST 255] 18
+                   expr 18
+                    term 19
+                     factor 20
+                      call 21
+                      fail call
+                      varref 21
+                      fail varref
+                      INTEGER_CONST 255 -> [COMMA ,] 21
+                     success factor
+                    remove multiple key
+                    remove multiple empty
+                    success term
+                   remove multiple key
+                   remove multiple empty
+                   success expr
+                   COMMA , -> [ID bri] 18
+                   expr 18
+                    term 19
+                     factor 20
+                      call 21
+                       ID bri -> [RPAREN )] 22
+                      fail call
+                      varref 21
+                      ID bri -> [RPAREN )] 21
+                      success varref
+                     success factor
+                    remove multiple key
+                    remove multiple empty
+                    success term
+                   remove multiple key
+                   remove multiple empty
+                   success expr
+                 remove multiple key
+                 success actuals
+                 RPAREN ) -> [RCURL }] 16
+                success call
+               success factor
+              remove multiple key
+              remove multiple empty
+              success term
+             remove multiple key
+             remove multiple empty
+             success expr
+            success assign
+           success statement
+           statement 10
+            variable 11
+            fail variable
+            assign 11
+             varleft 12
+             fail varleft
+            fail assign
+            function 11
+            fail function
+            call 11
+            fail call
+            for 11
+            fail for
+            if 11
+            fail if
+            block 11
+            fail block
+           fail statement
+          RCURL } -> [ID setPixels] 9
+         remove multiple key
+         success block
+        success for
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID setPixels -> [LPAREN (] 8
+         success varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+         ID setPixels -> [LPAREN (] 8
+         LPAREN ( -> [ID leds] 8
+         actuals 8
+          expr 9
+           term 10
+            factor 11
+             call 12
+              ID leds -> [RPAREN )] 13
+             fail call
+             varref 12
+             ID leds -> [RPAREN )] 12
+             success varref
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+          remove multiple key
+          remove multiple empty
+          success expr
+         remove multiple key
+         remove multiple empty
+         success actuals
+         RPAREN ) -> [RCURL }] 8
+        success call
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+        fail for
+        if 7
+        fail if
+        block 7
+        fail block
+       fail statement
+      RCURL } -> [RCURL }] 5
+     remove multiple key
+     success block
+    success function
+   success statement
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     fail varleft
+    fail assign
+    function 3
+    fail function
+    call 3
+    fail call
+    for 3
+    fail for
+    if 3
+    fail if
+    block 3
+    fail block
+   fail statement
+  RCURL } 1
+ remove multiple key
+ success block
+Symbol program Parsed until (20,1) 333 of 333
+par mem 18370 of 33304 33304 1 0 28
+prog size 333 factor 55
+Destruct Lexer
+Destruct Parser
+
+Analyzer
+ Program Subpixel 1 0
+     Function Subpixel.renderFrame
+         Assign renderFrame.t of notype
+         Assign t = (8)
+             extfunc millis
+         Assign t = (8)
+             extfunc sin
+                 VarRef found t (16)
+         Assign t = (8)
+             VarRef found t (12)
+         Assign t = (8)
+             VarRef found t (12)
+         Assign t = (8)
+             VarRef found t (12)
+               Ext Variable found ledCount (14)
+          Assign renderFrame.i of notype
+          Assign i = (9)
+             VarRef found i (12)
+               Ext Variable found ledCount (14)
+           Assign i = (10)
+               VarRef found i (14)
+              Assign renderFrame.diff of notype
+              Assign diff = (13)
+                  extfunc abs
+                      VarRef found t (21)
+                        VarRef found i (23)
+                  VarRef found diff (17)
+                   Assign diff = (18)
+              Assign renderFrame.bri of notype
+              Assign bri = (13)
+                    VarRef found diff (19)
+              Ext Variable found leds (13)
+              Assign leds = (13)
+                  extfunc hsv
+                        VarRef found bri (23)
+         extfunc setPixels
+             Ext Variable found leds (12)
+     0 Assign renderFrame.t notype 2
+     1 Assign renderFrame.i notype 2
+     2 Assign renderFrame.diff notype 2
+     3 Assign renderFrame.bri notype 2
+ 0 Function Subpixel.renderFrame  1
+
+interpret Subpixel 1 1
+ program name ID
+ Program Subpixel Subpixel
+     Save block of renderFrame
+         Call renderFrame (1)
+                 Call millis() = 1000.000000
+                  DIV / (Push 2)
+                   INTEGER_CONST 1000 (Push 3)
+               1000.000000 / 1000.000000 = 1.000000 (push 1)
+             renderFrame.t := 1.000000 (pop 0)
+                     VarRef renderFrame.t = 1.000000 (push 1)
+                 Call sin(1.000000) = 0.841471
+             renderFrame.t := 0.841471 (pop 0)
+                 VarRef renderFrame.t = 0.841471 (push 1)
+                 PLUS + (Push 2)
+                   INTEGER_CONST 1 (Push 3)
+              0.841471 + 1.000000 = 1.841471 (push 1)
+             renderFrame.t := 1.841471 (pop 0)
+                 VarRef renderFrame.t = 1.841471 (push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+               1.841471 / 2.000000 = 0.920735 (push 1)
+             renderFrame.t := 0.920735 (pop 0)
+                 VarRef renderFrame.t = 0.920735 (push 1)
+                  MUL * (Push 2)
+                   VarRef ext.ledCount = 3.000000 (push 3)
+               0.920735 * 3.000000 = 2.762206 (push 1)
+             renderFrame.t := 2.762206 (pop 0)
+             For (0)
+             from
+                  INTEGER_CONST 0 (Push 1)
+              renderFrame.i := 0.000000 (pop 0)
+             iteration
+             check to condition
+                 VarRef renderFrame.i = 0.000000 (push 1)
+                 LT < (Push 2)
+                   VarRef ext.ledCount = 3.000000 (push 3)
+              0.000000 < 3.000000 = 1.000000 (push 1)
+             conditionResult (pop 0)
+             1 => run block
+                         VarRef renderFrame.t = 2.762206 (push 1)
+                         MINUS - (Push 2)
+                           VarRef renderFrame.i = 0.000000 (push 3)
+                      2.762206 - 0.000000 = 2.762206 (push 1)
+                     Call abs(2.762206) = 2.762206
+                 renderFrame.diff := 2.762206 (pop 0)
+                 If (0)
+                 if condition 
+                     VarRef renderFrame.diff = 2.762206 (push 1)
+                     GT > (Push 2)
+                       INTEGER_CONST 2 (Push 3)
+                  2.762206 > 2.000000 = 1.000000 (push 1)
+                 (pop 0)
+                          INTEGER_CONST 2 (Push 1)
+                      renderFrame.diff := 2.000000 (pop 0)
+                     INTEGER_CONST 256 (Push 1)
+                     MINUS - (Push 2)
+                       VarRef renderFrame.diff = 2.000000 (push 3)
+                        MUL * (Push 4)
+                         INTEGER_CONST 128 (Push 5)
+                     2.000000 * 128.000000 = 256.000000 (push 3)
+                  256.000000 - 256.000000 = 0.000000 (push 1)
+                 renderFrame.bri := 0.000000 (pop 0)
+                      VarRef renderFrame.i = 0.000000 (push 1)
+                         INTEGER_CONST 0 (Push 2)
+                           INTEGER_CONST 255 (Push 3)
+                           VarRef renderFrame.bri = 0.000000 (push 4)
+hsv(0.000000, 255.000000, 0.000000)
+                     Call hsv(0.000000, 255.000000, 0.000000) = 255.000000
+wled_set_variables, set leds to 255.000000                 Assign set ext.leds[0] = 255.000000 (1)
+             assign next value
+                  VarRef renderFrame.i = 0.000000 (push 1)
+                  PLUS + (Push 2)
+                    INTEGER_CONST 1 (Push 3)
+               0.000000 + 1.000000 = 1.000000 (push 1)
+              renderFrame.i := 1.000000 (pop 0)
+             iteration
+             check to condition
+                 VarRef renderFrame.i = 1.000000 (push 1)
+                 LT < (Push 2)
+                   VarRef ext.ledCount = 3.000000 (push 3)
+              1.000000 < 3.000000 = 1.000000 (push 1)
+             conditionResult (pop 0)
+             1 => run block
+                         VarRef renderFrame.t = 2.762206 (push 1)
+                         MINUS - (Push 2)
+                           VarRef renderFrame.i = 1.000000 (push 3)
+                      2.762206 - 1.000000 = 1.762206 (push 1)
+                     Call abs(1.762206) = 1.762206
+                 renderFrame.diff := 1.762206 (pop 0)
+                 If (0)
+                 if condition 
+                     VarRef renderFrame.diff = 1.762206 (push 1)
+                     GT > (Push 2)
+                       INTEGER_CONST 2 (Push 3)
+                  1.762206 > 2.000000 = 0.000000 (push 1)
+                 (pop 0)
+                     INTEGER_CONST 256 (Push 1)
+                     MINUS - (Push 2)
+                       VarRef renderFrame.diff = 1.762206 (push 3)
+                        MUL * (Push 4)
+                         INTEGER_CONST 128 (Push 5)
+                     1.762206 * 128.000000 = 225.562429 (push 3)
+                  256.000000 - 225.562429 = 30.437571 (push 1)
+                 renderFrame.bri := 30.437571 (pop 0)
+                      VarRef renderFrame.i = 1.000000 (push 1)
+                         INTEGER_CONST 0 (Push 2)
+                           INTEGER_CONST 255 (Push 3)
+                           VarRef renderFrame.bri = 30.437571 (push 4)
+hsv(0.000000, 255.000000, 30.437571)
+                     Call hsv(0.000000, 255.000000, 30.437571) = 285.437571
+wled_set_variables, set leds to 285.437571                 Assign set ext.leds[1] = 285.437571 (1)
+             assign next value
+                  VarRef renderFrame.i = 1.000000 (push 1)
+                  PLUS + (Push 2)
+                    INTEGER_CONST 1 (Push 3)
+               1.000000 + 1.000000 = 2.000000 (push 1)
+              renderFrame.i := 2.000000 (pop 0)
+             iteration
+             check to condition
+                 VarRef renderFrame.i = 2.000000 (push 1)
+                 LT < (Push 2)
+                   VarRef ext.ledCount = 3.000000 (push 3)
+              2.000000 < 3.000000 = 1.000000 (push 1)
+             conditionResult (pop 0)
+             1 => run block
+                         VarRef renderFrame.t = 2.762206 (push 1)
+                         MINUS - (Push 2)
+                           VarRef renderFrame.i = 2.000000 (push 3)
+                      2.762206 - 2.000000 = 0.762206 (push 1)
+                     Call abs(0.762206) = 0.762206
+                 renderFrame.diff := 0.762206 (pop 0)
+                 If (0)
+                 if condition 
+                     VarRef renderFrame.diff = 0.762206 (push 1)
+                     GT > (Push 2)
+                       INTEGER_CONST 2 (Push 3)
+                  0.762206 > 2.000000 = 0.000000 (push 1)
+                 (pop 0)
+                     INTEGER_CONST 256 (Push 1)
+                     MINUS - (Push 2)
+                       VarRef renderFrame.diff = 0.762206 (push 3)
+                        MUL * (Push 4)
+                         INTEGER_CONST 128 (Push 5)
+                     0.762206 * 128.000000 = 97.562429 (push 3)
+                  256.000000 - 97.562429 = 158.437571 (push 1)
+                 renderFrame.bri := 158.437571 (pop 0)
+                      VarRef renderFrame.i = 2.000000 (push 1)
+                         INTEGER_CONST 0 (Push 2)
+                           INTEGER_CONST 255 (Push 3)
+                           VarRef renderFrame.bri = 158.437571 (push 4)
+hsv(0.000000, 255.000000, 158.437571)
+                     Call hsv(0.000000, 255.000000, 158.437571) = 413.437571
+wled_set_variables, set leds to 413.437571                 Assign set ext.leds[2] = 413.437571 (1)
+             assign next value
+                  VarRef renderFrame.i = 2.000000 (push 1)
+                  PLUS + (Push 2)
+                    INTEGER_CONST 1 (Push 3)
+               2.000000 + 1.000000 = 3.000000 (push 1)
+              renderFrame.i := 3.000000 (pop 0)
+             iteration
+             check to condition
+                 VarRef renderFrame.i = 3.000000 (push 1)
+                 LT < (Push 2)
+                   VarRef ext.ledCount = 3.000000 (push 3)
+              3.000000 < 3.000000 = 0.000000 (push 1)
+             conditionResult (pop 0)
+             0 => end of For
+                 VarRef ext.leds = 7.000000 (push 1)
+setPixels(7.000000)
+             Call setPixels(7.000000)
+Destruct activation record renderFrame
+         Call renderFrame (1)
+                 Call millis() = 1000.000000
+                  DIV / (Push 2)
+                   INTEGER_CONST 1000 (Push 3)
+               1000.000000 / 1000.000000 = 1.000000 (push 1)
+             renderFrame.t := 1.000000 (pop 0)
+                     VarRef renderFrame.t = 1.000000 (push 1)
+                 Call sin(1.000000) = 0.841471
+             renderFrame.t := 0.841471 (pop 0)
+                 VarRef renderFrame.t = 0.841471 (push 1)
+                 PLUS + (Push 2)
+                   INTEGER_CONST 1 (Push 3)
+              0.841471 + 1.000000 = 1.841471 (push 1)
+             renderFrame.t := 1.841471 (pop 0)
+                 VarRef renderFrame.t = 1.841471 (push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+               1.841471 / 2.000000 = 0.920735 (push 1)
+             renderFrame.t := 0.920735 (pop 0)
+                 VarRef renderFrame.t = 0.920735 (push 1)
+                  MUL * (Push 2)
+                   VarRef ext.ledCount = 3.000000 (push 3)
+               0.920735 * 3.000000 = 2.762206 (push 1)
+             renderFrame.t := 2.762206 (pop 0)
+             For (0)
+             from
+                  INTEGER_CONST 0 (Push 1)
+              renderFrame.i := 0.000000 (pop 0)
+             iteration
+             check to condition
+                 VarRef renderFrame.i = 0.000000 (push 1)
+                 LT < (Push 2)
+                   VarRef ext.ledCount = 3.000000 (push 3)
+              0.000000 < 3.000000 = 1.000000 (push 1)
+             conditionResult (pop 0)
+             1 => run block
+                         VarRef renderFrame.t = 2.762206 (push 1)
+                         MINUS - (Push 2)
+                           VarRef renderFrame.i = 0.000000 (push 3)
+                      2.762206 - 0.000000 = 2.762206 (push 1)
+                     Call abs(2.762206) = 2.762206
+                 renderFrame.diff := 2.762206 (pop 0)
+                 If (0)
+                 if condition 
+                     VarRef renderFrame.diff = 2.762206 (push 1)
+                     GT > (Push 2)
+                       INTEGER_CONST 2 (Push 3)
+                  2.762206 > 2.000000 = 1.000000 (push 1)
+                 (pop 0)
+                          INTEGER_CONST 2 (Push 1)
+                      renderFrame.diff := 2.000000 (pop 0)
+                     INTEGER_CONST 256 (Push 1)
+                     MINUS - (Push 2)
+                       VarRef renderFrame.diff = 2.000000 (push 3)
+                        MUL * (Push 4)
+                         INTEGER_CONST 128 (Push 5)
+                     2.000000 * 128.000000 = 256.000000 (push 3)
+                  256.000000 - 256.000000 = 0.000000 (push 1)
+                 renderFrame.bri := 0.000000 (pop 0)
+                      VarRef renderFrame.i = 0.000000 (push 1)
+                         INTEGER_CONST 0 (Push 2)
+                           INTEGER_CONST 255 (Push 3)
+                           VarRef renderFrame.bri = 0.000000 (push 4)
+hsv(0.000000, 255.000000, 0.000000)
+                     Call hsv(0.000000, 255.000000, 0.000000) = 255.000000
+wled_set_variables, set leds to 255.000000                 Assign set ext.leds[0] = 255.000000 (1)
+             assign next value
+                  VarRef renderFrame.i = 0.000000 (push 1)
+                  PLUS + (Push 2)
+                    INTEGER_CONST 1 (Push 3)
+               0.000000 + 1.000000 = 1.000000 (push 1)
+              renderFrame.i := 1.000000 (pop 0)
+             iteration
+             check to condition
+                 VarRef renderFrame.i = 1.000000 (push 1)
+                 LT < (Push 2)
+                   VarRef ext.ledCount = 3.000000 (push 3)
+              1.000000 < 3.000000 = 1.000000 (push 1)
+             conditionResult (pop 0)
+             1 => run block
+                         VarRef renderFrame.t = 2.762206 (push 1)
+                         MINUS - (Push 2)
+                           VarRef renderFrame.i = 1.000000 (push 3)
+                      2.762206 - 1.000000 = 1.762206 (push 1)
+                     Call abs(1.762206) = 1.762206
+                 renderFrame.diff := 1.762206 (pop 0)
+                 If (0)
+                 if condition 
+                     VarRef renderFrame.diff = 1.762206 (push 1)
+                     GT > (Push 2)
+                       INTEGER_CONST 2 (Push 3)
+                  1.762206 > 2.000000 = 0.000000 (push 1)
+                 (pop 0)
+                     INTEGER_CONST 256 (Push 1)
+                     MINUS - (Push 2)
+                       VarRef renderFrame.diff = 1.762206 (push 3)
+                        MUL * (Push 4)
+                         INTEGER_CONST 128 (Push 5)
+                     1.762206 * 128.000000 = 225.562429 (push 3)
+                  256.000000 - 225.562429 = 30.437571 (push 1)
+                 renderFrame.bri := 30.437571 (pop 0)
+                      VarRef renderFrame.i = 1.000000 (push 1)
+                         INTEGER_CONST 0 (Push 2)
+                           INTEGER_CONST 255 (Push 3)
+                           VarRef renderFrame.bri = 30.437571 (push 4)
+hsv(0.000000, 255.000000, 30.437571)
+                     Call hsv(0.000000, 255.000000, 30.437571) = 285.437571
+wled_set_variables, set leds to 285.437571                 Assign set ext.leds[1] = 285.437571 (1)
+             assign next value
+                  VarRef renderFrame.i = 1.000000 (push 1)
+                  PLUS + (Push 2)
+                    INTEGER_CONST 1 (Push 3)
+               1.000000 + 1.000000 = 2.000000 (push 1)
+              renderFrame.i := 2.000000 (pop 0)
+             iteration
+             check to condition
+                 VarRef renderFrame.i = 2.000000 (push 1)
+                 LT < (Push 2)
+                   VarRef ext.ledCount = 3.000000 (push 3)
+              2.000000 < 3.000000 = 1.000000 (push 1)
+             conditionResult (pop 0)
+             1 => run block
+                         VarRef renderFrame.t = 2.762206 (push 1)
+                         MINUS - (Push 2)
+                           VarRef renderFrame.i = 2.000000 (push 3)
+                      2.762206 - 2.000000 = 0.762206 (push 1)
+                     Call abs(0.762206) = 0.762206
+                 renderFrame.diff := 0.762206 (pop 0)
+                 If (0)
+                 if condition 
+                     VarRef renderFrame.diff = 0.762206 (push 1)
+                     GT > (Push 2)
+                       INTEGER_CONST 2 (Push 3)
+                  0.762206 > 2.000000 = 0.000000 (push 1)
+                 (pop 0)
+                     INTEGER_CONST 256 (Push 1)
+                     MINUS - (Push 2)
+                       VarRef renderFrame.diff = 0.762206 (push 3)
+                        MUL * (Push 4)
+                         INTEGER_CONST 128 (Push 5)
+                     0.762206 * 128.000000 = 97.562429 (push 3)
+                  256.000000 - 97.562429 = 158.437571 (push 1)
+                 renderFrame.bri := 158.437571 (pop 0)
+                      VarRef renderFrame.i = 2.000000 (push 1)
+                         INTEGER_CONST 0 (Push 2)
+                           INTEGER_CONST 255 (Push 3)
+                           VarRef renderFrame.bri = 158.437571 (push 4)
+hsv(0.000000, 255.000000, 158.437571)
+                     Call hsv(0.000000, 255.000000, 158.437571) = 413.437571
+wled_set_variables, set leds to 413.437571                 Assign set ext.leds[2] = 413.437571 (1)
+             assign next value
+                  VarRef renderFrame.i = 2.000000 (push 1)
+                  PLUS + (Push 2)
+                    INTEGER_CONST 1 (Push 3)
+               2.000000 + 1.000000 = 3.000000 (push 1)
+              renderFrame.i := 3.000000 (pop 0)
+             iteration
+             check to condition
+                 VarRef renderFrame.i = 3.000000 (push 1)
+                 LT < (Push 2)
+                   VarRef ext.ledCount = 3.000000 (push 3)
+              3.000000 < 3.000000 = 0.000000 (push 1)
+             conditionResult (pop 0)
+             0 => end of For
+                 VarRef ext.leds = 7.000000 (push 1)
+setPixels(7.000000)
+             Call setPixels(7.000000)
+Destruct activation record renderFrame
+Destruct callstack
+Destruct valueStack
+Destruct Interpreter
+def mem 9236 of 12192 12192 24 0 6
+def mem 18370 of 33304 33304 1 0 28

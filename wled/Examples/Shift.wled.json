@@ -1,27 +1,10 @@
 {
   "program": {
     "PROGRAM": "PROGRAM",
-    "ID": "ColorWalk",
+    "ID": "Shift",
     "block": {
       "LCURL": "{",
       "*": [
-        {
-          "statement": {
-            "assign": {
-              "varleft": {
-                "ID": "pixelCounter"
-              },
-              "ASSIGN": "=",
-              "expr": {
-                "term": {
-                  "factor": {
-                    "INTEGER_CONST": "0"
-                  }
-                }
-              }
-            }
-          }
-        },
         {
           "statement": {
             "function": {
@@ -42,9 +25,7 @@
                           "expr": {
                             "term": {
                               "factor": {
-                                "varref": {
-                                  "ID": "pixelCounter"
-                                }
+                                "INTEGER_CONST": "0"
                               }
                             }
                           },
@@ -56,8 +37,11 @@
                               "expr": {
                                 "term": {
                                   "factor": {
-                                    "varref": {
-                                      "ID": "pixelCounter"
+                                    "call": {
+                                      "ID": "random",
+                                      "LPAREN": "(",
+                                      "actuals": {},
+                                      "RPAREN": ")"
                                     }
                                   }
                                 }
@@ -71,32 +55,19 @@
                   },
                   {
                     "statement": {
-                      "assign": {
-                        "varleft": {
-                          "ID": "pixelCounter"
+                      "call": {
+                        "ID": "shift",
+                        "LPAREN": "(",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "INTEGER_CONST": "1"
+                              }
+                            }
+                          }
                         },
-                        "ASSIGN": "=",
-                        "expr": {
-                          "term": {
-                            "factor": {
-                              "varref": {
-                                "ID": "pixelCounter"
-                              }
-                            }
-                          },
-                          "*": [
-                            {
-                              "PLUS": "+"
-                            },
-                            {
-                              "term": {
-                                "factor": {
-                                  "INTEGER_CONST": "1"
-                                }
-                              }
-                            }
-                          ]
-                        }
+                        "RPAREN": ")"
                       }
                     }
                   },

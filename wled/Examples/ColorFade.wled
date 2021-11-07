@@ -1,6 +1,5 @@
 program ColorFade
 {
-   leds = array(ledCount, ledCount)
    pixelCounter = 0
 
    function init() {

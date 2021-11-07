@@ -22,14 +22,19 @@
 int main() {
   ARTI *arti = new ARTI();
 
-  char definitionFile[charLength];
-  char programFile[charLength];
+  char definitionFile[fileNameLength];
+  char programFile[fileNameLength];
   
-  // strcpy(definitionFile, "pas.json"); strcpy(programFile, "Examples/pas1.pas");
-  // strcpy(definitionFile, "wled.json"); strcpy(programFile, "Examples/default.wled");
-  // strcpy(definitionFile, "wled.json"); strcpy(programFile, "Examples/ColorFade.wled");
-  // strcpy(definitionFile, "wled.json"); strcpy(programFile, "Examples/ColorRandom.wled");
-  strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Kitt.wled");
+  // strcpy(definitionFile, "pas/pas.json"); strcpy(programFile, "pas/Examples/pas1.pas");
+  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/default.wled");
+  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/ColorFade.wled");
+  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/ColorRandom.wled");
+  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Kitt.wled");
+  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Shift.wled");
+  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Subpixel.wled");
+  strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/PhaseShift.wled");
+  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/BrightPulse.wled");
+  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Clock.wled");
 
   printf("open %s and %s\n", definitionFile, programFile);
 
@@ -40,12 +45,13 @@ int main() {
           uint8_t nrOfTimes = 2;
           if (strstr(programFile, "Kitt"))
             nrOfTimes = 4;
+          // else if (strstr(programFile, "Subpixel"))
+          //   nrOfTimes = 100;
 
           for (uint8_t i=0; i<nrOfTimes; i++)
             arti->interpret("renderFrame");
         }
 
-        printf("done\n");
       }
       else 
         printf("interpret fail\n");
@@ -57,4 +63,5 @@ int main() {
     printf("parse fail\n");
 
   arti->close();
+  printf("done\n");
 }

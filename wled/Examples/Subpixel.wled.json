@@ -1,0 +1,500 @@
+{
+  "program": {
+    "PROGRAM": "PROGRAM",
+    "ID": "Subpixel",
+    "block": {
+      "LCURL": "{",
+      "*": [
+        {
+          "statement": {
+            "function": {
+              "FUNCTION": "FUNCTION",
+              "ID": "renderFrame",
+              "LPAREN": "(",
+              "formals": {},
+              "RPAREN": ")",
+              "block": {
+                "LCURL": "{",
+                "*": [
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "t"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "millis",
+                                "LPAREN": "(",
+                                "actuals": {},
+                                "RPAREN": ")"
+                              }
+                            },
+                            "*": [
+                              {
+                                "DIV": "/"
+                              },
+                              {
+                                "factor": {
+                                  "INTEGER_CONST": "1000"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "t"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "sin",
+                                "LPAREN": "(",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "varref": {
+                                          "ID": "t"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "RPAREN": ")"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "t"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "varref": {
+                                "ID": "t"
+                              }
+                            }
+                          },
+                          "*": [
+                            {
+                              "PLUS": "+"
+                            },
+                            {
+                              "term": {
+                                "factor": {
+                                  "INTEGER_CONST": "1"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "t"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "varref": {
+                                "ID": "t"
+                              }
+                            },
+                            "*": [
+                              {
+                                "DIV": "/"
+                              },
+                              {
+                                "factor": {
+                                  "INTEGER_CONST": "2"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "t"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "varref": {
+                                "ID": "t"
+                              }
+                            },
+                            "*": [
+                              {
+                                "MUL": "*"
+                              },
+                              {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "ledCount"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "for": {
+                        "FOR": "FOR",
+                        "LPAREN": "(",
+                        "assign": {
+                          "varleft": {
+                            "ID": "i"
+                          },
+                          "ASSIGN": "=",
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "INTEGER_CONST": "0"
+                              }
+                            }
+                          }
+                        },
+                        "SEMI": ";",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "varref": {
+                                "ID": "i"
+                              }
+                            }
+                          },
+                          "*": [
+                            {
+                              "LT": "<"
+                            },
+                            {
+                              "term": {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "ledCount"
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "increment": {
+                          "assign": {
+                            "varleft": {
+                              "ID": "i"
+                            },
+                            "ASSIGN": "=",
+                            "expr": {
+                              "term": {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "i"
+                                  }
+                                }
+                              },
+                              "*": [
+                                {
+                                  "PLUS": "+"
+                                },
+                                {
+                                  "term": {
+                                    "factor": {
+                                      "INTEGER_CONST": "1"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "RPAREN": ")",
+                        "block": {
+                          "LCURL": "{",
+                          "*": [
+                            {
+                              "statement": {
+                                "assign": {
+                                  "varleft": {
+                                    "ID": "diff"
+                                  },
+                                  "ASSIGN": "=",
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "call": {
+                                          "ID": "abs",
+                                          "LPAREN": "(",
+                                          "actuals": {
+                                            "expr": {
+                                              "term": {
+                                                "factor": {
+                                                  "varref": {
+                                                    "ID": "t"
+                                                  }
+                                                }
+                                              },
+                                              "*": [
+                                                {
+                                                  "MINUS": "-"
+                                                },
+                                                {
+                                                  "term": {
+                                                    "factor": {
+                                                      "varref": {
+                                                        "ID": "i"
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "RPAREN": ")"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "statement": {
+                                "if": {
+                                  "IF": "IF",
+                                  "LPAREN": "(",
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "varref": {
+                                          "ID": "diff"
+                                        }
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "GT": ">"
+                                      },
+                                      {
+                                        "term": {
+                                          "factor": {
+                                            "INTEGER_CONST": "2"
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "RPAREN": ")",
+                                  "block": {
+                                    "LCURL": "{",
+                                    "*": [
+                                      {
+                                        "statement": {
+                                          "assign": {
+                                            "varleft": {
+                                              "ID": "diff"
+                                            },
+                                            "ASSIGN": "=",
+                                            "expr": {
+                                              "term": {
+                                                "factor": {
+                                                  "INTEGER_CONST": "2"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {}
+                                    ],
+                                    "RCURL": "}"
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "statement": {
+                                "assign": {
+                                  "varleft": {
+                                    "ID": "bri"
+                                  },
+                                  "ASSIGN": "=",
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "INTEGER_CONST": "256"
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "MINUS": "-"
+                                      },
+                                      {
+                                        "term": {
+                                          "factor": {
+                                            "varref": {
+                                              "ID": "diff"
+                                            }
+                                          },
+                                          "*": [
+                                            {
+                                              "MUL": "*"
+                                            },
+                                            {
+                                              "factor": {
+                                                "INTEGER_CONST": "128"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "statement": {
+                                "assign": {
+                                  "varleft": {
+                                    "ID": "leds"
+                                  },
+                                  "LBRACKET": "[",
+                                  "indices": {
+                                    "expr": {
+                                      "term": {
+                                        "factor": {
+                                          "varref": {
+                                            "ID": "i"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "RBRACKET": "]",
+                                  "ASSIGN": "=",
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "call": {
+                                          "ID": "hsv",
+                                          "LPAREN": "(",
+                                          "actuals": {
+                                            "expr": {
+                                              "term": {
+                                                "factor": {
+                                                  "INTEGER_CONST": "0"
+                                                }
+                                              }
+                                            },
+                                            "*": [
+                                              {
+                                                "COMMA": ","
+                                              },
+                                              {
+                                                "expr": {
+                                                  "term": {
+                                                    "factor": {
+                                                      "INTEGER_CONST": "255"
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                "COMMA": ","
+                                              },
+                                              {
+                                                "expr": {
+                                                  "term": {
+                                                    "factor": {
+                                                      "varref": {
+                                                        "ID": "bri"
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "RPAREN": ")"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {}
+                          ],
+                          "RCURL": "}"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "call": {
+                        "ID": "setPixels",
+                        "LPAREN": "(",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "varref": {
+                                  "ID": "leds"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "RPAREN": ")"
+                      }
+                    }
+                  },
+                  {}
+                ],
+                "RCURL": "}"
+              }
+            }
+          }
+        },
+        {}
+      ],
+      "RCURL": "}"
+    }
+  }
+}

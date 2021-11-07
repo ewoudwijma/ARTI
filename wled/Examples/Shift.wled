@@ -1,0 +1,9 @@
+program Shift
+{
+
+  function renderFrame() {
+    setPixelColor(0, random())
+    shift(1)
+  }
+
+}

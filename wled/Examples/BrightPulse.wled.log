@@ -1,0 +1,611 @@
+Parser PROGRAM PROGRAM
+ PROGRAM PROGRAM -> [ID BrightPulse] 0
+ ID BrightPulse -> [LCURL {] 0
+ block 0
+  LCURL { -> [FUNCTION FUNCTION] 1
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     fail varleft
+    fail assign
+    function 3
+     FUNCTION FUNCTION -> [ID renderFrame] 4
+     ID renderFrame -> [LPAREN (] 4
+      LPAREN ( -> [RPAREN )] 5
+      formals 5
+       formal 6
+       fail formal
+      success formals
+      RPAREN ) -> [LCURL {] 5
+     block 4
+      LCURL { -> [ID sa] 5
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID sa -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID sampleAvg] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID sampleAvg -> [MUL *] 12
+            fail call
+            varref 11
+            ID sampleAvg -> [MUL *] 11
+            success varref
+           success factor
+             MUL * -> [INTEGER_CONST 256] 12
+            factor 11
+             call 12
+             fail call
+             varref 12
+             fail varref
+             INTEGER_CONST 256 -> [ID sa] 12
+            success factor
+          remove multiple key
+          success term
+         remove multiple key
+         remove multiple empty
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID sa -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID sa] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID sa -> [DIV /] 12
+            fail call
+            varref 11
+            ID sa -> [DIV /] 11
+            success varref
+           success factor
+             DIV / -> [LPAREN (] 12
+            factor 11
+             call 12
+             fail call
+             varref 12
+             fail varref
+              LPAREN ( -> [INTEGER_CONST 256] 13
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                 fail call
+                 varref 16
+                 fail varref
+                 INTEGER_CONST 256 -> [MINUS -] 16
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+                 MINUS - -> [ID speed] 16
+                term 15
+                 factor 16
+                  call 17
+                   ID speed -> [RPAREN )] 18
+                  fail call
+                  varref 17
+                  ID speed -> [RPAREN )] 17
+                  success varref
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+              remove multiple key
+              success expr
+              RPAREN ) -> [ID lum] 13
+            success factor
+          remove multiple key
+          success term
+         remove multiple key
+         remove multiple empty
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID lum -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID constrain] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID constrain -> [LPAREN (] 12
+             LPAREN ( -> [ID sa] 12
+             actuals 12
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                  ID sa -> [COMMA ,] 17
+                 fail call
+                 varref 16
+                 ID sa -> [COMMA ,] 16
+                 success varref
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+              remove multiple key
+              remove multiple empty
+              success expr
+               COMMA , -> [INTEGER_CONST 0] 14
+               expr 14
+                term 15
+                 factor 16
+                  call 17
+                  fail call
+                  varref 17
+                  fail varref
+                  INTEGER_CONST 0 -> [COMMA ,] 17
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+               remove multiple key
+               remove multiple empty
+               success expr
+               COMMA , -> [INTEGER_CONST 255] 14
+               expr 14
+                term 15
+                 factor 16
+                  call 17
+                  fail call
+                  varref 17
+                  fail varref
+                  INTEGER_CONST 255 -> [RPAREN )] 17
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+               remove multiple key
+               remove multiple empty
+               success expr
+             remove multiple key
+             success actuals
+             RPAREN ) -> [ID sc0] 12
+            success call
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+         remove multiple key
+         remove multiple empty
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID sc0 -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID segcolor] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID segcolor -> [LPAREN (] 12
+             LPAREN ( -> [INTEGER_CONST 0] 12
+             actuals 12
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                 fail call
+                 varref 16
+                 fail varref
+                 INTEGER_CONST 0 -> [RPAREN )] 16
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+              remove multiple key
+              remove multiple empty
+              success expr
+             remove multiple key
+             remove multiple empty
+             success actuals
+             RPAREN ) -> [ID sc1] 12
+            success call
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+         remove multiple key
+         remove multiple empty
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID sc1 -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID segcolor] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID segcolor -> [LPAREN (] 12
+             LPAREN ( -> [INTEGER_CONST 1] 12
+             actuals 12
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                 fail call
+                 varref 16
+                 fail varref
+                 INTEGER_CONST 1 -> [RPAREN )] 16
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+              remove multiple key
+              remove multiple empty
+              success expr
+             remove multiple key
+             remove multiple empty
+             success actuals
+             RPAREN ) -> [ID cb] 12
+            success call
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+         remove multiple key
+         remove multiple empty
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID cb -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID blend] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID blend -> [LPAREN (] 12
+             LPAREN ( -> [ID sc1] 12
+             actuals 12
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                  ID sc1 -> [COMMA ,] 17
+                 fail call
+                 varref 16
+                 ID sc1 -> [COMMA ,] 16
+                 success varref
+                success factor
+               remove multiple key
+               remove multiple empty
+               success term
+              remove multiple key
+              remove multiple empty
+              success expr
+               COMMA , -> [ID sc0] 14
+               expr 14
+                term 15
+                 factor 16
+                  call 17
+                   ID sc0 -> [COMMA ,] 18
+                  fail call
+                  varref 17
+                  ID sc0 -> [COMMA ,] 17
+                  success varref
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+               remove multiple key
+               remove multiple empty
+               success expr
+               COMMA , -> [ID lum] 14
+               expr 14
+                term 15
+                 factor 16
+                  call 17
+                   ID lum -> [RPAREN )] 18
+                  fail call
+                  varref 17
+                  ID lum -> [RPAREN )] 17
+                  success varref
+                 success factor
+                remove multiple key
+                remove multiple empty
+                success term
+               remove multiple key
+               remove multiple empty
+               success expr
+             remove multiple key
+             success actuals
+             RPAREN ) -> [ID fill] 12
+            success call
+           success factor
+          remove multiple key
+          remove multiple empty
+          success term
+         remove multiple key
+         remove multiple empty
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID fill -> [LPAREN (] 8
+         success varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+         ID fill -> [LPAREN (] 8
+         LPAREN ( -> [ID cb] 8
+         actuals 8
+          expr 9
+           term 10
+            factor 11
+             call 12
+              ID cb -> [RPAREN )] 13
+             fail call
+             varref 12
+             ID cb -> [RPAREN )] 12
+             success varref
+            success factor
+           remove multiple key
+           remove multiple empty
+           success term
+          remove multiple key
+          remove multiple empty
+          success expr
+         remove multiple key
+         remove multiple empty
+         success actuals
+         RPAREN ) -> [RCURL }] 8
+        success call
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+        fail for
+        if 7
+        fail if
+        block 7
+        fail block
+       fail statement
+      RCURL } -> [RCURL }] 5
+     remove multiple key
+     success block
+    success function
+   success statement
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     fail varleft
+    fail assign
+    function 3
+    fail function
+    call 3
+    fail call
+    for 3
+    fail for
+    if 3
+    fail if
+    block 3
+    fail block
+   fail statement
+  RCURL } 1
+ remove multiple key
+ success block
+Symbol program Parsed until (14,1) 228 of 228
+par mem 11757 of 22800 22800 1 0 23
+prog size 228 factor 51
+Destruct Lexer
+Destruct Parser
+
+Analyzer
+ Program BrightPulse 1 0
+  Token LCURL
+     Function BrightPulse.renderFrame
+      Token LCURL
+         Assign renderFrame.sa of notype
+         Assign sa = (8)
+             Ext Variable found sampleAvg (12)
+              Token MUL
+               Token INTEGER_CONST
+         Assign sa = (8)
+             VarRef found sa (12)
+              Token DIV
+               Token LPAREN
+                  Token INTEGER_CONST
+                  Token MINUS
+                    Ext Variable found speed (19)
+               Token RPAREN
+         Assign renderFrame.lum of notype
+         Assign lum = (8)
+             extfunc constrain
+                 VarRef found sa (16)
+                Token COMMA
+                   Token INTEGER_CONST
+                Token COMMA
+                   Token INTEGER_CONST
+         Assign renderFrame.sc0 of notype
+         Assign sc0 = (8)
+             extfunc segcolor
+                 Token INTEGER_CONST
+         Assign renderFrame.sc1 of notype
+         Assign sc1 = (8)
+             extfunc segcolor
+                 Token INTEGER_CONST
+         Assign renderFrame.cb of notype
+         Assign cb = (8)
+             extfunc blend
+                 VarRef found sc1 (16)
+                Token COMMA
+                   VarRef found sc0 (18)
+                Token COMMA
+                   VarRef found lum (18)
+         extfunc fill
+             VarRef found cb (12)
+      Token RCURL
+     0 Assign renderFrame.sa notype 2
+     1 Assign renderFrame.lum notype 2
+     2 Assign renderFrame.sc0 notype 2
+     3 Assign renderFrame.sc1 notype 2
+     4 Assign renderFrame.cb notype 2
+  Token RCURL
+ 0 Function BrightPulse.renderFrame  1
+
+interpret BrightPulse 1 1
+ program name ID
+ Program BrightPulse BrightPulse
+  Token LCURL
+     Save block of renderFrame
+  Token RCURL
+         Call renderFrame (1)
+          Token LCURL
+                 VarRef ext.sampleAvg = 9.000000 (push 1)
+                  MUL * (Push 2)
+                  Token MUL
+                   INTEGER_CONST 256 (Push 3)
+                   Token INTEGER_CONST
+               9.000000 * 256.000000 = 2304.000000 (push 1)
+             renderFrame.sa := 2304.000000 (pop 0)
+                 VarRef renderFrame.sa = 2304.000000 (push 1)
+                  DIV / (Push 2)
+                  Token DIV
+                   Token LPAREN
+                      INTEGER_CONST 256 (Push 3)
+                      Token INTEGER_CONST
+                      MINUS - (Push 4)
+                      Token MINUS
+                        VarRef ext.speed = 11.000000 (push 5)
+                   256.000000 - 11.000000 = 245.000000 (push 3)
+                   Token RPAREN
+               2304.000000 / 245.000000 = 9.404082 (push 1)
+             renderFrame.sa := 9.404082 (pop 0)
+                     VarRef renderFrame.sa = 9.404082 (push 1)
+                    Token COMMA
+                       INTEGER_CONST 0 (Push 2)
+                       Token INTEGER_CONST
+                    Token COMMA
+                       INTEGER_CONST 255 (Push 3)
+                       Token INTEGER_CONST
+                 Call constrain(9.404082, 0.000000, 255.000000) = 264.404082
+             renderFrame.lum := 264.404082 (pop 0)
+                     INTEGER_CONST 0 (Push 1)
+                     Token INTEGER_CONST
+                 Call segcolor(0.000000) = 0.000000
+             renderFrame.sc0 := 0.000000 (pop 0)
+                     INTEGER_CONST 1 (Push 1)
+                     Token INTEGER_CONST
+                 Call segcolor(1.000000) = 1.000000
+             renderFrame.sc1 := 1.000000 (pop 0)
+                     VarRef renderFrame.sc1 = 1.000000 (push 1)
+                    Token COMMA
+                       VarRef renderFrame.sc0 = 0.000000 (push 2)
+                    Token COMMA
+                       VarRef renderFrame.lum = 264.404082 (push 3)
+                 Call blend(1.000000, 0.000000, 264.404082) = 265.404082
+             renderFrame.cb := 265.404082 (pop 0)
+                 VarRef renderFrame.cb = 265.404082 (push 1)
+fill(265.404082)
+             Call fill(265.404082)
+          Token RCURL
+Destruct activation record renderFrame
+         Call renderFrame (1)
+          Token LCURL
+                 VarRef ext.sampleAvg = 9.000000 (push 1)
+                  MUL * (Push 2)
+                  Token MUL
+                   INTEGER_CONST 256 (Push 3)
+                   Token INTEGER_CONST
+               9.000000 * 256.000000 = 2304.000000 (push 1)
+             renderFrame.sa := 2304.000000 (pop 0)
+                 VarRef renderFrame.sa = 2304.000000 (push 1)
+                  DIV / (Push 2)
+                  Token DIV
+                   Token LPAREN
+                      INTEGER_CONST 256 (Push 3)
+                      Token INTEGER_CONST
+                      MINUS - (Push 4)
+                      Token MINUS
+                        VarRef ext.speed = 11.000000 (push 5)
+                   256.000000 - 11.000000 = 245.000000 (push 3)
+                   Token RPAREN
+               2304.000000 / 245.000000 = 9.404082 (push 1)
+             renderFrame.sa := 9.404082 (pop 0)
+                     VarRef renderFrame.sa = 9.404082 (push 1)
+                    Token COMMA
+                       INTEGER_CONST 0 (Push 2)
+                       Token INTEGER_CONST
+                    Token COMMA
+                       INTEGER_CONST 255 (Push 3)
+                       Token INTEGER_CONST
+                 Call constrain(9.404082, 0.000000, 255.000000) = 264.404082
+             renderFrame.lum := 264.404082 (pop 0)
+                     INTEGER_CONST 0 (Push 1)
+                     Token INTEGER_CONST
+                 Call segcolor(0.000000) = 0.000000
+             renderFrame.sc0 := 0.000000 (pop 0)
+                     INTEGER_CONST 1 (Push 1)
+                     Token INTEGER_CONST
+                 Call segcolor(1.000000) = 1.000000
+             renderFrame.sc1 := 1.000000 (pop 0)
+                     VarRef renderFrame.sc1 = 1.000000 (push 1)
+                    Token COMMA
+                       VarRef renderFrame.sc0 = 0.000000 (push 2)
+                    Token COMMA
+                       VarRef renderFrame.lum = 264.404082 (push 3)
+                 Call blend(1.000000, 0.000000, 264.404082) = 265.404082
+             renderFrame.cb := 265.404082 (pop 0)
+                 VarRef renderFrame.cb = 265.404082 (push 1)
+fill(265.404082)
+             Call fill(265.404082)
+          Token RCURL
+Destruct activation record renderFrame
+Destruct callstack
+Destruct valueStack
+Destruct Interpreter
+def mem 9236 of 12192 12192 24 0 6
+def mem 11757 of 22800 22800 1 0 23

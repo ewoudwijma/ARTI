@@ -1,0 +1,311 @@
+{
+  "program": {
+    "PROGRAM": "PROGRAM",
+    "ID": "BrightPulse",
+    "block": {
+      "LCURL": "{",
+      "*": [
+        {
+          "statement": {
+            "function": {
+              "FUNCTION": "FUNCTION",
+              "ID": "renderFrame",
+              "LPAREN": "(",
+              "formals": {},
+              "RPAREN": ")",
+              "block": {
+                "LCURL": "{",
+                "*": [
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "sa"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "varref": {
+                                "ID": "sampleAvg"
+                              }
+                            },
+                            "*": [
+                              {
+                                "MUL": "*"
+                              },
+                              {
+                                "factor": {
+                                  "INTEGER_CONST": "256"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "sa"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "varref": {
+                                "ID": "sa"
+                              }
+                            },
+                            "*": [
+                              {
+                                "DIV": "/"
+                              },
+                              {
+                                "factor": {
+                                  "LPAREN": "(",
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "INTEGER_CONST": "256"
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "MINUS": "-"
+                                      },
+                                      {
+                                        "term": {
+                                          "factor": {
+                                            "varref": {
+                                              "ID": "speed"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "RPAREN": ")"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "lum"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "constrain",
+                                "LPAREN": "(",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "varref": {
+                                          "ID": "sa"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "*": [
+                                    {
+                                      "COMMA": ","
+                                    },
+                                    {
+                                      "expr": {
+                                        "term": {
+                                          "factor": {
+                                            "INTEGER_CONST": "0"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "COMMA": ","
+                                    },
+                                    {
+                                      "expr": {
+                                        "term": {
+                                          "factor": {
+                                            "INTEGER_CONST": "255"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                },
+                                "RPAREN": ")"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "sc0"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "segcolor",
+                                "LPAREN": "(",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "INTEGER_CONST": "0"
+                                      }
+                                    }
+                                  }
+                                },
+                                "RPAREN": ")"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "sc1"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "segcolor",
+                                "LPAREN": "(",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "INTEGER_CONST": "1"
+                                      }
+                                    }
+                                  }
+                                },
+                                "RPAREN": ")"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "cb"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "blend",
+                                "LPAREN": "(",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "varref": {
+                                          "ID": "sc1"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "*": [
+                                    {
+                                      "COMMA": ","
+                                    },
+                                    {
+                                      "expr": {
+                                        "term": {
+                                          "factor": {
+                                            "varref": {
+                                              "ID": "sc0"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "COMMA": ","
+                                    },
+                                    {
+                                      "expr": {
+                                        "term": {
+                                          "factor": {
+                                            "varref": {
+                                              "ID": "lum"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                },
+                                "RPAREN": ")"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "call": {
+                        "ID": "fill",
+                        "LPAREN": "(",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "varref": {
+                                  "ID": "cb"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "RPAREN": ")"
+                      }
+                    }
+                  },
+                  {}
+                ],
+                "RCURL": "}"
+              }
+            }
+          }
+        },
+        {}
+      ],
+      "RCURL": "}"
+    }
+  }
+}

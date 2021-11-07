@@ -1,0 +1,236 @@
+{
+  "program": {
+    "PROGRAM": "PROGRAM",
+    "ID": "Clock",
+    "block": {
+      "LCURL": "{",
+      "*": [
+        {
+          "statement": {
+            "function": {
+              "FUNCTION": "FUNCTION",
+              "ID": "renderFrame",
+              "LPAREN": "(",
+              "formals": {},
+              "RPAREN": ")",
+              "block": {
+                "LCURL": "{",
+                "*": [
+                  {
+                    "statement": {
+                      "call": {
+                        "ID": "setRange",
+                        "LPAREN": "(",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "INTEGER_CONST": "0"
+                              }
+                            }
+                          },
+                          "*": [
+                            {
+                              "COMMA": ","
+                            },
+                            {
+                              "expr": {
+                                "term": {
+                                  "factor": {
+                                    "varref": {
+                                      "ID": "ledCount"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "COMMA": ","
+                            },
+                            {
+                              "expr": {
+                                "term": {
+                                  "factor": {
+                                    "INTEGER_CONST": "0"
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "RPAREN": ")"
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "h"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "varref": {
+                                "ID": "hour"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "m"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "varref": {
+                                "ID": "minute"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "s"
+                        },
+                        "ASSIGN": "=",
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "varref": {
+                                "ID": "second"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "call": {
+                        "ID": "setPixelColor",
+                        "LPAREN": "(",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "varref": {
+                                  "ID": "h"
+                                }
+                              }
+                            }
+                          },
+                          "*": [
+                            {
+                              "COMMA": ","
+                            },
+                            {
+                              "expr": {
+                                "term": {
+                                  "factor": {
+                                    "INTEGER_CONST": "0"
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "RPAREN": ")"
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "call": {
+                        "ID": "setPixelColor",
+                        "LPAREN": "(",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "varref": {
+                                  "ID": "m"
+                                }
+                              }
+                            }
+                          },
+                          "*": [
+                            {
+                              "COMMA": ","
+                            },
+                            {
+                              "expr": {
+                                "term": {
+                                  "factor": {
+                                    "INTEGER_CONST": "1"
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "RPAREN": ")"
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "call": {
+                        "ID": "setPixelColor",
+                        "LPAREN": "(",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "varref": {
+                                  "ID": "s"
+                                }
+                              }
+                            }
+                          },
+                          "*": [
+                            {
+                              "COMMA": ","
+                            },
+                            {
+                              "expr": {
+                                "term": {
+                                  "factor": {
+                                    "INTEGER_CONST": "2"
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "RPAREN": ")"
+                      }
+                    }
+                  },
+                  {}
+                ],
+                "RCURL": "}"
+              }
+            }
+          }
+        },
+        {}
+      ],
+      "RCURL": "}"
+    }
+  }
+}

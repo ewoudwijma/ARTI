@@ -6,104 +6,67 @@
       "LCURL": "{",
       "*": [
         {
-          "function": {
-            "FUNCTION": "FUNCTION",
-            "ID": "renderFrame",
-            "LPAREN": "(",
-            "formals": {},
-            "RPAREN": ")",
-            "block": {
-              "LCURL": "{",
-              "*": [
-                {
-                  "for": {
-                    "FOR": "FOR",
-                    "LPAREN": "(",
-                    "assign": {
-                      "varleft": {
-                        "ID": "i"
-                      },
-                      "ASSIGN": "=",
-                      "expr": {
-                        "term": {
-                          "INTEGER_CONST": "0"
-                        }
-                      }
-                    },
-                    "SEMI": ";",
-                    "expr": {
-                      "term": {
-                        "varref": {
-                          "ID": "i"
-                        }
-                      },
-                      "*": [
-                        {
-                          "LT": "<"
-                        },
-                        {
-                          "term": {
-                            "varref": {
-                              "ID": "ledCount"
+          "statement": {
+            "function": {
+              "FUNCTION": "FUNCTION",
+              "ID": "renderFrame",
+              "LPAREN": "(",
+              "formals": {},
+              "RPAREN": ")",
+              "block": {
+                "LCURL": "{",
+                "*": [
+                  {
+                    "statement": {
+                      "for": {
+                        "FOR": "FOR",
+                        "LPAREN": "(",
+                        "assign": {
+                          "varleft": {
+                            "ID": "i"
+                          },
+                          "ASSIGN": "=",
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "INTEGER_CONST": "0"
+                              }
                             }
                           }
-                        }
-                      ]
-                    },
-                    "increment": {
-                      "assign": {
-                        "varleft": {
-                          "ID": "i"
                         },
-                        "ASSIGN": "=",
+                        "SEMI": ";",
                         "expr": {
                           "term": {
-                            "varref": {
-                              "ID": "i"
+                            "factor": {
+                              "varref": {
+                                "ID": "i"
+                              }
                             }
                           },
                           "*": [
                             {
-                              "PLUS": "+"
+                              "LT": "<"
                             },
                             {
                               "term": {
-                                "INTEGER_CONST": "1"
+                                "factor": {
+                                  "varref": {
+                                    "ID": "ledCount"
+                                  }
+                                }
                               }
                             }
                           ]
-                        }
-                      }
-                    },
-                    "RPAREN": ")",
-                    "block": {
-                      "LCURL": "{",
-                      "*": [
-                        {
+                        },
+                        "increment": {
                           "assign": {
                             "varleft": {
-                              "ID": "color"
+                              "ID": "i"
                             },
                             "ASSIGN": "=",
                             "expr": {
                               "term": {
-                                "call": {
-                                  "ID": "random",
-                                  "LPAREN": "(",
-                                  "actuals": {},
-                                  "RPAREN": ")"
-                                }
-                              }
-                            }
-                          }
-                        },
-                        {
-                          "call": {
-                            "ID": "setPixelColor",
-                            "LPAREN": "(",
-                            "actuals": {
-                              "expr": {
-                                "term": {
+                                "factor": {
                                   "varref": {
                                     "ID": "i"
                                   }
@@ -111,31 +74,92 @@
                               },
                               "*": [
                                 {
-                                  "COMMA": ","
+                                  "PLUS": "+"
                                 },
                                 {
-                                  "expr": {
-                                    "term": {
-                                      "varref": {
-                                        "ID": "color"
-                                      }
+                                  "term": {
+                                    "factor": {
+                                      "INTEGER_CONST": "1"
                                     }
                                   }
                                 }
                               ]
-                            },
-                            "RPAREN": ")"
+                            }
                           }
                         },
-                        {}
-                      ],
-                      "RCURL": "}"
+                        "RPAREN": ")",
+                        "block": {
+                          "LCURL": "{",
+                          "*": [
+                            {
+                              "statement": {
+                                "assign": {
+                                  "varleft": {
+                                    "ID": "color"
+                                  },
+                                  "ASSIGN": "=",
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "call": {
+                                          "ID": "random",
+                                          "LPAREN": "(",
+                                          "actuals": {},
+                                          "RPAREN": ")"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "statement": {
+                                "call": {
+                                  "ID": "setPixelColor",
+                                  "LPAREN": "(",
+                                  "actuals": {
+                                    "expr": {
+                                      "term": {
+                                        "factor": {
+                                          "varref": {
+                                            "ID": "i"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "COMMA": ","
+                                      },
+                                      {
+                                        "expr": {
+                                          "term": {
+                                            "factor": {
+                                              "varref": {
+                                                "ID": "color"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "RPAREN": ")"
+                                }
+                              }
+                            },
+                            {}
+                          ],
+                          "RCURL": "}"
+                        }
+                      }
                     }
-                  }
-                },
-                {}
-              ],
-              "RCURL": "}"
+                  },
+                  {}
+                ],
+                "RCURL": "}"
+              }
             }
           }
         },
