@@ -30,7 +30,8 @@
                                 "ID": "millis",
                                 "LPAREN": "(",
                                 "actuals": {},
-                                "RPAREN": ")"
+                                "RPAREN": ")",
+                                "external": 6
                               }
                             },
                             "*": [
@@ -72,7 +73,8 @@
                                     }
                                   }
                                 },
-                                "RPAREN": ")"
+                                "RPAREN": ")",
+                                "external": 5
                               }
                             }
                           }
@@ -161,7 +163,8 @@
                               {
                                 "factor": {
                                   "varref": {
-                                    "ID": "ledCount"
+                                    "ID": "ledCount",
+                                    "external": 3
                                   }
                                 }
                               }
@@ -206,7 +209,8 @@
                               "term": {
                                 "factor": {
                                   "varref": {
-                                    "ID": "ledCount"
+                                    "ID": "ledCount",
+                                    "external": 3
                                   }
                                 }
                               }
@@ -284,7 +288,8 @@
                                               ]
                                             }
                                           },
-                                          "RPAREN": ")"
+                                          "RPAREN": ")",
+                                          "external": 7
                                         }
                                       }
                                     }
@@ -450,11 +455,13 @@
                                               }
                                             ]
                                           },
-                                          "RPAREN": ")"
+                                          "RPAREN": ")",
+                                          "external": 10
                                         }
                                       }
                                     }
-                                  }
+                                  },
+                                  "external": 9
                                 }
                               }
                             },
@@ -475,13 +482,15 @@
                             "term": {
                               "factor": {
                                 "varref": {
-                                  "ID": "leds"
+                                  "ID": "leds",
+                                  "external": 9
                                 }
                               }
                             }
                           }
                         },
-                        "RPAREN": ")"
+                        "RPAREN": ")",
+                        "external": 8
                       }
                     }
                   },

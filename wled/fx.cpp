@@ -1,8 +1,16 @@
 #include "FX.h"
 
 #include "src/dependencies/arti/arti.h"
-ARTI * arti = nullptr;
 
+
+
+//Adding ARTI to this structure seems to be needed to make the pointers used in ARTI survive in subsequent calls of mode_customEffect
+//  otherwise: Interpret renderFrame: No parsetree created
+//  initially added parseTreeJsonDoc in this struct to save it explicitly but that was not needed
+// maybe because this struct is not deleted
+typedef struct ArtiWrapper {
+  ARTI* arti;
+} artiWrapper;
 
 uint16_t WS2812FX::mode_customEffect(void) {
 
@@ -59,7 +67,8 @@ uint16_t WS2812FX::mode_customEffect(void) {
 
   // return 0;
 
-  // ARTI* arti = nullptr;
+  ArtiWrapper* arti = reinterpret_cast<ArtiWrapper*>(SEGENV.data);
+  // ARTI* arti = reinterpret_cast<ARTI*>(SEGENV.data);
 
   //tbd: move statics to SEGMENT.data
   static bool succesful;
@@ -74,34 +83,24 @@ uint16_t WS2812FX::mode_customEffect(void) {
 
   if (strcmp(previousEffect, currentEffect) != 0) {
     strcpy(previousEffect, currentEffect);
-    // arti = reinterpret_cast<ARTI*>(SEGENV.data);
 
     Serial.println();
-    if (arti != nullptr) {
-      MEMORY_ARTI("Heap delete old Arti %u\n", esp_get_free_heap_size());
-      arti->close();
-      delete arti; arti = nullptr;
+    if (arti != nullptr && arti->arti != nullptr) {
+      arti->arti->close();
+      delete arti->arti; arti->arti = nullptr;
+      // SEGENV.deallocateData();
     }
 
-    MEMORY_ARTI("Heap new Arti < %u\n", esp_get_free_heap_size());
-
-    // if (!SEGENV.allocateData(sizeof(ARTI))) return mode_static();  // We use this method for allocating memory for static variables.
-    // arti = reinterpret_cast<ARTI*>(SEGENV.data);
-
-    arti = new ARTI();
+    if (!SEGENV.allocateData(sizeof(ArtiWrapper))) return mode_static();  // We use this method for allocating memory for static variables.
+    arti = reinterpret_cast<ArtiWrapper*>(SEGENV.data);
+    arti->arti = new ARTI();
 
     char programFileName[charLength];
     strcpy(programFileName, "/");
     strcat(programFileName, currentEffect);
     strcat(programFileName, ".wled");
 
-    succesful = arti->openFileAndParse("/wled.json", programFileName);
-
-    if (succesful)
-      succesful = arti->analyze();
-
-    if (succesful)
-      succesful = arti->interpret();
+    succesful = arti->arti->setup("/wled.json", programFileName);
 
     if (!succesful) {
       ERROR_ARTI("not succesful\n");
@@ -109,12 +108,12 @@ uint16_t WS2812FX::mode_customEffect(void) {
     }
   }
   else {
-    // arti = reinterpret_cast<ARTI*>(SEGENV.data);
 
     if (succesful) {// && SEGENV.call < 250 for each frame
       if (esp_get_free_heap_size() <= 30000) {
         ERROR_ARTI("Not enough free heap (%u <= 30000)\n", esp_get_free_heap_size());
         notEnoughHeap = true;
+        succesful = false;
       }
       else {
         // static int previousMillis;
@@ -122,7 +121,7 @@ uint16_t WS2812FX::mode_customEffect(void) {
         //   previousMillis = millis();
         //   MEMORY_ARTI("Heap renderFrame %u\n", esp_get_free_heap_size());
         // }
-        arti->interpret("renderFrame");
+        arti->arti->loop("renderFrame");
       }
     }
     else 
@@ -134,10 +133,10 @@ uint16_t WS2812FX::mode_customEffect(void) {
         strcpy(previousEffect, ""); // force new create
       }
       else {
-        if (arti != nullptr) { // if not enough free mem to continue
-          MEMORY_ARTI("Heap delete Arti < %u\n", esp_get_free_heap_size());
-          arti->close();
-          delete arti; arti = nullptr;
+        if (arti != nullptr && arti->arti != nullptr) { // if not enough free mem to continue
+          arti->arti->close();
+          delete arti->arti; arti = nullptr;
+          // SEGENV.deallocateData();
           MEMORY_ARTI("Heap delete Arti > %u\n", esp_get_free_heap_size());
         }
 

@@ -713,9 +713,9 @@ Parser PROGRAM PROGRAM
   RCURL } 1
  remove multiple key
  success block
-Symbol program Parsed until (20,1) 333 of 333
-par mem 18370 of 33304 33304 1 0 28
-prog size 333 factor 55
+Symbol program Parsed until (21,1) 445 of 445
+par mem 18370 of 44504 44504 1 0 28
+prog size 445 factor 41
 Destruct Lexer
 Destruct Parser
 
@@ -832,7 +832,8 @@ interpret Subpixel 1 1
                            VarRef renderFrame.bri = 0.000000 (push 4)
 hsv(0.000000, 255.000000, 0.000000)
                      Call hsv(0.000000, 255.000000, 0.000000) = 255.000000
-wled_set_variables, set leds to 255.000000                 Assign set ext.leds[0] = 255.000000 (1)
+wled_set_variables, set leds to 255.000000
+                 Assign set ext.leds[0] = 255.000000 (1)
              assign next value
                   VarRef renderFrame.i = 0.000000 (push 1)
                   PLUS + (Push 2)
@@ -874,7 +875,8 @@ wled_set_variables, set leds to 255.000000                 Assign set ext.leds[0
                            VarRef renderFrame.bri = 30.437571 (push 4)
 hsv(0.000000, 255.000000, 30.437571)
                      Call hsv(0.000000, 255.000000, 30.437571) = 285.437571
-wled_set_variables, set leds to 285.437571                 Assign set ext.leds[1] = 285.437571 (1)
+wled_set_variables, set leds to 285.437571
+                 Assign set ext.leds[1] = 285.437571 (1)
              assign next value
                   VarRef renderFrame.i = 1.000000 (push 1)
                   PLUS + (Push 2)
@@ -916,7 +918,8 @@ wled_set_variables, set leds to 285.437571                 Assign set ext.leds[1
                            VarRef renderFrame.bri = 158.437571 (push 4)
 hsv(0.000000, 255.000000, 158.437571)
                      Call hsv(0.000000, 255.000000, 158.437571) = 413.437571
-wled_set_variables, set leds to 413.437571                 Assign set ext.leds[2] = 413.437571 (1)
+wled_set_variables, set leds to 413.437571
+                 Assign set ext.leds[2] = 413.437571 (1)
              assign next value
                   VarRef renderFrame.i = 2.000000 (push 1)
                   PLUS + (Push 2)
@@ -1000,7 +1003,8 @@ Destruct activation record renderFrame
                            VarRef renderFrame.bri = 0.000000 (push 4)
 hsv(0.000000, 255.000000, 0.000000)
                      Call hsv(0.000000, 255.000000, 0.000000) = 255.000000
-wled_set_variables, set leds to 255.000000                 Assign set ext.leds[0] = 255.000000 (1)
+wled_set_variables, set leds to 255.000000
+                 Assign set ext.leds[0] = 255.000000 (1)
              assign next value
                   VarRef renderFrame.i = 0.000000 (push 1)
                   PLUS + (Push 2)
@@ -1042,7 +1046,8 @@ wled_set_variables, set leds to 255.000000                 Assign set ext.leds[0
                            VarRef renderFrame.bri = 30.437571 (push 4)
 hsv(0.000000, 255.000000, 30.437571)
                      Call hsv(0.000000, 255.000000, 30.437571) = 285.437571
-wled_set_variables, set leds to 285.437571                 Assign set ext.leds[1] = 285.437571 (1)
+wled_set_variables, set leds to 285.437571
+                 Assign set ext.leds[1] = 285.437571 (1)
              assign next value
                   VarRef renderFrame.i = 1.000000 (push 1)
                   PLUS + (Push 2)
@@ -1084,7 +1089,8 @@ wled_set_variables, set leds to 285.437571                 Assign set ext.leds[1
                            VarRef renderFrame.bri = 158.437571 (push 4)
 hsv(0.000000, 255.000000, 158.437571)
                      Call hsv(0.000000, 255.000000, 158.437571) = 413.437571
-wled_set_variables, set leds to 413.437571                 Assign set ext.leds[2] = 413.437571 (1)
+wled_set_variables, set leds to 413.437571
+                 Assign set ext.leds[2] = 413.437571 (1)
              assign next value
                   VarRef renderFrame.i = 2.000000 (push 1)
                   PLUS + (Push 2)
@@ -1106,5 +1112,5 @@ Destruct activation record renderFrame
 Destruct callstack
 Destruct valueStack
 Destruct Interpreter
-def mem 9236 of 12192 12192 24 0 6
-def mem 18370 of 33304 33304 1 0 28
+def mem 9311 of 12192 12192 24 0 6
+par mem 18658 of 44504 44504 1 0 28

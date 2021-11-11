@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_test.cpp
-   @version 0.0.1
-   @date    20211014
+   @version 0.0.6
+   @date    20211111
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */
@@ -31,33 +31,24 @@ int main() {
   // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/ColorRandom.wled");
   // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Kitt.wled");
   // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Shift.wled");
-  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Subpixel.wled");
-  strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/PhaseShift.wled");
+  strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Subpixel.wled");
+  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/PhaseShift.wled");
   // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/BrightPulse.wled");
   // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Clock.wled");
 
   printf("open %s and %s\n", definitionFile, programFile);
 
-  if (arti->openFileAndParse(definitionFile, programFile)) {
-    if (arti->analyze()) {
-      if (arti->interpret()) {
-        if (strstr(definitionFile, "wled")) {
-          uint8_t nrOfTimes = 2;
-          if (strstr(programFile, "Kitt"))
-            nrOfTimes = 4;
-          // else if (strstr(programFile, "Subpixel"))
-          //   nrOfTimes = 100;
+  if (arti->setup(definitionFile, programFile)) {
+    if (strstr(definitionFile, "wled")) {
+      uint8_t nrOfTimes = 2;
+      if (strstr(programFile, "Kitt"))
+        nrOfTimes = 4;
+      // else if (strstr(programFile, "Subpixel"))
+      //   nrOfTimes = 100;
 
-          for (uint8_t i=0; i<nrOfTimes; i++)
-            arti->interpret("renderFrame");
-        }
-
-      }
-      else 
-        printf("interpret fail\n");
+      for (uint8_t i=0; i<nrOfTimes; i++)
+        arti->loop("renderFrame");
     }
-    else
-      printf("analyze fail\n");
   }
   else
     printf("parse fail\n");

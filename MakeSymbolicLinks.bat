@@ -1,0 +1,2 @@
+mklink D:\WLED\Atuline\WLED\wled00\src\dependencies\arti\arti.h D:\WLED\ewoudwijma\ARTI\arti.h
+mklink D:\WLED\Atuline\WLED\wled00\src\dependencies\arti\arti_wled_plugin.h D:\WLED\ewoudwijma\ARTI\wled\arti_wled_plugin.h

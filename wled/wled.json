@@ -1,5 +1,5 @@
 {
-  "meta": {"version": "0.0.5", "start":"program"},
+  "meta": {"version": "0.0.6", "start":"program"},
   "program": ["PROGRAM","ID","block"],
   "block" : ["LCURL",{"*": ["statement"]},"RCURL"],
   "statement" : {"|":["variable","assign","function","call","for", "if","block"]},
@@ -16,7 +16,7 @@
   "if": ["IF", "LPAREN", "expr", "RPAREN", "block", {"?":["ELSE", "elseBlock"]}],
   "elseBlock": ["block"],
   "expr" : [ "term", {"*": [{"|": ["PLUS", "MINUS", "EQ", "LT", "LTE", "GT", "GTE"]}, "term"]}],
-  "term" : [ "factor", {"*": [{"|": ["MUL", "DIV"]}, "factor"]}],
+  "term" : [ "factor", {"*": [{"|": ["MUL", "DIV", "MOD", "BSHIFTL", "BSHIFTR"]}, "factor"]}],
   "factor" : {"|": ["call", "varref", "INTEGER_CONST", "REAL_CONST", ["LPAREN", "expr", "RPAREN"]]},
   "varref": "ID",
   "varleft": "ID",
@@ -30,6 +30,9 @@
     "MINUS": "-",
     "MUL": "*",
     "DIV": "/",
+    "MOD": "%",
+    "BSHIFTL": "<<",
+    "BSHIFTR": ">>",
     "LPAREN": "(",
     "RPAREN": ")",
     "LBRACKET": "[",
@@ -61,22 +64,21 @@
   "SEMANTICS":
   {
     "program": {"id":"Program", "name":"ID", "block": "block"},
+    "function": {"id":"Function", "name":"ID", "formals": "formals", "block": "block"},
+    "call": {"id":"Call", "name":"ID", "actuals": "actuals"},
     "variable": {"id":"Var", "name":"ID", "type": "type"},
     "assign": {"id":"Assign", "name":"varleft", "indices":"indices", "value":"expr"},
-    "function": {"id":"Function", "name":"ID", "formals": "formals", "block": "block"},
     "formal": {"id":"Formal", "name":"ID", "type": "type"},
-    "call": {"id":"Call", "name":"ID", "actuals": "actuals"},
+    "varref": {"id":"VarRef", "name":"ID"},
     "for": {"id":"For", "from":"assign", "condition":"expr", "increment": "increment", "block":"block"},
     "if": {"id":"If", "condition":"expr", "true":"block", "false": "elseBlock"},
     "expr": {"id":"Expr"},
-    "term": {"id":"Term"},
-    "varref": {"id":"VarRef", "name":"ID"}
+    "term": {"id":"Term"}
   },
 
   "EXTERNALS":
   {
     "setPixelColor": {"pixelNr":"int", "color":"int"},
-    "array": {"width":"int", "height":"int", "return": "tbd"},
     "random": {"return": "int"},
     "printf": {"args": "__VA_ARGS__"},
     "ledCount": {},
