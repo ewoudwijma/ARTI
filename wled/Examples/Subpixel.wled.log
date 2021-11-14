@@ -1,8 +1,33 @@
-Parser PROGRAM PROGRAM
  PROGRAM PROGRAM -> [ID Subpixel] 0
  ID Subpixel -> [LCURL {] 0
  block 0
-  LCURL { -> [FUNCTION FUNCTION] 1
+  LCURL { -> [ID t] 1
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     ID t -> [ASSIGN =] 4
+     success varleft
+     ASSIGN = -> [INTEGER_CONST 0] 4
+     expr 4
+      term 5
+       factor 6
+        call 7
+        fail call
+        varref 7
+        fail varref
+        INTEGER_CONST 0 -> [FUNCTION FUNCTION] 7
+       success factor
+      remove multiple key (5)
+      remove multiple empty (5)
+      success term
+     remove key/value ASSIGN = (4)
+     remove multiple key (4)
+     remove multiple empty (4)
+     success expr
+    success assign
+   success statement
    statement 2
     variable 3
     fail variable
@@ -17,6 +42,9 @@ Parser PROGRAM PROGRAM
       formals 5
        formal 6
        fail formal
+      remove key/value FUNCTION FUNCTION (5)
+      remove key/value LPAREN ( (5)
+      remove empty values for key formals (5)
       success formals
       RPAREN ) -> [LCURL {] 5
      block 4
@@ -46,6 +74,8 @@ Parser PROGRAM PROGRAM
                 fail factor
                fail term
               fail expr
+             remove key/value LPAREN ( (12)
+             remove empty values for key actuals (12)
              success actuals
              RPAREN ) -> [DIV /] 12
             success call
@@ -58,10 +88,11 @@ Parser PROGRAM PROGRAM
              fail varref
              INTEGER_CONST 1000 -> [ID t] 12
             success factor
-          remove multiple key
+          remove multiple key (9)
           success term
-         remove multiple key
-         remove multiple empty
+         remove key/value ASSIGN = (8)
+         remove multiple key (8)
+         remove multiple empty (8)
          success expr
         success assign
        success statement
@@ -90,23 +121,25 @@ Parser PROGRAM PROGRAM
                  ID t -> [RPAREN )] 16
                  success varref
                 success factor
-               remove multiple key
-               remove multiple empty
+               remove multiple key (14)
+               remove multiple empty (14)
                success term
-              remove multiple key
-              remove multiple empty
+              remove multiple key (13)
+              remove multiple empty (13)
               success expr
-             remove multiple key
-             remove multiple empty
+             remove key/value LPAREN ( (12)
+             remove multiple key (12)
+             remove multiple empty (12)
              success actuals
              RPAREN ) -> [ID t] 12
             success call
            success factor
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success term
-         remove multiple key
-         remove multiple empty
+         remove key/value ASSIGN = (8)
+         remove multiple key (8)
+         remove multiple empty (8)
          success expr
         success assign
        success statement
@@ -128,8 +161,8 @@ Parser PROGRAM PROGRAM
             ID t -> [PLUS +] 11
             success varref
            success factor
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success term
             PLUS + -> [INTEGER_CONST 1] 11
            term 10
@@ -140,10 +173,11 @@ Parser PROGRAM PROGRAM
              fail varref
              INTEGER_CONST 1 -> [ID t] 12
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-         remove multiple key
+         remove key/value ASSIGN = (8)
+         remove multiple key (8)
          success expr
         success assign
        success statement
@@ -173,10 +207,11 @@ Parser PROGRAM PROGRAM
              fail varref
              INTEGER_CONST 2 -> [ID t] 12
             success factor
-          remove multiple key
+          remove multiple key (9)
           success term
-         remove multiple key
-         remove multiple empty
+         remove key/value ASSIGN = (8)
+         remove multiple key (8)
+         remove multiple empty (8)
          success expr
         success assign
        success statement
@@ -201,16 +236,17 @@ Parser PROGRAM PROGRAM
              MUL * -> [ID ledCount] 12
             factor 11
              call 12
-              ID ledCount -> [FOR FOR] 13
+              ID ledCount -> [RCURL }] 13
              fail call
              varref 12
-             ID ledCount -> [FOR FOR] 12
+             ID ledCount -> [RCURL }] 12
              success varref
             success factor
-          remove multiple key
+          remove multiple key (9)
           success term
-         remove multiple key
-         remove multiple empty
+         remove key/value ASSIGN = (8)
+         remove multiple key (8)
+         remove multiple empty (8)
          success expr
         success assign
        success statement
@@ -226,94 +262,145 @@ Parser PROGRAM PROGRAM
         call 7
         fail call
         for 7
-         FOR FOR -> [LPAREN (] 8
-         LPAREN ( -> [ID i] 8
-         assign 8
-          varleft 9
-          ID i -> [ASSIGN =] 9
-          success varleft
-          ASSIGN = -> [INTEGER_CONST 0] 9
-          expr 9
+        fail for
+        if 7
+        fail if
+        block 7
+        fail block
+       fail statement
+      RCURL } -> [FUNCTION FUNCTION] 5
+     remove key/value RPAREN ) (4)
+     remove multiple key (4)
+     success block
+    success function
+   success statement
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     fail varleft
+    fail assign
+    function 3
+     FUNCTION FUNCTION -> [ID renderLed] 4
+     ID renderLed -> [LPAREN (] 4
+      LPAREN ( -> [ID i] 5
+      formals 5
+       formal 6
+       ID i -> [RPAREN )] 6
+       success formal
+      remove key/value FUNCTION FUNCTION (5)
+      remove key/value LPAREN ( (5)
+      remove multiple key (5)
+      remove multiple empty (5)
+      success formals
+      RPAREN ) -> [LCURL {] 5
+     block 4
+      LCURL { -> [ID diff] 5
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID diff -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID abs] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID abs -> [LPAREN (] 12
+             LPAREN ( -> [ID t] 12
+             actuals 12
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                  ID t -> [MINUS -] 17
+                 fail call
+                 varref 16
+                 ID t -> [MINUS -] 16
+                 success varref
+                success factor
+               remove multiple key (14)
+               remove multiple empty (14)
+               success term
+                 MINUS - -> [ID i] 16
+                term 15
+                 factor 16
+                  call 17
+                   ID i -> [RPAREN )] 18
+                  fail call
+                  varref 17
+                  ID i -> [RPAREN )] 17
+                  success varref
+                 success factor
+                remove multiple key (15)
+                remove multiple empty (15)
+                success term
+              remove multiple key (13)
+              success expr
+             remove key/value LPAREN ( (12)
+             remove multiple key (12)
+             remove multiple empty (12)
+             success actuals
+             RPAREN ) -> [IF IF] 12
+            success call
+           success factor
+          remove multiple key (9)
+          remove multiple empty (9)
+          success term
+         remove key/value ASSIGN = (8)
+         remove multiple key (8)
+         remove multiple empty (8)
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+        fail for
+        if 7
+         IF IF -> [LPAREN (] 8
+         LPAREN ( -> [ID diff] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID diff -> [GT >] 12
+            fail call
+            varref 11
+            ID diff -> [GT >] 11
+            success varref
+           success factor
+          remove multiple key (9)
+          remove multiple empty (9)
+          success term
+            GT > -> [INTEGER_CONST 2] 11
            term 10
             factor 11
              call 12
              fail call
              varref 12
              fail varref
-             INTEGER_CONST 0 -> [SEMI ;] 12
+             INTEGER_CONST 2 -> [RPAREN )] 12
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-          remove multiple key
-          remove multiple empty
-          success expr
-         success assign
-         SEMI ; -> [ID i] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
-             ID i -> [LT <] 12
-            fail call
-            varref 11
-            ID i -> [LT <] 11
-            success varref
-           success factor
-          remove multiple key
-          remove multiple empty
-          success term
-            LT < -> [ID ledCount] 11
-           term 10
-            factor 11
-             call 12
-              ID ledCount -> [SEMI ;] 13
-             fail call
-             varref 12
-             ID ledCount -> [SEMI ;] 12
-             success varref
-            success factor
-           remove multiple key
-           remove multiple empty
-           success term
-         remove multiple key
+         remove key/value IF IF (8)
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
          success expr
-         SEMI ; -> [ID i] 8
-         increment 8
-          assign 9
-           varleft 10
-           ID i -> [ASSIGN =] 10
-           success varleft
-           ASSIGN = -> [ID i] 10
-           expr 10
-            term 11
-             factor 12
-              call 13
-               ID i -> [PLUS +] 14
-              fail call
-              varref 13
-              ID i -> [PLUS +] 13
-              success varref
-             success factor
-            remove multiple key
-            remove multiple empty
-            success term
-              PLUS + -> [INTEGER_CONST 1] 13
-             term 12
-              factor 13
-               call 14
-               fail call
-               varref 14
-               fail varref
-               INTEGER_CONST 1 -> [RPAREN )] 14
-              success factor
-             remove multiple key
-             remove multiple empty
-             success term
-           remove multiple key
-           success expr
-          success assign
-         success increment
          RPAREN ) -> [LCURL {] 8
          block 8
           LCURL { -> [ID diff] 9
@@ -324,158 +411,7 @@ Parser PROGRAM PROGRAM
              varleft 12
              ID diff -> [ASSIGN =] 12
              success varleft
-             ASSIGN = -> [ID abs] 12
-             expr 12
-              term 13
-               factor 14
-                call 15
-                 ID abs -> [LPAREN (] 16
-                 LPAREN ( -> [ID t] 16
-                 actuals 16
-                  expr 17
-                   term 18
-                    factor 19
-                     call 20
-                      ID t -> [MINUS -] 21
-                     fail call
-                     varref 20
-                     ID t -> [MINUS -] 20
-                     success varref
-                    success factor
-                   remove multiple key
-                   remove multiple empty
-                   success term
-                     MINUS - -> [ID i] 20
-                    term 19
-                     factor 20
-                      call 21
-                       ID i -> [RPAREN )] 22
-                      fail call
-                      varref 21
-                      ID i -> [RPAREN )] 21
-                      success varref
-                     success factor
-                    remove multiple key
-                    remove multiple empty
-                    success term
-                  remove multiple key
-                  success expr
-                 remove multiple key
-                 remove multiple empty
-                 success actuals
-                 RPAREN ) -> [IF IF] 16
-                success call
-               success factor
-              remove multiple key
-              remove multiple empty
-              success term
-             remove multiple key
-             remove multiple empty
-             success expr
-            success assign
-           success statement
-           statement 10
-            variable 11
-            fail variable
-            assign 11
-             varleft 12
-             fail varleft
-            fail assign
-            function 11
-            fail function
-            call 11
-            fail call
-            for 11
-            fail for
-            if 11
-             IF IF -> [LPAREN (] 12
-             LPAREN ( -> [ID diff] 12
-             expr 12
-              term 13
-               factor 14
-                call 15
-                 ID diff -> [GT >] 16
-                fail call
-                varref 15
-                ID diff -> [GT >] 15
-                success varref
-               success factor
-              remove multiple key
-              remove multiple empty
-              success term
-                GT > -> [INTEGER_CONST 2] 15
-               term 14
-                factor 15
-                 call 16
-                 fail call
-                 varref 16
-                 fail varref
-                 INTEGER_CONST 2 -> [RPAREN )] 16
-                success factor
-               remove multiple key
-               remove multiple empty
-               success term
-             remove multiple key
-             success expr
-             RPAREN ) -> [LCURL {] 12
-             block 12
-              LCURL { -> [ID diff] 13
-               statement 14
-                variable 15
-                fail variable
-                assign 15
-                 varleft 16
-                 ID diff -> [ASSIGN =] 16
-                 success varleft
-                 ASSIGN = -> [INTEGER_CONST 2] 16
-                 expr 16
-                  term 17
-                   factor 18
-                    call 19
-                    fail call
-                    varref 19
-                    fail varref
-                    INTEGER_CONST 2 -> [RCURL }] 19
-                   success factor
-                  remove multiple key
-                  remove multiple empty
-                  success term
-                 remove multiple key
-                 remove multiple empty
-                 success expr
-                success assign
-               success statement
-               statement 14
-                variable 15
-                fail variable
-                assign 15
-                 varleft 16
-                 fail varleft
-                fail assign
-                function 15
-                fail function
-                call 15
-                fail call
-                for 15
-                fail for
-                if 15
-                fail if
-                block 15
-                fail block
-               fail statement
-              RCURL } -> [ID bri] 13
-             remove multiple key
-             success block
-            success if
-           success statement
-           statement 10
-            variable 11
-            fail variable
-            assign 11
-             varleft 12
-             ID bri -> [ASSIGN =] 12
-             success varleft
-             ASSIGN = -> [INTEGER_CONST 256] 12
+             ASSIGN = -> [INTEGER_CONST 2] 12
              expr 12
               term 13
                factor 14
@@ -483,130 +419,14 @@ Parser PROGRAM PROGRAM
                 fail call
                 varref 15
                 fail varref
-                INTEGER_CONST 256 -> [MINUS -] 15
+                INTEGER_CONST 2 -> [RCURL }] 15
                success factor
-              remove multiple key
-              remove multiple empty
+              remove multiple key (13)
+              remove multiple empty (13)
               success term
-                MINUS - -> [ID diff] 15
-               term 14
-                factor 15
-                 call 16
-                  ID diff -> [MUL *] 17
-                 fail call
-                 varref 16
-                 ID diff -> [MUL *] 16
-                 success varref
-                success factor
-                  MUL * -> [INTEGER_CONST 128] 17
-                 factor 16
-                  call 17
-                  fail call
-                  varref 17
-                  fail varref
-                  INTEGER_CONST 128 -> [ID leds] 17
-                 success factor
-               remove multiple key
-               success term
-             remove multiple key
-             success expr
-            success assign
-           success statement
-           statement 10
-            variable 11
-            fail variable
-            assign 11
-             varleft 12
-             ID leds -> [LBRACKET [] 12
-             success varleft
-              LBRACKET [ -> [ID i] 13
-              indices 13
-               expr 14
-                term 15
-                 factor 16
-                  call 17
-                   ID i -> [RBRACKET ]] 18
-                  fail call
-                  varref 17
-                  ID i -> [RBRACKET ]] 17
-                  success varref
-                 success factor
-                remove multiple key
-                remove multiple empty
-                success term
-               remove multiple key
-               remove multiple empty
-               success expr
-              remove multiple key
-              remove multiple empty
-              success indices
-              RBRACKET ] -> [ASSIGN =] 13
-             ASSIGN = -> [ID hsv] 12
-             expr 12
-              term 13
-               factor 14
-                call 15
-                 ID hsv -> [LPAREN (] 16
-                 LPAREN ( -> [INTEGER_CONST 0] 16
-                 actuals 16
-                  expr 17
-                   term 18
-                    factor 19
-                     call 20
-                     fail call
-                     varref 20
-                     fail varref
-                     INTEGER_CONST 0 -> [COMMA ,] 20
-                    success factor
-                   remove multiple key
-                   remove multiple empty
-                   success term
-                  remove multiple key
-                  remove multiple empty
-                  success expr
-                   COMMA , -> [INTEGER_CONST 255] 18
-                   expr 18
-                    term 19
-                     factor 20
-                      call 21
-                      fail call
-                      varref 21
-                      fail varref
-                      INTEGER_CONST 255 -> [COMMA ,] 21
-                     success factor
-                    remove multiple key
-                    remove multiple empty
-                    success term
-                   remove multiple key
-                   remove multiple empty
-                   success expr
-                   COMMA , -> [ID bri] 18
-                   expr 18
-                    term 19
-                     factor 20
-                      call 21
-                       ID bri -> [RPAREN )] 22
-                      fail call
-                      varref 21
-                      ID bri -> [RPAREN )] 21
-                      success varref
-                     success factor
-                    remove multiple key
-                    remove multiple empty
-                    success term
-                   remove multiple key
-                   remove multiple empty
-                   success expr
-                 remove multiple key
-                 success actuals
-                 RPAREN ) -> [RCURL }] 16
-                success call
-               success factor
-              remove multiple key
-              remove multiple empty
-              success term
-             remove multiple key
-             remove multiple empty
+             remove key/value ASSIGN = (12)
+             remove multiple key (12)
+             remove multiple empty (12)
              success expr
             success assign
            success statement
@@ -628,46 +448,158 @@ Parser PROGRAM PROGRAM
             block 11
             fail block
            fail statement
-          RCURL } -> [ID setPixels] 9
-         remove multiple key
+          RCURL } -> [ID bri] 9
+         remove key/value RPAREN ) (8)
+         remove multiple key (8)
          success block
-        success for
+        success if
        success statement
        statement 6
         variable 7
         fail variable
         assign 7
          varleft 8
-         ID setPixels -> [LPAREN (] 8
+         ID bri -> [ASSIGN =] 8
          success varleft
-        fail assign
-        function 7
-        fail function
-        call 7
-         ID setPixels -> [LPAREN (] 8
-         LPAREN ( -> [ID leds] 8
-         actuals 8
-          expr 9
+         ASSIGN = -> [INTEGER_CONST 256] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+            fail call
+            varref 11
+            fail varref
+            INTEGER_CONST 256 -> [MINUS -] 11
+           success factor
+          remove multiple key (9)
+          remove multiple empty (9)
+          success term
+            MINUS - -> [ID diff] 11
            term 10
             factor 11
              call 12
-              ID leds -> [RPAREN )] 13
+              ID diff -> [MUL *] 13
              fail call
              varref 12
-             ID leds -> [RPAREN )] 12
+             ID diff -> [MUL *] 12
              success varref
             success factor
-           remove multiple key
-           remove multiple empty
+              MUL * -> [INTEGER_CONST 128] 13
+             factor 12
+              call 13
+              fail call
+              varref 13
+              fail varref
+              INTEGER_CONST 128 -> [ID leds] 13
+             success factor
+           remove multiple key (10)
            success term
-          remove multiple key
-          remove multiple empty
-          success expr
-         remove multiple key
-         remove multiple empty
-         success actuals
-         RPAREN ) -> [RCURL }] 8
-        success call
+         remove key/value ASSIGN = (8)
+         remove multiple key (8)
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID leds -> [LBRACKET [] 8
+         success varleft
+          LBRACKET [ -> [ID i] 9
+          indices 9
+           expr 10
+            term 11
+             factor 12
+              call 13
+               ID i -> [RBRACKET ]] 14
+              fail call
+              varref 13
+              ID i -> [RBRACKET ]] 13
+              success varref
+             success factor
+            remove multiple key (11)
+            remove multiple empty (11)
+            success term
+           remove multiple key (10)
+           remove multiple empty (10)
+           success expr
+          remove key/value LBRACKET [ (9)
+          remove multiple key (9)
+          remove multiple empty (9)
+          success indices
+          RBRACKET ] -> [ASSIGN =] 9
+         ASSIGN = -> [ID hsv] 8
+         expr 8
+          term 9
+           factor 10
+            call 11
+             ID hsv -> [LPAREN (] 12
+             LPAREN ( -> [INTEGER_CONST 0] 12
+             actuals 12
+              expr 13
+               term 14
+                factor 15
+                 call 16
+                 fail call
+                 varref 16
+                 fail varref
+                 INTEGER_CONST 0 -> [COMMA ,] 16
+                success factor
+               remove multiple key (14)
+               remove multiple empty (14)
+               success term
+              remove multiple key (13)
+              remove multiple empty (13)
+              success expr
+               COMMA , -> [INTEGER_CONST 255] 14
+               expr 14
+                term 15
+                 factor 16
+                  call 17
+                  fail call
+                  varref 17
+                  fail varref
+                  INTEGER_CONST 255 -> [COMMA ,] 17
+                 success factor
+                remove multiple key (15)
+                remove multiple empty (15)
+                success term
+               remove multiple key (14)
+               remove multiple empty (14)
+               success expr
+               COMMA , -> [ID bri] 14
+               expr 14
+                term 15
+                 factor 16
+                  call 17
+                   ID bri -> [RPAREN )] 18
+                  fail call
+                  varref 17
+                  ID bri -> [RPAREN )] 17
+                  success varref
+                 success factor
+                remove multiple key (15)
+                remove multiple empty (15)
+                success term
+               remove multiple key (14)
+               remove multiple empty (14)
+               success expr
+             remove key/value LPAREN ( (12)
+             remove multiple key (12)
+             success actuals
+             RPAREN ) -> [RCURL }] 12
+            success call
+           success factor
+          remove multiple key (9)
+          remove multiple empty (9)
+          success term
+         remove key/value RBRACKET ] (8)
+         remove key/value ASSIGN = (8)
+         remove multiple key (8)
+         remove multiple empty (8)
+         success expr
+        success assign
        success statement
        statement 6
         variable 7
@@ -688,7 +620,8 @@ Parser PROGRAM PROGRAM
         fail block
        fail statement
       RCURL } -> [RCURL }] 5
-     remove multiple key
+     remove key/value RPAREN ) (4)
+     remove multiple key (4)
      success block
     success function
    success statement
@@ -711,406 +644,296 @@ Parser PROGRAM PROGRAM
     fail block
    fail statement
   RCURL } 1
- remove multiple key
+ remove key/value PROGRAM PROGRAM (0)
+ remove multiple key (0)
  success block
-Symbol program Parsed until (21,1) 445 of 445
-par mem 18370 of 44504 44504 1 0 28
-prog size 445 factor 41
+Symbol program Parsed until (25,1) 546 of 546
+par mem 15858 of 54600 54600 1 0 23
+prog size 546 factor 29
+par mem 7734 of 54600 54600 1 0 23
 Destruct Lexer
-Destruct Parser
 
 Analyzer
  Program Subpixel 1 0
+     Assign Subpixel.t of notype
+     Assign t = (4)
      Function Subpixel.renderFrame
-         Assign renderFrame.t of notype
          Assign t = (8)
-             extfunc millis
+             Ext Function found millis (12)
          Assign t = (8)
-             extfunc sin
-                 VarRef found t (16)
+             Ext Function found sin (12)
+                 VarRef found Subpixel.t (16)
          Assign t = (8)
-             VarRef found t (12)
+             VarRef found Subpixel.t (12)
          Assign t = (8)
-             VarRef found t (12)
+             VarRef found Subpixel.t (12)
          Assign t = (8)
-             VarRef found t (12)
+             VarRef found Subpixel.t (12)
                Ext Variable found ledCount (14)
-          Assign renderFrame.i of notype
-          Assign i = (9)
-             VarRef found i (12)
-               Ext Variable found ledCount (14)
-           Assign i = (10)
-               VarRef found i (14)
-              Assign renderFrame.diff of notype
+     Function Subpixel.renderLed
+      Formal renderLed.i of notype
+         Assign renderLed.diff of notype
+         Assign diff = (8)
+             Ext Function found abs (12)
+                 VarRef found Subpixel.t (16)
+                   VarRef found renderLed.i (18)
+             VarRef found renderLed.diff (12)
               Assign diff = (13)
-                  extfunc abs
-                      VarRef found t (21)
-                        VarRef found i (23)
-                  VarRef found diff (17)
-                   Assign diff = (18)
-              Assign renderFrame.bri of notype
-              Assign bri = (13)
-                    VarRef found diff (19)
-              Ext Variable found leds (13)
-              Assign leds = (13)
-                  extfunc hsv
-                        VarRef found bri (23)
-         extfunc setPixels
-             Ext Variable found leds (12)
-     0 Assign renderFrame.t notype 2
-     1 Assign renderFrame.i notype 2
-     2 Assign renderFrame.diff notype 2
-     3 Assign renderFrame.bri notype 2
- 0 Function Subpixel.renderFrame  1
+         Assign renderLed.bri of notype
+         Assign bri = (8)
+               VarRef found renderLed.diff (14)
+         Ext Variable found leds (8)
+         Assign leds = (8)
+             Ext Function found hsv (12)
+                   VarRef found renderLed.bri (18)
+              VarRef found renderLed.i (13)
+     0 Formal renderLed.i notype 2
+     1 Assign renderLed.diff notype 2
+     2 Assign renderLed.bri notype 2
+ 0 Assign Subpixel.t notype 1
+ 1 Function Subpixel.renderFrame  1
+ 2 Function Subpixel.renderLed  1
 
-interpret Subpixel 1 1
+interpret Subpixel 1 3
  program name ID
  Program Subpixel Subpixel
+         INTEGER_CONST 0 (Push 1)
+     Subpixel.t := 0.000000 (pop 0)
      Save block of renderFrame
+     Save block of renderLed
          Call renderFrame (1)
                  Call millis() = 1000.000000
                   DIV / (Push 2)
                    INTEGER_CONST 1000 (Push 3)
                1000.000000 / 1000.000000 = 1.000000 (push 1)
-             renderFrame.t := 1.000000 (pop 0)
-                     VarRef renderFrame.t = 1.000000 (push 1)
+             Subpixel.t := 1.000000 (pop 0)
+                     VarRef Subpixel.t = 1.000000 (push 1)
                  Call sin(1.000000) = 0.841471
-             renderFrame.t := 0.841471 (pop 0)
-                 VarRef renderFrame.t = 0.841471 (push 1)
+             Subpixel.t := 0.841471 (pop 0)
+                 VarRef Subpixel.t = 0.841471 (push 1)
                  PLUS + (Push 2)
                    INTEGER_CONST 1 (Push 3)
               0.841471 + 1.000000 = 1.841471 (push 1)
-             renderFrame.t := 1.841471 (pop 0)
-                 VarRef renderFrame.t = 1.841471 (push 1)
+             Subpixel.t := 1.841471 (pop 0)
+                 VarRef Subpixel.t = 1.841471 (push 1)
                   DIV / (Push 2)
                    INTEGER_CONST 2 (Push 3)
                1.841471 / 2.000000 = 0.920735 (push 1)
-             renderFrame.t := 0.920735 (pop 0)
-                 VarRef renderFrame.t = 0.920735 (push 1)
+             Subpixel.t := 0.920735 (pop 0)
+                 VarRef Subpixel.t = 0.920735 (push 1)
                   MUL * (Push 2)
                    VarRef ext.ledCount = 3.000000 (push 3)
                0.920735 * 3.000000 = 2.762206 (push 1)
-             renderFrame.t := 2.762206 (pop 0)
-             For (0)
-             from
-                  INTEGER_CONST 0 (Push 1)
-              renderFrame.i := 0.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 0.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              0.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                         VarRef renderFrame.t = 2.762206 (push 1)
-                         MINUS - (Push 2)
-                           VarRef renderFrame.i = 0.000000 (push 3)
-                      2.762206 - 0.000000 = 2.762206 (push 1)
-                     Call abs(2.762206) = 2.762206
-                 renderFrame.diff := 2.762206 (pop 0)
-                 If (0)
-                 if condition 
-                     VarRef renderFrame.diff = 2.762206 (push 1)
-                     GT > (Push 2)
-                       INTEGER_CONST 2 (Push 3)
-                  2.762206 > 2.000000 = 1.000000 (push 1)
-                 (pop 0)
-                          INTEGER_CONST 2 (Push 1)
-                      renderFrame.diff := 2.000000 (pop 0)
-                     INTEGER_CONST 256 (Push 1)
-                     MINUS - (Push 2)
-                       VarRef renderFrame.diff = 2.000000 (push 3)
-                        MUL * (Push 4)
-                         INTEGER_CONST 128 (Push 5)
-                     2.000000 * 128.000000 = 256.000000 (push 3)
-                  256.000000 - 256.000000 = 0.000000 (push 1)
-                 renderFrame.bri := 0.000000 (pop 0)
-                      VarRef renderFrame.i = 0.000000 (push 1)
-                         INTEGER_CONST 0 (Push 2)
-                           INTEGER_CONST 255 (Push 3)
-                           VarRef renderFrame.bri = 0.000000 (push 4)
-hsv(0.000000, 255.000000, 0.000000)
-                     Call hsv(0.000000, 255.000000, 0.000000) = 255.000000
-wled_set_variables, set leds to 255.000000
-                 Assign set ext.leds[0] = 255.000000 (1)
-             assign next value
-                  VarRef renderFrame.i = 0.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               0.000000 + 1.000000 = 1.000000 (push 1)
-              renderFrame.i := 1.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 1.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              1.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                         VarRef renderFrame.t = 2.762206 (push 1)
-                         MINUS - (Push 2)
-                           VarRef renderFrame.i = 1.000000 (push 3)
-                      2.762206 - 1.000000 = 1.762206 (push 1)
-                     Call abs(1.762206) = 1.762206
-                 renderFrame.diff := 1.762206 (pop 0)
-                 If (0)
-                 if condition 
-                     VarRef renderFrame.diff = 1.762206 (push 1)
-                     GT > (Push 2)
-                       INTEGER_CONST 2 (Push 3)
-                  1.762206 > 2.000000 = 0.000000 (push 1)
-                 (pop 0)
-                     INTEGER_CONST 256 (Push 1)
-                     MINUS - (Push 2)
-                       VarRef renderFrame.diff = 1.762206 (push 3)
-                        MUL * (Push 4)
-                         INTEGER_CONST 128 (Push 5)
-                     1.762206 * 128.000000 = 225.562429 (push 3)
-                  256.000000 - 225.562429 = 30.437571 (push 1)
-                 renderFrame.bri := 30.437571 (pop 0)
-                      VarRef renderFrame.i = 1.000000 (push 1)
-                         INTEGER_CONST 0 (Push 2)
-                           INTEGER_CONST 255 (Push 3)
-                           VarRef renderFrame.bri = 30.437571 (push 4)
-hsv(0.000000, 255.000000, 30.437571)
-                     Call hsv(0.000000, 255.000000, 30.437571) = 285.437571
-wled_set_variables, set leds to 285.437571
-                 Assign set ext.leds[1] = 285.437571 (1)
-             assign next value
-                  VarRef renderFrame.i = 1.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               1.000000 + 1.000000 = 2.000000 (push 1)
-              renderFrame.i := 2.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 2.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              2.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                         VarRef renderFrame.t = 2.762206 (push 1)
-                         MINUS - (Push 2)
-                           VarRef renderFrame.i = 2.000000 (push 3)
-                      2.762206 - 2.000000 = 0.762206 (push 1)
-                     Call abs(0.762206) = 0.762206
-                 renderFrame.diff := 0.762206 (pop 0)
-                 If (0)
-                 if condition 
-                     VarRef renderFrame.diff = 0.762206 (push 1)
-                     GT > (Push 2)
-                       INTEGER_CONST 2 (Push 3)
-                  0.762206 > 2.000000 = 0.000000 (push 1)
-                 (pop 0)
-                     INTEGER_CONST 256 (Push 1)
-                     MINUS - (Push 2)
-                       VarRef renderFrame.diff = 0.762206 (push 3)
-                        MUL * (Push 4)
-                         INTEGER_CONST 128 (Push 5)
-                     0.762206 * 128.000000 = 97.562429 (push 3)
-                  256.000000 - 97.562429 = 158.437571 (push 1)
-                 renderFrame.bri := 158.437571 (pop 0)
-                      VarRef renderFrame.i = 2.000000 (push 1)
-                         INTEGER_CONST 0 (Push 2)
-                           INTEGER_CONST 255 (Push 3)
-                           VarRef renderFrame.bri = 158.437571 (push 4)
-hsv(0.000000, 255.000000, 158.437571)
-                     Call hsv(0.000000, 255.000000, 158.437571) = 413.437571
-wled_set_variables, set leds to 413.437571
-                 Assign set ext.leds[2] = 413.437571 (1)
-             assign next value
-                  VarRef renderFrame.i = 2.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               2.000000 + 1.000000 = 3.000000 (push 1)
-              renderFrame.i := 3.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 3.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              3.000000 < 3.000000 = 0.000000 (push 1)
-             conditionResult (pop 0)
-             0 => end of For
-                 VarRef ext.leds = 7.000000 (push 1)
-setPixels(7.000000)
-             Call setPixels(7.000000)
+             Subpixel.t := 2.762206 (pop 0)
 Destruct activation record renderFrame
+                     VarRef Subpixel.t = 2.762206 (push 1)
+                     MINUS - (Push 2)
+                       VarRef renderLed.i = 0.000000 (push 3)
+                  2.762206 - 0.000000 = 2.762206 (push 1)
+                 Call abs(2.762206) = 2.762206
+             renderLed.diff := 2.762206 (pop 0)
+             If (0)
+             if condition
+                 VarRef renderLed.diff = 2.762206 (push 1)
+                 GT > (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+              2.762206 > 2.000000 = 1.000000 (push 1)
+             (pop 0)
+                      INTEGER_CONST 2 (Push 1)
+                  renderLed.diff := 2.000000 (pop 0)
+                 INTEGER_CONST 256 (Push 1)
+                 MINUS - (Push 2)
+                   VarRef renderLed.diff = 2.000000 (push 3)
+                    MUL * (Push 4)
+                     INTEGER_CONST 128 (Push 5)
+                 2.000000 * 128.000000 = 256.000000 (push 3)
+              256.000000 - 256.000000 = 0.000000 (push 1)
+             renderLed.bri := 0.000000 (pop 0)
+                  VarRef renderLed.i = 0.000000 (push 1)
+                     INTEGER_CONST 0 (Push 2)
+                       INTEGER_CONST 255 (Push 3)
+                       VarRef renderLed.bri = 0.000000 (push 4)
+hsv(0.000000, 255.000000, 0.000000)
+                 Call hsv(0.000000, 255.000000, 0.000000) = 255.000000
+arti_set_external_variable, set leds(0.000000, -32768.000000) to 255.000000
+             Assign set ext.leds[0] = 255.000000 (1)
+                     VarRef Subpixel.t = 2.762206 (push 1)
+                     MINUS - (Push 2)
+                       VarRef renderLed.i = 1.000000 (push 3)
+                  2.762206 - 1.000000 = 1.762206 (push 1)
+                 Call abs(1.762206) = 1.762206
+             renderLed.diff := 1.762206 (pop 0)
+             If (0)
+             if condition
+                 VarRef renderLed.diff = 1.762206 (push 1)
+                 GT > (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+              1.762206 > 2.000000 = 0.000000 (push 1)
+             (pop 0)
+                 INTEGER_CONST 256 (Push 1)
+                 MINUS - (Push 2)
+                   VarRef renderLed.diff = 1.762206 (push 3)
+                    MUL * (Push 4)
+                     INTEGER_CONST 128 (Push 5)
+                 1.762206 * 128.000000 = 225.562429 (push 3)
+              256.000000 - 225.562429 = 30.437571 (push 1)
+             renderLed.bri := 30.437571 (pop 0)
+                  VarRef renderLed.i = 1.000000 (push 1)
+                     INTEGER_CONST 0 (Push 2)
+                       INTEGER_CONST 255 (Push 3)
+                       VarRef renderLed.bri = 30.437571 (push 4)
+hsv(0.000000, 255.000000, 30.437571)
+                 Call hsv(0.000000, 255.000000, 30.437571) = 285.437571
+arti_set_external_variable, set leds(1.000000, -32768.000000) to 285.437571
+             Assign set ext.leds[1] = 285.437571 (1)
+                     VarRef Subpixel.t = 2.762206 (push 1)
+                     MINUS - (Push 2)
+                       VarRef renderLed.i = 2.000000 (push 3)
+                  2.762206 - 2.000000 = 0.762206 (push 1)
+                 Call abs(0.762206) = 0.762206
+             renderLed.diff := 0.762206 (pop 0)
+             If (0)
+             if condition
+                 VarRef renderLed.diff = 0.762206 (push 1)
+                 GT > (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+              0.762206 > 2.000000 = 0.000000 (push 1)
+             (pop 0)
+                 INTEGER_CONST 256 (Push 1)
+                 MINUS - (Push 2)
+                   VarRef renderLed.diff = 0.762206 (push 3)
+                    MUL * (Push 4)
+                     INTEGER_CONST 128 (Push 5)
+                 0.762206 * 128.000000 = 97.562429 (push 3)
+              256.000000 - 97.562429 = 158.437571 (push 1)
+             renderLed.bri := 158.437571 (pop 0)
+                  VarRef renderLed.i = 2.000000 (push 1)
+                     INTEGER_CONST 0 (Push 2)
+                       INTEGER_CONST 255 (Push 3)
+                       VarRef renderLed.bri = 158.437571 (push 4)
+hsv(0.000000, 255.000000, 158.437571)
+                 Call hsv(0.000000, 255.000000, 158.437571) = 413.437571
+arti_set_external_variable, set leds(2.000000, -32768.000000) to 413.437571
+             Assign set ext.leds[2] = 413.437571 (1)
+Destruct activation record renderLed
+setPixels(-32768.000000)
          Call renderFrame (1)
                  Call millis() = 1000.000000
                   DIV / (Push 2)
                    INTEGER_CONST 1000 (Push 3)
                1000.000000 / 1000.000000 = 1.000000 (push 1)
-             renderFrame.t := 1.000000 (pop 0)
-                     VarRef renderFrame.t = 1.000000 (push 1)
+             Subpixel.t := 1.000000 (pop 0)
+                     VarRef Subpixel.t = 1.000000 (push 1)
                  Call sin(1.000000) = 0.841471
-             renderFrame.t := 0.841471 (pop 0)
-                 VarRef renderFrame.t = 0.841471 (push 1)
+             Subpixel.t := 0.841471 (pop 0)
+                 VarRef Subpixel.t = 0.841471 (push 1)
                  PLUS + (Push 2)
                    INTEGER_CONST 1 (Push 3)
               0.841471 + 1.000000 = 1.841471 (push 1)
-             renderFrame.t := 1.841471 (pop 0)
-                 VarRef renderFrame.t = 1.841471 (push 1)
+             Subpixel.t := 1.841471 (pop 0)
+                 VarRef Subpixel.t = 1.841471 (push 1)
                   DIV / (Push 2)
                    INTEGER_CONST 2 (Push 3)
                1.841471 / 2.000000 = 0.920735 (push 1)
-             renderFrame.t := 0.920735 (pop 0)
-                 VarRef renderFrame.t = 0.920735 (push 1)
+             Subpixel.t := 0.920735 (pop 0)
+                 VarRef Subpixel.t = 0.920735 (push 1)
                   MUL * (Push 2)
                    VarRef ext.ledCount = 3.000000 (push 3)
                0.920735 * 3.000000 = 2.762206 (push 1)
-             renderFrame.t := 2.762206 (pop 0)
-             For (0)
-             from
-                  INTEGER_CONST 0 (Push 1)
-              renderFrame.i := 0.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 0.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              0.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                         VarRef renderFrame.t = 2.762206 (push 1)
-                         MINUS - (Push 2)
-                           VarRef renderFrame.i = 0.000000 (push 3)
-                      2.762206 - 0.000000 = 2.762206 (push 1)
-                     Call abs(2.762206) = 2.762206
-                 renderFrame.diff := 2.762206 (pop 0)
-                 If (0)
-                 if condition 
-                     VarRef renderFrame.diff = 2.762206 (push 1)
-                     GT > (Push 2)
-                       INTEGER_CONST 2 (Push 3)
-                  2.762206 > 2.000000 = 1.000000 (push 1)
-                 (pop 0)
-                          INTEGER_CONST 2 (Push 1)
-                      renderFrame.diff := 2.000000 (pop 0)
-                     INTEGER_CONST 256 (Push 1)
-                     MINUS - (Push 2)
-                       VarRef renderFrame.diff = 2.000000 (push 3)
-                        MUL * (Push 4)
-                         INTEGER_CONST 128 (Push 5)
-                     2.000000 * 128.000000 = 256.000000 (push 3)
-                  256.000000 - 256.000000 = 0.000000 (push 1)
-                 renderFrame.bri := 0.000000 (pop 0)
-                      VarRef renderFrame.i = 0.000000 (push 1)
-                         INTEGER_CONST 0 (Push 2)
-                           INTEGER_CONST 255 (Push 3)
-                           VarRef renderFrame.bri = 0.000000 (push 4)
-hsv(0.000000, 255.000000, 0.000000)
-                     Call hsv(0.000000, 255.000000, 0.000000) = 255.000000
-wled_set_variables, set leds to 255.000000
-                 Assign set ext.leds[0] = 255.000000 (1)
-             assign next value
-                  VarRef renderFrame.i = 0.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               0.000000 + 1.000000 = 1.000000 (push 1)
-              renderFrame.i := 1.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 1.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              1.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                         VarRef renderFrame.t = 2.762206 (push 1)
-                         MINUS - (Push 2)
-                           VarRef renderFrame.i = 1.000000 (push 3)
-                      2.762206 - 1.000000 = 1.762206 (push 1)
-                     Call abs(1.762206) = 1.762206
-                 renderFrame.diff := 1.762206 (pop 0)
-                 If (0)
-                 if condition 
-                     VarRef renderFrame.diff = 1.762206 (push 1)
-                     GT > (Push 2)
-                       INTEGER_CONST 2 (Push 3)
-                  1.762206 > 2.000000 = 0.000000 (push 1)
-                 (pop 0)
-                     INTEGER_CONST 256 (Push 1)
-                     MINUS - (Push 2)
-                       VarRef renderFrame.diff = 1.762206 (push 3)
-                        MUL * (Push 4)
-                         INTEGER_CONST 128 (Push 5)
-                     1.762206 * 128.000000 = 225.562429 (push 3)
-                  256.000000 - 225.562429 = 30.437571 (push 1)
-                 renderFrame.bri := 30.437571 (pop 0)
-                      VarRef renderFrame.i = 1.000000 (push 1)
-                         INTEGER_CONST 0 (Push 2)
-                           INTEGER_CONST 255 (Push 3)
-                           VarRef renderFrame.bri = 30.437571 (push 4)
-hsv(0.000000, 255.000000, 30.437571)
-                     Call hsv(0.000000, 255.000000, 30.437571) = 285.437571
-wled_set_variables, set leds to 285.437571
-                 Assign set ext.leds[1] = 285.437571 (1)
-             assign next value
-                  VarRef renderFrame.i = 1.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               1.000000 + 1.000000 = 2.000000 (push 1)
-              renderFrame.i := 2.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 2.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              2.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                         VarRef renderFrame.t = 2.762206 (push 1)
-                         MINUS - (Push 2)
-                           VarRef renderFrame.i = 2.000000 (push 3)
-                      2.762206 - 2.000000 = 0.762206 (push 1)
-                     Call abs(0.762206) = 0.762206
-                 renderFrame.diff := 0.762206 (pop 0)
-                 If (0)
-                 if condition 
-                     VarRef renderFrame.diff = 0.762206 (push 1)
-                     GT > (Push 2)
-                       INTEGER_CONST 2 (Push 3)
-                  0.762206 > 2.000000 = 0.000000 (push 1)
-                 (pop 0)
-                     INTEGER_CONST 256 (Push 1)
-                     MINUS - (Push 2)
-                       VarRef renderFrame.diff = 0.762206 (push 3)
-                        MUL * (Push 4)
-                         INTEGER_CONST 128 (Push 5)
-                     0.762206 * 128.000000 = 97.562429 (push 3)
-                  256.000000 - 97.562429 = 158.437571 (push 1)
-                 renderFrame.bri := 158.437571 (pop 0)
-                      VarRef renderFrame.i = 2.000000 (push 1)
-                         INTEGER_CONST 0 (Push 2)
-                           INTEGER_CONST 255 (Push 3)
-                           VarRef renderFrame.bri = 158.437571 (push 4)
-hsv(0.000000, 255.000000, 158.437571)
-                     Call hsv(0.000000, 255.000000, 158.437571) = 413.437571
-wled_set_variables, set leds to 413.437571
-                 Assign set ext.leds[2] = 413.437571 (1)
-             assign next value
-                  VarRef renderFrame.i = 2.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               2.000000 + 1.000000 = 3.000000 (push 1)
-              renderFrame.i := 3.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 3.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              3.000000 < 3.000000 = 0.000000 (push 1)
-             conditionResult (pop 0)
-             0 => end of For
-                 VarRef ext.leds = 7.000000 (push 1)
-setPixels(7.000000)
-             Call setPixels(7.000000)
+             Subpixel.t := 2.762206 (pop 0)
 Destruct activation record renderFrame
+                     VarRef Subpixel.t = 2.762206 (push 1)
+                     MINUS - (Push 2)
+                       VarRef renderLed.i = 0.000000 (push 3)
+                  2.762206 - 0.000000 = 2.762206 (push 1)
+                 Call abs(2.762206) = 2.762206
+             renderLed.diff := 2.762206 (pop 0)
+             If (0)
+             if condition
+                 VarRef renderLed.diff = 2.762206 (push 1)
+                 GT > (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+              2.762206 > 2.000000 = 1.000000 (push 1)
+             (pop 0)
+                      INTEGER_CONST 2 (Push 1)
+                  renderLed.diff := 2.000000 (pop 0)
+                 INTEGER_CONST 256 (Push 1)
+                 MINUS - (Push 2)
+                   VarRef renderLed.diff = 2.000000 (push 3)
+                    MUL * (Push 4)
+                     INTEGER_CONST 128 (Push 5)
+                 2.000000 * 128.000000 = 256.000000 (push 3)
+              256.000000 - 256.000000 = 0.000000 (push 1)
+             renderLed.bri := 0.000000 (pop 0)
+                  VarRef renderLed.i = 0.000000 (push 1)
+                     INTEGER_CONST 0 (Push 2)
+                       INTEGER_CONST 255 (Push 3)
+                       VarRef renderLed.bri = 0.000000 (push 4)
+hsv(0.000000, 255.000000, 0.000000)
+                 Call hsv(0.000000, 255.000000, 0.000000) = 255.000000
+arti_set_external_variable, set leds(0.000000, -32768.000000) to 255.000000
+             Assign set ext.leds[0] = 255.000000 (1)
+                     VarRef Subpixel.t = 2.762206 (push 1)
+                     MINUS - (Push 2)
+                       VarRef renderLed.i = 1.000000 (push 3)
+                  2.762206 - 1.000000 = 1.762206 (push 1)
+                 Call abs(1.762206) = 1.762206
+             renderLed.diff := 1.762206 (pop 0)
+             If (0)
+             if condition
+                 VarRef renderLed.diff = 1.762206 (push 1)
+                 GT > (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+              1.762206 > 2.000000 = 0.000000 (push 1)
+             (pop 0)
+                 INTEGER_CONST 256 (Push 1)
+                 MINUS - (Push 2)
+                   VarRef renderLed.diff = 1.762206 (push 3)
+                    MUL * (Push 4)
+                     INTEGER_CONST 128 (Push 5)
+                 1.762206 * 128.000000 = 225.562429 (push 3)
+              256.000000 - 225.562429 = 30.437571 (push 1)
+             renderLed.bri := 30.437571 (pop 0)
+                  VarRef renderLed.i = 1.000000 (push 1)
+                     INTEGER_CONST 0 (Push 2)
+                       INTEGER_CONST 255 (Push 3)
+                       VarRef renderLed.bri = 30.437571 (push 4)
+hsv(0.000000, 255.000000, 30.437571)
+                 Call hsv(0.000000, 255.000000, 30.437571) = 285.437571
+arti_set_external_variable, set leds(1.000000, -32768.000000) to 285.437571
+             Assign set ext.leds[1] = 285.437571 (1)
+                     VarRef Subpixel.t = 2.762206 (push 1)
+                     MINUS - (Push 2)
+                       VarRef renderLed.i = 2.000000 (push 3)
+                  2.762206 - 2.000000 = 0.762206 (push 1)
+                 Call abs(0.762206) = 0.762206
+             renderLed.diff := 0.762206 (pop 0)
+             If (0)
+             if condition
+                 VarRef renderLed.diff = 0.762206 (push 1)
+                 GT > (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+              0.762206 > 2.000000 = 0.000000 (push 1)
+             (pop 0)
+                 INTEGER_CONST 256 (Push 1)
+                 MINUS - (Push 2)
+                   VarRef renderLed.diff = 0.762206 (push 3)
+                    MUL * (Push 4)
+                     INTEGER_CONST 128 (Push 5)
+                 0.762206 * 128.000000 = 97.562429 (push 3)
+              256.000000 - 97.562429 = 158.437571 (push 1)
+             renderLed.bri := 158.437571 (pop 0)
+                  VarRef renderLed.i = 2.000000 (push 1)
+                     INTEGER_CONST 0 (Push 2)
+                       INTEGER_CONST 255 (Push 3)
+                       VarRef renderLed.bri = 158.437571 (push 4)
+hsv(0.000000, 255.000000, 158.437571)
+                 Call hsv(0.000000, 255.000000, 158.437571) = 413.437571
+arti_set_external_variable, set leds(2.000000, -32768.000000) to 413.437571
+             Assign set ext.leds[2] = 413.437571 (1)
+Destruct activation record renderLed
+setPixels(-32768.000000)
 Destruct callstack
 Destruct valueStack
-Destruct Interpreter
-def mem 9311 of 12192 12192 24 0 6
-par mem 18658 of 44504 44504 1 0 28
+def mem 9435 of 12192 12192 24 0 6
+par mem 7926 of 54600 54600 1 0 23

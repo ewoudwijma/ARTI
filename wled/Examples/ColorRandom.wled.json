@@ -1,6 +1,5 @@
 {
   "program": {
-    "PROGRAM": "PROGRAM",
     "ID": "ColorRandom",
     "block": {
       "LCURL": "{",
@@ -8,151 +7,68 @@
         {
           "statement": {
             "function": {
-              "FUNCTION": "FUNCTION",
-              "ID": "renderFrame",
-              "LPAREN": "(",
-              "formals": {},
-              "RPAREN": ")",
+              "ID": "renderLed",
+              "formals": {
+                "formal": {
+                  "ID": "i"
+                }
+              },
               "block": {
                 "LCURL": "{",
                 "*": [
                   {
                     "statement": {
-                      "for": {
-                        "FOR": "FOR",
-                        "LPAREN": "(",
-                        "assign": {
-                          "varleft": {
-                            "ID": "i"
-                          },
-                          "ASSIGN": "=",
-                          "expr": {
-                            "term": {
-                              "factor": {
-                                "INTEGER_CONST": "0"
-                              }
-                            }
-                          }
+                      "assign": {
+                        "varleft": {
+                          "ID": "color"
                         },
-                        "SEMI": ";",
                         "expr": {
                           "term": {
                             "factor": {
-                              "varref": {
-                                "ID": "i"
+                              "call": {
+                                "ID": "random",
+                                "RPAREN": ")",
+                                "external": 15
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "call": {
+                        "ID": "setPixelColor",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "varref": {
+                                  "ID": "i"
+                                }
                               }
                             }
                           },
                           "*": [
                             {
-                              "LT": "<"
+                              "COMMA": ","
                             },
                             {
-                              "term": {
-                                "factor": {
-                                  "varref": {
-                                    "ID": "ledCount"
+                              "expr": {
+                                "term": {
+                                  "factor": {
+                                    "varref": {
+                                      "ID": "color"
+                                    }
                                   }
                                 }
                               }
                             }
                           ]
                         },
-                        "increment": {
-                          "assign": {
-                            "varleft": {
-                              "ID": "i"
-                            },
-                            "ASSIGN": "=",
-                            "expr": {
-                              "term": {
-                                "factor": {
-                                  "varref": {
-                                    "ID": "i"
-                                  }
-                                }
-                              },
-                              "*": [
-                                {
-                                  "PLUS": "+"
-                                },
-                                {
-                                  "term": {
-                                    "factor": {
-                                      "INTEGER_CONST": "1"
-                                    }
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        },
                         "RPAREN": ")",
-                        "block": {
-                          "LCURL": "{",
-                          "*": [
-                            {
-                              "statement": {
-                                "assign": {
-                                  "varleft": {
-                                    "ID": "color"
-                                  },
-                                  "ASSIGN": "=",
-                                  "expr": {
-                                    "term": {
-                                      "factor": {
-                                        "call": {
-                                          "ID": "random",
-                                          "LPAREN": "(",
-                                          "actuals": {},
-                                          "RPAREN": ")"
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            {
-                              "statement": {
-                                "call": {
-                                  "ID": "setPixelColor",
-                                  "LPAREN": "(",
-                                  "actuals": {
-                                    "expr": {
-                                      "term": {
-                                        "factor": {
-                                          "varref": {
-                                            "ID": "i"
-                                          }
-                                        }
-                                      }
-                                    },
-                                    "*": [
-                                      {
-                                        "COMMA": ","
-                                      },
-                                      {
-                                        "expr": {
-                                          "term": {
-                                            "factor": {
-                                              "varref": {
-                                                "ID": "color"
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    ]
-                                  },
-                                  "RPAREN": ")"
-                                }
-                              }
-                            },
-                            {}
-                          ],
-                          "RCURL": "}"
-                        }
+                        "external": 1
                       }
                     }
                   },

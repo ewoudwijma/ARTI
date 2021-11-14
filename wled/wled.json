@@ -78,29 +78,36 @@
 
   "EXTERNALS":
   {
-    "setPixelColor": {"pixelNr":"int", "color":"int"},
-    "random": {"return": "int"},
-    "printf": {"args": "__VA_ARGS__"},
     "ledCount": {},
-    "shift": {"delta": "int"},
-    "sin": {"degrees": "real"},
-    "millis": {},
-    "abs": {"value": "real"},
-    "setPixels": {"leds": "array"},
+    "setPixelColor": {"pixelNr":"int", "color":"int"},
     "leds": {},
+    "setPixels": {"leds": "array"},
     "hsv": {"h":"uint8", "s":"uint8", "v":"uint8"},
-    "sampleAvg": {"return": "double"},
-    "speed": {"return":"uint8"},
-    "constrain": {"amt":"any", "low":"any", "high":"any"},
+
+    "setRange": {"from":"uint16", "to":"uint16", "color":"uint32"},
     "fill": {"color":"uint32"},
-    "blend": {"color1":"uint32", "color2":"uint32", "blend":"uint16"},
+    "colorBlend": {"color1":"uint32", "color2":"uint32", "blend":"uint16"},
+    "colorWheel": {"pos":"uint8"},
+
     "segcolor": {"index":"uint8"},
-    "wheel": {"pos":"uint8"},
+    "speed": {"return":"uint8"},
+    "sampleAvg": {"return": "double"},
+
+    "shift": {"delta": "int"},
+    "circle2D": {"degrees": "int"}, 
+
+    "constrain": {"amt":"any", "low":"any", "high":"any"},
+    "random": {"return": "int"},
+    "sin": {"degrees": "real"},
+    "cos": {"degrees": "real"},
+    "abs": {"value": "real"},
+
     "hour": {"return":"uint8"},
     "minute": {"return":"uint8"},
     "second": {"return":"uint8"},
-    "setRange": {"from":"uint16", "to":"uint16", "color":"uint32"},
-    "": {}
+    "millis": {},
+
+    "printf": {"args": "__VA_ARGS__"}
   }
 
 }

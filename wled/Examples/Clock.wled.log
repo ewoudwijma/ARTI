@@ -1,4 +1,3 @@
-Parser PROGRAM PROGRAM
  PROGRAM PROGRAM -> [ID Clock] 0
  ID Clock -> [LCURL {] 0
  block 0
@@ -17,6 +16,9 @@ Parser PROGRAM PROGRAM
       formals 5
        formal 6
        fail formal
+      remove key/value FUNCTION FUNCTION (5)
+      remove key/value LPAREN ( (5)
+      remove empty values for key formals (5)
       success formals
       RPAREN ) -> [LCURL {] 5
      block 4
@@ -44,11 +46,11 @@ Parser PROGRAM PROGRAM
              fail varref
              INTEGER_CONST 0 -> [COMMA ,] 12
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success expr
            COMMA , -> [ID ledCount] 10
            expr 10
@@ -61,11 +63,11 @@ Parser PROGRAM PROGRAM
               ID ledCount -> [COMMA ,] 13
               success varref
              success factor
-            remove multiple key
-            remove multiple empty
+            remove multiple key (11)
+            remove multiple empty (11)
             success term
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success expr
            COMMA , -> [INTEGER_CONST 0] 10
            expr 10
@@ -77,142 +79,14 @@ Parser PROGRAM PROGRAM
               fail varref
               INTEGER_CONST 0 -> [RPAREN )] 13
              success factor
-            remove multiple key
-            remove multiple empty
+            remove multiple key (11)
+            remove multiple empty (11)
             success term
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success expr
-         remove multiple key
-         success actuals
-         RPAREN ) -> [ID h] 8
-        success call
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         ID h -> [ASSIGN =] 8
-         success varleft
-         ASSIGN = -> [ID hour] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
-             ID hour -> [ID m] 12
-            fail call
-            varref 11
-            ID hour -> [ID m] 11
-            success varref
-           success factor
-          remove multiple key
-          remove multiple empty
-          success term
-         remove multiple key
-         remove multiple empty
-         success expr
-        success assign
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         ID m -> [ASSIGN =] 8
-         success varleft
-         ASSIGN = -> [ID minute] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
-             ID minute -> [ID s] 12
-            fail call
-            varref 11
-            ID minute -> [ID s] 11
-            success varref
-           success factor
-          remove multiple key
-          remove multiple empty
-          success term
-         remove multiple key
-         remove multiple empty
-         success expr
-        success assign
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         ID s -> [ASSIGN =] 8
-         success varleft
-         ASSIGN = -> [ID second] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
-             ID second -> [ID setPixelColor] 12
-            fail call
-            varref 11
-            ID second -> [ID setPixelColor] 11
-            success varref
-           success factor
-          remove multiple key
-          remove multiple empty
-          success term
-         remove multiple key
-         remove multiple empty
-         success expr
-        success assign
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         ID setPixelColor -> [LPAREN (] 8
-         success varleft
-        fail assign
-        function 7
-        fail function
-        call 7
-         ID setPixelColor -> [LPAREN (] 8
-         LPAREN ( -> [ID h] 8
-         actuals 8
-          expr 9
-           term 10
-            factor 11
-             call 12
-              ID h -> [COMMA ,] 13
-             fail call
-             varref 12
-             ID h -> [COMMA ,] 12
-             success varref
-            success factor
-           remove multiple key
-           remove multiple empty
-           success term
-          remove multiple key
-          remove multiple empty
-          success expr
-           COMMA , -> [INTEGER_CONST 0] 10
-           expr 10
-            term 11
-             factor 12
-              call 13
-              fail call
-              varref 13
-              fail varref
-              INTEGER_CONST 0 -> [RPAREN )] 13
-             success factor
-            remove multiple key
-            remove multiple empty
-            success term
-           remove multiple key
-           remove multiple empty
-           success expr
-         remove multiple key
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
          success actuals
          RPAREN ) -> [ID setPixelColor] 8
         success call
@@ -229,25 +103,25 @@ Parser PROGRAM PROGRAM
         fail function
         call 7
          ID setPixelColor -> [LPAREN (] 8
-         LPAREN ( -> [ID m] 8
+         LPAREN ( -> [ID hour] 8
          actuals 8
           expr 9
            term 10
             factor 11
              call 12
-              ID m -> [COMMA ,] 13
+              ID hour -> [COMMA ,] 13
              fail call
              varref 12
-             ID m -> [COMMA ,] 12
+             ID hour -> [COMMA ,] 12
              success varref
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success expr
-           COMMA , -> [INTEGER_CONST 1] 10
+           COMMA , -> [INTEGER_CONST 25] 10
            expr 10
             term 11
              factor 12
@@ -255,15 +129,16 @@ Parser PROGRAM PROGRAM
               fail call
               varref 13
               fail varref
-              INTEGER_CONST 1 -> [RPAREN )] 13
+              INTEGER_CONST 25 -> [RPAREN )] 13
              success factor
-            remove multiple key
-            remove multiple empty
+            remove multiple key (11)
+            remove multiple empty (11)
             success term
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success expr
-         remove multiple key
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
          success actuals
          RPAREN ) -> [ID setPixelColor] 8
         success call
@@ -280,25 +155,25 @@ Parser PROGRAM PROGRAM
         fail function
         call 7
          ID setPixelColor -> [LPAREN (] 8
-         LPAREN ( -> [ID s] 8
+         LPAREN ( -> [ID minute] 8
          actuals 8
           expr 9
            term 10
             factor 11
              call 12
-              ID s -> [COMMA ,] 13
+              ID minute -> [COMMA ,] 13
              fail call
              varref 12
-             ID s -> [COMMA ,] 12
+             ID minute -> [COMMA ,] 12
              success varref
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success expr
-           COMMA , -> [INTEGER_CONST 2] 10
+           COMMA , -> [INTEGER_CONST 125] 10
            expr 10
             term 11
              factor 12
@@ -306,15 +181,68 @@ Parser PROGRAM PROGRAM
               fail call
               varref 13
               fail varref
-              INTEGER_CONST 2 -> [RPAREN )] 13
+              INTEGER_CONST 125 -> [RPAREN )] 13
              success factor
-            remove multiple key
-            remove multiple empty
+            remove multiple key (11)
+            remove multiple empty (11)
             success term
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success expr
-         remove multiple key
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
+         success actuals
+         RPAREN ) -> [ID setPixelColor] 8
+        success call
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID setPixelColor -> [LPAREN (] 8
+         success varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+         ID setPixelColor -> [LPAREN (] 8
+         LPAREN ( -> [ID second] 8
+         actuals 8
+          expr 9
+           term 10
+            factor 11
+             call 12
+              ID second -> [COMMA ,] 13
+             fail call
+             varref 12
+             ID second -> [COMMA ,] 12
+             success varref
+            success factor
+           remove multiple key (10)
+           remove multiple empty (10)
+           success term
+          remove multiple key (9)
+          remove multiple empty (9)
+          success expr
+           COMMA , -> [INTEGER_CONST 225] 10
+           expr 10
+            term 11
+             factor 12
+              call 13
+              fail call
+              varref 13
+              fail varref
+              INTEGER_CONST 225 -> [RPAREN )] 13
+             success factor
+            remove multiple key (11)
+            remove multiple empty (11)
+            success term
+           remove multiple key (10)
+           remove multiple empty (10)
+           success expr
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
          success actuals
          RPAREN ) -> [RCURL }] 8
         success call
@@ -338,7 +266,8 @@ Parser PROGRAM PROGRAM
         fail block
        fail statement
       RCURL } -> [RCURL }] 5
-     remove multiple key
+     remove key/value RPAREN ) (4)
+     remove multiple key (4)
      success block
     success function
    success statement
@@ -361,133 +290,69 @@ Parser PROGRAM PROGRAM
     fail block
    fail statement
   RCURL } 1
- remove multiple key
+ remove key/value PROGRAM PROGRAM (0)
+ remove multiple key (0)
  success block
-Symbol program Parsed until (14,1) 193 of 193
-par mem 9350 of 19304 19304 1 0 19
-prog size 193 factor 48
+Symbol program Parsed until (15,1) 252 of 252
+par mem 7230 of 25200 25200 1 0 19
+prog size 252 factor 28
+par mem 3300 of 25200 25200 1 0 19
 Destruct Lexer
-Destruct Parser
 
 Analyzer
  Program Clock 1 0
-  Token LCURL
      Function Clock.renderFrame
-      Token LCURL
-         extfunc setRange
-             Token INTEGER_CONST
-            Token COMMA
+         Ext Function found setRange (8)
                Ext Variable found ledCount (14)
-            Token COMMA
-               Token INTEGER_CONST
-         Assign renderFrame.h of notype
-         Assign h = (8)
+         Ext Function found setPixelColor (8)
              Ext Variable found hour (12)
-         Assign renderFrame.m of notype
-         Assign m = (8)
+         Ext Function found setPixelColor (8)
              Ext Variable found minute (12)
-         Assign renderFrame.s of notype
-         Assign s = (8)
+         Ext Function found setPixelColor (8)
              Ext Variable found second (12)
-         extfunc setPixelColor
-             VarRef found h (12)
-            Token COMMA
-               Token INTEGER_CONST
-         extfunc setPixelColor
-             VarRef found m (12)
-            Token COMMA
-               Token INTEGER_CONST
-         extfunc setPixelColor
-             VarRef found s (12)
-            Token COMMA
-               Token INTEGER_CONST
-      Token RCURL
-     0 Assign renderFrame.h notype 2
-     1 Assign renderFrame.m notype 2
-     2 Assign renderFrame.s notype 2
-  Token RCURL
  0 Function Clock.renderFrame  1
 
 interpret Clock 1 1
  program name ID
  Program Clock Clock
-  Token LCURL
      Save block of renderFrame
-  Token RCURL
          Call renderFrame (1)
-          Token LCURL
                  INTEGER_CONST 0 (Push 1)
-                 Token INTEGER_CONST
-                Token COMMA
                    VarRef ext.ledCount = 3.000000 (push 2)
-                Token COMMA
                    INTEGER_CONST 0 (Push 3)
-                   Token INTEGER_CONST
              Call setRange(0.000000, 3.000000, 0.000000) = 3.000000
                  VarRef ext.hour = 24.000000 (push 2)
-             renderFrame.h := 24.000000 (pop 1)
+                   INTEGER_CONST 25 (Push 3)
+setPixelColor(24.000000, 25.000000)
+             Call setPixelColor(24.000000, 25.000000)
                  VarRef ext.minute = 60.000000 (push 2)
-             renderFrame.m := 60.000000 (pop 1)
+                   INTEGER_CONST 125 (Push 3)
+setPixelColor(60.000000, 125.000000)
+             Call setPixelColor(60.000000, 125.000000)
                  VarRef ext.second = 60.000000 (push 2)
-             renderFrame.s := 60.000000 (pop 1)
-                 VarRef renderFrame.h = 24.000000 (push 2)
-                Token COMMA
-                   INTEGER_CONST 0 (Push 3)
-                   Token INTEGER_CONST
-setPixelColor(24.000000, 0.000000)
-             Call setPixelColor(24.000000, 0.000000)
-                 VarRef renderFrame.m = 60.000000 (push 2)
-                Token COMMA
-                   INTEGER_CONST 1 (Push 3)
-                   Token INTEGER_CONST
-setPixelColor(60.000000, 1.000000)
-             Call setPixelColor(60.000000, 1.000000)
-                 VarRef renderFrame.s = 60.000000 (push 2)
-                Token COMMA
-                   INTEGER_CONST 2 (Push 3)
-                   Token INTEGER_CONST
-setPixelColor(60.000000, 2.000000)
-             Call setPixelColor(60.000000, 2.000000)
-          Token RCURL
+                   INTEGER_CONST 225 (Push 3)
+setPixelColor(60.000000, 225.000000)
+             Call setPixelColor(60.000000, 225.000000)
 Destruct activation record renderFrame
          Call renderFrame (1)
-          Token LCURL
                  INTEGER_CONST 0 (Push 2)
-                 Token INTEGER_CONST
-                Token COMMA
                    VarRef ext.ledCount = 3.000000 (push 3)
-                Token COMMA
                    INTEGER_CONST 0 (Push 4)
-                   Token INTEGER_CONST
              Call setRange(0.000000, 3.000000, 0.000000) = 3.000000
                  VarRef ext.hour = 24.000000 (push 3)
-             renderFrame.h := 24.000000 (pop 2)
+                   INTEGER_CONST 25 (Push 4)
+setPixelColor(24.000000, 25.000000)
+             Call setPixelColor(24.000000, 25.000000)
                  VarRef ext.minute = 60.000000 (push 3)
-             renderFrame.m := 60.000000 (pop 2)
+                   INTEGER_CONST 125 (Push 4)
+setPixelColor(60.000000, 125.000000)
+             Call setPixelColor(60.000000, 125.000000)
                  VarRef ext.second = 60.000000 (push 3)
-             renderFrame.s := 60.000000 (pop 2)
-                 VarRef renderFrame.h = 24.000000 (push 3)
-                Token COMMA
-                   INTEGER_CONST 0 (Push 4)
-                   Token INTEGER_CONST
-setPixelColor(24.000000, 0.000000)
-             Call setPixelColor(24.000000, 0.000000)
-                 VarRef renderFrame.m = 60.000000 (push 3)
-                Token COMMA
-                   INTEGER_CONST 1 (Push 4)
-                   Token INTEGER_CONST
-setPixelColor(60.000000, 1.000000)
-             Call setPixelColor(60.000000, 1.000000)
-                 VarRef renderFrame.s = 60.000000 (push 3)
-                Token COMMA
-                   INTEGER_CONST 2 (Push 4)
-                   Token INTEGER_CONST
-setPixelColor(60.000000, 2.000000)
-             Call setPixelColor(60.000000, 2.000000)
-          Token RCURL
+                   INTEGER_CONST 225 (Push 4)
+setPixelColor(60.000000, 225.000000)
+             Call setPixelColor(60.000000, 225.000000)
 Destruct activation record renderFrame
 Destruct callstack
 Destruct valueStack
-Destruct Interpreter
-def mem 9236 of 12192 12192 24 0 6
-def mem 9350 of 19304 19304 1 0 19
+def mem 9435 of 12192 12192 24 0 6
+par mem 3556 of 25200 25200 1 0 19

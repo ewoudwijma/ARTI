@@ -1,6 +1,5 @@
 {
   "program": {
-    "PROGRAM": "PROGRAM",
     "ID": "Shift",
     "block": {
       "LCURL": "{",
@@ -8,11 +7,7 @@
         {
           "statement": {
             "function": {
-              "FUNCTION": "FUNCTION",
               "ID": "renderFrame",
-              "LPAREN": "(",
-              "formals": {},
-              "RPAREN": ")",
               "block": {
                 "LCURL": "{",
                 "*": [
@@ -20,7 +15,6 @@
                     "statement": {
                       "call": {
                         "ID": "setPixelColor",
-                        "LPAREN": "(",
                         "actuals": {
                           "expr": {
                             "term": {
@@ -39,9 +33,8 @@
                                   "factor": {
                                     "call": {
                                       "ID": "random",
-                                      "LPAREN": "(",
-                                      "actuals": {},
-                                      "RPAREN": ")"
+                                      "RPAREN": ")",
+                                      "external": 15
                                     }
                                   }
                                 }
@@ -49,7 +42,8 @@
                             }
                           ]
                         },
-                        "RPAREN": ")"
+                        "RPAREN": ")",
+                        "external": 1
                       }
                     }
                   },
@@ -57,7 +51,6 @@
                     "statement": {
                       "call": {
                         "ID": "shift",
-                        "LPAREN": "(",
                         "actuals": {
                           "expr": {
                             "term": {
@@ -67,7 +60,8 @@
                             }
                           }
                         },
-                        "RPAREN": ")"
+                        "RPAREN": ")",
+                        "external": 12
                       }
                     }
                   },

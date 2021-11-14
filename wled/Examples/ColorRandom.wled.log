@@ -1,4 +1,3 @@
-Parser PROGRAM PROGRAM
  PROGRAM PROGRAM -> [ID ColorRandom] 0
  ID ColorRandom -> [LCURL {] 0
  block 0
@@ -11,230 +10,113 @@ Parser PROGRAM PROGRAM
      fail varleft
     fail assign
     function 3
-     FUNCTION FUNCTION -> [ID renderFrame] 4
-     ID renderFrame -> [LPAREN (] 4
-      LPAREN ( -> [RPAREN )] 5
+     FUNCTION FUNCTION -> [ID renderLed] 4
+     ID renderLed -> [LPAREN (] 4
+      LPAREN ( -> [ID i] 5
       formals 5
        formal 6
-       fail formal
+       ID i -> [RPAREN )] 6
+       success formal
+      remove key/value FUNCTION FUNCTION (5)
+      remove key/value LPAREN ( (5)
+      remove multiple key (5)
+      remove multiple empty (5)
       success formals
       RPAREN ) -> [LCURL {] 5
      block 4
-      LCURL { -> [FOR FOR] 5
+      LCURL { -> [ID color] 5
        statement 6
         variable 7
         fail variable
         assign 7
          varleft 8
-         fail varleft
-        fail assign
-        function 7
-        fail function
-        call 7
-        fail call
-        for 7
-         FOR FOR -> [LPAREN (] 8
-         LPAREN ( -> [ID i] 8
-         assign 8
-          varleft 9
-          ID i -> [ASSIGN =] 9
-          success varleft
-          ASSIGN = -> [INTEGER_CONST 0] 9
-          expr 9
-           term 10
-            factor 11
-             call 12
-             fail call
-             varref 12
-             fail varref
-             INTEGER_CONST 0 -> [SEMI ;] 12
-            success factor
-           remove multiple key
-           remove multiple empty
-           success term
-          remove multiple key
-          remove multiple empty
-          success expr
-         success assign
-         SEMI ; -> [ID i] 8
+         ID color -> [ASSIGN =] 8
+         success varleft
+         ASSIGN = -> [ID random] 8
          expr 8
           term 9
            factor 10
             call 11
-             ID i -> [LT <] 12
-            fail call
-            varref 11
-            ID i -> [LT <] 11
-            success varref
-           success factor
-          remove multiple key
-          remove multiple empty
-          success term
-            LT < -> [ID ledCount] 11
-           term 10
-            factor 11
-             call 12
-              ID ledCount -> [SEMI ;] 13
-             fail call
-             varref 12
-             ID ledCount -> [SEMI ;] 12
-             success varref
-            success factor
-           remove multiple key
-           remove multiple empty
-           success term
-         remove multiple key
-         success expr
-         SEMI ; -> [ID i] 8
-         increment 8
-          assign 9
-           varleft 10
-           ID i -> [ASSIGN =] 10
-           success varleft
-           ASSIGN = -> [ID i] 10
-           expr 10
-            term 11
-             factor 12
-              call 13
-               ID i -> [PLUS +] 14
-              fail call
-              varref 13
-              ID i -> [PLUS +] 13
-              success varref
-             success factor
-            remove multiple key
-            remove multiple empty
-            success term
-              PLUS + -> [INTEGER_CONST 1] 13
-             term 12
-              factor 13
-               call 14
-               fail call
-               varref 14
-               fail varref
-               INTEGER_CONST 1 -> [RPAREN )] 14
-              success factor
-             remove multiple key
-             remove multiple empty
-             success term
-           remove multiple key
-           success expr
-          success assign
-         success increment
-         RPAREN ) -> [LCURL {] 8
-         block 8
-          LCURL { -> [ID color] 9
-           statement 10
-            variable 11
-            fail variable
-            assign 11
-             varleft 12
-             ID color -> [ASSIGN =] 12
-             success varleft
-             ASSIGN = -> [ID random] 12
-             expr 12
-              term 13
-               factor 14
-                call 15
-                 ID random -> [LPAREN (] 16
-                 LPAREN ( -> [RPAREN )] 16
-                 actuals 16
-                  expr 17
-                   term 18
-                    factor 19
-                     call 20
-                     fail call
-                     varref 20
-                     fail varref
-                    fail factor
-                   fail term
-                  fail expr
-                 success actuals
-                 RPAREN ) -> [ID setPixelColor] 16
-                success call
-               success factor
-              remove multiple key
-              remove multiple empty
-              success term
-             remove multiple key
-             remove multiple empty
-             success expr
-            success assign
-           success statement
-           statement 10
-            variable 11
-            fail variable
-            assign 11
-             varleft 12
-             ID setPixelColor -> [LPAREN (] 12
-             success varleft
-            fail assign
-            function 11
-            fail function
-            call 11
-             ID setPixelColor -> [LPAREN (] 12
-             LPAREN ( -> [ID i] 12
+             ID random -> [LPAREN (] 12
+             LPAREN ( -> [RPAREN )] 12
              actuals 12
               expr 13
                term 14
                 factor 15
                  call 16
-                  ID i -> [COMMA ,] 17
                  fail call
                  varref 16
-                 ID i -> [COMMA ,] 16
-                 success varref
-                success factor
-               remove multiple key
-               remove multiple empty
-               success term
-              remove multiple key
-              remove multiple empty
-              success expr
-               COMMA , -> [ID color] 14
-               expr 14
-                term 15
-                 factor 16
-                  call 17
-                   ID color -> [RPAREN )] 18
-                  fail call
-                  varref 17
-                  ID color -> [RPAREN )] 17
-                  success varref
-                 success factor
-                remove multiple key
-                remove multiple empty
-                success term
-               remove multiple key
-               remove multiple empty
-               success expr
-             remove multiple key
+                 fail varref
+                fail factor
+               fail term
+              fail expr
+             remove key/value LPAREN ( (12)
+             remove empty values for key actuals (12)
              success actuals
-             RPAREN ) -> [RCURL }] 12
+             RPAREN ) -> [ID setPixelColor] 12
             success call
-           success statement
-           statement 10
-            variable 11
-            fail variable
-            assign 11
-             varleft 12
-             fail varleft
-            fail assign
-            function 11
-            fail function
-            call 11
-            fail call
-            for 11
-            fail for
-            if 11
-            fail if
-            block 11
-            fail block
-           fail statement
-          RCURL } -> [RCURL }] 9
-         remove multiple key
-         success block
-        success for
+           success factor
+          remove multiple key (9)
+          remove multiple empty (9)
+          success term
+         remove key/value ASSIGN = (8)
+         remove multiple key (8)
+         remove multiple empty (8)
+         success expr
+        success assign
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID setPixelColor -> [LPAREN (] 8
+         success varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+         ID setPixelColor -> [LPAREN (] 8
+         LPAREN ( -> [ID i] 8
+         actuals 8
+          expr 9
+           term 10
+            factor 11
+             call 12
+              ID i -> [COMMA ,] 13
+             fail call
+             varref 12
+             ID i -> [COMMA ,] 12
+             success varref
+            success factor
+           remove multiple key (10)
+           remove multiple empty (10)
+           success term
+          remove multiple key (9)
+          remove multiple empty (9)
+          success expr
+           COMMA , -> [ID color] 10
+           expr 10
+            term 11
+             factor 12
+              call 13
+               ID color -> [RPAREN )] 14
+              fail call
+              varref 13
+              ID color -> [RPAREN )] 13
+              success varref
+             success factor
+            remove multiple key (11)
+            remove multiple empty (11)
+            success term
+           remove multiple key (10)
+           remove multiple empty (10)
+           success expr
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
+         success actuals
+         RPAREN ) -> [RCURL }] 8
+        success call
        success statement
        statement 6
         variable 7
@@ -255,7 +137,8 @@ Parser PROGRAM PROGRAM
         fail block
        fail statement
       RCURL } -> [RCURL }] 5
-     remove multiple key
+     remove key/value RPAREN ) (4)
+     remove multiple key (4)
      success block
     success function
    success statement
@@ -278,187 +161,72 @@ Parser PROGRAM PROGRAM
     fail block
    fail statement
   RCURL } 1
- remove multiple key
+ remove key/value PROGRAM PROGRAM (0)
+ remove multiple key (0)
  success block
-Symbol program Parsed until (9,1) 168 of 168
-par mem 6734 of 16800 16800 1 0 24
-prog size 168 factor 40
+Symbol program Parsed until (11,1) 149 of 149
+par mem 3802 of 14904 14904 1 0 19
+prog size 149 factor 25
+par mem 1687 of 14904 14904 1 0 19
 Destruct Lexer
-Destruct Parser
 
 Analyzer
  Program ColorRandom 1 0
-     Function ColorRandom.renderFrame
-          Assign renderFrame.i of notype
-          Assign i = (9)
-             VarRef found i (12)
-               Ext Variable found ledCount (14)
-           Assign i = (10)
-               VarRef found i (14)
-              Assign renderFrame.color of notype
-              Assign color = (13)
-                  extfunc random
-              extfunc setPixelColor
-                  VarRef found i (17)
-                    VarRef found color (19)
-     0 Assign renderFrame.i notype 2
-     1 Assign renderFrame.color notype 2
- 0 Function ColorRandom.renderFrame  1
+     Function ColorRandom.renderLed
+      Formal renderLed.i of notype
+         Assign renderLed.color of notype
+         Assign color = (8)
+             Ext Function found random (12)
+         Ext Function found setPixelColor (8)
+             VarRef found renderLed.i (12)
+               VarRef found renderLed.color (14)
+     0 Formal renderLed.i notype 2
+     1 Assign renderLed.color notype 2
+ 0 Function ColorRandom.renderLed  1
 
 interpret ColorRandom 1 1
  program name ID
  Program ColorRandom ColorRandom
-     Save block of renderFrame
-         Call renderFrame (1)
-             For (0)
-             from
-                  INTEGER_CONST 0 (Push 1)
-              renderFrame.i := 0.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 0.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              0.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                     Call random() = 41.000000
-                 renderFrame.color := 41.000000 (pop 0)
-                     VarRef renderFrame.i = 0.000000 (push 1)
-                       VarRef renderFrame.color = 41.000000 (push 2)
+     Save block of renderLed
+                 Call random() = 41.000000
+             renderLed.color := 41.000000 (pop 0)
+                 VarRef renderLed.i = 0.000000 (push 1)
+                   VarRef renderLed.color = 41.000000 (push 2)
 setPixelColor(0.000000, 41.000000)
-                 Call setPixelColor(0.000000, 41.000000)
-             assign next value
-                  VarRef renderFrame.i = 0.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               0.000000 + 1.000000 = 1.000000 (push 1)
-              renderFrame.i := 1.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 1.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              1.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                     Call random() = 18467.000000
-                 renderFrame.color := 18467.000000 (pop 0)
-                     VarRef renderFrame.i = 1.000000 (push 1)
-                       VarRef renderFrame.color = 18467.000000 (push 2)
+             Call setPixelColor(0.000000, 41.000000)
+                 Call random() = 18467.000000
+             renderLed.color := 18467.000000 (pop 0)
+                 VarRef renderLed.i = 1.000000 (push 1)
+                   VarRef renderLed.color = 18467.000000 (push 2)
 setPixelColor(1.000000, 18467.000000)
-                 Call setPixelColor(1.000000, 18467.000000)
-             assign next value
-                  VarRef renderFrame.i = 1.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               1.000000 + 1.000000 = 2.000000 (push 1)
-              renderFrame.i := 2.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 2.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              2.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                     Call random() = 6334.000000
-                 renderFrame.color := 6334.000000 (pop 0)
-                     VarRef renderFrame.i = 2.000000 (push 1)
-                       VarRef renderFrame.color = 6334.000000 (push 2)
+             Call setPixelColor(1.000000, 18467.000000)
+                 Call random() = 6334.000000
+             renderLed.color := 6334.000000 (pop 0)
+                 VarRef renderLed.i = 2.000000 (push 1)
+                   VarRef renderLed.color = 6334.000000 (push 2)
 setPixelColor(2.000000, 6334.000000)
-                 Call setPixelColor(2.000000, 6334.000000)
-             assign next value
-                  VarRef renderFrame.i = 2.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               2.000000 + 1.000000 = 3.000000 (push 1)
-              renderFrame.i := 3.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 3.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              3.000000 < 3.000000 = 0.000000 (push 1)
-             conditionResult (pop 0)
-             0 => end of For
-Destruct activation record renderFrame
-         Call renderFrame (1)
-             For (0)
-             from
-                  INTEGER_CONST 0 (Push 1)
-              renderFrame.i := 0.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 0.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              0.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                     Call random() = 26500.000000
-                 renderFrame.color := 26500.000000 (pop 0)
-                     VarRef renderFrame.i = 0.000000 (push 1)
-                       VarRef renderFrame.color = 26500.000000 (push 2)
+             Call setPixelColor(2.000000, 6334.000000)
+Destruct activation record renderLed
+                 Call random() = 26500.000000
+             renderLed.color := 26500.000000 (pop 0)
+                 VarRef renderLed.i = 0.000000 (push 1)
+                   VarRef renderLed.color = 26500.000000 (push 2)
 setPixelColor(0.000000, 26500.000000)
-                 Call setPixelColor(0.000000, 26500.000000)
-             assign next value
-                  VarRef renderFrame.i = 0.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               0.000000 + 1.000000 = 1.000000 (push 1)
-              renderFrame.i := 1.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 1.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              1.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                     Call random() = 19169.000000
-                 renderFrame.color := 19169.000000 (pop 0)
-                     VarRef renderFrame.i = 1.000000 (push 1)
-                       VarRef renderFrame.color = 19169.000000 (push 2)
+             Call setPixelColor(0.000000, 26500.000000)
+                 Call random() = 19169.000000
+             renderLed.color := 19169.000000 (pop 0)
+                 VarRef renderLed.i = 1.000000 (push 1)
+                   VarRef renderLed.color = 19169.000000 (push 2)
 setPixelColor(1.000000, 19169.000000)
-                 Call setPixelColor(1.000000, 19169.000000)
-             assign next value
-                  VarRef renderFrame.i = 1.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               1.000000 + 1.000000 = 2.000000 (push 1)
-              renderFrame.i := 2.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 2.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              2.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                     Call random() = 15724.000000
-                 renderFrame.color := 15724.000000 (pop 0)
-                     VarRef renderFrame.i = 2.000000 (push 1)
-                       VarRef renderFrame.color = 15724.000000 (push 2)
+             Call setPixelColor(1.000000, 19169.000000)
+                 Call random() = 15724.000000
+             renderLed.color := 15724.000000 (pop 0)
+                 VarRef renderLed.i = 2.000000 (push 1)
+                   VarRef renderLed.color = 15724.000000 (push 2)
 setPixelColor(2.000000, 15724.000000)
-                 Call setPixelColor(2.000000, 15724.000000)
-             assign next value
-                  VarRef renderFrame.i = 2.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               2.000000 + 1.000000 = 3.000000 (push 1)
-              renderFrame.i := 3.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 3.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              3.000000 < 3.000000 = 0.000000 (push 1)
-             conditionResult (pop 0)
-             0 => end of For
-Destruct activation record renderFrame
+             Call setPixelColor(2.000000, 15724.000000)
+Destruct activation record renderLed
 Destruct callstack
 Destruct valueStack
-Destruct Interpreter
-def mem 9236 of 12192 12192 24 0 6
-def mem 6734 of 16800 16800 1 0 24
+def mem 9435 of 12192 12192 24 0 6
+par mem 1751 of 14904 14904 1 0 19

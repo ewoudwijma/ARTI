@@ -1,7 +1,6 @@
 {
   "program": {
-    "PROGRAM": "PROGRAM",
-    "ID": "ColorWalk",
+    "ID": "default",
     "block": {
       "LCURL": "{",
       "*": [
@@ -11,7 +10,6 @@
               "varleft": {
                 "ID": "pixelCounter"
               },
-              "ASSIGN": "=",
               "expr": {
                 "term": {
                   "factor": {
@@ -25,11 +23,7 @@
         {
           "statement": {
             "function": {
-              "FUNCTION": "FUNCTION",
               "ID": "renderFrame",
-              "LPAREN": "(",
-              "formals": {},
-              "RPAREN": ")",
               "block": {
                 "LCURL": "{",
                 "*": [
@@ -37,7 +31,6 @@
                     "statement": {
                       "call": {
                         "ID": "setPixelColor",
-                        "LPAREN": "(",
                         "actuals": {
                           "expr": {
                             "term": {
@@ -65,7 +58,8 @@
                             }
                           ]
                         },
-                        "RPAREN": ")"
+                        "RPAREN": ")",
+                        "external": 1
                       }
                     }
                   },
@@ -75,7 +69,6 @@
                         "varleft": {
                           "ID": "pixelCounter"
                         },
-                        "ASSIGN": "=",
                         "expr": {
                           "term": {
                             "factor": {

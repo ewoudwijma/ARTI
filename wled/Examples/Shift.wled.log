@@ -1,4 +1,3 @@
-Parser PROGRAM PROGRAM
  PROGRAM PROGRAM -> [ID Shift] 0
  ID Shift -> [LCURL {] 0
  block 0
@@ -17,6 +16,9 @@ Parser PROGRAM PROGRAM
       formals 5
        formal 6
        fail formal
+      remove key/value FUNCTION FUNCTION (5)
+      remove key/value LPAREN ( (5)
+      remove empty values for key formals (5)
       success formals
       RPAREN ) -> [LCURL {] 5
      block 4
@@ -44,11 +46,11 @@ Parser PROGRAM PROGRAM
              fail varref
              INTEGER_CONST 0 -> [COMMA ,] 12
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success expr
            COMMA , -> [ID random] 10
            expr 10
@@ -68,17 +70,20 @@ Parser PROGRAM PROGRAM
                   fail factor
                  fail term
                 fail expr
+               remove key/value LPAREN ( (14)
+               remove empty values for key actuals (14)
                success actuals
                RPAREN ) -> [RPAREN )] 14
               success call
              success factor
-            remove multiple key
-            remove multiple empty
+            remove multiple key (11)
+            remove multiple empty (11)
             success term
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success expr
-         remove multiple key
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
          success actuals
          RPAREN ) -> [ID shift] 8
         success call
@@ -106,14 +111,15 @@ Parser PROGRAM PROGRAM
              fail varref
              INTEGER_CONST 1 -> [RPAREN )] 12
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success expr
-         remove multiple key
-         remove multiple empty
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
+         remove multiple empty (8)
          success actuals
          RPAREN ) -> [RCURL }] 8
         success call
@@ -137,7 +143,8 @@ Parser PROGRAM PROGRAM
         fail block
        fail statement
       RCURL } -> [RCURL }] 5
-     remove multiple key
+     remove key/value RPAREN ) (4)
+     remove multiple key (4)
      success block
     success function
    success statement
@@ -160,20 +167,21 @@ Parser PROGRAM PROGRAM
     fail block
    fail statement
   RCURL } 1
- remove multiple key
+ remove key/value PROGRAM PROGRAM (0)
+ remove multiple key (0)
  success block
-Symbol program Parsed until (9,1) 94 of 94
-par mem 3709 of 9400 9400 1 0 20
-prog size 94 factor 39
+Symbol program Parsed until (12,1) 180 of 180
+par mem 3709 of 18000 18000 1 0 19
+prog size 180 factor 20
+par mem 1571 of 18000 18000 1 0 19
 Destruct Lexer
-Destruct Parser
 
 Analyzer
  Program Shift 1 0
      Function Shift.renderFrame
-         extfunc setPixelColor
-               extfunc random
-         extfunc shift
+         Ext Function found setPixelColor (8)
+               Ext Function found random (14)
+         Ext Function found shift (8)
  0 Function Shift.renderFrame  1
 
 interpret Shift 1 1
@@ -200,6 +208,5 @@ shift(1.000000)
 Destruct activation record renderFrame
 Destruct callstack
 Destruct valueStack
-Destruct Interpreter
-def mem 9236 of 12192 12192 24 0 6
-def mem 3709 of 9400 9400 1 0 20
+def mem 9435 of 12192 12192 24 0 6
+par mem 1667 of 18000 18000 1 0 19

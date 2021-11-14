@@ -14,7 +14,7 @@ var x : integer;
 
 begin
    x := (a + b ) * 2;
-   printf(x,1);
+   printf(x);
 
    Beta(5, 10);
 end;

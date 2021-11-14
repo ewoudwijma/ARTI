@@ -1,21 +1,25 @@
-//(c) Atuline
+// move pixels from left to right based on millis and sinus
+// idea by @Atuline
+
 program Subpixel
 {
 
+  t = 0 // used by both functions
+
   function renderFrame() {
+//    t = (sin(millis() / 1000) + 1) / 2
     t = millis() / 1000
     t = sin(t)
     t = t + 1    
     t = t / 2
     t = t * ledCount /*split nested t formula into smaller ones (need less recursion to work*/
-    for (i = 0; i < ledCount; i = i + 1)
-    {
+  }
+
+  function renderLed(i) {
       diff = abs(t - i)
       if (diff > 2) { diff = 2 }
       bri = 256 - diff * 128
       leds[i] = hsv(0, 255, bri) //set the led value
-    }
-    setPixels(leds)
   }
 
 }

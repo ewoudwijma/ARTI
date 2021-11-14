@@ -1,6 +1,5 @@
 {
   "program": {
-    "PROGRAM": "PROGRAM",
     "ID": "Kitt",
     "block": {
       "LCURL": "{",
@@ -11,7 +10,6 @@
               "varleft": {
                 "ID": "pixelCounter"
               },
-              "ASSIGN": "=",
               "expr": {
                 "term": {
                   "factor": {
@@ -28,7 +26,6 @@
               "varleft": {
                 "ID": "goingUp"
               },
-              "ASSIGN": "=",
               "expr": {
                 "term": {
                   "factor": {
@@ -42,19 +39,13 @@
         {
           "statement": {
             "function": {
-              "FUNCTION": "FUNCTION",
               "ID": "renderFrame",
-              "LPAREN": "(",
-              "formals": {},
-              "RPAREN": ")",
               "block": {
                 "LCURL": "{",
                 "*": [
                   {
                     "statement": {
                       "if": {
-                        "IF": "IF",
-                        "LPAREN": "(",
                         "expr": {
                           "term": {
                             "factor": {
@@ -70,12 +61,12 @@
                             {
                               "term": {
                                 "factor": {
-                                  "LPAREN": "(",
                                   "expr": {
                                     "term": {
                                       "factor": {
                                         "varref": {
-                                          "ID": "ledCount"
+                                          "ID": "ledCount",
+                                          "external": 0
                                         }
                                       }
                                     },
@@ -98,7 +89,6 @@
                             }
                           ]
                         },
-                        "RPAREN": ")",
                         "block": {
                           "LCURL": "{",
                           "*": [
@@ -108,7 +98,6 @@
                                   "varleft": {
                                     "ID": "goingUp"
                                   },
-                                  "ASSIGN": "=",
                                   "expr": {
                                     "term": {
                                       "factor": {
@@ -129,8 +118,6 @@
                   {
                     "statement": {
                       "if": {
-                        "IF": "IF",
-                        "LPAREN": "(",
                         "expr": {
                           "term": {
                             "factor": {
@@ -152,7 +139,6 @@
                             }
                           ]
                         },
-                        "RPAREN": ")",
                         "block": {
                           "LCURL": "{",
                           "*": [
@@ -162,7 +148,6 @@
                                   "varleft": {
                                     "ID": "goingUp"
                                   },
-                                  "ASSIGN": "=",
                                   "expr": {
                                     "term": {
                                       "factor": {
@@ -184,7 +169,6 @@
                     "statement": {
                       "call": {
                         "ID": "setPixelColor",
-                        "LPAREN": "(",
                         "actuals": {
                           "expr": {
                             "term": {
@@ -212,15 +196,14 @@
                             }
                           ]
                         },
-                        "RPAREN": ")"
+                        "RPAREN": ")",
+                        "external": 1
                       }
                     }
                   },
                   {
                     "statement": {
                       "if": {
-                        "IF": "IF",
-                        "LPAREN": "(",
                         "expr": {
                           "term": {
                             "factor": {
@@ -230,7 +213,6 @@
                             }
                           }
                         },
-                        "RPAREN": ")",
                         "block": {
                           "LCURL": "{",
                           "*": [
@@ -238,7 +220,6 @@
                               "statement": {
                                 "call": {
                                   "ID": "setPixelColor",
-                                  "LPAREN": "(",
                                   "actuals": {
                                     "expr": {
                                       "term": {
@@ -276,7 +257,8 @@
                                       }
                                     ]
                                   },
-                                  "RPAREN": ")"
+                                  "RPAREN": ")",
+                                  "external": 1
                                 }
                               }
                             },
@@ -286,7 +268,6 @@
                                   "varleft": {
                                     "ID": "pixelCounter"
                                   },
-                                  "ASSIGN": "=",
                                   "expr": {
                                     "term": {
                                       "factor": {
@@ -315,7 +296,6 @@
                           ],
                           "RCURL": "}"
                         },
-                        "ELSE": "ELSE",
                         "elseBlock": {
                           "block": {
                             "LCURL": "{",
@@ -324,7 +304,6 @@
                                 "statement": {
                                   "call": {
                                     "ID": "setPixelColor",
-                                    "LPAREN": "(",
                                     "actuals": {
                                       "expr": {
                                         "term": {
@@ -362,7 +341,8 @@
                                         }
                                       ]
                                     },
-                                    "RPAREN": ")"
+                                    "RPAREN": ")",
+                                    "external": 1
                                   }
                                 }
                               },
@@ -372,7 +352,6 @@
                                     "varleft": {
                                       "ID": "pixelCounter"
                                     },
-                                    "ASSIGN": "=",
                                     "expr": {
                                       "term": {
                                         "factor": {

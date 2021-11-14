@@ -1,8 +1,6 @@
 {
   "program": {
-    "PROGRAM": "PROGRAM",
     "ID": "Main",
-    "SEMI": ";",
     "block": {
       "declarations": {
         "VAR": "VAR",
@@ -10,7 +8,6 @@
           {
             "variable_declaration": {
               "ID": "y",
-              "COLON": ":",
               "type_spec": {
                 "INTEGER": "INTEGER"
               }
@@ -22,13 +19,10 @@
           {},
           {
             "procedure_declaration": {
-              "PROCEDURE": "PROCEDURE",
               "ID": "Alpha",
-              "LPAREN": "(",
               "formal_parameter_list": {
                 "formal_parameters": {
                   "ID": "a",
-                  "COLON": ":",
                   "type_spec": {
                     "INTEGER": "INTEGER"
                   }
@@ -40,7 +34,6 @@
                   {
                     "formal_parameters": {
                       "ID": "b",
-                      "COLON": ":",
                       "type_spec": {
                         "INTEGER": "INTEGER"
                       }
@@ -48,8 +41,6 @@
                   }
                 ]
               },
-              "RPAREN": ")",
-              "SEMI": ";",
               "block": {
                 "declarations": {
                   "VAR": "VAR",
@@ -57,7 +48,6 @@
                     {
                       "variable_declaration": {
                         "ID": "x",
-                        "COLON": ":",
                         "type_spec": {
                           "INTEGER": "INTEGER"
                         }
@@ -69,13 +59,10 @@
                     {},
                     {
                       "procedure_declaration": {
-                        "PROCEDURE": "PROCEDURE",
                         "ID": "Beta",
-                        "LPAREN": "(",
                         "formal_parameter_list": {
                           "formal_parameters": {
                             "ID": "a",
-                            "COLON": ":",
                             "type_spec": {
                               "INTEGER": "INTEGER"
                             }
@@ -87,7 +74,6 @@
                             {
                               "formal_parameters": {
                                 "ID": "b",
-                                "COLON": ":",
                                 "type_spec": {
                                   "INTEGER": "INTEGER"
                                 }
@@ -95,8 +81,6 @@
                             }
                           ]
                         },
-                        "RPAREN": ")",
-                        "SEMI": ";",
                         "block": {
                           "declarations": {
                             "VAR": "VAR",
@@ -104,7 +88,6 @@
                               {
                                 "variable_declaration": {
                                   "ID": "x",
-                                  "COLON": ":",
                                   "type_spec": {
                                     "INTEGER": "INTEGER"
                                   }
@@ -118,14 +101,12 @@
                             ]
                           },
                           "compound_statement": {
-                            "BEGIN": "BEGIN",
                             "statement_list": {
                               "statement": {
                                 "assignment_statement": {
                                   "varleft": {
                                     "ID": "x"
                                   },
-                                  "ASSIGN": ":=",
                                   "expr": {
                                     "term": {
                                       "factor": {
@@ -179,7 +160,6 @@
                                   "statement": {
                                     "proccall_statement": {
                                       "ID": "printf",
-                                      "LPAREN": "(",
                                       "actual_parameter_list": {
                                         "expr": {
                                           "term": {
@@ -191,7 +171,8 @@
                                           }
                                         }
                                       },
-                                      "RPAREN": ")"
+                                      "RPAREN": ")",
+                                      "external": 0
                                     }
                                   }
                                 },
@@ -203,25 +184,23 @@
                             },
                             "END": "END"
                           }
-                        }
+                        },
+                        "SEMI": ";"
                       }
                     },
                     {}
                   ]
                 },
                 "compound_statement": {
-                  "BEGIN": "BEGIN",
                   "statement_list": {
                     "statement": {
                       "assignment_statement": {
                         "varleft": {
                           "ID": "x"
                         },
-                        "ASSIGN": ":=",
                         "expr": {
                           "term": {
                             "factor": {
-                              "LPAREN": "(",
                               "expr": {
                                 "term": {
                                   "factor": {
@@ -269,7 +248,6 @@
                         "statement": {
                           "proccall_statement": {
                             "ID": "printf",
-                            "LPAREN": "(",
                             "actual_parameter_list": {
                               "expr": {
                                 "term": {
@@ -279,23 +257,10 @@
                                     }
                                   }
                                 }
-                              },
-                              "*": [
-                                {
-                                  "COMMA": ","
-                                },
-                                {
-                                  "expr": {
-                                    "term": {
-                                      "factor": {
-                                        "INTEGER_CONST": "1"
-                                      }
-                                    }
-                                  }
-                                }
-                              ]
+                              }
                             },
-                            "RPAREN": ")"
+                            "RPAREN": ")",
+                            "external": 0
                           }
                         }
                       },
@@ -306,7 +271,6 @@
                         "statement": {
                           "proccall_statement": {
                             "ID": "Beta",
-                            "LPAREN": "(",
                             "actual_parameter_list": {
                               "expr": {
                                 "term": {
@@ -342,19 +306,18 @@
                   },
                   "END": "END"
                 }
-              }
+              },
+              "SEMI": ";"
             }
           },
           {}
         ]
       },
       "compound_statement": {
-        "BEGIN": "BEGIN",
         "statement_list": {
           "statement": {
             "proccall_statement": {
               "ID": "Alpha",
-              "LPAREN": "(",
               "actual_parameter_list": {
                 "expr": {
                   "term": {
@@ -400,12 +363,10 @@
             {
               "statement": {
                 "for_loop": {
-                  "FOR": "FOR",
                   "assignment_statement": {
                     "varleft": {
                       "ID": "y"
                     },
-                    "ASSIGN": ":=",
                     "expr": {
                       "term": {
                         "factor": {
@@ -414,7 +375,6 @@
                       }
                     }
                   },
-                  "TO": "TO",
                   "expr": {
                     "term": {
                       "factor": {
@@ -422,14 +382,11 @@
                       }
                     }
                   },
-                  "DO": "DO",
                   "compound_statement": {
-                    "BEGIN": "BEGIN",
                     "statement_list": {
                       "statement": {
                         "proccall_statement": {
                           "ID": "Alpha",
-                          "LPAREN": "(",
                           "actual_parameter_list": {
                             "expr": {
                               "term": {

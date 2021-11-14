@@ -1,6 +1,5 @@
-Parser PROGRAM PROGRAM
- PROGRAM PROGRAM -> [ID ColorWalk] 0
- ID ColorWalk -> [LCURL {] 0
+ PROGRAM PROGRAM -> [ID default] 0
+ ID default -> [LCURL {] 0
  block 0
   LCURL { -> [ID pixelCounter] 1
    statement 2
@@ -20,11 +19,12 @@ Parser PROGRAM PROGRAM
         fail varref
         INTEGER_CONST 0 -> [FUNCTION FUNCTION] 7
        success factor
-      remove multiple key
-      remove multiple empty
+      remove multiple key (5)
+      remove multiple empty (5)
       success term
-     remove multiple key
-     remove multiple empty
+     remove key/value ASSIGN = (4)
+     remove multiple key (4)
+     remove multiple empty (4)
      success expr
     success assign
    success statement
@@ -42,6 +42,9 @@ Parser PROGRAM PROGRAM
       formals 5
        formal 6
        fail formal
+      remove key/value FUNCTION FUNCTION (5)
+      remove key/value LPAREN ( (5)
+      remove empty values for key formals (5)
       success formals
       RPAREN ) -> [LCURL {] 5
      block 4
@@ -70,11 +73,11 @@ Parser PROGRAM PROGRAM
              ID pixelCounter -> [COMMA ,] 12
              success varref
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success expr
            COMMA , -> [ID pixelCounter] 10
            expr 10
@@ -87,13 +90,14 @@ Parser PROGRAM PROGRAM
               ID pixelCounter -> [RPAREN )] 13
               success varref
              success factor
-            remove multiple key
-            remove multiple empty
+            remove multiple key (11)
+            remove multiple empty (11)
             success term
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success expr
-         remove multiple key
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
          success actuals
          RPAREN ) -> [ID pixelCounter] 8
         success call
@@ -116,8 +120,8 @@ Parser PROGRAM PROGRAM
             ID pixelCounter -> [PLUS +] 11
             success varref
            success factor
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success term
             PLUS + -> [INTEGER_CONST 1] 11
            term 10
@@ -128,10 +132,11 @@ Parser PROGRAM PROGRAM
              fail varref
              INTEGER_CONST 1 -> [RCURL }] 12
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-         remove multiple key
+         remove key/value ASSIGN = (8)
+         remove multiple key (8)
          success expr
         success assign
        success statement
@@ -154,7 +159,8 @@ Parser PROGRAM PROGRAM
         fail block
        fail statement
       RCURL } -> [RCURL }] 5
-     remove multiple key
+     remove key/value RPAREN ) (4)
+     remove multiple key (4)
      success block
     success function
    success statement
@@ -177,57 +183,57 @@ Parser PROGRAM PROGRAM
     fail block
    fail statement
   RCURL } 1
- remove multiple key
+ remove key/value PROGRAM PROGRAM (0)
+ remove multiple key (0)
  success block
-Symbol program Parsed until (10,1) 162 of 162
-par mem 4369 of 16200 16200 1 0 19
-prog size 162 factor 26
+Symbol program Parsed until (12,1) 212 of 212
+par mem 4367 of 21200 21200 1 0 19
+prog size 212 factor 20
+par mem 2092 of 21200 21200 1 0 19
 Destruct Lexer
-Destruct Parser
 
 Analyzer
- Program ColorWalk 1 0
-     Assign ColorWalk.pixelCounter of notype
+ Program default 1 0
+     Assign default.pixelCounter of notype
      Assign pixelCounter = (4)
-     Function ColorWalk.renderFrame
-         extfunc setPixelColor
-             VarRef found pixelCounter (12)
-               VarRef found pixelCounter (14)
+     Function default.renderFrame
+         Ext Function found setPixelColor (8)
+             VarRef found default.pixelCounter (12)
+               VarRef found default.pixelCounter (14)
          Assign pixelCounter = (8)
-             VarRef found pixelCounter (12)
- 0 Assign ColorWalk.pixelCounter notype 1
- 1 Function ColorWalk.renderFrame  1
+             VarRef found default.pixelCounter (12)
+ 0 Assign default.pixelCounter notype 1
+ 1 Function default.renderFrame  1
 
-interpret ColorWalk 1 2
+interpret default 1 2
  program name ID
- Program ColorWalk ColorWalk
+ Program default default
          INTEGER_CONST 0 (Push 1)
-     ColorWalk.pixelCounter := 0.000000 (pop 0)
+     default.pixelCounter := 0.000000 (pop 0)
      Save block of renderFrame
          Call renderFrame (1)
-                 VarRef ColorWalk.pixelCounter = 0.000000 (push 1)
-                   VarRef ColorWalk.pixelCounter = 0.000000 (push 2)
+                 VarRef default.pixelCounter = 0.000000 (push 1)
+                   VarRef default.pixelCounter = 0.000000 (push 2)
 setPixelColor(0.000000, 0.000000)
              Call setPixelColor(0.000000, 0.000000)
-                 VarRef ColorWalk.pixelCounter = 0.000000 (push 1)
+                 VarRef default.pixelCounter = 0.000000 (push 1)
                  PLUS + (Push 2)
                    INTEGER_CONST 1 (Push 3)
               0.000000 + 1.000000 = 1.000000 (push 1)
-             ColorWalk.pixelCounter := 1.000000 (pop 0)
+             default.pixelCounter := 1.000000 (pop 0)
 Destruct activation record renderFrame
          Call renderFrame (1)
-                 VarRef ColorWalk.pixelCounter = 1.000000 (push 1)
-                   VarRef ColorWalk.pixelCounter = 1.000000 (push 2)
+                 VarRef default.pixelCounter = 1.000000 (push 1)
+                   VarRef default.pixelCounter = 1.000000 (push 2)
 setPixelColor(1.000000, 1.000000)
              Call setPixelColor(1.000000, 1.000000)
-                 VarRef ColorWalk.pixelCounter = 1.000000 (push 1)
+                 VarRef default.pixelCounter = 1.000000 (push 1)
                  PLUS + (Push 2)
                    INTEGER_CONST 1 (Push 3)
               1.000000 + 1.000000 = 2.000000 (push 1)
-             ColorWalk.pixelCounter := 2.000000 (pop 0)
+             default.pixelCounter := 2.000000 (pop 0)
 Destruct activation record renderFrame
 Destruct callstack
 Destruct valueStack
-Destruct Interpreter
-def mem 9236 of 12192 12192 24 0 6
-def mem 4369 of 16200 16200 1 0 19
+def mem 9435 of 12192 12192 24 0 6
+par mem 2124 of 21200 21200 1 0 19

@@ -1,3 +1,5 @@
+// Move bar of lights left and right
+
 program Kitt
 {
    pixelCounter = 0
@@ -10,7 +12,9 @@ program Kitt
      if (pixelCounter == 0) {
        goingUp = 1
      }
+
      setPixelColor(pixelCounter, pixelCounter)
+     
      if (goingUp) {
        setPixelColor(pixelCounter - 5, 0)
        pixelCounter = pixelCounter + 1

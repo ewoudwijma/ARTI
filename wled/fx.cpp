@@ -1,6 +1,7 @@
 #include "FX.h"
 
 #include "src/dependencies/arti/arti.h"
+ARTI * arti;
 
 
 
@@ -8,9 +9,9 @@
 //  otherwise: Interpret renderFrame: No parsetree created
 //  initially added parseTreeJsonDoc in this struct to save it explicitly but that was not needed
 // maybe because this struct is not deleted
-typedef struct ArtiWrapper {
-  ARTI* arti;
-} artiWrapper;
+// typedef struct ArtiWrapper {
+//   ARTI * arti;
+// } artiWrapper;
 
 uint16_t WS2812FX::mode_customEffect(void) {
 
@@ -67,9 +68,8 @@ uint16_t WS2812FX::mode_customEffect(void) {
 
   // return 0;
 
-  ArtiWrapper* arti = reinterpret_cast<ArtiWrapper*>(SEGENV.data);
-  // ARTI* arti = reinterpret_cast<ARTI*>(SEGENV.data);
-
+  // ArtiWrapper* artiWrapper = reinterpret_cast<ArtiWrapper*>(SEGENV.data);
+  
   //tbd: move statics to SEGMENT.data
   static bool succesful;
   static bool notEnoughHeap;
@@ -84,27 +84,25 @@ uint16_t WS2812FX::mode_customEffect(void) {
   if (strcmp(previousEffect, currentEffect) != 0) {
     strcpy(previousEffect, currentEffect);
 
-    Serial.println();
-    if (arti != nullptr && arti->arti != nullptr) {
-      arti->arti->close();
-      delete arti->arti; arti->arti = nullptr;
-      // SEGENV.deallocateData();
+    // if (artiWrapper != nullptr && artiWrapper->arti != nullptr) {
+    if (arti != nullptr) {
+      arti->close();
+      delete arti; arti = nullptr;
     }
 
-    if (!SEGENV.allocateData(sizeof(ArtiWrapper))) return mode_static();  // We use this method for allocating memory for static variables.
-    arti = reinterpret_cast<ArtiWrapper*>(SEGENV.data);
-    arti->arti = new ARTI();
+    // if (!SEGENV.allocateData(sizeof(ArtiWrapper))) return mode_static();  // We use this method for allocating memory for static variables.
+    // artiWrapper = reinterpret_cast<ArtiWrapper*>(SEGENV.data);
+    arti = new ARTI();
 
     char programFileName[charLength];
     strcpy(programFileName, "/");
     strcat(programFileName, currentEffect);
     strcat(programFileName, ".wled");
 
-    succesful = arti->arti->setup("/wled.json", programFileName);
+    succesful = arti->setup("/wled.json", programFileName);
 
     if (!succesful) {
-      ERROR_ARTI("not succesful\n");
-      return mode_blink();
+      ERROR_ARTI("Setup not succesful\n");
     }
   }
   else {
@@ -121,7 +119,7 @@ uint16_t WS2812FX::mode_customEffect(void) {
         //   previousMillis = millis();
         //   MEMORY_ARTI("Heap renderFrame %u\n", esp_get_free_heap_size());
         // }
-        arti->arti->loop("renderFrame");
+        arti->loop();
       }
     }
     else 
@@ -133,19 +131,10 @@ uint16_t WS2812FX::mode_customEffect(void) {
         strcpy(previousEffect, ""); // force new create
       }
       else {
-        if (arti != nullptr && arti->arti != nullptr) { // if not enough free mem to continue
-          arti->arti->close();
-          delete arti->arti; arti = nullptr;
-          // SEGENV.deallocateData();
-          MEMORY_ARTI("Heap delete Arti > %u\n", esp_get_free_heap_size());
-        }
-
         return mode_blink();
       }
-
     }
   }
 
-  return 0; //as fast as possible
-
+  return FRAMETIME;
 }

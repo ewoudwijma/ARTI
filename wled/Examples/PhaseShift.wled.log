@@ -1,4 +1,3 @@
-Parser PROGRAM PROGRAM
  PROGRAM PROGRAM -> [ID PhaseShift] 0
  ID PhaseShift -> [LCURL {] 0
  block 0
@@ -20,11 +19,12 @@ Parser PROGRAM PROGRAM
         fail varref
         INTEGER_CONST 3 -> [ID countAdd] 7
        success factor
-      remove multiple key
-      remove multiple empty
+      remove multiple key (5)
+      remove multiple empty (5)
       success term
-     remove multiple key
-     remove multiple empty
+     remove key/value ASSIGN = (4)
+     remove multiple key (4)
+     remove multiple empty (4)
      success expr
     success assign
    success statement
@@ -45,11 +45,12 @@ Parser PROGRAM PROGRAM
         fail varref
         INTEGER_CONST 1 -> [FUNCTION FUNCTION] 7
        success factor
-      remove multiple key
-      remove multiple empty
+      remove multiple key (5)
+      remove multiple empty (5)
       success term
-     remove multiple key
-     remove multiple empty
+     remove key/value ASSIGN = (4)
+     remove multiple key (4)
+     remove multiple empty (4)
      success expr
     success assign
    success statement
@@ -67,196 +68,13 @@ Parser PROGRAM PROGRAM
       formals 5
        formal 6
        fail formal
+      remove key/value FUNCTION FUNCTION (5)
+      remove key/value LPAREN ( (5)
+      remove empty values for key formals (5)
       success formals
       RPAREN ) -> [LCURL {] 5
      block 4
-      LCURL { -> [FOR FOR] 5
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         fail varleft
-        fail assign
-        function 7
-        fail function
-        call 7
-        fail call
-        for 7
-         FOR FOR -> [LPAREN (] 8
-         LPAREN ( -> [ID i] 8
-         assign 8
-          varleft 9
-          ID i -> [ASSIGN =] 9
-          success varleft
-          ASSIGN = -> [INTEGER_CONST 0] 9
-          expr 9
-           term 10
-            factor 11
-             call 12
-             fail call
-             varref 12
-             fail varref
-             INTEGER_CONST 0 -> [SEMI ;] 12
-            success factor
-           remove multiple key
-           remove multiple empty
-           success term
-          remove multiple key
-          remove multiple empty
-          success expr
-         success assign
-         SEMI ; -> [ID i] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
-             ID i -> [LT <] 12
-            fail call
-            varref 11
-            ID i -> [LT <] 11
-            success varref
-           success factor
-          remove multiple key
-          remove multiple empty
-          success term
-            LT < -> [ID ledCount] 11
-           term 10
-            factor 11
-             call 12
-              ID ledCount -> [SEMI ;] 13
-             fail call
-             varref 12
-             ID ledCount -> [SEMI ;] 12
-             success varref
-            success factor
-           remove multiple key
-           remove multiple empty
-           success term
-         remove multiple key
-         success expr
-         SEMI ; -> [ID i] 8
-         increment 8
-          assign 9
-           varleft 10
-           ID i -> [ASSIGN =] 10
-           success varleft
-           ASSIGN = -> [ID i] 10
-           expr 10
-            term 11
-             factor 12
-              call 13
-               ID i -> [PLUS +] 14
-              fail call
-              varref 13
-              ID i -> [PLUS +] 13
-              success varref
-             success factor
-            remove multiple key
-            remove multiple empty
-            success term
-              PLUS + -> [INTEGER_CONST 1] 13
-             term 12
-              factor 13
-               call 14
-               fail call
-               varref 14
-               fail varref
-               INTEGER_CONST 1 -> [RPAREN )] 14
-              success factor
-             remove multiple key
-             remove multiple empty
-             success term
-           remove multiple key
-           success expr
-          success assign
-         success increment
-         RPAREN ) -> [LCURL {] 8
-         block 8
-          LCURL { -> [ID setPixelColor] 9
-           statement 10
-            variable 11
-            fail variable
-            assign 11
-             varleft 12
-             ID setPixelColor -> [LPAREN (] 12
-             success varleft
-            fail assign
-            function 11
-            fail function
-            call 11
-             ID setPixelColor -> [LPAREN (] 12
-             LPAREN ( -> [ID i] 12
-             actuals 12
-              expr 13
-               term 14
-                factor 15
-                 call 16
-                  ID i -> [COMMA ,] 17
-                 fail call
-                 varref 16
-                 ID i -> [COMMA ,] 16
-                 success varref
-                success factor
-               remove multiple key
-               remove multiple empty
-               success term
-              remove multiple key
-              remove multiple empty
-              success expr
-               COMMA , -> [ID i] 14
-               expr 14
-                term 15
-                 factor 16
-                  call 17
-                   ID i -> [MUL *] 18
-                  fail call
-                  varref 17
-                  ID i -> [MUL *] 17
-                  success varref
-                 success factor
-                   MUL * -> [ID pixelCounter] 18
-                  factor 17
-                   call 18
-                    ID pixelCounter -> [RPAREN )] 19
-                   fail call
-                   varref 18
-                   ID pixelCounter -> [RPAREN )] 18
-                   success varref
-                  success factor
-                remove multiple key
-                success term
-               remove multiple key
-               remove multiple empty
-               success expr
-             remove multiple key
-             success actuals
-             RPAREN ) -> [RCURL }] 12
-            success call
-           success statement
-           statement 10
-            variable 11
-            fail variable
-            assign 11
-             varleft 12
-             fail varleft
-            fail assign
-            function 11
-            fail function
-            call 11
-            fail call
-            for 11
-            fail for
-            if 11
-            fail if
-            block 11
-            fail block
-           fail statement
-          RCURL } -> [ID pixelCounter] 9
-         remove multiple key
-         success block
-        success for
-       success statement
+      LCURL { -> [ID pixelCounter] 5
        statement 6
         variable 7
         fail variable
@@ -275,8 +93,8 @@ Parser PROGRAM PROGRAM
             ID pixelCounter -> [PLUS +] 11
             success varref
            success factor
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success term
             PLUS + -> [ID countAdd] 11
            term 10
@@ -288,10 +106,11 @@ Parser PROGRAM PROGRAM
              ID countAdd -> [IF IF] 12
              success varref
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-         remove multiple key
+         remove key/value ASSIGN = (8)
+         remove multiple key (8)
          success expr
         success assign
        success statement
@@ -321,8 +140,8 @@ Parser PROGRAM PROGRAM
             ID pixelCounter -> [GT >] 11
             success varref
            success factor
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success term
             GT > -> [INTEGER_CONST 15] 11
            term 10
@@ -333,10 +152,12 @@ Parser PROGRAM PROGRAM
              fail varref
              INTEGER_CONST 15 -> [RPAREN )] 12
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-         remove multiple key
+         remove key/value IF IF (8)
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
          success expr
          RPAREN ) -> [LCURL {] 8
          block 8
@@ -358,8 +179,8 @@ Parser PROGRAM PROGRAM
                 fail varref
                 INTEGER_CONST 0 -> [MINUS -] 15
                success factor
-              remove multiple key
-              remove multiple empty
+              remove multiple key (13)
+              remove multiple empty (13)
               success term
                 MINUS - -> [INTEGER_CONST 1] 15
                term 14
@@ -370,10 +191,11 @@ Parser PROGRAM PROGRAM
                  fail varref
                  INTEGER_CONST 1 -> [RCURL }] 16
                 success factor
-               remove multiple key
-               remove multiple empty
+               remove multiple key (14)
+               remove multiple empty (14)
                success term
-             remove multiple key
+             remove key/value ASSIGN = (12)
+             remove multiple key (12)
              success expr
             success assign
            success statement
@@ -396,7 +218,8 @@ Parser PROGRAM PROGRAM
             fail block
            fail statement
           RCURL } -> [IF IF] 9
-         remove multiple key
+         remove key/value RPAREN ) (8)
+         remove multiple key (8)
          success block
         success if
        success statement
@@ -426,8 +249,8 @@ Parser PROGRAM PROGRAM
             ID pixelCounter -> [LT <] 11
             success varref
            success factor
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success term
             LT < -> [INTEGER_CONST 3] 11
            term 10
@@ -438,10 +261,12 @@ Parser PROGRAM PROGRAM
              fail varref
              INTEGER_CONST 3 -> [RPAREN )] 12
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-         remove multiple key
+         remove key/value IF IF (8)
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
          success expr
          RPAREN ) -> [LCURL {] 8
          block 8
@@ -463,11 +288,12 @@ Parser PROGRAM PROGRAM
                 fail varref
                 INTEGER_CONST 1 -> [RCURL }] 15
                success factor
-              remove multiple key
-              remove multiple empty
+              remove multiple key (13)
+              remove multiple empty (13)
               success term
-             remove multiple key
-             remove multiple empty
+             remove key/value ASSIGN = (12)
+             remove multiple key (12)
+             remove multiple empty (12)
              success expr
             success assign
            success statement
@@ -490,7 +316,8 @@ Parser PROGRAM PROGRAM
             fail block
            fail statement
           RCURL } -> [RCURL }] 9
-         remove multiple key
+         remove key/value RPAREN ) (8)
+         remove multiple key (8)
          success block
         success if
        success statement
@@ -512,8 +339,117 @@ Parser PROGRAM PROGRAM
         block 7
         fail block
        fail statement
+      RCURL } -> [FUNCTION FUNCTION] 5
+     remove key/value RPAREN ) (4)
+     remove multiple key (4)
+     success block
+    success function
+   success statement
+   statement 2
+    variable 3
+    fail variable
+    assign 3
+     varleft 4
+     fail varleft
+    fail assign
+    function 3
+     FUNCTION FUNCTION -> [ID renderLed] 4
+     ID renderLed -> [LPAREN (] 4
+      LPAREN ( -> [ID i] 5
+      formals 5
+       formal 6
+       ID i -> [RPAREN )] 6
+       success formal
+      remove key/value FUNCTION FUNCTION (5)
+      remove key/value LPAREN ( (5)
+      remove multiple key (5)
+      remove multiple empty (5)
+      success formals
+      RPAREN ) -> [LCURL {] 5
+     block 4
+      LCURL { -> [ID setPixelColor] 5
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         ID setPixelColor -> [LPAREN (] 8
+         success varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+         ID setPixelColor -> [LPAREN (] 8
+         LPAREN ( -> [ID i] 8
+         actuals 8
+          expr 9
+           term 10
+            factor 11
+             call 12
+              ID i -> [COMMA ,] 13
+             fail call
+             varref 12
+             ID i -> [COMMA ,] 12
+             success varref
+            success factor
+           remove multiple key (10)
+           remove multiple empty (10)
+           success term
+          remove multiple key (9)
+          remove multiple empty (9)
+          success expr
+           COMMA , -> [ID i] 10
+           expr 10
+            term 11
+             factor 12
+              call 13
+               ID i -> [MUL *] 14
+              fail call
+              varref 13
+              ID i -> [MUL *] 13
+              success varref
+             success factor
+               MUL * -> [ID pixelCounter] 14
+              factor 13
+               call 14
+                ID pixelCounter -> [RPAREN )] 15
+               fail call
+               varref 14
+               ID pixelCounter -> [RPAREN )] 14
+               success varref
+              success factor
+            remove multiple key (11)
+            success term
+           remove multiple key (10)
+           remove multiple empty (10)
+           success expr
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
+         success actuals
+         RPAREN ) -> [RCURL }] 8
+        success call
+       success statement
+       statement 6
+        variable 7
+        fail variable
+        assign 7
+         varleft 8
+         fail varleft
+        fail assign
+        function 7
+        fail function
+        call 7
+        fail call
+        for 7
+        fail for
+        if 7
+        fail if
+        block 7
+        fail block
+       fail statement
       RCURL } -> [RCURL }] 5
-     remove multiple key
+     remove key/value RPAREN ) (4)
+     remove multiple key (4)
      success block
     success function
    success statement
@@ -536,13 +472,14 @@ Parser PROGRAM PROGRAM
     fail block
    fail statement
   RCURL } 1
- remove multiple key
+ remove key/value PROGRAM PROGRAM (0)
+ remove multiple key (0)
  success block
-Symbol program Parsed until (25,0) 341 of 341
-par mem 12721 of 34104 34104 1 0 26
-prog size 341 factor 37
+Symbol program Parsed until (29,0) 377 of 377
+par mem 10535 of 37704 37704 1 0 22
+prog size 377 factor 27
+par mem 5153 of 37704 37704 1 0 22
 Destruct Lexer
-Destruct Parser
 
 Analyzer
  Program PhaseShift 1 0
@@ -551,29 +488,26 @@ Analyzer
      Assign PhaseShift.countAdd of notype
      Assign countAdd = (4)
      Function PhaseShift.renderFrame
-          Assign renderFrame.i of notype
-          Assign i = (9)
-             VarRef found i (12)
-               Ext Variable found ledCount (14)
-           Assign i = (10)
-               VarRef found i (14)
-              extfunc setPixelColor
-                  VarRef found i (17)
-                    VarRef found i (19)
-                      VarRef found pixelCounter (21)
          Assign pixelCounter = (8)
-             VarRef found pixelCounter (12)
-               VarRef found countAdd (14)
-             VarRef found pixelCounter (12)
+             VarRef found PhaseShift.pixelCounter (12)
+               VarRef found PhaseShift.countAdd (14)
+             VarRef found PhaseShift.pixelCounter (12)
               Assign countAdd = (13)
-             VarRef found pixelCounter (12)
+             VarRef found PhaseShift.pixelCounter (12)
               Assign countAdd = (13)
-     0 Assign renderFrame.i notype 2
+     Function PhaseShift.renderLed
+      Formal renderLed.i of notype
+         Ext Function found setPixelColor (8)
+             VarRef found renderLed.i (12)
+               VarRef found renderLed.i (14)
+                 VarRef found PhaseShift.pixelCounter (16)
+     0 Formal renderLed.i notype 2
  0 Assign PhaseShift.pixelCounter notype 1
  1 Assign PhaseShift.countAdd notype 1
  2 Function PhaseShift.renderFrame  1
+ 3 Function PhaseShift.renderLed  1
 
-interpret PhaseShift 1 3
+interpret PhaseShift 1 4
  program name ID
  Program PhaseShift PhaseShift
          INTEGER_CONST 3 (Push 1)
@@ -581,200 +515,94 @@ interpret PhaseShift 1 3
          INTEGER_CONST 1 (Push 1)
      PhaseShift.countAdd := 1.000000 (pop 0)
      Save block of renderFrame
+     Save block of renderLed
          Call renderFrame (1)
-             For (0)
-             from
-                  INTEGER_CONST 0 (Push 1)
-              renderFrame.i := 0.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 0.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              0.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                     VarRef renderFrame.i = 0.000000 (push 1)
-                       VarRef renderFrame.i = 0.000000 (push 2)
-                        MUL * (Push 3)
-                         VarRef PhaseShift.pixelCounter = 3.000000 (push 4)
-                     0.000000 * 3.000000 = 0.000000 (push 2)
-setPixelColor(0.000000, 0.000000)
-                 Call setPixelColor(0.000000, 0.000000)
-             assign next value
-                  VarRef renderFrame.i = 0.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               0.000000 + 1.000000 = 1.000000 (push 1)
-              renderFrame.i := 1.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 1.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              1.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                     VarRef renderFrame.i = 1.000000 (push 1)
-                       VarRef renderFrame.i = 1.000000 (push 2)
-                        MUL * (Push 3)
-                         VarRef PhaseShift.pixelCounter = 3.000000 (push 4)
-                     1.000000 * 3.000000 = 3.000000 (push 2)
-setPixelColor(1.000000, 3.000000)
-                 Call setPixelColor(1.000000, 3.000000)
-             assign next value
-                  VarRef renderFrame.i = 1.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               1.000000 + 1.000000 = 2.000000 (push 1)
-              renderFrame.i := 2.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 2.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              2.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                     VarRef renderFrame.i = 2.000000 (push 1)
-                       VarRef renderFrame.i = 2.000000 (push 2)
-                        MUL * (Push 3)
-                         VarRef PhaseShift.pixelCounter = 3.000000 (push 4)
-                     2.000000 * 3.000000 = 6.000000 (push 2)
-setPixelColor(2.000000, 6.000000)
-                 Call setPixelColor(2.000000, 6.000000)
-             assign next value
-                  VarRef renderFrame.i = 2.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               2.000000 + 1.000000 = 3.000000 (push 1)
-              renderFrame.i := 3.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 3.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              3.000000 < 3.000000 = 0.000000 (push 1)
-             conditionResult (pop 0)
-             0 => end of For
                  VarRef PhaseShift.pixelCounter = 3.000000 (push 1)
                  PLUS + (Push 2)
                    VarRef PhaseShift.countAdd = 1.000000 (push 3)
               3.000000 + 1.000000 = 4.000000 (push 1)
              PhaseShift.pixelCounter := 4.000000 (pop 0)
              If (0)
-             if condition 
+             if condition
                  VarRef PhaseShift.pixelCounter = 4.000000 (push 1)
                  GT > (Push 2)
                    INTEGER_CONST 15 (Push 3)
               4.000000 > 15.000000 = 0.000000 (push 1)
              (pop 0)
              If (0)
-             if condition 
+             if condition
                  VarRef PhaseShift.pixelCounter = 4.000000 (push 1)
                  LT < (Push 2)
                    INTEGER_CONST 3 (Push 3)
               4.000000 < 3.000000 = 0.000000 (push 1)
              (pop 0)
 Destruct activation record renderFrame
-         Call renderFrame (1)
-             For (0)
-             from
-                  INTEGER_CONST 0 (Push 1)
-              renderFrame.i := 0.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 0.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              0.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                     VarRef renderFrame.i = 0.000000 (push 1)
-                       VarRef renderFrame.i = 0.000000 (push 2)
-                        MUL * (Push 3)
-                         VarRef PhaseShift.pixelCounter = 4.000000 (push 4)
-                     0.000000 * 4.000000 = 0.000000 (push 2)
+                 VarRef renderLed.i = 0.000000 (push 1)
+                   VarRef renderLed.i = 0.000000 (push 2)
+                    MUL * (Push 3)
+                     VarRef PhaseShift.pixelCounter = 4.000000 (push 4)
+                 0.000000 * 4.000000 = 0.000000 (push 2)
 setPixelColor(0.000000, 0.000000)
-                 Call setPixelColor(0.000000, 0.000000)
-             assign next value
-                  VarRef renderFrame.i = 0.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               0.000000 + 1.000000 = 1.000000 (push 1)
-              renderFrame.i := 1.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 1.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              1.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                     VarRef renderFrame.i = 1.000000 (push 1)
-                       VarRef renderFrame.i = 1.000000 (push 2)
-                        MUL * (Push 3)
-                         VarRef PhaseShift.pixelCounter = 4.000000 (push 4)
-                     1.000000 * 4.000000 = 4.000000 (push 2)
+             Call setPixelColor(0.000000, 0.000000)
+                 VarRef renderLed.i = 1.000000 (push 1)
+                   VarRef renderLed.i = 1.000000 (push 2)
+                    MUL * (Push 3)
+                     VarRef PhaseShift.pixelCounter = 4.000000 (push 4)
+                 1.000000 * 4.000000 = 4.000000 (push 2)
 setPixelColor(1.000000, 4.000000)
-                 Call setPixelColor(1.000000, 4.000000)
-             assign next value
-                  VarRef renderFrame.i = 1.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               1.000000 + 1.000000 = 2.000000 (push 1)
-              renderFrame.i := 2.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 2.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              2.000000 < 3.000000 = 1.000000 (push 1)
-             conditionResult (pop 0)
-             1 => run block
-                     VarRef renderFrame.i = 2.000000 (push 1)
-                       VarRef renderFrame.i = 2.000000 (push 2)
-                        MUL * (Push 3)
-                         VarRef PhaseShift.pixelCounter = 4.000000 (push 4)
-                     2.000000 * 4.000000 = 8.000000 (push 2)
+             Call setPixelColor(1.000000, 4.000000)
+                 VarRef renderLed.i = 2.000000 (push 1)
+                   VarRef renderLed.i = 2.000000 (push 2)
+                    MUL * (Push 3)
+                     VarRef PhaseShift.pixelCounter = 4.000000 (push 4)
+                 2.000000 * 4.000000 = 8.000000 (push 2)
 setPixelColor(2.000000, 8.000000)
-                 Call setPixelColor(2.000000, 8.000000)
-             assign next value
-                  VarRef renderFrame.i = 2.000000 (push 1)
-                  PLUS + (Push 2)
-                    INTEGER_CONST 1 (Push 3)
-               2.000000 + 1.000000 = 3.000000 (push 1)
-              renderFrame.i := 3.000000 (pop 0)
-             iteration
-             check to condition
-                 VarRef renderFrame.i = 3.000000 (push 1)
-                 LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              3.000000 < 3.000000 = 0.000000 (push 1)
-             conditionResult (pop 0)
-             0 => end of For
+             Call setPixelColor(2.000000, 8.000000)
+Destruct activation record renderLed
+         Call renderFrame (1)
                  VarRef PhaseShift.pixelCounter = 4.000000 (push 1)
                  PLUS + (Push 2)
                    VarRef PhaseShift.countAdd = 1.000000 (push 3)
               4.000000 + 1.000000 = 5.000000 (push 1)
              PhaseShift.pixelCounter := 5.000000 (pop 0)
              If (0)
-             if condition 
+             if condition
                  VarRef PhaseShift.pixelCounter = 5.000000 (push 1)
                  GT > (Push 2)
                    INTEGER_CONST 15 (Push 3)
               5.000000 > 15.000000 = 0.000000 (push 1)
              (pop 0)
              If (0)
-             if condition 
+             if condition
                  VarRef PhaseShift.pixelCounter = 5.000000 (push 1)
                  LT < (Push 2)
                    INTEGER_CONST 3 (Push 3)
               5.000000 < 3.000000 = 0.000000 (push 1)
              (pop 0)
 Destruct activation record renderFrame
+                 VarRef renderLed.i = 0.000000 (push 1)
+                   VarRef renderLed.i = 0.000000 (push 2)
+                    MUL * (Push 3)
+                     VarRef PhaseShift.pixelCounter = 5.000000 (push 4)
+                 0.000000 * 5.000000 = 0.000000 (push 2)
+setPixelColor(0.000000, 0.000000)
+             Call setPixelColor(0.000000, 0.000000)
+                 VarRef renderLed.i = 1.000000 (push 1)
+                   VarRef renderLed.i = 1.000000 (push 2)
+                    MUL * (Push 3)
+                     VarRef PhaseShift.pixelCounter = 5.000000 (push 4)
+                 1.000000 * 5.000000 = 5.000000 (push 2)
+setPixelColor(1.000000, 5.000000)
+             Call setPixelColor(1.000000, 5.000000)
+                 VarRef renderLed.i = 2.000000 (push 1)
+                   VarRef renderLed.i = 2.000000 (push 2)
+                    MUL * (Push 3)
+                     VarRef PhaseShift.pixelCounter = 5.000000 (push 4)
+                 2.000000 * 5.000000 = 10.000000 (push 2)
+setPixelColor(2.000000, 10.000000)
+             Call setPixelColor(2.000000, 10.000000)
+Destruct activation record renderLed
 Destruct callstack
 Destruct valueStack
-Destruct Interpreter
-def mem 9236 of 12192 12192 24 0 6
-def mem 12721 of 34104 34104 1 0 26
+def mem 9435 of 12192 12192 24 0 6
+par mem 5185 of 37704 37704 1 0 22

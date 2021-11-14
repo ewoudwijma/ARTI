@@ -1,4 +1,3 @@
-Parser PROGRAM PROGRAM
  PROGRAM PROGRAM -> [ID Kitt] 0
  ID Kitt -> [LCURL {] 0
  block 0
@@ -20,11 +19,12 @@ Parser PROGRAM PROGRAM
         fail varref
         INTEGER_CONST 0 -> [ID goingUp] 7
        success factor
-      remove multiple key
-      remove multiple empty
+      remove multiple key (5)
+      remove multiple empty (5)
       success term
-     remove multiple key
-     remove multiple empty
+     remove key/value ASSIGN = (4)
+     remove multiple key (4)
+     remove multiple empty (4)
      success expr
     success assign
    success statement
@@ -45,11 +45,12 @@ Parser PROGRAM PROGRAM
         fail varref
         INTEGER_CONST 1 -> [FUNCTION FUNCTION] 7
        success factor
-      remove multiple key
-      remove multiple empty
+      remove multiple key (5)
+      remove multiple empty (5)
       success term
-     remove multiple key
-     remove multiple empty
+     remove key/value ASSIGN = (4)
+     remove multiple key (4)
+     remove multiple empty (4)
      success expr
     success assign
    success statement
@@ -67,6 +68,9 @@ Parser PROGRAM PROGRAM
       formals 5
        formal 6
        fail formal
+      remove key/value FUNCTION FUNCTION (5)
+      remove key/value LPAREN ( (5)
+      remove empty values for key formals (5)
       success formals
       RPAREN ) -> [LCURL {] 5
      block 4
@@ -97,8 +101,8 @@ Parser PROGRAM PROGRAM
             ID pixelCounter -> [GT >] 11
             success varref
            success factor
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success term
             GT > -> [LPAREN (] 11
            term 10
@@ -118,8 +122,8 @@ Parser PROGRAM PROGRAM
                  ID ledCount -> [MINUS -] 16
                  success varref
                 success factor
-               remove multiple key
-               remove multiple empty
+               remove multiple key (14)
+               remove multiple empty (14)
                success term
                  MINUS - -> [INTEGER_CONST 5] 16
                 term 15
@@ -130,17 +134,20 @@ Parser PROGRAM PROGRAM
                   fail varref
                   INTEGER_CONST 5 -> [RPAREN )] 17
                  success factor
-                remove multiple key
-                remove multiple empty
+                remove multiple key (15)
+                remove multiple empty (15)
                 success term
-              remove multiple key
+              remove key/value LPAREN ( (13)
+              remove multiple key (13)
               success expr
               RPAREN ) -> [RPAREN )] 13
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-         remove multiple key
+         remove key/value IF IF (8)
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
          success expr
          RPAREN ) -> [LCURL {] 8
          block 8
@@ -162,11 +169,12 @@ Parser PROGRAM PROGRAM
                 fail varref
                 INTEGER_CONST 0 -> [RCURL }] 15
                success factor
-              remove multiple key
-              remove multiple empty
+              remove multiple key (13)
+              remove multiple empty (13)
               success term
-             remove multiple key
-             remove multiple empty
+             remove key/value ASSIGN = (12)
+             remove multiple key (12)
+             remove multiple empty (12)
              success expr
             success assign
            success statement
@@ -189,7 +197,8 @@ Parser PROGRAM PROGRAM
             fail block
            fail statement
           RCURL } -> [IF IF] 9
-         remove multiple key
+         remove key/value RPAREN ) (8)
+         remove multiple key (8)
          success block
         success if
        success statement
@@ -219,8 +228,8 @@ Parser PROGRAM PROGRAM
             ID pixelCounter -> [EQ ==] 11
             success varref
            success factor
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success term
             EQ == -> [INTEGER_CONST 0] 11
            term 10
@@ -231,10 +240,12 @@ Parser PROGRAM PROGRAM
              fail varref
              INTEGER_CONST 0 -> [RPAREN )] 12
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-         remove multiple key
+         remove key/value IF IF (8)
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
          success expr
          RPAREN ) -> [LCURL {] 8
          block 8
@@ -256,11 +267,12 @@ Parser PROGRAM PROGRAM
                 fail varref
                 INTEGER_CONST 1 -> [RCURL }] 15
                success factor
-              remove multiple key
-              remove multiple empty
+              remove multiple key (13)
+              remove multiple empty (13)
               success term
-             remove multiple key
-             remove multiple empty
+             remove key/value ASSIGN = (12)
+             remove multiple key (12)
+             remove multiple empty (12)
              success expr
             success assign
            success statement
@@ -283,7 +295,8 @@ Parser PROGRAM PROGRAM
             fail block
            fail statement
           RCURL } -> [ID setPixelColor] 9
-         remove multiple key
+         remove key/value RPAREN ) (8)
+         remove multiple key (8)
          success block
         success if
        success statement
@@ -311,11 +324,11 @@ Parser PROGRAM PROGRAM
              ID pixelCounter -> [COMMA ,] 12
              success varref
             success factor
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success term
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success expr
            COMMA , -> [ID pixelCounter] 10
            expr 10
@@ -328,13 +341,14 @@ Parser PROGRAM PROGRAM
               ID pixelCounter -> [RPAREN )] 13
               success varref
              success factor
-            remove multiple key
-            remove multiple empty
+            remove multiple key (11)
+            remove multiple empty (11)
             success term
-           remove multiple key
-           remove multiple empty
+           remove multiple key (10)
+           remove multiple empty (10)
            success expr
-         remove multiple key
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
          success actuals
          RPAREN ) -> [IF IF] 8
         success call
@@ -365,11 +379,13 @@ Parser PROGRAM PROGRAM
             ID goingUp -> [RPAREN )] 11
             success varref
            success factor
-          remove multiple key
-          remove multiple empty
+          remove multiple key (9)
+          remove multiple empty (9)
           success term
-         remove multiple key
-         remove multiple empty
+         remove key/value IF IF (8)
+         remove key/value LPAREN ( (8)
+         remove multiple key (8)
+         remove multiple empty (8)
          success expr
          RPAREN ) -> [LCURL {] 8
          block 8
@@ -398,8 +414,8 @@ Parser PROGRAM PROGRAM
                  ID pixelCounter -> [MINUS -] 16
                  success varref
                 success factor
-               remove multiple key
-               remove multiple empty
+               remove multiple key (14)
+               remove multiple empty (14)
                success term
                  MINUS - -> [INTEGER_CONST 5] 16
                 term 15
@@ -410,10 +426,10 @@ Parser PROGRAM PROGRAM
                   fail varref
                   INTEGER_CONST 5 -> [COMMA ,] 17
                  success factor
-                remove multiple key
-                remove multiple empty
+                remove multiple key (15)
+                remove multiple empty (15)
                 success term
-              remove multiple key
+              remove multiple key (13)
               success expr
                COMMA , -> [INTEGER_CONST 0] 14
                expr 14
@@ -425,13 +441,14 @@ Parser PROGRAM PROGRAM
                   fail varref
                   INTEGER_CONST 0 -> [RPAREN )] 17
                  success factor
-                remove multiple key
-                remove multiple empty
+                remove multiple key (15)
+                remove multiple empty (15)
                 success term
-               remove multiple key
-               remove multiple empty
+               remove multiple key (14)
+               remove multiple empty (14)
                success expr
-             remove multiple key
+             remove key/value LPAREN ( (12)
+             remove multiple key (12)
              success actuals
              RPAREN ) -> [ID pixelCounter] 12
             success call
@@ -454,8 +471,8 @@ Parser PROGRAM PROGRAM
                 ID pixelCounter -> [PLUS +] 15
                 success varref
                success factor
-              remove multiple key
-              remove multiple empty
+              remove multiple key (13)
+              remove multiple empty (13)
               success term
                 PLUS + -> [INTEGER_CONST 1] 15
                term 14
@@ -466,10 +483,11 @@ Parser PROGRAM PROGRAM
                  fail varref
                  INTEGER_CONST 1 -> [RCURL }] 16
                 success factor
-               remove multiple key
-               remove multiple empty
+               remove multiple key (14)
+               remove multiple empty (14)
                success term
-             remove multiple key
+             remove key/value ASSIGN = (12)
+             remove multiple key (12)
              success expr
             success assign
            success statement
@@ -492,7 +510,8 @@ Parser PROGRAM PROGRAM
             fail block
            fail statement
           RCURL } -> [ELSE ELSE] 9
-         remove multiple key
+         remove key/value RPAREN ) (8)
+         remove multiple key (8)
          success block
           ELSE ELSE -> [LCURL {] 9
           elseBlock 9
@@ -522,8 +541,8 @@ Parser PROGRAM PROGRAM
                    ID pixelCounter -> [PLUS +] 18
                    success varref
                   success factor
-                 remove multiple key
-                 remove multiple empty
+                 remove multiple key (16)
+                 remove multiple empty (16)
                  success term
                    PLUS + -> [INTEGER_CONST 5] 18
                   term 17
@@ -534,10 +553,10 @@ Parser PROGRAM PROGRAM
                     fail varref
                     INTEGER_CONST 5 -> [COMMA ,] 19
                    success factor
-                  remove multiple key
-                  remove multiple empty
+                  remove multiple key (17)
+                  remove multiple empty (17)
                   success term
-                remove multiple key
+                remove multiple key (15)
                 success expr
                  COMMA , -> [INTEGER_CONST 0] 16
                  expr 16
@@ -549,13 +568,14 @@ Parser PROGRAM PROGRAM
                     fail varref
                     INTEGER_CONST 0 -> [RPAREN )] 19
                    success factor
-                  remove multiple key
-                  remove multiple empty
+                  remove multiple key (17)
+                  remove multiple empty (17)
                   success term
-                 remove multiple key
-                 remove multiple empty
+                 remove multiple key (16)
+                 remove multiple empty (16)
                  success expr
-               remove multiple key
+               remove key/value LPAREN ( (14)
+               remove multiple key (14)
                success actuals
                RPAREN ) -> [ID pixelCounter] 14
               success call
@@ -578,8 +598,8 @@ Parser PROGRAM PROGRAM
                   ID pixelCounter -> [MINUS -] 17
                   success varref
                  success factor
-                remove multiple key
-                remove multiple empty
+                remove multiple key (15)
+                remove multiple empty (15)
                 success term
                   MINUS - -> [INTEGER_CONST 1] 17
                  term 16
@@ -590,10 +610,11 @@ Parser PROGRAM PROGRAM
                    fail varref
                    INTEGER_CONST 1 -> [RCURL }] 18
                   success factor
-                 remove multiple key
-                 remove multiple empty
+                 remove multiple key (16)
+                 remove multiple empty (16)
                  success term
-               remove multiple key
+               remove key/value ASSIGN = (14)
+               remove multiple key (14)
                success expr
               success assign
              success statement
@@ -616,8 +637,9 @@ Parser PROGRAM PROGRAM
               fail block
              fail statement
             RCURL } -> [RCURL }] 11
-           remove multiple key
+           remove multiple key (10)
            success block
+          remove key/value ELSE ELSE (9)
           success elseBlock
         success if
        success statement
@@ -640,7 +662,8 @@ Parser PROGRAM PROGRAM
         fail block
        fail statement
       RCURL } -> [RCURL }] 5
-     remove multiple key
+     remove key/value RPAREN ) (4)
+     remove multiple key (4)
      success block
     success function
    success statement
@@ -663,13 +686,14 @@ Parser PROGRAM PROGRAM
     fail block
    fail statement
   RCURL } 1
- remove multiple key
+ remove key/value PROGRAM PROGRAM (0)
+ remove multiple key (0)
  success block
-Symbol program Parsed until (24,1) 463 of 463
-par mem 15674 of 46304 46304 1 0 24
-prog size 463 factor 33
+Symbol program Parsed until (28,1) 508 of 508
+par mem 15674 of 50800 50800 1 0 24
+prog size 508 factor 30
+par mem 7471 of 50800 50800 1 0 24
 Destruct Lexer
-Destruct Parser
 
 Analyzer
  Program Kitt 1 0
@@ -678,23 +702,23 @@ Analyzer
      Assign Kitt.goingUp of notype
      Assign goingUp = (4)
      Function Kitt.renderFrame
-             VarRef found pixelCounter (12)
+             VarRef found Kitt.pixelCounter (12)
                   Ext Variable found ledCount (17)
               Assign goingUp = (13)
-             VarRef found pixelCounter (12)
+             VarRef found Kitt.pixelCounter (12)
               Assign goingUp = (13)
-         extfunc setPixelColor
-             VarRef found pixelCounter (12)
-               VarRef found pixelCounter (14)
-             VarRef found goingUp (12)
-              extfunc setPixelColor
-                  VarRef found pixelCounter (17)
+         Ext Function found setPixelColor (8)
+             VarRef found Kitt.pixelCounter (12)
+               VarRef found Kitt.pixelCounter (14)
+             VarRef found Kitt.goingUp (12)
+              Ext Function found setPixelColor (13)
+                  VarRef found Kitt.pixelCounter (17)
               Assign pixelCounter = (13)
-                  VarRef found pixelCounter (17)
-               extfunc setPixelColor
-                   VarRef found pixelCounter (18)
+                  VarRef found Kitt.pixelCounter (17)
+               Ext Function found setPixelColor (14)
+                   VarRef found Kitt.pixelCounter (18)
                Assign pixelCounter = (14)
-                   VarRef found pixelCounter (18)
+                   VarRef found Kitt.pixelCounter (18)
  0 Assign Kitt.pixelCounter notype 1
  1 Assign Kitt.goingUp notype 1
  2 Function Kitt.renderFrame  1
@@ -709,7 +733,7 @@ interpret Kitt 1 3
      Save block of renderFrame
          Call renderFrame (1)
              If (0)
-             if condition 
+             if condition
                  VarRef Kitt.pixelCounter = 0.000000 (push 1)
                  GT > (Push 2)
                       VarRef ext.ledCount = 3.000000 (push 3)
@@ -721,7 +745,7 @@ interpret Kitt 1 3
                       INTEGER_CONST 0 (Push 1)
                   Kitt.goingUp := 0.000000 (pop 0)
              If (0)
-             if condition 
+             if condition
                  VarRef Kitt.pixelCounter = 0.000000 (push 1)
                  EQ == (Push 2)
                    INTEGER_CONST 0 (Push 3)
@@ -734,7 +758,7 @@ interpret Kitt 1 3
 setPixelColor(0.000000, 0.000000)
              Call setPixelColor(0.000000, 0.000000)
              If (0)
-             if condition 
+             if condition
                  VarRef Kitt.goingUp = 1.000000 (push 1)
              (pop 0)
                       VarRef Kitt.pixelCounter = 0.000000 (push 1)
@@ -752,7 +776,7 @@ setPixelColor(-5.000000, 0.000000)
 Destruct activation record renderFrame
          Call renderFrame (1)
              If (0)
-             if condition 
+             if condition
                  VarRef Kitt.pixelCounter = 1.000000 (push 1)
                  GT > (Push 2)
                       VarRef ext.ledCount = 3.000000 (push 3)
@@ -764,7 +788,7 @@ Destruct activation record renderFrame
                       INTEGER_CONST 0 (Push 1)
                   Kitt.goingUp := 0.000000 (pop 0)
              If (0)
-             if condition 
+             if condition
                  VarRef Kitt.pixelCounter = 1.000000 (push 1)
                  EQ == (Push 2)
                    INTEGER_CONST 0 (Push 3)
@@ -775,7 +799,7 @@ Destruct activation record renderFrame
 setPixelColor(1.000000, 1.000000)
              Call setPixelColor(1.000000, 1.000000)
              If (0)
-             if condition 
+             if condition
                  VarRef Kitt.goingUp = 0.000000 (push 1)
              (pop 0)
                        VarRef Kitt.pixelCounter = 1.000000 (push 1)
@@ -793,7 +817,7 @@ setPixelColor(6.000000, 0.000000)
 Destruct activation record renderFrame
          Call renderFrame (1)
              If (0)
-             if condition 
+             if condition
                  VarRef Kitt.pixelCounter = 0.000000 (push 1)
                  GT > (Push 2)
                       VarRef ext.ledCount = 3.000000 (push 3)
@@ -805,7 +829,7 @@ Destruct activation record renderFrame
                       INTEGER_CONST 0 (Push 1)
                   Kitt.goingUp := 0.000000 (pop 0)
              If (0)
-             if condition 
+             if condition
                  VarRef Kitt.pixelCounter = 0.000000 (push 1)
                  EQ == (Push 2)
                    INTEGER_CONST 0 (Push 3)
@@ -818,7 +842,7 @@ Destruct activation record renderFrame
 setPixelColor(0.000000, 0.000000)
              Call setPixelColor(0.000000, 0.000000)
              If (0)
-             if condition 
+             if condition
                  VarRef Kitt.goingUp = 1.000000 (push 1)
              (pop 0)
                       VarRef Kitt.pixelCounter = 0.000000 (push 1)
@@ -836,7 +860,7 @@ setPixelColor(-5.000000, 0.000000)
 Destruct activation record renderFrame
          Call renderFrame (1)
              If (0)
-             if condition 
+             if condition
                  VarRef Kitt.pixelCounter = 1.000000 (push 1)
                  GT > (Push 2)
                       VarRef ext.ledCount = 3.000000 (push 3)
@@ -848,7 +872,7 @@ Destruct activation record renderFrame
                       INTEGER_CONST 0 (Push 1)
                   Kitt.goingUp := 0.000000 (pop 0)
              If (0)
-             if condition 
+             if condition
                  VarRef Kitt.pixelCounter = 1.000000 (push 1)
                  EQ == (Push 2)
                    INTEGER_CONST 0 (Push 3)
@@ -859,7 +883,7 @@ Destruct activation record renderFrame
 setPixelColor(1.000000, 1.000000)
              Call setPixelColor(1.000000, 1.000000)
              If (0)
-             if condition 
+             if condition
                  VarRef Kitt.goingUp = 0.000000 (push 1)
              (pop 0)
                        VarRef Kitt.pixelCounter = 1.000000 (push 1)
@@ -877,6 +901,5 @@ setPixelColor(6.000000, 0.000000)
 Destruct activation record renderFrame
 Destruct callstack
 Destruct valueStack
-Destruct Interpreter
-def mem 9236 of 12192 12192 24 0 6
-def mem 15674 of 46304 46304 1 0 24
+def mem 9435 of 12192 12192 24 0 6
+par mem 7599 of 50800 50800 1 0 24

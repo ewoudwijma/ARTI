@@ -1,0 +1,318 @@
+{
+  "program": {
+    "ID": "Mover",
+    "block": {
+      "LCURL": "{",
+      "*": [
+        {
+          "statement": {
+            "function": {
+              "ID": "renderFrame",
+              "block": {
+                "LCURL": "{",
+                "*": [
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "locn"
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "millis",
+                                "RPAREN": ")",
+                                "external": 22
+                              }
+                            },
+                            "*": [
+                              {
+                                "DIV": "/"
+                              },
+                              {
+                                "factor": {
+                                  "INTEGER_CONST": "100"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "for": {
+                        "assign": {
+                          "varleft": {
+                            "ID": "i"
+                          },
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "INTEGER_CONST": "0"
+                              }
+                            }
+                          }
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "varref": {
+                                "ID": "i"
+                              }
+                            }
+                          },
+                          "*": [
+                            {
+                              "LT": "<"
+                            },
+                            {
+                              "term": {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "ledCount",
+                                    "external": 0
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "increment": {
+                          "assign": {
+                            "varleft": {
+                              "ID": "i"
+                            },
+                            "expr": {
+                              "term": {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "i"
+                                  }
+                                }
+                              },
+                              "*": [
+                                {
+                                  "PLUS": "+"
+                                },
+                                {
+                                  "term": {
+                                    "factor": {
+                                      "INTEGER_CONST": "30"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "block": {
+                          "LCURL": "{",
+                          "*": [
+                            {
+                              "statement": {
+                                "assign": {
+                                  "varleft": {
+                                    "ID": "leds"
+                                  },
+                                  "indices": {
+                                    "expr": {
+                                      "term": {
+                                        "factor": {
+                                          "varref": {
+                                            "ID": "locn"
+                                          }
+                                        }
+                                      },
+                                      "*": [
+                                        {
+                                          "PLUS": "+"
+                                        },
+                                        {
+                                          "term": {
+                                            "factor": {
+                                              "varref": {
+                                                "ID": "i"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "call": {
+                                          "ID": "colorWheel",
+                                          "actuals": {
+                                            "expr": {
+                                              "term": {
+                                                "factor": {
+                                                  "INTEGER_CONST": "50"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "RPAREN": ")",
+                                          "external": 8
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "external": 2
+                                }
+                              }
+                            },
+                            {
+                              "statement": {
+                                "assign": {
+                                  "varleft": {
+                                    "ID": "leds"
+                                  },
+                                  "indices": {
+                                    "expr": {
+                                      "term": {
+                                        "factor": {
+                                          "varref": {
+                                            "ID": "locn"
+                                          }
+                                        }
+                                      },
+                                      "*": [
+                                        {
+                                          "PLUS": "+"
+                                        },
+                                        {
+                                          "term": {
+                                            "factor": {
+                                              "varref": {
+                                                "ID": "i"
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "PLUS": "+"
+                                        },
+                                        {
+                                          "term": {
+                                            "factor": {
+                                              "INTEGER_CONST": "10"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "call": {
+                                          "ID": "colorWheel",
+                                          "actuals": {
+                                            "expr": {
+                                              "term": {
+                                                "factor": {
+                                                  "INTEGER_CONST": "125"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "RPAREN": ")",
+                                          "external": 8
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "external": 2
+                                }
+                              }
+                            },
+                            {
+                              "statement": {
+                                "assign": {
+                                  "varleft": {
+                                    "ID": "leds"
+                                  },
+                                  "indices": {
+                                    "expr": {
+                                      "term": {
+                                        "factor": {
+                                          "varref": {
+                                            "ID": "locn"
+                                          }
+                                        }
+                                      },
+                                      "*": [
+                                        {
+                                          "PLUS": "+"
+                                        },
+                                        {
+                                          "term": {
+                                            "factor": {
+                                              "varref": {
+                                                "ID": "i"
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "PLUS": "+"
+                                        },
+                                        {
+                                          "term": {
+                                            "factor": {
+                                              "INTEGER_CONST": "20"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "call": {
+                                          "ID": "colorWheel",
+                                          "actuals": {
+                                            "expr": {
+                                              "term": {
+                                                "factor": {
+                                                  "INTEGER_CONST": "200"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "RPAREN": ")",
+                                          "external": 8
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "external": 2
+                                }
+                              }
+                            },
+                            {}
+                          ],
+                          "RCURL": "}"
+                        }
+                      }
+                    }
+                  },
+                  {}
+                ],
+                "RCURL": "}"
+              }
+            }
+          }
+        },
+        {}
+      ],
+      "RCURL": "}"
+    }
+  }
+}

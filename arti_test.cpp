@@ -27,14 +27,15 @@ int main() {
   
   // strcpy(definitionFile, "pas/pas.json"); strcpy(programFile, "pas/Examples/pas1.pas");
   // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/default.wled");
-  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/ColorFade.wled");
   // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/ColorRandom.wled");
   // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Kitt.wled");
   // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Shift.wled");
-  strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Subpixel.wled");
+  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Subpixel.wled");
   // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/PhaseShift.wled");
   // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/BrightPulse.wled");
   // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Clock.wled");
+  // strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Clock2D.wled");
+  strcpy(definitionFile, "wled/wled.json"); strcpy(programFile, "wled/Examples/Mover.wled");
 
   printf("open %s and %s\n", definitionFile, programFile);
 
@@ -47,7 +48,7 @@ int main() {
       //   nrOfTimes = 100;
 
       for (uint8_t i=0; i<nrOfTimes; i++)
-        arti->loop("renderFrame");
+        arti->loop();
     }
   }
   else

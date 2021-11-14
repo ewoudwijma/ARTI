@@ -1,4 +1,3 @@
-Parser PROGRAM PROGRAM
  PROGRAM PROGRAM -> [ID Main] 0
  ID Main -> [SEMI ;] 0
  SEMI ; -> [VAR VAR] 0
@@ -10,9 +9,9 @@ Parser PROGRAM PROGRAM
       COLON : -> [INTEGER INTEGER] 5
       type_spec 5
        INTEGER INTEGER -> [SEMI ;] 6
+      remove key/value * ["multiple"] (5)
+      remove key/value COLON : (5)
       success type_spec
-     remove multiple key
-     remove multiple empty
      success variable_declaration
      SEMI ; -> [PROCEDURE PROCEDURE] 4
      variable_declaration 4
@@ -27,9 +26,9 @@ Parser PROGRAM PROGRAM
         COLON : -> [INTEGER INTEGER] 7
         type_spec 7
          INTEGER INTEGER -> [SEMI ;] 8
+        remove key/value * ["multiple"] (7)
+        remove key/value COLON : (7)
         success type_spec
-       remove multiple key
-       remove multiple empty
        success formal_parameters
         SEMI ; -> [ID b] 7
         formal_parameters 7
@@ -37,11 +36,13 @@ Parser PROGRAM PROGRAM
          COLON : -> [INTEGER INTEGER] 8
          type_spec 8
           INTEGER INTEGER -> [RPAREN )] 9
+         remove key/value * ["multiple"] (8)
+         remove key/value COLON : (8)
          success type_spec
-        remove multiple key
-        remove multiple empty
         success formal_parameters
-      remove multiple key
+      remove key/value PROCEDURE PROCEDURE (5)
+      remove key/value LPAREN ( (5)
+      remove multiple key (5)
       success formal_parameter_list
       RPAREN ) -> [SEMI ;] 5
      SEMI ; -> [VAR VAR] 4
@@ -53,9 +54,9 @@ Parser PROGRAM PROGRAM
           COLON : -> [INTEGER INTEGER] 9
           type_spec 9
            INTEGER INTEGER -> [SEMI ;] 10
+          remove key/value * ["multiple"] (9)
+          remove key/value COLON : (9)
           success type_spec
-         remove multiple key
-         remove multiple empty
          success variable_declaration
          SEMI ; -> [PROCEDURE PROCEDURE] 8
          variable_declaration 8
@@ -70,9 +71,9 @@ Parser PROGRAM PROGRAM
             COLON : -> [INTEGER INTEGER] 11
             type_spec 11
              INTEGER INTEGER -> [SEMI ;] 12
+            remove key/value * ["multiple"] (11)
+            remove key/value COLON : (11)
             success type_spec
-           remove multiple key
-           remove multiple empty
            success formal_parameters
             SEMI ; -> [ID b] 11
             formal_parameters 11
@@ -80,11 +81,13 @@ Parser PROGRAM PROGRAM
              COLON : -> [INTEGER INTEGER] 12
              type_spec 12
               INTEGER INTEGER -> [RPAREN )] 13
+             remove key/value * ["multiple"] (12)
+             remove key/value COLON : (12)
              success type_spec
-            remove multiple key
-            remove multiple empty
             success formal_parameters
-          remove multiple key
+          remove key/value PROCEDURE PROCEDURE (9)
+          remove key/value LPAREN ( (9)
+          remove multiple key (9)
           success formal_parameter_list
           RPAREN ) -> [SEMI ;] 9
          SEMI ; -> [VAR VAR] 8
@@ -96,16 +99,16 @@ Parser PROGRAM PROGRAM
               COLON : -> [INTEGER INTEGER] 13
               type_spec 13
                INTEGER INTEGER -> [SEMI ;] 14
+              remove key/value * ["multiple"] (13)
+              remove key/value COLON : (13)
               success type_spec
-             remove multiple key
-             remove multiple empty
              success variable_declaration
              SEMI ; -> [BEGIN BEGIN] 12
              variable_declaration 12
              fail variable_declaration
             procedure_declaration 11
             fail procedure_declaration
-          remove multiple key
+          remove multiple key (9)
           success declarations
           compound_statement 9
            BEGIN BEGIN -> [ID x] 10
@@ -134,7 +137,7 @@ Parser PROGRAM PROGRAM
                   fail variable
                   INTEGER_CONST 10 -> [PLUS +] 17
                  success factor
-               remove multiple key
+               remove multiple key (14)
                success term
                  PLUS + -> [ID b] 16
                 term 15
@@ -149,9 +152,10 @@ Parser PROGRAM PROGRAM
                    fail variable
                    INTEGER_CONST 2 -> [SEMI ;] 18
                   success factor
-                remove multiple key
+                remove multiple key (15)
                 success term
-              remove multiple key
+              remove key/value ASSIGN := (13)
+              remove multiple key (13)
               success expr
              success assignment_statement
             success statement
@@ -170,14 +174,15 @@ Parser PROGRAM PROGRAM
                    ID x -> [RPAREN )] 18
                    success variable
                   success factor
-                 remove multiple key
-                 remove multiple empty
+                 remove multiple key (16)
+                 remove multiple empty (16)
                  success term
-                remove multiple key
-                remove multiple empty
+                remove multiple key (15)
+                remove multiple empty (15)
                 success expr
-               remove multiple key
-               remove multiple empty
+               remove key/value LPAREN ( (14)
+               remove multiple key (14)
+               remove multiple empty (14)
                success actual_parameter_list
                RPAREN ) -> [SEMI ;] 14
               success proccall_statement
@@ -195,16 +200,19 @@ Parser PROGRAM PROGRAM
               for_loop 13
               fail for_loop
              fail statement
-           remove multiple key
+           remove key/value BEGIN BEGIN (10)
+           remove multiple key (10)
            success statement_list
            END END -> [SEMI ;] 10
           success compound_statement
+         remove key/value RPAREN ) (8)
+         remove key/value SEMI ; (8)
          success block
          SEMI ; -> [BEGIN BEGIN] 8
         success procedure_declaration
         procedure_declaration 7
         fail procedure_declaration
-      remove multiple key
+      remove multiple key (5)
       success declarations
       compound_statement 5
        BEGIN BEGIN -> [ID x] 6
@@ -233,8 +241,8 @@ Parser PROGRAM PROGRAM
                  ID a -> [PLUS +] 16
                  success variable
                 success factor
-               remove multiple key
-               remove multiple empty
+               remove multiple key (14)
+               remove multiple empty (14)
                success term
                  PLUS + -> [ID b] 16
                 term 15
@@ -243,10 +251,11 @@ Parser PROGRAM PROGRAM
                   ID b -> [RPAREN )] 17
                   success variable
                  success factor
-                remove multiple key
-                remove multiple empty
+                remove multiple key (15)
+                remove multiple empty (15)
                 success term
-              remove multiple key
+              remove key/value LPAREN ( (13)
+              remove multiple key (13)
               success expr
               RPAREN ) -> [MUL *] 13
             success factor
@@ -256,10 +265,11 @@ Parser PROGRAM PROGRAM
               fail variable
               INTEGER_CONST 2 -> [SEMI ;] 13
              success factor
-           remove multiple key
+           remove multiple key (10)
            success term
-          remove multiple key
-          remove multiple empty
+          remove key/value ASSIGN := (9)
+          remove multiple key (9)
+          remove multiple empty (9)
           success expr
          success assignment_statement
         success statement
@@ -275,30 +285,18 @@ Parser PROGRAM PROGRAM
              term 12
               factor 13
                variable 14
-               ID x -> [COMMA ,] 14
+               ID x -> [RPAREN )] 14
                success variable
               success factor
-             remove multiple key
-             remove multiple empty
+             remove multiple key (12)
+             remove multiple empty (12)
              success term
-            remove multiple key
-            remove multiple empty
+            remove multiple key (11)
+            remove multiple empty (11)
             success expr
-             COMMA , -> [INTEGER_CONST 1] 12
-             expr 12
-              term 13
-               factor 14
-                variable 15
-                fail variable
-                INTEGER_CONST 1 -> [RPAREN )] 15
-               success factor
-              remove multiple key
-              remove multiple empty
-              success term
-             remove multiple key
-             remove multiple empty
-             success expr
-           remove multiple key
+           remove key/value LPAREN ( (10)
+           remove multiple key (10)
+           remove multiple empty (10)
            success actual_parameter_list
            RPAREN ) -> [SEMI ;] 10
           success proccall_statement
@@ -318,11 +316,11 @@ Parser PROGRAM PROGRAM
                fail variable
                INTEGER_CONST 5 -> [COMMA ,] 14
               success factor
-             remove multiple key
-             remove multiple empty
+             remove multiple key (12)
+             remove multiple empty (12)
              success term
-            remove multiple key
-            remove multiple empty
+            remove multiple key (11)
+            remove multiple empty (11)
             success expr
              COMMA , -> [INTEGER_CONST 10] 12
              expr 12
@@ -332,13 +330,14 @@ Parser PROGRAM PROGRAM
                 fail variable
                 INTEGER_CONST 10 -> [RPAREN )] 15
                success factor
-              remove multiple key
-              remove multiple empty
+              remove multiple key (13)
+              remove multiple empty (13)
               success term
-             remove multiple key
-             remove multiple empty
+             remove multiple key (12)
+             remove multiple empty (12)
              success expr
-           remove multiple key
+           remove key/value LPAREN ( (10)
+           remove multiple key (10)
            success actual_parameter_list
            RPAREN ) -> [SEMI ;] 10
           success proccall_statement
@@ -356,16 +355,19 @@ Parser PROGRAM PROGRAM
           for_loop 9
           fail for_loop
          fail statement
-       remove multiple key
+       remove key/value BEGIN BEGIN (6)
+       remove multiple key (6)
        success statement_list
        END END -> [SEMI ;] 6
       success compound_statement
+     remove key/value RPAREN ) (4)
+     remove key/value SEMI ; (4)
      success block
      SEMI ; -> [BEGIN BEGIN] 4
     success procedure_declaration
     procedure_declaration 3
     fail procedure_declaration
-  remove multiple key
+  remove multiple key (1)
   success declarations
   compound_statement 1
    BEGIN BEGIN -> [ID Alpha] 2
@@ -384,8 +386,8 @@ Parser PROGRAM PROGRAM
           fail variable
           INTEGER_CONST 3 -> [PLUS +] 9
          success factor
-        remove multiple key
-        remove multiple empty
+        remove multiple key (7)
+        remove multiple empty (7)
         success term
           PLUS + -> [INTEGER_CONST 5] 9
          term 8
@@ -394,10 +396,10 @@ Parser PROGRAM PROGRAM
            fail variable
            INTEGER_CONST 5 -> [COMMA ,] 10
           success factor
-         remove multiple key
-         remove multiple empty
+         remove multiple key (8)
+         remove multiple empty (8)
          success term
-       remove multiple key
+       remove multiple key (6)
        success expr
         COMMA , -> [INTEGER_CONST 7] 7
         expr 7
@@ -407,13 +409,14 @@ Parser PROGRAM PROGRAM
            fail variable
            INTEGER_CONST 7 -> [RPAREN )] 10
           success factor
-         remove multiple key
-         remove multiple empty
+         remove multiple key (8)
+         remove multiple empty (8)
          success term
-        remove multiple key
-        remove multiple empty
+        remove multiple key (7)
+        remove multiple empty (7)
         success expr
-      remove multiple key
+      remove key/value LPAREN ( (5)
+      remove multiple key (5)
       success actual_parameter_list
       RPAREN ) -> [SEMI ;] 5
      success proccall_statement
@@ -442,12 +445,14 @@ Parser PROGRAM PROGRAM
            fail variable
            INTEGER_CONST 1 -> [TO TO] 10
           success factor
-         remove multiple key
-         remove multiple empty
+         remove multiple key (8)
+         remove multiple empty (8)
          success term
-        remove multiple key
-        remove multiple empty
+        remove key/value ASSIGN := (7)
+        remove multiple key (7)
+        remove multiple empty (7)
         success expr
+       remove key/value FOR FOR (6)
        success assignment_statement
        TO TO -> [INTEGER_CONST 2] 6
        expr 6
@@ -457,11 +462,12 @@ Parser PROGRAM PROGRAM
           fail variable
           INTEGER_CONST 2 -> [DO DO] 9
          success factor
-        remove multiple key
-        remove multiple empty
+        remove multiple key (7)
+        remove multiple empty (7)
         success term
-       remove multiple key
-       remove multiple empty
+       remove key/value TO TO (6)
+       remove multiple key (6)
+       remove multiple empty (6)
        success expr
        DO DO -> [BEGIN BEGIN] 6
        compound_statement 6
@@ -481,11 +487,11 @@ Parser PROGRAM PROGRAM
                fail variable
                INTEGER_CONST 35 -> [COMMA ,] 14
               success factor
-             remove multiple key
-             remove multiple empty
+             remove multiple key (12)
+             remove multiple empty (12)
              success term
-            remove multiple key
-            remove multiple empty
+            remove multiple key (11)
+            remove multiple empty (11)
             success expr
              COMMA , -> [ID y] 12
              expr 12
@@ -495,13 +501,14 @@ Parser PROGRAM PROGRAM
                 ID y -> [RPAREN )] 15
                 success variable
                success factor
-              remove multiple key
-              remove multiple empty
+              remove multiple key (13)
+              remove multiple empty (13)
               success term
-             remove multiple key
-             remove multiple empty
+             remove multiple key (12)
+             remove multiple empty (12)
              success expr
-           remove multiple key
+           remove key/value LPAREN ( (10)
+           remove multiple key (10)
            success actual_parameter_list
            RPAREN ) -> [SEMI ;] 10
           success proccall_statement
@@ -519,9 +526,11 @@ Parser PROGRAM PROGRAM
            for_loop 10
            fail for_loop
           fail statement
-        remove multiple key
+        remove key/value BEGIN BEGIN (7)
+        remove multiple key (7)
         success statement_list
         END END -> [SEMI ;] 7
+       remove key/value DO DO (6)
        success compound_statement
       success for_loop
      success statement
@@ -538,17 +547,20 @@ Parser PROGRAM PROGRAM
       for_loop 5
       fail for_loop
      fail statement
-   remove multiple key
+   remove key/value BEGIN BEGIN (2)
+   remove multiple key (2)
    success statement_list
    END END -> [DOT .] 2
   success compound_statement
+ remove key/value PROGRAM PROGRAM (0)
+ remove key/value SEMI ; (0)
  success block
  DOT . 0
-Symbol program Parsed until (31,6) 384 of 384
-par mem 16344 of 38400 38400 1 0 24
-prog size 384 factor 42
+Symbol program Parsed until (31,6) 382 of 382
+par mem 15960 of 38200 38200 1 0 24
+prog size 382 factor 41
+par mem 8571 of 38200 38200 1 0 24
 Destruct Lexer
-Destruct Parser
 
 Analyzer
  Program Main 1 0
@@ -562,27 +574,24 @@ Analyzer
             Formal Beta.b of {"INTEGER":"INTEGER"}
              Var Beta.x of {"INTEGER":"INTEGER"}
              Assign x = (12)
-                 VarRef found a (16)
-                   VarRef found b (18)
-               extfunc printf
-                   VarRef found x (18)
+                 VarRef found Beta.a (16)
+                   VarRef found Beta.b (18)
+               Ext Function found printf (14)
+                   VarRef found Beta.x (18)
          0 Formal Beta.a {"INTEGER":"INTEGER"} 3
          1 Formal Beta.b {"INTEGER":"INTEGER"} 3
          2 Var Beta.x {"INTEGER":"INTEGER"} 3
          Assign x = (8)
-                VarRef found a (15)
-                  VarRef found b (17)
-           extfunc printf
-               VarRef found x (14)
-            Error: parseTree should be array or object  null (11)
+                VarRef found Alpha.a (15)
+                  VarRef found Alpha.b (17)
+           Ext Function found printf (10)
+               VarRef found Alpha.x (14)
      0 Formal Alpha.a {"INTEGER":"INTEGER"} 2
      1 Formal Alpha.b {"INTEGER":"INTEGER"} 2
      2 Var Alpha.x {"INTEGER":"INTEGER"} 2
      3 Function Alpha.Beta  2
-      Error: parseTree should be array or object  null (5)
         Assign y = (7)
-                 VarRef found y (16)
-            Error: parseTree should be array or object  null (11)
+                 VarRef found Main.y (16)
  0 Var Main.y {"INTEGER":"INTEGER"} 1
  1 Function Main.Alpha  1
 
@@ -608,8 +617,6 @@ interpret Main 1 2
            15.000000 * 2.000000 = 30.000000 (push 1)
          Alpha.x := 30.000000 (pop 0)
                VarRef Alpha.x = 30.000000 (push 1)
-                 INTEGER_CONST 1 (Push 2)
-printf(30.000000, 1.000000, -32768.000000)
            Call printf(30.000000)
            Call Beta
                INTEGER_CONST 5 (Push 1)
@@ -628,7 +635,6 @@ printf(30.000000, 1.000000, -32768.000000)
                 50.000000 + 20.000000 = 70.000000 (push 1)
                Beta.x := 70.000000 (pop 0)
                      VarRef Beta.x = 70.000000 (push 1)
-printf(70.000000, -32768.000000, -32768.000000)
                  Call printf(70.000000)
 Destruct activation record Beta
 Destruct activation record Alpha
@@ -657,8 +663,6 @@ Destruct activation record Alpha
                 36.000000 * 2.000000 = 72.000000 (push 1)
               Alpha.x := 72.000000 (pop 0)
                     VarRef Alpha.x = 72.000000 (push 1)
-                      INTEGER_CONST 1 (Push 2)
-printf(72.000000, 1.000000, -32768.000000)
                 Call printf(72.000000)
                 Call Beta
                     INTEGER_CONST 5 (Push 1)
@@ -677,7 +681,6 @@ printf(72.000000, 1.000000, -32768.000000)
                      50.000000 + 20.000000 = 70.000000 (push 1)
                     Beta.x := 70.000000 (pop 0)
                           VarRef Beta.x = 70.000000 (push 1)
-printf(70.000000, -32768.000000, -32768.000000)
                       Call printf(70.000000)
 Destruct activation record Beta
 Destruct activation record Alpha
@@ -702,8 +705,6 @@ Destruct activation record Alpha
                 37.000000 * 2.000000 = 74.000000 (push 1)
               Alpha.x := 74.000000 (pop 0)
                     VarRef Alpha.x = 74.000000 (push 1)
-                      INTEGER_CONST 1 (Push 2)
-printf(74.000000, 1.000000, -32768.000000)
                 Call printf(74.000000)
                 Call Beta
                     INTEGER_CONST 5 (Push 1)
@@ -722,7 +723,6 @@ printf(74.000000, 1.000000, -32768.000000)
                      50.000000 + 20.000000 = 70.000000 (push 1)
                     Beta.x := 70.000000 (pop 0)
                           VarRef Beta.x = 70.000000 (push 1)
-printf(70.000000, -32768.000000, -32768.000000)
                       Call printf(70.000000)
 Destruct activation record Beta
 Destruct activation record Alpha
@@ -734,6 +734,5 @@ Destruct activation record Alpha
        0 => end of For
 Destruct callstack
 Destruct valueStack
-Destruct Interpreter
 def mem 6992 of 12192 12192 25 0 6
-def mem 16344 of 38400 38400 1 0 24
+par mem 8635 of 38200 38200 1 0 24
