@@ -6,3 +6,10 @@ Inspired by https://ruslanspivak.com/lsbasi-part1/ to https://ruslanspivak.com/l
   Code: https://github.com/rspivak/lsbasi
 
 Using https://arduinojson.org/
+
+Reguires https://github.com/lorol/LITTLEFS
+
+Used in https://github.com/atuline/WLED/wiki/WLED-Custom-effects
+
+Runs on Arduino and on Windows (as testing is faster than on arduino).
+
