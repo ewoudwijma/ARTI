@@ -7,7 +7,7 @@ Arduino Real Time Interpreter
 
 * Using https://arduinojson.org/
 
-* Reguires https://github.com/lorol/LITTLEFS
+* and https://github.com/lorol/LITTLEFS
 
 * Used in https://github.com/atuline/WLED/wiki/WLED-Custom-effects
 
