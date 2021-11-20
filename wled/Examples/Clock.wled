@@ -3,8 +3,9 @@
 program Clock
 {
 
-  function renderFrame() {
-    setRange(0,ledCount, 0) //clear all pixels
+  function renderFrame() 
+  {
+    setRange(0,ledCount, 0)         //clear all pixels
 
     //set h, m, s dots
     setPixelColor(hour, 25)

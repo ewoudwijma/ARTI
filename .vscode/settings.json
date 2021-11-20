@@ -45,6 +45,23 @@
         "streambuf": "cpp",
         "xfacet": "cpp",
         "xmemory": "cpp",
-        "xstddef": "cpp"
+        "xstddef": "cpp",
+        "algorithm": "cpp",
+        "array": "cpp",
+        "format": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp",
+        "charconv": "cpp",
+        "chrono": "cpp",
+        "forward_list": "cpp",
+        "iomanip": "cpp",
+        "locale": "cpp",
+        "map": "cpp",
+        "optional": "cpp",
+        "ratio": "cpp",
+        "vector": "cpp",
+        "xlocbuf": "cpp",
+        "xtree": "cpp"
     }
 }

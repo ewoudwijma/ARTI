@@ -4,7 +4,8 @@ program default
 {
    pixelCounter = 0
 
-   function renderFrame() {
+   function renderFrame() 
+   {
      setPixelColor(pixelCounter, pixelCounter)
      pixelCounter = pixelCounter + 1
    }

@@ -7,8 +7,8 @@ program PhaseShift
   pixelCounter = 3
   countAdd = 1
 
-  function renderFrame() {
-
+  function renderFrame() 
+  {
     pixelCounter = pixelCounter + countAdd
 
     if (pixelCounter > 15 ) {
@@ -21,8 +21,9 @@ program PhaseShift
 
   }
 
-  function renderLed(i) {
-      setPixelColor(i, i * pixelCounter)
+  function renderLed(i) 
+  {
+    setPixelColor(i, i * pixelCounter)
   }
   
 }

@@ -2,264 +2,97 @@
   "program": {
     "ID": "BrightPulse",
     "block": {
-      "LCURL": "{",
       "*": [
         {
           "statement": {
             "function": {
               "ID": "renderFrame",
               "block": {
-                "LCURL": "{",
                 "*": [
                   {
                     "statement": {
                       "assign": {
                         "varleft": {
-                          "ID": "sa"
+                          "ID": "lum",
+                          "level": 2,
+                          "index": 0
                         },
                         "expr": {
                           "term": {
-                            "factor": {
-                              "varref": {
-                                "ID": "sampleAvg",
-                                "external": 11
-                              }
-                            },
-                            "*": [
-                              {
-                                "MUL": "*"
-                              },
-                              {
-                                "factor": {
-                                  "INTEGER_CONST": "256"
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
-                      "assign": {
-                        "varleft": {
-                          "ID": "sa"
-                        },
-                        "expr": {
-                          "term": {
-                            "factor": {
-                              "varref": {
-                                "ID": "sa"
-                              }
-                            },
-                            "*": [
-                              {
-                                "DIV": "/"
-                              },
-                              {
-                                "factor": {
-                                  "expr": {
-                                    "term": {
-                                      "factor": {
-                                        "INTEGER_CONST": "256"
+                            "call": {
+                              "ID": "constrain",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "factor": {
+                                      "varref": {
+                                        "ID": "sampleAvg",
+                                        "external": 18
                                       }
                                     },
                                     "*": [
                                       {
-                                        "MINUS": "-"
+                                        "MUL": "*",
+                                        "operator": 4
                                       },
                                       {
-                                        "term": {
-                                          "factor": {
-                                            "varref": {
-                                              "ID": "speed",
-                                              "external": 10
-                                            }
+                                        "factor": {
+                                          "INTEGER_CONST": "256",
+                                          "operator": 0
+                                        }
+                                      },
+                                      {
+                                        "DIV": "/",
+                                        "operator": 5
+                                      },
+                                      {
+                                        "factor": {
+                                          "expr": {
+                                            "term": {
+                                              "INTEGER_CONST": "256",
+                                              "operator": 0
+                                            },
+                                            "*": [
+                                              {
+                                                "MINUS": "-",
+                                                "operator": 3
+                                              },
+                                              {
+                                                "term": {
+                                                  "varref": {
+                                                    "ID": "speed"
+                                                  }
+                                                }
+                                              }
+                                            ]
                                           }
                                         }
                                       }
                                     ]
-                                  },
-                                  "RPAREN": ")"
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
-                      "assign": {
-                        "varleft": {
-                          "ID": "lum"
-                        },
-                        "expr": {
-                          "term": {
-                            "factor": {
-                              "call": {
-                                "ID": "constrain",
-                                "actuals": {
-                                  "expr": {
-                                    "term": {
-                                      "factor": {
-                                        "varref": {
-                                          "ID": "sa"
-                                        }
-                                      }
-                                    }
-                                  },
-                                  "*": [
-                                    {
-                                      "COMMA": ","
-                                    },
-                                    {
-                                      "expr": {
-                                        "term": {
-                                          "factor": {
-                                            "INTEGER_CONST": "0"
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "COMMA": ","
-                                    },
-                                    {
-                                      "expr": {
-                                        "term": {
-                                          "factor": {
-                                            "INTEGER_CONST": "255"
-                                          }
-                                        }
-                                      }
-                                    }
-                                  ]
+                                  }
                                 },
-                                "RPAREN": ")",
-                                "external": 14
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
-                      "assign": {
-                        "varleft": {
-                          "ID": "sc0"
-                        },
-                        "expr": {
-                          "term": {
-                            "factor": {
-                              "call": {
-                                "ID": "segcolor",
-                                "actuals": {
-                                  "expr": {
-                                    "term": {
-                                      "factor": {
-                                        "INTEGER_CONST": "0"
+                                "*": [
+                                  {},
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "0",
+                                        "operator": 0
+                                      }
+                                    }
+                                  },
+                                  {},
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "255",
+                                        "operator": 0
                                       }
                                     }
                                   }
-                                },
-                                "RPAREN": ")",
-                                "external": 9
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
-                      "assign": {
-                        "varleft": {
-                          "ID": "sc1"
-                        },
-                        "expr": {
-                          "term": {
-                            "factor": {
-                              "call": {
-                                "ID": "segcolor",
-                                "actuals": {
-                                  "expr": {
-                                    "term": {
-                                      "factor": {
-                                        "INTEGER_CONST": "1"
-                                      }
-                                    }
-                                  }
-                                },
-                                "RPAREN": ")",
-                                "external": 9
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
-                      "assign": {
-                        "varleft": {
-                          "ID": "cb"
-                        },
-                        "expr": {
-                          "term": {
-                            "factor": {
-                              "call": {
-                                "ID": "colorBlend",
-                                "actuals": {
-                                  "expr": {
-                                    "term": {
-                                      "factor": {
-                                        "varref": {
-                                          "ID": "sc1"
-                                        }
-                                      }
-                                    }
-                                  },
-                                  "*": [
-                                    {
-                                      "COMMA": ","
-                                    },
-                                    {
-                                      "expr": {
-                                        "term": {
-                                          "factor": {
-                                            "varref": {
-                                              "ID": "sc0"
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "COMMA": ","
-                                    },
-                                    {
-                                      "expr": {
-                                        "term": {
-                                          "factor": {
-                                            "varref": {
-                                              "ID": "lum"
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  ]
-                                },
-                                "RPAREN": ")",
-                                "external": 7
-                              }
+                                ]
+                              },
+                              "external": 21
                             }
                           }
                         }
@@ -273,29 +106,74 @@
                         "actuals": {
                           "expr": {
                             "term": {
-                              "factor": {
-                                "varref": {
-                                  "ID": "cb"
-                                }
+                              "call": {
+                                "ID": "colorBlend",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "call": {
+                                        "ID": "segcolor",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "INTEGER_CONST": "1",
+                                              "operator": 0
+                                            }
+                                          }
+                                        },
+                                        "external": 12
+                                      }
+                                    }
+                                  },
+                                  "*": [
+                                    {},
+                                    {
+                                      "expr": {
+                                        "term": {
+                                          "call": {
+                                            "ID": "segcolor",
+                                            "actuals": {
+                                              "expr": {
+                                                "term": {
+                                                  "INTEGER_CONST": "0",
+                                                  "operator": 0
+                                                }
+                                              }
+                                            },
+                                            "external": 12
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {},
+                                    {
+                                      "expr": {
+                                        "term": {
+                                          "varref": {
+                                            "ID": "lum",
+                                            "level": 2,
+                                            "index": 0
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                },
+                                "external": 7
                               }
                             }
                           }
                         },
-                        "RPAREN": ")",
                         "external": 6
                       }
                     }
-                  },
-                  {}
-                ],
-                "RCURL": "}"
+                  }
+                ]
               }
             }
           }
-        },
-        {}
-      ],
-      "RCURL": "}"
+        }
+      ]
     }
   }
 }

@@ -2,14 +2,12 @@
   "program": {
     "ID": "Clock2D",
     "block": {
-      "LCURL": "{",
       "*": [
         {
           "statement": {
             "function": {
               "ID": "renderFrame",
               "block": {
-                "LCURL": "{",
                 "*": [
                   {
                     "statement": {
@@ -18,42 +16,33 @@
                         "actuals": {
                           "expr": {
                             "term": {
-                              "factor": {
-                                "INTEGER_CONST": "0"
-                              }
+                              "INTEGER_CONST": "0",
+                              "operator": 0
                             }
                           },
                           "*": [
-                            {
-                              "COMMA": ","
-                            },
+                            {},
                             {
                               "expr": {
                                 "term": {
-                                  "factor": {
-                                    "varref": {
-                                      "ID": "ledCount",
-                                      "external": 0
-                                    }
+                                  "varref": {
+                                    "ID": "ledCount",
+                                    "external": 0
                                   }
                                 }
                               }
                             },
-                            {
-                              "COMMA": ","
-                            },
+                            {},
                             {
                               "expr": {
                                 "term": {
-                                  "factor": {
-                                    "INTEGER_CONST": "0"
-                                  }
+                                  "INTEGER_CONST": "0",
+                                  "operator": 0
                                 }
                               }
                             }
                           ]
                         },
-                        "RPAREN": ")",
                         "external": 5
                       }
                     }
@@ -63,33 +52,34 @@
                       "for": {
                         "assign": {
                           "varleft": {
-                            "ID": "i"
+                            "ID": "i",
+                            "level": 2,
+                            "index": 0
                           },
                           "expr": {
                             "term": {
-                              "factor": {
-                                "INTEGER_CONST": "0"
-                              }
+                              "INTEGER_CONST": "0",
+                              "operator": 0
                             }
                           }
                         },
                         "expr": {
                           "term": {
-                            "factor": {
-                              "varref": {
-                                "ID": "i"
-                              }
+                            "varref": {
+                              "ID": "i",
+                              "level": 2,
+                              "index": 0
                             }
                           },
                           "*": [
                             {
-                              "LT": "<"
+                              "LT": "<",
+                              "operator": 11
                             },
                             {
                               "term": {
-                                "factor": {
-                                  "INTEGER_CONST": "360"
-                                }
+                                "INTEGER_CONST": "360",
+                                "operator": 0
                               }
                             }
                           ]
@@ -97,25 +87,27 @@
                         "increment": {
                           "assign": {
                             "varleft": {
-                              "ID": "i"
+                              "ID": "i",
+                              "level": 2,
+                              "index": 0
                             },
                             "expr": {
                               "term": {
-                                "factor": {
-                                  "varref": {
-                                    "ID": "i"
-                                  }
+                                "varref": {
+                                  "ID": "i",
+                                  "level": 2,
+                                  "index": 0
                                 }
                               },
                               "*": [
                                 {
-                                  "PLUS": "+"
+                                  "PLUS": "+",
+                                  "operator": 2
                                 },
                                 {
                                   "term": {
-                                    "factor": {
-                                      "INTEGER_CONST": "30"
-                                    }
+                                    "INTEGER_CONST": "30",
+                                    "operator": 0
                                   }
                                 }
                               ]
@@ -123,7 +115,6 @@
                           }
                         },
                         "block": {
-                          "LCURL": "{",
                           "*": [
                             {
                               "statement": {
@@ -132,49 +123,40 @@
                                   "actuals": {
                                     "expr": {
                                       "term": {
-                                        "factor": {
-                                          "call": {
-                                            "ID": "circle2D",
-                                            "actuals": {
-                                              "expr": {
-                                                "term": {
-                                                  "factor": {
-                                                    "varref": {
-                                                      "ID": "i"
-                                                    }
-                                                  }
+                                        "call": {
+                                          "ID": "circle2D",
+                                          "actuals": {
+                                            "expr": {
+                                              "term": {
+                                                "varref": {
+                                                  "ID": "i",
+                                                  "level": 2,
+                                                  "index": 0
                                                 }
                                               }
-                                            },
-                                            "RPAREN": ")",
-                                            "external": 13
-                                          }
+                                            }
+                                          },
+                                          "external": 20
                                         }
                                       }
                                     },
                                     "*": [
-                                      {
-                                        "COMMA": ","
-                                      },
+                                      {},
                                       {
                                         "expr": {
                                           "term": {
-                                            "factor": {
-                                              "INTEGER_CONST": "225"
-                                            }
+                                            "INTEGER_CONST": "225",
+                                            "operator": 0
                                           }
                                         }
                                       }
                                     ]
                                   },
-                                  "RPAREN": ")",
                                   "external": 1
                                 }
                               }
-                            },
-                            {}
-                          ],
-                          "RCURL": "}"
+                            }
+                          ]
                         }
                       }
                     }
@@ -186,208 +168,192 @@
                         "actuals": {
                           "expr": {
                             "term": {
-                              "factor": {
-                                "call": {
-                                  "ID": "circle2D",
-                                  "actuals": {
-                                    "expr": {
-                                      "term": {
-                                        "factor": {
-                                          "varref": {
-                                            "ID": "second",
-                                            "external": 21
-                                          }
-                                        },
-                                        "*": [
-                                          {
-                                            "MUL": "*"
-                                          },
-                                          {
-                                            "factor": {
-                                              "INTEGER_CONST": "6"
-                                            }
-                                          }
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "RPAREN": ")",
-                                  "external": 13
-                                }
-                              }
-                            }
-                          },
-                          "*": [
-                            {
-                              "COMMA": ","
-                            },
-                            {
-                              "expr": {
-                                "term": {
-                                  "factor": {
-                                    "INTEGER_CONST": "25"
-                                  }
-                                }
-                              }
-                            }
-                          ]
-                        },
-                        "RPAREN": ")",
-                        "external": 1
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
-                      "call": {
-                        "ID": "setPixelColor",
-                        "actuals": {
-                          "expr": {
-                            "term": {
-                              "factor": {
-                                "call": {
-                                  "ID": "circle2D",
-                                  "actuals": {
-                                    "expr": {
-                                      "term": {
-                                        "factor": {
-                                          "varref": {
-                                            "ID": "minute",
-                                            "external": 20
-                                          }
-                                        },
-                                        "*": [
-                                          {
-                                            "MUL": "*"
-                                          },
-                                          {
-                                            "factor": {
-                                              "INTEGER_CONST": "6"
-                                            }
-                                          }
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "RPAREN": ")",
-                                  "external": 13
-                                }
-                              }
-                            }
-                          },
-                          "*": [
-                            {
-                              "COMMA": ","
-                            },
-                            {
-                              "expr": {
-                                "term": {
-                                  "factor": {
-                                    "INTEGER_CONST": "92"
-                                  }
-                                }
-                              }
-                            }
-                          ]
-                        },
-                        "RPAREN": ")",
-                        "external": 1
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
-                      "call": {
-                        "ID": "setPixelColor",
-                        "actuals": {
-                          "expr": {
-                            "term": {
-                              "factor": {
-                                "call": {
-                                  "ID": "circle2D",
-                                  "actuals": {
-                                    "expr": {
-                                      "term": {
-                                        "factor": {
-                                          "varref": {
-                                            "ID": "hour",
-                                            "external": 19
-                                          }
-                                        },
-                                        "*": [
-                                          {
-                                            "MUL": "*"
-                                          },
-                                          {
-                                            "factor": {
-                                              "INTEGER_CONST": "30"
-                                            }
-                                          }
-                                        ]
+                              "call": {
+                                "ID": "circle2D",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "varref": {
+                                          "ID": "second",
+                                          "external": 30
+                                        }
                                       },
                                       "*": [
                                         {
-                                          "PLUS": "+"
+                                          "MUL": "*",
+                                          "operator": 4
                                         },
                                         {
-                                          "term": {
-                                            "factor": {
-                                              "varref": {
-                                                "ID": "minute",
-                                                "external": 20
-                                              }
-                                            },
-                                            "*": [
-                                              {
-                                                "DIV": "/"
-                                              },
-                                              {
-                                                "factor": {
-                                                  "INTEGER_CONST": "2"
-                                                }
-                                              }
-                                            ]
+                                          "factor": {
+                                            "INTEGER_CONST": "6",
+                                            "operator": 0
                                           }
                                         }
                                       ]
                                     }
-                                  },
-                                  "RPAREN": ")",
-                                  "external": 13
-                                }
+                                  }
+                                },
+                                "external": 20
                               }
                             }
                           },
                           "*": [
-                            {
-                              "COMMA": ","
-                            },
+                            {},
                             {
                               "expr": {
                                 "term": {
-                                  "factor": {
-                                    "INTEGER_CONST": "160"
-                                  }
+                                  "INTEGER_CONST": "25",
+                                  "operator": 0
                                 }
                               }
                             }
                           ]
                         },
-                        "RPAREN": ")",
                         "external": 1
                       }
                     }
                   },
-                  {}
-                ],
-                "RCURL": "}"
+                  {
+                    "statement": {
+                      "call": {
+                        "ID": "setPixelColor",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "call": {
+                                "ID": "circle2D",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "varref": {
+                                          "ID": "minute",
+                                          "external": 29
+                                        }
+                                      },
+                                      "*": [
+                                        {
+                                          "MUL": "*",
+                                          "operator": 4
+                                        },
+                                        {
+                                          "factor": {
+                                            "INTEGER_CONST": "6",
+                                            "operator": 0
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "external": 20
+                              }
+                            }
+                          },
+                          "*": [
+                            {},
+                            {
+                              "expr": {
+                                "term": {
+                                  "INTEGER_CONST": "92",
+                                  "operator": 0
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "external": 1
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "call": {
+                        "ID": "setPixelColor",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "call": {
+                                "ID": "circle2D",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "varref": {
+                                          "ID": "hour",
+                                          "external": 28
+                                        }
+                                      },
+                                      "*": [
+                                        {
+                                          "MUL": "*",
+                                          "operator": 4
+                                        },
+                                        {
+                                          "factor": {
+                                            "INTEGER_CONST": "30",
+                                            "operator": 0
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "*": [
+                                      {
+                                        "PLUS": "+",
+                                        "operator": 2
+                                      },
+                                      {
+                                        "term": {
+                                          "factor": {
+                                            "varref": {
+                                              "ID": "minute",
+                                              "external": 29
+                                            }
+                                          },
+                                          "*": [
+                                            {
+                                              "DIV": "/",
+                                              "operator": 5
+                                            },
+                                            {
+                                              "factor": {
+                                                "INTEGER_CONST": "2",
+                                                "operator": 0
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "external": 20
+                              }
+                            }
+                          },
+                          "*": [
+                            {},
+                            {
+                              "expr": {
+                                "term": {
+                                  "INTEGER_CONST": "160",
+                                  "operator": 0
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "external": 1
+                      }
+                    }
+                  }
+                ]
               }
             }
           }
-        },
-        {}
-      ],
-      "RCURL": "}"
+        }
+      ]
     }
   }
 }

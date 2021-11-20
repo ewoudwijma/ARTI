@@ -2,14 +2,12 @@
   "program": {
     "ID": "Clock",
     "block": {
-      "LCURL": "{",
       "*": [
         {
           "statement": {
             "function": {
               "ID": "renderFrame",
               "block": {
-                "LCURL": "{",
                 "*": [
                   {
                     "statement": {
@@ -18,42 +16,33 @@
                         "actuals": {
                           "expr": {
                             "term": {
-                              "factor": {
-                                "INTEGER_CONST": "0"
-                              }
+                              "INTEGER_CONST": "0",
+                              "operator": 0
                             }
                           },
                           "*": [
-                            {
-                              "COMMA": ","
-                            },
+                            {},
                             {
                               "expr": {
                                 "term": {
-                                  "factor": {
-                                    "varref": {
-                                      "ID": "ledCount",
-                                      "external": 0
-                                    }
+                                  "varref": {
+                                    "ID": "ledCount",
+                                    "external": 0
                                   }
                                 }
                               }
                             },
-                            {
-                              "COMMA": ","
-                            },
+                            {},
                             {
                               "expr": {
                                 "term": {
-                                  "factor": {
-                                    "INTEGER_CONST": "0"
-                                  }
+                                  "INTEGER_CONST": "0",
+                                  "operator": 0
                                 }
                               }
                             }
                           ]
                         },
-                        "RPAREN": ")",
                         "external": 5
                       }
                     }
@@ -65,30 +54,24 @@
                         "actuals": {
                           "expr": {
                             "term": {
-                              "factor": {
-                                "varref": {
-                                  "ID": "hour",
-                                  "external": 19
-                                }
+                              "varref": {
+                                "ID": "hour",
+                                "external": 28
                               }
                             }
                           },
                           "*": [
-                            {
-                              "COMMA": ","
-                            },
+                            {},
                             {
                               "expr": {
                                 "term": {
-                                  "factor": {
-                                    "INTEGER_CONST": "25"
-                                  }
+                                  "INTEGER_CONST": "25",
+                                  "operator": 0
                                 }
                               }
                             }
                           ]
                         },
-                        "RPAREN": ")",
                         "external": 1
                       }
                     }
@@ -100,30 +83,24 @@
                         "actuals": {
                           "expr": {
                             "term": {
-                              "factor": {
-                                "varref": {
-                                  "ID": "minute",
-                                  "external": 20
-                                }
+                              "varref": {
+                                "ID": "minute",
+                                "external": 29
                               }
                             }
                           },
                           "*": [
-                            {
-                              "COMMA": ","
-                            },
+                            {},
                             {
                               "expr": {
                                 "term": {
-                                  "factor": {
-                                    "INTEGER_CONST": "125"
-                                  }
+                                  "INTEGER_CONST": "125",
+                                  "operator": 0
                                 }
                               }
                             }
                           ]
                         },
-                        "RPAREN": ")",
                         "external": 1
                       }
                     }
@@ -135,44 +112,34 @@
                         "actuals": {
                           "expr": {
                             "term": {
-                              "factor": {
-                                "varref": {
-                                  "ID": "second",
-                                  "external": 21
-                                }
+                              "varref": {
+                                "ID": "second",
+                                "external": 30
                               }
                             }
                           },
                           "*": [
-                            {
-                              "COMMA": ","
-                            },
+                            {},
                             {
                               "expr": {
                                 "term": {
-                                  "factor": {
-                                    "INTEGER_CONST": "225"
-                                  }
+                                  "INTEGER_CONST": "225",
+                                  "operator": 0
                                 }
                               }
                             }
                           ]
                         },
-                        "RPAREN": ")",
                         "external": 1
                       }
                     }
-                  },
-                  {}
-                ],
-                "RCURL": "}"
+                  }
+                ]
               }
             }
           }
-        },
-        {}
-      ],
-      "RCURL": "}"
+        }
+      ]
     }
   }
 }

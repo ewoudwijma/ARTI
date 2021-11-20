@@ -2,37 +2,38 @@
   "program": {
     "ID": "Mover",
     "block": {
-      "LCURL": "{",
       "*": [
         {
           "statement": {
             "function": {
               "ID": "renderFrame",
               "block": {
-                "LCURL": "{",
                 "*": [
                   {
                     "statement": {
                       "assign": {
                         "varleft": {
-                          "ID": "locn"
+                          "ID": "locn",
+                          "level": 2,
+                          "index": 0
                         },
                         "expr": {
                           "term": {
                             "factor": {
                               "call": {
                                 "ID": "millis",
-                                "RPAREN": ")",
-                                "external": 22
+                                "external": 31
                               }
                             },
                             "*": [
                               {
-                                "DIV": "/"
+                                "DIV": "/",
+                                "operator": 5
                               },
                               {
                                 "factor": {
-                                  "INTEGER_CONST": "100"
+                                  "INTEGER_CONST": "100",
+                                  "operator": 0
                                 }
                               }
                             ]
@@ -46,35 +47,35 @@
                       "for": {
                         "assign": {
                           "varleft": {
-                            "ID": "i"
+                            "ID": "i",
+                            "level": 2,
+                            "index": 1
                           },
                           "expr": {
                             "term": {
-                              "factor": {
-                                "INTEGER_CONST": "0"
-                              }
+                              "INTEGER_CONST": "0",
+                              "operator": 0
                             }
                           }
                         },
                         "expr": {
                           "term": {
-                            "factor": {
-                              "varref": {
-                                "ID": "i"
-                              }
+                            "varref": {
+                              "ID": "i",
+                              "level": 2,
+                              "index": 1
                             }
                           },
                           "*": [
                             {
-                              "LT": "<"
+                              "LT": "<",
+                              "operator": 11
                             },
                             {
                               "term": {
-                                "factor": {
-                                  "varref": {
-                                    "ID": "ledCount",
-                                    "external": 0
-                                  }
+                                "varref": {
+                                  "ID": "ledCount",
+                                  "external": 0
                                 }
                               }
                             }
@@ -83,25 +84,27 @@
                         "increment": {
                           "assign": {
                             "varleft": {
-                              "ID": "i"
+                              "ID": "i",
+                              "level": 2,
+                              "index": 1
                             },
                             "expr": {
                               "term": {
-                                "factor": {
-                                  "varref": {
-                                    "ID": "i"
-                                  }
+                                "varref": {
+                                  "ID": "i",
+                                  "level": 2,
+                                  "index": 1
                                 }
                               },
                               "*": [
                                 {
-                                  "PLUS": "+"
+                                  "PLUS": "+",
+                                  "operator": 2
                                 },
                                 {
                                   "term": {
-                                    "factor": {
-                                      "INTEGER_CONST": "30"
-                                    }
+                                    "INTEGER_CONST": "30",
+                                    "operator": 0
                                   }
                                 }
                               ]
@@ -109,33 +112,34 @@
                           }
                         },
                         "block": {
-                          "LCURL": "{",
                           "*": [
                             {
                               "statement": {
                                 "assign": {
                                   "varleft": {
-                                    "ID": "leds"
+                                    "ID": "leds",
+                                    "external": 2
                                   },
                                   "indices": {
                                     "expr": {
                                       "term": {
-                                        "factor": {
-                                          "varref": {
-                                            "ID": "locn"
-                                          }
+                                        "varref": {
+                                          "ID": "locn",
+                                          "level": 2,
+                                          "index": 0
                                         }
                                       },
                                       "*": [
                                         {
-                                          "PLUS": "+"
+                                          "PLUS": "+",
+                                          "operator": 2
                                         },
                                         {
                                           "term": {
-                                            "factor": {
-                                              "varref": {
-                                                "ID": "i"
-                                              }
+                                            "varref": {
+                                              "ID": "i",
+                                              "level": 2,
+                                              "index": 1
                                             }
                                           }
                                         }
@@ -144,25 +148,20 @@
                                   },
                                   "expr": {
                                     "term": {
-                                      "factor": {
-                                        "call": {
-                                          "ID": "colorWheel",
-                                          "actuals": {
-                                            "expr": {
-                                              "term": {
-                                                "factor": {
-                                                  "INTEGER_CONST": "50"
-                                                }
-                                              }
+                                      "call": {
+                                        "ID": "colorWheel",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "INTEGER_CONST": "50",
+                                              "operator": 0
                                             }
-                                          },
-                                          "RPAREN": ")",
-                                          "external": 8
-                                        }
+                                          }
+                                        },
+                                        "external": 8
                                       }
                                     }
-                                  },
-                                  "external": 2
+                                  }
                                 }
                               }
                             },
@@ -170,38 +169,40 @@
                               "statement": {
                                 "assign": {
                                   "varleft": {
-                                    "ID": "leds"
+                                    "ID": "leds",
+                                    "external": 2
                                   },
                                   "indices": {
                                     "expr": {
                                       "term": {
-                                        "factor": {
-                                          "varref": {
-                                            "ID": "locn"
-                                          }
+                                        "varref": {
+                                          "ID": "locn",
+                                          "level": 2,
+                                          "index": 0
                                         }
                                       },
                                       "*": [
                                         {
-                                          "PLUS": "+"
+                                          "PLUS": "+",
+                                          "operator": 2
                                         },
                                         {
                                           "term": {
-                                            "factor": {
-                                              "varref": {
-                                                "ID": "i"
-                                              }
+                                            "varref": {
+                                              "ID": "i",
+                                              "level": 2,
+                                              "index": 1
                                             }
                                           }
                                         },
                                         {
-                                          "PLUS": "+"
+                                          "PLUS": "+",
+                                          "operator": 2
                                         },
                                         {
                                           "term": {
-                                            "factor": {
-                                              "INTEGER_CONST": "10"
-                                            }
+                                            "INTEGER_CONST": "10",
+                                            "operator": 0
                                           }
                                         }
                                       ]
@@ -209,25 +210,20 @@
                                   },
                                   "expr": {
                                     "term": {
-                                      "factor": {
-                                        "call": {
-                                          "ID": "colorWheel",
-                                          "actuals": {
-                                            "expr": {
-                                              "term": {
-                                                "factor": {
-                                                  "INTEGER_CONST": "125"
-                                                }
-                                              }
+                                      "call": {
+                                        "ID": "colorWheel",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "INTEGER_CONST": "125",
+                                              "operator": 0
                                             }
-                                          },
-                                          "RPAREN": ")",
-                                          "external": 8
-                                        }
+                                          }
+                                        },
+                                        "external": 8
                                       }
                                     }
-                                  },
-                                  "external": 2
+                                  }
                                 }
                               }
                             },
@@ -235,38 +231,40 @@
                               "statement": {
                                 "assign": {
                                   "varleft": {
-                                    "ID": "leds"
+                                    "ID": "leds",
+                                    "external": 2
                                   },
                                   "indices": {
                                     "expr": {
                                       "term": {
-                                        "factor": {
-                                          "varref": {
-                                            "ID": "locn"
-                                          }
+                                        "varref": {
+                                          "ID": "locn",
+                                          "level": 2,
+                                          "index": 0
                                         }
                                       },
                                       "*": [
                                         {
-                                          "PLUS": "+"
+                                          "PLUS": "+",
+                                          "operator": 2
                                         },
                                         {
                                           "term": {
-                                            "factor": {
-                                              "varref": {
-                                                "ID": "i"
-                                              }
+                                            "varref": {
+                                              "ID": "i",
+                                              "level": 2,
+                                              "index": 1
                                             }
                                           }
                                         },
                                         {
-                                          "PLUS": "+"
+                                          "PLUS": "+",
+                                          "operator": 2
                                         },
                                         {
                                           "term": {
-                                            "factor": {
-                                              "INTEGER_CONST": "20"
-                                            }
+                                            "INTEGER_CONST": "20",
+                                            "operator": 0
                                           }
                                         }
                                       ]
@@ -274,45 +272,34 @@
                                   },
                                   "expr": {
                                     "term": {
-                                      "factor": {
-                                        "call": {
-                                          "ID": "colorWheel",
-                                          "actuals": {
-                                            "expr": {
-                                              "term": {
-                                                "factor": {
-                                                  "INTEGER_CONST": "200"
-                                                }
-                                              }
+                                      "call": {
+                                        "ID": "colorWheel",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "INTEGER_CONST": "200",
+                                              "operator": 0
                                             }
-                                          },
-                                          "RPAREN": ")",
-                                          "external": 8
-                                        }
+                                          }
+                                        },
+                                        "external": 8
                                       }
                                     }
-                                  },
-                                  "external": 2
+                                  }
                                 }
                               }
-                            },
-                            {}
-                          ],
-                          "RCURL": "}"
+                            }
+                          ]
                         }
                       }
                     }
-                  },
-                  {}
-                ],
-                "RCURL": "}"
+                  }
+                ]
               }
             }
           }
-        },
-        {}
-      ],
-      "RCURL": "}"
+        }
+      ]
     }
   }
 }

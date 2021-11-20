@@ -3,9 +3,9 @@
 program ColorRandom
 {
 
-   function renderLed(i) {
-     color = random()
-     setPixelColor(i, color)
-    }
+   function renderLed(i) 
+   {
+     setPixelColor(i, random())
+   }
 
 }

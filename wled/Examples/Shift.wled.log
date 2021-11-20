@@ -1,212 +1,103 @@
+Heap Setup < 0 (0ms) wled.json Examples/Shift.wled
+Heap open definition file > 0
+Heap definitionJsonDoc 16384 > 0 (0ms)
+programFile size 183 bytes
+Heap parseTreeJsonDoc 32768 > 0 (0ms)
  PROGRAM PROGRAM -> [ID Shift] 0
  ID Shift -> [LCURL {] 0
- block 0
   LCURL { -> [FUNCTION FUNCTION] 1
-   statement 2
-    variable 3
-    fail variable
-    assign 3
-     varleft 4
-     fail varleft
-    fail assign
-    function 3
      FUNCTION FUNCTION -> [ID renderFrame] 4
      ID renderFrame -> [LPAREN (] 4
       LPAREN ( -> [RPAREN )] 5
-      formals 5
-       formal 6
-       fail formal
-      remove key/value FUNCTION FUNCTION (5)
-      remove key/value LPAREN ( (5)
-      remove empty values for key formals (5)
-      success formals
+      found formals
       RPAREN ) -> [LCURL {] 5
-     block 4
       LCURL { -> [ID setPixelColor] 5
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
          ID setPixelColor -> [LPAREN (] 8
-         success varleft
-        fail assign
-        function 7
-        fail function
-        call 7
+         found varleft
          ID setPixelColor -> [LPAREN (] 8
          LPAREN ( -> [INTEGER_CONST 0] 8
-         actuals 8
-          expr 9
-           term 10
-            factor 11
-             call 12
-             fail call
-             varref 12
-             fail varref
              INTEGER_CONST 0 -> [COMMA ,] 12
-            success factor
-           remove multiple key (10)
-           remove multiple empty (10)
-           success term
-          remove multiple key (9)
-          remove multiple empty (9)
-          success expr
+            found factor
+           found term
+          found expr
            COMMA , -> [ID random] 10
-           expr 10
-            term 11
-             factor 12
-              call 13
                ID random -> [LPAREN (] 14
                LPAREN ( -> [RPAREN )] 14
-               actuals 14
-                expr 15
-                 term 16
-                  factor 17
-                   call 18
-                   fail call
-                   varref 18
-                   fail varref
-                  fail factor
-                 fail term
-                fail expr
-               remove key/value LPAREN ( (14)
-               remove empty values for key actuals (14)
-               success actuals
+               found actuals
                RPAREN ) -> [RPAREN )] 14
-              success call
-             success factor
-            remove multiple key (11)
-            remove multiple empty (11)
-            success term
-           remove multiple key (10)
-           remove multiple empty (10)
-           success expr
-         remove key/value LPAREN ( (8)
-         remove multiple key (8)
-         success actuals
+              found call
+             found factor
+            found term
+           found expr
+         found actuals
          RPAREN ) -> [ID shift] 8
-        success call
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
+        found call
+       found statement
          ID shift -> [LPAREN (] 8
-         success varleft
-        fail assign
-        function 7
-        fail function
-        call 7
+         found varleft
          ID shift -> [LPAREN (] 8
          LPAREN ( -> [INTEGER_CONST 1] 8
-         actuals 8
-          expr 9
-           term 10
-            factor 11
-             call 12
-             fail call
-             varref 12
-             fail varref
              INTEGER_CONST 1 -> [RPAREN )] 12
-            success factor
-           remove multiple key (10)
-           remove multiple empty (10)
-           success term
-          remove multiple key (9)
-          remove multiple empty (9)
-          success expr
-         remove key/value LPAREN ( (8)
-         remove multiple key (8)
-         remove multiple empty (8)
-         success actuals
+            found factor
+           found term
+          found expr
+         found actuals
          RPAREN ) -> [RCURL }] 8
-        success call
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         fail varleft
-        fail assign
-        function 7
-        fail function
-        call 7
-        fail call
-        for 7
-        fail for
-        if 7
-        fail if
-        block 7
-        fail block
-       fail statement
+        found call
+       found statement
       RCURL } -> [RCURL }] 5
-     remove key/value RPAREN ) (4)
-     remove multiple key (4)
-     success block
-    success function
-   success statement
-   statement 2
-    variable 3
-    fail variable
-    assign 3
-     varleft 4
-     fail varleft
-    fail assign
-    function 3
-    fail function
-    call 3
-    fail call
-    for 3
-    fail for
-    if 3
-    fail if
-    block 3
-    fail block
-   fail statement
+     found block
+    found function
+   found statement
   RCURL } 1
- remove key/value PROGRAM PROGRAM (0)
- remove multiple key (0)
- success block
-Symbol program Parsed until (12,1) 180 of 180
-par mem 3709 of 18000 18000 1 0 19
-prog size 180 factor 20
-par mem 1571 of 18000 18000 1 0 19
+ found block
+Symbol program Parsed until (13,1) 183 of 183
+definitionJson usage 10355 of 16384 (63 %) (24 0 6)
+parseTree usage      3709 of 32768 (11 %) (1 0 20)
+garbageCollect       2429 of 32768 (7 %) (1 0 20)
 Destruct Lexer
+Heap parse > 0 (0ms)
+
+Optimizer
+Heap optimize > 0 (0ms)
 
 Analyzer
  Program Shift 1 0
      Function Shift.renderFrame
          Ext Function found setPixelColor (8)
-               Ext Function found random (14)
+              Ext Function found random (13)
          Ext Function found shift (8)
- 0 Function Shift.renderFrame  1
+ 0 F_Function Shift.renderFrame of 9 (1)
+Heap analyze > 0 (0ms)
 
 interpret Shift 1 1
  program name ID
  Program Shift Shift
      Save block of renderFrame
+Heap Interpret main > 0 (0ms)
          Call renderFrame (1)
-                 INTEGER_CONST 0 (Push 1)
-                   Call random() = 41.000000
-setPixelColor(0.000000, 41.000000)
-             Call setPixelColor(0.000000, 41.000000)
-                 INTEGER_CONST 1 (Push 1)
+                INTEGER_CONST 0 (Push 1)
+                  Call random() = 11478.000000
+setPixelColor(0.000000, 11478.000000)
+             Call setPixelColor(0.000000, 11478.000000)
+                INTEGER_CONST 1 (Push 1)
 shift(1.000000)
              Call shift(1.000000)
 Destruct activation record renderFrame
          Call renderFrame (1)
-                 INTEGER_CONST 0 (Push 1)
-                   Call random() = 18467.000000
-setPixelColor(0.000000, 18467.000000)
-             Call setPixelColor(0.000000, 18467.000000)
-                 INTEGER_CONST 1 (Push 1)
+                INTEGER_CONST 0 (Push 1)
+                  Call random() = 29358.000000
+setPixelColor(0.000000, 29358.000000)
+             Call setPixelColor(0.000000, 29358.000000)
+                INTEGER_CONST 1 (Push 1)
 shift(1.000000)
              Call shift(1.000000)
 Destruct activation record renderFrame
+Heap close Arti < 0
 Destruct callstack
 Destruct valueStack
-def mem 9435 of 12192 12192 24 0 6
-par mem 1667 of 18000 18000 1 0 19
+Heap Destruct ScopedSymbolTable renderFrame (0)
+Heap Destruct Symbol renderFrame (0)
+Heap Destruct ScopedSymbolTable Shift (0)
+definitionJson usage  10355 of 16384 (63 %) (24 0 6)
+parseTree usage       2717 of 32768 (8 %) (1 0 18)

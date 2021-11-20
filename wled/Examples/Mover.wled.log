@@ -1,621 +1,295 @@
+Heap Setup < 0 (0ms) wled.json Examples/Mover.wled
+Heap open definition file > 0
+Heap definitionJsonDoc 16384 > 0 (0ms)
+programFile size 469 bytes
+Heap parseTreeJsonDoc 32768 > 0 (0ms)
  PROGRAM PROGRAM -> [ID Mover] 0
  ID Mover -> [LCURL {] 0
- block 0
   LCURL { -> [FUNCTION FUNCTION] 1
-   statement 2
-    variable 3
-    fail variable
-    assign 3
-     varleft 4
-     fail varleft
-    fail assign
-    function 3
      FUNCTION FUNCTION -> [ID renderFrame] 4
      ID renderFrame -> [LPAREN (] 4
       LPAREN ( -> [RPAREN )] 5
-      formals 5
-       formal 6
-       fail formal
-      remove key/value FUNCTION FUNCTION (5)
-      remove key/value LPAREN ( (5)
-      remove empty values for key formals (5)
-      success formals
+      found formals
       RPAREN ) -> [LCURL {] 5
-     block 4
       LCURL { -> [ID locn] 5
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
          ID locn -> [ASSIGN =] 8
-         success varleft
+         found varleft
          ASSIGN = -> [ID millis] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
              ID millis -> [LPAREN (] 12
              LPAREN ( -> [RPAREN )] 12
-             actuals 12
-              expr 13
-               term 14
-                factor 15
-                 call 16
-                 fail call
-                 varref 16
-                 fail varref
-                fail factor
-               fail term
-              fail expr
-             remove key/value LPAREN ( (12)
-             remove empty values for key actuals (12)
-             success actuals
+             found actuals
              RPAREN ) -> [DIV /] 12
-            success call
-           success factor
+            found call
+           found factor
              DIV / -> [INTEGER_CONST 100] 12
-            factor 11
-             call 12
-             fail call
-             varref 12
-             fail varref
              INTEGER_CONST 100 -> [FOR FOR] 12
-            success factor
-          remove multiple key (9)
-          success term
-         remove key/value ASSIGN = (8)
-         remove multiple key (8)
-         remove multiple empty (8)
-         success expr
-        success assign
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         fail varleft
-        fail assign
-        function 7
-        fail function
-        call 7
-        fail call
-        for 7
+            found factor
+          found term
+         found expr
+        found assign
+       found statement
          FOR FOR -> [LPAREN (] 8
          LPAREN ( -> [ID i] 8
-         assign 8
-          varleft 9
           ID i -> [ASSIGN =] 9
-          success varleft
+          found varleft
           ASSIGN = -> [INTEGER_CONST 0] 9
-          expr 9
-           term 10
-            factor 11
-             call 12
-             fail call
-             varref 12
-             fail varref
              INTEGER_CONST 0 -> [SEMI ;] 12
-            success factor
-           remove multiple key (10)
-           remove multiple empty (10)
-           success term
-          remove key/value ASSIGN = (9)
-          remove multiple key (9)
-          remove multiple empty (9)
-          success expr
-         remove key/value FOR FOR (8)
-         remove key/value LPAREN ( (8)
-         success assign
+            found factor
+           found term
+          found expr
+         found assign
          SEMI ; -> [ID i] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
              ID i -> [LT <] 12
-            fail call
-            varref 11
             ID i -> [LT <] 11
-            success varref
-           success factor
-          remove multiple key (9)
-          remove multiple empty (9)
-          success term
+            found varref
+           found factor
+          found term
             LT < -> [ID ledCount] 11
-           term 10
-            factor 11
-             call 12
               ID ledCount -> [SEMI ;] 13
-             fail call
-             varref 12
              ID ledCount -> [SEMI ;] 12
-             success varref
-            success factor
-           remove multiple key (10)
-           remove multiple empty (10)
-           success term
-         remove key/value SEMI ; (8)
-         remove multiple key (8)
-         success expr
+             found varref
+            found factor
+           found term
+         found expr
          SEMI ; -> [ID i] 8
-         increment 8
-          assign 9
-           varleft 10
            ID i -> [ASSIGN =] 10
-           success varleft
+           found varleft
            ASSIGN = -> [ID i] 10
-           expr 10
-            term 11
-             factor 12
-              call 13
                ID i -> [PLUS +] 14
-              fail call
-              varref 13
               ID i -> [PLUS +] 13
-              success varref
-             success factor
-            remove multiple key (11)
-            remove multiple empty (11)
-            success term
+              found varref
+             found factor
+            found term
               PLUS + -> [INTEGER_CONST 30] 13
-             term 12
-              factor 13
-               call 14
-               fail call
-               varref 14
-               fail varref
                INTEGER_CONST 30 -> [RPAREN )] 14
-              success factor
-             remove multiple key (12)
-             remove multiple empty (12)
-             success term
-           remove key/value ASSIGN = (10)
-           remove multiple key (10)
-           success expr
-          success assign
-         remove key/value SEMI ; (8)
-         success increment
+              found factor
+             found term
+           found expr
+          found assign
+         found increment
          RPAREN ) -> [LCURL {] 8
-         block 8
           LCURL { -> [ID leds] 9
-           statement 10
-            variable 11
-            fail variable
-            assign 11
-             varleft 12
              ID leds -> [LBRACKET [] 12
-             success varleft
+             found varleft
               LBRACKET [ -> [ID locn] 13
-              indices 13
-               expr 14
-                term 15
-                 factor 16
-                  call 17
                    ID locn -> [PLUS +] 18
-                  fail call
-                  varref 17
                   ID locn -> [PLUS +] 17
-                  success varref
-                 success factor
-                remove multiple key (15)
-                remove multiple empty (15)
-                success term
+                  found varref
+                 found factor
+                found term
                   PLUS + -> [ID i] 17
-                 term 16
-                  factor 17
-                   call 18
                     ID i -> [RBRACKET ]] 19
-                   fail call
-                   varref 18
                    ID i -> [RBRACKET ]] 18
-                   success varref
-                  success factor
-                 remove multiple key (16)
-                 remove multiple empty (16)
-                 success term
-               remove multiple key (14)
-               success expr
-              remove key/value LBRACKET [ (13)
-              remove multiple key (13)
-              remove multiple empty (13)
-              success indices
+                   found varref
+                  found factor
+                 found term
+               found expr
+              found indices
               RBRACKET ] -> [ASSIGN =] 13
              ASSIGN = -> [ID colorWheel] 12
-             expr 12
-              term 13
-               factor 14
-                call 15
                  ID colorWheel -> [LPAREN (] 16
                  LPAREN ( -> [INTEGER_CONST 50] 16
-                 actuals 16
-                  expr 17
-                   term 18
-                    factor 19
-                     call 20
-                     fail call
-                     varref 20
-                     fail varref
                      INTEGER_CONST 50 -> [RPAREN )] 20
-                    success factor
-                   remove multiple key (18)
-                   remove multiple empty (18)
-                   success term
-                  remove multiple key (17)
-                  remove multiple empty (17)
-                  success expr
-                 remove key/value LPAREN ( (16)
-                 remove multiple key (16)
-                 remove multiple empty (16)
-                 success actuals
+                    found factor
+                   found term
+                  found expr
+                 found actuals
                  RPAREN ) -> [ID leds] 16
-                success call
-               success factor
-              remove multiple key (13)
-              remove multiple empty (13)
-              success term
-             remove key/value RBRACKET ] (12)
-             remove key/value ASSIGN = (12)
-             remove multiple key (12)
-             remove multiple empty (12)
-             success expr
-            success assign
-           success statement
-           statement 10
-            variable 11
-            fail variable
-            assign 11
-             varleft 12
+                found call
+               found factor
+              found term
+             found expr
+            found assign
+           found statement
              ID leds -> [LBRACKET [] 12
-             success varleft
+             found varleft
               LBRACKET [ -> [ID locn] 13
-              indices 13
-               expr 14
-                term 15
-                 factor 16
-                  call 17
                    ID locn -> [PLUS +] 18
-                  fail call
-                  varref 17
                   ID locn -> [PLUS +] 17
-                  success varref
-                 success factor
-                remove multiple key (15)
-                remove multiple empty (15)
-                success term
+                  found varref
+                 found factor
+                found term
                   PLUS + -> [ID i] 17
-                 term 16
-                  factor 17
-                   call 18
                     ID i -> [PLUS +] 19
-                   fail call
-                   varref 18
                    ID i -> [PLUS +] 18
-                   success varref
-                  success factor
-                 remove multiple key (16)
-                 remove multiple empty (16)
-                 success term
+                   found varref
+                  found factor
+                 found term
                   PLUS + -> [INTEGER_CONST 10] 17
-                 term 16
-                  factor 17
-                   call 18
-                   fail call
-                   varref 18
-                   fail varref
                    INTEGER_CONST 10 -> [RBRACKET ]] 18
-                  success factor
-                 remove multiple key (16)
-                 remove multiple empty (16)
-                 success term
-               remove multiple key (14)
-               success expr
-              remove key/value LBRACKET [ (13)
-              remove multiple key (13)
-              remove multiple empty (13)
-              success indices
+                  found factor
+                 found term
+               found expr
+              found indices
               RBRACKET ] -> [ASSIGN =] 13
              ASSIGN = -> [ID colorWheel] 12
-             expr 12
-              term 13
-               factor 14
-                call 15
                  ID colorWheel -> [LPAREN (] 16
                  LPAREN ( -> [INTEGER_CONST 125] 16
-                 actuals 16
-                  expr 17
-                   term 18
-                    factor 19
-                     call 20
-                     fail call
-                     varref 20
-                     fail varref
                      INTEGER_CONST 125 -> [RPAREN )] 20
-                    success factor
-                   remove multiple key (18)
-                   remove multiple empty (18)
-                   success term
-                  remove multiple key (17)
-                  remove multiple empty (17)
-                  success expr
-                 remove key/value LPAREN ( (16)
-                 remove multiple key (16)
-                 remove multiple empty (16)
-                 success actuals
+                    found factor
+                   found term
+                  found expr
+                 found actuals
                  RPAREN ) -> [ID leds] 16
-                success call
-               success factor
-              remove multiple key (13)
-              remove multiple empty (13)
-              success term
-             remove key/value RBRACKET ] (12)
-             remove key/value ASSIGN = (12)
-             remove multiple key (12)
-             remove multiple empty (12)
-             success expr
-            success assign
-           success statement
-           statement 10
-            variable 11
-            fail variable
-            assign 11
-             varleft 12
+                found call
+               found factor
+              found term
+             found expr
+            found assign
+           found statement
              ID leds -> [LBRACKET [] 12
-             success varleft
+             found varleft
               LBRACKET [ -> [ID locn] 13
-              indices 13
-               expr 14
-                term 15
-                 factor 16
-                  call 17
                    ID locn -> [PLUS +] 18
-                  fail call
-                  varref 17
                   ID locn -> [PLUS +] 17
-                  success varref
-                 success factor
-                remove multiple key (15)
-                remove multiple empty (15)
-                success term
+                  found varref
+                 found factor
+                found term
                   PLUS + -> [ID i] 17
-                 term 16
-                  factor 17
-                   call 18
                     ID i -> [PLUS +] 19
-                   fail call
-                   varref 18
                    ID i -> [PLUS +] 18
-                   success varref
-                  success factor
-                 remove multiple key (16)
-                 remove multiple empty (16)
-                 success term
+                   found varref
+                  found factor
+                 found term
                   PLUS + -> [INTEGER_CONST 20] 17
-                 term 16
-                  factor 17
-                   call 18
-                   fail call
-                   varref 18
-                   fail varref
                    INTEGER_CONST 20 -> [RBRACKET ]] 18
-                  success factor
-                 remove multiple key (16)
-                 remove multiple empty (16)
-                 success term
-               remove multiple key (14)
-               success expr
-              remove key/value LBRACKET [ (13)
-              remove multiple key (13)
-              remove multiple empty (13)
-              success indices
+                  found factor
+                 found term
+               found expr
+              found indices
               RBRACKET ] -> [ASSIGN =] 13
              ASSIGN = -> [ID colorWheel] 12
-             expr 12
-              term 13
-               factor 14
-                call 15
                  ID colorWheel -> [LPAREN (] 16
                  LPAREN ( -> [INTEGER_CONST 200] 16
-                 actuals 16
-                  expr 17
-                   term 18
-                    factor 19
-                     call 20
-                     fail call
-                     varref 20
-                     fail varref
                      INTEGER_CONST 200 -> [RPAREN )] 20
-                    success factor
-                   remove multiple key (18)
-                   remove multiple empty (18)
-                   success term
-                  remove multiple key (17)
-                  remove multiple empty (17)
-                  success expr
-                 remove key/value LPAREN ( (16)
-                 remove multiple key (16)
-                 remove multiple empty (16)
-                 success actuals
+                    found factor
+                   found term
+                  found expr
+                 found actuals
                  RPAREN ) -> [RCURL }] 16
-                success call
-               success factor
-              remove multiple key (13)
-              remove multiple empty (13)
-              success term
-             remove key/value RBRACKET ] (12)
-             remove key/value ASSIGN = (12)
-             remove multiple key (12)
-             remove multiple empty (12)
-             success expr
-            success assign
-           success statement
-           statement 10
-            variable 11
-            fail variable
-            assign 11
-             varleft 12
-             fail varleft
-            fail assign
-            function 11
-            fail function
-            call 11
-            fail call
-            for 11
-            fail for
-            if 11
-            fail if
-            block 11
-            fail block
-           fail statement
+                found call
+               found factor
+              found term
+             found expr
+            found assign
+           found statement
           RCURL } -> [RCURL }] 9
-         remove key/value RPAREN ) (8)
-         remove multiple key (8)
-         success block
-        success for
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         fail varleft
-        fail assign
-        function 7
-        fail function
-        call 7
-        fail call
-        for 7
-        fail for
-        if 7
-        fail if
-        block 7
-        fail block
-       fail statement
+         found block
+        found for
+       found statement
       RCURL } -> [RCURL }] 5
-     remove key/value RPAREN ) (4)
-     remove multiple key (4)
-     success block
-    success function
-   success statement
-   statement 2
-    variable 3
-    fail variable
-    assign 3
-     varleft 4
-     fail varleft
-    fail assign
-    function 3
-    fail function
-    call 3
-    fail call
-    for 3
-    fail for
-    if 3
-    fail if
-    block 3
-    fail block
-   fail statement
+     found block
+    found function
+   found statement
   RCURL } 1
- remove key/value PROGRAM PROGRAM (0)
- remove multiple key (0)
- success block
-Symbol program Parsed until (16,1) 466 of 466
-par mem 12883 of 46600 46600 1 0 25
-prog size 466 factor 27
-par mem 5871 of 46600 46600 1 0 25
+ found block
+Symbol program Parsed until (17,1) 469 of 469
+definitionJson usage 10355 of 16384 (63 %) (24 0 6)
+parseTree usage      12851 of 32768 (39 %) (1 0 25)
+garbageCollect       9171 of 32768 (28 %) (1 0 25)
 Destruct Lexer
+Heap parse > 0 (0ms)
+
+Optimizer
+Heap optimize > 0 (0ms)
 
 Analyzer
  Program Mover 1 0
      Function Mover.renderFrame
-         Assign renderFrame.locn of notype
-         Assign locn = (8)
+         F_Assign renderFrame.locn of notype
+         F_Assign locn = (8)
              Ext Function found millis (12)
-          Assign renderFrame.i of notype
-          Assign i = (9)
-             VarRef found renderFrame.i (12)
-               Ext Variable found ledCount (14)
-           Assign i = (10)
-               VarRef found renderFrame.i (14)
-              Ext Variable found leds (13)
-              Assign leds = (13)
-                  Ext Function found colorWheel (17)
-                   VarRef found renderFrame.locn (18)
-                     VarRef found renderFrame.i (20)
-              Ext Variable found leds (13)
-              Assign leds = (13)
-                  Ext Function found colorWheel (17)
-                   VarRef found renderFrame.locn (18)
-                     VarRef found renderFrame.i (20)
-              Ext Variable found leds (13)
-              Assign leds = (13)
-                  Ext Function found colorWheel (17)
-                   VarRef found renderFrame.locn (18)
-                     VarRef found renderFrame.i (20)
-     0 Assign renderFrame.locn notype 2
-     1 Assign renderFrame.i notype 2
- 0 Function Mover.renderFrame  1
+          F_Assign renderFrame.i of notype
+          F_Assign i = (9)
+            VarRef found renderFrame.i (11)
+              Ext Variable found ledCount (13) F_VarRef
+           F_Assign i = (10)
+              VarRef found renderFrame.i (13)
+              Ext Variable found leds (13) F_Assign
+              F_Assign leds = (13)
+                 Ext Function found colorWheel (16)
+                  VarRef found renderFrame.locn (17)
+                    VarRef found renderFrame.i (19)
+              Ext Variable found leds (13) F_Assign
+              F_Assign leds = (13)
+                 Ext Function found colorWheel (16)
+                  VarRef found renderFrame.locn (17)
+                    VarRef found renderFrame.i (19)
+              Ext Variable found leds (13) F_Assign
+              F_Assign leds = (13)
+                 Ext Function found colorWheel (16)
+                  VarRef found renderFrame.locn (17)
+                    VarRef found renderFrame.i (19)
+     0 F_Assign renderFrame.locn of 9 (2)
+     1 F_Assign renderFrame.i of 9 (2)
+ 0 F_Function Mover.renderFrame of 9 (1)
+Heap analyze > 0 (0ms)
 
 interpret Mover 1 1
  program name ID
  Program Mover Mover
      Save block of renderFrame
+Heap Interpret main > 0 (0ms)
          Call renderFrame (1)
                  Call millis() = 1000.000000
                   DIV / (Push 2)
                    INTEGER_CONST 100 (Push 3)
-               1000.000000 / 100.000000 = 10.000000 (push 1)
-             renderFrame.locn := 10.000000 (pop 0)
+               1000.000000 / 100.000000 = 10.000000 (push 4)
+             renderFrame.locn := 10.000000 (pop 0) 2-0
              For (0)
              from
-                  INTEGER_CONST 0 (Push 1)
-              renderFrame.i := 0.000000 (pop 0)
+                 INTEGER_CONST 0 (Push 1)
+              renderFrame.i := 0.000000 (pop 0) 2-1
              iteration
              check to condition
-                 VarRef renderFrame.i = 0.000000 (push 1)
+                F_VarRef renderFrame.i = 0.000000 (push 1) 2-1
                  LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              0.000000 < 3.000000 = 1.000000 (push 1)
+                  F_VarRef ext.ledCount = 3.000000 (push 3)
+              0.000000 < 3.000000 = 1.000000 (push 4)
              conditionResult (pop 0)
              1 => run block
-                      VarRef renderFrame.locn = 10.000000 (push 1)
+                     F_VarRef renderFrame.locn = 10.000000 (push 1) 2-0
                       PLUS + (Push 2)
-                        VarRef renderFrame.i = 0.000000 (push 3)
-                   10.000000 + 0.000000 = 10.000000 (push 1)
-                         INTEGER_CONST 50 (Push 2)
-                     Call colorWheel(50.000000) = 50.000000
-arti_set_external_variable, set leds(10.000000, -32768.000000) to 50.000000
-                 Assign set ext.leds[10] = 50.000000 (1)
-                      VarRef renderFrame.locn = 10.000000 (push 1)
+                       F_VarRef renderFrame.i = 0.000000 (push 3) 2-1
+                   10.000000 + 0.000000 = 10.000000 (push 4)
+                       INTEGER_CONST 50 (Push 2)
+                    Call colorWheel(50.000000) = 50.000000
+arti_set_external_variable: leds(10.000000) := 50.000000
+                 F_Assign set ext.leds[10] = 50.000000 (1)
+                     F_VarRef renderFrame.locn = 10.000000 (push 1) 2-0
                       PLUS + (Push 2)
-                        VarRef renderFrame.i = 0.000000 (push 3)
+                       F_VarRef renderFrame.i = 0.000000 (push 3) 2-1
                       PLUS + (Push 4)
-                        INTEGER_CONST 10 (Push 5)
-                         INTEGER_CONST 125 (Push 6)
-                     Call colorWheel(125.000000) = 125.000000
-arti_set_external_variable, set leds(10.000000, 50.000000) to 125.000000
-                 Assign set ext.leds[10,50,0,0,10] = 125.000000 (5)
-                      VarRef renderFrame.locn = 10.000000 (push 1)
+                       INTEGER_CONST 10 (Push 5)
+                   10.000000 + 0.000000 = 10.000000 (push 6)
+                   10.000000 + 10.000000 = 20.000000 (push 6)
+                       INTEGER_CONST 125 (Push 2)
+                    Call colorWheel(125.000000) = 125.000000
+arti_set_external_variable: leds(20.000000) := 125.000000
+                 F_Assign set ext.leds[20] = 125.000000 (1)
+                     F_VarRef renderFrame.locn = 10.000000 (push 1) 2-0
                       PLUS + (Push 2)
-                        VarRef renderFrame.i = 0.000000 (push 3)
+                       F_VarRef renderFrame.i = 0.000000 (push 3) 2-1
                       PLUS + (Push 4)
-                        INTEGER_CONST 20 (Push 5)
-                         INTEGER_CONST 200 (Push 6)
-                     Call colorWheel(200.000000) = 200.000000
-arti_set_external_variable, set leds(10.000000, 50.000000) to 200.000000
-                 Assign set ext.leds[10,50,0,0,20] = 200.000000 (5)
+                       INTEGER_CONST 20 (Push 5)
+                   10.000000 + 0.000000 = 10.000000 (push 6)
+                   10.000000 + 20.000000 = 30.000000 (push 6)
+                       INTEGER_CONST 200 (Push 2)
+                    Call colorWheel(200.000000) = 200.000000
+arti_set_external_variable: leds(30.000000) := 200.000000
+                 F_Assign set ext.leds[30] = 200.000000 (1)
              assign next value
-                  VarRef renderFrame.i = 0.000000 (push 1)
+                 F_VarRef renderFrame.i = 0.000000 (push 1) 2-1
                   PLUS + (Push 2)
-                    INTEGER_CONST 30 (Push 3)
-               0.000000 + 30.000000 = 30.000000 (push 1)
-              renderFrame.i := 30.000000 (pop 0)
+                   INTEGER_CONST 30 (Push 3)
+               0.000000 + 30.000000 = 30.000000 (push 4)
+              renderFrame.i := 30.000000 (pop 0) 2-1
              iteration
              check to condition
-                 VarRef renderFrame.i = 30.000000 (push 1)
+                F_VarRef renderFrame.i = 30.000000 (push 1) 2-1
                  LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              30.000000 < 3.000000 = 0.000000 (push 1)
+                  F_VarRef ext.ledCount = 3.000000 (push 3)
+              30.000000 < 3.000000 = 0.000000 (push 4)
              conditionResult (pop 0)
              0 => end of For
 Destruct activation record renderFrame
@@ -624,63 +298,73 @@ setPixels(-32768.000000)
                  Call millis() = 1000.000000
                   DIV / (Push 2)
                    INTEGER_CONST 100 (Push 3)
-               1000.000000 / 100.000000 = 10.000000 (push 1)
-             renderFrame.locn := 10.000000 (pop 0)
+               1000.000000 / 100.000000 = 10.000000 (push 4)
+             renderFrame.locn := 10.000000 (pop 0) 2-0
              For (0)
              from
-                  INTEGER_CONST 0 (Push 1)
-              renderFrame.i := 0.000000 (pop 0)
+                 INTEGER_CONST 0 (Push 1)
+              renderFrame.i := 0.000000 (pop 0) 2-1
              iteration
              check to condition
-                 VarRef renderFrame.i = 0.000000 (push 1)
+                F_VarRef renderFrame.i = 0.000000 (push 1) 2-1
                  LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              0.000000 < 3.000000 = 1.000000 (push 1)
+                  F_VarRef ext.ledCount = 3.000000 (push 3)
+              0.000000 < 3.000000 = 1.000000 (push 4)
              conditionResult (pop 0)
              1 => run block
-                      VarRef renderFrame.locn = 10.000000 (push 1)
+                     F_VarRef renderFrame.locn = 10.000000 (push 1) 2-0
                       PLUS + (Push 2)
-                        VarRef renderFrame.i = 0.000000 (push 3)
-                   10.000000 + 0.000000 = 10.000000 (push 1)
-                         INTEGER_CONST 50 (Push 2)
-                     Call colorWheel(50.000000) = 50.000000
-arti_set_external_variable, set leds(10.000000, -32768.000000) to 50.000000
-                 Assign set ext.leds[10] = 50.000000 (1)
-                      VarRef renderFrame.locn = 10.000000 (push 1)
+                       F_VarRef renderFrame.i = 0.000000 (push 3) 2-1
+                   10.000000 + 0.000000 = 10.000000 (push 4)
+                       INTEGER_CONST 50 (Push 2)
+                    Call colorWheel(50.000000) = 50.000000
+arti_set_external_variable: leds(10.000000) := 50.000000
+                 F_Assign set ext.leds[10] = 50.000000 (1)
+                     F_VarRef renderFrame.locn = 10.000000 (push 1) 2-0
                       PLUS + (Push 2)
-                        VarRef renderFrame.i = 0.000000 (push 3)
+                       F_VarRef renderFrame.i = 0.000000 (push 3) 2-1
                       PLUS + (Push 4)
-                        INTEGER_CONST 10 (Push 5)
-                         INTEGER_CONST 125 (Push 6)
-                     Call colorWheel(125.000000) = 125.000000
-arti_set_external_variable, set leds(10.000000, 50.000000) to 125.000000
-                 Assign set ext.leds[10,50,0,0,10] = 125.000000 (5)
-                      VarRef renderFrame.locn = 10.000000 (push 1)
+                       INTEGER_CONST 10 (Push 5)
+                   10.000000 + 0.000000 = 10.000000 (push 6)
+                   10.000000 + 10.000000 = 20.000000 (push 6)
+                       INTEGER_CONST 125 (Push 2)
+                    Call colorWheel(125.000000) = 125.000000
+arti_set_external_variable: leds(20.000000) := 125.000000
+                 F_Assign set ext.leds[20] = 125.000000 (1)
+                     F_VarRef renderFrame.locn = 10.000000 (push 1) 2-0
                       PLUS + (Push 2)
-                        VarRef renderFrame.i = 0.000000 (push 3)
+                       F_VarRef renderFrame.i = 0.000000 (push 3) 2-1
                       PLUS + (Push 4)
-                        INTEGER_CONST 20 (Push 5)
-                         INTEGER_CONST 200 (Push 6)
-                     Call colorWheel(200.000000) = 200.000000
-arti_set_external_variable, set leds(10.000000, 50.000000) to 200.000000
-                 Assign set ext.leds[10,50,0,0,20] = 200.000000 (5)
+                       INTEGER_CONST 20 (Push 5)
+                   10.000000 + 0.000000 = 10.000000 (push 6)
+                   10.000000 + 20.000000 = 30.000000 (push 6)
+                       INTEGER_CONST 200 (Push 2)
+                    Call colorWheel(200.000000) = 200.000000
+arti_set_external_variable: leds(30.000000) := 200.000000
+                 F_Assign set ext.leds[30] = 200.000000 (1)
              assign next value
-                  VarRef renderFrame.i = 0.000000 (push 1)
+                 F_VarRef renderFrame.i = 0.000000 (push 1) 2-1
                   PLUS + (Push 2)
-                    INTEGER_CONST 30 (Push 3)
-               0.000000 + 30.000000 = 30.000000 (push 1)
-              renderFrame.i := 30.000000 (pop 0)
+                   INTEGER_CONST 30 (Push 3)
+               0.000000 + 30.000000 = 30.000000 (push 4)
+              renderFrame.i := 30.000000 (pop 0) 2-1
              iteration
              check to condition
-                 VarRef renderFrame.i = 30.000000 (push 1)
+                F_VarRef renderFrame.i = 30.000000 (push 1) 2-1
                  LT < (Push 2)
-                   VarRef ext.ledCount = 3.000000 (push 3)
-              30.000000 < 3.000000 = 0.000000 (push 1)
+                  F_VarRef ext.ledCount = 3.000000 (push 3)
+              30.000000 < 3.000000 = 0.000000 (push 4)
              conditionResult (pop 0)
              0 => end of For
 Destruct activation record renderFrame
 setPixels(-32768.000000)
+Heap close Arti < 0
 Destruct callstack
 Destruct valueStack
-def mem 9435 of 12192 12192 24 0 6
-par mem 6127 of 46600 46600 1 0 25
+Heap Destruct Symbol locn (0)
+Heap Destruct Symbol i (0)
+Heap Destruct ScopedSymbolTable renderFrame (0)
+Heap Destruct Symbol renderFrame (0)
+Heap Destruct ScopedSymbolTable Mover (0)
+definitionJson usage  10355 of 16384 (63 %) (24 0 6)
+parseTree usage       12019 of 32768 (37 %) (1 0 23)

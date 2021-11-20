@@ -2,19 +2,19 @@
   "program": {
     "ID": "default",
     "block": {
-      "LCURL": "{",
       "*": [
         {
           "statement": {
             "assign": {
               "varleft": {
-                "ID": "pixelCounter"
+                "ID": "pixelCounter",
+                "level": 1,
+                "index": 0
               },
               "expr": {
                 "term": {
-                  "factor": {
-                    "INTEGER_CONST": "0"
-                  }
+                  "INTEGER_CONST": "0",
+                  "operator": 0
                 }
               }
             }
@@ -25,7 +25,6 @@
             "function": {
               "ID": "renderFrame",
               "block": {
-                "LCURL": "{",
                 "*": [
                   {
                     "statement": {
@@ -34,31 +33,28 @@
                         "actuals": {
                           "expr": {
                             "term": {
-                              "factor": {
-                                "varref": {
-                                  "ID": "pixelCounter"
-                                }
+                              "varref": {
+                                "ID": "pixelCounter",
+                                "level": 1,
+                                "index": 0
                               }
                             }
                           },
                           "*": [
-                            {
-                              "COMMA": ","
-                            },
+                            {},
                             {
                               "expr": {
                                 "term": {
-                                  "factor": {
-                                    "varref": {
-                                      "ID": "pixelCounter"
-                                    }
+                                  "varref": {
+                                    "ID": "pixelCounter",
+                                    "level": 1,
+                                    "index": 0
                                   }
                                 }
                               }
                             }
                           ]
                         },
-                        "RPAREN": ")",
                         "external": 1
                       }
                     }
@@ -67,42 +63,40 @@
                     "statement": {
                       "assign": {
                         "varleft": {
-                          "ID": "pixelCounter"
+                          "ID": "pixelCounter",
+                          "level": 1,
+                          "index": 0
                         },
                         "expr": {
                           "term": {
-                            "factor": {
-                              "varref": {
-                                "ID": "pixelCounter"
-                              }
+                            "varref": {
+                              "ID": "pixelCounter",
+                              "level": 1,
+                              "index": 0
                             }
                           },
                           "*": [
                             {
-                              "PLUS": "+"
+                              "PLUS": "+",
+                              "operator": 2
                             },
                             {
                               "term": {
-                                "factor": {
-                                  "INTEGER_CONST": "1"
-                                }
+                                "INTEGER_CONST": "1",
+                                "operator": 0
                               }
                             }
                           ]
                         }
                       }
                     }
-                  },
-                  {}
-                ],
-                "RCURL": "}"
+                  }
+                ]
               }
             }
           }
-        },
-        {}
-      ],
-      "RCURL": "}"
+        }
+      ]
     }
   }
 }

@@ -5,7 +5,8 @@ program Kitt
    pixelCounter = 0
    goingUp = 1
 
-   function renderFrame() {
+   function renderFrame() 
+   {
      if (pixelCounter > (ledCount-5)) {
        goingUp = 0
      }

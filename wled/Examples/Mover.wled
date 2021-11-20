@@ -4,7 +4,8 @@
 program Mover
 {
 
-  function renderFrame() {
+  function renderFrame() 
+  {
     locn = millis() / 100                     // Lower value = faster animation.
     for (i = 0; i < ledCount; i = i + 30) {   // 2 colours.
       leds[locn+i] = colorWheel(50)           // Length of 5.

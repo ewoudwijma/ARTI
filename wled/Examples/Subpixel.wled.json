@@ -2,19 +2,36 @@
   "program": {
     "ID": "Subpixel",
     "block": {
-      "LCURL": "{",
       "*": [
         {
           "statement": {
             "assign": {
               "varleft": {
-                "ID": "t"
+                "ID": "t",
+                "level": 1,
+                "index": 0
               },
               "expr": {
                 "term": {
-                  "factor": {
-                    "INTEGER_CONST": "0"
-                  }
+                  "INTEGER_CONST": "0",
+                  "operator": 0
+                }
+              }
+            }
+          }
+        },
+        {
+          "statement": {
+            "assign": {
+              "varleft": {
+                "ID": "reverseSlider",
+                "level": 1,
+                "index": 1
+              },
+              "expr": {
+                "term": {
+                  "INTEGER_CONST": "0",
+                  "operator": 0
                 }
               }
             }
@@ -25,119 +42,72 @@
             "function": {
               "ID": "renderFrame",
               "block": {
-                "LCURL": "{",
                 "*": [
                   {
                     "statement": {
                       "assign": {
                         "varleft": {
-                          "ID": "t"
+                          "ID": "t",
+                          "level": 1,
+                          "index": 0
                         },
                         "expr": {
                           "term": {
                             "factor": {
-                              "call": {
-                                "ID": "millis",
-                                "RPAREN": ")",
-                                "external": 22
-                              }
-                            },
-                            "*": [
-                              {
-                                "DIV": "/"
-                              },
-                              {
-                                "factor": {
-                                  "INTEGER_CONST": "1000"
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
-                      "assign": {
-                        "varleft": {
-                          "ID": "t"
-                        },
-                        "expr": {
-                          "term": {
-                            "factor": {
-                              "call": {
-                                "ID": "sin",
-                                "actuals": {
-                                  "expr": {
-                                    "term": {
-                                      "factor": {
-                                        "varref": {
-                                          "ID": "t"
+                              "expr": {
+                                "term": {
+                                  "call": {
+                                    "ID": "sin",
+                                    "actuals": {
+                                      "expr": {
+                                        "term": {
+                                          "factor": {
+                                            "call": {
+                                              "ID": "millis",
+                                              "external": 31
+                                            }
+                                          },
+                                          "*": [
+                                            {
+                                              "DIV": "/",
+                                              "operator": 5
+                                            },
+                                            {
+                                              "factor": {
+                                                "INTEGER_CONST": "1000",
+                                                "operator": 0
+                                              }
+                                            }
+                                          ]
                                         }
                                       }
-                                    }
+                                    },
+                                    "external": 23
                                   }
                                 },
-                                "RPAREN": ")",
-                                "external": 16
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
-                      "assign": {
-                        "varleft": {
-                          "ID": "t"
-                        },
-                        "expr": {
-                          "term": {
-                            "factor": {
-                              "varref": {
-                                "ID": "t"
-                              }
-                            }
-                          },
-                          "*": [
-                            {
-                              "PLUS": "+"
-                            },
-                            {
-                              "term": {
-                                "factor": {
-                                  "INTEGER_CONST": "1"
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
-                      "assign": {
-                        "varleft": {
-                          "ID": "t"
-                        },
-                        "expr": {
-                          "term": {
-                            "factor": {
-                              "varref": {
-                                "ID": "t"
+                                "*": [
+                                  {
+                                    "PLUS": "+",
+                                    "operator": 2
+                                  },
+                                  {
+                                    "term": {
+                                      "INTEGER_CONST": "1",
+                                      "operator": 0
+                                    }
+                                  }
+                                ]
                               }
                             },
                             "*": [
                               {
-                                "DIV": "/"
+                                "DIV": "/",
+                                "operator": 5
                               },
                               {
                                 "factor": {
-                                  "INTEGER_CONST": "2"
+                                  "INTEGER_CONST": "2",
+                                  "operator": 0
                                 }
                               }
                             ]
@@ -150,18 +120,23 @@
                     "statement": {
                       "assign": {
                         "varleft": {
-                          "ID": "t"
+                          "ID": "t",
+                          "level": 1,
+                          "index": 0
                         },
                         "expr": {
                           "term": {
                             "factor": {
                               "varref": {
-                                "ID": "t"
+                                "ID": "t",
+                                "level": 1,
+                                "index": 0
                               }
                             },
                             "*": [
                               {
-                                "MUL": "*"
+                                "MUL": "*",
+                                "operator": 4
                               },
                               {
                                 "factor": {
@@ -177,9 +152,38 @@
                       }
                     }
                   },
-                  {}
-                ],
-                "RCURL": "}"
+                  {
+                    "statement": {
+                      "assign": {
+                        "varleft": {
+                          "ID": "reverseSlider",
+                          "level": 1,
+                          "index": 1
+                        },
+                        "expr": {
+                          "term": {
+                            "INTEGER_CONST": "256",
+                            "operator": 0
+                          },
+                          "*": [
+                            {
+                              "MINUS": "-",
+                              "operator": 3
+                            },
+                            {
+                              "term": {
+                                "varref": {
+                                  "ID": "intensitySlider",
+                                  "external": 14
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
               }
             }
           }
@@ -194,47 +198,84 @@
                 }
               },
               "block": {
-                "LCURL": "{",
                 "*": [
                   {
                     "statement": {
                       "assign": {
                         "varleft": {
-                          "ID": "diff"
+                          "ID": "diff",
+                          "level": 2,
+                          "index": 1
                         },
                         "expr": {
                           "term": {
-                            "factor": {
-                              "call": {
-                                "ID": "abs",
-                                "actuals": {
-                                  "expr": {
-                                    "term": {
-                                      "factor": {
-                                        "varref": {
-                                          "ID": "t"
-                                        }
-                                      }
-                                    },
-                                    "*": [
-                                      {
-                                        "MINUS": "-"
-                                      },
-                                      {
-                                        "term": {
-                                          "factor": {
+                            "call": {
+                              "ID": "min",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "call": {
+                                      "ID": "abs",
+                                      "actuals": {
+                                        "expr": {
+                                          "term": {
                                             "varref": {
-                                              "ID": "i"
+                                              "ID": "t",
+                                              "level": 1,
+                                              "index": 0
                                             }
-                                          }
+                                          },
+                                          "*": [
+                                            {
+                                              "MINUS": "-",
+                                              "operator": 3
+                                            },
+                                            {
+                                              "term": {
+                                                "varref": {
+                                                  "ID": "i",
+                                                  "level": 2,
+                                                  "index": 0
+                                                }
+                                              }
+                                            }
+                                          ]
                                         }
-                                      }
-                                    ]
+                                      },
+                                      "external": 25
+                                    }
                                   }
                                 },
-                                "RPAREN": ")",
-                                "external": 18
-                              }
+                                "*": [
+                                  {},
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "factor": {
+                                          "INTEGER_CONST": "256",
+                                          "operator": 0
+                                        },
+                                        "*": [
+                                          {
+                                            "DIV": "/",
+                                            "operator": 5
+                                          },
+                                          {
+                                            "factor": {
+                                              "varref": {
+                                                "ID": "reverseSlider",
+                                                "level": 1,
+                                                "index": 1
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 26
                             }
                           }
                         }
@@ -243,84 +284,43 @@
                   },
                   {
                     "statement": {
-                      "if": {
-                        "expr": {
-                          "term": {
-                            "factor": {
-                              "varref": {
-                                "ID": "diff"
-                              }
-                            }
-                          },
-                          "*": [
-                            {
-                              "GT": ">"
-                            },
-                            {
-                              "term": {
-                                "factor": {
-                                  "INTEGER_CONST": "2"
-                                }
-                              }
-                            }
-                          ]
-                        },
-                        "block": {
-                          "LCURL": "{",
-                          "*": [
-                            {
-                              "statement": {
-                                "assign": {
-                                  "varleft": {
-                                    "ID": "diff"
-                                  },
-                                  "expr": {
-                                    "term": {
-                                      "factor": {
-                                        "INTEGER_CONST": "2"
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            {}
-                          ],
-                          "RCURL": "}"
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
                       "assign": {
                         "varleft": {
-                          "ID": "bri"
+                          "ID": "bri",
+                          "level": 2,
+                          "index": 2
                         },
                         "expr": {
                           "term": {
-                            "factor": {
-                              "INTEGER_CONST": "256"
-                            }
+                            "INTEGER_CONST": "256",
+                            "operator": 0
                           },
                           "*": [
                             {
-                              "MINUS": "-"
+                              "MINUS": "-",
+                              "operator": 3
                             },
                             {
                               "term": {
                                 "factor": {
                                   "varref": {
-                                    "ID": "diff"
+                                    "ID": "diff",
+                                    "level": 2,
+                                    "index": 1
                                   }
                                 },
                                 "*": [
                                   {
-                                    "MUL": "*"
+                                    "MUL": "*",
+                                    "operator": 4
                                   },
                                   {
                                     "factor": {
-                                      "INTEGER_CONST": "128"
+                                      "varref": {
+                                        "ID": "reverseSlider",
+                                        "level": 1,
+                                        "index": 1
+                                      }
                                     }
                                   }
                                 ]
@@ -335,81 +335,68 @@
                     "statement": {
                       "assign": {
                         "varleft": {
-                          "ID": "leds"
+                          "ID": "leds",
+                          "external": 2
                         },
                         "indices": {
                           "expr": {
                             "term": {
-                              "factor": {
-                                "varref": {
-                                  "ID": "i"
-                                }
+                              "varref": {
+                                "ID": "i",
+                                "level": 2,
+                                "index": 0
                               }
                             }
                           }
                         },
                         "expr": {
                           "term": {
-                            "factor": {
-                              "call": {
-                                "ID": "hsv",
-                                "actuals": {
-                                  "expr": {
-                                    "term": {
-                                      "factor": {
-                                        "INTEGER_CONST": "0"
+                            "call": {
+                              "ID": "hsv",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "INTEGER_CONST": "0",
+                                    "operator": 0
+                                  }
+                                },
+                                "*": [
+                                  {},
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "255",
+                                        "operator": 0
                                       }
                                     }
                                   },
-                                  "*": [
-                                    {
-                                      "COMMA": ","
-                                    },
-                                    {
-                                      "expr": {
-                                        "term": {
-                                          "factor": {
-                                            "INTEGER_CONST": "255"
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "COMMA": ","
-                                    },
-                                    {
-                                      "expr": {
-                                        "term": {
-                                          "factor": {
-                                            "varref": {
-                                              "ID": "bri"
-                                            }
-                                          }
+                                  {},
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "varref": {
+                                          "ID": "bri",
+                                          "level": 2,
+                                          "index": 2
                                         }
                                       }
                                     }
-                                  ]
-                                },
-                                "RPAREN": ")",
-                                "external": 4
-                              }
+                                  }
+                                ]
+                              },
+                              "external": 4
                             }
                           }
-                        },
-                        "external": 2
+                        }
                       }
                     }
-                  },
-                  {}
-                ],
-                "RCURL": "}"
+                  }
+                ]
               }
             }
           }
-        },
-        {}
-      ],
-      "RCURL": "}"
+        }
+      ]
     }
   }
 }

@@ -4,14 +4,10 @@
 program BrightPulse
 {
 
-  function renderFrame() {
-    sa = sampleAvg * 256
-    sa = sa / (256 - speed)
-    lum = constrain(sa, 0, 255)
-    sc0 = segcolor(0)
-    sc1 = segcolor(1)
-    cb = colorBlend(sc1, sc0, lum)
-    fill(cb)
+  function renderFrame() 
+  {
+    lum = constrain(sampleAvg * 256 / (256 - speed), 0, 255)
+    fill(colorBlend(segcolor(1), segcolor(0), lum))
   }
 
 }

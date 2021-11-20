@@ -2,14 +2,12 @@
   "program": {
     "ID": "Shift",
     "block": {
-      "LCURL": "{",
       "*": [
         {
           "statement": {
             "function": {
               "ID": "renderFrame",
               "block": {
-                "LCURL": "{",
                 "*": [
                   {
                     "statement": {
@@ -18,31 +16,24 @@
                         "actuals": {
                           "expr": {
                             "term": {
-                              "factor": {
-                                "INTEGER_CONST": "0"
-                              }
+                              "INTEGER_CONST": "0",
+                              "operator": 0
                             }
                           },
                           "*": [
-                            {
-                              "COMMA": ","
-                            },
+                            {},
                             {
                               "expr": {
                                 "term": {
-                                  "factor": {
-                                    "call": {
-                                      "ID": "random",
-                                      "RPAREN": ")",
-                                      "external": 15
-                                    }
+                                  "call": {
+                                    "ID": "random",
+                                    "external": 22
                                   }
                                 }
                               }
                             }
                           ]
                         },
-                        "RPAREN": ")",
                         "external": 1
                       }
                     }
@@ -54,27 +45,21 @@
                         "actuals": {
                           "expr": {
                             "term": {
-                              "factor": {
-                                "INTEGER_CONST": "1"
-                              }
+                              "INTEGER_CONST": "1",
+                              "operator": 0
                             }
                           }
                         },
-                        "RPAREN": ")",
-                        "external": 12
+                        "external": 19
                       }
                     }
-                  },
-                  {}
-                ],
-                "RCURL": "}"
+                  }
+                ]
               }
             }
           }
-        },
-        {}
-      ],
-      "RCURL": "}"
+        }
+      ]
     }
   }
 }

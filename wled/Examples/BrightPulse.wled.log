@@ -1,571 +1,203 @@
+Heap Setup < 0 (0ms) wled.json Examples/BrightPulse.wled
+Heap open definition file > 0
+Heap definitionJsonDoc 16384 > 0 (0ms)
+programFile size 232 bytes
+Heap parseTreeJsonDoc 32768 > 0 (0ms)
  PROGRAM PROGRAM -> [ID BrightPulse] 0
  ID BrightPulse -> [LCURL {] 0
- block 0
   LCURL { -> [FUNCTION FUNCTION] 1
-   statement 2
-    variable 3
-    fail variable
-    assign 3
-     varleft 4
-     fail varleft
-    fail assign
-    function 3
      FUNCTION FUNCTION -> [ID renderFrame] 4
      ID renderFrame -> [LPAREN (] 4
       LPAREN ( -> [RPAREN )] 5
-      formals 5
-       formal 6
-       fail formal
-      remove key/value FUNCTION FUNCTION (5)
-      remove key/value LPAREN ( (5)
-      remove empty values for key formals (5)
-      success formals
+      found formals
       RPAREN ) -> [LCURL {] 5
-     block 4
-      LCURL { -> [ID sa] 5
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         ID sa -> [ASSIGN =] 8
-         success varleft
-         ASSIGN = -> [ID sampleAvg] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
-             ID sampleAvg -> [MUL *] 12
-            fail call
-            varref 11
-            ID sampleAvg -> [MUL *] 11
-            success varref
-           success factor
-             MUL * -> [INTEGER_CONST 256] 12
-            factor 11
-             call 12
-             fail call
-             varref 12
-             fail varref
-             INTEGER_CONST 256 -> [ID sa] 12
-            success factor
-          remove multiple key (9)
-          success term
-         remove key/value ASSIGN = (8)
-         remove multiple key (8)
-         remove multiple empty (8)
-         success expr
-        success assign
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         ID sa -> [ASSIGN =] 8
-         success varleft
-         ASSIGN = -> [ID sa] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
-             ID sa -> [DIV /] 12
-            fail call
-            varref 11
-            ID sa -> [DIV /] 11
-            success varref
-           success factor
-             DIV / -> [LPAREN (] 12
-            factor 11
-             call 12
-             fail call
-             varref 12
-             fail varref
-              LPAREN ( -> [INTEGER_CONST 256] 13
-              expr 13
-               term 14
-                factor 15
-                 call 16
-                 fail call
-                 varref 16
-                 fail varref
-                 INTEGER_CONST 256 -> [MINUS -] 16
-                success factor
-               remove multiple key (14)
-               remove multiple empty (14)
-               success term
-                 MINUS - -> [ID speed] 16
-                term 15
-                 factor 16
-                  call 17
-                   ID speed -> [RPAREN )] 18
-                  fail call
-                  varref 17
-                  ID speed -> [RPAREN )] 17
-                  success varref
-                 success factor
-                remove multiple key (15)
-                remove multiple empty (15)
-                success term
-              remove key/value LPAREN ( (13)
-              remove multiple key (13)
-              success expr
-              RPAREN ) -> [ID lum] 13
-            success factor
-          remove multiple key (9)
-          success term
-         remove key/value ASSIGN = (8)
-         remove multiple key (8)
-         remove multiple empty (8)
-         success expr
-        success assign
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
+      LCURL { -> [ID lum] 5
          ID lum -> [ASSIGN =] 8
-         success varleft
+         found varleft
          ASSIGN = -> [ID constrain] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
              ID constrain -> [LPAREN (] 12
-             LPAREN ( -> [ID sa] 12
-             actuals 12
-              expr 13
-               term 14
-                factor 15
-                 call 16
-                  ID sa -> [COMMA ,] 17
-                 fail call
-                 varref 16
-                 ID sa -> [COMMA ,] 16
-                 success varref
-                success factor
-               remove multiple key (14)
-               remove multiple empty (14)
-               success term
-              remove multiple key (13)
-              remove multiple empty (13)
-              success expr
+             LPAREN ( -> [ID sampleAvg] 12
+                  ID sampleAvg -> [MUL *] 17
+                 ID sampleAvg -> [MUL *] 16
+                 found varref
+                found factor
+                  MUL * -> [INTEGER_CONST 256] 17
+                  INTEGER_CONST 256 -> [DIV /] 17
+                 found factor
+                  DIV / -> [LPAREN (] 17
+                   LPAREN ( -> [INTEGER_CONST 256] 18
+                      INTEGER_CONST 256 -> [MINUS -] 21
+                     found factor
+                    found term
+                      MINUS - -> [ID speed] 21
+                        ID speed -> [RPAREN )] 23
+                       ID speed -> [RPAREN )] 22
+                       found varref
+                      found factor
+                     found term
+                   found expr
+                   RPAREN ) -> [COMMA ,] 18
+                 found factor
+               found term
+              found expr
                COMMA , -> [INTEGER_CONST 0] 14
-               expr 14
-                term 15
-                 factor 16
-                  call 17
-                  fail call
-                  varref 17
-                  fail varref
                   INTEGER_CONST 0 -> [COMMA ,] 17
-                 success factor
-                remove multiple key (15)
-                remove multiple empty (15)
-                success term
-               remove multiple key (14)
-               remove multiple empty (14)
-               success expr
+                 found factor
+                found term
+               found expr
                COMMA , -> [INTEGER_CONST 255] 14
-               expr 14
-                term 15
-                 factor 16
-                  call 17
-                  fail call
-                  varref 17
-                  fail varref
                   INTEGER_CONST 255 -> [RPAREN )] 17
-                 success factor
-                remove multiple key (15)
-                remove multiple empty (15)
-                success term
-               remove multiple key (14)
-               remove multiple empty (14)
-               success expr
-             remove key/value LPAREN ( (12)
-             remove multiple key (12)
-             success actuals
-             RPAREN ) -> [ID sc0] 12
-            success call
-           success factor
-          remove multiple key (9)
-          remove multiple empty (9)
-          success term
-         remove key/value ASSIGN = (8)
-         remove multiple key (8)
-         remove multiple empty (8)
-         success expr
-        success assign
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         ID sc0 -> [ASSIGN =] 8
-         success varleft
-         ASSIGN = -> [ID segcolor] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
-             ID segcolor -> [LPAREN (] 12
-             LPAREN ( -> [INTEGER_CONST 0] 12
-             actuals 12
-              expr 13
-               term 14
-                factor 15
-                 call 16
-                 fail call
-                 varref 16
-                 fail varref
-                 INTEGER_CONST 0 -> [RPAREN )] 16
-                success factor
-               remove multiple key (14)
-               remove multiple empty (14)
-               success term
-              remove multiple key (13)
-              remove multiple empty (13)
-              success expr
-             remove key/value LPAREN ( (12)
-             remove multiple key (12)
-             remove multiple empty (12)
-             success actuals
-             RPAREN ) -> [ID sc1] 12
-            success call
-           success factor
-          remove multiple key (9)
-          remove multiple empty (9)
-          success term
-         remove key/value ASSIGN = (8)
-         remove multiple key (8)
-         remove multiple empty (8)
-         success expr
-        success assign
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         ID sc1 -> [ASSIGN =] 8
-         success varleft
-         ASSIGN = -> [ID segcolor] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
-             ID segcolor -> [LPAREN (] 12
-             LPAREN ( -> [INTEGER_CONST 1] 12
-             actuals 12
-              expr 13
-               term 14
-                factor 15
-                 call 16
-                 fail call
-                 varref 16
-                 fail varref
-                 INTEGER_CONST 1 -> [RPAREN )] 16
-                success factor
-               remove multiple key (14)
-               remove multiple empty (14)
-               success term
-              remove multiple key (13)
-              remove multiple empty (13)
-              success expr
-             remove key/value LPAREN ( (12)
-             remove multiple key (12)
-             remove multiple empty (12)
-             success actuals
-             RPAREN ) -> [ID cb] 12
-            success call
-           success factor
-          remove multiple key (9)
-          remove multiple empty (9)
-          success term
-         remove key/value ASSIGN = (8)
-         remove multiple key (8)
-         remove multiple empty (8)
-         success expr
-        success assign
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         ID cb -> [ASSIGN =] 8
-         success varleft
-         ASSIGN = -> [ID colorBlend] 8
-         expr 8
-          term 9
-           factor 10
-            call 11
-             ID colorBlend -> [LPAREN (] 12
-             LPAREN ( -> [ID sc1] 12
-             actuals 12
-              expr 13
-               term 14
-                factor 15
-                 call 16
-                  ID sc1 -> [COMMA ,] 17
-                 fail call
-                 varref 16
-                 ID sc1 -> [COMMA ,] 16
-                 success varref
-                success factor
-               remove multiple key (14)
-               remove multiple empty (14)
-               success term
-              remove multiple key (13)
-              remove multiple empty (13)
-              success expr
-               COMMA , -> [ID sc0] 14
-               expr 14
-                term 15
-                 factor 16
-                  call 17
-                   ID sc0 -> [COMMA ,] 18
-                  fail call
-                  varref 17
-                  ID sc0 -> [COMMA ,] 17
-                  success varref
-                 success factor
-                remove multiple key (15)
-                remove multiple empty (15)
-                success term
-               remove multiple key (14)
-               remove multiple empty (14)
-               success expr
-               COMMA , -> [ID lum] 14
-               expr 14
-                term 15
-                 factor 16
-                  call 17
-                   ID lum -> [RPAREN )] 18
-                  fail call
-                  varref 17
-                  ID lum -> [RPAREN )] 17
-                  success varref
-                 success factor
-                remove multiple key (15)
-                remove multiple empty (15)
-                success term
-               remove multiple key (14)
-               remove multiple empty (14)
-               success expr
-             remove key/value LPAREN ( (12)
-             remove multiple key (12)
-             success actuals
+                 found factor
+                found term
+               found expr
+             found actuals
              RPAREN ) -> [ID fill] 12
-            success call
-           success factor
-          remove multiple key (9)
-          remove multiple empty (9)
-          success term
-         remove key/value ASSIGN = (8)
-         remove multiple key (8)
-         remove multiple empty (8)
-         success expr
-        success assign
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
+            found call
+           found factor
+          found term
+         found expr
+        found assign
+       found statement
          ID fill -> [LPAREN (] 8
-         success varleft
-        fail assign
-        function 7
-        fail function
-        call 7
+         found varleft
          ID fill -> [LPAREN (] 8
-         LPAREN ( -> [ID cb] 8
-         actuals 8
-          expr 9
-           term 10
-            factor 11
-             call 12
-              ID cb -> [RPAREN )] 13
-             fail call
-             varref 12
-             ID cb -> [RPAREN )] 12
-             success varref
-            success factor
-           remove multiple key (10)
-           remove multiple empty (10)
-           success term
-          remove multiple key (9)
-          remove multiple empty (9)
-          success expr
-         remove key/value LPAREN ( (8)
-         remove multiple key (8)
-         remove multiple empty (8)
-         success actuals
+         LPAREN ( -> [ID colorBlend] 8
+              ID colorBlend -> [LPAREN (] 13
+              LPAREN ( -> [ID segcolor] 13
+                   ID segcolor -> [LPAREN (] 18
+                   LPAREN ( -> [INTEGER_CONST 1] 18
+                       INTEGER_CONST 1 -> [RPAREN )] 22
+                      found factor
+                     found term
+                    found expr
+                   found actuals
+                   RPAREN ) -> [COMMA ,] 18
+                  found call
+                 found factor
+                found term
+               found expr
+                COMMA , -> [ID segcolor] 15
+                    ID segcolor -> [LPAREN (] 19
+                    LPAREN ( -> [INTEGER_CONST 0] 19
+                        INTEGER_CONST 0 -> [RPAREN )] 23
+                       found factor
+                      found term
+                     found expr
+                    found actuals
+                    RPAREN ) -> [COMMA ,] 19
+                   found call
+                  found factor
+                 found term
+                found expr
+                COMMA , -> [ID lum] 15
+                    ID lum -> [RPAREN )] 19
+                   ID lum -> [RPAREN )] 18
+                   found varref
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [RPAREN )] 13
+             found call
+            found factor
+           found term
+          found expr
+         found actuals
          RPAREN ) -> [RCURL }] 8
-        success call
-       success statement
-       statement 6
-        variable 7
-        fail variable
-        assign 7
-         varleft 8
-         fail varleft
-        fail assign
-        function 7
-        fail function
-        call 7
-        fail call
-        for 7
-        fail for
-        if 7
-        fail if
-        block 7
-        fail block
-       fail statement
+        found call
+       found statement
       RCURL } -> [RCURL }] 5
-     remove key/value RPAREN ) (4)
-     remove multiple key (4)
-     success block
-    success function
-   success statement
-   statement 2
-    variable 3
-    fail variable
-    assign 3
-     varleft 4
-     fail varleft
-    fail assign
-    function 3
-    fail function
-    call 3
-    fail call
-    for 3
-    fail for
-    if 3
-    fail if
-    block 3
-    fail block
-   fail statement
+     found block
+    found function
+   found statement
   RCURL } 1
- remove key/value PROGRAM PROGRAM (0)
- remove multiple key (0)
- success block
-Symbol program Parsed until (17,1) 293 of 293
-par mem 11762 of 29304 29304 1 0 23
-prog size 293 factor 40
-par mem 5583 of 29304 29304 1 0 23
+ found block
+Symbol program Parsed until (13,1) 232 of 232
+definitionJson usage 10355 of 16384 (63 %) (24 0 6)
+parseTree usage      8228 of 32768 (25 %) (1 0 28)
+garbageCollect       6084 of 32768 (19 %) (1 0 28)
 Destruct Lexer
+Heap parse > 0 (0ms)
+
+Optimizer
+Heap optimize > 0 (0ms)
 
 Analyzer
  Program BrightPulse 1 0
      Function BrightPulse.renderFrame
-         Assign renderFrame.sa of notype
-         Assign sa = (8)
-             Ext Variable found sampleAvg (12)
-         Assign sa = (8)
-             VarRef found renderFrame.sa (12)
-                    Ext Variable found speed (19)
-         Assign renderFrame.lum of notype
-         Assign lum = (8)
-             Ext Function found constrain (12)
-                 VarRef found renderFrame.sa (16)
-         Assign renderFrame.sc0 of notype
-         Assign sc0 = (8)
-             Ext Function found segcolor (12)
-         Assign renderFrame.sc1 of notype
-         Assign sc1 = (8)
-             Ext Function found segcolor (12)
-         Assign renderFrame.cb of notype
-         Assign cb = (8)
-             Ext Function found colorBlend (12)
-                 VarRef found renderFrame.sc1 (16)
-                   VarRef found renderFrame.sc0 (18)
-                   VarRef found renderFrame.lum (18)
+         F_Assign renderFrame.lum of notype
+         F_Assign lum = (8)
+            Ext Function found constrain (11)
+                Ext Variable found sampleAvg (15) F_VarRef
+                      VarRef speed ID not found in scope of renderFrame
          Ext Function found fill (8)
-             VarRef found renderFrame.cb (12)
-     0 Assign renderFrame.sa notype 2
-     1 Assign renderFrame.lum notype 2
-     2 Assign renderFrame.sc0 notype 2
-     3 Assign renderFrame.sc1 notype 2
-     4 Assign renderFrame.cb notype 2
- 0 Function BrightPulse.renderFrame  1
+            Ext Function found colorBlend (11)
+               Ext Function found segcolor (14)
+                 Ext Function found segcolor (16)
+                 VarRef found renderFrame.lum (16)
+     0 F_Assign renderFrame.lum of 9 (2)
+ 0 F_Function BrightPulse.renderFrame of 9 (1)
+Heap analyze > 0 (0ms)
 
 interpret BrightPulse 1 1
  program name ID
  Program BrightPulse BrightPulse
      Save block of renderFrame
+Heap Interpret main > 0 (0ms)
          Call renderFrame (1)
-                 VarRef ext.sampleAvg = 9.000000 (push 1)
-                  MUL * (Push 2)
-                   INTEGER_CONST 256 (Push 3)
-               9.000000 * 256.000000 = 2304.000000 (push 1)
-             renderFrame.sa := 2304.000000 (pop 0)
-                 VarRef renderFrame.sa = 2304.000000 (push 1)
-                  DIV / (Push 2)
+                    F_VarRef ext.sampleAvg = 18.000000 (push 1)
+                     MUL * (Push 2)
                       INTEGER_CONST 256 (Push 3)
-                      MINUS - (Push 4)
-                        VarRef ext.speed = 11.000000 (push 5)
-                   256.000000 - 11.000000 = 245.000000 (push 3)
-               2304.000000 / 245.000000 = 9.404082 (push 1)
-             renderFrame.sa := 9.404082 (pop 0)
-                     VarRef renderFrame.sa = 9.404082 (push 1)
-                       INTEGER_CONST 0 (Push 2)
-                       INTEGER_CONST 255 (Push 3)
-                 Call constrain(9.404082, 0.000000, 255.000000) = 264.404082
-             renderFrame.lum := 264.404082 (pop 0)
-                     INTEGER_CONST 0 (Push 1)
-                 Call segcolor(0.000000) = 0.000000
-             renderFrame.sc0 := 0.000000 (pop 0)
-                     INTEGER_CONST 1 (Push 1)
-                 Call segcolor(1.000000) = 1.000000
-             renderFrame.sc1 := 1.000000 (pop 0)
-                     VarRef renderFrame.sc1 = 1.000000 (push 1)
-                       VarRef renderFrame.sc0 = 0.000000 (push 2)
-                       VarRef renderFrame.lum = 264.404082 (push 3)
-                 Call colorBlend(1.000000, 0.000000, 264.404082) = 265.404082
-             renderFrame.cb := 265.404082 (pop 0)
-                 VarRef renderFrame.cb = 265.404082 (push 1)
-fill(265.404082)
-             Call fill(265.404082)
+                     DIV / (Push 4)
+                        INTEGER_CONST 256 (Push 5)
+                         MINUS - (Push 6)
+                          F_VarRef renderFrame.speed = 2.000000 (push 7) 0-0
+                      256.000000 - 2.000000 = 254.000000 (push 8)
+                  18.000000 * 256.000000 = 4608.000000 (push 6)
+                  4608.000000 / 254.000000 = 18.141732 (push 6)
+                     INTEGER_CONST 0 (Push 2)
+                     INTEGER_CONST 255 (Push 3)
+                Call constrain(18.141732, 0.000000, 255.000000) = 273.141732
+             renderFrame.lum := 273.141732 (pop 0) 2-0
+                      INTEGER_CONST 1 (Push 1)
+                   Call segcolor(1.000000) = 1.000000
+                        INTEGER_CONST 0 (Push 2)
+                     Call segcolor(0.000000) = 0.000000
+                     F_VarRef renderFrame.lum = 273.141732 (push 3) 2-0
+                Call colorBlend(1.000000, 0.000000, 273.141732) = 274.141732
+fill(274.141732)
+             Call fill(274.141732)
 Destruct activation record renderFrame
          Call renderFrame (1)
-                 VarRef ext.sampleAvg = 9.000000 (push 1)
-                  MUL * (Push 2)
-                   INTEGER_CONST 256 (Push 3)
-               9.000000 * 256.000000 = 2304.000000 (push 1)
-             renderFrame.sa := 2304.000000 (pop 0)
-                 VarRef renderFrame.sa = 2304.000000 (push 1)
-                  DIV / (Push 2)
+                    F_VarRef ext.sampleAvg = 18.000000 (push 1)
+                     MUL * (Push 2)
                       INTEGER_CONST 256 (Push 3)
-                      MINUS - (Push 4)
-                        VarRef ext.speed = 11.000000 (push 5)
-                   256.000000 - 11.000000 = 245.000000 (push 3)
-               2304.000000 / 245.000000 = 9.404082 (push 1)
-             renderFrame.sa := 9.404082 (pop 0)
-                     VarRef renderFrame.sa = 9.404082 (push 1)
-                       INTEGER_CONST 0 (Push 2)
-                       INTEGER_CONST 255 (Push 3)
-                 Call constrain(9.404082, 0.000000, 255.000000) = 264.404082
-             renderFrame.lum := 264.404082 (pop 0)
-                     INTEGER_CONST 0 (Push 1)
-                 Call segcolor(0.000000) = 0.000000
-             renderFrame.sc0 := 0.000000 (pop 0)
-                     INTEGER_CONST 1 (Push 1)
-                 Call segcolor(1.000000) = 1.000000
-             renderFrame.sc1 := 1.000000 (pop 0)
-                     VarRef renderFrame.sc1 = 1.000000 (push 1)
-                       VarRef renderFrame.sc0 = 0.000000 (push 2)
-                       VarRef renderFrame.lum = 264.404082 (push 3)
-                 Call colorBlend(1.000000, 0.000000, 264.404082) = 265.404082
-             renderFrame.cb := 265.404082 (pop 0)
-                 VarRef renderFrame.cb = 265.404082 (push 1)
-fill(265.404082)
-             Call fill(265.404082)
+                     DIV / (Push 4)
+                        INTEGER_CONST 256 (Push 5)
+                         MINUS - (Push 6)
+                          F_VarRef renderFrame.speed = 273.141732 (push 7) 0-0
+                      256.000000 - 273.141732 = -17.141732 (push 8)
+                  18.000000 * 256.000000 = 4608.000000 (push 6)
+                  4608.000000 / -17.141732 = -268.817639 (push 6)
+                     INTEGER_CONST 0 (Push 2)
+                     INTEGER_CONST 255 (Push 3)
+                Call constrain(-268.817639, 0.000000, 255.000000) = -13.817639
+             renderFrame.lum := -13.817639 (pop 0) 2-0
+                      INTEGER_CONST 1 (Push 1)
+                   Call segcolor(1.000000) = 1.000000
+                        INTEGER_CONST 0 (Push 2)
+                     Call segcolor(0.000000) = 0.000000
+                     F_VarRef renderFrame.lum = -13.817639 (push 3) 2-0
+                Call colorBlend(1.000000, 0.000000, -13.817639) = -12.817639
+fill(-12.817639)
+             Call fill(-12.817639)
 Destruct activation record renderFrame
+Heap close Arti < 0
 Destruct callstack
 Destruct valueStack
-def mem 9435 of 12192 12192 24 0 6
-par mem 5807 of 29304 29304 1 0 23
+Heap Destruct Symbol lum (0)
+Heap Destruct ScopedSymbolTable renderFrame (0)
+Heap Destruct Symbol renderFrame (0)
+Heap Destruct ScopedSymbolTable BrightPulse (0)
+definitionJson usage  10355 of 16384 (63 %) (24 0 6)
+parseTree usage       9508 of 32768 (29 %) (1 0 26)

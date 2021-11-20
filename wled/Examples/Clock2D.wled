@@ -3,7 +3,8 @@
 program Clock2D
 {
 
-  function renderFrame() {
+  function renderFrame() 
+  {
     setRange(0,ledCount, 0) // clear all pixels
 
     //set 5 minute dots

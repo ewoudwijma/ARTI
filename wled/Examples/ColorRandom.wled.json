@@ -2,7 +2,6 @@
   "program": {
     "ID": "ColorRandom",
     "block": {
-      "LCURL": "{",
       "*": [
         {
           "statement": {
@@ -14,28 +13,7 @@
                 }
               },
               "block": {
-                "LCURL": "{",
                 "*": [
-                  {
-                    "statement": {
-                      "assign": {
-                        "varleft": {
-                          "ID": "color"
-                        },
-                        "expr": {
-                          "term": {
-                            "factor": {
-                              "call": {
-                                "ID": "random",
-                                "RPAREN": ")",
-                                "external": 15
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
                   {
                     "statement": {
                       "call": {
@@ -43,45 +21,37 @@
                         "actuals": {
                           "expr": {
                             "term": {
-                              "factor": {
-                                "varref": {
-                                  "ID": "i"
-                                }
+                              "varref": {
+                                "ID": "i",
+                                "level": 2,
+                                "index": 0
                               }
                             }
                           },
                           "*": [
-                            {
-                              "COMMA": ","
-                            },
+                            {},
                             {
                               "expr": {
                                 "term": {
-                                  "factor": {
-                                    "varref": {
-                                      "ID": "color"
-                                    }
+                                  "call": {
+                                    "ID": "random",
+                                    "external": 22
                                   }
                                 }
                               }
                             }
                           ]
                         },
-                        "RPAREN": ")",
                         "external": 1
                       }
                     }
-                  },
-                  {}
-                ],
-                "RCURL": "}"
+                  }
+                ]
               }
             }
           }
-        },
-        {}
-      ],
-      "RCURL": "}"
+        }
+      ]
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "meta": {"version": "0.0.6", "start":"program"},
+  "meta": {"version": "0.1.0", "start":"program"},
   "program": [
     "PROGRAM",
     "ID",
@@ -109,16 +109,16 @@
 
   "SEMANTICS":
   {
-    "program": {"id":"Program", "name":"ID", "block": "block"},
-    "procedure_declaration": {"id":"Function", "name":"ID", "formals": "formal_parameter_list", "block": "block"},
-    "formal_parameters": {"id":"Formal", "name":"ID", "type": "type_spec"},
-    "proccall_statement": {"id":"Call", "name":"ID", "actuals": "actual_parameter_list"},
-    "variable_declaration": {"id":"Var", "name":"ID", "type": "type_spec"},
-    "variable": {"id":"VarRef", "name":"ID"},
-    "assignment_statement": {"id":"Assign", "name":"varleft", "value":"expr"},
-    "for_loop": {"id":"For", "from":"assignment_statement", "condition":"expr", "block":"compound_statement"},
-    "expr": {"id":"Expr"},
-    "term": {"id":"Term"}
+    "program": {"id":0, "name":"ID", "block": "block"},
+    "procedure_declaration": {"id":1, "name":"ID", "formals": "formal_parameter_list", "block": "block"},
+    "proccall_statement": {"id":2, "name":"ID", "actuals": "actual_parameter_list"},
+    "variable_declaration": {"id":3, "name":"ID", "type": "type_spec"},
+    "assignment_statement": {"id":4, "name":"varleft", "value":"expr"},
+    "formal_parameters": {"id":5, "name":"ID", "type": "type_spec"},
+    "variable": {"id":6, "name":"ID"},
+    "for_loop": {"id":7, "from":"assignment_statement", "condition":"expr", "block":"compound_statement"},
+    "expr": {"id":9},
+    "term": {"id":10}
   },
  
   "EXTERNALS":
