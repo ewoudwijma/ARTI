@@ -1,14 +1,15 @@
 Heap Setup < 0 (0ms) wled.json Examples/default.wled
 Heap open definition file > 0
 Heap definitionJsonDoc 16384 > 0 (0ms)
-programFile size 216 bytes
-Heap parseTreeJsonDoc 32768 > 0 (0ms)
+programFile size 202 bytes
+Heap parseTreeJsonDoc 65536 > 0 (0ms)
  PROGRAM PROGRAM -> [ID default] 0
  ID default -> [LCURL {] 0
   LCURL { -> [ID pixelCounter] 1
      ID pixelCounter -> [ASSIGN =] 4
-     found varleft
-     ASSIGN = -> [INTEGER_CONST 0] 4
+     found varref
+       ASSIGN = -> [INTEGER_CONST 0] 6
+     found assignoperator
         INTEGER_CONST 0 -> [FUNCTION FUNCTION] 7
        found factor
       found term
@@ -22,7 +23,7 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID setPixelColor] 5
          ID setPixelColor -> [LPAREN (] 8
-         found varleft
+         found varref
          ID setPixelColor -> [LPAREN (] 8
          LPAREN ( -> [ID pixelCounter] 8
               ID pixelCounter -> [COMMA ,] 13
@@ -42,18 +43,13 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
          RPAREN ) -> [ID pixelCounter] 8
         found call
        found statement
-         ID pixelCounter -> [ASSIGN =] 8
-         found varleft
-         ASSIGN = -> [ID pixelCounter] 8
-             ID pixelCounter -> [PLUS +] 12
-            ID pixelCounter -> [PLUS +] 11
-            found varref
+         ID pixelCounter -> [ASSIGN+ +=] 8
+         found varref
+           ASSIGN+ += -> [INTEGER_CONST 1] 10
+         found assignoperator
+            INTEGER_CONST 1 -> [RCURL }] 11
            found factor
           found term
-            PLUS + -> [INTEGER_CONST 1] 11
-             INTEGER_CONST 1 -> [RCURL }] 12
-            found factor
-           found term
          found expr
         found assign
        found statement
@@ -63,58 +59,55 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
    found statement
   RCURL } 1
  found block
-Symbol program Parsed until (13,1) 216 of 216
-definitionJson usage 10355 of 16384 (63 %) (24 0 6)
-parseTree usage      4367 of 32768 (13 %) (1 0 19)
-garbageCollect       3023 of 32768 (9 %) (1 0 19)
+Symbol program Parsed until (13,1) 202 of 202
+definitionJson usage 9415 of 16384 (57 %) (23 0 6)
+parseTree usage      4019 of 65536 (6 %) (1 0 19)
+garbageCollect       2803 of 65536 (4 %) (1 0 19)
 Destruct Lexer
 Heap parse > 0 (0ms)
 
 Optimizer
+        symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+              symbol to shrink factor in term = {"varref":{"ID":"pixelCounter"}} from {"factor":{"varref":{"ID":"pixelCounter"}}}
+                symbol to shrink factor in term = {"varref":{"ID":"pixelCounter"}} from {"factor":{"varref":{"ID":"pixelCounter"}}}
+             symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
 Heap optimize > 0 (0ms)
 
 Analyzer
  Program default 1 0
-     F_Assign default.pixelCounter of notype
-     F_Assign pixelCounter = (4)
+     assign default.pixelCounter of notype
+     assign pixelCounter = (4)
      Function default.renderFrame
          Ext Function found setPixelColor (8)
             VarRef found default.pixelCounter (11)
               VarRef found default.pixelCounter (13)
-         F_Assign pixelCounter = (8)
-            VarRef found default.pixelCounter (11)
- 0 F_Assign default.pixelCounter of 9 (1)
- 1 F_Function default.renderFrame of 9 (1)
+         assign pixelCounter = (8)
+         asop +=
+ 0 assign default.pixelCounter of 9 (1)
+ 1 function default.renderFrame of 9 (1)
 Heap analyze > 0 (0ms)
 
 interpret default 1 2
- program name ID
- Program default default
+ program default
         INTEGER_CONST 0 (Push 1)
      default.pixelCounter := 0.000000 (pop 0) 1-0
      Save block of renderFrame
 Heap Interpret main > 0 (0ms)
          Call renderFrame (1)
-                F_VarRef default.pixelCounter = 0.000000 (push 1) 1-0
-                  F_VarRef default.pixelCounter = 0.000000 (push 2) 1-0
+                varref default.pixelCounter = 0.000000 (push 1) 1-0
+                  varref default.pixelCounter = 0.000000 (push 2) 1-0
 setPixelColor(0.000000, 0.000000)
              Call setPixelColor(0.000000, 0.000000)
-                F_VarRef default.pixelCounter = 0.000000 (push 1) 1-0
-                 PLUS + (Push 2)
-                  INTEGER_CONST 1 (Push 3)
-              0.000000 + 1.000000 = 1.000000 (push 4)
-             default.pixelCounter := 1.000000 (pop 0) 1-0
+                INTEGER_CONST 1 (Push 1)
+             default.pixelCounter += 1.000000 (pop 0) 1-0
 Destruct activation record renderFrame
          Call renderFrame (1)
-                F_VarRef default.pixelCounter = 1.000000 (push 1) 1-0
-                  F_VarRef default.pixelCounter = 1.000000 (push 2) 1-0
+                varref default.pixelCounter = 1.000000 (push 1) 1-0
+                  varref default.pixelCounter = 1.000000 (push 2) 1-0
 setPixelColor(1.000000, 1.000000)
              Call setPixelColor(1.000000, 1.000000)
-                F_VarRef default.pixelCounter = 1.000000 (push 1) 1-0
-                 PLUS + (Push 2)
-                  INTEGER_CONST 1 (Push 3)
-              1.000000 + 1.000000 = 2.000000 (push 4)
-             default.pixelCounter := 2.000000 (pop 0) 1-0
+                INTEGER_CONST 1 (Push 1)
+             default.pixelCounter += 2.000000 (pop 0) 1-0
 Destruct activation record renderFrame
 Heap close Arti < 0
 Destruct callstack
@@ -123,5 +116,5 @@ Heap Destruct ScopedSymbolTable renderFrame (0)
 Heap Destruct Symbol pixelCounter (0)
 Heap Destruct Symbol renderFrame (0)
 Heap Destruct ScopedSymbolTable default (0)
-definitionJson usage  10355 of 16384 (63 %) (24 0 6)
-parseTree usage       3727 of 32768 (11 %) (1 0 18)
+definitionJson usage  9415 of 16384 (57 %) (23 0 6)
+parseTree usage       3347 of 65536 (5 %) (1 0 18)

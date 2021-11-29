@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_test.cpp
-   @version 0.1.0
-   @date    2021120
+   @version 0.1.1
+   @date    20211129
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */
@@ -48,4 +48,5 @@ int main()
   execute("wled.json", "Examples/Clock2D.wled");
   execute("wled.json", "Examples/Mover.wled");
   execute("wled.json", "Examples/WaveSins.wled");
+  execute("wled.json", "Examples/Sinelon.wled");
 }

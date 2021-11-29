@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_wled_plugin.h
-   @version 0.1.0
-   @date    20211120
+   @version 0.1.1
+   @date    20211129
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */
@@ -24,7 +24,7 @@
   #include "FX.h"
   extern float sampleAvg;
 #else
-  #include "..\arti.h"
+  #include "../arti.h"
   #include <math.h>
   #include <string.h>
   #include <stdlib.h>
@@ -248,13 +248,13 @@ double WS2812FX::arti_external_function(uint8_t function, double par1, double pa
     case F_printf: {
       if (par3 == doubleNull) {
         if (par2 == doubleNull) {
-          PRINT_ARTI("%s(%f)\n", "printf1", par1);
+          PRINT_ARTI("%s(%f)\n", "printf", par1);
         }
         else
-          PRINT_ARTI("%s(%f, %f)\n", "printf2", par1, par2);
+          PRINT_ARTI("%s(%f, %f)\n", "printf", par1, par2);
       }
       else
-        PRINT_ARTI("%s(%f, %f, %f)\n", "printf3", par1, par2, par3);
+        PRINT_ARTI("%s(%f, %f, %f)\n", "printf", par1, par2, par3);
       return doubleNull;
     }
   }
@@ -457,8 +457,6 @@ bool ARTI::loop() {
 } // loop
 
 #if ARTI_PLATFORM == ARTI_ARDUINO
-
-//WLEDSR Custom Effects
 
 ARTI * arti;
 

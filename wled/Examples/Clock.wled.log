@@ -2,7 +2,7 @@ Heap Setup < 0 (0ms) wled.json Examples/Clock.wled
 Heap open definition file > 0
 Heap definitionJsonDoc 16384 > 0 (0ms)
 programFile size 263 bytes
-Heap parseTreeJsonDoc 32768 > 0 (0ms)
+Heap parseTreeJsonDoc 65536 > 0 (0ms)
  PROGRAM PROGRAM -> [ID Clock] 0
  ID Clock -> [LCURL {] 0
   LCURL { -> [FUNCTION FUNCTION] 1
@@ -13,7 +13,7 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID setRange] 5
          ID setRange -> [LPAREN (] 8
-         found varleft
+         found varref
          ID setRange -> [LPAREN (] 8
          LPAREN ( -> [INTEGER_CONST 0] 8
              INTEGER_CONST 0 -> [COMMA ,] 12
@@ -37,7 +37,7 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
         found call
        found statement
          ID setPixelColor -> [LPAREN (] 8
-         found varleft
+         found varref
          ID setPixelColor -> [LPAREN (] 8
          LPAREN ( -> [ID hour] 8
               ID hour -> [COMMA ,] 13
@@ -56,7 +56,7 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
         found call
        found statement
          ID setPixelColor -> [LPAREN (] 8
-         found varleft
+         found varref
          ID setPixelColor -> [LPAREN (] 8
          LPAREN ( -> [ID minute] 8
               ID minute -> [COMMA ,] 13
@@ -75,7 +75,7 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
         found call
        found statement
          ID setPixelColor -> [LPAREN (] 8
-         found varleft
+         found varref
          ID setPixelColor -> [LPAREN (] 8
          LPAREN ( -> [ID second] 8
               ID second -> [COMMA ,] 13
@@ -100,66 +100,74 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
   RCURL } 1
  found block
 Symbol program Parsed until (16,1) 263 of 263
-definitionJson usage 10355 of 16384 (63 %) (24 0 6)
-parseTree usage      7230 of 32768 (22 %) (1 0 19)
-garbageCollect       4958 of 32768 (15 %) (1 0 19)
+definitionJson usage 9415 of 16384 (57 %) (23 0 6)
+parseTree usage      7230 of 65536 (11 %) (1 0 19)
+garbageCollect       4958 of 65536 (8 %) (1 0 19)
 Destruct Lexer
 Heap parse > 0 (0ms)
 
 Optimizer
+              symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+                symbol to shrink factor in term = {"varref":{"ID":"ledCount"}} from {"factor":{"varref":{"ID":"ledCount"}}}
+                symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+              symbol to shrink factor in term = {"varref":{"ID":"hour"}} from {"factor":{"varref":{"ID":"hour"}}}
+                symbol to shrink factor in term = {"INTEGER_CONST":"25"} from {"factor":{"INTEGER_CONST":"25"}}
+              symbol to shrink factor in term = {"varref":{"ID":"minute"}} from {"factor":{"varref":{"ID":"minute"}}}
+                symbol to shrink factor in term = {"INTEGER_CONST":"125"} from {"factor":{"INTEGER_CONST":"125"}}
+              symbol to shrink factor in term = {"varref":{"ID":"second"}} from {"factor":{"varref":{"ID":"second"}}}
+                symbol to shrink factor in term = {"INTEGER_CONST":"225"} from {"factor":{"INTEGER_CONST":"225"}}
 Heap optimize > 0 (0ms)
 
 Analyzer
  Program Clock 1 0
      Function Clock.renderFrame
          Ext Function found setRange (8)
-              Ext Variable found ledCount (13) F_VarRef
+              Ext Variable found ledCount (13) varref
          Ext Function found setPixelColor (8)
-            Ext Variable found hour (11) F_VarRef
+            Ext Variable found hour (11) varref
          Ext Function found setPixelColor (8)
-            Ext Variable found minute (11) F_VarRef
+            Ext Variable found minute (11) varref
          Ext Function found setPixelColor (8)
-            Ext Variable found second (11) F_VarRef
- 0 F_Function Clock.renderFrame of 9 (1)
+            Ext Variable found second (11) varref
+ 0 function Clock.renderFrame of 9 (1)
 Heap analyze > 0 (0ms)
 
 interpret Clock 1 1
- program name ID
- Program Clock Clock
+ program Clock
      Save block of renderFrame
 Heap Interpret main > 0 (0ms)
          Call renderFrame (1)
                 INTEGER_CONST 0 (Push 1)
-                  F_VarRef ext.ledCount = 3.000000 (push 2)
+                  varref ext.ledCount = 3.000000 (push 2)
                   INTEGER_CONST 0 (Push 3)
              Call setRange(0.000000, 3.000000, 0.000000) = 3.000000
-                F_VarRef ext.hour = 28.000000 (push 2)
+                varref ext.hour = 28.000000 (push 2)
                   INTEGER_CONST 25 (Push 3)
 setPixelColor(28.000000, 25.000000)
              Call setPixelColor(28.000000, 25.000000)
-                F_VarRef ext.minute = 29.000000 (push 2)
+                varref ext.minute = 29.000000 (push 2)
                   INTEGER_CONST 125 (Push 3)
 setPixelColor(29.000000, 125.000000)
              Call setPixelColor(29.000000, 125.000000)
-                F_VarRef ext.second = 30.000000 (push 2)
+                varref ext.second = 30.000000 (push 2)
                   INTEGER_CONST 225 (Push 3)
 setPixelColor(30.000000, 225.000000)
              Call setPixelColor(30.000000, 225.000000)
 Destruct activation record renderFrame
          Call renderFrame (1)
                 INTEGER_CONST 0 (Push 2)
-                  F_VarRef ext.ledCount = 3.000000 (push 3)
+                  varref ext.ledCount = 3.000000 (push 3)
                   INTEGER_CONST 0 (Push 4)
              Call setRange(0.000000, 3.000000, 0.000000) = 3.000000
-                F_VarRef ext.hour = 28.000000 (push 3)
+                varref ext.hour = 28.000000 (push 3)
                   INTEGER_CONST 25 (Push 4)
 setPixelColor(28.000000, 25.000000)
              Call setPixelColor(28.000000, 25.000000)
-                F_VarRef ext.minute = 29.000000 (push 3)
+                varref ext.minute = 29.000000 (push 3)
                   INTEGER_CONST 125 (Push 4)
 setPixelColor(29.000000, 125.000000)
              Call setPixelColor(29.000000, 125.000000)
-                F_VarRef ext.second = 30.000000 (push 3)
+                varref ext.second = 30.000000 (push 3)
                   INTEGER_CONST 225 (Push 4)
 setPixelColor(30.000000, 225.000000)
              Call setPixelColor(30.000000, 225.000000)
@@ -170,5 +178,5 @@ Destruct valueStack
 Heap Destruct ScopedSymbolTable renderFrame (0)
 Heap Destruct Symbol renderFrame (0)
 Heap Destruct ScopedSymbolTable Clock (0)
-definitionJson usage  10355 of 16384 (63 %) (24 0 6)
-parseTree usage       5790 of 32768 (18 %) (1 0 18)
+definitionJson usage  9415 of 16384 (57 %) (23 0 6)
+parseTree usage       5790 of 65536 (9 %) (1 0 18)

@@ -2,7 +2,7 @@ Heap Setup < 0 (0ms) wled.json Examples/ColorRandom.wled
 Heap open definition file > 0
 Heap definitionJsonDoc 16384 > 0 (0ms)
 programFile size 133 bytes
-Heap parseTreeJsonDoc 32768 > 0 (0ms)
+Heap parseTreeJsonDoc 65536 > 0 (0ms)
  PROGRAM PROGRAM -> [ID ColorRandom] 0
  ID ColorRandom -> [LCURL {] 0
   LCURL { -> [FUNCTION FUNCTION] 1
@@ -15,7 +15,7 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID setPixelColor] 5
          ID setPixelColor -> [LPAREN (] 8
-         found varleft
+         found varref
          ID setPixelColor -> [LPAREN (] 8
          LPAREN ( -> [ID i] 8
               ID i -> [COMMA ,] 13
@@ -44,56 +44,57 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
   RCURL } 1
  found block
 Symbol program Parsed until (11,1) 133 of 133
-definitionJson usage 10355 of 16384 (63 %) (24 0 6)
-parseTree usage      3083 of 32768 (9 %) (1 0 20)
-garbageCollect       2027 of 32768 (6 %) (1 0 20)
+definitionJson usage 9415 of 16384 (57 %) (23 0 6)
+parseTree usage      3083 of 65536 (5 %) (1 0 20)
+garbageCollect       2027 of 65536 (3 %) (1 0 20)
 Destruct Lexer
 Heap parse > 0 (0ms)
 
 Optimizer
+              symbol to shrink factor in term = {"varref":{"ID":"i"}} from {"factor":{"varref":{"ID":"i"}}}
+                symbol to shrink factor in term = {"call":{"ID":"random"}} from {"factor":{"call":{"ID":"random"}}}
 Heap optimize > 0 (0ms)
 
 Analyzer
  Program ColorRandom 1 0
      Function ColorRandom.renderLed
-      F_Formal renderLed.i of notype
+      formal renderLed.i of notype
          Ext Function found setPixelColor (8)
             VarRef found renderLed.i (11)
               Ext Function found random (13)
-     0 F_Formal renderLed.i of 9 (2)
- 0 F_Function ColorRandom.renderLed of 9 (1)
+     0 formal renderLed.i of 9 (2)
+ 0 function ColorRandom.renderLed of 9 (1)
 Heap analyze > 0 (0ms)
 
 interpret ColorRandom 1 1
- program name ID
- Program ColorRandom ColorRandom
+ program ColorRandom
      Save block of renderLed
 Heap Interpret main > 0 (0ms)
-                F_VarRef renderLed.i = 0.000000 (push 1) 2-0
-                  Call random() = 41.000000
-setPixelColor(0.000000, 41.000000)
-             Call setPixelColor(0.000000, 41.000000)
-                F_VarRef renderLed.i = 1.000000 (push 1) 2-0
-                  Call random() = 18467.000000
-setPixelColor(1.000000, 18467.000000)
-             Call setPixelColor(1.000000, 18467.000000)
-                F_VarRef renderLed.i = 2.000000 (push 1) 2-0
-                  Call random() = 6334.000000
-setPixelColor(2.000000, 6334.000000)
-             Call setPixelColor(2.000000, 6334.000000)
+                varref renderLed.i = 0.000000 (push 1) 2-0
+                  Call random() = 16807.000000
+setPixelColor(0.000000, 16807.000000)
+             Call setPixelColor(0.000000, 16807.000000)
+                varref renderLed.i = 1.000000 (push 1) 2-0
+                  Call random() = 282475249.000000
+setPixelColor(1.000000, 282475249.000000)
+             Call setPixelColor(1.000000, 282475249.000000)
+                varref renderLed.i = 2.000000 (push 1) 2-0
+                  Call random() = 1622650073.000000
+setPixelColor(2.000000, 1622650073.000000)
+             Call setPixelColor(2.000000, 1622650073.000000)
 Destruct activation record renderLed
-                F_VarRef renderLed.i = 0.000000 (push 1) 2-0
-                  Call random() = 26500.000000
-setPixelColor(0.000000, 26500.000000)
-             Call setPixelColor(0.000000, 26500.000000)
-                F_VarRef renderLed.i = 1.000000 (push 1) 2-0
-                  Call random() = 19169.000000
-setPixelColor(1.000000, 19169.000000)
-             Call setPixelColor(1.000000, 19169.000000)
-                F_VarRef renderLed.i = 2.000000 (push 1) 2-0
-                  Call random() = 15724.000000
-setPixelColor(2.000000, 15724.000000)
-             Call setPixelColor(2.000000, 15724.000000)
+                varref renderLed.i = 0.000000 (push 1) 2-0
+                  Call random() = 984943658.000000
+setPixelColor(0.000000, 984943658.000000)
+             Call setPixelColor(0.000000, 984943658.000000)
+                varref renderLed.i = 1.000000 (push 1) 2-0
+                  Call random() = 1144108930.000000
+setPixelColor(1.000000, 1144108930.000000)
+             Call setPixelColor(1.000000, 1144108930.000000)
+                varref renderLed.i = 2.000000 (push 1) 2-0
+                  Call random() = 470211272.000000
+setPixelColor(2.000000, 470211272.000000)
+             Call setPixelColor(2.000000, 470211272.000000)
 Destruct activation record renderLed
 Heap close Arti < 0
 Destruct callstack
@@ -102,5 +103,5 @@ Heap Destruct Symbol i (0)
 Heap Destruct ScopedSymbolTable renderLed (0)
 Heap Destruct Symbol renderLed (0)
 Heap Destruct ScopedSymbolTable ColorRandom (0)
-definitionJson usage  10355 of 16384 (63 %) (24 0 6)
-parseTree usage       2283 of 32768 (7 %) (1 0 18)
+definitionJson usage  9415 of 16384 (57 %) (23 0 6)
+parseTree usage       2283 of 65536 (3 %) (1 0 18)

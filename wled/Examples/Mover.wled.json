@@ -1,305 +1,291 @@
-{
-  "program": {
-    "ID": "Mover",
-    "block": {
-      "*": [
-        {
-          "statement": {
-            "function": {
-              "ID": "renderFrame",
-              "block": {
-                "*": [
-                  {
-                    "statement": {
-                      "assign": {
-                        "varleft": {
-                          "ID": "locn",
-                          "level": 2,
-                          "index": 0
-                        },
-                        "expr": {
-                          "term": {
-                            "factor": {
-                              "call": {
-                                "ID": "millis",
-                                "external": 31
-                              }
-                            },
-                            "*": [
-                              {
-                                "DIV": "/",
-                                "operator": 5
-                              },
-                              {
-                                "factor": {
-                                  "INTEGER_CONST": "100",
-                                  "operator": 0
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
-                      "for": {
-                        "assign": {
-                          "varleft": {
-                            "ID": "i",
-                            "level": 2,
-                            "index": 1
-                          },
-                          "expr": {
-                            "term": {
-                              "INTEGER_CONST": "0",
-                              "operator": 0
-                            }
-                          }
-                        },
-                        "expr": {
-                          "term": {
-                            "varref": {
-                              "ID": "i",
-                              "level": 2,
-                              "index": 1
-                            }
-                          },
-                          "*": [
-                            {
-                              "LT": "<",
-                              "operator": 11
-                            },
-                            {
-                              "term": {
-                                "varref": {
-                                  "ID": "ledCount",
-                                  "external": 0
-                                }
-                              }
-                            }
-                          ]
-                        },
-                        "increment": {
-                          "assign": {
-                            "varleft": {
-                              "ID": "i",
-                              "level": 2,
-                              "index": 1
-                            },
-                            "expr": {
-                              "term": {
-                                "varref": {
-                                  "ID": "i",
-                                  "level": 2,
-                                  "index": 1
-                                }
-                              },
-                              "*": [
-                                {
-                                  "PLUS": "+",
-                                  "operator": 2
-                                },
-                                {
-                                  "term": {
-                                    "INTEGER_CONST": "30",
-                                    "operator": 0
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        "block": {
-                          "*": [
-                            {
-                              "statement": {
-                                "assign": {
-                                  "varleft": {
-                                    "ID": "leds",
-                                    "external": 2
-                                  },
-                                  "indices": {
-                                    "expr": {
-                                      "term": {
-                                        "varref": {
-                                          "ID": "locn",
-                                          "level": 2,
-                                          "index": 0
-                                        }
-                                      },
-                                      "*": [
-                                        {
-                                          "PLUS": "+",
-                                          "operator": 2
-                                        },
-                                        {
-                                          "term": {
-                                            "varref": {
-                                              "ID": "i",
-                                              "level": 2,
-                                              "index": 1
-                                            }
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "expr": {
-                                    "term": {
-                                      "call": {
-                                        "ID": "colorWheel",
-                                        "actuals": {
-                                          "expr": {
-                                            "term": {
-                                              "INTEGER_CONST": "50",
-                                              "operator": 0
-                                            }
-                                          }
-                                        },
-                                        "external": 8
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            {
-                              "statement": {
-                                "assign": {
-                                  "varleft": {
-                                    "ID": "leds",
-                                    "external": 2
-                                  },
-                                  "indices": {
-                                    "expr": {
-                                      "term": {
-                                        "varref": {
-                                          "ID": "locn",
-                                          "level": 2,
-                                          "index": 0
-                                        }
-                                      },
-                                      "*": [
-                                        {
-                                          "PLUS": "+",
-                                          "operator": 2
-                                        },
-                                        {
-                                          "term": {
-                                            "varref": {
-                                              "ID": "i",
-                                              "level": 2,
-                                              "index": 1
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "PLUS": "+",
-                                          "operator": 2
-                                        },
-                                        {
-                                          "term": {
-                                            "INTEGER_CONST": "10",
-                                            "operator": 0
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "expr": {
-                                    "term": {
-                                      "call": {
-                                        "ID": "colorWheel",
-                                        "actuals": {
-                                          "expr": {
-                                            "term": {
-                                              "INTEGER_CONST": "125",
-                                              "operator": 0
-                                            }
-                                          }
-                                        },
-                                        "external": 8
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            {
-                              "statement": {
-                                "assign": {
-                                  "varleft": {
-                                    "ID": "leds",
-                                    "external": 2
-                                  },
-                                  "indices": {
-                                    "expr": {
-                                      "term": {
-                                        "varref": {
-                                          "ID": "locn",
-                                          "level": 2,
-                                          "index": 0
-                                        }
-                                      },
-                                      "*": [
-                                        {
-                                          "PLUS": "+",
-                                          "operator": 2
-                                        },
-                                        {
-                                          "term": {
-                                            "varref": {
-                                              "ID": "i",
-                                              "level": 2,
-                                              "index": 1
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "PLUS": "+",
-                                          "operator": 2
-                                        },
-                                        {
-                                          "term": {
-                                            "INTEGER_CONST": "20",
-                                            "operator": 0
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "expr": {
-                                    "term": {
-                                      "call": {
-                                        "ID": "colorWheel",
-                                        "actuals": {
-                                          "expr": {
-                                            "term": {
-                                              "INTEGER_CONST": "200",
-                                              "operator": 0
-                                            }
-                                          }
-                                        },
-                                        "external": 8
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        }
-      ]
-    }
-  }
+{
+  "program": {
+    "ID": "Mover",
+    "block": {
+      "*": [
+        {
+          "statement": {
+            "function": {
+              "ID": "renderFrame",
+              "block": {
+                "*": [
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "locn",
+                          "level": 2,
+                          "index": 0
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "millis",
+                                "external": 31
+                              }
+                            },
+                            "*": [
+                              {
+                                "DIV": "/",
+                                "operator": 5
+                              },
+                              {
+                                "factor": {
+                                  "INTEGER_CONST": "100",
+                                  "operator": 0
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "for": {
+                        "assign": {
+                          "varref": {
+                            "ID": "i",
+                            "level": 2,
+                            "index": 1
+                          },
+                          "expr": {
+                            "term": {
+                              "INTEGER_CONST": "0",
+                              "operator": 0
+                            }
+                          }
+                        },
+                        "expr": {
+                          "term": {
+                            "varref": {
+                              "ID": "i",
+                              "level": 2,
+                              "index": 1
+                            }
+                          },
+                          "*": [
+                            {
+                              "LT": "<",
+                              "operator": 11
+                            },
+                            {
+                              "term": {
+                                "varref": {
+                                  "ID": "ledCount",
+                                  "external": 0
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "increment": {
+                          "assign": {
+                            "varref": {
+                              "ID": "i",
+                              "level": 2,
+                              "index": 1
+                            },
+                            "assignoperator": 2,
+                            "expr": {
+                              "term": {
+                                "INTEGER_CONST": "30",
+                                "operator": 0
+                              }
+                            }
+                          }
+                        },
+                        "block": {
+                          "*": [
+                            {
+                              "statement": {
+                                "assign": {
+                                  "varref": {
+                                    "ID": "leds",
+                                    "external": 2
+                                  },
+                                  "indices": {
+                                    "expr": {
+                                      "term": {
+                                        "varref": {
+                                          "ID": "locn",
+                                          "level": 2,
+                                          "index": 0
+                                        }
+                                      },
+                                      "*": [
+                                        {
+                                          "PLUS": "+",
+                                          "operator": 2
+                                        },
+                                        {
+                                          "term": {
+                                            "varref": {
+                                              "ID": "i",
+                                              "level": 2,
+                                              "index": 1
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "expr": {
+                                    "term": {
+                                      "call": {
+                                        "ID": "colorWheel",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "INTEGER_CONST": "50",
+                                              "operator": 0
+                                            }
+                                          }
+                                        },
+                                        "external": 8
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "statement": {
+                                "assign": {
+                                  "varref": {
+                                    "ID": "leds",
+                                    "external": 2
+                                  },
+                                  "indices": {
+                                    "expr": {
+                                      "term": {
+                                        "varref": {
+                                          "ID": "locn",
+                                          "level": 2,
+                                          "index": 0
+                                        }
+                                      },
+                                      "*": [
+                                        {
+                                          "PLUS": "+",
+                                          "operator": 2
+                                        },
+                                        {
+                                          "term": {
+                                            "varref": {
+                                              "ID": "i",
+                                              "level": 2,
+                                              "index": 1
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "PLUS": "+",
+                                          "operator": 2
+                                        },
+                                        {
+                                          "term": {
+                                            "INTEGER_CONST": "10",
+                                            "operator": 0
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "expr": {
+                                    "term": {
+                                      "call": {
+                                        "ID": "colorWheel",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "INTEGER_CONST": "125",
+                                              "operator": 0
+                                            }
+                                          }
+                                        },
+                                        "external": 8
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "statement": {
+                                "assign": {
+                                  "varref": {
+                                    "ID": "leds",
+                                    "external": 2
+                                  },
+                                  "indices": {
+                                    "expr": {
+                                      "term": {
+                                        "varref": {
+                                          "ID": "locn",
+                                          "level": 2,
+                                          "index": 0
+                                        }
+                                      },
+                                      "*": [
+                                        {
+                                          "PLUS": "+",
+                                          "operator": 2
+                                        },
+                                        {
+                                          "term": {
+                                            "varref": {
+                                              "ID": "i",
+                                              "level": 2,
+                                              "index": 1
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "PLUS": "+",
+                                          "operator": 2
+                                        },
+                                        {
+                                          "term": {
+                                            "INTEGER_CONST": "20",
+                                            "operator": 0
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "expr": {
+                                    "term": {
+                                      "call": {
+                                        "ID": "colorWheel",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "INTEGER_CONST": "200",
+                                              "operator": 0
+                                            }
+                                          }
+                                        },
+                                        "external": 8
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
 }

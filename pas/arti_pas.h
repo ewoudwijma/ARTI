@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_pas_plugin.h
-   @version 0.1.0
-   @date    20211120
+   @version 0.1.1
+   @date    20211129
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */
@@ -16,7 +16,7 @@
 #define ARTI_EMBEDDED 2
 #define ARTI_PLATFORM ARTI_EMBEDDED
 
-#include "..\arti.h"
+#include "../arti.h"
 
 //make sure the numbers here correspond to the order in which these functions are defined in wled.json!!
 enum Externals

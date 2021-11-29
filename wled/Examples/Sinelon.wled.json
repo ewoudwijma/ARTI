@@ -1,0 +1,403 @@
+{
+  "program": {
+    "ID": "DualSinelon",
+    "block": {
+      "*": [
+        {
+          "statement": {
+            "function": {
+              "ID": "renderFrame",
+              "block": {
+                "*": [
+                  {
+                    "statement": {
+                      "call": {
+                        "ID": "fadeToBlackBy",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "varref": {
+                                  "ID": "intensitySlider",
+                                  "external": 14
+                                }
+                              },
+                              "*": [
+                                {
+                                  "DIV": "/",
+                                  "operator": 5
+                                },
+                                {
+                                  "factor": {
+                                    "INTEGER_CONST": "4",
+                                    "operator": 0
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "external": 11
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "locn",
+                          "level": 2,
+                          "index": 0
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "millis",
+                                "external": 31
+                              }
+                            },
+                            "*": [
+                              {
+                                "DIV": "/",
+                                "operator": 5
+                              },
+                              {
+                                "factor": {
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "expr": {
+                                          "term": {
+                                            "INTEGER_CONST": "256",
+                                            "operator": 0
+                                          },
+                                          "*": [
+                                            {
+                                              "MINUS": "-",
+                                              "operator": 3
+                                            },
+                                            {
+                                              "term": {
+                                                "varref": {
+                                                  "ID": "speedSlider",
+                                                  "external": 13
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "*": [
+                                        {
+                                          "MUL": "*",
+                                          "operator": 4
+                                        },
+                                        {
+                                          "factor": {
+                                            "INTEGER_CONST": "4",
+                                            "operator": 0
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "newVal",
+                          "level": 2,
+                          "index": 1
+                        },
+                        "expr": {
+                          "term": {
+                            "expr": {
+                              "term": {
+                                "call": {
+                                  "ID": "sin",
+                                  "actuals": {
+                                    "expr": {
+                                      "term": {
+                                        "varref": {
+                                          "ID": "locn",
+                                          "level": 2,
+                                          "index": 0
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "external": 23
+                                }
+                              },
+                              "*": [
+                                {
+                                  "PLUS": "+",
+                                  "operator": 2
+                                },
+                                {
+                                  "term": {
+                                    "INTEGER_CONST": "1",
+                                    "operator": 0
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "locn2",
+                          "level": 2,
+                          "index": 2
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "millis",
+                                "external": 31
+                              }
+                            },
+                            "*": [
+                              {
+                                "DIV": "/",
+                                "operator": 5
+                              },
+                              {
+                                "factor": {
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "expr": {
+                                          "term": {
+                                            "INTEGER_CONST": "256",
+                                            "operator": 0
+                                          },
+                                          "*": [
+                                            {
+                                              "MINUS": "-",
+                                              "operator": 3
+                                            },
+                                            {
+                                              "term": {
+                                                "varref": {
+                                                  "ID": "custom1Slider",
+                                                  "external": 15
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "*": [
+                                        {
+                                          "MUL": "*",
+                                          "operator": 4
+                                        },
+                                        {
+                                          "factor": {
+                                            "INTEGER_CONST": "4",
+                                            "operator": 0
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "newVal2",
+                          "level": 2,
+                          "index": 3
+                        },
+                        "expr": {
+                          "term": {
+                            "expr": {
+                              "term": {
+                                "call": {
+                                  "ID": "sin",
+                                  "actuals": {
+                                    "expr": {
+                                      "term": {
+                                        "varref": {
+                                          "ID": "locn2",
+                                          "level": 2,
+                                          "index": 2
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "external": 23
+                                }
+                              },
+                              "*": [
+                                {
+                                  "PLUS": "+",
+                                  "operator": 2
+                                },
+                                {
+                                  "term": {
+                                    "INTEGER_CONST": "1",
+                                    "operator": 0
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "location",
+                          "level": 2,
+                          "index": 4
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "expr": {
+                                "term": {
+                                  "varref": {
+                                    "ID": "newVal",
+                                    "level": 2,
+                                    "index": 1
+                                  }
+                                },
+                                "*": [
+                                  {
+                                    "PLUS": "+",
+                                    "operator": 2
+                                  },
+                                  {
+                                    "term": {
+                                      "varref": {
+                                        "ID": "newVal2",
+                                        "level": 2,
+                                        "index": 3
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "*": [
+                              {
+                                "DIV": "/",
+                                "operator": 5
+                              },
+                              {
+                                "factor": {
+                                  "INTEGER_CONST": "4",
+                                  "operator": 0
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "location",
+                          "level": 2,
+                          "index": 4
+                        },
+                        "assignoperator": 4,
+                        "expr": {
+                          "term": {
+                            "varref": {
+                              "ID": "ledCount",
+                              "external": 0
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "leds",
+                          "external": 2
+                        },
+                        "indices": {
+                          "expr": {
+                            "term": {
+                              "varref": {
+                                "ID": "location",
+                                "level": 2,
+                                "index": 4
+                              }
+                            }
+                          }
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "colorFromPalette",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "INTEGER_CONST": "0",
+                                    "operator": 0
+                                  }
+                                },
+                                "*": [
+                                  {},
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "255",
+                                        "operator": 0
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 9
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

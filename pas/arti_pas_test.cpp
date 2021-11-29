@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_test.cpp
-   @version 0.1.0
-   @date    20211120
+   @version 0.1.1
+   @date    20211129
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */
@@ -21,9 +21,6 @@ void execute(const char *definitionName, const char *programName)
     {
       uint8_t nrOfTimes = 2;
   
-      if (strstr(programName, "Kitt"))
-        nrOfTimes = 4;
-
       for (uint8_t i=0; i<nrOfTimes; i++)
         arti->loop();
     }

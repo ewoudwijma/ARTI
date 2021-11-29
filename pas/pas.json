@@ -1,5 +1,5 @@
 {
-  "meta": {"version": "0.1.0", "start":"program"},
+  "meta": {"version": "0.1.1", "start":"program"},
   "program": [
     "PROGRAM",
     "ID",
@@ -12,31 +12,31 @@
     "compound_statement"
   ],
   "declarations" : [
-    {"?": ["VAR", {"+": ["variable_declaration", "SEMI"]}]}, 
-    {"*": ["procedure_declaration"] }
+    {"?": ["VAR", {"+": ["variable", "SEMI"]}]}, 
+    {"*": ["function"] }
   ],
-  "variable_declaration" : [
+  "variable" : [
     "ID", 
     {"*": ["COMMA", "ID"]}, 
     "COLON", 
-    "type_spec"
+    "type"
   ],
-  "procedure_declaration" : [
+  "function" : [
     "PROCEDURE", 
     "ID", 
-    {"?": ["LPAREN", "formal_parameter_list", "RPAREN"]}, 
+    {"?": ["LPAREN", "formals", "RPAREN"]}, 
     "SEMI", 
     "block", 
     "SEMI"
   ],
-  "formal_parameter_list" : ["formal_parameters", {"*":["SEMI", "formal_parameters"]}],
-  "formal_parameters" : [
+  "formals" : ["formal", {"*":["SEMI", "formal"]}],
+  "formal" : [
     "ID", 
     {"*": ["COMMA", "ID"]}, 
     "COLON", 
-    "type_spec"
+    "type"
   ],
-  "type_spec" : {"|" : ["INTEGER", "REAL"]},
+  "type" : {"|" : ["INTEGER", "REAL"]},
   "compound_statement" : [
     "BEGIN", 
     "statement_list", 
@@ -44,17 +44,17 @@
   ],
   "statement_list" : ["statement", {"*": ["SEMI", "statement"]}],
   "statement" : {"|": ["compound_statement",
-    "proccall_statement",
-    "assignment_statement","for_loop"]},
-  "proccall_statement" : [
+    "call",
+    "assign","for"]},
+  "call" : [
     "ID", 
     "LPAREN", 
-    "actual_parameter_list", 
+    "actuals", 
     "RPAREN"
   ],
-  "actual_parameter_list": {"?": ["expr", {"*": ["COMMA", "expr"]}]},
-  "assignment_statement" : [
-    "varleft", 
+  "actuals": {"?": ["expr", {"*": ["COMMA", "expr"]}]},
+  "assign" : [
+    "varref", 
     "ASSIGN", 
     "expr"
   ],
@@ -67,14 +67,13 @@
     "factor", 
     {"*": [{"|": ["MUL", "INTEGER_DIV", "FLOAT_DIV"]}, "factor"]}
   ],
-  "factor" : {"|": ["variable", 
+  "factor" : {"|": ["varref", 
     "INTEGER_CONST",
     "REAL_CONST",
     ["LPAREN", "expr", "RPAREN"]
    ]},
-  "variable": "ID",
-  "varleft": "ID",
-  "for_loop": ["FOR", "assignment_statement", "TO", "expr","DO","compound_statement"],
+  "varref": "ID",
+  "for": ["FOR", "assign", "TO", "expr","DO","block"],
 
   "TOKENS":
   {
@@ -107,20 +106,6 @@
     "DO": "DO"
   },
 
-  "SEMANTICS":
-  {
-    "program": {"id":0, "name":"ID", "block": "block"},
-    "procedure_declaration": {"id":1, "name":"ID", "formals": "formal_parameter_list", "block": "block"},
-    "proccall_statement": {"id":2, "name":"ID", "actuals": "actual_parameter_list"},
-    "variable_declaration": {"id":3, "name":"ID", "type": "type_spec"},
-    "assignment_statement": {"id":4, "name":"varleft", "value":"expr"},
-    "formal_parameters": {"id":5, "name":"ID", "type": "type_spec"},
-    "variable": {"id":6, "name":"ID"},
-    "for_loop": {"id":7, "from":"assignment_statement", "condition":"expr", "block":"compound_statement"},
-    "expr": {"id":9},
-    "term": {"id":10}
-  },
- 
   "EXTERNALS":
   {
     "printf": {"args": "__VA_ARGS__"}

@@ -2,7 +2,7 @@ Heap Setup < 0 (0ms) pas.json Examples/pas1.pas
 Heap open definition file > 0
 Heap definitionJsonDoc 16384 > 0 (0ms)
 programFile size 382 bytes
-Heap parseTreeJsonDoc 32768 > 0 (0ms)
+Heap parseTreeJsonDoc 65536 > 0 (0ms)
  PROGRAM PROGRAM -> [ID Main] 0
  ID Main -> [SEMI ;] 0
  SEMI ; -> [VAR VAR] 0
@@ -10,8 +10,8 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
       ID y -> [COLON :] 5
       COLON : -> [INTEGER INTEGER] 5
        INTEGER INTEGER -> [SEMI ;] 6
-      found type_spec
-     found variable_declaration
+      found type
+     found variable
      SEMI ; -> [PROCEDURE PROCEDURE] 4
      PROCEDURE PROCEDURE -> [ID Alpha] 4
      ID Alpha -> [LPAREN (] 4
@@ -19,23 +19,23 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
         ID a -> [COLON :] 7
         COLON : -> [INTEGER INTEGER] 7
          INTEGER INTEGER -> [SEMI ;] 8
-        found type_spec
-       found formal_parameters
+        found type
+       found formal
         SEMI ; -> [ID b] 7
          ID b -> [COLON :] 8
          COLON : -> [INTEGER INTEGER] 8
           INTEGER INTEGER -> [RPAREN )] 9
-         found type_spec
-        found formal_parameters
-      found formal_parameter_list
+         found type
+        found formal
+      found formals
       RPAREN ) -> [SEMI ;] 5
      SEMI ; -> [VAR VAR] 4
         VAR VAR -> [ID x] 7
           ID x -> [COLON :] 9
           COLON : -> [INTEGER INTEGER] 9
            INTEGER INTEGER -> [SEMI ;] 10
-          found type_spec
-         found variable_declaration
+          found type
+         found variable
          SEMI ; -> [PROCEDURE PROCEDURE] 8
          PROCEDURE PROCEDURE -> [ID Beta] 8
          ID Beta -> [LPAREN (] 8
@@ -43,32 +43,32 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
             ID a -> [COLON :] 11
             COLON : -> [INTEGER INTEGER] 11
              INTEGER INTEGER -> [SEMI ;] 12
-            found type_spec
-           found formal_parameters
+            found type
+           found formal
             SEMI ; -> [ID b] 11
              ID b -> [COLON :] 12
              COLON : -> [INTEGER INTEGER] 12
               INTEGER INTEGER -> [RPAREN )] 13
-             found type_spec
-            found formal_parameters
-          found formal_parameter_list
+             found type
+            found formal
+          found formals
           RPAREN ) -> [SEMI ;] 9
          SEMI ; -> [VAR VAR] 8
             VAR VAR -> [ID x] 11
               ID x -> [COLON :] 13
               COLON : -> [INTEGER INTEGER] 13
                INTEGER INTEGER -> [SEMI ;] 14
-              found type_spec
-             found variable_declaration
+              found type
+             found variable
              SEMI ; -> [BEGIN BEGIN] 12
           found declarations
            BEGIN BEGIN -> [ID x] 10
               ID x -> [ASSIGN :=] 13
               ID x -> [ASSIGN :=] 13
-              found varleft
+              found varref
               ASSIGN := -> [ID a] 13
                  ID a -> [MUL *] 16
-                 found variable
+                 found varref
                 found factor
                   MUL * -> [INTEGER_CONST 10] 17
                   INTEGER_CONST 10 -> [PLUS +] 17
@@ -76,26 +76,26 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
                found term
                  PLUS + -> [ID b] 16
                   ID b -> [MUL *] 17
-                  found variable
+                  found varref
                  found factor
                    MUL * -> [INTEGER_CONST 2] 18
                    INTEGER_CONST 2 -> [SEMI ;] 18
                   found factor
                 found term
               found expr
-             found assignment_statement
+             found assign
             found statement
              SEMI ; -> [ID printf] 12
                ID printf -> [LPAREN (] 14
                LPAREN ( -> [ID x] 14
                    ID x -> [RPAREN )] 18
-                   found variable
+                   found varref
                   found factor
                  found term
                 found expr
-               found actual_parameter_list
+               found actuals
                RPAREN ) -> [SEMI ;] 14
-              found proccall_statement
+              found call
              found statement
              SEMI ; -> [END END] 12
            found statement_list
@@ -103,21 +103,21 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
           found compound_statement
          found block
          SEMI ; -> [BEGIN BEGIN] 8
-        found procedure_declaration
+        found function
       found declarations
        BEGIN BEGIN -> [ID x] 6
           ID x -> [ASSIGN :=] 9
           ID x -> [ASSIGN :=] 9
-          found varleft
+          found varref
           ASSIGN := -> [LPAREN (] 9
               LPAREN ( -> [ID a] 13
                  ID a -> [PLUS +] 16
-                 found variable
+                 found varref
                 found factor
                found term
                  PLUS + -> [ID b] 16
                   ID b -> [RPAREN )] 17
-                  found variable
+                  found varref
                  found factor
                 found term
               found expr
@@ -128,19 +128,19 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
              found factor
            found term
           found expr
-         found assignment_statement
+         found assign
         found statement
          SEMI ; -> [ID printf] 8
            ID printf -> [LPAREN (] 10
            LPAREN ( -> [ID x] 10
                ID x -> [RPAREN )] 14
-               found variable
+               found varref
               found factor
              found term
             found expr
-           found actual_parameter_list
+           found actuals
            RPAREN ) -> [SEMI ;] 10
-          found proccall_statement
+          found call
          found statement
          SEMI ; -> [ID Beta] 8
            ID Beta -> [LPAREN (] 10
@@ -154,9 +154,9 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
                found factor
               found term
              found expr
-           found actual_parameter_list
+           found actuals
            RPAREN ) -> [SEMI ;] 10
-          found proccall_statement
+          found call
          found statement
          SEMI ; -> [END END] 8
        found statement_list
@@ -164,7 +164,7 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
       found compound_statement
      found block
      SEMI ; -> [BEGIN BEGIN] 4
-    found procedure_declaration
+    found function
   found declarations
    BEGIN BEGIN -> [ID Alpha] 2
       ID Alpha -> [LPAREN (] 5
@@ -182,48 +182,50 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
           found factor
          found term
         found expr
-      found actual_parameter_list
+      found actuals
       RPAREN ) -> [SEMI ;] 5
-     found proccall_statement
+     found call
     found statement
      SEMI ; -> [FOR FOR] 4
        FOR FOR -> [ID y] 6
         ID y -> [ASSIGN :=] 7
-        found varleft
+        found varref
         ASSIGN := -> [INTEGER_CONST 1] 7
            INTEGER_CONST 1 -> [TO TO] 10
           found factor
          found term
         found expr
-       found assignment_statement
+       found assign
        TO TO -> [INTEGER_CONST 2] 6
           INTEGER_CONST 2 -> [DO DO] 9
          found factor
         found term
        found expr
        DO DO -> [BEGIN BEGIN] 6
-        BEGIN BEGIN -> [ID Alpha] 7
-           ID Alpha -> [LPAREN (] 10
-           LPAREN ( -> [INTEGER_CONST 35] 10
-               INTEGER_CONST 35 -> [COMMA ,] 14
-              found factor
-             found term
-            found expr
-             COMMA , -> [ID y] 12
-                ID y -> [RPAREN )] 15
-                found variable
+        found declarations
+         BEGIN BEGIN -> [ID Alpha] 8
+            ID Alpha -> [LPAREN (] 11
+            LPAREN ( -> [INTEGER_CONST 35] 11
+                INTEGER_CONST 35 -> [COMMA ,] 15
                found factor
               found term
              found expr
-           found actual_parameter_list
-           RPAREN ) -> [SEMI ;] 10
-          found proccall_statement
-         found statement
-          SEMI ; -> [END END] 9
-        found statement_list
-        END END -> [SEMI ;] 7
-       found compound_statement
-      found for_loop
+              COMMA , -> [ID y] 13
+                 ID y -> [RPAREN )] 16
+                 found varref
+                found factor
+               found term
+              found expr
+            found actuals
+            RPAREN ) -> [SEMI ;] 11
+           found call
+          found statement
+           SEMI ; -> [END END] 10
+         found statement_list
+         END END -> [SEMI ;] 8
+        found compound_statement
+       found block
+      found for
      found statement
      SEMI ; -> [END END] 4
    found statement_list
@@ -232,54 +234,71 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
  found block
  DOT . 0
 Symbol program Parsed until (31,6) 382 of 382
-definitionJson usage 6931 of 16384 (42 %) (25 0 6)
-parseTree usage      15896 of 32768 (49 %) (1 0 24)
-garbageCollect       12248 of 32768 (37 %) (1 0 24)
+definitionJson usage 5511 of 16384 (34 %) (23 0 6)
+parseTree usage      16152 of 65536 (25 %) (1 0 24)
+garbageCollect       12408 of 65536 (19 %) (1 0 24)
 Destruct Lexer
 Heap parse > 0 (0ms)
 
 Optimizer
+                     symbol to shrink factor in term = {"varref":{"ID":"x"}} from {"factor":{"varref":{"ID":"x"}}}
+             symbol to shrink statement_list in compound_statement = {"statement":{"assign":{"varref":{"ID":"x"},"expr":{"term":{"factor":{"varref":{"ID":"a"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"10"}}]},"*":[{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"b"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}}]}}},"*":[{},{"statement":{"call":{"ID":"printf","actuals":{"expr":{"term":{"varref":{"ID":"x"}}}}}}},{}]} from {"statement_list":{"statement":{"assign":{"varref":{"ID":"x"},"expr":{"term":{"factor":{"varref":{"ID":"a"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"10"}}]},"*":[{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"b"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}}]}}},"*":[{},{"statement":{"call":{"ID":"printf","actuals":{"expr":{"term":{"varref":{"ID":"x"}}}}}}},{}]}}
+                symbol to shrink factor in term = {"varref":{"ID":"a"}} from {"factor":{"varref":{"ID":"a"}}}
+                  symbol to shrink factor in term = {"varref":{"ID":"b"}} from {"factor":{"varref":{"ID":"b"}}}
+                symbol to shrink factor in term = {"varref":{"ID":"x"}} from {"factor":{"varref":{"ID":"x"}}}
+                symbol to shrink factor in term = {"INTEGER_CONST":"5"} from {"factor":{"INTEGER_CONST":"5"}}
+                  symbol to shrink factor in term = {"INTEGER_CONST":"10"} from {"factor":{"INTEGER_CONST":"10"}}
+        symbol to shrink statement_list in compound_statement = {"statement":{"assign":{"varref":{"ID":"x"},"expr":{"term":{"factor":{"expr":{"term":{"varref":{"ID":"a"}},"*":[{"PLUS":"+"},{"term":{"varref":{"ID":"b"}}}]}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}}}},"*":[{},{"statement":{"call":{"ID":"printf","actuals":{"expr":{"term":{"varref":{"ID":"x"}}}}}}},{},{"statement":{"call":{"ID":"Beta","actuals":{"expr":{"term":{"INTEGER_CONST":"5"}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"10"}}}]}}}},{}]} from {"statement_list":{"statement":{"assign":{"varref":{"ID":"x"},"expr":{"term":{"factor":{"expr":{"term":{"varref":{"ID":"a"}},"*":[{"PLUS":"+"},{"term":{"varref":{"ID":"b"}}}]}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}}}},"*":[{},{"statement":{"call":{"ID":"printf","actuals":{"expr":{"term":{"varref":{"ID":"x"}}}}}}},{},{"statement":{"call":{"ID":"Beta","actuals":{"expr":{"term":{"INTEGER_CONST":"5"}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"10"}}}]}}}},{}]}}
+         symbol to shrink factor in term = {"INTEGER_CONST":"3"} from {"factor":{"INTEGER_CONST":"3"}}
+           symbol to shrink factor in term = {"INTEGER_CONST":"5"} from {"factor":{"INTEGER_CONST":"5"}}
+           symbol to shrink factor in term = {"INTEGER_CONST":"7"} from {"factor":{"INTEGER_CONST":"7"}}
+           symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
+          symbol to shrink factor in term = {"INTEGER_CONST":"2"} from {"factor":{"INTEGER_CONST":"2"}}
+                symbol to shrink factor in term = {"INTEGER_CONST":"35"} from {"factor":{"INTEGER_CONST":"35"}}
+                  symbol to shrink factor in term = {"varref":{"ID":"y"}} from {"factor":{"varref":{"ID":"y"}}}
+          symbol to shrink statement_list in compound_statement = {"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}},"*":[{}]} from {"statement_list":{"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}},"*":[{}]}}
+         symbol to shrink compound_statement in block = {"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}},"*":[{}]} from {"compound_statement":{"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}},"*":[{}]}}
+   symbol to shrink statement_list in compound_statement = {"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"3"},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{},{"expr":{"term":{"INTEGER_CONST":"7"}}}]}}},"*":[{},{"statement":{"for":{"assign":{"varref":{"ID":"y"},"expr":{"term":{"INTEGER_CONST":"1"}}},"expr":{"term":{"INTEGER_CONST":"2"}},"block":{"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}},"*":[{}]}}}},{}]} from {"statement_list":{"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"3"},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{},{"expr":{"term":{"INTEGER_CONST":"7"}}}]}}},"*":[{},{"statement":{"for":{"assign":{"varref":{"ID":"y"},"expr":{"term":{"INTEGER_CONST":"1"}}},"expr":{"term":{"INTEGER_CONST":"2"}},"block":{"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}},"*":[{}]}}}},{}]}}
 Heap optimize > 0 (0ms)
 
 Analyzer
  Program Main 1 0
-     F_Var Main.y of {"INTEGER":"INTEGER"}
+     variable Main.y of {"INTEGER":"INTEGER"}
      Function Main.Alpha
-      F_Formal Alpha.a of {"INTEGER":"INTEGER"}
-        F_Formal Alpha.b of {"INTEGER":"INTEGER"}
-         F_Var Alpha.x of {"INTEGER":"INTEGER"}
+      formal Alpha.a of {"INTEGER":"INTEGER"}
+        formal Alpha.b of {"INTEGER":"INTEGER"}
+         variable Alpha.x of {"INTEGER":"INTEGER"}
          Function Alpha.Beta
-          F_Formal Beta.a of {"INTEGER":"INTEGER"}
-            F_Formal Beta.b of {"INTEGER":"INTEGER"}
-             F_Var Beta.x of {"INTEGER":"INTEGER"}
-            F_Assign x = (11)
+          formal Beta.a of {"INTEGER":"INTEGER"}
+            formal Beta.b of {"INTEGER":"INTEGER"}
+             variable Beta.x of {"INTEGER":"INTEGER"}
+            assign x = (11)
                 VarRef found Beta.a (15)
                   VarRef found Beta.b (17)
               Ext Function found printf (13)
                  VarRef found Beta.x (16)
-         0 F_Formal Beta.a of 9 (3)
-         1 F_Formal Beta.b of 9 (3)
-         2 F_Var Beta.x of 9 (3)
-        F_Assign x = (7)
+         0 formal Beta.a of 9 (3)
+         1 formal Beta.b of 9 (3)
+         2 variable Beta.x of 9 (3)
+        assign x = (7)
               VarRef found Alpha.a (13)
                 VarRef found Alpha.b (15)
           Ext Function found printf (9)
              VarRef found Alpha.x (12)
-     0 F_Formal Alpha.a of 9 (2)
-     1 F_Formal Alpha.b of 9 (2)
-     2 F_Var Alpha.x of 9 (2)
-     3 F_Function Alpha.Beta of 9 (2)
-       F_Assign y = (6)
+     0 formal Alpha.a of 9 (2)
+     1 formal Alpha.b of 9 (2)
+     2 variable Alpha.x of 9 (2)
+     3 function Alpha.Beta of 9 (2)
+       assign y = (6)
               VarRef found Main.y (13)
- 0 F_Var Main.y of 9 (1)
- 1 F_Function Main.Alpha of 9 (1)
+ 0 variable Main.y of 9 (1)
+ 1 function Main.Alpha of 9 (1)
 Heap analyze > 0 (0ms)
 
 interpret Main 1 2
- program name ID
- Program Main Main
+ program Main
      Save block of Alpha
-    F_Call Alpha
+    call Alpha
        INTEGER_CONST 3 (Push 1)
         PLUS + (Push 2)
          INTEGER_CONST 5 (Push 3)
@@ -288,40 +307,39 @@ interpret Main 1 2
     Actual Alpha.a = 8.000000 (pop 2)
     Actual Alpha.b = 7.000000 (pop 2)
         Save block of Beta
-             F_VarRef Alpha.a = 8.000000 (push 1) 2-0
+             varref Alpha.a = 8.000000 (push 1) 2-0
               PLUS + (Push 2)
-               F_VarRef Alpha.b = 7.000000 (push 3) 2-1
+               varref Alpha.b = 7.000000 (push 3) 2-1
            8.000000 + 7.000000 = 15.000000 (push 4)
             MUL * (Push 2)
              INTEGER_CONST 2 (Push 3)
          15.000000 * 2.000000 = 30.000000 (push 4)
        Alpha.x := 30.000000 (pop 0) 2-2
-            F_VarRef Alpha.x = 30.000000 (push 1) 2-2
+            varref Alpha.x = 30.000000 (push 1) 2-2
 printf(30.000000)
          Call printf(30.000000)
-         F_Call Beta
+         call Beta
             INTEGER_CONST 5 (Push 1)
               INTEGER_CONST 10 (Push 2)
          Actual Beta.a = 5.000000 (pop 2)
          Actual Beta.b = 10.000000 (pop 2)
-                F_VarRef Beta.a = 5.000000 (push 1) 3-0
+                varref Beta.a = 5.000000 (push 1) 3-0
                  MUL * (Push 2)
                   INTEGER_CONST 10 (Push 3)
               5.000000 * 10.000000 = 50.000000 (push 4)
                 PLUS + (Push 2)
-                  F_VarRef Beta.b = 10.000000 (push 3) 3-1
+                  varref Beta.b = 10.000000 (push 3) 3-1
                    MUL * (Push 4)
                     INTEGER_CONST 2 (Push 5)
                 10.000000 * 2.000000 = 20.000000 (push 6)
              50.000000 + 20.000000 = 70.000000 (push 4)
             Beta.x := 70.000000 (pop 0) 3-2
-                 F_VarRef Beta.x = 70.000000 (push 1) 3-2
+                 varref Beta.x = 70.000000 (push 1) 3-2
 printf(70.000000)
               Call printf(70.000000)
 Destruct activation record Beta
 Destruct activation record Alpha
       For (0)
-      from
           INTEGER_CONST 1 (Push 1)
        Main.y := 1.000000 (pop 0) 1-0
       iteration
@@ -330,40 +348,40 @@ Destruct activation record Alpha
       conditionResult (pop 0)
       Main.(0) 1.000000 <= 2.000000 = 1.000000
       1 => run block
-        F_Call Alpha
+        call Alpha
            INTEGER_CONST 35 (Push 1)
-             F_VarRef Main.y = 1.000000 (push 2) 1-0
+             varref Main.y = 1.000000 (push 2) 1-0
         Actual Alpha.a = 35.000000 (pop 2)
         Actual Alpha.b = 1.000000 (pop 2)
             Save block of Beta
-                 F_VarRef Alpha.a = 35.000000 (push 1) 2-0
+                 varref Alpha.a = 35.000000 (push 1) 2-0
                   PLUS + (Push 2)
-                   F_VarRef Alpha.b = 1.000000 (push 3) 2-1
+                   varref Alpha.b = 1.000000 (push 3) 2-1
                35.000000 + 1.000000 = 36.000000 (push 4)
                 MUL * (Push 2)
                  INTEGER_CONST 2 (Push 3)
              36.000000 * 2.000000 = 72.000000 (push 4)
            Alpha.x := 72.000000 (pop 0) 2-2
-                F_VarRef Alpha.x = 72.000000 (push 1) 2-2
+                varref Alpha.x = 72.000000 (push 1) 2-2
 printf(72.000000)
              Call printf(72.000000)
-             F_Call Beta
+             call Beta
                 INTEGER_CONST 5 (Push 1)
                   INTEGER_CONST 10 (Push 2)
              Actual Beta.a = 5.000000 (pop 2)
              Actual Beta.b = 10.000000 (pop 2)
-                    F_VarRef Beta.a = 5.000000 (push 1) 3-0
+                    varref Beta.a = 5.000000 (push 1) 3-0
                      MUL * (Push 2)
                       INTEGER_CONST 10 (Push 3)
                   5.000000 * 10.000000 = 50.000000 (push 4)
                     PLUS + (Push 2)
-                      F_VarRef Beta.b = 10.000000 (push 3) 3-1
+                      varref Beta.b = 10.000000 (push 3) 3-1
                        MUL * (Push 4)
                         INTEGER_CONST 2 (Push 5)
                     10.000000 * 2.000000 = 20.000000 (push 6)
                  50.000000 + 20.000000 = 70.000000 (push 4)
                 Beta.x := 70.000000 (pop 0) 3-2
-                     F_VarRef Beta.x = 70.000000 (push 1) 3-2
+                     varref Beta.x = 70.000000 (push 1) 3-2
 printf(70.000000)
                   Call printf(70.000000)
 Destruct activation record Beta
@@ -374,40 +392,40 @@ Destruct activation record Alpha
       conditionResult (pop 0)
       Main.(0) 2.000000 <= 2.000000 = 1.000000
       1 => run block
-        F_Call Alpha
+        call Alpha
            INTEGER_CONST 35 (Push 1)
-             F_VarRef Main.y = 2.000000 (push 2) 1-0
+             varref Main.y = 2.000000 (push 2) 1-0
         Actual Alpha.a = 35.000000 (pop 2)
         Actual Alpha.b = 2.000000 (pop 2)
             Save block of Beta
-                 F_VarRef Alpha.a = 35.000000 (push 1) 2-0
+                 varref Alpha.a = 35.000000 (push 1) 2-0
                   PLUS + (Push 2)
-                   F_VarRef Alpha.b = 2.000000 (push 3) 2-1
+                   varref Alpha.b = 2.000000 (push 3) 2-1
                35.000000 + 2.000000 = 37.000000 (push 4)
                 MUL * (Push 2)
                  INTEGER_CONST 2 (Push 3)
              37.000000 * 2.000000 = 74.000000 (push 4)
            Alpha.x := 74.000000 (pop 0) 2-2
-                F_VarRef Alpha.x = 74.000000 (push 1) 2-2
+                varref Alpha.x = 74.000000 (push 1) 2-2
 printf(74.000000)
              Call printf(74.000000)
-             F_Call Beta
+             call Beta
                 INTEGER_CONST 5 (Push 1)
                   INTEGER_CONST 10 (Push 2)
              Actual Beta.a = 5.000000 (pop 2)
              Actual Beta.b = 10.000000 (pop 2)
-                    F_VarRef Beta.a = 5.000000 (push 1) 3-0
+                    varref Beta.a = 5.000000 (push 1) 3-0
                      MUL * (Push 2)
                       INTEGER_CONST 10 (Push 3)
                   5.000000 * 10.000000 = 50.000000 (push 4)
                     PLUS + (Push 2)
-                      F_VarRef Beta.b = 10.000000 (push 3) 3-1
+                      varref Beta.b = 10.000000 (push 3) 3-1
                        MUL * (Push 4)
                         INTEGER_CONST 2 (Push 5)
                     10.000000 * 2.000000 = 20.000000 (push 6)
                  50.000000 + 20.000000 = 70.000000 (push 4)
                 Beta.x := 70.000000 (pop 0) 3-2
-                     F_VarRef Beta.x = 70.000000 (push 1) 3-2
+                     varref Beta.x = 70.000000 (push 1) 3-2
 printf(70.000000)
                   Call printf(70.000000)
 Destruct activation record Beta
@@ -434,5 +452,5 @@ Heap Destruct ScopedSymbolTable Alpha (0)
 Heap Destruct Symbol y (0)
 Heap Destruct Symbol Alpha (0)
 Heap Destruct ScopedSymbolTable Main (0)
-definitionJson usage  6931 of 16384 (42 %) (25 0 6)
-parseTree usage       19160 of 32768 (58 %) (1 0 23)
+definitionJson usage  5511 of 16384 (34 %) (23 0 6)
+parseTree usage       19832 of 65536 (30 %) (1 0 23)

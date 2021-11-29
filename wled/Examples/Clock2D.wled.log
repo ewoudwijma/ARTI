@@ -1,8 +1,8 @@
 Heap Setup < 0 (0ms) wled.json Examples/Clock2D.wled
 Heap open definition file > 0
 Heap definitionJsonDoc 16384 > 0 (0ms)
-programFile size 479 bytes
-Heap parseTreeJsonDoc 32768 > 0 (0ms)
+programFile size 476 bytes
+Heap parseTreeJsonDoc 65536 > 0 (0ms)
  PROGRAM PROGRAM -> [ID Clock2D] 0
  ID Clock2D -> [LCURL {] 0
   LCURL { -> [FUNCTION FUNCTION] 1
@@ -13,7 +13,7 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID setRange] 5
          ID setRange -> [LPAREN (] 8
-         found varleft
+         found varref
          ID setRange -> [LPAREN (] 8
          LPAREN ( -> [INTEGER_CONST 0] 8
              INTEGER_CONST 0 -> [COMMA ,] 12
@@ -39,8 +39,9 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
          FOR FOR -> [LPAREN (] 8
          LPAREN ( -> [ID i] 8
           ID i -> [ASSIGN =] 9
-          found varleft
-          ASSIGN = -> [INTEGER_CONST 0] 9
+          found varref
+            ASSIGN = -> [INTEGER_CONST 0] 11
+          found assignoperator
              INTEGER_CONST 0 -> [SEMI ;] 12
             found factor
            found term
@@ -58,25 +59,20 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
            found term
          found expr
          SEMI ; -> [ID i] 8
-           ID i -> [ASSIGN =] 10
-           found varleft
-           ASSIGN = -> [ID i] 10
-               ID i -> [PLUS +] 14
-              ID i -> [PLUS +] 13
-              found varref
+           ID i -> [ASSIGN+ +=] 10
+           found varref
+             ASSIGN+ += -> [INTEGER_CONST 30] 12
+           found assignoperator
+              INTEGER_CONST 30 -> [RPAREN )] 13
              found factor
             found term
-              PLUS + -> [INTEGER_CONST 30] 13
-               INTEGER_CONST 30 -> [RPAREN )] 14
-              found factor
-             found term
            found expr
           found assign
          found increment
          RPAREN ) -> [LCURL {] 8
           LCURL { -> [ID setPixelColor] 9
              ID setPixelColor -> [LPAREN (] 12
-             found varleft
+             found varref
              ID setPixelColor -> [LPAREN (] 12
              LPAREN ( -> [ID circle2D] 12
                   ID circle2D -> [LPAREN (] 17
@@ -107,7 +103,7 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
         found for
        found statement
          ID setPixelColor -> [LPAREN (] 8
-         found varleft
+         found varref
          ID setPixelColor -> [LPAREN (] 8
          LPAREN ( -> [ID circle2D] 8
               ID circle2D -> [LPAREN (] 13
@@ -137,7 +133,7 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
         found call
        found statement
          ID setPixelColor -> [LPAREN (] 8
-         found varleft
+         found varref
          ID setPixelColor -> [LPAREN (] 8
          LPAREN ( -> [ID circle2D] 8
               ID circle2D -> [LPAREN (] 13
@@ -167,7 +163,7 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
         found call
        found statement
          ID setPixelColor -> [LPAREN (] 8
-         found varleft
+         found varref
          ID setPixelColor -> [LPAREN (] 8
          LPAREN ( -> [ID circle2D] 8
               ID circle2D -> [LPAREN (] 13
@@ -211,306 +207,284 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
    found statement
   RCURL } 1
  found block
-Symbol program Parsed until (22,1) 479 of 479
-definitionJson usage 10355 of 16384 (63 %) (24 0 6)
-parseTree usage      15077 of 32768 (46 %) (1 0 27)
-garbageCollect       10725 of 32768 (33 %) (1 0 27)
+Symbol program Parsed until (22,1) 476 of 476
+definitionJson usage 9415 of 16384 (57 %) (23 0 6)
+parseTree usage      14736 of 65536 (22 %) (1 0 27)
+garbageCollect       10512 of 65536 (16 %) (1 0 27)
 Destruct Lexer
 Heap parse > 0 (0ms)
 
 Optimizer
+              symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+                symbol to shrink factor in term = {"varref":{"ID":"ledCount"}} from {"factor":{"varref":{"ID":"ledCount"}}}
+                symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+              symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+             symbol to shrink factor in term = {"varref":{"ID":"i"}} from {"factor":{"varref":{"ID":"i"}}}
+               symbol to shrink factor in term = {"INTEGER_CONST":"360"} from {"factor":{"INTEGER_CONST":"360"}}
+               symbol to shrink factor in term = {"INTEGER_CONST":"30"} from {"factor":{"INTEGER_CONST":"30"}}
+                        symbol to shrink factor in term = {"varref":{"ID":"i"}} from {"factor":{"varref":{"ID":"i"}}}
+                   symbol to shrink factor in term = {"call":{"ID":"circle2D","actuals":{"expr":{"term":{"varref":{"ID":"i"}}}}}} from {"factor":{"call":{"ID":"circle2D","actuals":{"expr":{"term":{"varref":{"ID":"i"}}}}}}}
+                     symbol to shrink factor in term = {"INTEGER_CONST":"225"} from {"factor":{"INTEGER_CONST":"225"}}
+              symbol to shrink factor in term = {"call":{"ID":"circle2D","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"second"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"6"}}]}}}}} from {"factor":{"call":{"ID":"circle2D","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"second"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"6"}}]}}}}}}
+                symbol to shrink factor in term = {"INTEGER_CONST":"25"} from {"factor":{"INTEGER_CONST":"25"}}
+              symbol to shrink factor in term = {"call":{"ID":"circle2D","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"minute"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"6"}}]}}}}} from {"factor":{"call":{"ID":"circle2D","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"minute"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"6"}}]}}}}}}
+                symbol to shrink factor in term = {"INTEGER_CONST":"92"} from {"factor":{"INTEGER_CONST":"92"}}
+              symbol to shrink factor in term = {"call":{"ID":"circle2D","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"hour"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"30"}}]},"*":[{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"minute"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"2"}}]}}]}}}} from {"factor":{"call":{"ID":"circle2D","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"hour"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"30"}}]},"*":[{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"minute"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"2"}}]}}]}}}}}
+                symbol to shrink factor in term = {"INTEGER_CONST":"160"} from {"factor":{"INTEGER_CONST":"160"}}
 Heap optimize > 0 (0ms)
 
 Analyzer
  Program Clock2D 1 0
      Function Clock2D.renderFrame
          Ext Function found setRange (8)
-              Ext Variable found ledCount (13) F_VarRef
-          F_Assign renderFrame.i of notype
-          F_Assign i = (9)
+              Ext Variable found ledCount (13) varref
+          assign renderFrame.i of notype
+          assign i = (9)
             VarRef found renderFrame.i (11)
-           F_Assign i = (10)
-              VarRef found renderFrame.i (13)
+           assign i = (10)
+           asop +=
               Ext Function found setPixelColor (13)
                  Ext Function found circle2D (16)
                     VarRef found renderFrame.i (19)
          Ext Function found setPixelColor (8)
             Ext Function found circle2D (11)
-                Ext Variable found second (15) F_VarRef
+                Ext Variable found second (15) varref
          Ext Function found setPixelColor (8)
             Ext Function found circle2D (11)
-                Ext Variable found minute (15) F_VarRef
+                Ext Variable found minute (15) varref
          Ext Function found setPixelColor (8)
             Ext Function found circle2D (11)
-                Ext Variable found hour (15) F_VarRef
-                  Ext Variable found minute (17) F_VarRef
-     0 F_Assign renderFrame.i of 9 (2)
- 0 F_Function Clock2D.renderFrame of 9 (1)
+                Ext Variable found hour (15) varref
+                  Ext Variable found minute (17) varref
+     0 assign renderFrame.i of 9 (2)
+ 0 function Clock2D.renderFrame of 9 (1)
 Heap analyze > 0 (0ms)
 
 interpret Clock2D 1 1
- program name ID
- Program Clock2D Clock2D
+ program Clock2D
      Save block of renderFrame
 Heap Interpret main > 0 (0ms)
          Call renderFrame (1)
                 INTEGER_CONST 0 (Push 1)
-                  F_VarRef ext.ledCount = 3.000000 (push 2)
+                  varref ext.ledCount = 3.000000 (push 2)
                   INTEGER_CONST 0 (Push 3)
              Call setRange(0.000000, 3.000000, 0.000000) = 3.000000
              For (1)
-             from
                  INTEGER_CONST 0 (Push 2)
               renderFrame.i := 0.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 0.000000 (push 2) 2-0
+                varref renderFrame.i = 0.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               0.000000 < 360.000000 = 1.000000 (push 5)
              conditionResult (pop 1)
              1 => run block
-                       F_VarRef renderFrame.i = 0.000000 (push 2) 2-0
+                       varref renderFrame.i = 0.000000 (push 2) 2-0
 circle2D(0.000000)
                     Call circle2D(0.000000) = 0.000000
                       INTEGER_CONST 225 (Push 3)
 setPixelColor(0.000000, 225.000000)
                  Call setPixelColor(0.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 0.000000 (push 2) 2-0
-                  PLUS + (Push 3)
-                   INTEGER_CONST 30 (Push 4)
-               0.000000 + 30.000000 = 30.000000 (push 5)
-              renderFrame.i := 30.000000 (pop 1) 2-0
+                 INTEGER_CONST 30 (Push 2)
+              renderFrame.i += 30.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 30.000000 (push 2) 2-0
+                varref renderFrame.i = 30.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               30.000000 < 360.000000 = 1.000000 (push 5)
              conditionResult (pop 1)
              1 => run block
-                       F_VarRef renderFrame.i = 30.000000 (push 2) 2-0
+                       varref renderFrame.i = 30.000000 (push 2) 2-0
 circle2D(30.000000)
                     Call circle2D(30.000000) = 15.000000
                       INTEGER_CONST 225 (Push 3)
 setPixelColor(15.000000, 225.000000)
                  Call setPixelColor(15.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 30.000000 (push 2) 2-0
-                  PLUS + (Push 3)
-                   INTEGER_CONST 30 (Push 4)
-               30.000000 + 30.000000 = 60.000000 (push 5)
-              renderFrame.i := 60.000000 (pop 1) 2-0
+                 INTEGER_CONST 30 (Push 2)
+              renderFrame.i += 60.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 60.000000 (push 2) 2-0
+                varref renderFrame.i = 60.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               60.000000 < 360.000000 = 1.000000 (push 5)
              conditionResult (pop 1)
              1 => run block
-                       F_VarRef renderFrame.i = 60.000000 (push 2) 2-0
+                       varref renderFrame.i = 60.000000 (push 2) 2-0
 circle2D(60.000000)
                     Call circle2D(60.000000) = 30.000000
                       INTEGER_CONST 225 (Push 3)
 setPixelColor(30.000000, 225.000000)
                  Call setPixelColor(30.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 60.000000 (push 2) 2-0
-                  PLUS + (Push 3)
-                   INTEGER_CONST 30 (Push 4)
-               60.000000 + 30.000000 = 90.000000 (push 5)
-              renderFrame.i := 90.000000 (pop 1) 2-0
+                 INTEGER_CONST 30 (Push 2)
+              renderFrame.i += 90.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 90.000000 (push 2) 2-0
+                varref renderFrame.i = 90.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               90.000000 < 360.000000 = 1.000000 (push 5)
              conditionResult (pop 1)
              1 => run block
-                       F_VarRef renderFrame.i = 90.000000 (push 2) 2-0
+                       varref renderFrame.i = 90.000000 (push 2) 2-0
 circle2D(90.000000)
                     Call circle2D(90.000000) = 45.000000
                       INTEGER_CONST 225 (Push 3)
 setPixelColor(45.000000, 225.000000)
                  Call setPixelColor(45.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 90.000000 (push 2) 2-0
-                  PLUS + (Push 3)
-                   INTEGER_CONST 30 (Push 4)
-               90.000000 + 30.000000 = 120.000000 (push 5)
-              renderFrame.i := 120.000000 (pop 1) 2-0
+                 INTEGER_CONST 30 (Push 2)
+              renderFrame.i += 120.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 120.000000 (push 2) 2-0
+                varref renderFrame.i = 120.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               120.000000 < 360.000000 = 1.000000 (push 5)
              conditionResult (pop 1)
              1 => run block
-                       F_VarRef renderFrame.i = 120.000000 (push 2) 2-0
+                       varref renderFrame.i = 120.000000 (push 2) 2-0
 circle2D(120.000000)
                     Call circle2D(120.000000) = 60.000000
                       INTEGER_CONST 225 (Push 3)
 setPixelColor(60.000000, 225.000000)
                  Call setPixelColor(60.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 120.000000 (push 2) 2-0
-                  PLUS + (Push 3)
-                   INTEGER_CONST 30 (Push 4)
-               120.000000 + 30.000000 = 150.000000 (push 5)
-              renderFrame.i := 150.000000 (pop 1) 2-0
+                 INTEGER_CONST 30 (Push 2)
+              renderFrame.i += 150.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 150.000000 (push 2) 2-0
+                varref renderFrame.i = 150.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               150.000000 < 360.000000 = 1.000000 (push 5)
              conditionResult (pop 1)
              1 => run block
-                       F_VarRef renderFrame.i = 150.000000 (push 2) 2-0
+                       varref renderFrame.i = 150.000000 (push 2) 2-0
 circle2D(150.000000)
                     Call circle2D(150.000000) = 75.000000
                       INTEGER_CONST 225 (Push 3)
 setPixelColor(75.000000, 225.000000)
                  Call setPixelColor(75.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 150.000000 (push 2) 2-0
-                  PLUS + (Push 3)
-                   INTEGER_CONST 30 (Push 4)
-               150.000000 + 30.000000 = 180.000000 (push 5)
-              renderFrame.i := 180.000000 (pop 1) 2-0
+                 INTEGER_CONST 30 (Push 2)
+              renderFrame.i += 180.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 180.000000 (push 2) 2-0
+                varref renderFrame.i = 180.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               180.000000 < 360.000000 = 1.000000 (push 5)
              conditionResult (pop 1)
              1 => run block
-                       F_VarRef renderFrame.i = 180.000000 (push 2) 2-0
+                       varref renderFrame.i = 180.000000 (push 2) 2-0
 circle2D(180.000000)
                     Call circle2D(180.000000) = 90.000000
                       INTEGER_CONST 225 (Push 3)
 setPixelColor(90.000000, 225.000000)
                  Call setPixelColor(90.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 180.000000 (push 2) 2-0
-                  PLUS + (Push 3)
-                   INTEGER_CONST 30 (Push 4)
-               180.000000 + 30.000000 = 210.000000 (push 5)
-              renderFrame.i := 210.000000 (pop 1) 2-0
+                 INTEGER_CONST 30 (Push 2)
+              renderFrame.i += 210.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 210.000000 (push 2) 2-0
+                varref renderFrame.i = 210.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               210.000000 < 360.000000 = 1.000000 (push 5)
              conditionResult (pop 1)
              1 => run block
-                       F_VarRef renderFrame.i = 210.000000 (push 2) 2-0
+                       varref renderFrame.i = 210.000000 (push 2) 2-0
 circle2D(210.000000)
                     Call circle2D(210.000000) = 105.000000
                       INTEGER_CONST 225 (Push 3)
 setPixelColor(105.000000, 225.000000)
                  Call setPixelColor(105.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 210.000000 (push 2) 2-0
-                  PLUS + (Push 3)
-                   INTEGER_CONST 30 (Push 4)
-               210.000000 + 30.000000 = 240.000000 (push 5)
-              renderFrame.i := 240.000000 (pop 1) 2-0
+                 INTEGER_CONST 30 (Push 2)
+              renderFrame.i += 240.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 240.000000 (push 2) 2-0
+                varref renderFrame.i = 240.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               240.000000 < 360.000000 = 1.000000 (push 5)
              conditionResult (pop 1)
              1 => run block
-                       F_VarRef renderFrame.i = 240.000000 (push 2) 2-0
+                       varref renderFrame.i = 240.000000 (push 2) 2-0
 circle2D(240.000000)
                     Call circle2D(240.000000) = 120.000000
                       INTEGER_CONST 225 (Push 3)
 setPixelColor(120.000000, 225.000000)
                  Call setPixelColor(120.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 240.000000 (push 2) 2-0
-                  PLUS + (Push 3)
-                   INTEGER_CONST 30 (Push 4)
-               240.000000 + 30.000000 = 270.000000 (push 5)
-              renderFrame.i := 270.000000 (pop 1) 2-0
+                 INTEGER_CONST 30 (Push 2)
+              renderFrame.i += 270.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 270.000000 (push 2) 2-0
+                varref renderFrame.i = 270.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               270.000000 < 360.000000 = 1.000000 (push 5)
              conditionResult (pop 1)
              1 => run block
-                       F_VarRef renderFrame.i = 270.000000 (push 2) 2-0
+                       varref renderFrame.i = 270.000000 (push 2) 2-0
 circle2D(270.000000)
                     Call circle2D(270.000000) = 135.000000
                       INTEGER_CONST 225 (Push 3)
 setPixelColor(135.000000, 225.000000)
                  Call setPixelColor(135.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 270.000000 (push 2) 2-0
-                  PLUS + (Push 3)
-                   INTEGER_CONST 30 (Push 4)
-               270.000000 + 30.000000 = 300.000000 (push 5)
-              renderFrame.i := 300.000000 (pop 1) 2-0
+                 INTEGER_CONST 30 (Push 2)
+              renderFrame.i += 300.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 300.000000 (push 2) 2-0
+                varref renderFrame.i = 300.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               300.000000 < 360.000000 = 1.000000 (push 5)
              conditionResult (pop 1)
              1 => run block
-                       F_VarRef renderFrame.i = 300.000000 (push 2) 2-0
+                       varref renderFrame.i = 300.000000 (push 2) 2-0
 circle2D(300.000000)
                     Call circle2D(300.000000) = 150.000000
                       INTEGER_CONST 225 (Push 3)
 setPixelColor(150.000000, 225.000000)
                  Call setPixelColor(150.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 300.000000 (push 2) 2-0
-                  PLUS + (Push 3)
-                   INTEGER_CONST 30 (Push 4)
-               300.000000 + 30.000000 = 330.000000 (push 5)
-              renderFrame.i := 330.000000 (pop 1) 2-0
+                 INTEGER_CONST 30 (Push 2)
+              renderFrame.i += 330.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 330.000000 (push 2) 2-0
+                varref renderFrame.i = 330.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               330.000000 < 360.000000 = 1.000000 (push 5)
              conditionResult (pop 1)
              1 => run block
-                       F_VarRef renderFrame.i = 330.000000 (push 2) 2-0
+                       varref renderFrame.i = 330.000000 (push 2) 2-0
 circle2D(330.000000)
                     Call circle2D(330.000000) = 165.000000
                       INTEGER_CONST 225 (Push 3)
 setPixelColor(165.000000, 225.000000)
                  Call setPixelColor(165.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 330.000000 (push 2) 2-0
-                  PLUS + (Push 3)
-                   INTEGER_CONST 30 (Push 4)
-               330.000000 + 30.000000 = 360.000000 (push 5)
-              renderFrame.i := 360.000000 (pop 1) 2-0
+                 INTEGER_CONST 30 (Push 2)
+              renderFrame.i += 360.000000 (pop 1) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 360.000000 (push 2) 2-0
+                varref renderFrame.i = 360.000000 (push 2) 2-0
                  LT < (Push 3)
                   INTEGER_CONST 360 (Push 4)
               360.000000 < 360.000000 = 0.000000 (push 5)
              conditionResult (pop 1)
              0 => end of For
-                    F_VarRef ext.second = 30.000000 (push 2)
+                    varref ext.second = 30.000000 (push 2)
                      MUL * (Push 3)
                       INTEGER_CONST 6 (Push 4)
                   30.000000 * 6.000000 = 180.000000 (push 5)
@@ -519,7 +493,7 @@ circle2D(180.000000)
                   INTEGER_CONST 25 (Push 3)
 setPixelColor(90.000000, 25.000000)
              Call setPixelColor(90.000000, 25.000000)
-                    F_VarRef ext.minute = 29.000000 (push 2)
+                    varref ext.minute = 29.000000 (push 2)
                      MUL * (Push 3)
                       INTEGER_CONST 6 (Push 4)
                   29.000000 * 6.000000 = 174.000000 (push 5)
@@ -528,12 +502,12 @@ circle2D(174.000000)
                   INTEGER_CONST 92 (Push 3)
 setPixelColor(87.000000, 92.000000)
              Call setPixelColor(87.000000, 92.000000)
-                    F_VarRef ext.hour = 28.000000 (push 2)
+                    varref ext.hour = 28.000000 (push 2)
                      MUL * (Push 3)
                       INTEGER_CONST 30 (Push 4)
                   28.000000 * 30.000000 = 840.000000 (push 5)
                     PLUS + (Push 3)
-                      F_VarRef ext.minute = 29.000000 (push 4)
+                      varref ext.minute = 29.000000 (push 4)
                        DIV / (Push 5)
                         INTEGER_CONST 2 (Push 6)
                     29.000000 / 2.000000 = 14.500000 (push 7)
@@ -546,262 +520,225 @@ setPixelColor(427.250000, 160.000000)
 Destruct activation record renderFrame
          Call renderFrame (1)
                 INTEGER_CONST 0 (Push 2)
-                  F_VarRef ext.ledCount = 3.000000 (push 3)
+                  varref ext.ledCount = 3.000000 (push 3)
                   INTEGER_CONST 0 (Push 4)
              Call setRange(0.000000, 3.000000, 0.000000) = 3.000000
              For (2)
-             from
                  INTEGER_CONST 0 (Push 3)
               renderFrame.i := 0.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 0.000000 (push 3) 2-0
+                varref renderFrame.i = 0.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               0.000000 < 360.000000 = 1.000000 (push 6)
              conditionResult (pop 2)
              1 => run block
-                       F_VarRef renderFrame.i = 0.000000 (push 3) 2-0
+                       varref renderFrame.i = 0.000000 (push 3) 2-0
 circle2D(0.000000)
                     Call circle2D(0.000000) = 0.000000
                       INTEGER_CONST 225 (Push 4)
 setPixelColor(0.000000, 225.000000)
                  Call setPixelColor(0.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 0.000000 (push 3) 2-0
-                  PLUS + (Push 4)
-                   INTEGER_CONST 30 (Push 5)
-               0.000000 + 30.000000 = 30.000000 (push 6)
-              renderFrame.i := 30.000000 (pop 2) 2-0
+                 INTEGER_CONST 30 (Push 3)
+              renderFrame.i += 30.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 30.000000 (push 3) 2-0
+                varref renderFrame.i = 30.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               30.000000 < 360.000000 = 1.000000 (push 6)
              conditionResult (pop 2)
              1 => run block
-                       F_VarRef renderFrame.i = 30.000000 (push 3) 2-0
+                       varref renderFrame.i = 30.000000 (push 3) 2-0
 circle2D(30.000000)
                     Call circle2D(30.000000) = 15.000000
                       INTEGER_CONST 225 (Push 4)
 setPixelColor(15.000000, 225.000000)
                  Call setPixelColor(15.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 30.000000 (push 3) 2-0
-                  PLUS + (Push 4)
-                   INTEGER_CONST 30 (Push 5)
-               30.000000 + 30.000000 = 60.000000 (push 6)
-              renderFrame.i := 60.000000 (pop 2) 2-0
+                 INTEGER_CONST 30 (Push 3)
+              renderFrame.i += 60.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 60.000000 (push 3) 2-0
+                varref renderFrame.i = 60.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               60.000000 < 360.000000 = 1.000000 (push 6)
              conditionResult (pop 2)
              1 => run block
-                       F_VarRef renderFrame.i = 60.000000 (push 3) 2-0
+                       varref renderFrame.i = 60.000000 (push 3) 2-0
 circle2D(60.000000)
                     Call circle2D(60.000000) = 30.000000
                       INTEGER_CONST 225 (Push 4)
 setPixelColor(30.000000, 225.000000)
                  Call setPixelColor(30.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 60.000000 (push 3) 2-0
-                  PLUS + (Push 4)
-                   INTEGER_CONST 30 (Push 5)
-               60.000000 + 30.000000 = 90.000000 (push 6)
-              renderFrame.i := 90.000000 (pop 2) 2-0
+                 INTEGER_CONST 30 (Push 3)
+              renderFrame.i += 90.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 90.000000 (push 3) 2-0
+                varref renderFrame.i = 90.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               90.000000 < 360.000000 = 1.000000 (push 6)
              conditionResult (pop 2)
              1 => run block
-                       F_VarRef renderFrame.i = 90.000000 (push 3) 2-0
+                       varref renderFrame.i = 90.000000 (push 3) 2-0
 circle2D(90.000000)
                     Call circle2D(90.000000) = 45.000000
                       INTEGER_CONST 225 (Push 4)
 setPixelColor(45.000000, 225.000000)
                  Call setPixelColor(45.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 90.000000 (push 3) 2-0
-                  PLUS + (Push 4)
-                   INTEGER_CONST 30 (Push 5)
-               90.000000 + 30.000000 = 120.000000 (push 6)
-              renderFrame.i := 120.000000 (pop 2) 2-0
+                 INTEGER_CONST 30 (Push 3)
+              renderFrame.i += 120.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 120.000000 (push 3) 2-0
+                varref renderFrame.i = 120.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               120.000000 < 360.000000 = 1.000000 (push 6)
              conditionResult (pop 2)
              1 => run block
-                       F_VarRef renderFrame.i = 120.000000 (push 3) 2-0
+                       varref renderFrame.i = 120.000000 (push 3) 2-0
 circle2D(120.000000)
                     Call circle2D(120.000000) = 60.000000
                       INTEGER_CONST 225 (Push 4)
 setPixelColor(60.000000, 225.000000)
                  Call setPixelColor(60.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 120.000000 (push 3) 2-0
-                  PLUS + (Push 4)
-                   INTEGER_CONST 30 (Push 5)
-               120.000000 + 30.000000 = 150.000000 (push 6)
-              renderFrame.i := 150.000000 (pop 2) 2-0
+                 INTEGER_CONST 30 (Push 3)
+              renderFrame.i += 150.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 150.000000 (push 3) 2-0
+                varref renderFrame.i = 150.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               150.000000 < 360.000000 = 1.000000 (push 6)
              conditionResult (pop 2)
              1 => run block
-                       F_VarRef renderFrame.i = 150.000000 (push 3) 2-0
+                       varref renderFrame.i = 150.000000 (push 3) 2-0
 circle2D(150.000000)
                     Call circle2D(150.000000) = 75.000000
                       INTEGER_CONST 225 (Push 4)
 setPixelColor(75.000000, 225.000000)
                  Call setPixelColor(75.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 150.000000 (push 3) 2-0
-                  PLUS + (Push 4)
-                   INTEGER_CONST 30 (Push 5)
-               150.000000 + 30.000000 = 180.000000 (push 6)
-              renderFrame.i := 180.000000 (pop 2) 2-0
+                 INTEGER_CONST 30 (Push 3)
+              renderFrame.i += 180.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 180.000000 (push 3) 2-0
+                varref renderFrame.i = 180.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               180.000000 < 360.000000 = 1.000000 (push 6)
              conditionResult (pop 2)
              1 => run block
-                       F_VarRef renderFrame.i = 180.000000 (push 3) 2-0
+                       varref renderFrame.i = 180.000000 (push 3) 2-0
 circle2D(180.000000)
                     Call circle2D(180.000000) = 90.000000
                       INTEGER_CONST 225 (Push 4)
 setPixelColor(90.000000, 225.000000)
                  Call setPixelColor(90.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 180.000000 (push 3) 2-0
-                  PLUS + (Push 4)
-                   INTEGER_CONST 30 (Push 5)
-               180.000000 + 30.000000 = 210.000000 (push 6)
-              renderFrame.i := 210.000000 (pop 2) 2-0
+                 INTEGER_CONST 30 (Push 3)
+              renderFrame.i += 210.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 210.000000 (push 3) 2-0
+                varref renderFrame.i = 210.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               210.000000 < 360.000000 = 1.000000 (push 6)
              conditionResult (pop 2)
              1 => run block
-                       F_VarRef renderFrame.i = 210.000000 (push 3) 2-0
+                       varref renderFrame.i = 210.000000 (push 3) 2-0
 circle2D(210.000000)
                     Call circle2D(210.000000) = 105.000000
                       INTEGER_CONST 225 (Push 4)
 setPixelColor(105.000000, 225.000000)
                  Call setPixelColor(105.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 210.000000 (push 3) 2-0
-                  PLUS + (Push 4)
-                   INTEGER_CONST 30 (Push 5)
-               210.000000 + 30.000000 = 240.000000 (push 6)
-              renderFrame.i := 240.000000 (pop 2) 2-0
+                 INTEGER_CONST 30 (Push 3)
+              renderFrame.i += 240.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 240.000000 (push 3) 2-0
+                varref renderFrame.i = 240.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               240.000000 < 360.000000 = 1.000000 (push 6)
              conditionResult (pop 2)
              1 => run block
-                       F_VarRef renderFrame.i = 240.000000 (push 3) 2-0
+                       varref renderFrame.i = 240.000000 (push 3) 2-0
 circle2D(240.000000)
                     Call circle2D(240.000000) = 120.000000
                       INTEGER_CONST 225 (Push 4)
 setPixelColor(120.000000, 225.000000)
                  Call setPixelColor(120.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 240.000000 (push 3) 2-0
-                  PLUS + (Push 4)
-                   INTEGER_CONST 30 (Push 5)
-               240.000000 + 30.000000 = 270.000000 (push 6)
-              renderFrame.i := 270.000000 (pop 2) 2-0
+                 INTEGER_CONST 30 (Push 3)
+              renderFrame.i += 270.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 270.000000 (push 3) 2-0
+                varref renderFrame.i = 270.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               270.000000 < 360.000000 = 1.000000 (push 6)
              conditionResult (pop 2)
              1 => run block
-                       F_VarRef renderFrame.i = 270.000000 (push 3) 2-0
+                       varref renderFrame.i = 270.000000 (push 3) 2-0
 circle2D(270.000000)
                     Call circle2D(270.000000) = 135.000000
                       INTEGER_CONST 225 (Push 4)
 setPixelColor(135.000000, 225.000000)
                  Call setPixelColor(135.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 270.000000 (push 3) 2-0
-                  PLUS + (Push 4)
-                   INTEGER_CONST 30 (Push 5)
-               270.000000 + 30.000000 = 300.000000 (push 6)
-              renderFrame.i := 300.000000 (pop 2) 2-0
+                 INTEGER_CONST 30 (Push 3)
+              renderFrame.i += 300.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 300.000000 (push 3) 2-0
+                varref renderFrame.i = 300.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               300.000000 < 360.000000 = 1.000000 (push 6)
              conditionResult (pop 2)
              1 => run block
-                       F_VarRef renderFrame.i = 300.000000 (push 3) 2-0
+                       varref renderFrame.i = 300.000000 (push 3) 2-0
 circle2D(300.000000)
                     Call circle2D(300.000000) = 150.000000
                       INTEGER_CONST 225 (Push 4)
 setPixelColor(150.000000, 225.000000)
                  Call setPixelColor(150.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 300.000000 (push 3) 2-0
-                  PLUS + (Push 4)
-                   INTEGER_CONST 30 (Push 5)
-               300.000000 + 30.000000 = 330.000000 (push 6)
-              renderFrame.i := 330.000000 (pop 2) 2-0
+                 INTEGER_CONST 30 (Push 3)
+              renderFrame.i += 330.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 330.000000 (push 3) 2-0
+                varref renderFrame.i = 330.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               330.000000 < 360.000000 = 1.000000 (push 6)
              conditionResult (pop 2)
              1 => run block
-                       F_VarRef renderFrame.i = 330.000000 (push 3) 2-0
+                       varref renderFrame.i = 330.000000 (push 3) 2-0
 circle2D(330.000000)
                     Call circle2D(330.000000) = 165.000000
                       INTEGER_CONST 225 (Push 4)
 setPixelColor(165.000000, 225.000000)
                  Call setPixelColor(165.000000, 225.000000)
              assign next value
-                 F_VarRef renderFrame.i = 330.000000 (push 3) 2-0
-                  PLUS + (Push 4)
-                   INTEGER_CONST 30 (Push 5)
-               330.000000 + 30.000000 = 360.000000 (push 6)
-              renderFrame.i := 360.000000 (pop 2) 2-0
+                 INTEGER_CONST 30 (Push 3)
+              renderFrame.i += 360.000000 (pop 2) 2-0
              iteration
              check to condition
-                F_VarRef renderFrame.i = 360.000000 (push 3) 2-0
+                varref renderFrame.i = 360.000000 (push 3) 2-0
                  LT < (Push 4)
                   INTEGER_CONST 360 (Push 5)
               360.000000 < 360.000000 = 0.000000 (push 6)
              conditionResult (pop 2)
              0 => end of For
-                    F_VarRef ext.second = 30.000000 (push 3)
+                    varref ext.second = 30.000000 (push 3)
                      MUL * (Push 4)
                       INTEGER_CONST 6 (Push 5)
                   30.000000 * 6.000000 = 180.000000 (push 6)
@@ -810,7 +747,7 @@ circle2D(180.000000)
                   INTEGER_CONST 25 (Push 4)
 setPixelColor(90.000000, 25.000000)
              Call setPixelColor(90.000000, 25.000000)
-                    F_VarRef ext.minute = 29.000000 (push 3)
+                    varref ext.minute = 29.000000 (push 3)
                      MUL * (Push 4)
                       INTEGER_CONST 6 (Push 5)
                   29.000000 * 6.000000 = 174.000000 (push 6)
@@ -819,12 +756,12 @@ circle2D(174.000000)
                   INTEGER_CONST 92 (Push 4)
 setPixelColor(87.000000, 92.000000)
              Call setPixelColor(87.000000, 92.000000)
-                    F_VarRef ext.hour = 28.000000 (push 3)
+                    varref ext.hour = 28.000000 (push 3)
                      MUL * (Push 4)
                       INTEGER_CONST 30 (Push 5)
                   28.000000 * 30.000000 = 840.000000 (push 6)
                     PLUS + (Push 4)
-                      F_VarRef ext.minute = 29.000000 (push 5)
+                      varref ext.minute = 29.000000 (push 5)
                        DIV / (Push 6)
                         INTEGER_CONST 2 (Push 7)
                     29.000000 / 2.000000 = 14.500000 (push 8)
@@ -842,5 +779,5 @@ Heap Destruct Symbol i (0)
 Heap Destruct ScopedSymbolTable renderFrame (0)
 Heap Destruct Symbol renderFrame (0)
 Heap Destruct ScopedSymbolTable Clock2D (0)
-definitionJson usage  10355 of 16384 (63 %) (24 0 6)
-parseTree usage       14693 of 32768 (45 %) (1 0 25)
+definitionJson usage  9415 of 16384 (57 %) (23 0 6)
+parseTree usage       14320 of 65536 (22 %) (1 0 25)

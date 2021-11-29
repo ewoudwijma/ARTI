@@ -1,14 +1,15 @@
 Heap Setup < 0 (0ms) wled.json Examples/Subpixel.wled
 Heap open definition file > 0
 Heap definitionJsonDoc 16384 > 0 (0ms)
-programFile size 1043 bytes
-Heap parseTreeJsonDoc 32768 > 0 (0ms)
+programFile size 1091 bytes
+Heap parseTreeJsonDoc 65536 > 0 (0ms)
  PROGRAM PROGRAM -> [ID Subpixel] 0
  ID Subpixel -> [LCURL {] 0
   LCURL { -> [ID t] 1
      ID t -> [ASSIGN =] 4
-     found varleft
-     ASSIGN = -> [INTEGER_CONST 0] 4
+     found varref
+       ASSIGN = -> [INTEGER_CONST 0] 6
+     found assignoperator
         INTEGER_CONST 0 -> [ID reverseSlider] 7
        found factor
       found term
@@ -16,8 +17,9 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
     found assign
    found statement
      ID reverseSlider -> [ASSIGN =] 4
-     found varleft
-     ASSIGN = -> [INTEGER_CONST 0] 4
+     found varref
+       ASSIGN = -> [INTEGER_CONST 0] 6
+     found assignoperator
         INTEGER_CONST 0 -> [FUNCTION FUNCTION] 7
        found factor
       found term
@@ -31,8 +33,9 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID t] 5
          ID t -> [ASSIGN =] 8
-         found varleft
-         ASSIGN = -> [LPAREN (] 8
+         found varref
+           ASSIGN = -> [LPAREN (] 10
+         found assignoperator
              LPAREN ( -> [ID sin] 12
                  ID sin -> [LPAREN (] 16
                  LPAREN ( -> [ID millis] 16
@@ -66,25 +69,22 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
          found expr
         found assign
        found statement
-         ID t -> [ASSIGN =] 8
-         found varleft
-         ASSIGN = -> [ID t] 8
-             ID t -> [MUL *] 12
-            ID t -> [MUL *] 11
+         ID t -> [ASSIGN* *=] 8
+         found varref
+           ASSIGN* *= -> [ID ledCount] 10
+         found assignoperator
+             ID ledCount -> [ID reverseSlider] 12
+            ID ledCount -> [ID reverseSlider] 11
             found varref
            found factor
-             MUL * -> [ID ledCount] 12
-              ID ledCount -> [ID reverseSlider] 13
-             ID ledCount -> [ID reverseSlider] 12
-             found varref
-            found factor
           found term
          found expr
         found assign
        found statement
          ID reverseSlider -> [ASSIGN =] 8
-         found varleft
-         ASSIGN = -> [INTEGER_CONST 256] 8
+         found varref
+           ASSIGN = -> [INTEGER_CONST 256] 10
+         found assignoperator
             INTEGER_CONST 256 -> [MINUS -] 11
            found factor
           found term
@@ -110,8 +110,9 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID diff] 5
          ID diff -> [ASSIGN =] 8
-         found varleft
-         ASSIGN = -> [ID min] 8
+         found varref
+           ASSIGN = -> [ID min] 10
+         found assignoperator
              ID min -> [LPAREN (] 12
              LPAREN ( -> [ID abs] 12
                   ID abs -> [LPAREN (] 17
@@ -153,8 +154,9 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
         found assign
        found statement
          ID bri -> [ASSIGN =] 8
-         found varleft
-         ASSIGN = -> [INTEGER_CONST 256] 8
+         found varref
+           ASSIGN = -> [INTEGER_CONST 256] 10
+         found assignoperator
             INTEGER_CONST 256 -> [MINUS -] 11
            found factor
           found term
@@ -173,7 +175,7 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
         found assign
        found statement
          ID leds -> [LBRACKET [] 8
-         found varleft
+         found varref
           LBRACKET [ -> [ID i] 9
                ID i -> [RBRACKET ]] 14
               ID i -> [RBRACKET ]] 13
@@ -183,7 +185,8 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
            found expr
           found indices
           RBRACKET ] -> [ASSIGN =] 9
-         ASSIGN = -> [ID hsv] 8
+           ASSIGN = -> [ID hsv] 10
+         found assignoperator
              ID hsv -> [LPAREN (] 12
              LPAREN ( -> [INTEGER_CONST 0] 12
                  INTEGER_CONST 0 -> [COMMA ,] 16
@@ -216,61 +219,77 @@ Heap parseTreeJsonDoc 32768 > 0 (0ms)
    found statement
   RCURL } 1
  found block
-Symbol program Parsed until (29,0) 1043 of 1043
-definitionJson usage 10355 of 16384 (63 %) (24 0 6)
-parseTree usage      15208 of 32768 (46 %) (1 0 28)
-garbageCollect       10984 of 32768 (34 %) (1 0 28)
+Symbol program Parsed until (29,0) 1091 of 1091
+definitionJson usage 9415 of 16384 (57 %) (23 0 6)
+parseTree usage      15187 of 65536 (23 %) (1 0 28)
+garbageCollect       11059 of 65536 (17 %) (1 0 28)
 Destruct Lexer
 Heap parse > 0 (0ms)
 
 Optimizer
+        symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+        symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+                symbol to shrink factor in term = {"call":{"ID":"sin","actuals":{"expr":{"term":{"factor":{"call":{"ID":"millis"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"1000"}}]}}}}} from {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"factor":{"call":{"ID":"millis"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"1000"}}]}}}}}}
+                  symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
+             symbol to shrink factor in term = {"varref":{"ID":"ledCount"}} from {"factor":{"varref":{"ID":"ledCount"}}}
+             symbol to shrink factor in term = {"INTEGER_CONST":"256"} from {"factor":{"INTEGER_CONST":"256"}}
+               symbol to shrink factor in term = {"varref":{"ID":"intensitySlider"}} from {"factor":{"varref":{"ID":"intensitySlider"}}}
+                       symbol to shrink factor in term = {"varref":{"ID":"t"}} from {"factor":{"varref":{"ID":"t"}}}
+                         symbol to shrink factor in term = {"varref":{"ID":"i"}} from {"factor":{"varref":{"ID":"i"}}}
+                  symbol to shrink factor in term = {"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}} from {"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}}
+             symbol to shrink factor in term = {"call":{"ID":"min","actuals":{"expr":{"term":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}},"*":[{},{"expr":{"term":{"factor":{"INTEGER_CONST":"256"},"*":[{"DIV":"/"},{"factor":{"varref":{"ID":"reverseSlider"}}}]}}}]}}} from {"factor":{"call":{"ID":"min","actuals":{"expr":{"term":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}},"*":[{},{"expr":{"term":{"factor":{"INTEGER_CONST":"256"},"*":[{"DIV":"/"},{"factor":{"varref":{"ID":"reverseSlider"}}}]}}}]}}}}
+             symbol to shrink factor in term = {"INTEGER_CONST":"256"} from {"factor":{"INTEGER_CONST":"256"}}
+              symbol to shrink factor in term = {"varref":{"ID":"i"}} from {"factor":{"varref":{"ID":"i"}}}
+                  symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+                    symbol to shrink factor in term = {"INTEGER_CONST":"255"} from {"factor":{"INTEGER_CONST":"255"}}
+                    symbol to shrink factor in term = {"varref":{"ID":"bri"}} from {"factor":{"varref":{"ID":"bri"}}}
+             symbol to shrink factor in term = {"call":{"ID":"hsv","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"255"}}},{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}} from {"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"255"}}},{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}}
 Heap optimize > 0 (0ms)
 
 Analyzer
  Program Subpixel 1 0
-     F_Assign Subpixel.t of notype
-     F_Assign t = (4)
-     F_Assign Subpixel.reverseSlider of notype
-     F_Assign reverseSlider = (4)
+     assign Subpixel.t of notype
+     assign t = (4)
+     assign Subpixel.reverseSlider of notype
+     assign reverseSlider = (4)
      Function Subpixel.renderFrame
-         F_Assign t = (8)
+         assign t = (8)
                Ext Function found sin (14)
                    Ext Function found millis (18)
-         F_Assign t = (8)
-             VarRef found Subpixel.t (12)
-               Ext Variable found ledCount (14) F_VarRef
-         F_Assign reverseSlider = (8)
-              Ext Variable found intensitySlider (13) F_VarRef
+         assign t = (8)
+            Ext Variable found ledCount (11) varref
+         asop *=
+         assign reverseSlider = (8)
+              Ext Variable found intensitySlider (13) varref
      Function Subpixel.renderLed
-      F_Formal renderLed.i of notype
-         F_Assign renderLed.diff of notype
-         F_Assign diff = (8)
+      formal renderLed.i of notype
+         assign renderLed.diff of notype
+         assign diff = (8)
             Ext Function found min (11)
                Ext Function found abs (14)
                   VarRef found Subpixel.t (17)
                     VarRef found renderLed.i (19)
                     VarRef found Subpixel.reverseSlider (19)
-         F_Assign renderLed.bri of notype
-         F_Assign bri = (8)
+         assign renderLed.bri of notype
+         assign bri = (8)
                VarRef found renderLed.diff (14)
                  VarRef found Subpixel.reverseSlider (16)
-         Ext Variable found leds (8) F_Assign
-         F_Assign leds = (8)
+         Ext Variable found leds (8) assign
+         assign leds = (8)
             Ext Function found hsv (11)
                  VarRef found renderLed.bri (16)
              VarRef found renderLed.i (12)
-     0 F_Formal renderLed.i of 9 (2)
-     1 F_Assign renderLed.diff of 9 (2)
-     2 F_Assign renderLed.bri of 9 (2)
- 0 F_Assign Subpixel.t of 9 (1)
- 1 F_Assign Subpixel.reverseSlider of 9 (1)
- 2 F_Function Subpixel.renderFrame of 9 (1)
- 3 F_Function Subpixel.renderLed of 9 (1)
+     0 formal renderLed.i of 9 (2)
+     1 assign renderLed.diff of 9 (2)
+     2 assign renderLed.bri of 9 (2)
+ 0 assign Subpixel.t of 9 (1)
+ 1 assign Subpixel.reverseSlider of 9 (1)
+ 2 function Subpixel.renderFrame of 9 (1)
+ 3 function Subpixel.renderLed of 9 (1)
 Heap analyze > 0 (0ms)
 
 interpret Subpixel 1 4
- program name ID
- Program Subpixel Subpixel
+ program Subpixel
         INTEGER_CONST 0 (Push 1)
      Subpixel.t := 0.000000 (pop 0) 1-0
         INTEGER_CONST 0 (Push 1)
@@ -291,98 +310,95 @@ Heap Interpret main > 0 (0ms)
                    INTEGER_CONST 2 (Push 3)
                1.841471 / 2.000000 = 0.920735 (push 4)
              Subpixel.t := 0.920735 (pop 0) 1-0
-                 F_VarRef Subpixel.t = 0.920735 (push 1) 1-0
-                  MUL * (Push 2)
-                   F_VarRef ext.ledCount = 3.000000 (push 3)
-               0.920735 * 3.000000 = 2.762206 (push 4)
-             Subpixel.t := 2.762206 (pop 0) 1-0
+                varref ext.ledCount = 3.000000 (push 1)
+             Subpixel.t *= 2.762206 (pop 0) 1-0
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                  F_VarRef ext.intensitySlider = 14.000000 (push 3)
+                  varref ext.intensitySlider = 14.000000 (push 3)
               256.000000 - 14.000000 = 242.000000 (push 4)
              Subpixel.reverseSlider := 242.000000 (pop 0) 1-1
 Destruct activation record renderFrame
-                      F_VarRef Subpixel.t = 2.762206 (push 1) 1-0
+                      varref Subpixel.t = 2.762206 (push 1) 1-0
                        MINUS - (Push 2)
-                        F_VarRef renderLed.i = 0.000000 (push 3) 2-0
+                        varref renderLed.i = 0.000000 (push 3) 2-0
                     2.762206 - 0.000000 = 2.762206 (push 4)
                    Call abs(2.762206) = 2.762206
                       INTEGER_CONST 256 (Push 2)
                        DIV / (Push 3)
-                        F_VarRef Subpixel.reverseSlider = 242.000000 (push 4) 1-1
+                        varref Subpixel.reverseSlider = 242.000000 (push 4) 1-1
                     256.000000 / 242.000000 = 1.057851 (push 5)
                 Call min(2.762206, 1.057851) = 1.057851
              renderLed.diff := 1.057851 (pop 0) 2-1
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                   F_VarRef renderLed.diff = 1.057851 (push 3) 2-1
+                   varref renderLed.diff = 1.057851 (push 3) 2-1
                     MUL * (Push 4)
-                     F_VarRef Subpixel.reverseSlider = 242.000000 (push 5) 1-1
+                     varref Subpixel.reverseSlider = 242.000000 (push 5) 1-1
                  1.057851 * 242.000000 = 256.000000 (push 6)
               256.000000 - 256.000000 = 0.000000 (push 4)
              renderLed.bri := 0.000000 (pop 0) 2-2
-                 F_VarRef renderLed.i = 0.000000 (push 1) 2-0
+                 varref renderLed.i = 0.000000 (push 1) 2-0
                    INTEGER_CONST 0 (Push 2)
                      INTEGER_CONST 255 (Push 3)
-                     F_VarRef renderLed.bri = 0.000000 (push 4) 2-2
+                     varref renderLed.bri = 0.000000 (push 4) 2-2
 hsv(0.000000, 255.000000, 0.000000)
                 Call hsv(0.000000, 255.000000, 0.000000) = 255.000000
 arti_set_external_variable: leds(0.000000) := 255.000000
-             F_Assign set ext.leds[0] = 255.000000 (1)
-                      F_VarRef Subpixel.t = 2.762206 (push 1) 1-0
+             assign set ext.leds[0.000000] = 255.000000 (1)
+                      varref Subpixel.t = 2.762206 (push 1) 1-0
                        MINUS - (Push 2)
-                        F_VarRef renderLed.i = 1.000000 (push 3) 2-0
+                        varref renderLed.i = 1.000000 (push 3) 2-0
                     2.762206 - 1.000000 = 1.762206 (push 4)
                    Call abs(1.762206) = 1.762206
                       INTEGER_CONST 256 (Push 2)
                        DIV / (Push 3)
-                        F_VarRef Subpixel.reverseSlider = 242.000000 (push 4) 1-1
+                        varref Subpixel.reverseSlider = 242.000000 (push 4) 1-1
                     256.000000 / 242.000000 = 1.057851 (push 5)
                 Call min(1.762206, 1.057851) = 1.057851
              renderLed.diff := 1.057851 (pop 0) 2-1
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                   F_VarRef renderLed.diff = 1.057851 (push 3) 2-1
+                   varref renderLed.diff = 1.057851 (push 3) 2-1
                     MUL * (Push 4)
-                     F_VarRef Subpixel.reverseSlider = 242.000000 (push 5) 1-1
+                     varref Subpixel.reverseSlider = 242.000000 (push 5) 1-1
                  1.057851 * 242.000000 = 256.000000 (push 6)
               256.000000 - 256.000000 = 0.000000 (push 4)
              renderLed.bri := 0.000000 (pop 0) 2-2
-                 F_VarRef renderLed.i = 1.000000 (push 1) 2-0
+                 varref renderLed.i = 1.000000 (push 1) 2-0
                    INTEGER_CONST 0 (Push 2)
                      INTEGER_CONST 255 (Push 3)
-                     F_VarRef renderLed.bri = 0.000000 (push 4) 2-2
+                     varref renderLed.bri = 0.000000 (push 4) 2-2
 hsv(0.000000, 255.000000, 0.000000)
                 Call hsv(0.000000, 255.000000, 0.000000) = 255.000000
 arti_set_external_variable: leds(1.000000) := 255.000000
-             F_Assign set ext.leds[1] = 255.000000 (1)
-                      F_VarRef Subpixel.t = 2.762206 (push 1) 1-0
+             assign set ext.leds[1.000000] = 255.000000 (1)
+                      varref Subpixel.t = 2.762206 (push 1) 1-0
                        MINUS - (Push 2)
-                        F_VarRef renderLed.i = 2.000000 (push 3) 2-0
+                        varref renderLed.i = 2.000000 (push 3) 2-0
                     2.762206 - 2.000000 = 0.762206 (push 4)
                    Call abs(0.762206) = 0.762206
                       INTEGER_CONST 256 (Push 2)
                        DIV / (Push 3)
-                        F_VarRef Subpixel.reverseSlider = 242.000000 (push 4) 1-1
+                        varref Subpixel.reverseSlider = 242.000000 (push 4) 1-1
                     256.000000 / 242.000000 = 1.057851 (push 5)
                 Call min(0.762206, 1.057851) = 0.762206
              renderLed.diff := 0.762206 (pop 0) 2-1
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                   F_VarRef renderLed.diff = 0.762206 (push 3) 2-1
+                   varref renderLed.diff = 0.762206 (push 3) 2-1
                     MUL * (Push 4)
-                     F_VarRef Subpixel.reverseSlider = 242.000000 (push 5) 1-1
+                     varref Subpixel.reverseSlider = 242.000000 (push 5) 1-1
                  0.762206 * 242.000000 = 184.453967 (push 6)
               256.000000 - 184.453967 = 71.546033 (push 4)
              renderLed.bri := 71.546033 (pop 0) 2-2
-                 F_VarRef renderLed.i = 2.000000 (push 1) 2-0
+                 varref renderLed.i = 2.000000 (push 1) 2-0
                    INTEGER_CONST 0 (Push 2)
                      INTEGER_CONST 255 (Push 3)
-                     F_VarRef renderLed.bri = 71.546033 (push 4) 2-2
+                     varref renderLed.bri = 71.546033 (push 4) 2-2
 hsv(0.000000, 255.000000, 71.546033)
                 Call hsv(0.000000, 255.000000, 71.546033) = 326.546033
 arti_set_external_variable: leds(2.000000) := 326.546033
-             F_Assign set ext.leds[2] = 326.546033 (1)
+             assign set ext.leds[2.000000] = 326.546033 (1)
 Destruct activation record renderLed
 setPixels(-32768.000000)
          Call renderFrame (1)
@@ -398,98 +414,95 @@ setPixels(-32768.000000)
                    INTEGER_CONST 2 (Push 3)
                1.841471 / 2.000000 = 0.920735 (push 4)
              Subpixel.t := 0.920735 (pop 0) 1-0
-                 F_VarRef Subpixel.t = 0.920735 (push 1) 1-0
-                  MUL * (Push 2)
-                   F_VarRef ext.ledCount = 3.000000 (push 3)
-               0.920735 * 3.000000 = 2.762206 (push 4)
-             Subpixel.t := 2.762206 (pop 0) 1-0
+                varref ext.ledCount = 3.000000 (push 1)
+             Subpixel.t *= 2.762206 (pop 0) 1-0
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                  F_VarRef ext.intensitySlider = 14.000000 (push 3)
+                  varref ext.intensitySlider = 14.000000 (push 3)
               256.000000 - 14.000000 = 242.000000 (push 4)
              Subpixel.reverseSlider := 242.000000 (pop 0) 1-1
 Destruct activation record renderFrame
-                      F_VarRef Subpixel.t = 2.762206 (push 1) 1-0
+                      varref Subpixel.t = 2.762206 (push 1) 1-0
                        MINUS - (Push 2)
-                        F_VarRef renderLed.i = 0.000000 (push 3) 2-0
+                        varref renderLed.i = 0.000000 (push 3) 2-0
                     2.762206 - 0.000000 = 2.762206 (push 4)
                    Call abs(2.762206) = 2.762206
                       INTEGER_CONST 256 (Push 2)
                        DIV / (Push 3)
-                        F_VarRef Subpixel.reverseSlider = 242.000000 (push 4) 1-1
+                        varref Subpixel.reverseSlider = 242.000000 (push 4) 1-1
                     256.000000 / 242.000000 = 1.057851 (push 5)
                 Call min(2.762206, 1.057851) = 1.057851
              renderLed.diff := 1.057851 (pop 0) 2-1
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                   F_VarRef renderLed.diff = 1.057851 (push 3) 2-1
+                   varref renderLed.diff = 1.057851 (push 3) 2-1
                     MUL * (Push 4)
-                     F_VarRef Subpixel.reverseSlider = 242.000000 (push 5) 1-1
+                     varref Subpixel.reverseSlider = 242.000000 (push 5) 1-1
                  1.057851 * 242.000000 = 256.000000 (push 6)
               256.000000 - 256.000000 = 0.000000 (push 4)
              renderLed.bri := 0.000000 (pop 0) 2-2
-                 F_VarRef renderLed.i = 0.000000 (push 1) 2-0
+                 varref renderLed.i = 0.000000 (push 1) 2-0
                    INTEGER_CONST 0 (Push 2)
                      INTEGER_CONST 255 (Push 3)
-                     F_VarRef renderLed.bri = 0.000000 (push 4) 2-2
+                     varref renderLed.bri = 0.000000 (push 4) 2-2
 hsv(0.000000, 255.000000, 0.000000)
                 Call hsv(0.000000, 255.000000, 0.000000) = 255.000000
 arti_set_external_variable: leds(0.000000) := 255.000000
-             F_Assign set ext.leds[0] = 255.000000 (1)
-                      F_VarRef Subpixel.t = 2.762206 (push 1) 1-0
+             assign set ext.leds[0.000000] = 255.000000 (1)
+                      varref Subpixel.t = 2.762206 (push 1) 1-0
                        MINUS - (Push 2)
-                        F_VarRef renderLed.i = 1.000000 (push 3) 2-0
+                        varref renderLed.i = 1.000000 (push 3) 2-0
                     2.762206 - 1.000000 = 1.762206 (push 4)
                    Call abs(1.762206) = 1.762206
                       INTEGER_CONST 256 (Push 2)
                        DIV / (Push 3)
-                        F_VarRef Subpixel.reverseSlider = 242.000000 (push 4) 1-1
+                        varref Subpixel.reverseSlider = 242.000000 (push 4) 1-1
                     256.000000 / 242.000000 = 1.057851 (push 5)
                 Call min(1.762206, 1.057851) = 1.057851
              renderLed.diff := 1.057851 (pop 0) 2-1
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                   F_VarRef renderLed.diff = 1.057851 (push 3) 2-1
+                   varref renderLed.diff = 1.057851 (push 3) 2-1
                     MUL * (Push 4)
-                     F_VarRef Subpixel.reverseSlider = 242.000000 (push 5) 1-1
+                     varref Subpixel.reverseSlider = 242.000000 (push 5) 1-1
                  1.057851 * 242.000000 = 256.000000 (push 6)
               256.000000 - 256.000000 = 0.000000 (push 4)
              renderLed.bri := 0.000000 (pop 0) 2-2
-                 F_VarRef renderLed.i = 1.000000 (push 1) 2-0
+                 varref renderLed.i = 1.000000 (push 1) 2-0
                    INTEGER_CONST 0 (Push 2)
                      INTEGER_CONST 255 (Push 3)
-                     F_VarRef renderLed.bri = 0.000000 (push 4) 2-2
+                     varref renderLed.bri = 0.000000 (push 4) 2-2
 hsv(0.000000, 255.000000, 0.000000)
                 Call hsv(0.000000, 255.000000, 0.000000) = 255.000000
 arti_set_external_variable: leds(1.000000) := 255.000000
-             F_Assign set ext.leds[1] = 255.000000 (1)
-                      F_VarRef Subpixel.t = 2.762206 (push 1) 1-0
+             assign set ext.leds[1.000000] = 255.000000 (1)
+                      varref Subpixel.t = 2.762206 (push 1) 1-0
                        MINUS - (Push 2)
-                        F_VarRef renderLed.i = 2.000000 (push 3) 2-0
+                        varref renderLed.i = 2.000000 (push 3) 2-0
                     2.762206 - 2.000000 = 0.762206 (push 4)
                    Call abs(0.762206) = 0.762206
                       INTEGER_CONST 256 (Push 2)
                        DIV / (Push 3)
-                        F_VarRef Subpixel.reverseSlider = 242.000000 (push 4) 1-1
+                        varref Subpixel.reverseSlider = 242.000000 (push 4) 1-1
                     256.000000 / 242.000000 = 1.057851 (push 5)
                 Call min(0.762206, 1.057851) = 0.762206
              renderLed.diff := 0.762206 (pop 0) 2-1
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                   F_VarRef renderLed.diff = 0.762206 (push 3) 2-1
+                   varref renderLed.diff = 0.762206 (push 3) 2-1
                     MUL * (Push 4)
-                     F_VarRef Subpixel.reverseSlider = 242.000000 (push 5) 1-1
+                     varref Subpixel.reverseSlider = 242.000000 (push 5) 1-1
                  0.762206 * 242.000000 = 184.453967 (push 6)
               256.000000 - 184.453967 = 71.546033 (push 4)
              renderLed.bri := 71.546033 (pop 0) 2-2
-                 F_VarRef renderLed.i = 2.000000 (push 1) 2-0
+                 varref renderLed.i = 2.000000 (push 1) 2-0
                    INTEGER_CONST 0 (Push 2)
                      INTEGER_CONST 255 (Push 3)
-                     F_VarRef renderLed.bri = 71.546033 (push 4) 2-2
+                     varref renderLed.bri = 71.546033 (push 4) 2-2
 hsv(0.000000, 255.000000, 71.546033)
                 Call hsv(0.000000, 255.000000, 71.546033) = 326.546033
 arti_set_external_variable: leds(2.000000) := 326.546033
-             F_Assign set ext.leds[2] = 326.546033 (1)
+             assign set ext.leds[2.000000] = 326.546033 (1)
 Destruct activation record renderLed
 setPixels(-32768.000000)
 Heap close Arti < 0
@@ -505,5 +518,5 @@ Heap Destruct Symbol reverseSlider (0)
 Heap Destruct Symbol renderFrame (0)
 Heap Destruct Symbol renderLed (0)
 Heap Destruct ScopedSymbolTable Subpixel (0)
-definitionJson usage  10355 of 16384 (63 %) (24 0 6)
-parseTree usage       15880 of 32768 (48 %) (1 0 25)
+definitionJson usage  9415 of 16384 (57 %) (23 0 6)
+parseTree usage       15923 of 65536 (24 %) (1 0 25)

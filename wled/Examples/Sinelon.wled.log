@@ -1,0 +1,439 @@
+Heap Setup < 0 (0ms) wled.json Examples/Sinelon.wled
+Heap open definition file > 0
+Heap definitionJsonDoc 16384 > 0 (0ms)
+programFile size 1538 bytes
+Heap parseTreeJsonDoc 65536 > 0 (0ms)
+ PROGRAM PROGRAM -> [ID DualSinelon] 0
+ ID DualSinelon -> [LCURL {] 0
+  LCURL { -> [FUNCTION FUNCTION] 1
+     FUNCTION FUNCTION -> [ID renderFrame] 4
+     ID renderFrame -> [LPAREN (] 4
+      LPAREN ( -> [RPAREN )] 5
+      found formals
+      RPAREN ) -> [LCURL {] 5
+      LCURL { -> [ID fadeToBlackBy] 5
+         ID fadeToBlackBy -> [LPAREN (] 8
+         found varref
+         ID fadeToBlackBy -> [LPAREN (] 8
+         LPAREN ( -> [ID intensitySlider] 8
+              ID intensitySlider -> [DIV /] 13
+             ID intensitySlider -> [DIV /] 12
+             found varref
+            found factor
+              DIV / -> [INTEGER_CONST 4] 13
+              INTEGER_CONST 4 -> [RPAREN )] 13
+             found factor
+           found term
+          found expr
+         found actuals
+         RPAREN ) -> [ID locn] 8
+        found call
+       found statement
+         ID locn -> [ASSIGN =] 8
+         found varref
+           ASSIGN = -> [ID millis] 10
+         found assignoperator
+             ID millis -> [LPAREN (] 12
+             LPAREN ( -> [RPAREN )] 12
+             found actuals
+             RPAREN ) -> [DIV /] 12
+            found call
+           found factor
+             DIV / -> [LPAREN (] 12
+              LPAREN ( -> [LPAREN (] 13
+                  LPAREN ( -> [INTEGER_CONST 256] 17
+                     INTEGER_CONST 256 -> [MINUS -] 20
+                    found factor
+                   found term
+                     MINUS - -> [ID speedSlider] 20
+                       ID speedSlider -> [RPAREN )] 22
+                      ID speedSlider -> [RPAREN )] 21
+                      found varref
+                     found factor
+                    found term
+                  found expr
+                  RPAREN ) -> [MUL *] 17
+                found factor
+                  MUL * -> [INTEGER_CONST 4] 17
+                  INTEGER_CONST 4 -> [RPAREN )] 17
+                 found factor
+               found term
+              found expr
+              RPAREN ) -> [ID newVal] 13
+            found factor
+          found term
+         found expr
+        found assign
+       found statement
+         ID newVal -> [ASSIGN =] 8
+         found varref
+           ASSIGN = -> [LPAREN (] 10
+         found assignoperator
+             LPAREN ( -> [ID sin] 12
+                 ID sin -> [LPAREN (] 16
+                 LPAREN ( -> [ID locn] 16
+                      ID locn -> [RPAREN )] 21
+                     ID locn -> [RPAREN )] 20
+                     found varref
+                    found factor
+                   found term
+                  found expr
+                 found actuals
+                 RPAREN ) -> [PLUS +] 16
+                found call
+               found factor
+              found term
+                PLUS + -> [INTEGER_CONST 1] 15
+                 INTEGER_CONST 1 -> [RPAREN )] 16
+                found factor
+               found term
+             found expr
+             RPAREN ) -> [ID locn2] 12
+           found factor
+          found term
+         found expr
+        found assign
+       found statement
+         ID locn2 -> [ASSIGN =] 8
+         found varref
+           ASSIGN = -> [ID millis] 10
+         found assignoperator
+             ID millis -> [LPAREN (] 12
+             LPAREN ( -> [RPAREN )] 12
+             found actuals
+             RPAREN ) -> [DIV /] 12
+            found call
+           found factor
+             DIV / -> [LPAREN (] 12
+              LPAREN ( -> [LPAREN (] 13
+                  LPAREN ( -> [INTEGER_CONST 256] 17
+                     INTEGER_CONST 256 -> [MINUS -] 20
+                    found factor
+                   found term
+                     MINUS - -> [ID custom1Slider] 20
+                       ID custom1Slider -> [RPAREN )] 22
+                      ID custom1Slider -> [RPAREN )] 21
+                      found varref
+                     found factor
+                    found term
+                  found expr
+                  RPAREN ) -> [MUL *] 17
+                found factor
+                  MUL * -> [INTEGER_CONST 4] 17
+                  INTEGER_CONST 4 -> [RPAREN )] 17
+                 found factor
+               found term
+              found expr
+              RPAREN ) -> [ID newVal2] 13
+            found factor
+          found term
+         found expr
+        found assign
+       found statement
+         ID newVal2 -> [ASSIGN =] 8
+         found varref
+           ASSIGN = -> [LPAREN (] 10
+         found assignoperator
+             LPAREN ( -> [ID sin] 12
+                 ID sin -> [LPAREN (] 16
+                 LPAREN ( -> [ID locn2] 16
+                      ID locn2 -> [RPAREN )] 21
+                     ID locn2 -> [RPAREN )] 20
+                     found varref
+                    found factor
+                   found term
+                  found expr
+                 found actuals
+                 RPAREN ) -> [PLUS +] 16
+                found call
+               found factor
+              found term
+                PLUS + -> [INTEGER_CONST 1] 15
+                 INTEGER_CONST 1 -> [RPAREN )] 16
+                found factor
+               found term
+             found expr
+             RPAREN ) -> [ID location] 12
+           found factor
+          found term
+         found expr
+        found assign
+       found statement
+         ID location -> [ASSIGN =] 8
+         found varref
+           ASSIGN = -> [LPAREN (] 10
+         found assignoperator
+             LPAREN ( -> [ID newVal] 12
+                 ID newVal -> [PLUS +] 16
+                ID newVal -> [PLUS +] 15
+                found varref
+               found factor
+              found term
+                PLUS + -> [ID newVal2] 15
+                  ID newVal2 -> [RPAREN )] 17
+                 ID newVal2 -> [RPAREN )] 16
+                 found varref
+                found factor
+               found term
+             found expr
+             RPAREN ) -> [DIV /] 12
+           found factor
+             DIV / -> [INTEGER_CONST 4] 12
+             INTEGER_CONST 4 -> [ID location] 12
+            found factor
+          found term
+         found expr
+        found assign
+       found statement
+         ID location -> [ASSIGN* *=] 8
+         found varref
+           ASSIGN* *= -> [ID ledCount] 10
+         found assignoperator
+             ID ledCount -> [ID leds] 12
+            ID ledCount -> [ID leds] 11
+            found varref
+           found factor
+          found term
+         found expr
+        found assign
+       found statement
+         ID leds -> [LBRACKET [] 8
+         found varref
+          LBRACKET [ -> [ID location] 9
+               ID location -> [RBRACKET ]] 14
+              ID location -> [RBRACKET ]] 13
+              found varref
+             found factor
+            found term
+           found expr
+          found indices
+          RBRACKET ] -> [ASSIGN =] 9
+           ASSIGN = -> [ID colorFromPalette] 10
+         found assignoperator
+             ID colorFromPalette -> [LPAREN (] 12
+             LPAREN ( -> [INTEGER_CONST 0] 12
+                 INTEGER_CONST 0 -> [COMMA ,] 16
+                found factor
+               found term
+              found expr
+               COMMA , -> [INTEGER_CONST 255] 14
+                  INTEGER_CONST 255 -> [RPAREN )] 17
+                 found factor
+                found term
+               found expr
+             found actuals
+             RPAREN ) -> [RCURL }] 12
+            found call
+           found factor
+          found term
+         found expr
+        found assign
+       found statement
+      RCURL } -> [RCURL }] 5
+     found block
+    found function
+   found statement
+  RCURL } 1
+ found block
+Symbol program Parsed until (50,1) 1538 of 1538
+definitionJson usage 9415 of 16384 (57 %) (23 0 6)
+parseTree usage      16476 of 65536 (25 %) (1 0 26)
+garbageCollect       11868 of 65536 (18 %) (1 0 26)
+Destruct Lexer
+Heap parse > 0 (0ms)
+
+Optimizer
+                     symbol to shrink factor in term = {"INTEGER_CONST":"256"} from {"factor":{"INTEGER_CONST":"256"}}
+                       symbol to shrink factor in term = {"varref":{"ID":"speedSlider"}} from {"factor":{"varref":{"ID":"speedSlider"}}}
+                     symbol to shrink factor in term = {"varref":{"ID":"locn"}} from {"factor":{"varref":{"ID":"locn"}}}
+                symbol to shrink factor in term = {"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}}}}} from {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}}}}}}
+                  symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
+             symbol to shrink factor in term = {"expr":{"term":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}}}}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}} from {"factor":{"expr":{"term":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}}}}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}}}
+                     symbol to shrink factor in term = {"INTEGER_CONST":"256"} from {"factor":{"INTEGER_CONST":"256"}}
+                       symbol to shrink factor in term = {"varref":{"ID":"custom1Slider"}} from {"factor":{"varref":{"ID":"custom1Slider"}}}
+                     symbol to shrink factor in term = {"varref":{"ID":"locn2"}} from {"factor":{"varref":{"ID":"locn2"}}}
+                symbol to shrink factor in term = {"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn2"}}}}}} from {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn2"}}}}}}}
+                  symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
+             symbol to shrink factor in term = {"expr":{"term":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn2"}}}}}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}} from {"factor":{"expr":{"term":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn2"}}}}}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}}}
+                symbol to shrink factor in term = {"varref":{"ID":"newVal"}} from {"factor":{"varref":{"ID":"newVal"}}}
+                  symbol to shrink factor in term = {"varref":{"ID":"newVal2"}} from {"factor":{"varref":{"ID":"newVal2"}}}
+             symbol to shrink factor in term = {"varref":{"ID":"ledCount"}} from {"factor":{"varref":{"ID":"ledCount"}}}
+              symbol to shrink factor in term = {"varref":{"ID":"location"}} from {"factor":{"varref":{"ID":"location"}}}
+                  symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+                    symbol to shrink factor in term = {"INTEGER_CONST":"255"} from {"factor":{"INTEGER_CONST":"255"}}
+             symbol to shrink factor in term = {"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}} from {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}}
+Heap optimize > 0 (0ms)
+
+Analyzer
+ Program DualSinelon 1 0
+     Function DualSinelon.renderFrame
+         Ext Function found fadeToBlackBy (8)
+             Ext Variable found intensitySlider (12) varref
+         assign renderFrame.locn of notype
+         assign locn = (8)
+             Ext Function found millis (12)
+                      Ext Variable found speedSlider (21) varref
+         assign renderFrame.newVal of notype
+         assign newVal = (8)
+              Ext Function found sin (13)
+                 VarRef found renderFrame.locn (16)
+         assign renderFrame.locn2 of notype
+         assign locn2 = (8)
+             Ext Function found millis (12)
+                      Ext Variable found custom1Slider (21) varref
+         assign renderFrame.newVal2 of notype
+         assign newVal2 = (8)
+              Ext Function found sin (13)
+                 VarRef found renderFrame.locn2 (16)
+         assign renderFrame.location of notype
+         assign location = (8)
+               VarRef found renderFrame.newVal (14)
+                 VarRef found renderFrame.newVal2 (16)
+         assign location = (8)
+            Ext Variable found ledCount (11) varref
+         asop *=
+         Ext Variable found leds (8) assign
+         assign leds = (8)
+            Ext Function found colorFromPalette (11)
+             VarRef found renderFrame.location (12)
+     0 assign renderFrame.locn of 9 (2)
+     1 assign renderFrame.newVal of 9 (2)
+     2 assign renderFrame.locn2 of 9 (2)
+     3 assign renderFrame.newVal2 of 9 (2)
+     4 assign renderFrame.location of 9 (2)
+ 0 function DualSinelon.renderFrame of 9 (1)
+Heap analyze > 0 (0ms)
+
+interpret DualSinelon 1 1
+ program DualSinelon
+     Save block of renderFrame
+Heap Interpret main > 0 (0ms)
+         Call renderFrame (1)
+                 varref ext.intensitySlider = 14.000000 (push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 4 (Push 3)
+               14.000000 / 4.000000 = 3.500000 (push 4)
+             Call fadeToBlackBy(3.500000) = 3.500000
+                 Call millis() = 1000.000000
+                  DIV / (Push 3)
+                        INTEGER_CONST 256 (Push 4)
+                         MINUS - (Push 5)
+                          varref ext.speedSlider = 13.000000 (push 6)
+                      256.000000 - 13.000000 = 243.000000 (push 7)
+                       MUL * (Push 5)
+                        INTEGER_CONST 4 (Push 6)
+                    243.000000 * 4.000000 = 972.000000 (push 7)
+               1000.000000 / 972.000000 = 1.028807 (push 5)
+             renderFrame.locn := 1.028807 (pop 1) 2-0
+                     varref renderFrame.locn = 1.028807 (push 2) 2-0
+                  Call sin(1.028807) = 0.856684
+                   PLUS + (Push 3)
+                    INTEGER_CONST 1 (Push 4)
+                0.856684 + 1.000000 = 1.856684 (push 5)
+             renderFrame.newVal := 1.856684 (pop 1) 2-1
+                 Call millis() = 1000.000000
+                  DIV / (Push 3)
+                        INTEGER_CONST 256 (Push 4)
+                         MINUS - (Push 5)
+                          varref ext.custom1Slider = 15.000000 (push 6)
+                      256.000000 - 15.000000 = 241.000000 (push 7)
+                       MUL * (Push 5)
+                        INTEGER_CONST 4 (Push 6)
+                    241.000000 * 4.000000 = 964.000000 (push 7)
+               1000.000000 / 964.000000 = 1.037344 (push 5)
+             renderFrame.locn2 := 1.037344 (pop 1) 2-2
+                     varref renderFrame.locn2 = 1.037344 (push 2) 2-2
+                  Call sin(1.037344) = 0.861057
+                   PLUS + (Push 3)
+                    INTEGER_CONST 1 (Push 4)
+                0.861057 + 1.000000 = 1.861057 (push 5)
+             renderFrame.newVal2 := 1.861057 (pop 1) 2-3
+                   varref renderFrame.newVal = 1.856684 (push 2) 2-1
+                    PLUS + (Push 3)
+                     varref renderFrame.newVal2 = 1.861057 (push 4) 2-3
+                 1.856684 + 1.861057 = 3.717741 (push 5)
+                  DIV / (Push 3)
+                   INTEGER_CONST 4 (Push 4)
+               3.717741 / 4.000000 = 0.929435 (push 5)
+             renderFrame.location := 0.929435 (pop 1) 2-4
+                varref ext.ledCount = 3.000000 (push 2)
+             renderFrame.location *= 2.788306 (pop 1) 2-4
+                 varref renderFrame.location = 2.788306 (push 2) 2-4
+                   INTEGER_CONST 0 (Push 3)
+                     INTEGER_CONST 255 (Push 4)
+                Call colorFromPalette(0.000000, 255.000000) = 255.000000
+arti_set_external_variable: leds(2.788306) := 255.000000
+             assign set ext.leds[2.788306] = 255.000000 (2)
+Destruct activation record renderFrame
+setPixels(-32768.000000)
+         Call renderFrame (1)
+                 varref ext.intensitySlider = 14.000000 (push 2)
+                  DIV / (Push 3)
+                   INTEGER_CONST 4 (Push 4)
+               14.000000 / 4.000000 = 3.500000 (push 5)
+             Call fadeToBlackBy(3.500000) = 3.500000
+                 Call millis() = 1000.000000
+                  DIV / (Push 4)
+                        INTEGER_CONST 256 (Push 5)
+                         MINUS - (Push 6)
+                          varref ext.speedSlider = 13.000000 (push 7)
+                      256.000000 - 13.000000 = 243.000000 (push 8)
+                       MUL * (Push 6)
+                        INTEGER_CONST 4 (Push 7)
+                    243.000000 * 4.000000 = 972.000000 (push 8)
+               1000.000000 / 972.000000 = 1.028807 (push 6)
+             renderFrame.locn := 1.028807 (pop 2) 2-0
+                     varref renderFrame.locn = 1.028807 (push 3) 2-0
+                  Call sin(1.028807) = 0.856684
+                   PLUS + (Push 4)
+                    INTEGER_CONST 1 (Push 5)
+                0.856684 + 1.000000 = 1.856684 (push 6)
+             renderFrame.newVal := 1.856684 (pop 2) 2-1
+                 Call millis() = 1000.000000
+                  DIV / (Push 4)
+                        INTEGER_CONST 256 (Push 5)
+                         MINUS - (Push 6)
+                          varref ext.custom1Slider = 15.000000 (push 7)
+                      256.000000 - 15.000000 = 241.000000 (push 8)
+                       MUL * (Push 6)
+                        INTEGER_CONST 4 (Push 7)
+                    241.000000 * 4.000000 = 964.000000 (push 8)
+               1000.000000 / 964.000000 = 1.037344 (push 6)
+             renderFrame.locn2 := 1.037344 (pop 2) 2-2
+                     varref renderFrame.locn2 = 1.037344 (push 3) 2-2
+                  Call sin(1.037344) = 0.861057
+                   PLUS + (Push 4)
+                    INTEGER_CONST 1 (Push 5)
+                0.861057 + 1.000000 = 1.861057 (push 6)
+             renderFrame.newVal2 := 1.861057 (pop 2) 2-3
+                   varref renderFrame.newVal = 1.856684 (push 3) 2-1
+                    PLUS + (Push 4)
+                     varref renderFrame.newVal2 = 1.861057 (push 5) 2-3
+                 1.856684 + 1.861057 = 3.717741 (push 6)
+                  DIV / (Push 4)
+                   INTEGER_CONST 4 (Push 5)
+               3.717741 / 4.000000 = 0.929435 (push 6)
+             renderFrame.location := 0.929435 (pop 2) 2-4
+                varref ext.ledCount = 3.000000 (push 3)
+             renderFrame.location *= 2.788306 (pop 2) 2-4
+                 varref renderFrame.location = 2.788306 (push 3) 2-4
+                   INTEGER_CONST 0 (Push 4)
+                     INTEGER_CONST 255 (Push 5)
+                Call colorFromPalette(0.000000, 255.000000) = 255.000000
+arti_set_external_variable: leds(2.788306) := 255.000000
+             assign set ext.leds[2.788306] = 255.000000 (3)
+Destruct activation record renderFrame
+setPixels(-32768.000000)
+Heap close Arti < 0
+Destruct callstack
+Destruct valueStack
+Heap Destruct Symbol locn (0)
+Heap Destruct Symbol newVal (0)
+Heap Destruct Symbol locn2 (0)
+Heap Destruct Symbol newVal2 (0)
+Heap Destruct Symbol location (0)
+Heap Destruct ScopedSymbolTable renderFrame (0)
+Heap Destruct Symbol renderFrame (0)
+Heap Destruct ScopedSymbolTable DualSinelon (0)
+definitionJson usage  9415 of 16384 (57 %) (23 0 6)
+parseTree usage       16092 of 65536 (25 %) (1 0 25)
