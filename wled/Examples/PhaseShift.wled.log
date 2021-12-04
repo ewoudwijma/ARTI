@@ -1,8 +1,9 @@
-Heap Setup < 0 (0ms) wled.json Examples/PhaseShift.wled
-Heap open definition file > 0
-Heap definitionJsonDoc 16384 > 0 (0ms)
+setup 0 bytes free
+open wled.json 0 ✓
+definitionTree 16384 => 0 ✓
+open Examples/PhaseShift.wled 0 ✓
 programFile size 366 bytes
-Heap parseTreeJsonDoc 65536 > 0 (0ms)
+parseTree 65536 => 0 ✓
  PROGRAM PROGRAM -> [ID PhaseShift] 0
  ID PhaseShift -> [LCURL {] 0
   LCURL { -> [ID pixelCounter] 1
@@ -149,11 +150,11 @@ Heap parseTreeJsonDoc 65536 > 0 (0ms)
   RCURL } 1
  found block
 Symbol program Parsed until (30,0) 366 of 366
-definitionJson usage 9415 of 16384 (57 %) (23 0 6)
-parseTree usage      10283 of 65536 (16 %) (1 0 22)
-garbageCollect       7211 of 65536 (11 %) (1 0 22)
+definitionTree 9966 / 60% (23 0 6)
+parseTree      10283 / 15% (1 0 22)
+garbageCollect 7211 / 11% (1 0 22)
 Destruct Lexer
-Heap parse > 0 (0ms)
+parse 0 ✓
 
 Optimizer
         symbol to shrink factor in term = {"INTEGER_CONST":"3"} from {"factor":{"INTEGER_CONST":"3"}}
@@ -167,7 +168,7 @@ Optimizer
                symbol to shrink factor in term = {"INTEGER_CONST":"3"} from {"factor":{"INTEGER_CONST":"3"}}
                   symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
               symbol to shrink factor in term = {"varref":{"ID":"i"}} from {"factor":{"varref":{"ID":"i"}}}
-Heap optimize > 0 (0ms)
+optimize 0 ✓
 
 Analyzer
  Program PhaseShift 1 0
@@ -194,7 +195,7 @@ Analyzer
  1 assign PhaseShift.countAdd of 9 (1)
  2 function PhaseShift.renderFrame of 9 (1)
  3 function PhaseShift.renderLed of 9 (1)
-Heap analyze > 0 (0ms)
+analyze 0 ✓
 
 interpret PhaseShift 1 4
  program PhaseShift
@@ -204,7 +205,7 @@ interpret PhaseShift 1 4
      PhaseShift.countAdd := 1.000000 (pop 0) 1-1
      Save block of renderFrame
      Save block of renderLed
-Heap Interpret main > 0 (0ms)
+Interpret main 0 ✓
          Call renderFrame (1)
                 varref PhaseShift.countAdd = 1.000000 (push 1) 1-1
              PhaseShift.pixelCounter += 4.000000 (pop 0) 1-0
@@ -285,16 +286,17 @@ setPixelColor(1.000000, 5.000000)
 setPixelColor(2.000000, 10.000000)
              Call setPixelColor(2.000000, 10.000000)
 Destruct activation record renderLed
-Heap close Arti < 0
+closing Arti 0
 Destruct callstack
 Destruct valueStack
-Heap Destruct ScopedSymbolTable renderFrame (0)
-Heap Destruct Symbol i (0)
-Heap Destruct ScopedSymbolTable renderLed (0)
-Heap Destruct Symbol pixelCounter (0)
-Heap Destruct Symbol countAdd (0)
-Heap Destruct Symbol renderFrame (0)
-Heap Destruct Symbol renderLed (0)
-Heap Destruct ScopedSymbolTable PhaseShift (0)
-definitionJson usage  9415 of 16384 (57 %) (23 0 6)
-parseTree usage       8779 of 65536 (13 %) (1 0 21)
+Destruct ScopedSymbolTable renderFrame (0)
+Destruct Symbol i (0)
+Destruct ScopedSymbolTable renderLed (0)
+Destruct Symbol pixelCounter (0)
+Destruct Symbol countAdd (0)
+Destruct Symbol renderFrame (0)
+Destruct Symbol renderLed (0)
+Destruct ScopedSymbolTable PhaseShift (0)
+definitionJson  9966 / 60% (23 0 6)
+parseTree       8779 / 13% (1 0 21)
+closed Arti 0 ✓

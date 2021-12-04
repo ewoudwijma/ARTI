@@ -1,8 +1,9 @@
-Heap Setup < 0 (0ms) pas.json Examples/pas1.pas
-Heap open definition file > 0
-Heap definitionJsonDoc 16384 > 0 (0ms)
+setup 0 bytes free
+open pas.json 0 ✓
+definitionTree 16384 => 0 ✓
+open Examples/pas1.pas 0 ✓
 programFile size 382 bytes
-Heap parseTreeJsonDoc 65536 > 0 (0ms)
+parseTree 65536 => 0 ✓
  PROGRAM PROGRAM -> [ID Main] 0
  ID Main -> [SEMI ;] 0
  SEMI ; -> [VAR VAR] 0
@@ -234,11 +235,11 @@ Heap parseTreeJsonDoc 65536 > 0 (0ms)
  found block
  DOT . 0
 Symbol program Parsed until (31,6) 382 of 382
-definitionJson usage 5511 of 16384 (34 %) (23 0 6)
-parseTree usage      16152 of 65536 (25 %) (1 0 24)
-garbageCollect       12408 of 65536 (19 %) (1 0 24)
+definitionTree 5511 / 33% (23 0 6)
+parseTree      16152 / 24% (1 0 24)
+garbageCollect 12408 / 18% (1 0 24)
 Destruct Lexer
-Heap parse > 0 (0ms)
+parse 0 ✓
 
 Optimizer
                      symbol to shrink factor in term = {"varref":{"ID":"x"}} from {"factor":{"varref":{"ID":"x"}}}
@@ -259,7 +260,7 @@ Optimizer
           symbol to shrink statement_list in compound_statement = {"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}},"*":[{}]} from {"statement_list":{"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}},"*":[{}]}}
          symbol to shrink compound_statement in block = {"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}},"*":[{}]} from {"compound_statement":{"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}},"*":[{}]}}
    symbol to shrink statement_list in compound_statement = {"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"3"},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{},{"expr":{"term":{"INTEGER_CONST":"7"}}}]}}},"*":[{},{"statement":{"for":{"assign":{"varref":{"ID":"y"},"expr":{"term":{"INTEGER_CONST":"1"}}},"expr":{"term":{"INTEGER_CONST":"2"}},"block":{"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}},"*":[{}]}}}},{}]} from {"statement_list":{"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"3"},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{},{"expr":{"term":{"INTEGER_CONST":"7"}}}]}}},"*":[{},{"statement":{"for":{"assign":{"varref":{"ID":"y"},"expr":{"term":{"INTEGER_CONST":"1"}}},"expr":{"term":{"INTEGER_CONST":"2"}},"block":{"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}},"*":[{}]}}}},{}]}}
-Heap optimize > 0 (0ms)
+optimize 0 ✓
 
 Analyzer
  Program Main 1 0
@@ -293,7 +294,7 @@ Analyzer
               VarRef found Main.y (13)
  0 variable Main.y of 9 (1)
  1 function Main.Alpha of 9 (1)
-Heap analyze > 0 (0ms)
+analyze 0 ✓
 
 interpret Main 1 2
  program Main
@@ -436,21 +437,22 @@ Destruct activation record Alpha
       conditionResult (pop 0)
       Main.(0) 3.000000 <= 2.000000 = 0.000000
       0 => end of For
-Heap Interpret main > 0 (0ms)
-Heap close Arti < 0
+Interpret main 0 ✓
+closing Arti 0
 Destruct callstack
 Destruct valueStack
-Heap Destruct Symbol a (0)
-Heap Destruct Symbol b (0)
-Heap Destruct Symbol x (0)
-Heap Destruct ScopedSymbolTable Beta (0)
-Heap Destruct Symbol a (0)
-Heap Destruct Symbol b (0)
-Heap Destruct Symbol x (0)
-Heap Destruct Symbol Beta (0)
-Heap Destruct ScopedSymbolTable Alpha (0)
-Heap Destruct Symbol y (0)
-Heap Destruct Symbol Alpha (0)
-Heap Destruct ScopedSymbolTable Main (0)
-definitionJson usage  5511 of 16384 (34 %) (23 0 6)
-parseTree usage       19832 of 65536 (30 %) (1 0 23)
+Destruct Symbol a (0)
+Destruct Symbol b (0)
+Destruct Symbol x (0)
+Destruct ScopedSymbolTable Beta (0)
+Destruct Symbol a (0)
+Destruct Symbol b (0)
+Destruct Symbol x (0)
+Destruct Symbol Beta (0)
+Destruct ScopedSymbolTable Alpha (0)
+Destruct Symbol y (0)
+Destruct Symbol Alpha (0)
+Destruct ScopedSymbolTable Main (0)
+definitionJson  5511 / 33% (23 0 6)
+parseTree       19832 / 30% (1 0 23)
+closed Arti 0 ✓

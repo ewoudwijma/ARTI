@@ -1,53 +1,49 @@
-Heap Setup < 0 (0ms) wled.json Examples/default.wled
-Heap open definition file > 0
-Heap definitionJsonDoc 16384 > 0 (0ms)
-programFile size 202 bytes
-Heap parseTreeJsonDoc 65536 > 0 (0ms)
+setup 0 bytes free
+open wled.json 0 ✓
+definitionTree 16384 => 0 ✓
+open Examples/default.wled 0 ✓
+programFile size 160 bytes
+parseTree 65536 => 0 ✓
  PROGRAM PROGRAM -> [ID default] 0
  ID default -> [LCURL {] 0
-  LCURL { -> [ID pixelCounter] 1
-     ID pixelCounter -> [ASSIGN =] 4
-     found varref
-       ASSIGN = -> [INTEGER_CONST 0] 6
-     found assignoperator
-        INTEGER_CONST 0 -> [FUNCTION FUNCTION] 7
-       found factor
-      found term
-     found expr
-    found assign
-   found statement
+  LCURL { -> [FUNCTION FUNCTION] 1
      FUNCTION FUNCTION -> [ID renderFrame] 4
      ID renderFrame -> [LPAREN (] 4
       LPAREN ( -> [RPAREN )] 5
       found formals
       RPAREN ) -> [LCURL {] 5
-      LCURL { -> [ID setPixelColor] 5
-         ID setPixelColor -> [LPAREN (] 8
+      LCURL { -> [ID leds] 5
+         ID leds -> [LBRACKET [] 8
          found varref
-         ID setPixelColor -> [LPAREN (] 8
-         LPAREN ( -> [ID pixelCounter] 8
-              ID pixelCounter -> [COMMA ,] 13
-             ID pixelCounter -> [COMMA ,] 12
-             found varref
-            found factor
-           found term
-          found expr
-           COMMA , -> [ID pixelCounter] 10
-               ID pixelCounter -> [RPAREN )] 14
-              ID pixelCounter -> [RPAREN )] 13
+          LBRACKET [ -> [ID counter] 9
+               ID counter -> [RBRACKET ]] 14
+              ID counter -> [RBRACKET ]] 13
               found varref
              found factor
             found term
            found expr
-         found actuals
-         RPAREN ) -> [ID pixelCounter] 8
-        found call
-       found statement
-         ID pixelCounter -> [ASSIGN+ +=] 8
-         found varref
-           ASSIGN+ += -> [INTEGER_CONST 1] 10
+          found indices
+          RBRACKET ] -> [ASSIGN =] 9
+           ASSIGN = -> [ID colorFromPalette] 10
          found assignoperator
-            INTEGER_CONST 1 -> [RCURL }] 11
+             ID colorFromPalette -> [LPAREN (] 12
+             LPAREN ( -> [ID counter] 12
+                  ID counter -> [COMMA ,] 17
+                 ID counter -> [COMMA ,] 16
+                 found varref
+                found factor
+               found term
+              found expr
+               COMMA , -> [ID counter] 14
+                   ID counter -> [RPAREN )] 18
+                  ID counter -> [RPAREN )] 17
+                  found varref
+                 found factor
+                found term
+               found expr
+             found actuals
+             RPAREN ) -> [RCURL }] 12
+            found call
            found factor
           found term
          found expr
@@ -59,62 +55,60 @@ Heap parseTreeJsonDoc 65536 > 0 (0ms)
    found statement
   RCURL } 1
  found block
-Symbol program Parsed until (13,1) 202 of 202
-definitionJson usage 9415 of 16384 (57 %) (23 0 6)
-parseTree usage      4019 of 65536 (6 %) (1 0 19)
-garbageCollect       2803 of 65536 (4 %) (1 0 19)
+Symbol program Parsed until (9,1) 160 of 160
+definitionTree 9966 / 60% (23 0 6)
+parseTree      3759 / 5% (1 0 23)
+garbageCollect 2671 / 4% (1 0 23)
 Destruct Lexer
-Heap parse > 0 (0ms)
+parse 0 ✓
 
 Optimizer
-        symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
-              symbol to shrink factor in term = {"varref":{"ID":"pixelCounter"}} from {"factor":{"varref":{"ID":"pixelCounter"}}}
-                symbol to shrink factor in term = {"varref":{"ID":"pixelCounter"}} from {"factor":{"varref":{"ID":"pixelCounter"}}}
-             symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
-Heap optimize > 0 (0ms)
+              symbol to shrink factor in term = {"varref":{"ID":"counter"}} from {"factor":{"varref":{"ID":"counter"}}}
+                  symbol to shrink factor in term = {"varref":{"ID":"counter"}} from {"factor":{"varref":{"ID":"counter"}}}
+                    symbol to shrink factor in term = {"varref":{"ID":"counter"}} from {"factor":{"varref":{"ID":"counter"}}}
+             symbol to shrink factor in term = {"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"counter"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"counter"}}}}]}}} from {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"counter"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"counter"}}}}]}}}}
+optimize 0 ✓
 
 Analyzer
  Program default 1 0
-     assign default.pixelCounter of notype
-     assign pixelCounter = (4)
      Function default.renderFrame
-         Ext Function found setPixelColor (8)
-            VarRef found default.pixelCounter (11)
-              VarRef found default.pixelCounter (13)
-         assign pixelCounter = (8)
-         asop +=
- 0 assign default.pixelCounter of 9 (1)
- 1 function default.renderFrame of 9 (1)
-Heap analyze > 0 (0ms)
+         Ext Variable found leds (8) assign
+         assign leds = (8)
+            Ext Function found colorFromPalette (11)
+               Ext Variable found counter (14) varref
+                 Ext Variable found counter (16) varref
+             Ext Variable found counter (12) varref
+ 0 function default.renderFrame of 9 (1)
+analyze 0 ✓
 
-interpret default 1 2
+interpret default 1 1
  program default
-        INTEGER_CONST 0 (Push 1)
-     default.pixelCounter := 0.000000 (pop 0) 1-0
      Save block of renderFrame
-Heap Interpret main > 0 (0ms)
+Interpret main 0 ✓
          Call renderFrame (1)
-                varref default.pixelCounter = 0.000000 (push 1) 1-0
-                  varref default.pixelCounter = 0.000000 (push 2) 1-0
-setPixelColor(0.000000, 0.000000)
-             Call setPixelColor(0.000000, 0.000000)
-                INTEGER_CONST 1 (Push 1)
-             default.pixelCounter += 1.000000 (pop 0) 1-0
+                 varref ext.counter = 0.000000 (push 1)
+                   varref ext.counter = 0.000000 (push 2)
+                     varref ext.counter = 0.000000 (push 3)
+                Call colorFromPalette(0.000000, 0.000000) = 0.000000
+arti_set_external_variable: leds(0.000000) := 0.000000
+             assign set ext.leds[0.000000] = 0.000000 (1)
 Destruct activation record renderFrame
+setPixels(leds)
          Call renderFrame (1)
-                varref default.pixelCounter = 1.000000 (push 1) 1-0
-                  varref default.pixelCounter = 1.000000 (push 2) 1-0
-setPixelColor(1.000000, 1.000000)
-             Call setPixelColor(1.000000, 1.000000)
-                INTEGER_CONST 1 (Push 1)
-             default.pixelCounter += 2.000000 (pop 0) 1-0
+                 varref ext.counter = 1.000000 (push 1)
+                   varref ext.counter = 1.000000 (push 2)
+                     varref ext.counter = 1.000000 (push 3)
+                Call colorFromPalette(1.000000, 1.000000) = 2.000000
+arti_set_external_variable: leds(1.000000) := 2.000000
+             assign set ext.leds[1.000000] = 2.000000 (1)
 Destruct activation record renderFrame
-Heap close Arti < 0
+setPixels(leds)
+closing Arti 0
 Destruct callstack
 Destruct valueStack
-Heap Destruct ScopedSymbolTable renderFrame (0)
-Heap Destruct Symbol pixelCounter (0)
-Heap Destruct Symbol renderFrame (0)
-Heap Destruct ScopedSymbolTable default (0)
-definitionJson usage  9415 of 16384 (57 %) (23 0 6)
-parseTree usage       3347 of 65536 (5 %) (1 0 18)
+Destruct ScopedSymbolTable renderFrame (0)
+Destruct Symbol renderFrame (0)
+Destruct ScopedSymbolTable default (0)
+definitionJson  9966 / 60% (23 0 6)
+parseTree       3471 / 5% (1 0 21)
+closed Arti 0 ✓

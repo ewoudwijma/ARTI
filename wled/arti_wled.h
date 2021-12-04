@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_wled_plugin.h
-   @version 0.1.1
-   @date    20211129
+   @version 0.2.0
+   @date    20211203
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */
@@ -47,7 +47,10 @@ enum Externals
   F_colorFromPalette,
   F_beatSin,
   F_fadeToBlackBy,
+  F_iNoise,
+  F_fadeOut,
 
+  F_counter,
   F_segcolor,
   F_speedSlider,
   F_intensitySlider,
@@ -60,6 +63,8 @@ enum Externals
   F_circle2D,
 
   F_constrain,
+  F_map,
+  F_seed,
   F_random,
   F_sin,
   F_cos,
@@ -79,6 +84,8 @@ enum Externals
   class WS2812FX {
   public:
     uint16_t matrixWidth = 16, matrixHeight = 16;
+
+    uint32_t frameCounter = 0;
 
     uint16_t XY(uint16_t x, uint16_t y) {                              // ewowi20210703: new XY: segmentToReal: Maps XY in 2D segment to to rotated and mirrored logical index. Works for 1D strips and 2D panels
         return x%matrixWidth + y%matrixHeight * matrixWidth;
@@ -143,6 +150,11 @@ double WS2812FX::arti_external_function(uint8_t function, double par1, double pa
       case F_fadeToBlackBy:
         fadeToBlackBy(leds, (uint8_t)par1);
         return doubleNull;
+      case F_iNoise:
+        return inoise16((uint32_t)par1, (uint32_t)par2);
+      case F_fadeOut:
+        fade_out((uint8_t)par1);
+        return doubleNull;
 
       case F_segcolor:
         return SEGCOLOR((uint8_t)par1);
@@ -174,6 +186,11 @@ double WS2812FX::arti_external_function(uint8_t function, double par1, double pa
 
       case F_constrain:
         return constrain(par1, par2, par3);
+      case F_map:
+        return map(par1, par2, par3, par4, par5);
+      case F_seed:
+        random16_set_seed((uint16_t)par1);
+        return doubleNull;
       case F_random:
         return random16();
 
@@ -189,7 +206,7 @@ double WS2812FX::arti_external_function(uint8_t function, double par1, double pa
         PRINT_ARTI("%s(%f, %f)\n", "setPixelColor", par1, par2);
         return doubleNull;
       case F_setPixels:
-        PRINT_ARTI("%s(%f)\n", "setPixels", par1);
+        PRINT_ARTI("%s\n", "setPixels(leds)");
         return doubleNull;
       case F_hsv:
         PRINT_ARTI("%s(%f, %f, %f)\n", "hsv", par1, par2, par3);
@@ -210,6 +227,10 @@ double WS2812FX::arti_external_function(uint8_t function, double par1, double pa
         return par1+par2+par3+par4+par5;
       case F_fadeToBlackBy:
         return par1;
+      case F_iNoise:
+        return par1 + par2;
+      case F_fadeOut:
+        return par1;
 
       case F_segcolor:
         return par1;
@@ -223,6 +244,11 @@ double WS2812FX::arti_external_function(uint8_t function, double par1, double pa
 
       case F_constrain:
         return par1 + par2 + par3;
+      case F_map:
+        return par1 + par2 + par3 + par4 + par5;
+      case F_seed:
+        PRINT_ARTI("%s(%f)\n", "seed", par1);
+        return doubleNull;
       case F_random:
         return rand();
 
@@ -260,6 +286,7 @@ double WS2812FX::arti_external_function(uint8_t function, double par1, double pa
   }
 
   ERROR_ARTI("Error: arti_external_function: %u not implemented\n", function);
+  errorOccurred = true;
   return function;
 }
 
@@ -273,6 +300,7 @@ double WS2812FX::arti_get_external_variable(uint8_t variable, double par1, doubl
       case F_leds:
         if (par1 == doubleNull) {
           ERROR_ARTI("arti_get_external_variable leds without indices not supported yet (get leds)\n");
+          errorOccurred = true;
           return doubleNull;
         }
         else if (par2 == doubleNull)
@@ -280,6 +308,8 @@ double WS2812FX::arti_get_external_variable(uint8_t variable, double par1, doubl
         else
           return leds[XY((uint16_t)par1, (uint16_t)par2)]; //2D value!!
 
+      case F_counter:
+        return SEGENV.call;
       case F_speedSlider:
         return SEGMENT.speed;
       case F_intensitySlider:
@@ -308,6 +338,7 @@ double WS2812FX::arti_get_external_variable(uint8_t variable, double par1, doubl
       case F_leds:
         if (par1 == doubleNull) {
           ERROR_ARTI("arti_get_external_variable leds without indices not supported yet (get leds)\n");
+          errorOccurred = true;
           return F_leds;
         }
         else if (par2 == doubleNull)
@@ -315,6 +346,8 @@ double WS2812FX::arti_get_external_variable(uint8_t variable, double par1, doubl
         else
           return par1 * par2; //2D value!!
 
+      case F_counter:
+        return frameCounter;
       case F_speedSlider:
         return F_speedSlider;
       case F_intensitySlider:
@@ -338,6 +371,7 @@ double WS2812FX::arti_get_external_variable(uint8_t variable, double par1, doubl
   #endif
 
   ERROR_ARTI("Error: arti_get_external_variable: %u not implemented\n", variable);
+  errorOccurred = true;
   return variable;
 }
 
@@ -349,8 +383,11 @@ void WS2812FX::arti_set_external_variable(double value, uint8_t variable, double
     switch (variable)
     {
       case F_leds:
-        if (par1 == doubleNull)
+        if (par1 == doubleNull) 
+        {
           ERROR_ARTI("arti_set_external_variable leds without indices not supported yet (set leds to %f)\n", value);
+          errorOccurred = true;
+        }
         else if (par2 == doubleNull)
           leds[realPixelIndex((uint16_t)par1%ledCount)] = value;
         else
@@ -363,8 +400,11 @@ void WS2812FX::arti_set_external_variable(double value, uint8_t variable, double
     switch (variable)
     {
       case F_leds:
-        if (par1 == doubleNull)
+        if (par1 == doubleNull) 
+        {
           ERROR_ARTI("arti_set_external_variable leds without indices not supported yet (set leds to %f)\n", value);
+          errorOccurred = true;
+        }
         else if (par2 == doubleNull)
           RUNLOG_ARTI("arti_set_external_variable: leds(%f) := %f\n", par1, value);
         else
@@ -376,14 +416,17 @@ void WS2812FX::arti_set_external_variable(double value, uint8_t variable, double
   #endif
 
   ERROR_ARTI("Error: arti_set_external_variable: %u not implemented\n", variable);
+  errorOccurred = true;
 } //arti_set_external_variable
 
-bool ARTI::loop() {
+bool ARTI::loop() 
+{
   if (stages < 5) {close(); return true;}
 
   if (parseTreeJsonDoc == nullptr || parseTreeJsonDoc->isNull()) 
   {
     ERROR_ARTI("Loop: No parsetree created\n");
+    errorOccurred = true;
     return false;
   }
   else 
@@ -407,7 +450,8 @@ bool ARTI::loop() {
 
       this->callStack->push(ar);
 
-      interpret(function_symbol->block, nullptr, global_scope, depth + 1);
+      if (!interpret(function_symbol->block, nullptr, global_scope, depth + 1))
+        return false;
 
       this->callStack->pop();
 
@@ -430,7 +474,8 @@ bool ARTI::loop() {
 
           this->callStack->push(ar);
 
-          interpret(function_symbol->block, nullptr, global_scope, depth + 1);
+          if (!interpret(function_symbol->block, nullptr, global_scope, depth + 1))
+            return false;
 
           this->callStack->pop();
 
@@ -450,9 +495,14 @@ bool ARTI::loop() {
 
     if (!foundRenderFunction) {
       ERROR_ARTI("%s renderFrame or renderLed not found\n", spaces+50-depth);
+      errorOccurred = true;
       return false;
     }
   }
+  #if ARTI_PLATFORM != ARTI_ARDUINO
+    strip.frameCounter ++;
+  #endif
+
   return true;
 } // loop
 
@@ -574,7 +624,7 @@ uint16_t WS2812FX::mode_customEffect(void) {
         //   previousMillis = millis();
         //   MEMORY_ARTI("Heap renderFrame %u\n", esp_get_free_heap_size());
         // }
-        arti->loop();
+        succesful = arti->loop();
       }
     }
     else 

@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti.h
-   @version 0.1.1
-   @date    20211129
+   @version 0.2.0
+   @date    20211203
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
    @remarks
@@ -41,6 +41,8 @@
           - check why statement is not 'shrinked'
           - replace Arduino by ESP????
           - minimize value["x"]
+          - update images to arti repo
+          - make default work in js
   */
 
 #pragma once
@@ -51,83 +53,143 @@
 #if ARTI_PLATFORM == ARTI_ARDUINO //defined in arti_definition.h e.g. arti_wled.h!
   #include "wled.h"  
   #include "src/dependencies/json/ArduinoJson-v6.h"
-  #define ARTI_OUTPUT ARTI_SERIAL //print output to serial
+
+  File logFile;
+
   #define ARTI_ERRORWARNING 1 //shows lexer, parser, analyzer and interpreter errors
   // #define ARTI_DEBUG 1
   // #define ARTI_ANDBG 1
   // #define ARTI_RUNLOG 1 //if set on arduino this will create massive amounts of output (as ran in a loop)
   #define ARTI_MEMORY 1 //to do analyses of memory usage, trace memoryleaks (works only on arduino)
   #define ARTI_PRINT 1 //will show the printf calls
+
   const char spaces[51] PROGMEM = "                                                  ";
   #define FREE_SIZE esp_get_free_heap_size()
-  #define CURRENT_MILLIS millis()
 #else //embedded
   #include "dependencies/ArduinoJson-recent.h"
-  #define ARTI_OUTPUT ARTI_FILE //print output to file (e.g. default.wled.log)
+
+  FILE * logFile; // FILE needed to use in fprintf (std stream does not work)
+
   #define ARTI_ERRORWARNING 1
   #define ARTI_DEBUG 1
   #define ARTI_ANDBG 1
   #define ARTI_RUNLOG 1
   #define ARTI_MEMORY 1
   #define ARTI_PRINT 1
+
   #include <iostream>
   #include <fstream>
   #include <sstream>
+
   const char spaces[51]         = "                                                  ";
-  #define FREE_SIZE 0
-  #define CURRENT_MILLIS (unsigned long)0 // unsigned long to surpress warning
+  #define FREE_SIZE (unsigned int)0
 #endif
 
-#if ARTI_OUTPUT == ARTI_SERIAL
-  #if ARTI_PLATFORM == ARTI_ARDUINO
-    #define OUTPUT_ARTI(...) Serial.printf(__VA_ARGS__)
-  #else
-    #define OUTPUT_ARTI printf
-  #endif
-#else
-  #if ARTI_PLATFORM == ARTI_ARDUINO
-    File logFile;
-    #define OUTPUT_ARTI(...) logFile.printf(__VA_ARGS__)
-  #else
-    FILE * logFile; // FILE needed to use in fprintf (std stream does not work)
-    #define OUTPUT_ARTI(...) fprintf(logFile, __VA_ARGS__)
-  #endif
-#endif
+bool logToFile = true; //print output to file (e.g. default.wled.log)
+
+void artiPrintf(char const * format, ...)
+{
+  va_list argp;
+
+  va_start(argp, format);
+
+  if (!logToFile)
+  {
+    vprintf(format, argp);
+  }
+  else
+  {
+    #if ARTI_PLATFORM == ARTI_ARDUINO
+      // rocket science here! As logfile.printf causes crashes we create our own printf here
+      // logFile.printf(format, argp);
+      for (int i = 0; i < strlen(format); i++) 
+      {
+        if (format[i] == '%') 
+        {
+          switch (format[i+1]) 
+          {
+            case 's':
+              logFile.print(va_arg(argp, const char *));
+              break;
+            case 'u':
+              logFile.print(va_arg(argp, unsigned int));
+              break;
+            case 'c':
+              logFile.print((char)va_arg(argp, int));
+              break;
+            case '%':
+              logFile.print("%"); // in case of %%
+              break;
+            default:
+              va_arg(argp, int);
+            // logFile.print(x);
+              logFile.print(format[i]);
+              logFile.print(format[i+1]);
+          }
+          i++;
+        } 
+        else 
+        {
+          logFile.print(format[i]);
+        }
+      }
+
+    #else
+      vfprintf(logFile, format, argp);
+    #endif
+  }
+  va_end(argp);
+}
+
+// #if ARTI_OUTPUT == ARTI_SERIAL
+//   #if ARTI_PLATFORM == ARTI_ARDUINO
+//     #define OUTPUT_ARTI(...) Serial.printf(__VA_ARGS__)
+//   #else
+//     #define OUTPUT_ARTI printf
+//   #endif
+// #else
+//   #if ARTI_PLATFORM == ARTI_ARDUINO
+//     #define OUTPUT_ARTI(...) logFile.printf(__VA_ARGS__)
+//   #else
+//     // FILE * logFile; // FILE needed to use in fprintf (std stream does not work)
+//     #define OUTPUT_ARTI(...) fprintf(logFile, __VA_ARGS__)
+//   #endif
+// #endif
 
 #ifdef ARTI_DEBUG
-    #define DEBUG_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
+    #define DEBUG_ARTI(...) artiPrintf(__VA_ARGS__)
 #else
     #define DEBUG_ARTI(...)
 #endif
 
 #ifdef ARTI_ANDBG
-    #define ANDBG_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
+    #define ANDBG_ARTI(...) artiPrintf(__VA_ARGS__)
 #else
     #define ANDBG_ARTI(...)
 #endif
 
 #ifdef ARTI_RUNLOG
-    #define RUNLOG_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
+  #define RUNLOG_ARTI(...) artiPrintf(__VA_ARGS__)
 #else
     #define RUNLOG_ARTI(...)
 #endif
 
 #ifdef ARTI_PRINT
-    #define PRINT_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
+    #define PRINT_ARTI(...) artiPrintf(__VA_ARGS__)
 #else
     #define PRINT_ARTI(...)
 #endif
 
 #ifdef ARTI_ERRORWARNING
-    #define ERROR_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
-    #define WARNING_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
+    #define ERROR_ARTI(...) artiPrintf(__VA_ARGS__)
+    #define WARNING_ARTI(...) artiPrintf(__VA_ARGS__)
 #else
     #define ERROR_ARTI(...)
     #define WARNING_ARTI(...)
 #endif
 
 #ifdef ARTI_MEMORY
-    #define MEMORY_ARTI(...) OUTPUT_ARTI(__VA_ARGS__)
+    #define MEMORY_ARTI(...) artiPrintf(__VA_ARGS__)
 #else
     #define MEMORY_ARTI(...)
 #endif
@@ -591,7 +653,7 @@ class Symbol {
   }
 
   ~Symbol() {
-    MEMORY_ARTI("Heap Destruct Symbol %s (%u)\n", name, FREE_SIZE);
+    MEMORY_ARTI("Destruct Symbol %s (%u)\n", name, FREE_SIZE);
   }
 
 }; //Symbol
@@ -624,7 +686,7 @@ class ScopedSymbolTable {
     for (uint8_t i=0; i<symbolsIndex; i++) {
       delete symbols[i]; symbols[i] = nullptr;
     }
-    MEMORY_ARTI("Heap Destruct ScopedSymbolTable %s (%u)\n", scope_name, FREE_SIZE);
+    MEMORY_ARTI("Destruct ScopedSymbolTable %s (%u)\n", scope_name, FREE_SIZE);
   }
 
   void init_builtins() {
@@ -724,47 +786,59 @@ public:
   CallStack() {
   }
 
-  ~CallStack() {
+  ~CallStack() 
+  {
     RUNLOG_ARTI("Destruct callstack\n");
   }
 
-
-    void push(ActivationRecord* ar) {
-      if (recordsCounter < nrOfRecords) {
-        // RUNLOG_ARTI("%s\n", "Push ", ar->name);
-        this->records[recordsCounter++] = ar;
-      }
-      else
-        ERROR_ARTI("no space left in callstack\n");
+  void push(ActivationRecord* ar) 
+  {
+    if (recordsCounter < nrOfRecords) 
+    {
+      // RUNLOG_ARTI("%s\n", "Push ", ar->name);
+      this->records[recordsCounter++] = ar;
     }
-
-    ActivationRecord* pop() {
-      if (recordsCounter > 0) {
-        // RUNLOG_ARTI("%s\n", "Pop ", this->peek()->name);
-        return this->records[recordsCounter--];
-      }
-      else {
-        ERROR_ARTI("no ar left on callstack\n");
-        return nullptr;
-      }
+    else 
+    {
+      errorOccurred = true;
+      ERROR_ARTI("no space left in callstack\n");
     }
+  }
 
-    ActivationRecord* peek() {
-        return this->records[recordsCounter-1];
+  ActivationRecord* pop()
+  {
+    if (recordsCounter > 0)
+    {
+      // RUNLOG_ARTI("%s\n", "Pop ", this->peek()->name);
+      return this->records[recordsCounter--];
     }
+    else 
+    {
+      ERROR_ARTI("no ar left on callstack\n");
+      return nullptr;
+    }
+  }
+
+  ActivationRecord* peek() 
+  {
+    return this->records[recordsCounter-1];
+  }
 }; //CallStack
 
-class ValueStack {
+class ValueStack 
+{
 private:
 public:
   // char charStack[arrayLength][charLength]; //currently only doubleStack used.
   double doubleStack[arrayLength];
   uint8_t stack_index = 0;
 
-  ValueStack() {
+  ValueStack() 
+  {
   }
 
-  ~ValueStack() {
+  ~ValueStack() 
+  {
     RUNLOG_ARTI("Destruct valueStack\n");
   }
 
@@ -780,9 +854,13 @@ public:
   //     strcpy(charStack[stack_index++], value);
   // }
 
-  void push(double value) {
-    if (stack_index >= arrayLength)
+  void push(double value) 
+  {
+    if (stack_index >= arrayLength) 
+    {
       ERROR_ARTI("Push doubleStack full %u of %u\n", stack_index, arrayLength);
+      errorOccurred = true;
+    }
     else if (value == doubleNull)
       ERROR_ARTI("Push null value on double stack\n");
     else
@@ -795,7 +873,8 @@ public:
   //   return charStack[stack_index-1];
   // }
 
-  double peekDouble() {
+  double peekDouble() 
+  {
     // RUNLOG_ARTI("Calc Peek %s\n", doubleStack[stack_index-1]);
     return doubleStack[stack_index-1];
   }
@@ -807,19 +886,24 @@ public:
   //   }
   //   else {
   //     ERROR_ARTI("Pop value stack empty\n");
-  //   // RUNLOG_ARTI("Calc Pop %s\n", charStack[stack_index]);
+        // errorOccurred = true;
+//   // RUNLOG_ARTI("Calc Pop %s\n", charStack[stack_index]);
   //     return "novalue";
   //   }
   // }
 
-  double popDouble() {
-    if (stack_index>0) {
+  double popDouble() 
+  {
+    if (stack_index>0) 
+    {
       stack_index--;
       return doubleStack[stack_index];
     }
-    else {
+    else 
+    {
       ERROR_ARTI("Pop doubleStack empty\n");
     // RUNLOG_ARTI("Calc Pop %s\n", doubleStack[stack_index]);
+      errorOccurred = true;
       return -1;
     }
   }
@@ -842,16 +926,18 @@ private:
   ValueStack *valueStack = nullptr;
 
   uint8_t stages = 5; //for debugging, should be 5 if no debugging
+
+  char logFileName[fileNameLength];
+
 public:
   ARTI() 
   {
-    // MEMORY_ARTI("Heap new Arti < %u\n", FREE_SIZE); //logfile not open here
+    // MEMORY_ARTI("new Arti < %u\n", FREE_SIZE); //logfile not open here
   }
 
   ~ARTI() 
   {
     MEMORY_ARTI("Destruct ARTI\n");
-    close();
   }
 
   //defined in arti_definition.h e.g. arti_wled.h!
@@ -860,8 +946,10 @@ public:
   void arti_set_external_variable(double value, uint8_t variable, double par1 = doubleNull, double par2 = doubleNull, double par3 = doubleNull);
   bool loop(); 
   
-  uint8_t parse(JsonVariant parseTree, const char * symbol_name, char operatorx, JsonVariant expression, uint8_t depth = 0) {
-    if (depth > 50) {
+  uint8_t parse(JsonVariant parseTree, const char * symbol_name, char operatorx, JsonVariant expression, uint8_t depth = 0) 
+  {
+    if (depth > 50) 
+    {
       ERROR_ARTI("Error too deep %u\n", depth);
       errorOccurred = true;
     }
@@ -948,20 +1036,25 @@ public:
                     if (resultChild2 != ResultContinue)
                       break;
                   } 
-                  else {
-                    if (resultChild2 != ResultContinue) {
+                  else 
+                  {
+                    if (resultChild2 != ResultContinue) 
+                    {
                       resultChild2 = ResultContinue;  //always continue
                       break;
                     }
                   }
                 }
-                else if (objectOperator == '*') { //zero or more iterations, stop if parse not continue
-                  if (resultChild2 != ResultContinue) {
+                else if (objectOperator == '*') //zero or more iterations, stop if parse not continue
+                {
+                  if (resultChild2 != ResultContinue) 
+                  {
                     resultChild2 = ResultContinue;  //always continue
                     break;
                   }
                 }
-                else {
+                else 
+                {
                   ERROR_ARTI("%s Programming error: undefined %c %s\n", spaces+50-depth, objectOperator, objectElement.as<std::string>().c_str());
                   resultChild2 = ResultFail;
                 }
@@ -982,9 +1075,8 @@ public:
           const char * token_type = nextExpression;
           if (strcmp(lexer->current_token.type, token_type) == 0) 
           {
-            if (strcmp(lexer->current_token.type, "") != 0) {
+            if (strcmp(lexer->current_token.type, "") != 0) 
               DEBUG_ARTI("%s %s %s", spaces+50-depth, lexer->current_token.type, lexer->current_token.value);
-            }
 
             if (nextParseTree.is<JsonArray>()) 
             {
@@ -1001,9 +1093,9 @@ public:
 
             lexer->eat(token_type);
 
-            if (strcmp(lexer->current_token.type, "") != 0) {
+            if (strcmp(lexer->current_token.type, "") != 0) 
               DEBUG_ARTI(" -> [%s %s]", lexer->current_token.type, lexer->current_token.value);
-            }
+
             DEBUG_ARTI(" %d\n", depth);
             resultChild = ResultContinue;
           }
@@ -1186,16 +1278,19 @@ public:
 
                 if (!found) {
                   Symbol* var_symbol = current_scope->lookup(variable_name); //lookup here and parent scopes
-                  if (construct == F_VarRef) {
+                  if (construct == F_VarRef) 
+                  {
                     if (var_symbol == nullptr)
                       ERROR_ARTI("%s VarRef %s ID not found in scope of %s\n", spaces+50-depth, variable_name, current_scope->scope_name); 
-                    else {
+                    else 
+                    {
                       value["level"] = var_symbol->scope_level;
                       value["index"] = var_symbol->scope_index;
                       ANDBG_ARTI("%s VarRef found %s.%s (%u)\n", spaces+50-depth, var_symbol->scope->scope_name, variable_name, depth);
                     }
                   }
-                  else { //assign and var/formal
+                  else //assign and var/formal
+                  {
                     //if variable not already defined, then add
                     if (construct != F_Assign || var_symbol == nullptr) { //only assign needs to check if not exists
                       var_symbol = new Symbol(construct, variable_name, 9); // no type support yet
@@ -1205,23 +1300,27 @@ public:
                     else if (construct != F_Assign && var_symbol != nullptr)
                       ERROR_ARTI("%s %s Duplicate ID %s.%s\n", spaces+50-depth, key, var_symbol->scope->scope_name, variable_name); 
 
-                    if (construct == F_Assign) {
+                    if (construct == F_Assign) 
+                    {
                       value["varref"]["level"] = var_symbol->scope_level;
                       value["varref"]["index"] = var_symbol->scope_index;;
                     }
                   }
                 }
 
-                if (construct == F_Assign) {
+                if (construct == F_Assign) 
+                {
                   ANDBG_ARTI("%s %s %s = (%u)\n", spaces+50-depth, key, variable_name, depth);
 
-                  if (!value["expr"].isNull()) {
+                  if (!value["expr"].isNull()) 
+                  {
                     analyze(value, "expr", current_scope, depth + 1);
                   }
                   else
                     ERROR_ARTI("%s %s %s: no expr in parseTree\n", spaces+50-depth, key, variable_name); 
 
-                  if (!value["assignoperator"].isNull()) {
+                  if (!value["assignoperator"].isNull()) 
+                  {
                     JsonObject asop = value["assignoperator"];
                     JsonObject::iterator asopBegin = asop.begin();
                     ANDBG_ARTI("%s asop %s\n", spaces+50-depth, asopBegin->value().as<std::string>().c_str());
@@ -1249,8 +1348,10 @@ public:
                 //check if external function
                 bool found = false;
                 uint8_t index = 0;
-                for (JsonPair externalsPair: definitionJson["EXTERNALS"].as<JsonObject>()) {
-                  if (strcmp(function_name, externalsPair.key().c_str()) == 0) {
+                for (JsonPair externalsPair: definitionJson["EXTERNALS"].as<JsonObject>()) 
+                {
+                  if (strcmp(function_name, externalsPair.key().c_str()) == 0) 
+                  {
                     ANDBG_ARTI("%s Ext Function found %s (%u)\n", spaces+50-depth, function_name, depth);
                     value["external"] = index; //add external index to parseTree 
                     if (!value["actuals"].isNull())
@@ -1260,15 +1361,18 @@ public:
                   index++;
                 }
 
-                if (!found) {
+                if (!found) 
+                {
                   Symbol* function_symbol = current_scope->lookup(function_name); //lookup here and parent scopes
-                  if (function_symbol != nullptr) {
+                  if (function_symbol != nullptr) 
+                  {
                     if (!value["actuals"].isNull())
                       analyze(value["actuals"], nullptr, current_scope, depth + 1);
 
                     analyze(function_symbol->block, nullptr, current_scope, depth + 1);
                   } //function_symbol != nullptr
-                  else {
+                  else 
+                  {
                     ERROR_ARTI("%s Function %s not found in scope of %s\n", spaces+50-depth, function_name, current_scope->scope_name); 
                   }
                 } //external functions
@@ -1330,12 +1434,15 @@ public:
 
     }
     else { //not object
-      if (parseTree.is<JsonArray>()) {
-        for (JsonVariant newParseTree: parseTree.as<JsonArray>()) {
+      if (parseTree.is<JsonArray>()) 
+      {
+        for (JsonVariant newParseTree: parseTree.as<JsonArray>()) 
+        {
           analyze(newParseTree, nullptr, current_scope, depth + 1);
         }
       }
-      else { //not array
+      else //not array
+      {
         // string element = parseTree;
         //for some weird reason this causes a crash on esp32
         // ERROR_ARTI("%s Error: parseTree should be array or object %s %s (%u)\n", spaces+50-depth, stringOrEmpty(treeElement), parseTree.as<std::string>().c_str(), depth);
@@ -1432,10 +1539,10 @@ public:
             parseTree.remove(key);
           }
 
-
           optimizedAlready = true;
         }
-        else if (strcmp(key, "*") == 0 ) {
+        else if (strcmp(key, "*") == 0 ) 
+        {
           optimize(value, depth + 1);
 
           if (value.size() == 0)
@@ -1461,12 +1568,13 @@ public:
       {
         JsonVariant element = *it;
 
-        if (element == "multiple") {
+        if (element == "multiple") 
+        {
           // DEBUG_ARTI("%s remove array element 'multiple' of %s array (%u)\n", spaces+50-depth, element.as<std::string>().c_str(), arrayIndex);
           parseTreeArray.remove(it);
         }
-        else 
-          if (it->size() == 0) {  //causes subpixel to crash????!!!
+        else if (it->size() == 0)
+        {
           // DEBUG_ARTI("%s remove array element {} of %s array (%u)\n", spaces+50-depth, element.as<std::string>().c_str(), arrayIndex);
           parseTreeArray.remove(it); //remove {} elements (added by * arrays, don't know where added)
         }
@@ -1477,7 +1585,7 @@ public:
       }
 
       // for (JsonVariant newParseTree: parseTree.as<JsonArray>()) {
-      //   ANDBG_ARTI("%s Array element %s\n", spaces+50-depth, newParseTree.as<std::string>().c_str());
+      //   DEBUG_ARTI("%s Array element %s\n", spaces+50-depth, newParseTree.as<std::string>().c_str());
       //   if (newParseTree.is<JsonObject>() || newParseTree.is<JsonArray>())
       //     optimize(newParseTree, depth + 1);
       //   else
@@ -1496,25 +1604,26 @@ public:
             // ["PLUS2", "factor"],
           // [ "MINUS2", "factor"],
 
-  bool interpret(JsonVariant parseTree, const char * treeElement = nullptr, ScopedSymbolTable* current_scope = nullptr, uint8_t depth = 0) {
-
+  bool interpret(JsonVariant parseTree, const char * treeElement = nullptr, ScopedSymbolTable* current_scope = nullptr, uint8_t depth = 0) 
+  {
     // RUNLOG_ARTI("%s Interpret %s %s (%u)\n", spaces+50-depth, stringOrEmpty(treeElement), parseTree.as<std::string>().c_str(), depth);
 
-    if (depth >= 50) {
+    if (depth >= 50) 
+    {
       ERROR_ARTI("Error too deep %u\n", depth);
       errorOccurred = true;
     }
     if (errorOccurred) return false;
 
-    if (parseTree.is<JsonObject>()) {
-      for (JsonPair parseTreePair : parseTree.as<JsonObject>()) {
+    if (parseTree.is<JsonObject>()) 
+    {
+      for (JsonPair parseTreePair : parseTree.as<JsonObject>()) 
+      {
         const char * key = parseTreePair.key().c_str();
         JsonVariant value = parseTreePair.value();
-        if (treeElement == nullptr || strcmp(treeElement, key) == 0 ) {
-
+        if (treeElement == nullptr || strcmp(treeElement, key) == 0) 
+        {
           // RUNLOG_ARTI("%s Interpret object element %s\n", spaces+50-depth, key); //, value.as<std::string>().c_str()
-
-          // return;
 
           bool interpretAlready = false;
 
@@ -1610,8 +1719,10 @@ public:
                     if (!value["actuals"].isNull())
                       interpret(value["actuals"], nullptr, current_scope, depth + 1);
 
-                    for (uint8_t i=0; i<function_symbol->function_scope->symbolsIndex; i++) { //backwards because popped in reversed order
-                      if (function_symbol->function_scope->symbols[i]->symbol_type == F_Formal) { //select formal parameters
+                    for (uint8_t i=0; i<function_symbol->function_scope->symbolsIndex; i++) //backwards because popped in reversed order
+                    {
+                      if (function_symbol->function_scope->symbols[i]->symbol_type == F_Formal) //select formal parameters
+                      {
                         //determine type, for now assume double
                         double result = valueStack->doubleStack[lastIndex++];
                         ar->set(function_symbol->function_scope->symbols[i]->scope_index, result);
@@ -1635,9 +1746,8 @@ public:
                     // valueStack->push(callResult);
 
                   } //function_symbol != nullptr
-                  else {
+                  else
                     RUNLOG_ARTI("%s %s not found %s\n", spaces+50-depth, key, function_name);
-                  }
                 } //external functions
 
                 interpretAlready = true;
@@ -1674,16 +1784,17 @@ public:
                   strcat(indices, "]");
                 }
 
-                if (construct == F_Assign) {
+                if (construct == F_Assign) 
+                {
                   variable_name = value["varref"]["ID"];
                   variable_level = value["varref"]["level"];
                   variable_index = value["varref"]["index"];
                   variable_external = value["varref"]["external"];
 
-                  if (!value["expr"].isNull()) { //value assignment
+                  if (!value["expr"].isNull()) //value assignment
                     interpret(value, "expr", current_scope, depth + 1); //value pushed
-                  }
-                  else {
+                  else 
+                  {
                     ERROR_ARTI("%s Assign %s has no expr\n", spaces+50-depth, variable_name);
                     valueStack->push(doubleNull);
                   }
@@ -1700,14 +1811,16 @@ public:
 
               valueStack->stack_index = oldIndex;
 
-                    if (returnValue != doubleNull) {
+                    if (returnValue != doubleNull) 
+                    {
                       valueStack->push(returnValue);
                       RUNLOG_ARTI("%s %s ext.%s = %f (push %u)\n", spaces+50-depth, key, variable_name, returnValue, valueStack->stack_index); //key is variable_declaration name is ID
                     }
                     else
                       ERROR_ARTI("%s Error: %s ext.%s no value\n", spaces+50-depth, key, variable_name);
                   }
-                  else { //assign: set the external value...
+                  else //assign: set the external value...
+                  {
                     returnValue = valueStack->popDouble(); //result of interpret value
 
                     arti_set_external_variable(returnValue, variable_external, (valueStack->stack_index - oldIndex>0)?valueStack->doubleStack[oldIndex]:doubleNull, (valueStack->stack_index - oldIndex>1)?valueStack->doubleStack[oldIndex+1]:doubleNull);
@@ -1746,8 +1859,10 @@ public:
                     }
                     else { //assign: set the value 
 
-                      if (!value["assignoperator"].isNull()) {
-                        switch (value["assignoperator"].as<uint8_t>()) {
+                      if (!value["assignoperator"].isNull()) 
+                      {
+                        switch (value["assignoperator"].as<uint8_t>()) 
+                        {
                           case F_plus:
                             ar->set(variable_index, ar->getDouble(variable_index) + valueStack->popDouble());
                             break;
@@ -1764,7 +1879,8 @@ public:
 
                         RUNLOG_ARTI("%s %s.%s%s %s= %f (pop %u) %u-%u\n", spaces+50-depth, ar->name, variable_name, indices, operatorToString(value["assignoperator"]), ar->getDouble(variable_index), valueStack->stack_index, variable_level, variable_index);
                       }
-                      else {
+                      else 
+                      {
                         ar->set(variable_index, valueStack->popDouble());
                         RUNLOG_ARTI("%s %s.%s%s := %f (pop %u) %u-%u\n", spaces+50-depth, ar->name, variable_name, indices, ar->getDouble(variable_index), valueStack->stack_index, variable_level, variable_index);
                       }
@@ -1780,7 +1896,8 @@ public:
                 break;
               }
               case F_Expr:
-              case F_Term: {
+              case F_Term: 
+              {
                 // RUNLOG_ARTI("%s %s interpret < %s\n", spaces+50-depth, key, value.as<std::string>().c_str());
 
                 uint8_t oldIndex = valueStack->stack_index;
@@ -1864,7 +1981,8 @@ public:
                 interpretAlready = true;
                 break;
               }
-              case F_For: {
+              case F_For: 
+              {
                 RUNLOG_ARTI("%s For (%u)\n", spaces+50-depth, valueStack->stack_index);
 
                 interpret(value, "assign", current_scope, depth + 1); //creates the assignment
@@ -1872,7 +1990,8 @@ public:
 
                 bool continuex = true;
                 uint16_t counter = 0;
-                while (continuex && counter < 1000) { //to avoid endless loops
+                while (continuex && counter < 2000) //to avoid endless loops
+                {
                   RUNLOG_ARTI("%s iteration\n", spaces+50-depth);
 
                   RUNLOG_ARTI("%s check to condition\n", spaces+50-depth);
@@ -1928,7 +2047,8 @@ public:
                 interpretAlready = true;
                 break;
               }  // case
-              case F_If: {
+              case F_If: 
+              {
                 RUNLOG_ARTI("%s If (%u)\n", spaces+50-depth, valueStack->stack_index);
 
                 RUNLOG_ARTI("%s if condition\n", spaces+50-depth);
@@ -1958,7 +2078,8 @@ public:
             {
               const char * valueStr = value;
 
-              switch (parseTree["operator"].as<uint8_t>()) {
+              switch (parseTree["operator"].as<uint8_t>()) 
+              {
                 case F_integerConstant:
                 case F_realConstant:
                   valueStack->push(atof(valueStr)); //push value
@@ -1982,9 +2103,12 @@ public:
         } // if treeelement
       } // for (JsonPair)
     }
-    else { //not object
-      if (parseTree.is<JsonArray>()) {
-        for (JsonVariant newParseTree: parseTree.as<JsonArray>()) {
+    else //not object
+    {
+      if (parseTree.is<JsonArray>()) 
+      {
+        for (JsonVariant newParseTree: parseTree.as<JsonArray>()) 
+        {
           // RUNLOG_ARTI("%s\n", spaces+50-depth, "Array ", parseTree[i], "  ";
           interpret(newParseTree, nullptr, current_scope, depth + 1);
         }
@@ -1999,9 +2123,11 @@ public:
 
   bool setup(const char *definitionName, const char *programName)
   {
+    errorOccurred = false;
+    logToFile = true;
     //open logFile
-    #if ARTI_OUTPUT == ARTI_FILE
-      char logFileName[fileNameLength];
+    if (logToFile)
+    {
       #if ARTI_PLATFORM == ARTI_ARDUINO
         strcpy(logFileName, "/");
       #endif
@@ -2013,9 +2139,9 @@ public:
       #else
         logFile = fopen (logFileName,"w");
       #endif
-    #endif
+    }
 
-    MEMORY_ARTI("Heap Setup < %u (%lums) %s %s\n", FREE_SIZE, CURRENT_MILLIS, definitionName, programName);
+    MEMORY_ARTI("setup %u bytes free\n", FREE_SIZE);
 
     if (stages < 1) {close(); return true;}
     bool loadParseTreeFile = false;
@@ -2028,7 +2154,7 @@ public:
       definitionFile.open(definitionName, std::ios::in);
     #endif
 
-    MEMORY_ARTI("Heap open definition file > %u\n", FREE_SIZE);
+    MEMORY_ARTI("open %s %u ✓\n", definitionName, FREE_SIZE);
 
     if (!definitionFile) {
       ERROR_ARTI("Definition file %s not found\n", definitionName);
@@ -2049,7 +2175,7 @@ public:
       //  "INTEGER_CONST": "INTEGER_CONST",
       //  "REAL_CONST": "REAL_CONST",
 
-      MEMORY_ARTI("Heap definitionJsonDoc %u > %u (%lums)\n", (unsigned int)definitionJsonDoc->capacity(), FREE_SIZE, CURRENT_MILLIS); //unsigned int needed when running embedded to suppress warnings
+      MEMORY_ARTI("definitionTree %u => %u ✓\n", (unsigned int)definitionJsonDoc->capacity(), FREE_SIZE); //unsigned int needed when running embedded to suppress warnings
 
       DeserializationError err = deserializeJson(*definitionJsonDoc, definitionFile);
       if (err) {
@@ -2062,8 +2188,8 @@ public:
       JsonObject::iterator objectIterator = definitionJson.begin();
       JsonObject metaData = objectIterator->value();
       const char * version = metaData["version"];
-      if (strcmp(version, "0.1.1") < 0) {
-        ERROR_ARTI("Version of definition.json file (%s) should be 0.1.1 or higher\n", version);
+      if (strcmp(version, "0.2.0") < 0) {
+        ERROR_ARTI("Version of definition.json file (%s) should be 0.2.0 or higher\n", version);
         return false;
       }
       const char * startSymbol = metaData["start"];
@@ -2079,6 +2205,7 @@ public:
         std::fstream programFile;
         programFile.open(programName, std::ios::in);
       #endif
+      MEMORY_ARTI("open %s %u ✓\n", programName, FREE_SIZE);
       if (!programFile) {
         ERROR_ARTI("Program file %s not found\n", programName);
         return  false;
@@ -2113,7 +2240,7 @@ public:
           parseTreeJsonDoc = new DynamicJsonDocument(65536);  // current largest (Subpixel) 7926 //strlen(programText) * 100
         #endif
 
-        MEMORY_ARTI("Heap parseTreeJsonDoc %u > %u (%lums)\n", (unsigned int)parseTreeJsonDoc->capacity(), FREE_SIZE, CURRENT_MILLIS);
+        MEMORY_ARTI("parseTree %u => %u ✓\n", (unsigned int)parseTreeJsonDoc->capacity(), FREE_SIZE);
 
         //parse
 
@@ -2150,10 +2277,10 @@ public:
           else
             DEBUG_ARTI("Symbol %s Parsed until (%u,%u) %u of %u\n", startSymbol, this->lexer->lineno, this->lexer->column, this->lexer->pos, (unsigned int)strlen(this->lexer->text));
 
-          MEMORY_ARTI("definitionJson usage %u of %u (%0.f %%) (%u %u %u)\n", (unsigned int)definitionJsonDoc->memoryUsage(), (unsigned int)definitionJsonDoc->capacity(), 100.0 * definitionJsonDoc->memoryUsage() / definitionJsonDoc->capacity(), (unsigned int)definitionJsonDoc->size(), definitionJsonDoc->overflowed(), (unsigned int)definitionJsonDoc->nesting());
-          MEMORY_ARTI("parseTree usage      %u of %u (%0.f %%) (%u %u %u)\n", (unsigned int)parseTreeJsonDoc->memoryUsage(), (unsigned int)parseTreeJsonDoc->capacity(), 100.0 * parseTreeJsonDoc->memoryUsage() / parseTreeJsonDoc->capacity(), (unsigned int)parseTreeJsonDoc->size(), parseTreeJsonDoc->overflowed(), (unsigned int)parseTreeJsonDoc->nesting());
+          MEMORY_ARTI("definitionTree %u / %u%% (%u %u %u)\n", (unsigned int)definitionJsonDoc->memoryUsage(), 100 * definitionJsonDoc->memoryUsage() / definitionJsonDoc->capacity(), (unsigned int)definitionJsonDoc->size(), definitionJsonDoc->overflowed(), (unsigned int)definitionJsonDoc->nesting());
+          MEMORY_ARTI("parseTree      %u / %u%% (%u %u %u)\n", (unsigned int)parseTreeJsonDoc->memoryUsage(), 100 * parseTreeJsonDoc->memoryUsage() / parseTreeJsonDoc->capacity(), (unsigned int)parseTreeJsonDoc->size(), parseTreeJsonDoc->overflowed(), (unsigned int)parseTreeJsonDoc->nesting());
           parseTreeJsonDoc->garbageCollect();
-          MEMORY_ARTI("garbageCollect       %u of %u (%0.f %%) (%u %u %u)\n", (unsigned int)parseTreeJsonDoc->memoryUsage(), (unsigned int)parseTreeJsonDoc->capacity(), 100.0 * parseTreeJsonDoc->memoryUsage() / parseTreeJsonDoc->capacity(), (unsigned int)parseTreeJsonDoc->size(), parseTreeJsonDoc->overflowed(), (unsigned int)parseTreeJsonDoc->nesting());
+          MEMORY_ARTI("garbageCollect %u / %u%% (%u %u %u)\n", (unsigned int)parseTreeJsonDoc->memoryUsage(), 100 * parseTreeJsonDoc->memoryUsage() / parseTreeJsonDoc->capacity(), (unsigned int)parseTreeJsonDoc->size(), parseTreeJsonDoc->overflowed(), (unsigned int)parseTreeJsonDoc->nesting());
           //199 -> 6905 (34.69)
           //469 -> 15923 (33.95)
 
@@ -2174,27 +2301,29 @@ public:
           free(programText);
         #endif
 
-        MEMORY_ARTI("Heap parse > %u (%lums)\n", FREE_SIZE, CURRENT_MILLIS);
+        MEMORY_ARTI("parse %u ✓\n", FREE_SIZE);
 
         if (stages < 3) {close(); return true;}
 
-        ANDBG_ARTI("\nOptimizer\n");
-        if (!optimize(parseTreeJson)) {
+        DEBUG_ARTI("\nOptimizer\n");
+        if (!optimize(parseTreeJson)) 
+        {
           ERROR_ARTI("Optimize failed\n");
           return false;
         }
 
-        MEMORY_ARTI("Heap optimize > %u (%lums)\n", FREE_SIZE, CURRENT_MILLIS);
+        MEMORY_ARTI("optimize %u ✓\n", FREE_SIZE);
 
         if (stages < 4) {close(); return true;}
 
         ANDBG_ARTI("\nAnalyzer\n");
-        if (!analyze(parseTreeJson)) {
+        if (!analyze(parseTreeJson)) 
+        {
           ERROR_ARTI("Analyze failed\n");
           return false;
         }
 
-        MEMORY_ARTI("Heap analyze > %u (%lums)\n", FREE_SIZE, CURRENT_MILLIS);
+        MEMORY_ARTI("analyze %u ✓\n", FREE_SIZE);
 
         #ifdef ARTI_DEBUG // only write parseTree file if debug is on
           if (!loadParseTreeFile)
@@ -2223,49 +2352,51 @@ public:
           return false;
         }
 
-        //flush does not seem to work... further testing needed
-        #if ARTI_OUTPUT == ARTI_FILE
-          #if ARTI_PLATFORM == ARTI_ARDUINO
-            logFile.flush();
-          #else
-            fflush(logFile);
-          #endif
-        #endif
-
-        MEMORY_ARTI("Heap Interpret main > %u (%lums)\n", FREE_SIZE, CURRENT_MILLIS);
+        MEMORY_ARTI("Interpret main %u ✓\n", FREE_SIZE);
 
       } //programFile
     } //definitionFilee
+
+    //arduino stops log here
+    #if ARTI_PLATFORM == ARTI_ARDUINO
+      if (logToFile) 
+      {
+        logFile.close();
+        logToFile = false;
+      }
+    #endif
 
     return true;
   } // setup
 
   void close() {
-    MEMORY_ARTI("Heap close Arti < %u\n", FREE_SIZE);
+    MEMORY_ARTI("closing Arti %u\n", FREE_SIZE);
 
     if (callStack != nullptr) {delete callStack; callStack = nullptr;}
     if (valueStack != nullptr) {delete valueStack; valueStack = nullptr;}
     if (global_scope != nullptr) {delete global_scope; global_scope = nullptr;}
 
     if (definitionJsonDoc != nullptr) {
-      MEMORY_ARTI("definitionJson usage  %u of %u (%0.f %%) (%u %u %u)\n", (unsigned int)definitionJsonDoc->memoryUsage(), (unsigned int)definitionJsonDoc->capacity(), 100.0 * definitionJsonDoc->memoryUsage() / definitionJsonDoc->capacity(), (unsigned int)definitionJsonDoc->size(), definitionJsonDoc->overflowed(), (unsigned int)definitionJsonDoc->nesting());
+      MEMORY_ARTI("definitionJson  %u / %u%% (%u %u %u)\n", (unsigned int)definitionJsonDoc->memoryUsage(), 100 * definitionJsonDoc->memoryUsage() / definitionJsonDoc->capacity(), (unsigned int)definitionJsonDoc->size(), definitionJsonDoc->overflowed(), (unsigned int)definitionJsonDoc->nesting());
       delete definitionJsonDoc; definitionJsonDoc = nullptr;
     }
 
     if (parseTreeJsonDoc != nullptr) {
-      MEMORY_ARTI("parseTree usage       %u of %u (%0.f %%) (%u %u %u)\n", (unsigned int)parseTreeJsonDoc->memoryUsage(), (unsigned int)parseTreeJsonDoc->capacity(), 100.0 * parseTreeJsonDoc->memoryUsage() / parseTreeJsonDoc->capacity(), (unsigned int)parseTreeJsonDoc->size(), parseTreeJsonDoc->overflowed(), (unsigned int)parseTreeJsonDoc->nesting());
+      MEMORY_ARTI("parseTree       %u / %0u%% (%u %u %u)\n", (unsigned int)parseTreeJsonDoc->memoryUsage(), 100 * parseTreeJsonDoc->memoryUsage() / parseTreeJsonDoc->capacity(), (unsigned int)parseTreeJsonDoc->size(), parseTreeJsonDoc->overflowed(), (unsigned int)parseTreeJsonDoc->nesting());
       delete parseTreeJsonDoc; parseTreeJsonDoc = nullptr;
     }
 
-    #if ARTI_OUTPUT == ARTI_FILE
+    MEMORY_ARTI("closed Arti %u ✓\n", FREE_SIZE);
+
+    //non arduino stops log here
+    if (logToFile) {
       #if ARTI_PLATFORM == ARTI_ARDUINO
-        logFile.close();
+        LITTLEFS.remove(logFileName); //cleanup the /edit folder a bit
       #else
         fclose(logFile);
       #endif
-    #endif
-
-    MEMORY_ARTI("Heap close Arti> %u (%lums)\n", FREE_SIZE, CURRENT_MILLIS);
+      logToFile = false;
+    }
   }
 
 }; //ARTI

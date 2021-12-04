@@ -1,0 +1,369 @@
+setup 0 bytes free
+open wled.json 0 ✓
+definitionTree 16384 => 0 ✓
+open Examples/drip.wled 0 ✓
+programFile size 888 bytes
+parseTree 65536 => 0 ✓
+ PROGRAM PROGRAM -> [ID Drip] 0
+ ID Drip -> [LCURL {] 0
+  LCURL { -> [ID dripSpd] 1
+     ID dripSpd -> [ASSIGN =] 4
+     found varref
+       ASSIGN = -> [INTEGER_CONST 0] 6
+     found assignoperator
+        INTEGER_CONST 0 -> [ID colr] 7
+       found factor
+      found term
+     found expr
+    found assign
+   found statement
+     ID colr -> [ASSIGN =] 4
+     found varref
+       ASSIGN = -> [INTEGER_CONST 1] 6
+     found assignoperator
+        INTEGER_CONST 1 -> [ID bri] 7
+       found factor
+      found term
+     found expr
+    found assign
+   found statement
+     ID bri -> [ASSIGN =] 4
+     found varref
+       ASSIGN = -> [INTEGER_CONST 64] 6
+     found assignoperator
+        INTEGER_CONST 64 -> [FUNCTION FUNCTION] 7
+       found factor
+      found term
+     found expr
+    found assign
+   found statement
+     FUNCTION FUNCTION -> [ID renderFrame] 4
+     ID renderFrame -> [LPAREN (] 4
+      LPAREN ( -> [RPAREN )] 5
+      found formals
+      RPAREN ) -> [LCURL {] 5
+      LCURL { -> [ID grav] 5
+         ID grav -> [ASSIGN =] 8
+         found varref
+           ASSIGN = -> [ID speedSlider] 10
+         found assignoperator
+             ID speedSlider -> [DIV /] 12
+            ID speedSlider -> [DIV /] 11
+            found varref
+           found factor
+             DIV / -> [INTEGER_CONST 1000] 12
+             INTEGER_CONST 1000 -> [ID fadeToBlackBy] 12
+            found factor
+          found term
+         found expr
+        found assign
+       found statement
+         ID fadeToBlackBy -> [LPAREN (] 8
+         found varref
+         ID fadeToBlackBy -> [LPAREN (] 8
+         LPAREN ( -> [ID intensitySlider] 8
+              ID intensitySlider -> [DIV /] 13
+             ID intensitySlider -> [DIV /] 12
+             found varref
+            found factor
+              DIV / -> [INTEGER_CONST 4] 13
+              INTEGER_CONST 4 -> [RPAREN )] 13
+             found factor
+           found term
+          found expr
+         found actuals
+         RPAREN ) -> [ID dripSpd] 8
+        found call
+       found statement
+         ID dripSpd -> [ASSIGN+ +=] 8
+         found varref
+           ASSIGN+ += -> [ID grav] 10
+         found assignoperator
+             ID grav -> [ID dripLocn] 12
+            ID grav -> [ID dripLocn] 11
+            found varref
+           found factor
+          found term
+         found expr
+        found assign
+       found statement
+         ID dripLocn -> [ASSIGN- -=] 8
+         found varref
+           ASSIGN- -= -> [ID dripSpd] 10
+         found assignoperator
+             ID dripSpd -> [IF IF] 12
+            ID dripSpd -> [IF IF] 11
+            found varref
+           found factor
+          found term
+         found expr
+        found assign
+       found statement
+         IF IF -> [LPAREN (] 8
+         LPAREN ( -> [ID dripLocn] 8
+             ID dripLocn -> [GT >] 12
+            ID dripLocn -> [GT >] 11
+            found varref
+           found factor
+          found term
+            GT > -> [INTEGER_CONST 0] 11
+             INTEGER_CONST 0 -> [RPAREN )] 12
+            found factor
+           found term
+         found expr
+         RPAREN ) -> [LCURL {] 8
+          LCURL { -> [ID leds] 9
+             ID leds -> [LBRACKET [] 12
+             found varref
+              LBRACKET [ -> [ID dripLocn] 13
+                   ID dripLocn -> [RBRACKET ]] 18
+                  ID dripLocn -> [RBRACKET ]] 17
+                  found varref
+                 found factor
+                found term
+               found expr
+              found indices
+              RBRACKET ] -> [ASSIGN =] 13
+               ASSIGN = -> [ID colorFromPalette] 14
+             found assignoperator
+                 ID colorFromPalette -> [LPAREN (] 16
+                 LPAREN ( -> [ID colr] 16
+                      ID colr -> [COMMA ,] 21
+                     ID colr -> [COMMA ,] 20
+                     found varref
+                    found factor
+                   found term
+                  found expr
+                   COMMA , -> [ID bri] 18
+                       ID bri -> [RPAREN )] 22
+                      ID bri -> [RPAREN )] 21
+                      found varref
+                     found factor
+                    found term
+                   found expr
+                 found actuals
+                 RPAREN ) -> [RCURL }] 16
+                found call
+               found factor
+              found term
+             found expr
+            found assign
+           found statement
+          RCURL } -> [IF IF] 9
+         found block
+        found if
+       found statement
+         IF IF -> [LPAREN (] 8
+         LPAREN ( -> [ID dripLocn] 8
+             ID dripLocn -> [LTE <=] 12
+            ID dripLocn -> [LTE <=] 11
+            found varref
+           found factor
+          found term
+            LTE <= -> [INTEGER_CONST 0] 11
+             INTEGER_CONST 0 -> [RPAREN )] 12
+            found factor
+           found term
+         found expr
+         RPAREN ) -> [LCURL {] 8
+          LCURL { -> [ID dripLocn] 9
+             ID dripLocn -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [ID ledCount] 14
+             found assignoperator
+                 ID ledCount -> [MINUS -] 16
+                ID ledCount -> [MINUS -] 15
+                found varref
+               found factor
+              found term
+                MINUS - -> [INTEGER_CONST 1] 15
+                 INTEGER_CONST 1 -> [ID dripSpd] 16
+                found factor
+               found term
+             found expr
+            found assign
+           found statement
+             ID dripSpd -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [INTEGER_CONST 0] 14
+             found assignoperator
+                INTEGER_CONST 0 -> [RCURL }] 15
+               found factor
+              found term
+             found expr
+            found assign
+           found statement
+          RCURL } -> [RCURL }] 9
+         found block
+        found if
+       found statement
+      RCURL } -> [RCURL }] 5
+     found block
+    found function
+   found statement
+  RCURL } 1
+ found block
+Symbol program Parsed until (40,0) 888 of 888
+definitionTree 9966 / 60% (23 0 6)
+parseTree      13797 / 21% (1 0 28)
+garbageCollect 9797 / 14% (1 0 28)
+Destruct Lexer
+parse 0 ✓
+
+Optimizer
+        symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+        symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
+        symbol to shrink factor in term = {"INTEGER_CONST":"64"} from {"factor":{"INTEGER_CONST":"64"}}
+             symbol to shrink factor in term = {"varref":{"ID":"grav"}} from {"factor":{"varref":{"ID":"grav"}}}
+             symbol to shrink factor in term = {"varref":{"ID":"dripSpd"}} from {"factor":{"varref":{"ID":"dripSpd"}}}
+             symbol to shrink factor in term = {"varref":{"ID":"dripLocn"}} from {"factor":{"varref":{"ID":"dripLocn"}}}
+               symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+                   symbol to shrink factor in term = {"varref":{"ID":"dripLocn"}} from {"factor":{"varref":{"ID":"dripLocn"}}}
+                       symbol to shrink factor in term = {"varref":{"ID":"colr"}} from {"factor":{"varref":{"ID":"colr"}}}
+                         symbol to shrink factor in term = {"varref":{"ID":"bri"}} from {"factor":{"varref":{"ID":"bri"}}}
+                  symbol to shrink factor in term = {"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colr"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}} from {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colr"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}}
+             symbol to shrink factor in term = {"varref":{"ID":"dripLocn"}} from {"factor":{"varref":{"ID":"dripLocn"}}}
+               symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+                  symbol to shrink factor in term = {"varref":{"ID":"ledCount"}} from {"factor":{"varref":{"ID":"ledCount"}}}
+                    symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
+                  symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+optimize 0 ✓
+
+Analyzer
+ Program Drip 1 0
+     assign Drip.dripSpd of notype
+     assign dripSpd = (4)
+     assign Drip.colr of notype
+     assign colr = (4)
+     assign Drip.bri of notype
+     assign bri = (4)
+     Function Drip.renderFrame
+         assign renderFrame.grav of notype
+         assign grav = (8)
+             Ext Variable found speedSlider (12) varref
+         Ext Function found fadeToBlackBy (8)
+             Ext Variable found intensitySlider (12) varref
+         assign dripSpd = (8)
+            VarRef found renderFrame.grav (11)
+         asop +=
+         assign renderFrame.dripLocn of notype
+         assign dripLocn = (8)
+            VarRef found Drip.dripSpd (11)
+         asop -=
+            VarRef found renderFrame.dripLocn (11)
+              Ext Variable found leds (13) assign
+              assign leds = (13)
+                 Ext Function found colorFromPalette (16)
+                    VarRef found Drip.colr (19)
+                      VarRef found Drip.bri (21)
+                  VarRef found renderFrame.dripLocn (17)
+            VarRef found renderFrame.dripLocn (11)
+              assign dripLocn = (13)
+                 Ext Variable found ledCount (16) varref
+              assign dripSpd = (13)
+     0 assign renderFrame.grav of 9 (2)
+     1 assign renderFrame.dripLocn of 9 (2)
+ 0 assign Drip.dripSpd of 9 (1)
+ 1 assign Drip.colr of 9 (1)
+ 2 assign Drip.bri of 9 (1)
+ 3 function Drip.renderFrame of 9 (1)
+analyze 0 ✓
+
+interpret Drip 1 4
+ program Drip
+        INTEGER_CONST 0 (Push 1)
+     Drip.dripSpd := 0.000000 (pop 0) 1-0
+        INTEGER_CONST 1 (Push 1)
+     Drip.colr := 1.000000 (pop 0) 1-1
+        INTEGER_CONST 64 (Push 1)
+     Drip.bri := 64.000000 (pop 0) 1-2
+     Save block of renderFrame
+Interpret main 0 ✓
+         Call renderFrame (1)
+                 varref ext.speedSlider = 16.000000 (push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 1000 (Push 3)
+               16.000000 / 1000.000000 = 0.016000 (push 4)
+             renderFrame.grav := 0.016000 (pop 0) 2-0
+                 varref ext.intensitySlider = 17.000000 (push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 4 (Push 3)
+               17.000000 / 4.000000 = 4.250000 (push 4)
+             Call fadeToBlackBy(4.250000) = 4.250000
+                varref renderFrame.grav = 0.016000 (push 2) 2-0
+             Drip.dripSpd += 0.016000 (pop 1) 1-0
+                varref Drip.dripSpd = 0.016000 (push 2) 1-0
+             renderFrame.dripLocn -= -0.016000 (pop 1) 2-1
+             If (1)
+             if condition
+                varref renderFrame.dripLocn = -0.016000 (push 2) 2-1
+                 GT > (Push 3)
+                  INTEGER_CONST 0 (Push 4)
+              -0.016000 > 0.000000 = 0.000000 (push 5)
+             (pop 1)
+             If (1)
+             if condition
+                varref renderFrame.dripLocn = -0.016000 (push 2) 2-1
+                 LTE <= (Push 3)
+                  INTEGER_CONST 0 (Push 4)
+              -0.016000 <=> 0.000000 = 1.000000 (push 5)
+             (pop 1)
+                     varref ext.ledCount = 3.000000 (push 2)
+                      MINUS - (Push 3)
+                       INTEGER_CONST 1 (Push 4)
+                   3.000000 - 1.000000 = 2.000000 (push 5)
+                  renderFrame.dripLocn := 2.000000 (pop 1) 2-1
+                     INTEGER_CONST 0 (Push 2)
+                  Drip.dripSpd := 0.000000 (pop 1) 1-0
+Destruct activation record renderFrame
+         Call renderFrame (1)
+                 varref ext.speedSlider = 16.000000 (push 2)
+                  DIV / (Push 3)
+                   INTEGER_CONST 1000 (Push 4)
+               16.000000 / 1000.000000 = 0.016000 (push 5)
+             renderFrame.grav := 0.016000 (pop 1) 2-0
+                 varref ext.intensitySlider = 17.000000 (push 2)
+                  DIV / (Push 3)
+                   INTEGER_CONST 4 (Push 4)
+               17.000000 / 4.000000 = 4.250000 (push 5)
+             Call fadeToBlackBy(4.250000) = 4.250000
+                varref renderFrame.grav = 0.016000 (push 3) 2-0
+             Drip.dripSpd += 0.016000 (pop 2) 1-0
+                varref Drip.dripSpd = 0.016000 (push 3) 1-0
+             renderFrame.dripLocn -= 1.984000 (pop 2) 2-1
+             If (2)
+             if condition
+                varref renderFrame.dripLocn = 1.984000 (push 3) 2-1
+                 GT > (Push 4)
+                  INTEGER_CONST 0 (Push 5)
+              1.984000 > 0.000000 = 1.000000 (push 6)
+             (pop 2)
+                      varref renderFrame.dripLocn = 1.984000 (push 3) 2-1
+                        varref Drip.colr = 1.000000 (push 4) 1-1
+                          varref Drip.bri = 64.000000 (push 5) 1-2
+                     Call colorFromPalette(1.000000, 64.000000) = 65.000000
+arti_set_external_variable: leds(1.984000) := 65.000000
+                  assign set ext.leds[1.984000] = 65.000000 (3)
+             If (2)
+             if condition
+                varref renderFrame.dripLocn = 1.984000 (push 3) 2-1
+                 LTE <= (Push 4)
+                  INTEGER_CONST 0 (Push 5)
+              1.984000 <=> 0.000000 = 0.000000 (push 6)
+             (pop 2)
+Destruct activation record renderFrame
+setPixels(leds)
+closing Arti 0
+Destruct callstack
+Destruct valueStack
+Destruct Symbol grav (0)
+Destruct Symbol dripLocn (0)
+Destruct ScopedSymbolTable renderFrame (0)
+Destruct Symbol dripSpd (0)
+Destruct Symbol colr (0)
+Destruct Symbol bri (0)
+Destruct Symbol renderFrame (0)
+Destruct ScopedSymbolTable Drip (0)
+definitionJson  9966 / 60% (23 0 6)
+parseTree       12581 / 19% (1 0 26)
+closed Arti 0 ✓

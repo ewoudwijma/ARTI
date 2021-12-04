@@ -1,0 +1,717 @@
+setup 0 bytes free
+open wled.json 0 ✓
+definitionTree 16384 => 0 ✓
+open Examples/PerlinMove.wled 0 ✓
+programFile size 462 bytes
+parseTree 65536 => 0 ✓
+ PROGRAM PROGRAM -> [ID PerlinMove] 0
+ ID PerlinMove -> [LCURL {] 0
+  LCURL { -> [FUNCTION FUNCTION] 1
+     FUNCTION FUNCTION -> [ID renderFrame] 4
+     ID renderFrame -> [LPAREN (] 4
+      LPAREN ( -> [RPAREN )] 5
+      found formals
+      RPAREN ) -> [LCURL {] 5
+      LCURL { -> [ID fadeOut] 5
+         ID fadeOut -> [LPAREN (] 8
+         found varref
+         ID fadeOut -> [LPAREN (] 8
+         LPAREN ( -> [INTEGER_CONST 255] 8
+             INTEGER_CONST 255 -> [MINUS -] 12
+            found factor
+           found term
+             MINUS - -> [ID custom1Slider] 12
+               ID custom1Slider -> [RPAREN )] 14
+              ID custom1Slider -> [RPAREN )] 13
+              found varref
+             found factor
+            found term
+          found expr
+         found actuals
+         RPAREN ) -> [FOR FOR] 8
+        found call
+       found statement
+         FOR FOR -> [LPAREN (] 8
+         LPAREN ( -> [ID i] 8
+          ID i -> [ASSIGN =] 9
+          found varref
+            ASSIGN = -> [INTEGER_CONST 0] 11
+          found assignoperator
+             INTEGER_CONST 0 -> [SEMI ;] 12
+            found factor
+           found term
+          found expr
+         found assign
+         SEMI ; -> [ID i] 8
+             ID i -> [LT <] 12
+            ID i -> [LT <] 11
+            found varref
+           found factor
+          found term
+            LT < -> [LPAREN (] 11
+              LPAREN ( -> [ID intensitySlider] 13
+                  ID intensitySlider -> [DIV /] 17
+                 ID intensitySlider -> [DIV /] 16
+                 found varref
+                found factor
+                  DIV / -> [INTEGER_CONST 16] 17
+                  INTEGER_CONST 16 -> [PLUS +] 17
+                 found factor
+               found term
+                 PLUS + -> [INTEGER_CONST 1] 16
+                  INTEGER_CONST 1 -> [RPAREN )] 17
+                 found factor
+                found term
+              found expr
+              RPAREN ) -> [SEMI ;] 13
+            found factor
+           found term
+         found expr
+         SEMI ; -> [ID i] 8
+           ID i -> [ASSIGN+ +=] 10
+           found varref
+             ASSIGN+ += -> [INTEGER_CONST 1] 12
+           found assignoperator
+              INTEGER_CONST 1 -> [RPAREN )] 13
+             found factor
+            found term
+           found expr
+          found assign
+         found increment
+         RPAREN ) -> [LCURL {] 8
+          LCURL { -> [ID y] 9
+             ID y -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [ID millis] 14
+             found assignoperator
+                 ID millis -> [LPAREN (] 16
+                 LPAREN ( -> [RPAREN )] 16
+                 found actuals
+                 RPAREN ) -> [MUL *] 16
+                found call
+               found factor
+                 MUL * -> [INTEGER_CONST 128] 16
+                 INTEGER_CONST 128 -> [DIV /] 16
+                found factor
+                 DIV / -> [LPAREN (] 16
+                  LPAREN ( -> [INTEGER_CONST 260] 17
+                     INTEGER_CONST 260 -> [MINUS -] 20
+                    found factor
+                   found term
+                     MINUS - -> [ID speedSlider] 20
+                       ID speedSlider -> [RPAREN )] 22
+                      ID speedSlider -> [RPAREN )] 21
+                      found varref
+                     found factor
+                    found term
+                  found expr
+                  RPAREN ) -> [ID x] 17
+                found factor
+              found term
+             found expr
+            found assign
+           found statement
+             ID x -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [ID y] 14
+             found assignoperator
+                 ID y -> [PLUS +] 16
+                ID y -> [PLUS +] 15
+                found varref
+               found factor
+              found term
+                PLUS + -> [ID i] 15
+                  ID i -> [MUL *] 17
+                 ID i -> [MUL *] 16
+                 found varref
+                found factor
+                  MUL * -> [INTEGER_CONST 15000] 17
+                  INTEGER_CONST 15000 -> [ID locn] 17
+                 found factor
+               found term
+             found expr
+            found assign
+           found statement
+             ID locn -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [ID iNoise] 14
+             found assignoperator
+                 ID iNoise -> [LPAREN (] 16
+                 LPAREN ( -> [ID x] 16
+                      ID x -> [COMMA ,] 21
+                     ID x -> [COMMA ,] 20
+                     found varref
+                    found factor
+                   found term
+                  found expr
+                   COMMA , -> [ID y] 18
+                       ID y -> [RPAREN )] 22
+                      ID y -> [RPAREN )] 21
+                      found varref
+                     found factor
+                    found term
+                   found expr
+                 found actuals
+                 RPAREN ) -> [ID pixloc] 16
+                found call
+               found factor
+              found term
+             found expr
+            found assign
+           found statement
+             ID pixloc -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [ID map] 14
+             found assignoperator
+                 ID map -> [LPAREN (] 16
+                 LPAREN ( -> [ID locn] 16
+                      ID locn -> [COMMA ,] 21
+                     ID locn -> [COMMA ,] 20
+                     found varref
+                    found factor
+                   found term
+                  found expr
+                   COMMA , -> [INTEGER_CONST 50] 18
+                      INTEGER_CONST 50 -> [MUL *] 21
+                     found factor
+                       MUL * -> [INTEGER_CONST 256] 22
+                       INTEGER_CONST 256 -> [COMMA ,] 22
+                      found factor
+                    found term
+                   found expr
+                   COMMA , -> [INTEGER_CONST 192] 18
+                      INTEGER_CONST 192 -> [MUL *] 21
+                     found factor
+                       MUL * -> [INTEGER_CONST 256] 22
+                       INTEGER_CONST 256 -> [COMMA ,] 22
+                      found factor
+                    found term
+                   found expr
+                   COMMA , -> [INTEGER_CONST 0] 18
+                      INTEGER_CONST 0 -> [COMMA ,] 21
+                     found factor
+                    found term
+                   found expr
+                   COMMA , -> [ID ledCount] 18
+                       ID ledCount -> [RPAREN )] 22
+                      ID ledCount -> [RPAREN )] 21
+                      found varref
+                     found factor
+                    found term
+                   found expr
+                 found actuals
+                 RPAREN ) -> [ID setPixelColor] 16
+                found call
+               found factor
+              found term
+             found expr
+            found assign
+           found statement
+             ID setPixelColor -> [LPAREN (] 12
+             found varref
+             ID setPixelColor -> [LPAREN (] 12
+             LPAREN ( -> [ID pixloc] 12
+                  ID pixloc -> [COMMA ,] 17
+                 ID pixloc -> [COMMA ,] 16
+                 found varref
+                found factor
+               found term
+              found expr
+               COMMA , -> [ID pixloc] 14
+                   ID pixloc -> [RPAREN )] 18
+                  ID pixloc -> [RPAREN )] 17
+                  found varref
+                 found factor
+                found term
+               found expr
+             found actuals
+             RPAREN ) -> [RCURL }] 12
+            found call
+           found statement
+          RCURL } -> [RCURL }] 9
+         found block
+        found for
+       found statement
+      RCURL } -> [RCURL }] 5
+     found block
+    found function
+   found statement
+  RCURL } 1
+ found block
+Symbol program Parsed until (19,0) 462 of 462
+definitionTree 9966 / 60% (23 0 6)
+parseTree      16659 / 25% (1 0 29)
+garbageCollect 11923 / 18% (1 0 29)
+Destruct Lexer
+parse 0 ✓
+
+Optimizer
+              symbol to shrink factor in term = {"INTEGER_CONST":"255"} from {"factor":{"INTEGER_CONST":"255"}}
+                symbol to shrink factor in term = {"varref":{"ID":"custom1Slider"}} from {"factor":{"varref":{"ID":"custom1Slider"}}}
+              symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+             symbol to shrink factor in term = {"varref":{"ID":"i"}} from {"factor":{"varref":{"ID":"i"}}}
+                    symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
+               symbol to shrink factor in term = {"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"16"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}} from {"factor":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"16"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}}}
+               symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
+                       symbol to shrink factor in term = {"INTEGER_CONST":"260"} from {"factor":{"INTEGER_CONST":"260"}}
+                         symbol to shrink factor in term = {"varref":{"ID":"speedSlider"}} from {"factor":{"varref":{"ID":"speedSlider"}}}
+                  symbol to shrink factor in term = {"varref":{"ID":"y"}} from {"factor":{"varref":{"ID":"y"}}}
+                       symbol to shrink factor in term = {"varref":{"ID":"x"}} from {"factor":{"varref":{"ID":"x"}}}
+                         symbol to shrink factor in term = {"varref":{"ID":"y"}} from {"factor":{"varref":{"ID":"y"}}}
+                  symbol to shrink factor in term = {"call":{"ID":"iNoise","actuals":{"expr":{"term":{"varref":{"ID":"x"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}} from {"factor":{"call":{"ID":"iNoise","actuals":{"expr":{"term":{"varref":{"ID":"x"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}}}
+                       symbol to shrink factor in term = {"varref":{"ID":"locn"}} from {"factor":{"varref":{"ID":"locn"}}}
+                         symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+                         symbol to shrink factor in term = {"varref":{"ID":"ledCount"}} from {"factor":{"varref":{"ID":"ledCount"}}}
+                  symbol to shrink factor in term = {"call":{"ID":"map","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}},"*":[{},{"expr":{"term":{"factor":{"INTEGER_CONST":"50"},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"256"}}]}}},{},{"expr":{"term":{"factor":{"INTEGER_CONST":"192"},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"256"}}]}}},{},{"expr":{"term":{"INTEGER_CONST":"0"}}},{},{"expr":{"term":{"varref":{"ID":"ledCount"}}}}]}}} from {"factor":{"call":{"ID":"map","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}},"*":[{},{"expr":{"term":{"factor":{"INTEGER_CONST":"50"},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"256"}}]}}},{},{"expr":{"term":{"factor":{"INTEGER_CONST":"192"},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"256"}}]}}},{},{"expr":{"term":{"INTEGER_CONST":"0"}}},{},{"expr":{"term":{"varref":{"ID":"ledCount"}}}}]}}}}
+                   symbol to shrink factor in term = {"varref":{"ID":"pixloc"}} from {"factor":{"varref":{"ID":"pixloc"}}}
+                     symbol to shrink factor in term = {"varref":{"ID":"pixloc"}} from {"factor":{"varref":{"ID":"pixloc"}}}
+optimize 0 ✓
+
+Analyzer
+ Program PerlinMove 1 0
+     Function PerlinMove.renderFrame
+         Ext Function found fadeOut (8)
+              Ext Variable found custom1Slider (13) varref
+          assign renderFrame.i of notype
+          assign i = (9)
+            VarRef found renderFrame.i (11)
+                 Ext Variable found intensitySlider (16) varref
+           assign i = (10)
+           asop +=
+              assign renderFrame.y of notype
+              assign y = (13)
+                  Ext Function found millis (17)
+                        Ext Variable found speedSlider (23) varref
+              assign renderFrame.x of notype
+              assign x = (13)
+                 VarRef found renderFrame.y (16)
+                    VarRef found renderFrame.i (19)
+              assign renderFrame.locn of notype
+              assign locn = (13)
+                 Ext Function found iNoise (16)
+                    VarRef found renderFrame.x (19)
+                      VarRef found renderFrame.y (21)
+              assign renderFrame.pixloc of notype
+              assign pixloc = (13)
+                 Ext Function found map (16)
+                    VarRef found renderFrame.locn (19)
+                      Ext Variable found ledCount (21) varref
+              Ext Function found setPixelColor (13)
+                 VarRef found renderFrame.pixloc (16)
+                   VarRef found renderFrame.pixloc (18)
+     0 assign renderFrame.i of 9 (2)
+     1 assign renderFrame.y of 9 (2)
+     2 assign renderFrame.x of 9 (2)
+     3 assign renderFrame.locn of 9 (2)
+     4 assign renderFrame.pixloc of 9 (2)
+ 0 function PerlinMove.renderFrame of 9 (1)
+analyze 0 ✓
+
+interpret PerlinMove 1 1
+ program PerlinMove
+     Save block of renderFrame
+Interpret main 0 ✓
+         Call renderFrame (1)
+                INTEGER_CONST 255 (Push 1)
+                 MINUS - (Push 2)
+                  varref ext.custom1Slider = 18.000000 (push 3)
+              255.000000 - 18.000000 = 237.000000 (push 4)
+             Call fadeOut(237.000000) = 237.000000
+             For (1)
+                 INTEGER_CONST 0 (Push 2)
+              renderFrame.i := 0.000000 (pop 1) 2-0
+             iteration
+             check to condition
+                varref renderFrame.i = 0.000000 (push 2) 2-0
+                 LT < (Push 3)
+                     varref ext.intensitySlider = 17.000000 (push 4)
+                      DIV / (Push 5)
+                       INTEGER_CONST 16 (Push 6)
+                   17.000000 / 16.000000 = 1.062500 (push 7)
+                     PLUS + (Push 5)
+                      INTEGER_CONST 1 (Push 6)
+                  1.062500 + 1.000000 = 2.062500 (push 7)
+              0.000000 < 2.062500 = 1.000000 (push 5)
+             conditionResult (pop 1)
+             1 => run block
+                     Call millis() = 1000.000000
+                      MUL * (Push 3)
+                       INTEGER_CONST 128 (Push 4)
+                      DIV / (Push 5)
+                         INTEGER_CONST 260 (Push 6)
+                          MINUS - (Push 7)
+                           varref ext.speedSlider = 16.000000 (push 8)
+                       260.000000 - 16.000000 = 244.000000 (push 9)
+                   1000.000000 * 128.000000 = 128000.000000 (push 7)
+                   128000.000000 / 244.000000 = 524.590164 (push 7)
+                 renderFrame.y := 524.590164 (pop 1) 2-1
+                    varref renderFrame.y = 524.590164 (push 2) 2-1
+                     PLUS + (Push 3)
+                       varref renderFrame.i = 0.000000 (push 4) 2-0
+                        MUL * (Push 5)
+                         INTEGER_CONST 15000 (Push 6)
+                     0.000000 * 15000.000000 = 0.000000 (push 7)
+                  524.590164 + 0.000000 = 524.590164 (push 5)
+                 renderFrame.x := 524.590164 (pop 1) 2-2
+                       varref renderFrame.x = 524.590164 (push 2) 2-2
+                         varref renderFrame.y = 524.590164 (push 3) 2-1
+                    Call iNoise(524.590164, 524.590164) = 1049.180328
+                 renderFrame.locn := 1049.180328 (pop 1) 2-3
+                       varref renderFrame.locn = 1049.180328 (push 2) 2-3
+                          INTEGER_CONST 50 (Push 3)
+                           MUL * (Push 4)
+                            INTEGER_CONST 256 (Push 5)
+                        50.000000 * 256.000000 = 12800.000000 (push 6)
+                          INTEGER_CONST 192 (Push 4)
+                           MUL * (Push 5)
+                            INTEGER_CONST 256 (Push 6)
+                        192.000000 * 256.000000 = 49152.000000 (push 7)
+                         INTEGER_CONST 0 (Push 5)
+                         varref ext.ledCount = 3.000000 (push 6)
+                    Call map(1049.180328, 12800.000000, 49152.000000, 0.000000, 3.000000) = 63004.180328
+                 renderFrame.pixloc := 63004.180328 (pop 1) 2-4
+                    varref renderFrame.pixloc = 63004.180328 (push 2) 2-4
+                      varref renderFrame.pixloc = 63004.180328 (push 3) 2-4
+setPixelColor(63004.180328, 63004.180328)
+                 Call setPixelColor(63004.180328, 63004.180328)
+             assign next value
+                 INTEGER_CONST 1 (Push 2)
+              renderFrame.i += 1.000000 (pop 1) 2-0
+             iteration
+             check to condition
+                varref renderFrame.i = 1.000000 (push 2) 2-0
+                 LT < (Push 3)
+                     varref ext.intensitySlider = 17.000000 (push 4)
+                      DIV / (Push 5)
+                       INTEGER_CONST 16 (Push 6)
+                   17.000000 / 16.000000 = 1.062500 (push 7)
+                     PLUS + (Push 5)
+                      INTEGER_CONST 1 (Push 6)
+                  1.062500 + 1.000000 = 2.062500 (push 7)
+              1.000000 < 2.062500 = 1.000000 (push 5)
+             conditionResult (pop 1)
+             1 => run block
+                     Call millis() = 1000.000000
+                      MUL * (Push 3)
+                       INTEGER_CONST 128 (Push 4)
+                      DIV / (Push 5)
+                         INTEGER_CONST 260 (Push 6)
+                          MINUS - (Push 7)
+                           varref ext.speedSlider = 16.000000 (push 8)
+                       260.000000 - 16.000000 = 244.000000 (push 9)
+                   1000.000000 * 128.000000 = 128000.000000 (push 7)
+                   128000.000000 / 244.000000 = 524.590164 (push 7)
+                 renderFrame.y := 524.590164 (pop 1) 2-1
+                    varref renderFrame.y = 524.590164 (push 2) 2-1
+                     PLUS + (Push 3)
+                       varref renderFrame.i = 1.000000 (push 4) 2-0
+                        MUL * (Push 5)
+                         INTEGER_CONST 15000 (Push 6)
+                     1.000000 * 15000.000000 = 15000.000000 (push 7)
+                  524.590164 + 15000.000000 = 15524.590164 (push 5)
+                 renderFrame.x := 15524.590164 (pop 1) 2-2
+                       varref renderFrame.x = 15524.590164 (push 2) 2-2
+                         varref renderFrame.y = 524.590164 (push 3) 2-1
+                    Call iNoise(15524.590164, 524.590164) = 16049.180328
+                 renderFrame.locn := 16049.180328 (pop 1) 2-3
+                       varref renderFrame.locn = 16049.180328 (push 2) 2-3
+                          INTEGER_CONST 50 (Push 3)
+                           MUL * (Push 4)
+                            INTEGER_CONST 256 (Push 5)
+                        50.000000 * 256.000000 = 12800.000000 (push 6)
+                          INTEGER_CONST 192 (Push 4)
+                           MUL * (Push 5)
+                            INTEGER_CONST 256 (Push 6)
+                        192.000000 * 256.000000 = 49152.000000 (push 7)
+                         INTEGER_CONST 0 (Push 5)
+                         varref ext.ledCount = 3.000000 (push 6)
+                    Call map(16049.180328, 12800.000000, 49152.000000, 0.000000, 3.000000) = 78004.180328
+                 renderFrame.pixloc := 78004.180328 (pop 1) 2-4
+                    varref renderFrame.pixloc = 78004.180328 (push 2) 2-4
+                      varref renderFrame.pixloc = 78004.180328 (push 3) 2-4
+setPixelColor(78004.180328, 78004.180328)
+                 Call setPixelColor(78004.180328, 78004.180328)
+             assign next value
+                 INTEGER_CONST 1 (Push 2)
+              renderFrame.i += 2.000000 (pop 1) 2-0
+             iteration
+             check to condition
+                varref renderFrame.i = 2.000000 (push 2) 2-0
+                 LT < (Push 3)
+                     varref ext.intensitySlider = 17.000000 (push 4)
+                      DIV / (Push 5)
+                       INTEGER_CONST 16 (Push 6)
+                   17.000000 / 16.000000 = 1.062500 (push 7)
+                     PLUS + (Push 5)
+                      INTEGER_CONST 1 (Push 6)
+                  1.062500 + 1.000000 = 2.062500 (push 7)
+              2.000000 < 2.062500 = 1.000000 (push 5)
+             conditionResult (pop 1)
+             1 => run block
+                     Call millis() = 1000.000000
+                      MUL * (Push 3)
+                       INTEGER_CONST 128 (Push 4)
+                      DIV / (Push 5)
+                         INTEGER_CONST 260 (Push 6)
+                          MINUS - (Push 7)
+                           varref ext.speedSlider = 16.000000 (push 8)
+                       260.000000 - 16.000000 = 244.000000 (push 9)
+                   1000.000000 * 128.000000 = 128000.000000 (push 7)
+                   128000.000000 / 244.000000 = 524.590164 (push 7)
+                 renderFrame.y := 524.590164 (pop 1) 2-1
+                    varref renderFrame.y = 524.590164 (push 2) 2-1
+                     PLUS + (Push 3)
+                       varref renderFrame.i = 2.000000 (push 4) 2-0
+                        MUL * (Push 5)
+                         INTEGER_CONST 15000 (Push 6)
+                     2.000000 * 15000.000000 = 30000.000000 (push 7)
+                  524.590164 + 30000.000000 = 30524.590164 (push 5)
+                 renderFrame.x := 30524.590164 (pop 1) 2-2
+                       varref renderFrame.x = 30524.590164 (push 2) 2-2
+                         varref renderFrame.y = 524.590164 (push 3) 2-1
+                    Call iNoise(30524.590164, 524.590164) = 31049.180328
+                 renderFrame.locn := 31049.180328 (pop 1) 2-3
+                       varref renderFrame.locn = 31049.180328 (push 2) 2-3
+                          INTEGER_CONST 50 (Push 3)
+                           MUL * (Push 4)
+                            INTEGER_CONST 256 (Push 5)
+                        50.000000 * 256.000000 = 12800.000000 (push 6)
+                          INTEGER_CONST 192 (Push 4)
+                           MUL * (Push 5)
+                            INTEGER_CONST 256 (Push 6)
+                        192.000000 * 256.000000 = 49152.000000 (push 7)
+                         INTEGER_CONST 0 (Push 5)
+                         varref ext.ledCount = 3.000000 (push 6)
+                    Call map(31049.180328, 12800.000000, 49152.000000, 0.000000, 3.000000) = 93004.180328
+                 renderFrame.pixloc := 93004.180328 (pop 1) 2-4
+                    varref renderFrame.pixloc = 93004.180328 (push 2) 2-4
+                      varref renderFrame.pixloc = 93004.180328 (push 3) 2-4
+setPixelColor(93004.180328, 93004.180328)
+                 Call setPixelColor(93004.180328, 93004.180328)
+             assign next value
+                 INTEGER_CONST 1 (Push 2)
+              renderFrame.i += 3.000000 (pop 1) 2-0
+             iteration
+             check to condition
+                varref renderFrame.i = 3.000000 (push 2) 2-0
+                 LT < (Push 3)
+                     varref ext.intensitySlider = 17.000000 (push 4)
+                      DIV / (Push 5)
+                       INTEGER_CONST 16 (Push 6)
+                   17.000000 / 16.000000 = 1.062500 (push 7)
+                     PLUS + (Push 5)
+                      INTEGER_CONST 1 (Push 6)
+                  1.062500 + 1.000000 = 2.062500 (push 7)
+              3.000000 < 2.062500 = 0.000000 (push 5)
+             conditionResult (pop 1)
+             0 => end of For
+Destruct activation record renderFrame
+         Call renderFrame (1)
+                INTEGER_CONST 255 (Push 2)
+                 MINUS - (Push 3)
+                  varref ext.custom1Slider = 18.000000 (push 4)
+              255.000000 - 18.000000 = 237.000000 (push 5)
+             Call fadeOut(237.000000) = 237.000000
+             For (2)
+                 INTEGER_CONST 0 (Push 3)
+              renderFrame.i := 0.000000 (pop 2) 2-0
+             iteration
+             check to condition
+                varref renderFrame.i = 0.000000 (push 3) 2-0
+                 LT < (Push 4)
+                     varref ext.intensitySlider = 17.000000 (push 5)
+                      DIV / (Push 6)
+                       INTEGER_CONST 16 (Push 7)
+                   17.000000 / 16.000000 = 1.062500 (push 8)
+                     PLUS + (Push 6)
+                      INTEGER_CONST 1 (Push 7)
+                  1.062500 + 1.000000 = 2.062500 (push 8)
+              0.000000 < 2.062500 = 1.000000 (push 6)
+             conditionResult (pop 2)
+             1 => run block
+                     Call millis() = 1000.000000
+                      MUL * (Push 4)
+                       INTEGER_CONST 128 (Push 5)
+                      DIV / (Push 6)
+                         INTEGER_CONST 260 (Push 7)
+                          MINUS - (Push 8)
+                           varref ext.speedSlider = 16.000000 (push 9)
+                       260.000000 - 16.000000 = 244.000000 (push 10)
+                   1000.000000 * 128.000000 = 128000.000000 (push 8)
+                   128000.000000 / 244.000000 = 524.590164 (push 8)
+                 renderFrame.y := 524.590164 (pop 2) 2-1
+                    varref renderFrame.y = 524.590164 (push 3) 2-1
+                     PLUS + (Push 4)
+                       varref renderFrame.i = 0.000000 (push 5) 2-0
+                        MUL * (Push 6)
+                         INTEGER_CONST 15000 (Push 7)
+                     0.000000 * 15000.000000 = 0.000000 (push 8)
+                  524.590164 + 0.000000 = 524.590164 (push 6)
+                 renderFrame.x := 524.590164 (pop 2) 2-2
+                       varref renderFrame.x = 524.590164 (push 3) 2-2
+                         varref renderFrame.y = 524.590164 (push 4) 2-1
+                    Call iNoise(524.590164, 524.590164) = 1049.180328
+                 renderFrame.locn := 1049.180328 (pop 2) 2-3
+                       varref renderFrame.locn = 1049.180328 (push 3) 2-3
+                          INTEGER_CONST 50 (Push 4)
+                           MUL * (Push 5)
+                            INTEGER_CONST 256 (Push 6)
+                        50.000000 * 256.000000 = 12800.000000 (push 7)
+                          INTEGER_CONST 192 (Push 5)
+                           MUL * (Push 6)
+                            INTEGER_CONST 256 (Push 7)
+                        192.000000 * 256.000000 = 49152.000000 (push 8)
+                         INTEGER_CONST 0 (Push 6)
+                         varref ext.ledCount = 3.000000 (push 7)
+                    Call map(1049.180328, 12800.000000, 49152.000000, 0.000000, 3.000000) = 63004.180328
+                 renderFrame.pixloc := 63004.180328 (pop 2) 2-4
+                    varref renderFrame.pixloc = 63004.180328 (push 3) 2-4
+                      varref renderFrame.pixloc = 63004.180328 (push 4) 2-4
+setPixelColor(63004.180328, 63004.180328)
+                 Call setPixelColor(63004.180328, 63004.180328)
+             assign next value
+                 INTEGER_CONST 1 (Push 3)
+              renderFrame.i += 1.000000 (pop 2) 2-0
+             iteration
+             check to condition
+                varref renderFrame.i = 1.000000 (push 3) 2-0
+                 LT < (Push 4)
+                     varref ext.intensitySlider = 17.000000 (push 5)
+                      DIV / (Push 6)
+                       INTEGER_CONST 16 (Push 7)
+                   17.000000 / 16.000000 = 1.062500 (push 8)
+                     PLUS + (Push 6)
+                      INTEGER_CONST 1 (Push 7)
+                  1.062500 + 1.000000 = 2.062500 (push 8)
+              1.000000 < 2.062500 = 1.000000 (push 6)
+             conditionResult (pop 2)
+             1 => run block
+                     Call millis() = 1000.000000
+                      MUL * (Push 4)
+                       INTEGER_CONST 128 (Push 5)
+                      DIV / (Push 6)
+                         INTEGER_CONST 260 (Push 7)
+                          MINUS - (Push 8)
+                           varref ext.speedSlider = 16.000000 (push 9)
+                       260.000000 - 16.000000 = 244.000000 (push 10)
+                   1000.000000 * 128.000000 = 128000.000000 (push 8)
+                   128000.000000 / 244.000000 = 524.590164 (push 8)
+                 renderFrame.y := 524.590164 (pop 2) 2-1
+                    varref renderFrame.y = 524.590164 (push 3) 2-1
+                     PLUS + (Push 4)
+                       varref renderFrame.i = 1.000000 (push 5) 2-0
+                        MUL * (Push 6)
+                         INTEGER_CONST 15000 (Push 7)
+                     1.000000 * 15000.000000 = 15000.000000 (push 8)
+                  524.590164 + 15000.000000 = 15524.590164 (push 6)
+                 renderFrame.x := 15524.590164 (pop 2) 2-2
+                       varref renderFrame.x = 15524.590164 (push 3) 2-2
+                         varref renderFrame.y = 524.590164 (push 4) 2-1
+                    Call iNoise(15524.590164, 524.590164) = 16049.180328
+                 renderFrame.locn := 16049.180328 (pop 2) 2-3
+                       varref renderFrame.locn = 16049.180328 (push 3) 2-3
+                          INTEGER_CONST 50 (Push 4)
+                           MUL * (Push 5)
+                            INTEGER_CONST 256 (Push 6)
+                        50.000000 * 256.000000 = 12800.000000 (push 7)
+                          INTEGER_CONST 192 (Push 5)
+                           MUL * (Push 6)
+                            INTEGER_CONST 256 (Push 7)
+                        192.000000 * 256.000000 = 49152.000000 (push 8)
+                         INTEGER_CONST 0 (Push 6)
+                         varref ext.ledCount = 3.000000 (push 7)
+                    Call map(16049.180328, 12800.000000, 49152.000000, 0.000000, 3.000000) = 78004.180328
+                 renderFrame.pixloc := 78004.180328 (pop 2) 2-4
+                    varref renderFrame.pixloc = 78004.180328 (push 3) 2-4
+                      varref renderFrame.pixloc = 78004.180328 (push 4) 2-4
+setPixelColor(78004.180328, 78004.180328)
+                 Call setPixelColor(78004.180328, 78004.180328)
+             assign next value
+                 INTEGER_CONST 1 (Push 3)
+              renderFrame.i += 2.000000 (pop 2) 2-0
+             iteration
+             check to condition
+                varref renderFrame.i = 2.000000 (push 3) 2-0
+                 LT < (Push 4)
+                     varref ext.intensitySlider = 17.000000 (push 5)
+                      DIV / (Push 6)
+                       INTEGER_CONST 16 (Push 7)
+                   17.000000 / 16.000000 = 1.062500 (push 8)
+                     PLUS + (Push 6)
+                      INTEGER_CONST 1 (Push 7)
+                  1.062500 + 1.000000 = 2.062500 (push 8)
+              2.000000 < 2.062500 = 1.000000 (push 6)
+             conditionResult (pop 2)
+             1 => run block
+                     Call millis() = 1000.000000
+                      MUL * (Push 4)
+                       INTEGER_CONST 128 (Push 5)
+                      DIV / (Push 6)
+                         INTEGER_CONST 260 (Push 7)
+                          MINUS - (Push 8)
+                           varref ext.speedSlider = 16.000000 (push 9)
+                       260.000000 - 16.000000 = 244.000000 (push 10)
+                   1000.000000 * 128.000000 = 128000.000000 (push 8)
+                   128000.000000 / 244.000000 = 524.590164 (push 8)
+                 renderFrame.y := 524.590164 (pop 2) 2-1
+                    varref renderFrame.y = 524.590164 (push 3) 2-1
+                     PLUS + (Push 4)
+                       varref renderFrame.i = 2.000000 (push 5) 2-0
+                        MUL * (Push 6)
+                         INTEGER_CONST 15000 (Push 7)
+                     2.000000 * 15000.000000 = 30000.000000 (push 8)
+                  524.590164 + 30000.000000 = 30524.590164 (push 6)
+                 renderFrame.x := 30524.590164 (pop 2) 2-2
+                       varref renderFrame.x = 30524.590164 (push 3) 2-2
+                         varref renderFrame.y = 524.590164 (push 4) 2-1
+                    Call iNoise(30524.590164, 524.590164) = 31049.180328
+                 renderFrame.locn := 31049.180328 (pop 2) 2-3
+                       varref renderFrame.locn = 31049.180328 (push 3) 2-3
+                          INTEGER_CONST 50 (Push 4)
+                           MUL * (Push 5)
+                            INTEGER_CONST 256 (Push 6)
+                        50.000000 * 256.000000 = 12800.000000 (push 7)
+                          INTEGER_CONST 192 (Push 5)
+                           MUL * (Push 6)
+                            INTEGER_CONST 256 (Push 7)
+                        192.000000 * 256.000000 = 49152.000000 (push 8)
+                         INTEGER_CONST 0 (Push 6)
+                         varref ext.ledCount = 3.000000 (push 7)
+                    Call map(31049.180328, 12800.000000, 49152.000000, 0.000000, 3.000000) = 93004.180328
+                 renderFrame.pixloc := 93004.180328 (pop 2) 2-4
+                    varref renderFrame.pixloc = 93004.180328 (push 3) 2-4
+                      varref renderFrame.pixloc = 93004.180328 (push 4) 2-4
+setPixelColor(93004.180328, 93004.180328)
+                 Call setPixelColor(93004.180328, 93004.180328)
+             assign next value
+                 INTEGER_CONST 1 (Push 3)
+              renderFrame.i += 3.000000 (pop 2) 2-0
+             iteration
+             check to condition
+                varref renderFrame.i = 3.000000 (push 3) 2-0
+                 LT < (Push 4)
+                     varref ext.intensitySlider = 17.000000 (push 5)
+                      DIV / (Push 6)
+                       INTEGER_CONST 16 (Push 7)
+                   17.000000 / 16.000000 = 1.062500 (push 8)
+                     PLUS + (Push 6)
+                      INTEGER_CONST 1 (Push 7)
+                  1.062500 + 1.000000 = 2.062500 (push 8)
+              3.000000 < 2.062500 = 0.000000 (push 6)
+             conditionResult (pop 2)
+             0 => end of For
+Destruct activation record renderFrame
+closing Arti 0
+Destruct callstack
+Destruct valueStack
+Destruct Symbol i (0)
+Destruct Symbol y (0)
+Destruct Symbol x (0)
+Destruct Symbol locn (0)
+Destruct Symbol pixloc (0)
+Destruct ScopedSymbolTable renderFrame (0)
+Destruct Symbol renderFrame (0)
+Destruct ScopedSymbolTable PerlinMove (0)
+definitionJson  9966 / 60% (23 0 6)
+parseTree       17075 / 26% (1 0 28)
+closed Arti 0 ✓

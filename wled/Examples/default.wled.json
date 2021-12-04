@@ -5,73 +5,56 @@
       "*": [
         {
           "statement": {
-            "assign": {
-              "varref": {
-                "ID": "pixelCounter",
-                "level": 1,
-                "index": 0
-              },
-              "expr": {
-                "term": {
-                  "INTEGER_CONST": "0",
-                  "operator": 0
-                }
-              }
-            }
-          }
-        },
-        {
-          "statement": {
             "function": {
               "ID": "renderFrame",
               "block": {
                 "*": [
                   {
                     "statement": {
-                      "call": {
-                        "ID": "setPixelColor",
-                        "actuals": {
+                      "assign": {
+                        "varref": {
+                          "ID": "leds",
+                          "external": 2
+                        },
+                        "indices": {
                           "expr": {
                             "term": {
                               "varref": {
-                                "ID": "pixelCounter",
-                                "level": 1,
-                                "index": 0
+                                "ID": "counter",
+                                "external": 14
                               }
                             }
-                          },
-                          "*": [
-                            {},
-                            {
-                              "expr": {
-                                "term": {
-                                  "varref": {
-                                    "ID": "pixelCounter",
-                                    "level": 1,
-                                    "index": 0
-                                  }
-                                }
-                              }
-                            }
-                          ]
+                          }
                         },
-                        "external": 1
-                      }
-                    }
-                  },
-                  {
-                    "statement": {
-                      "assign": {
-                        "varref": {
-                          "ID": "pixelCounter",
-                          "level": 1,
-                          "index": 0
-                        },
-                        "assignoperator": 2,
                         "expr": {
                           "term": {
-                            "INTEGER_CONST": "1",
-                            "operator": 0
+                            "call": {
+                              "ID": "colorFromPalette",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "varref": {
+                                      "ID": "counter",
+                                      "external": 14
+                                    }
+                                  }
+                                },
+                                "*": [
+                                  {},
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "varref": {
+                                          "ID": "counter",
+                                          "external": 14
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 9
+                            }
                           }
                         }
                       }
