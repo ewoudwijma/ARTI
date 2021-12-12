@@ -14,8 +14,8 @@
                       "assign": {
                         "varref": {
                           "ID": "locn",
-                          "level": 2,
-                          "index": 0
+                          "level": 1,
+                          "index": 1
                         },
                         "expr": {
                           "term": {
@@ -48,8 +48,8 @@
                         "assign": {
                           "varref": {
                             "ID": "i",
-                            "level": 2,
-                            "index": 1
+                            "level": 1,
+                            "index": 2
                           },
                           "expr": {
                             "term": {
@@ -62,8 +62,8 @@
                           "term": {
                             "varref": {
                               "ID": "i",
-                              "level": 2,
-                              "index": 1
+                              "level": 1,
+                              "index": 2
                             }
                           },
                           "*": [
@@ -85,8 +85,8 @@
                           "assign": {
                             "varref": {
                               "ID": "i",
-                              "level": 2,
-                              "index": 1
+                              "level": 1,
+                              "index": 2
                             },
                             "assignoperator": 2,
                             "expr": {
@@ -111,8 +111,8 @@
                                       "term": {
                                         "varref": {
                                           "ID": "locn",
-                                          "level": 2,
-                                          "index": 0
+                                          "level": 1,
+                                          "index": 1
                                         }
                                       },
                                       "*": [
@@ -124,8 +124,8 @@
                                           "term": {
                                             "varref": {
                                               "ID": "i",
-                                              "level": 2,
-                                              "index": 1
+                                              "level": 1,
+                                              "index": 2
                                             }
                                           }
                                         }
@@ -163,8 +163,8 @@
                                       "term": {
                                         "varref": {
                                           "ID": "locn",
-                                          "level": 2,
-                                          "index": 0
+                                          "level": 1,
+                                          "index": 1
                                         }
                                       },
                                       "*": [
@@ -176,8 +176,8 @@
                                           "term": {
                                             "varref": {
                                               "ID": "i",
-                                              "level": 2,
-                                              "index": 1
+                                              "level": 1,
+                                              "index": 2
                                             }
                                           }
                                         },
@@ -225,8 +225,8 @@
                                       "term": {
                                         "varref": {
                                           "ID": "locn",
-                                          "level": 2,
-                                          "index": 0
+                                          "level": 1,
+                                          "index": 1
                                         }
                                       },
                                       "*": [
@@ -238,8 +238,8 @@
                                           "term": {
                                             "varref": {
                                               "ID": "i",
-                                              "level": 2,
-                                              "index": 1
+                                              "level": 1,
+                                              "index": 2
                                             }
                                           }
                                         },

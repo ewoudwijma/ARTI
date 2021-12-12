@@ -237,7 +237,7 @@ parseTree 65536 => 0 ✓
 Symbol program Parsed until (31,6) 382 of 382
 definitionTree 5511 / 33% (23 0 6)
 parseTree      16152 / 24% (1 0 24)
-garbageCollect 12408 / 18% (1 0 24)
+garbageCollect 12408 / 18%
 Destruct Lexer
 parse 0 ✓
 

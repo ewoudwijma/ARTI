@@ -46,8 +46,8 @@
                       "assign": {
                         "varref": {
                           "ID": "locn",
-                          "level": 2,
-                          "index": 0
+                          "level": 1,
+                          "index": 1
                         },
                         "expr": {
                           "term": {
@@ -115,8 +115,8 @@
                       "assign": {
                         "varref": {
                           "ID": "newVal",
-                          "level": 2,
-                          "index": 1
+                          "level": 1,
+                          "index": 2
                         },
                         "expr": {
                           "term": {
@@ -129,8 +129,8 @@
                                       "term": {
                                         "varref": {
                                           "ID": "locn",
-                                          "level": 2,
-                                          "index": 0
+                                          "level": 1,
+                                          "index": 1
                                         }
                                       }
                                     }
@@ -161,8 +161,8 @@
                       "assign": {
                         "varref": {
                           "ID": "locn2",
-                          "level": 2,
-                          "index": 2
+                          "level": 1,
+                          "index": 3
                         },
                         "expr": {
                           "term": {
@@ -230,8 +230,8 @@
                       "assign": {
                         "varref": {
                           "ID": "newVal2",
-                          "level": 2,
-                          "index": 3
+                          "level": 1,
+                          "index": 4
                         },
                         "expr": {
                           "term": {
@@ -244,8 +244,8 @@
                                       "term": {
                                         "varref": {
                                           "ID": "locn2",
-                                          "level": 2,
-                                          "index": 2
+                                          "level": 1,
+                                          "index": 3
                                         }
                                       }
                                     }
@@ -276,8 +276,8 @@
                       "assign": {
                         "varref": {
                           "ID": "location",
-                          "level": 2,
-                          "index": 4
+                          "level": 1,
+                          "index": 5
                         },
                         "expr": {
                           "term": {
@@ -286,8 +286,8 @@
                                 "term": {
                                   "varref": {
                                     "ID": "newVal",
-                                    "level": 2,
-                                    "index": 1
+                                    "level": 1,
+                                    "index": 2
                                   }
                                 },
                                 "*": [
@@ -299,8 +299,8 @@
                                     "term": {
                                       "varref": {
                                         "ID": "newVal2",
-                                        "level": 2,
-                                        "index": 3
+                                        "level": 1,
+                                        "index": 4
                                       }
                                     }
                                   }
@@ -329,8 +329,8 @@
                       "assign": {
                         "varref": {
                           "ID": "location",
-                          "level": 2,
-                          "index": 4
+                          "level": 1,
+                          "index": 5
                         },
                         "assignoperator": 4,
                         "expr": {
@@ -356,8 +356,8 @@
                             "term": {
                               "varref": {
                                 "ID": "location",
-                                "level": 2,
-                                "index": 4
+                                "level": 1,
+                                "index": 5
                               }
                             }
                           }

@@ -204,9 +204,9 @@ parseTree 65536 => 0 ✓
   RCURL } 1
  found block
 Symbol program Parsed until (40,0) 888 of 888
-definitionTree 9966 / 60% (23 0 6)
+definitionTree 10739 / 65% (23 0 6)
 parseTree      13797 / 21% (1 0 28)
-garbageCollect 9797 / 14% (1 0 28)
+garbageCollect 9797 / 14%
 Destruct Lexer
 parse 0 ✓
 
@@ -238,38 +238,38 @@ Analyzer
      assign Drip.bri of notype
      assign bri = (4)
      Function Drip.renderFrame
-         assign renderFrame.grav of notype
+         assign Drip.grav of notype
          assign grav = (8)
              Ext Variable found speedSlider (12) varref
          Ext Function found fadeToBlackBy (8)
              Ext Variable found intensitySlider (12) varref
          assign dripSpd = (8)
-            VarRef found renderFrame.grav (11)
+            VarRef found Drip.grav (11)
          asop +=
-         assign renderFrame.dripLocn of notype
+         assign Drip.dripLocn of notype
          assign dripLocn = (8)
             VarRef found Drip.dripSpd (11)
          asop -=
-            VarRef found renderFrame.dripLocn (11)
+            VarRef found Drip.dripLocn (11)
               Ext Variable found leds (13) assign
               assign leds = (13)
                  Ext Function found colorFromPalette (16)
                     VarRef found Drip.colr (19)
                       VarRef found Drip.bri (21)
-                  VarRef found renderFrame.dripLocn (17)
-            VarRef found renderFrame.dripLocn (11)
+                  VarRef found Drip.dripLocn (17)
+            VarRef found Drip.dripLocn (11)
               assign dripLocn = (13)
                  Ext Variable found ledCount (16) varref
               assign dripSpd = (13)
-     0 assign renderFrame.grav of 9 (2)
-     1 assign renderFrame.dripLocn of 9 (2)
  0 assign Drip.dripSpd of 9 (1)
  1 assign Drip.colr of 9 (1)
  2 assign Drip.bri of 9 (1)
  3 function Drip.renderFrame of 9 (1)
+ 4 assign Drip.grav of 9 (1)
+ 5 assign Drip.dripLocn of 9 (1)
 analyze 0 ✓
 
-interpret Drip 1 4
+interpret Drip 1 6
  program Drip
         INTEGER_CONST 0 (Push 1)
      Drip.dripSpd := 0.000000 (pop 0) 1-0
@@ -284,26 +284,26 @@ Interpret main 0 ✓
                   DIV / (Push 2)
                    INTEGER_CONST 1000 (Push 3)
                16.000000 / 1000.000000 = 0.016000 (push 4)
-             renderFrame.grav := 0.016000 (pop 0) 2-0
+             Drip.grav := 0.016000 (pop 0) 1-4
                  varref ext.intensitySlider = 17.000000 (push 1)
                   DIV / (Push 2)
                    INTEGER_CONST 4 (Push 3)
                17.000000 / 4.000000 = 4.250000 (push 4)
              Call fadeToBlackBy(4.250000) = 4.250000
-                varref renderFrame.grav = 0.016000 (push 2) 2-0
+                varref Drip.grav = 0.016000 (push 2) 1-4
              Drip.dripSpd += 0.016000 (pop 1) 1-0
                 varref Drip.dripSpd = 0.016000 (push 2) 1-0
-             renderFrame.dripLocn -= -0.016000 (pop 1) 2-1
+             Drip.dripLocn -= -0.016000 (pop 1) 1-5
              If (1)
              if condition
-                varref renderFrame.dripLocn = -0.016000 (push 2) 2-1
+                varref Drip.dripLocn = -0.016000 (push 2) 1-5
                  GT > (Push 3)
                   INTEGER_CONST 0 (Push 4)
               -0.016000 > 0.000000 = 0.000000 (push 5)
              (pop 1)
              If (1)
              if condition
-                varref renderFrame.dripLocn = -0.016000 (push 2) 2-1
+                varref Drip.dripLocn = -0.016000 (push 2) 1-5
                  LTE <= (Push 3)
                   INTEGER_CONST 0 (Push 4)
               -0.016000 <=> 0.000000 = 1.000000 (push 5)
@@ -312,7 +312,7 @@ Interpret main 0 ✓
                       MINUS - (Push 3)
                        INTEGER_CONST 1 (Push 4)
                    3.000000 - 1.000000 = 2.000000 (push 5)
-                  renderFrame.dripLocn := 2.000000 (pop 1) 2-1
+                  Drip.dripLocn := 2.000000 (pop 1) 1-5
                      INTEGER_CONST 0 (Push 2)
                   Drip.dripSpd := 0.000000 (pop 1) 1-0
 Destruct activation record renderFrame
@@ -321,24 +321,24 @@ Destruct activation record renderFrame
                   DIV / (Push 3)
                    INTEGER_CONST 1000 (Push 4)
                16.000000 / 1000.000000 = 0.016000 (push 5)
-             renderFrame.grav := 0.016000 (pop 1) 2-0
+             Drip.grav := 0.016000 (pop 1) 1-4
                  varref ext.intensitySlider = 17.000000 (push 2)
                   DIV / (Push 3)
                    INTEGER_CONST 4 (Push 4)
                17.000000 / 4.000000 = 4.250000 (push 5)
              Call fadeToBlackBy(4.250000) = 4.250000
-                varref renderFrame.grav = 0.016000 (push 3) 2-0
+                varref Drip.grav = 0.016000 (push 3) 1-4
              Drip.dripSpd += 0.016000 (pop 2) 1-0
                 varref Drip.dripSpd = 0.016000 (push 3) 1-0
-             renderFrame.dripLocn -= 1.984000 (pop 2) 2-1
+             Drip.dripLocn -= 1.984000 (pop 2) 1-5
              If (2)
              if condition
-                varref renderFrame.dripLocn = 1.984000 (push 3) 2-1
+                varref Drip.dripLocn = 1.984000 (push 3) 1-5
                  GT > (Push 4)
                   INTEGER_CONST 0 (Push 5)
               1.984000 > 0.000000 = 1.000000 (push 6)
              (pop 2)
-                      varref renderFrame.dripLocn = 1.984000 (push 3) 2-1
+                      varref Drip.dripLocn = 1.984000 (push 3) 1-5
                         varref Drip.colr = 1.000000 (push 4) 1-1
                           varref Drip.bri = 64.000000 (push 5) 1-2
                      Call colorFromPalette(1.000000, 64.000000) = 65.000000
@@ -346,7 +346,7 @@ arti_set_external_variable: leds(1.984000) := 65.000000
                   assign set ext.leds[1.984000] = 65.000000 (3)
              If (2)
              if condition
-                varref renderFrame.dripLocn = 1.984000 (push 3) 2-1
+                varref Drip.dripLocn = 1.984000 (push 3) 1-5
                  LTE <= (Push 4)
                   INTEGER_CONST 0 (Push 5)
               1.984000 <=> 0.000000 = 0.000000 (push 6)
@@ -356,14 +356,14 @@ setPixels(leds)
 closing Arti 0
 Destruct callstack
 Destruct valueStack
-Destruct Symbol grav (0)
-Destruct Symbol dripLocn (0)
 Destruct ScopedSymbolTable renderFrame (0)
 Destruct Symbol dripSpd (0)
 Destruct Symbol colr (0)
 Destruct Symbol bri (0)
 Destruct Symbol renderFrame (0)
+Destruct Symbol grav (0)
+Destruct Symbol dripLocn (0)
 Destruct ScopedSymbolTable Drip (0)
-definitionJson  9966 / 60% (23 0 6)
+definitionJson  10739 / 65% (23 0 6)
 parseTree       12581 / 19% (1 0 26)
 closed Arti 0 ✓

@@ -45,8 +45,8 @@
                         "assign": {
                           "varref": {
                             "ID": "i",
-                            "level": 2,
-                            "index": 0
+                            "level": 1,
+                            "index": 1
                           },
                           "expr": {
                             "term": {
@@ -59,8 +59,8 @@
                           "term": {
                             "varref": {
                               "ID": "i",
-                              "level": 2,
-                              "index": 0
+                              "level": 1,
+                              "index": 1
                             }
                           },
                           "*": [
@@ -112,8 +112,8 @@
                           "assign": {
                             "varref": {
                               "ID": "i",
-                              "level": 2,
-                              "index": 0
+                              "level": 1,
+                              "index": 1
                             },
                             "assignoperator": 2,
                             "expr": {
@@ -131,8 +131,8 @@
                                 "assign": {
                                   "varref": {
                                     "ID": "y",
-                                    "level": 2,
-                                    "index": 1
+                                    "level": 1,
+                                    "index": 2
                                   },
                                   "expr": {
                                     "term": {
@@ -192,15 +192,15 @@
                                 "assign": {
                                   "varref": {
                                     "ID": "x",
-                                    "level": 2,
-                                    "index": 2
+                                    "level": 1,
+                                    "index": 3
                                   },
                                   "expr": {
                                     "term": {
                                       "varref": {
                                         "ID": "y",
-                                        "level": 2,
-                                        "index": 1
+                                        "level": 1,
+                                        "index": 2
                                       }
                                     },
                                     "*": [
@@ -213,8 +213,8 @@
                                           "factor": {
                                             "varref": {
                                               "ID": "i",
-                                              "level": 2,
-                                              "index": 0
+                                              "level": 1,
+                                              "index": 1
                                             }
                                           },
                                           "*": [
@@ -241,8 +241,8 @@
                                 "assign": {
                                   "varref": {
                                     "ID": "locn",
-                                    "level": 2,
-                                    "index": 3
+                                    "level": 1,
+                                    "index": 4
                                   },
                                   "expr": {
                                     "term": {
@@ -253,8 +253,8 @@
                                             "term": {
                                               "varref": {
                                                 "ID": "x",
-                                                "level": 2,
-                                                "index": 2
+                                                "level": 1,
+                                                "index": 3
                                               }
                                             }
                                           },
@@ -265,8 +265,8 @@
                                                 "term": {
                                                   "varref": {
                                                     "ID": "y",
-                                                    "level": 2,
-                                                    "index": 1
+                                                    "level": 1,
+                                                    "index": 2
                                                   }
                                                 }
                                               }
@@ -284,9 +284,112 @@
                               "statement": {
                                 "assign": {
                                   "varref": {
+                                    "ID": "x",
+                                    "level": 1,
+                                    "index": 3
+                                  },
+                                  "expr": {
+                                    "term": {
+                                      "factor": {
+                                        "call": {
+                                          "ID": "millis",
+                                          "external": 36
+                                        }
+                                      },
+                                      "*": [
+                                        {
+                                          "MUL": "*",
+                                          "operator": 4
+                                        },
+                                        {
+                                          "factor": {
+                                            "INTEGER_CONST": "2",
+                                            "operator": 0
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "*": [
+                                      {
+                                        "PLUS": "+",
+                                        "operator": 2
+                                      },
+                                      {
+                                        "term": {
+                                          "factor": {
+                                            "varref": {
+                                              "ID": "i",
+                                              "level": 1,
+                                              "index": 1
+                                            }
+                                          },
+                                          "*": [
+                                            {
+                                              "MUL": "*",
+                                              "operator": 4
+                                            },
+                                            {
+                                              "factor": {
+                                                "INTEGER_CONST": "15000",
+                                                "operator": 0
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "statement": {
+                                "assign": {
+                                  "varref": {
+                                    "ID": "clr",
+                                    "level": 1,
+                                    "index": 5
+                                  },
+                                  "expr": {
+                                    "term": {
+                                      "call": {
+                                        "ID": "iNoise",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "varref": {
+                                                "ID": "x",
+                                                "level": 1,
+                                                "index": 3
+                                              }
+                                            }
+                                          },
+                                          "*": [
+                                            {},
+                                            {
+                                              "expr": {
+                                                "term": {
+                                                  "INTEGER_CONST": "0",
+                                                  "operator": 0
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "external": 12
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "statement": {
+                                "assign": {
+                                  "varref": {
                                     "ID": "pixloc",
-                                    "level": 2,
-                                    "index": 4
+                                    "level": 1,
+                                    "index": 6
                                   },
                                   "expr": {
                                     "term": {
@@ -297,8 +400,8 @@
                                             "term": {
                                               "varref": {
                                                 "ID": "locn",
-                                                "level": 2,
-                                                "index": 3
+                                                "level": 1,
+                                                "index": 4
                                               }
                                             }
                                           },
@@ -380,6 +483,102 @@
                             },
                             {
                               "statement": {
+                                "assign": {
+                                  "varref": {
+                                    "ID": "pixclr",
+                                    "level": 1,
+                                    "index": 7
+                                  },
+                                  "expr": {
+                                    "term": {
+                                      "call": {
+                                        "ID": "map",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "varref": {
+                                                "ID": "clr",
+                                                "level": 1,
+                                                "index": 5
+                                              }
+                                            }
+                                          },
+                                          "*": [
+                                            {},
+                                            {
+                                              "expr": {
+                                                "term": {
+                                                  "factor": {
+                                                    "INTEGER_CONST": "50",
+                                                    "operator": 0
+                                                  },
+                                                  "*": [
+                                                    {
+                                                      "MUL": "*",
+                                                      "operator": 4
+                                                    },
+                                                    {
+                                                      "factor": {
+                                                        "INTEGER_CONST": "256",
+                                                        "operator": 0
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            {},
+                                            {
+                                              "expr": {
+                                                "term": {
+                                                  "factor": {
+                                                    "INTEGER_CONST": "192",
+                                                    "operator": 0
+                                                  },
+                                                  "*": [
+                                                    {
+                                                      "MUL": "*",
+                                                      "operator": 4
+                                                    },
+                                                    {
+                                                      "factor": {
+                                                        "INTEGER_CONST": "256",
+                                                        "operator": 0
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            {},
+                                            {
+                                              "expr": {
+                                                "term": {
+                                                  "INTEGER_CONST": "0",
+                                                  "operator": 0
+                                                }
+                                              }
+                                            },
+                                            {},
+                                            {
+                                              "expr": {
+                                                "term": {
+                                                  "INTEGER_CONST": "255",
+                                                  "operator": 0
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "external": 25
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "statement": {
                                 "call": {
                                   "ID": "setPixelColor",
                                   "actuals": {
@@ -387,8 +586,8 @@
                                       "term": {
                                         "varref": {
                                           "ID": "pixloc",
-                                          "level": 2,
-                                          "index": 4
+                                          "level": 1,
+                                          "index": 6
                                         }
                                       }
                                     },
@@ -398,9 +597,9 @@
                                         "expr": {
                                           "term": {
                                             "varref": {
-                                              "ID": "pixloc",
-                                              "level": 2,
-                                              "index": 4
+                                              "ID": "pixclr",
+                                              "level": 1,
+                                              "index": 7
                                             }
                                           }
                                         }

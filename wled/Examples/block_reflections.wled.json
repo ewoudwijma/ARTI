@@ -1,0 +1,720 @@
+{
+  "program": {
+    "ID": "block_reflections",
+    "block": {
+      "*": [
+        {
+          "statement": {
+            "function": {
+              "ID": "renderFrame",
+              "block": {
+                "*": [
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "t2",
+                          "level": 1,
+                          "index": 1
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "time",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "REAL_CONST": "0.1",
+                                      "operator": 1
+                                    }
+                                  }
+                                },
+                                "external": 37
+                              }
+                            },
+                            "*": [
+                              {
+                                "MUL": "*",
+                                "operator": 4
+                              },
+                              {
+                                "factor": {
+                                  "REAL_CONST": "6.2832",
+                                  "operator": 1
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "t1",
+                          "level": 1,
+                          "index": 2
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "time",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "REAL_CONST": "0.1",
+                                    "operator": 1
+                                  }
+                                }
+                              },
+                              "external": 37
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "t3",
+                          "level": 1,
+                          "index": 3
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "time",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "REAL_CONST": "0.5",
+                                    "operator": 1
+                                  }
+                                }
+                              },
+                              "external": 37
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "t4",
+                          "level": 1,
+                          "index": 4
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "time",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "REAL_CONST": "0.2",
+                                      "operator": 1
+                                    }
+                                  }
+                                },
+                                "external": 37
+                              }
+                            },
+                            "*": [
+                              {
+                                "MUL": "*",
+                                "operator": 4
+                              },
+                              {
+                                "factor": {
+                                  "REAL_CONST": "6.2832",
+                                  "operator": 1
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "statement": {
+            "function": {
+              "ID": "renderLed",
+              "formals": {
+                "formal": {
+                  "ID": "index"
+                }
+              },
+              "block": {
+                "*": [
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "h",
+                          "level": 1,
+                          "index": 6
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "sin",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "varref": {
+                                      "ID": "t2",
+                                      "level": 1,
+                                      "index": 1
+                                    }
+                                  }
+                                }
+                              },
+                              "external": 28
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "m",
+                          "level": 1,
+                          "index": 7
+                        },
+                        "expr": {
+                          "term": {
+                            "expr": {
+                              "term": {
+                                "REAL_CONST": "0.3",
+                                "operator": 1
+                              },
+                              "*": [
+                                {
+                                  "PLUS": "+",
+                                  "operator": 2
+                                },
+                                {
+                                  "term": {
+                                    "factor": {
+                                      "call": {
+                                        "ID": "triangle",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "varref": {
+                                                "ID": "t1",
+                                                "level": 1,
+                                                "index": 2
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "external": 38
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "MUL": "*",
+                                        "operator": 4
+                                      },
+                                      {
+                                        "factor": {
+                                          "REAL_CONST": "0.2",
+                                          "operator": 1
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "hh",
+                          "level": 1,
+                          "index": 8
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "expr": {
+                                "term": {
+                                  "varref": {
+                                    "ID": "index",
+                                    "level": 2,
+                                    "index": 0
+                                  }
+                                },
+                                "*": [
+                                  {
+                                    "MINUS": "-",
+                                    "operator": 3
+                                  },
+                                  {
+                                    "term": {
+                                      "factor": {
+                                        "varref": {
+                                          "ID": "ledCount",
+                                          "external": 0
+                                        }
+                                      },
+                                      "*": [
+                                        {
+                                          "DIV": "/",
+                                          "operator": 5
+                                        },
+                                        {
+                                          "factor": {
+                                            "INTEGER_CONST": "2",
+                                            "operator": 0
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "*": [
+                              {
+                                "DIV": "/",
+                                "operator": 5
+                              },
+                              {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "ledCount",
+                                    "external": 0
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "hhh",
+                          "level": 1,
+                          "index": 9
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "triangle",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "varref": {
+                                        "ID": "t3",
+                                        "level": 1,
+                                        "index": 3
+                                      }
+                                    }
+                                  }
+                                },
+                                "external": 38
+                              }
+                            },
+                            "*": [
+                              {
+                                "MUL": "*",
+                                "operator": 4
+                              },
+                              {
+                                "factor": {
+                                  "INTEGER_CONST": "10",
+                                  "operator": 0
+                                }
+                              }
+                            ]
+                          },
+                          "*": [
+                            {
+                              "PLUS": "+",
+                              "operator": 2
+                            },
+                            {
+                              "term": {
+                                "factor": {
+                                  "INTEGER_CONST": "4",
+                                  "operator": 0
+                                },
+                                "*": [
+                                  {
+                                    "MUL": "*",
+                                    "operator": 4
+                                  },
+                                  {
+                                    "factor": {
+                                      "call": {
+                                        "ID": "sin",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "varref": {
+                                                "ID": "t4",
+                                                "level": 1,
+                                                "index": 4
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "external": 28
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "h",
+                          "level": 1,
+                          "index": 6
+                        },
+                        "assignoperator": 2,
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "expr": {
+                                "term": {
+                                  "factor": {
+                                    "varref": {
+                                      "ID": "hh",
+                                      "level": 1,
+                                      "index": 8
+                                    }
+                                  },
+                                  "*": [
+                                    {
+                                      "MUL": "*",
+                                      "operator": 4
+                                    },
+                                    {
+                                      "factor": {
+                                        "varref": {
+                                          "ID": "hhh",
+                                          "level": 1,
+                                          "index": 9
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "*": [
+                              {
+                                "MOD": "%",
+                                "operator": 6
+                              },
+                              {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "m",
+                                    "level": 1,
+                                    "index": 7
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "s",
+                          "level": 1,
+                          "index": 10
+                        },
+                        "expr": {
+                          "term": {
+                            "INTEGER_CONST": "1",
+                            "operator": 0
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "v",
+                          "level": 1,
+                          "index": 11
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "expr": {
+                                "term": {
+                                  "call": {
+                                    "ID": "abs",
+                                    "actuals": {
+                                      "expr": {
+                                        "term": {
+                                          "varref": {
+                                            "ID": "h",
+                                            "level": 1,
+                                            "index": 6
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "external": 30
+                                  }
+                                },
+                                "*": [
+                                  {
+                                    "PLUS": "+",
+                                    "operator": 2
+                                  },
+                                  {
+                                    "term": {
+                                      "call": {
+                                        "ID": "abs",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "varref": {
+                                                "ID": "m",
+                                                "level": 1,
+                                                "index": 7
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "external": 30
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "PLUS": "+",
+                                    "operator": 2
+                                  },
+                                  {
+                                    "term": {
+                                      "varref": {
+                                        "ID": "t1",
+                                        "level": 1,
+                                        "index": 2
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "*": [
+                              {
+                                "MOD": "%",
+                                "operator": 6
+                              },
+                              {
+                                "factor": {
+                                  "INTEGER_CONST": "1",
+                                  "operator": 0
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "v",
+                          "level": 1,
+                          "index": 11
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "varref": {
+                                "ID": "v",
+                                "level": 1,
+                                "index": 11
+                              }
+                            },
+                            "*": [
+                              {
+                                "MUL": "*",
+                                "operator": 4
+                              },
+                              {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "v",
+                                    "level": 1,
+                                    "index": 11
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "leds",
+                          "external": 2
+                        },
+                        "indices": {
+                          "expr": {
+                            "term": {
+                              "varref": {
+                                "ID": "index",
+                                "level": 2,
+                                "index": 0
+                              }
+                            }
+                          }
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "hsv",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "factor": {
+                                      "varref": {
+                                        "ID": "h",
+                                        "level": 1,
+                                        "index": 6
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "MUL": "*",
+                                        "operator": 4
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "255",
+                                          "operator": 0
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "*": [
+                                  {},
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "factor": {
+                                          "varref": {
+                                            "ID": "s",
+                                            "level": 1,
+                                            "index": 10
+                                          }
+                                        },
+                                        "*": [
+                                          {
+                                            "MUL": "*",
+                                            "operator": 4
+                                          },
+                                          {
+                                            "factor": {
+                                              "INTEGER_CONST": "255",
+                                              "operator": 0
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {},
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "factor": {
+                                          "varref": {
+                                            "ID": "v",
+                                            "level": 1,
+                                            "index": 11
+                                          }
+                                        },
+                                        "*": [
+                                          {
+                                            "MUL": "*",
+                                            "operator": 4
+                                          },
+                                          {
+                                            "factor": {
+                                              "INTEGER_CONST": "255",
+                                              "operator": 0
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 4
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -19,7 +19,7 @@
                       "assign": {
                         "varref": {
                           "ID": "bri",
-                          "level": 2,
+                          "level": 1,
                           "index": 1
                         },
                         "expr": {
@@ -237,7 +237,7 @@
                                       "term": {
                                         "varref": {
                                           "ID": "bri",
-                                          "level": 2,
+                                          "level": 1,
                                           "index": 1
                                         }
                                       }

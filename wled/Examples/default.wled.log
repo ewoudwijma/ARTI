@@ -56,9 +56,9 @@ parseTree 65536 => 0 ✓
   RCURL } 1
  found block
 Symbol program Parsed until (9,1) 160 of 160
-definitionTree 9966 / 60% (23 0 6)
+definitionTree 10739 / 65% (23 0 6)
 parseTree      3759 / 5% (1 0 23)
-garbageCollect 2671 / 4% (1 0 23)
+garbageCollect 2671 / 4%
 Destruct Lexer
 parse 0 ✓
 
@@ -109,6 +109,6 @@ Destruct valueStack
 Destruct ScopedSymbolTable renderFrame (0)
 Destruct Symbol renderFrame (0)
 Destruct ScopedSymbolTable default (0)
-definitionJson  9966 / 60% (23 0 6)
+definitionJson  10739 / 65% (23 0 6)
 parseTree       3471 / 5% (1 0 21)
 closed Arti 0 ✓

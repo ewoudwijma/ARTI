@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_wled_plugin.h
-   @version 0.2.0
-   @date    20211203
+   @version 0.2.1
+   @date    20211212
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */
@@ -25,7 +25,6 @@
   extern float sampleAvg;
 #else
   #include "../arti.h"
-  #include <math.h>
   #include <string.h>
   #include <stdlib.h>
   #include <stdio.h>
@@ -77,6 +76,12 @@ enum Externals
   F_second,
   F_millis,
 
+  F_time,
+  F_triangle,
+  F_wave,
+  F_square,
+  F_clamp,
+
   F_printf
 };
 
@@ -87,8 +92,14 @@ enum Externals
 
     uint32_t frameCounter = 0;
 
-    uint16_t XY(uint16_t x, uint16_t y) {                              // ewowi20210703: new XY: segmentToReal: Maps XY in 2D segment to to rotated and mirrored logical index. Works for 1D strips and 2D panels
-        return x%matrixWidth + y%matrixHeight * matrixWidth;
+    uint16_t XY(uint16_t x, uint16_t y)
+    {
+      return x%matrixWidth + y%matrixHeight * matrixWidth;
+    }
+
+    uint32_t millis()
+    {
+      return 1000; // no millis defined for non embedded yet
     }
 
     double arti_external_function(uint8_t function, double par1 = doubleNull, double par2 = doubleNull, double par3 = doubleNull, double par4 = doubleNull, double par5 = doubleNull);
@@ -97,6 +108,8 @@ enum Externals
   }; //class WS2812FX
 
   WS2812FX strip = WS2812FX();
+
+  #define PI 3.141592654
 
 #endif
 
@@ -135,6 +148,7 @@ double WS2812FX::arti_external_function(uint8_t function, double par1, double pa
       case F_setRange: {
         setRange((uint16_t)par1, (uint16_t)par2, (uint32_t)par3);
         return doubleNull;
+      }
       case F_fill: {
         fill((uint32_t)par1);
         return doubleNull;
@@ -161,7 +175,8 @@ double WS2812FX::arti_external_function(uint8_t function, double par1, double pa
 
       case F_shift: {
         uint32_t saveFirstPixel = getPixelColor(0);
-        for (uint16_t i=0; i<ledCount-1; i++) {
+        for (uint16_t i=0; i<ledCount-1; i++)
+        {
           setPixelColor(i, getPixelColor((uint16_t)(i + par1)%ledCount));
         }
         setPixelColor(ledCount - 1, saveFirstPixel);
@@ -196,10 +211,10 @@ double WS2812FX::arti_external_function(uint8_t function, double par1, double pa
 
       case F_millis:
         return millis();
-      }
+
       default: {}
     }
-  #else
+  #else // not arduino
     switch (function)
     {
       case F_setPixelColor:
@@ -265,22 +280,45 @@ double WS2812FX::arti_external_function(uint8_t function, double par1, double pa
     case F_cos:
       return cos(par1);
     case F_abs:
-      return abs(par1);
+      return fabs(par1);
     case F_min:
       return fmin(par1, par2);
     case F_max:
       return fmax(par1, par2);
 
+    // Reference: https://github.com/atuline/PixelBlaze
+    case F_time: // A sawtooth waveform between 0.0 and 1.0 that loops about every 65.536*interval seconds. e.g. use .015 for an approximately 1 second.
+    {
+      float myVal = millis();
+      myVal = myVal / 1000 * .015259 / par1;          // PixelBlaze uses 1000/65535 = .015259
+      myVal = fmod(myVal, 1.0);
+      return myVal;
+    }
+    case F_triangle: // Converts a sawtooth waveform v between 0.0 and 1.0 to a triangle waveform between 0.0 to 1.0. v "wraps" between 0.0 and 1.0.
+      return 1.0 - fabs(fmod(2 * par1, 2.0) - 1.0);
+    case F_wave: // Converts a sawtooth waveform v between 0.0 and 1.0 to a sinusoidal waveform between 0.0 to 1.0. Same as (1+sin(v*PI2))/2 but faster. v "wraps" between 0.0 and 1.0.
+      return (1 + sin(par1 * 2 * PI)) / 2;
+    case F_square: // Converts a sawtooth waveform v to a square wave using the provided duty cycle where duty is a number between 0.0 and 1.0. v "wraps" between 0.0 and 1.0.
+    {
+      float sinValue = arti_external_function(F_wave, par1);
+      return sinValue >= par2 ? 1 : 0;
+    }
+    case F_clamp:
+    {
+      const float t = par1 < par2 ? par2 : par1;
+      return t > par2 ? par2 : t;
+    }
+
     case F_printf: {
       if (par3 == doubleNull) {
         if (par2 == doubleNull) {
-          PRINT_ARTI("%s(%f)\n", "printf", par1);
+          PRINT_ARTI("%f\n", par1);
         }
         else
-          PRINT_ARTI("%s(%f, %f)\n", "printf", par1, par2);
+          PRINT_ARTI("%f, %f\n", par1, par2);
       }
       else
-        PRINT_ARTI("%s(%f, %f, %f)\n", "printf", par1, par2, par3);
+        PRINT_ARTI("%f, %f, %f\n", par1, par2, par3);
       return doubleNull;
     }
   }

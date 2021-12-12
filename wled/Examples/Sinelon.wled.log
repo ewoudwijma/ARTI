@@ -2,7 +2,7 @@ setup 0 bytes free
 open wled.json 0 ✓
 definitionTree 16384 => 0 ✓
 open Examples/Sinelon.wled 0 ✓
-programFile size 1538 bytes
+programFile size 1524 bytes
 parseTree 65536 => 0 ✓
  PROGRAM PROGRAM -> [ID DualSinelon] 0
  ID DualSinelon -> [LCURL {] 0
@@ -236,10 +236,10 @@ parseTree 65536 => 0 ✓
    found statement
   RCURL } 1
  found block
-Symbol program Parsed until (50,1) 1538 of 1538
-definitionTree 9966 / 60% (23 0 6)
+Symbol program Parsed until (43,1) 1524 of 1524
+definitionTree 10739 / 65% (23 0 6)
 parseTree      16476 / 25% (1 0 26)
-garbageCollect 11868 / 18% (1 0 26)
+garbageCollect 11868 / 18%
 Destruct Lexer
 parse 0 ✓
 
@@ -270,42 +270,42 @@ Analyzer
      Function DualSinelon.renderFrame
          Ext Function found fadeToBlackBy (8)
              Ext Variable found intensitySlider (12) varref
-         assign renderFrame.locn of notype
+         assign DualSinelon.locn of notype
          assign locn = (8)
              Ext Function found millis (12)
                       Ext Variable found speedSlider (21) varref
-         assign renderFrame.newVal of notype
+         assign DualSinelon.newVal of notype
          assign newVal = (8)
               Ext Function found sin (13)
-                 VarRef found renderFrame.locn (16)
-         assign renderFrame.locn2 of notype
+                 VarRef found DualSinelon.locn (16)
+         assign DualSinelon.locn2 of notype
          assign locn2 = (8)
              Ext Function found millis (12)
                       Ext Variable found custom1Slider (21) varref
-         assign renderFrame.newVal2 of notype
+         assign DualSinelon.newVal2 of notype
          assign newVal2 = (8)
               Ext Function found sin (13)
-                 VarRef found renderFrame.locn2 (16)
-         assign renderFrame.location of notype
+                 VarRef found DualSinelon.locn2 (16)
+         assign DualSinelon.location of notype
          assign location = (8)
-               VarRef found renderFrame.newVal (14)
-                 VarRef found renderFrame.newVal2 (16)
+               VarRef found DualSinelon.newVal (14)
+                 VarRef found DualSinelon.newVal2 (16)
          assign location = (8)
             Ext Variable found ledCount (11) varref
          asop *=
          Ext Variable found leds (8) assign
          assign leds = (8)
             Ext Function found colorFromPalette (11)
-             VarRef found renderFrame.location (12)
-     0 assign renderFrame.locn of 9 (2)
-     1 assign renderFrame.newVal of 9 (2)
-     2 assign renderFrame.locn2 of 9 (2)
-     3 assign renderFrame.newVal2 of 9 (2)
-     4 assign renderFrame.location of 9 (2)
+             VarRef found DualSinelon.location (12)
  0 function DualSinelon.renderFrame of 9 (1)
+ 1 assign DualSinelon.locn of 9 (1)
+ 2 assign DualSinelon.newVal of 9 (1)
+ 3 assign DualSinelon.locn2 of 9 (1)
+ 4 assign DualSinelon.newVal2 of 9 (1)
+ 5 assign DualSinelon.location of 9 (1)
 analyze 0 ✓
 
-interpret DualSinelon 1 1
+interpret DualSinelon 1 6
  program DualSinelon
      Save block of renderFrame
 Interpret main 0 ✓
@@ -325,13 +325,13 @@ Interpret main 0 ✓
                         INTEGER_CONST 4 (Push 6)
                     240.000000 * 4.000000 = 960.000000 (push 7)
                1000.000000 / 960.000000 = 1.041667 (push 5)
-             renderFrame.locn := 1.041667 (pop 1) 2-0
-                     varref renderFrame.locn = 1.041667 (push 2) 2-0
+             DualSinelon.locn := 1.041667 (pop 1) 1-1
+                     varref DualSinelon.locn = 1.041667 (push 2) 1-1
                   Call sin(1.041667) = 0.863247
                    PLUS + (Push 3)
                     INTEGER_CONST 1 (Push 4)
                 0.863247 + 1.000000 = 1.863247 (push 5)
-             renderFrame.newVal := 1.863247 (pop 1) 2-1
+             DualSinelon.newVal := 1.863247 (pop 1) 1-2
                  Call millis() = 1000.000000
                   DIV / (Push 3)
                         INTEGER_CONST 256 (Push 4)
@@ -342,24 +342,24 @@ Interpret main 0 ✓
                         INTEGER_CONST 4 (Push 6)
                     238.000000 * 4.000000 = 952.000000 (push 7)
                1000.000000 / 952.000000 = 1.050420 (push 5)
-             renderFrame.locn2 := 1.050420 (pop 1) 2-2
-                     varref renderFrame.locn2 = 1.050420 (push 2) 2-2
+             DualSinelon.locn2 := 1.050420 (pop 1) 1-3
+                     varref DualSinelon.locn2 = 1.050420 (push 2) 1-3
                   Call sin(1.050420) = 0.867632
                    PLUS + (Push 3)
                     INTEGER_CONST 1 (Push 4)
                 0.867632 + 1.000000 = 1.867632 (push 5)
-             renderFrame.newVal2 := 1.867632 (pop 1) 2-3
-                   varref renderFrame.newVal = 1.863247 (push 2) 2-1
+             DualSinelon.newVal2 := 1.867632 (pop 1) 1-4
+                   varref DualSinelon.newVal = 1.863247 (push 2) 1-2
                     PLUS + (Push 3)
-                     varref renderFrame.newVal2 = 1.867632 (push 4) 2-3
+                     varref DualSinelon.newVal2 = 1.867632 (push 4) 1-4
                  1.863247 + 1.867632 = 3.730879 (push 5)
                   DIV / (Push 3)
                    INTEGER_CONST 4 (Push 4)
                3.730879 / 4.000000 = 0.932720 (push 5)
-             renderFrame.location := 0.932720 (pop 1) 2-4
+             DualSinelon.location := 0.932720 (pop 1) 1-5
                 varref ext.ledCount = 3.000000 (push 2)
-             renderFrame.location *= 2.798159 (pop 1) 2-4
-                 varref renderFrame.location = 2.798159 (push 2) 2-4
+             DualSinelon.location *= 2.798159 (pop 1) 1-5
+                 varref DualSinelon.location = 2.798159 (push 2) 1-5
                    INTEGER_CONST 0 (Push 3)
                      INTEGER_CONST 255 (Push 4)
                 Call colorFromPalette(0.000000, 255.000000) = 255.000000
@@ -383,13 +383,13 @@ setPixels(leds)
                         INTEGER_CONST 4 (Push 7)
                     240.000000 * 4.000000 = 960.000000 (push 8)
                1000.000000 / 960.000000 = 1.041667 (push 6)
-             renderFrame.locn := 1.041667 (pop 2) 2-0
-                     varref renderFrame.locn = 1.041667 (push 3) 2-0
+             DualSinelon.locn := 1.041667 (pop 2) 1-1
+                     varref DualSinelon.locn = 1.041667 (push 3) 1-1
                   Call sin(1.041667) = 0.863247
                    PLUS + (Push 4)
                     INTEGER_CONST 1 (Push 5)
                 0.863247 + 1.000000 = 1.863247 (push 6)
-             renderFrame.newVal := 1.863247 (pop 2) 2-1
+             DualSinelon.newVal := 1.863247 (pop 2) 1-2
                  Call millis() = 1000.000000
                   DIV / (Push 4)
                         INTEGER_CONST 256 (Push 5)
@@ -400,24 +400,24 @@ setPixels(leds)
                         INTEGER_CONST 4 (Push 7)
                     238.000000 * 4.000000 = 952.000000 (push 8)
                1000.000000 / 952.000000 = 1.050420 (push 6)
-             renderFrame.locn2 := 1.050420 (pop 2) 2-2
-                     varref renderFrame.locn2 = 1.050420 (push 3) 2-2
+             DualSinelon.locn2 := 1.050420 (pop 2) 1-3
+                     varref DualSinelon.locn2 = 1.050420 (push 3) 1-3
                   Call sin(1.050420) = 0.867632
                    PLUS + (Push 4)
                     INTEGER_CONST 1 (Push 5)
                 0.867632 + 1.000000 = 1.867632 (push 6)
-             renderFrame.newVal2 := 1.867632 (pop 2) 2-3
-                   varref renderFrame.newVal = 1.863247 (push 3) 2-1
+             DualSinelon.newVal2 := 1.867632 (pop 2) 1-4
+                   varref DualSinelon.newVal = 1.863247 (push 3) 1-2
                     PLUS + (Push 4)
-                     varref renderFrame.newVal2 = 1.867632 (push 5) 2-3
+                     varref DualSinelon.newVal2 = 1.867632 (push 5) 1-4
                  1.863247 + 1.867632 = 3.730879 (push 6)
                   DIV / (Push 4)
                    INTEGER_CONST 4 (Push 5)
                3.730879 / 4.000000 = 0.932720 (push 6)
-             renderFrame.location := 0.932720 (pop 2) 2-4
+             DualSinelon.location := 0.932720 (pop 2) 1-5
                 varref ext.ledCount = 3.000000 (push 3)
-             renderFrame.location *= 2.798159 (pop 2) 2-4
-                 varref renderFrame.location = 2.798159 (push 3) 2-4
+             DualSinelon.location *= 2.798159 (pop 2) 1-5
+                 varref DualSinelon.location = 2.798159 (push 3) 1-5
                    INTEGER_CONST 0 (Push 4)
                      INTEGER_CONST 255 (Push 5)
                 Call colorFromPalette(0.000000, 255.000000) = 255.000000
@@ -428,14 +428,14 @@ setPixels(leds)
 closing Arti 0
 Destruct callstack
 Destruct valueStack
+Destruct ScopedSymbolTable renderFrame (0)
+Destruct Symbol renderFrame (0)
 Destruct Symbol locn (0)
 Destruct Symbol newVal (0)
 Destruct Symbol locn2 (0)
 Destruct Symbol newVal2 (0)
 Destruct Symbol location (0)
-Destruct ScopedSymbolTable renderFrame (0)
-Destruct Symbol renderFrame (0)
 Destruct ScopedSymbolTable DualSinelon (0)
-definitionJson  9966 / 60% (23 0 6)
+definitionJson  10739 / 65% (23 0 6)
 parseTree       16092 / 24% (1 0 25)
 closed Arti 0 ✓

@@ -65,8 +65,8 @@
                       "assign": {
                         "varref": {
                           "ID": "grav",
-                          "level": 2,
-                          "index": 0
+                          "level": 1,
+                          "index": 4
                         },
                         "expr": {
                           "term": {
@@ -138,8 +138,8 @@
                           "term": {
                             "varref": {
                               "ID": "grav",
-                              "level": 2,
-                              "index": 0
+                              "level": 1,
+                              "index": 4
                             }
                           }
                         }
@@ -151,8 +151,8 @@
                       "assign": {
                         "varref": {
                           "ID": "dripLocn",
-                          "level": 2,
-                          "index": 1
+                          "level": 1,
+                          "index": 5
                         },
                         "assignoperator": 3,
                         "expr": {
@@ -174,8 +174,8 @@
                           "term": {
                             "varref": {
                               "ID": "dripLocn",
-                              "level": 2,
-                              "index": 1
+                              "level": 1,
+                              "index": 5
                             }
                           },
                           "*": [
@@ -205,8 +205,8 @@
                                       "term": {
                                         "varref": {
                                           "ID": "dripLocn",
-                                          "level": 2,
-                                          "index": 1
+                                          "level": 1,
+                                          "index": 5
                                         }
                                       }
                                     }
@@ -259,8 +259,8 @@
                           "term": {
                             "varref": {
                               "ID": "dripLocn",
-                              "level": 2,
-                              "index": 1
+                              "level": 1,
+                              "index": 5
                             }
                           },
                           "*": [
@@ -283,8 +283,8 @@
                                 "assign": {
                                   "varref": {
                                     "ID": "dripLocn",
-                                    "level": 2,
-                                    "index": 1
+                                    "level": 1,
+                                    "index": 5
                                   },
                                   "expr": {
                                     "term": {

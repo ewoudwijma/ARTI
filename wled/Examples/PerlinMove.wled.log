@@ -2,7 +2,7 @@ setup 0 bytes free
 open wled.json 0 ✓
 definitionTree 16384 => 0 ✓
 open Examples/PerlinMove.wled 0 ✓
-programFile size 462 bytes
+programFile size 787 bytes
 parseTree 65536 => 0 ✓
  PROGRAM PROGRAM -> [ID PerlinMove] 0
  ID PerlinMove -> [LCURL {] 0
@@ -152,6 +152,57 @@ parseTree 65536 => 0 ✓
                     found term
                    found expr
                  found actuals
+                 RPAREN ) -> [ID x] 16
+                found call
+               found factor
+              found term
+             found expr
+            found assign
+           found statement
+             ID x -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [ID millis] 14
+             found assignoperator
+                 ID millis -> [LPAREN (] 16
+                 LPAREN ( -> [RPAREN )] 16
+                 found actuals
+                 RPAREN ) -> [MUL *] 16
+                found call
+               found factor
+                 MUL * -> [INTEGER_CONST 2] 16
+                 INTEGER_CONST 2 -> [PLUS +] 16
+                found factor
+              found term
+                PLUS + -> [ID i] 15
+                  ID i -> [MUL *] 17
+                 ID i -> [MUL *] 16
+                 found varref
+                found factor
+                  MUL * -> [INTEGER_CONST 15000] 17
+                  INTEGER_CONST 15000 -> [ID clr] 17
+                 found factor
+               found term
+             found expr
+            found assign
+           found statement
+             ID clr -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [ID iNoise] 14
+             found assignoperator
+                 ID iNoise -> [LPAREN (] 16
+                 LPAREN ( -> [ID x] 16
+                      ID x -> [COMMA ,] 21
+                     ID x -> [COMMA ,] 20
+                     found varref
+                    found factor
+                   found term
+                  found expr
+                   COMMA , -> [INTEGER_CONST 0] 18
+                      INTEGER_CONST 0 -> [RPAREN )] 21
+                     found factor
+                    found term
+                   found expr
+                 found actuals
                  RPAREN ) -> [ID pixloc] 16
                 found call
                found factor
@@ -200,6 +251,52 @@ parseTree 65536 => 0 ✓
                     found term
                    found expr
                  found actuals
+                 RPAREN ) -> [ID pixclr] 16
+                found call
+               found factor
+              found term
+             found expr
+            found assign
+           found statement
+             ID pixclr -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [ID map] 14
+             found assignoperator
+                 ID map -> [LPAREN (] 16
+                 LPAREN ( -> [ID clr] 16
+                      ID clr -> [COMMA ,] 21
+                     ID clr -> [COMMA ,] 20
+                     found varref
+                    found factor
+                   found term
+                  found expr
+                   COMMA , -> [INTEGER_CONST 50] 18
+                      INTEGER_CONST 50 -> [MUL *] 21
+                     found factor
+                       MUL * -> [INTEGER_CONST 256] 22
+                       INTEGER_CONST 256 -> [COMMA ,] 22
+                      found factor
+                    found term
+                   found expr
+                   COMMA , -> [INTEGER_CONST 192] 18
+                      INTEGER_CONST 192 -> [MUL *] 21
+                     found factor
+                       MUL * -> [INTEGER_CONST 256] 22
+                       INTEGER_CONST 256 -> [COMMA ,] 22
+                      found factor
+                    found term
+                   found expr
+                   COMMA , -> [INTEGER_CONST 0] 18
+                      INTEGER_CONST 0 -> [COMMA ,] 21
+                     found factor
+                    found term
+                   found expr
+                   COMMA , -> [INTEGER_CONST 255] 18
+                      INTEGER_CONST 255 -> [RPAREN )] 21
+                     found factor
+                    found term
+                   found expr
+                 found actuals
                  RPAREN ) -> [ID setPixelColor] 16
                 found call
                found factor
@@ -217,9 +314,9 @@ parseTree 65536 => 0 ✓
                 found factor
                found term
               found expr
-               COMMA , -> [ID pixloc] 14
-                   ID pixloc -> [RPAREN )] 18
-                  ID pixloc -> [RPAREN )] 17
+               COMMA , -> [ID pixclr] 14
+                   ID pixclr -> [RPAREN )] 18
+                  ID pixclr -> [RPAREN )] 17
                   found varref
                  found factor
                 found term
@@ -238,10 +335,10 @@ parseTree 65536 => 0 ✓
    found statement
   RCURL } 1
  found block
-Symbol program Parsed until (19,0) 462 of 462
-definitionTree 9966 / 60% (23 0 6)
-parseTree      16659 / 25% (1 0 29)
-garbageCollect 11923 / 18% (1 0 29)
+Symbol program Parsed until (26,0) 787 of 787
+definitionTree 10739 / 65% (23 0 6)
+parseTree      23712 / 36% (1 0 29)
+garbageCollect 17152 / 26%
 Destruct Lexer
 parse 0 ✓
 
@@ -259,12 +356,19 @@ Optimizer
                        symbol to shrink factor in term = {"varref":{"ID":"x"}} from {"factor":{"varref":{"ID":"x"}}}
                          symbol to shrink factor in term = {"varref":{"ID":"y"}} from {"factor":{"varref":{"ID":"y"}}}
                   symbol to shrink factor in term = {"call":{"ID":"iNoise","actuals":{"expr":{"term":{"varref":{"ID":"x"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}} from {"factor":{"call":{"ID":"iNoise","actuals":{"expr":{"term":{"varref":{"ID":"x"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"y"}}}}]}}}}
+                       symbol to shrink factor in term = {"varref":{"ID":"x"}} from {"factor":{"varref":{"ID":"x"}}}
+                         symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+                  symbol to shrink factor in term = {"call":{"ID":"iNoise","actuals":{"expr":{"term":{"varref":{"ID":"x"}}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"0"}}}]}}} from {"factor":{"call":{"ID":"iNoise","actuals":{"expr":{"term":{"varref":{"ID":"x"}}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"0"}}}]}}}}
                        symbol to shrink factor in term = {"varref":{"ID":"locn"}} from {"factor":{"varref":{"ID":"locn"}}}
                          symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
                          symbol to shrink factor in term = {"varref":{"ID":"ledCount"}} from {"factor":{"varref":{"ID":"ledCount"}}}
                   symbol to shrink factor in term = {"call":{"ID":"map","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}},"*":[{},{"expr":{"term":{"factor":{"INTEGER_CONST":"50"},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"256"}}]}}},{},{"expr":{"term":{"factor":{"INTEGER_CONST":"192"},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"256"}}]}}},{},{"expr":{"term":{"INTEGER_CONST":"0"}}},{},{"expr":{"term":{"varref":{"ID":"ledCount"}}}}]}}} from {"factor":{"call":{"ID":"map","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}},"*":[{},{"expr":{"term":{"factor":{"INTEGER_CONST":"50"},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"256"}}]}}},{},{"expr":{"term":{"factor":{"INTEGER_CONST":"192"},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"256"}}]}}},{},{"expr":{"term":{"INTEGER_CONST":"0"}}},{},{"expr":{"term":{"varref":{"ID":"ledCount"}}}}]}}}}
+                       symbol to shrink factor in term = {"varref":{"ID":"clr"}} from {"factor":{"varref":{"ID":"clr"}}}
+                         symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+                         symbol to shrink factor in term = {"INTEGER_CONST":"255"} from {"factor":{"INTEGER_CONST":"255"}}
+                  symbol to shrink factor in term = {"call":{"ID":"map","actuals":{"expr":{"term":{"varref":{"ID":"clr"}}},"*":[{},{"expr":{"term":{"factor":{"INTEGER_CONST":"50"},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"256"}}]}}},{},{"expr":{"term":{"factor":{"INTEGER_CONST":"192"},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"256"}}]}}},{},{"expr":{"term":{"INTEGER_CONST":"0"}}},{},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}} from {"factor":{"call":{"ID":"map","actuals":{"expr":{"term":{"varref":{"ID":"clr"}}},"*":[{},{"expr":{"term":{"factor":{"INTEGER_CONST":"50"},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"256"}}]}}},{},{"expr":{"term":{"factor":{"INTEGER_CONST":"192"},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"256"}}]}}},{},{"expr":{"term":{"INTEGER_CONST":"0"}}},{},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}}
                    symbol to shrink factor in term = {"varref":{"ID":"pixloc"}} from {"factor":{"varref":{"ID":"pixloc"}}}
-                     symbol to shrink factor in term = {"varref":{"ID":"pixloc"}} from {"factor":{"varref":{"ID":"pixloc"}}}
+                     symbol to shrink factor in term = {"varref":{"ID":"pixclr"}} from {"factor":{"varref":{"ID":"pixclr"}}}
 optimize 0 ✓
 
 Analyzer
@@ -272,42 +376,55 @@ Analyzer
      Function PerlinMove.renderFrame
          Ext Function found fadeOut (8)
               Ext Variable found custom1Slider (13) varref
-          assign renderFrame.i of notype
+          assign PerlinMove.i of notype
           assign i = (9)
-            VarRef found renderFrame.i (11)
+            VarRef found PerlinMove.i (11)
                  Ext Variable found intensitySlider (16) varref
            assign i = (10)
            asop +=
-              assign renderFrame.y of notype
+              assign PerlinMove.y of notype
               assign y = (13)
                   Ext Function found millis (17)
                         Ext Variable found speedSlider (23) varref
-              assign renderFrame.x of notype
+              assign PerlinMove.x of notype
               assign x = (13)
-                 VarRef found renderFrame.y (16)
-                    VarRef found renderFrame.i (19)
-              assign renderFrame.locn of notype
+                 VarRef found PerlinMove.y (16)
+                    VarRef found PerlinMove.i (19)
+              assign PerlinMove.locn of notype
               assign locn = (13)
                  Ext Function found iNoise (16)
-                    VarRef found renderFrame.x (19)
-                      VarRef found renderFrame.y (21)
-              assign renderFrame.pixloc of notype
+                    VarRef found PerlinMove.x (19)
+                      VarRef found PerlinMove.y (21)
+              assign x = (13)
+                  Ext Function found millis (17)
+                    VarRef found PerlinMove.i (19)
+              assign PerlinMove.clr of notype
+              assign clr = (13)
+                 Ext Function found iNoise (16)
+                    VarRef found PerlinMove.x (19)
+              assign PerlinMove.pixloc of notype
               assign pixloc = (13)
                  Ext Function found map (16)
-                    VarRef found renderFrame.locn (19)
+                    VarRef found PerlinMove.locn (19)
                       Ext Variable found ledCount (21) varref
+              assign PerlinMove.pixclr of notype
+              assign pixclr = (13)
+                 Ext Function found map (16)
+                    VarRef found PerlinMove.clr (19)
               Ext Function found setPixelColor (13)
-                 VarRef found renderFrame.pixloc (16)
-                   VarRef found renderFrame.pixloc (18)
-     0 assign renderFrame.i of 9 (2)
-     1 assign renderFrame.y of 9 (2)
-     2 assign renderFrame.x of 9 (2)
-     3 assign renderFrame.locn of 9 (2)
-     4 assign renderFrame.pixloc of 9 (2)
+                 VarRef found PerlinMove.pixloc (16)
+                   VarRef found PerlinMove.pixclr (18)
  0 function PerlinMove.renderFrame of 9 (1)
+ 1 assign PerlinMove.i of 9 (1)
+ 2 assign PerlinMove.y of 9 (1)
+ 3 assign PerlinMove.x of 9 (1)
+ 4 assign PerlinMove.locn of 9 (1)
+ 5 assign PerlinMove.clr of 9 (1)
+ 6 assign PerlinMove.pixloc of 9 (1)
+ 7 assign PerlinMove.pixclr of 9 (1)
 analyze 0 ✓
 
-interpret PerlinMove 1 1
+interpret PerlinMove 1 8
  program PerlinMove
      Save block of renderFrame
 Interpret main 0 ✓
@@ -319,10 +436,10 @@ Interpret main 0 ✓
              Call fadeOut(237.000000) = 237.000000
              For (1)
                  INTEGER_CONST 0 (Push 2)
-              renderFrame.i := 0.000000 (pop 1) 2-0
+              PerlinMove.i := 0.000000 (pop 1) 1-1
              iteration
              check to condition
-                varref renderFrame.i = 0.000000 (push 2) 2-0
+                varref PerlinMove.i = 0.000000 (push 2) 1-1
                  LT < (Push 3)
                      varref ext.intensitySlider = 17.000000 (push 4)
                       DIV / (Push 5)
@@ -344,20 +461,35 @@ Interpret main 0 ✓
                        260.000000 - 16.000000 = 244.000000 (push 9)
                    1000.000000 * 128.000000 = 128000.000000 (push 7)
                    128000.000000 / 244.000000 = 524.590164 (push 7)
-                 renderFrame.y := 524.590164 (pop 1) 2-1
-                    varref renderFrame.y = 524.590164 (push 2) 2-1
+                 PerlinMove.y := 524.590164 (pop 1) 1-2
+                    varref PerlinMove.y = 524.590164 (push 2) 1-2
                      PLUS + (Push 3)
-                       varref renderFrame.i = 0.000000 (push 4) 2-0
+                       varref PerlinMove.i = 0.000000 (push 4) 1-1
                         MUL * (Push 5)
                          INTEGER_CONST 15000 (Push 6)
                      0.000000 * 15000.000000 = 0.000000 (push 7)
                   524.590164 + 0.000000 = 524.590164 (push 5)
-                 renderFrame.x := 524.590164 (pop 1) 2-2
-                       varref renderFrame.x = 524.590164 (push 2) 2-2
-                         varref renderFrame.y = 524.590164 (push 3) 2-1
+                 PerlinMove.x := 524.590164 (pop 1) 1-3
+                       varref PerlinMove.x = 524.590164 (push 2) 1-3
+                         varref PerlinMove.y = 524.590164 (push 3) 1-2
                     Call iNoise(524.590164, 524.590164) = 1049.180328
-                 renderFrame.locn := 1049.180328 (pop 1) 2-3
-                       varref renderFrame.locn = 1049.180328 (push 2) 2-3
+                 PerlinMove.locn := 1049.180328 (pop 1) 1-4
+                     Call millis() = 1000.000000
+                      MUL * (Push 3)
+                       INTEGER_CONST 2 (Push 4)
+                   1000.000000 * 2.000000 = 2000.000000 (push 5)
+                     PLUS + (Push 3)
+                       varref PerlinMove.i = 0.000000 (push 4) 1-1
+                        MUL * (Push 5)
+                         INTEGER_CONST 15000 (Push 6)
+                     0.000000 * 15000.000000 = 0.000000 (push 7)
+                  2000.000000 + 0.000000 = 2000.000000 (push 5)
+                 PerlinMove.x := 2000.000000 (pop 1) 1-3
+                       varref PerlinMove.x = 2000.000000 (push 2) 1-3
+                         INTEGER_CONST 0 (Push 3)
+                    Call iNoise(2000.000000, 0.000000) = 2000.000000
+                 PerlinMove.clr := 2000.000000 (pop 1) 1-5
+                       varref PerlinMove.locn = 1049.180328 (push 2) 1-4
                           INTEGER_CONST 50 (Push 3)
                            MUL * (Push 4)
                             INTEGER_CONST 256 (Push 5)
@@ -369,17 +501,30 @@ Interpret main 0 ✓
                          INTEGER_CONST 0 (Push 5)
                          varref ext.ledCount = 3.000000 (push 6)
                     Call map(1049.180328, 12800.000000, 49152.000000, 0.000000, 3.000000) = 63004.180328
-                 renderFrame.pixloc := 63004.180328 (pop 1) 2-4
-                    varref renderFrame.pixloc = 63004.180328 (push 2) 2-4
-                      varref renderFrame.pixloc = 63004.180328 (push 3) 2-4
-setPixelColor(63004.180328, 63004.180328)
-                 Call setPixelColor(63004.180328, 63004.180328)
+                 PerlinMove.pixloc := 63004.180328 (pop 1) 1-6
+                       varref PerlinMove.clr = 2000.000000 (push 2) 1-5
+                          INTEGER_CONST 50 (Push 3)
+                           MUL * (Push 4)
+                            INTEGER_CONST 256 (Push 5)
+                        50.000000 * 256.000000 = 12800.000000 (push 6)
+                          INTEGER_CONST 192 (Push 4)
+                           MUL * (Push 5)
+                            INTEGER_CONST 256 (Push 6)
+                        192.000000 * 256.000000 = 49152.000000 (push 7)
+                         INTEGER_CONST 0 (Push 5)
+                         INTEGER_CONST 255 (Push 6)
+                    Call map(2000.000000, 12800.000000, 49152.000000, 0.000000, 255.000000) = 64207.000000
+                 PerlinMove.pixclr := 64207.000000 (pop 1) 1-7
+                    varref PerlinMove.pixloc = 63004.180328 (push 2) 1-6
+                      varref PerlinMove.pixclr = 64207.000000 (push 3) 1-7
+setPixelColor(63004.180328, 64207.000000)
+                 Call setPixelColor(63004.180328, 64207.000000)
              assign next value
                  INTEGER_CONST 1 (Push 2)
-              renderFrame.i += 1.000000 (pop 1) 2-0
+              PerlinMove.i += 1.000000 (pop 1) 1-1
              iteration
              check to condition
-                varref renderFrame.i = 1.000000 (push 2) 2-0
+                varref PerlinMove.i = 1.000000 (push 2) 1-1
                  LT < (Push 3)
                      varref ext.intensitySlider = 17.000000 (push 4)
                       DIV / (Push 5)
@@ -401,20 +546,35 @@ setPixelColor(63004.180328, 63004.180328)
                        260.000000 - 16.000000 = 244.000000 (push 9)
                    1000.000000 * 128.000000 = 128000.000000 (push 7)
                    128000.000000 / 244.000000 = 524.590164 (push 7)
-                 renderFrame.y := 524.590164 (pop 1) 2-1
-                    varref renderFrame.y = 524.590164 (push 2) 2-1
+                 PerlinMove.y := 524.590164 (pop 1) 1-2
+                    varref PerlinMove.y = 524.590164 (push 2) 1-2
                      PLUS + (Push 3)
-                       varref renderFrame.i = 1.000000 (push 4) 2-0
+                       varref PerlinMove.i = 1.000000 (push 4) 1-1
                         MUL * (Push 5)
                          INTEGER_CONST 15000 (Push 6)
                      1.000000 * 15000.000000 = 15000.000000 (push 7)
                   524.590164 + 15000.000000 = 15524.590164 (push 5)
-                 renderFrame.x := 15524.590164 (pop 1) 2-2
-                       varref renderFrame.x = 15524.590164 (push 2) 2-2
-                         varref renderFrame.y = 524.590164 (push 3) 2-1
+                 PerlinMove.x := 15524.590164 (pop 1) 1-3
+                       varref PerlinMove.x = 15524.590164 (push 2) 1-3
+                         varref PerlinMove.y = 524.590164 (push 3) 1-2
                     Call iNoise(15524.590164, 524.590164) = 16049.180328
-                 renderFrame.locn := 16049.180328 (pop 1) 2-3
-                       varref renderFrame.locn = 16049.180328 (push 2) 2-3
+                 PerlinMove.locn := 16049.180328 (pop 1) 1-4
+                     Call millis() = 1000.000000
+                      MUL * (Push 3)
+                       INTEGER_CONST 2 (Push 4)
+                   1000.000000 * 2.000000 = 2000.000000 (push 5)
+                     PLUS + (Push 3)
+                       varref PerlinMove.i = 1.000000 (push 4) 1-1
+                        MUL * (Push 5)
+                         INTEGER_CONST 15000 (Push 6)
+                     1.000000 * 15000.000000 = 15000.000000 (push 7)
+                  2000.000000 + 15000.000000 = 17000.000000 (push 5)
+                 PerlinMove.x := 17000.000000 (pop 1) 1-3
+                       varref PerlinMove.x = 17000.000000 (push 2) 1-3
+                         INTEGER_CONST 0 (Push 3)
+                    Call iNoise(17000.000000, 0.000000) = 17000.000000
+                 PerlinMove.clr := 17000.000000 (pop 1) 1-5
+                       varref PerlinMove.locn = 16049.180328 (push 2) 1-4
                           INTEGER_CONST 50 (Push 3)
                            MUL * (Push 4)
                             INTEGER_CONST 256 (Push 5)
@@ -426,17 +586,30 @@ setPixelColor(63004.180328, 63004.180328)
                          INTEGER_CONST 0 (Push 5)
                          varref ext.ledCount = 3.000000 (push 6)
                     Call map(16049.180328, 12800.000000, 49152.000000, 0.000000, 3.000000) = 78004.180328
-                 renderFrame.pixloc := 78004.180328 (pop 1) 2-4
-                    varref renderFrame.pixloc = 78004.180328 (push 2) 2-4
-                      varref renderFrame.pixloc = 78004.180328 (push 3) 2-4
-setPixelColor(78004.180328, 78004.180328)
-                 Call setPixelColor(78004.180328, 78004.180328)
+                 PerlinMove.pixloc := 78004.180328 (pop 1) 1-6
+                       varref PerlinMove.clr = 17000.000000 (push 2) 1-5
+                          INTEGER_CONST 50 (Push 3)
+                           MUL * (Push 4)
+                            INTEGER_CONST 256 (Push 5)
+                        50.000000 * 256.000000 = 12800.000000 (push 6)
+                          INTEGER_CONST 192 (Push 4)
+                           MUL * (Push 5)
+                            INTEGER_CONST 256 (Push 6)
+                        192.000000 * 256.000000 = 49152.000000 (push 7)
+                         INTEGER_CONST 0 (Push 5)
+                         INTEGER_CONST 255 (Push 6)
+                    Call map(17000.000000, 12800.000000, 49152.000000, 0.000000, 255.000000) = 79207.000000
+                 PerlinMove.pixclr := 79207.000000 (pop 1) 1-7
+                    varref PerlinMove.pixloc = 78004.180328 (push 2) 1-6
+                      varref PerlinMove.pixclr = 79207.000000 (push 3) 1-7
+setPixelColor(78004.180328, 79207.000000)
+                 Call setPixelColor(78004.180328, 79207.000000)
              assign next value
                  INTEGER_CONST 1 (Push 2)
-              renderFrame.i += 2.000000 (pop 1) 2-0
+              PerlinMove.i += 2.000000 (pop 1) 1-1
              iteration
              check to condition
-                varref renderFrame.i = 2.000000 (push 2) 2-0
+                varref PerlinMove.i = 2.000000 (push 2) 1-1
                  LT < (Push 3)
                      varref ext.intensitySlider = 17.000000 (push 4)
                       DIV / (Push 5)
@@ -458,20 +631,35 @@ setPixelColor(78004.180328, 78004.180328)
                        260.000000 - 16.000000 = 244.000000 (push 9)
                    1000.000000 * 128.000000 = 128000.000000 (push 7)
                    128000.000000 / 244.000000 = 524.590164 (push 7)
-                 renderFrame.y := 524.590164 (pop 1) 2-1
-                    varref renderFrame.y = 524.590164 (push 2) 2-1
+                 PerlinMove.y := 524.590164 (pop 1) 1-2
+                    varref PerlinMove.y = 524.590164 (push 2) 1-2
                      PLUS + (Push 3)
-                       varref renderFrame.i = 2.000000 (push 4) 2-0
+                       varref PerlinMove.i = 2.000000 (push 4) 1-1
                         MUL * (Push 5)
                          INTEGER_CONST 15000 (Push 6)
                      2.000000 * 15000.000000 = 30000.000000 (push 7)
                   524.590164 + 30000.000000 = 30524.590164 (push 5)
-                 renderFrame.x := 30524.590164 (pop 1) 2-2
-                       varref renderFrame.x = 30524.590164 (push 2) 2-2
-                         varref renderFrame.y = 524.590164 (push 3) 2-1
+                 PerlinMove.x := 30524.590164 (pop 1) 1-3
+                       varref PerlinMove.x = 30524.590164 (push 2) 1-3
+                         varref PerlinMove.y = 524.590164 (push 3) 1-2
                     Call iNoise(30524.590164, 524.590164) = 31049.180328
-                 renderFrame.locn := 31049.180328 (pop 1) 2-3
-                       varref renderFrame.locn = 31049.180328 (push 2) 2-3
+                 PerlinMove.locn := 31049.180328 (pop 1) 1-4
+                     Call millis() = 1000.000000
+                      MUL * (Push 3)
+                       INTEGER_CONST 2 (Push 4)
+                   1000.000000 * 2.000000 = 2000.000000 (push 5)
+                     PLUS + (Push 3)
+                       varref PerlinMove.i = 2.000000 (push 4) 1-1
+                        MUL * (Push 5)
+                         INTEGER_CONST 15000 (Push 6)
+                     2.000000 * 15000.000000 = 30000.000000 (push 7)
+                  2000.000000 + 30000.000000 = 32000.000000 (push 5)
+                 PerlinMove.x := 32000.000000 (pop 1) 1-3
+                       varref PerlinMove.x = 32000.000000 (push 2) 1-3
+                         INTEGER_CONST 0 (Push 3)
+                    Call iNoise(32000.000000, 0.000000) = 32000.000000
+                 PerlinMove.clr := 32000.000000 (pop 1) 1-5
+                       varref PerlinMove.locn = 31049.180328 (push 2) 1-4
                           INTEGER_CONST 50 (Push 3)
                            MUL * (Push 4)
                             INTEGER_CONST 256 (Push 5)
@@ -483,17 +671,30 @@ setPixelColor(78004.180328, 78004.180328)
                          INTEGER_CONST 0 (Push 5)
                          varref ext.ledCount = 3.000000 (push 6)
                     Call map(31049.180328, 12800.000000, 49152.000000, 0.000000, 3.000000) = 93004.180328
-                 renderFrame.pixloc := 93004.180328 (pop 1) 2-4
-                    varref renderFrame.pixloc = 93004.180328 (push 2) 2-4
-                      varref renderFrame.pixloc = 93004.180328 (push 3) 2-4
-setPixelColor(93004.180328, 93004.180328)
-                 Call setPixelColor(93004.180328, 93004.180328)
+                 PerlinMove.pixloc := 93004.180328 (pop 1) 1-6
+                       varref PerlinMove.clr = 32000.000000 (push 2) 1-5
+                          INTEGER_CONST 50 (Push 3)
+                           MUL * (Push 4)
+                            INTEGER_CONST 256 (Push 5)
+                        50.000000 * 256.000000 = 12800.000000 (push 6)
+                          INTEGER_CONST 192 (Push 4)
+                           MUL * (Push 5)
+                            INTEGER_CONST 256 (Push 6)
+                        192.000000 * 256.000000 = 49152.000000 (push 7)
+                         INTEGER_CONST 0 (Push 5)
+                         INTEGER_CONST 255 (Push 6)
+                    Call map(32000.000000, 12800.000000, 49152.000000, 0.000000, 255.000000) = 94207.000000
+                 PerlinMove.pixclr := 94207.000000 (pop 1) 1-7
+                    varref PerlinMove.pixloc = 93004.180328 (push 2) 1-6
+                      varref PerlinMove.pixclr = 94207.000000 (push 3) 1-7
+setPixelColor(93004.180328, 94207.000000)
+                 Call setPixelColor(93004.180328, 94207.000000)
              assign next value
                  INTEGER_CONST 1 (Push 2)
-              renderFrame.i += 3.000000 (pop 1) 2-0
+              PerlinMove.i += 3.000000 (pop 1) 1-1
              iteration
              check to condition
-                varref renderFrame.i = 3.000000 (push 2) 2-0
+                varref PerlinMove.i = 3.000000 (push 2) 1-1
                  LT < (Push 3)
                      varref ext.intensitySlider = 17.000000 (push 4)
                       DIV / (Push 5)
@@ -514,10 +715,10 @@ Destruct activation record renderFrame
              Call fadeOut(237.000000) = 237.000000
              For (2)
                  INTEGER_CONST 0 (Push 3)
-              renderFrame.i := 0.000000 (pop 2) 2-0
+              PerlinMove.i := 0.000000 (pop 2) 1-1
              iteration
              check to condition
-                varref renderFrame.i = 0.000000 (push 3) 2-0
+                varref PerlinMove.i = 0.000000 (push 3) 1-1
                  LT < (Push 4)
                      varref ext.intensitySlider = 17.000000 (push 5)
                       DIV / (Push 6)
@@ -539,20 +740,35 @@ Destruct activation record renderFrame
                        260.000000 - 16.000000 = 244.000000 (push 10)
                    1000.000000 * 128.000000 = 128000.000000 (push 8)
                    128000.000000 / 244.000000 = 524.590164 (push 8)
-                 renderFrame.y := 524.590164 (pop 2) 2-1
-                    varref renderFrame.y = 524.590164 (push 3) 2-1
+                 PerlinMove.y := 524.590164 (pop 2) 1-2
+                    varref PerlinMove.y = 524.590164 (push 3) 1-2
                      PLUS + (Push 4)
-                       varref renderFrame.i = 0.000000 (push 5) 2-0
+                       varref PerlinMove.i = 0.000000 (push 5) 1-1
                         MUL * (Push 6)
                          INTEGER_CONST 15000 (Push 7)
                      0.000000 * 15000.000000 = 0.000000 (push 8)
                   524.590164 + 0.000000 = 524.590164 (push 6)
-                 renderFrame.x := 524.590164 (pop 2) 2-2
-                       varref renderFrame.x = 524.590164 (push 3) 2-2
-                         varref renderFrame.y = 524.590164 (push 4) 2-1
+                 PerlinMove.x := 524.590164 (pop 2) 1-3
+                       varref PerlinMove.x = 524.590164 (push 3) 1-3
+                         varref PerlinMove.y = 524.590164 (push 4) 1-2
                     Call iNoise(524.590164, 524.590164) = 1049.180328
-                 renderFrame.locn := 1049.180328 (pop 2) 2-3
-                       varref renderFrame.locn = 1049.180328 (push 3) 2-3
+                 PerlinMove.locn := 1049.180328 (pop 2) 1-4
+                     Call millis() = 1000.000000
+                      MUL * (Push 4)
+                       INTEGER_CONST 2 (Push 5)
+                   1000.000000 * 2.000000 = 2000.000000 (push 6)
+                     PLUS + (Push 4)
+                       varref PerlinMove.i = 0.000000 (push 5) 1-1
+                        MUL * (Push 6)
+                         INTEGER_CONST 15000 (Push 7)
+                     0.000000 * 15000.000000 = 0.000000 (push 8)
+                  2000.000000 + 0.000000 = 2000.000000 (push 6)
+                 PerlinMove.x := 2000.000000 (pop 2) 1-3
+                       varref PerlinMove.x = 2000.000000 (push 3) 1-3
+                         INTEGER_CONST 0 (Push 4)
+                    Call iNoise(2000.000000, 0.000000) = 2000.000000
+                 PerlinMove.clr := 2000.000000 (pop 2) 1-5
+                       varref PerlinMove.locn = 1049.180328 (push 3) 1-4
                           INTEGER_CONST 50 (Push 4)
                            MUL * (Push 5)
                             INTEGER_CONST 256 (Push 6)
@@ -564,17 +780,30 @@ Destruct activation record renderFrame
                          INTEGER_CONST 0 (Push 6)
                          varref ext.ledCount = 3.000000 (push 7)
                     Call map(1049.180328, 12800.000000, 49152.000000, 0.000000, 3.000000) = 63004.180328
-                 renderFrame.pixloc := 63004.180328 (pop 2) 2-4
-                    varref renderFrame.pixloc = 63004.180328 (push 3) 2-4
-                      varref renderFrame.pixloc = 63004.180328 (push 4) 2-4
-setPixelColor(63004.180328, 63004.180328)
-                 Call setPixelColor(63004.180328, 63004.180328)
+                 PerlinMove.pixloc := 63004.180328 (pop 2) 1-6
+                       varref PerlinMove.clr = 2000.000000 (push 3) 1-5
+                          INTEGER_CONST 50 (Push 4)
+                           MUL * (Push 5)
+                            INTEGER_CONST 256 (Push 6)
+                        50.000000 * 256.000000 = 12800.000000 (push 7)
+                          INTEGER_CONST 192 (Push 5)
+                           MUL * (Push 6)
+                            INTEGER_CONST 256 (Push 7)
+                        192.000000 * 256.000000 = 49152.000000 (push 8)
+                         INTEGER_CONST 0 (Push 6)
+                         INTEGER_CONST 255 (Push 7)
+                    Call map(2000.000000, 12800.000000, 49152.000000, 0.000000, 255.000000) = 64207.000000
+                 PerlinMove.pixclr := 64207.000000 (pop 2) 1-7
+                    varref PerlinMove.pixloc = 63004.180328 (push 3) 1-6
+                      varref PerlinMove.pixclr = 64207.000000 (push 4) 1-7
+setPixelColor(63004.180328, 64207.000000)
+                 Call setPixelColor(63004.180328, 64207.000000)
              assign next value
                  INTEGER_CONST 1 (Push 3)
-              renderFrame.i += 1.000000 (pop 2) 2-0
+              PerlinMove.i += 1.000000 (pop 2) 1-1
              iteration
              check to condition
-                varref renderFrame.i = 1.000000 (push 3) 2-0
+                varref PerlinMove.i = 1.000000 (push 3) 1-1
                  LT < (Push 4)
                      varref ext.intensitySlider = 17.000000 (push 5)
                       DIV / (Push 6)
@@ -596,20 +825,35 @@ setPixelColor(63004.180328, 63004.180328)
                        260.000000 - 16.000000 = 244.000000 (push 10)
                    1000.000000 * 128.000000 = 128000.000000 (push 8)
                    128000.000000 / 244.000000 = 524.590164 (push 8)
-                 renderFrame.y := 524.590164 (pop 2) 2-1
-                    varref renderFrame.y = 524.590164 (push 3) 2-1
+                 PerlinMove.y := 524.590164 (pop 2) 1-2
+                    varref PerlinMove.y = 524.590164 (push 3) 1-2
                      PLUS + (Push 4)
-                       varref renderFrame.i = 1.000000 (push 5) 2-0
+                       varref PerlinMove.i = 1.000000 (push 5) 1-1
                         MUL * (Push 6)
                          INTEGER_CONST 15000 (Push 7)
                      1.000000 * 15000.000000 = 15000.000000 (push 8)
                   524.590164 + 15000.000000 = 15524.590164 (push 6)
-                 renderFrame.x := 15524.590164 (pop 2) 2-2
-                       varref renderFrame.x = 15524.590164 (push 3) 2-2
-                         varref renderFrame.y = 524.590164 (push 4) 2-1
+                 PerlinMove.x := 15524.590164 (pop 2) 1-3
+                       varref PerlinMove.x = 15524.590164 (push 3) 1-3
+                         varref PerlinMove.y = 524.590164 (push 4) 1-2
                     Call iNoise(15524.590164, 524.590164) = 16049.180328
-                 renderFrame.locn := 16049.180328 (pop 2) 2-3
-                       varref renderFrame.locn = 16049.180328 (push 3) 2-3
+                 PerlinMove.locn := 16049.180328 (pop 2) 1-4
+                     Call millis() = 1000.000000
+                      MUL * (Push 4)
+                       INTEGER_CONST 2 (Push 5)
+                   1000.000000 * 2.000000 = 2000.000000 (push 6)
+                     PLUS + (Push 4)
+                       varref PerlinMove.i = 1.000000 (push 5) 1-1
+                        MUL * (Push 6)
+                         INTEGER_CONST 15000 (Push 7)
+                     1.000000 * 15000.000000 = 15000.000000 (push 8)
+                  2000.000000 + 15000.000000 = 17000.000000 (push 6)
+                 PerlinMove.x := 17000.000000 (pop 2) 1-3
+                       varref PerlinMove.x = 17000.000000 (push 3) 1-3
+                         INTEGER_CONST 0 (Push 4)
+                    Call iNoise(17000.000000, 0.000000) = 17000.000000
+                 PerlinMove.clr := 17000.000000 (pop 2) 1-5
+                       varref PerlinMove.locn = 16049.180328 (push 3) 1-4
                           INTEGER_CONST 50 (Push 4)
                            MUL * (Push 5)
                             INTEGER_CONST 256 (Push 6)
@@ -621,17 +865,30 @@ setPixelColor(63004.180328, 63004.180328)
                          INTEGER_CONST 0 (Push 6)
                          varref ext.ledCount = 3.000000 (push 7)
                     Call map(16049.180328, 12800.000000, 49152.000000, 0.000000, 3.000000) = 78004.180328
-                 renderFrame.pixloc := 78004.180328 (pop 2) 2-4
-                    varref renderFrame.pixloc = 78004.180328 (push 3) 2-4
-                      varref renderFrame.pixloc = 78004.180328 (push 4) 2-4
-setPixelColor(78004.180328, 78004.180328)
-                 Call setPixelColor(78004.180328, 78004.180328)
+                 PerlinMove.pixloc := 78004.180328 (pop 2) 1-6
+                       varref PerlinMove.clr = 17000.000000 (push 3) 1-5
+                          INTEGER_CONST 50 (Push 4)
+                           MUL * (Push 5)
+                            INTEGER_CONST 256 (Push 6)
+                        50.000000 * 256.000000 = 12800.000000 (push 7)
+                          INTEGER_CONST 192 (Push 5)
+                           MUL * (Push 6)
+                            INTEGER_CONST 256 (Push 7)
+                        192.000000 * 256.000000 = 49152.000000 (push 8)
+                         INTEGER_CONST 0 (Push 6)
+                         INTEGER_CONST 255 (Push 7)
+                    Call map(17000.000000, 12800.000000, 49152.000000, 0.000000, 255.000000) = 79207.000000
+                 PerlinMove.pixclr := 79207.000000 (pop 2) 1-7
+                    varref PerlinMove.pixloc = 78004.180328 (push 3) 1-6
+                      varref PerlinMove.pixclr = 79207.000000 (push 4) 1-7
+setPixelColor(78004.180328, 79207.000000)
+                 Call setPixelColor(78004.180328, 79207.000000)
              assign next value
                  INTEGER_CONST 1 (Push 3)
-              renderFrame.i += 2.000000 (pop 2) 2-0
+              PerlinMove.i += 2.000000 (pop 2) 1-1
              iteration
              check to condition
-                varref renderFrame.i = 2.000000 (push 3) 2-0
+                varref PerlinMove.i = 2.000000 (push 3) 1-1
                  LT < (Push 4)
                      varref ext.intensitySlider = 17.000000 (push 5)
                       DIV / (Push 6)
@@ -653,20 +910,35 @@ setPixelColor(78004.180328, 78004.180328)
                        260.000000 - 16.000000 = 244.000000 (push 10)
                    1000.000000 * 128.000000 = 128000.000000 (push 8)
                    128000.000000 / 244.000000 = 524.590164 (push 8)
-                 renderFrame.y := 524.590164 (pop 2) 2-1
-                    varref renderFrame.y = 524.590164 (push 3) 2-1
+                 PerlinMove.y := 524.590164 (pop 2) 1-2
+                    varref PerlinMove.y = 524.590164 (push 3) 1-2
                      PLUS + (Push 4)
-                       varref renderFrame.i = 2.000000 (push 5) 2-0
+                       varref PerlinMove.i = 2.000000 (push 5) 1-1
                         MUL * (Push 6)
                          INTEGER_CONST 15000 (Push 7)
                      2.000000 * 15000.000000 = 30000.000000 (push 8)
                   524.590164 + 30000.000000 = 30524.590164 (push 6)
-                 renderFrame.x := 30524.590164 (pop 2) 2-2
-                       varref renderFrame.x = 30524.590164 (push 3) 2-2
-                         varref renderFrame.y = 524.590164 (push 4) 2-1
+                 PerlinMove.x := 30524.590164 (pop 2) 1-3
+                       varref PerlinMove.x = 30524.590164 (push 3) 1-3
+                         varref PerlinMove.y = 524.590164 (push 4) 1-2
                     Call iNoise(30524.590164, 524.590164) = 31049.180328
-                 renderFrame.locn := 31049.180328 (pop 2) 2-3
-                       varref renderFrame.locn = 31049.180328 (push 3) 2-3
+                 PerlinMove.locn := 31049.180328 (pop 2) 1-4
+                     Call millis() = 1000.000000
+                      MUL * (Push 4)
+                       INTEGER_CONST 2 (Push 5)
+                   1000.000000 * 2.000000 = 2000.000000 (push 6)
+                     PLUS + (Push 4)
+                       varref PerlinMove.i = 2.000000 (push 5) 1-1
+                        MUL * (Push 6)
+                         INTEGER_CONST 15000 (Push 7)
+                     2.000000 * 15000.000000 = 30000.000000 (push 8)
+                  2000.000000 + 30000.000000 = 32000.000000 (push 6)
+                 PerlinMove.x := 32000.000000 (pop 2) 1-3
+                       varref PerlinMove.x = 32000.000000 (push 3) 1-3
+                         INTEGER_CONST 0 (Push 4)
+                    Call iNoise(32000.000000, 0.000000) = 32000.000000
+                 PerlinMove.clr := 32000.000000 (pop 2) 1-5
+                       varref PerlinMove.locn = 31049.180328 (push 3) 1-4
                           INTEGER_CONST 50 (Push 4)
                            MUL * (Push 5)
                             INTEGER_CONST 256 (Push 6)
@@ -678,17 +950,30 @@ setPixelColor(78004.180328, 78004.180328)
                          INTEGER_CONST 0 (Push 6)
                          varref ext.ledCount = 3.000000 (push 7)
                     Call map(31049.180328, 12800.000000, 49152.000000, 0.000000, 3.000000) = 93004.180328
-                 renderFrame.pixloc := 93004.180328 (pop 2) 2-4
-                    varref renderFrame.pixloc = 93004.180328 (push 3) 2-4
-                      varref renderFrame.pixloc = 93004.180328 (push 4) 2-4
-setPixelColor(93004.180328, 93004.180328)
-                 Call setPixelColor(93004.180328, 93004.180328)
+                 PerlinMove.pixloc := 93004.180328 (pop 2) 1-6
+                       varref PerlinMove.clr = 32000.000000 (push 3) 1-5
+                          INTEGER_CONST 50 (Push 4)
+                           MUL * (Push 5)
+                            INTEGER_CONST 256 (Push 6)
+                        50.000000 * 256.000000 = 12800.000000 (push 7)
+                          INTEGER_CONST 192 (Push 5)
+                           MUL * (Push 6)
+                            INTEGER_CONST 256 (Push 7)
+                        192.000000 * 256.000000 = 49152.000000 (push 8)
+                         INTEGER_CONST 0 (Push 6)
+                         INTEGER_CONST 255 (Push 7)
+                    Call map(32000.000000, 12800.000000, 49152.000000, 0.000000, 255.000000) = 94207.000000
+                 PerlinMove.pixclr := 94207.000000 (pop 2) 1-7
+                    varref PerlinMove.pixloc = 93004.180328 (push 3) 1-6
+                      varref PerlinMove.pixclr = 94207.000000 (push 4) 1-7
+setPixelColor(93004.180328, 94207.000000)
+                 Call setPixelColor(93004.180328, 94207.000000)
              assign next value
                  INTEGER_CONST 1 (Push 3)
-              renderFrame.i += 3.000000 (pop 2) 2-0
+              PerlinMove.i += 3.000000 (pop 2) 1-1
              iteration
              check to condition
-                varref renderFrame.i = 3.000000 (push 3) 2-0
+                varref PerlinMove.i = 3.000000 (push 3) 1-1
                  LT < (Push 4)
                      varref ext.intensitySlider = 17.000000 (push 5)
                       DIV / (Push 6)
@@ -704,14 +989,16 @@ Destruct activation record renderFrame
 closing Arti 0
 Destruct callstack
 Destruct valueStack
+Destruct ScopedSymbolTable renderFrame (0)
+Destruct Symbol renderFrame (0)
 Destruct Symbol i (0)
 Destruct Symbol y (0)
 Destruct Symbol x (0)
 Destruct Symbol locn (0)
+Destruct Symbol clr (0)
 Destruct Symbol pixloc (0)
-Destruct ScopedSymbolTable renderFrame (0)
-Destruct Symbol renderFrame (0)
+Destruct Symbol pixclr (0)
 Destruct ScopedSymbolTable PerlinMove (0)
-definitionJson  9966 / 60% (23 0 6)
-parseTree       17075 / 26% (1 0 28)
+definitionJson  10739 / 65% (23 0 6)
+parseTree       25216 / 38% (1 0 28)
 closed Arti 0 ✓

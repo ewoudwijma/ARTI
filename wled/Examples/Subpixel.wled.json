@@ -5,40 +5,6 @@
       "*": [
         {
           "statement": {
-            "assign": {
-              "varref": {
-                "ID": "t",
-                "level": 1,
-                "index": 0
-              },
-              "expr": {
-                "term": {
-                  "INTEGER_CONST": "0",
-                  "operator": 0
-                }
-              }
-            }
-          }
-        },
-        {
-          "statement": {
-            "assign": {
-              "varref": {
-                "ID": "reverseSlider",
-                "level": 1,
-                "index": 1
-              },
-              "expr": {
-                "term": {
-                  "INTEGER_CONST": "0",
-                  "operator": 0
-                }
-              }
-            }
-          }
-        },
-        {
-          "statement": {
             "function": {
               "ID": "renderFrame",
               "block": {
@@ -49,7 +15,7 @@
                         "varref": {
                           "ID": "t",
                           "level": 1,
-                          "index": 0
+                          "index": 1
                         },
                         "expr": {
                           "term": {
@@ -122,7 +88,7 @@
                         "varref": {
                           "ID": "t",
                           "level": 1,
-                          "index": 0
+                          "index": 1
                         },
                         "assignoperator": 4,
                         "expr": {
@@ -142,7 +108,7 @@
                         "varref": {
                           "ID": "reverseSlider",
                           "level": 1,
-                          "index": 1
+                          "index": 2
                         },
                         "expr": {
                           "term": {
@@ -188,8 +154,8 @@
                       "assign": {
                         "varref": {
                           "ID": "diff",
-                          "level": 2,
-                          "index": 1
+                          "level": 1,
+                          "index": 4
                         },
                         "expr": {
                           "term": {
@@ -206,7 +172,7 @@
                                             "varref": {
                                               "ID": "t",
                                               "level": 1,
-                                              "index": 0
+                                              "index": 1
                                             }
                                           },
                                           "*": [
@@ -249,7 +215,7 @@
                                               "varref": {
                                                 "ID": "reverseSlider",
                                                 "level": 1,
-                                                "index": 1
+                                                "index": 2
                                               }
                                             }
                                           }
@@ -271,8 +237,8 @@
                       "assign": {
                         "varref": {
                           "ID": "bri",
-                          "level": 2,
-                          "index": 2
+                          "level": 1,
+                          "index": 5
                         },
                         "expr": {
                           "term": {
@@ -289,8 +255,8 @@
                                 "factor": {
                                   "varref": {
                                     "ID": "diff",
-                                    "level": 2,
-                                    "index": 1
+                                    "level": 1,
+                                    "index": 4
                                   }
                                 },
                                 "*": [
@@ -303,7 +269,7 @@
                                       "varref": {
                                         "ID": "reverseSlider",
                                         "level": 1,
-                                        "index": 1
+                                        "index": 2
                                       }
                                     }
                                   }
@@ -360,8 +326,8 @@
                                       "term": {
                                         "varref": {
                                           "ID": "bri",
-                                          "level": 2,
-                                          "index": 2
+                                          "level": 1,
+                                          "index": 5
                                         }
                                       }
                                     }

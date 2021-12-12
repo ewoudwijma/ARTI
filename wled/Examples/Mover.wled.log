@@ -185,9 +185,9 @@ parseTree 65536 => 0 ✓
   RCURL } 1
  found block
 Symbol program Parsed until (18,1) 475 of 475
-definitionTree 9966 / 60% (23 0 6)
+definitionTree 10739 / 65% (23 0 6)
 parseTree      12638 / 19% (1 0 25)
-garbageCollect 9086 / 13% (1 0 25)
+garbageCollect 9086 / 13%
 Destruct Lexer
 parse 0 ✓
 
@@ -215,36 +215,36 @@ optimize 0 ✓
 Analyzer
  Program Mover 1 0
      Function Mover.renderFrame
-         assign renderFrame.locn of notype
+         assign Mover.locn of notype
          assign locn = (8)
              Ext Function found millis (12)
-          assign renderFrame.i of notype
+          assign Mover.i of notype
           assign i = (9)
-            VarRef found renderFrame.i (11)
+            VarRef found Mover.i (11)
               Ext Variable found ledCount (13) varref
            assign i = (10)
            asop +=
               Ext Variable found leds (13) assign
               assign leds = (13)
                  Ext Function found colorWheel (16)
-                  VarRef found renderFrame.locn (17)
-                    VarRef found renderFrame.i (19)
+                  VarRef found Mover.locn (17)
+                    VarRef found Mover.i (19)
               Ext Variable found leds (13) assign
               assign leds = (13)
                  Ext Function found colorWheel (16)
-                  VarRef found renderFrame.locn (17)
-                    VarRef found renderFrame.i (19)
+                  VarRef found Mover.locn (17)
+                    VarRef found Mover.i (19)
               Ext Variable found leds (13) assign
               assign leds = (13)
                  Ext Function found colorWheel (16)
-                  VarRef found renderFrame.locn (17)
-                    VarRef found renderFrame.i (19)
-     0 assign renderFrame.locn of 9 (2)
-     1 assign renderFrame.i of 9 (2)
+                  VarRef found Mover.locn (17)
+                    VarRef found Mover.i (19)
  0 function Mover.renderFrame of 9 (1)
+ 1 assign Mover.locn of 9 (1)
+ 2 assign Mover.i of 9 (1)
 analyze 0 ✓
 
-interpret Mover 1 1
+interpret Mover 1 3
  program Mover
      Save block of renderFrame
 Interpret main 0 ✓
@@ -253,29 +253,29 @@ Interpret main 0 ✓
                   DIV / (Push 2)
                    INTEGER_CONST 100 (Push 3)
                1000.000000 / 100.000000 = 10.000000 (push 4)
-             renderFrame.locn := 10.000000 (pop 0) 2-0
+             Mover.locn := 10.000000 (pop 0) 1-1
              For (0)
                  INTEGER_CONST 0 (Push 1)
-              renderFrame.i := 0.000000 (pop 0) 2-1
+              Mover.i := 0.000000 (pop 0) 1-2
              iteration
              check to condition
-                varref renderFrame.i = 0.000000 (push 1) 2-1
+                varref Mover.i = 0.000000 (push 1) 1-2
                  LT < (Push 2)
                   varref ext.ledCount = 3.000000 (push 3)
               0.000000 < 3.000000 = 1.000000 (push 4)
              conditionResult (pop 0)
              1 => run block
-                     varref renderFrame.locn = 10.000000 (push 1) 2-0
+                     varref Mover.locn = 10.000000 (push 1) 1-1
                       PLUS + (Push 2)
-                       varref renderFrame.i = 0.000000 (push 3) 2-1
+                       varref Mover.i = 0.000000 (push 3) 1-2
                    10.000000 + 0.000000 = 10.000000 (push 4)
                        INTEGER_CONST 50 (Push 2)
                     Call colorWheel(50.000000) = 50.000000
 arti_set_external_variable: leds(10.000000) := 50.000000
                  assign set ext.leds[10.000000] = 50.000000 (1)
-                     varref renderFrame.locn = 10.000000 (push 1) 2-0
+                     varref Mover.locn = 10.000000 (push 1) 1-1
                       PLUS + (Push 2)
-                       varref renderFrame.i = 0.000000 (push 3) 2-1
+                       varref Mover.i = 0.000000 (push 3) 1-2
                       PLUS + (Push 4)
                        INTEGER_CONST 10 (Push 5)
                    10.000000 + 0.000000 = 10.000000 (push 6)
@@ -284,9 +284,9 @@ arti_set_external_variable: leds(10.000000) := 50.000000
                     Call colorWheel(125.000000) = 125.000000
 arti_set_external_variable: leds(20.000000) := 125.000000
                  assign set ext.leds[20.000000] = 125.000000 (1)
-                     varref renderFrame.locn = 10.000000 (push 1) 2-0
+                     varref Mover.locn = 10.000000 (push 1) 1-1
                       PLUS + (Push 2)
-                       varref renderFrame.i = 0.000000 (push 3) 2-1
+                       varref Mover.i = 0.000000 (push 3) 1-2
                       PLUS + (Push 4)
                        INTEGER_CONST 20 (Push 5)
                    10.000000 + 0.000000 = 10.000000 (push 6)
@@ -297,10 +297,10 @@ arti_set_external_variable: leds(30.000000) := 200.000000
                  assign set ext.leds[30.000000] = 200.000000 (1)
              assign next value
                  INTEGER_CONST 30 (Push 1)
-              renderFrame.i += 30.000000 (pop 0) 2-1
+              Mover.i += 30.000000 (pop 0) 1-2
              iteration
              check to condition
-                varref renderFrame.i = 30.000000 (push 1) 2-1
+                varref Mover.i = 30.000000 (push 1) 1-2
                  LT < (Push 2)
                   varref ext.ledCount = 3.000000 (push 3)
               30.000000 < 3.000000 = 0.000000 (push 4)
@@ -313,29 +313,29 @@ setPixels(leds)
                   DIV / (Push 2)
                    INTEGER_CONST 100 (Push 3)
                1000.000000 / 100.000000 = 10.000000 (push 4)
-             renderFrame.locn := 10.000000 (pop 0) 2-0
+             Mover.locn := 10.000000 (pop 0) 1-1
              For (0)
                  INTEGER_CONST 0 (Push 1)
-              renderFrame.i := 0.000000 (pop 0) 2-1
+              Mover.i := 0.000000 (pop 0) 1-2
              iteration
              check to condition
-                varref renderFrame.i = 0.000000 (push 1) 2-1
+                varref Mover.i = 0.000000 (push 1) 1-2
                  LT < (Push 2)
                   varref ext.ledCount = 3.000000 (push 3)
               0.000000 < 3.000000 = 1.000000 (push 4)
              conditionResult (pop 0)
              1 => run block
-                     varref renderFrame.locn = 10.000000 (push 1) 2-0
+                     varref Mover.locn = 10.000000 (push 1) 1-1
                       PLUS + (Push 2)
-                       varref renderFrame.i = 0.000000 (push 3) 2-1
+                       varref Mover.i = 0.000000 (push 3) 1-2
                    10.000000 + 0.000000 = 10.000000 (push 4)
                        INTEGER_CONST 50 (Push 2)
                     Call colorWheel(50.000000) = 50.000000
 arti_set_external_variable: leds(10.000000) := 50.000000
                  assign set ext.leds[10.000000] = 50.000000 (1)
-                     varref renderFrame.locn = 10.000000 (push 1) 2-0
+                     varref Mover.locn = 10.000000 (push 1) 1-1
                       PLUS + (Push 2)
-                       varref renderFrame.i = 0.000000 (push 3) 2-1
+                       varref Mover.i = 0.000000 (push 3) 1-2
                       PLUS + (Push 4)
                        INTEGER_CONST 10 (Push 5)
                    10.000000 + 0.000000 = 10.000000 (push 6)
@@ -344,9 +344,9 @@ arti_set_external_variable: leds(10.000000) := 50.000000
                     Call colorWheel(125.000000) = 125.000000
 arti_set_external_variable: leds(20.000000) := 125.000000
                  assign set ext.leds[20.000000] = 125.000000 (1)
-                     varref renderFrame.locn = 10.000000 (push 1) 2-0
+                     varref Mover.locn = 10.000000 (push 1) 1-1
                       PLUS + (Push 2)
-                       varref renderFrame.i = 0.000000 (push 3) 2-1
+                       varref Mover.i = 0.000000 (push 3) 1-2
                       PLUS + (Push 4)
                        INTEGER_CONST 20 (Push 5)
                    10.000000 + 0.000000 = 10.000000 (push 6)
@@ -357,10 +357,10 @@ arti_set_external_variable: leds(30.000000) := 200.000000
                  assign set ext.leds[30.000000] = 200.000000 (1)
              assign next value
                  INTEGER_CONST 30 (Push 1)
-              renderFrame.i += 30.000000 (pop 0) 2-1
+              Mover.i += 30.000000 (pop 0) 1-2
              iteration
              check to condition
-                varref renderFrame.i = 30.000000 (push 1) 2-1
+                varref Mover.i = 30.000000 (push 1) 1-2
                  LT < (Push 2)
                   varref ext.ledCount = 3.000000 (push 3)
               30.000000 < 3.000000 = 0.000000 (push 4)
@@ -371,11 +371,11 @@ setPixels(leds)
 closing Arti 0
 Destruct callstack
 Destruct valueStack
-Destruct Symbol locn (0)
-Destruct Symbol i (0)
 Destruct ScopedSymbolTable renderFrame (0)
 Destruct Symbol renderFrame (0)
+Destruct Symbol locn (0)
+Destruct Symbol i (0)
 Destruct ScopedSymbolTable Mover (0)
-definitionJson  9966 / 60% (23 0 6)
+definitionJson  10739 / 65% (23 0 6)
 parseTree       11774 / 17% (1 0 23)
 closed Arti 0 ✓
