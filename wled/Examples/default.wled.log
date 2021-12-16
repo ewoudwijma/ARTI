@@ -26,27 +26,27 @@ parseTree 65536 => 0 ✓
           RBRACKET ] -> [ASSIGN =] 9
            ASSIGN = -> [ID colorFromPalette] 10
          found assignoperator
-             ID colorFromPalette -> [LPAREN (] 12
-             LPAREN ( -> [ID counter] 12
+              ID colorFromPalette -> [LPAREN (] 13
+              LPAREN ( -> [ID counter] 13
+                   ID counter -> [COMMA ,] 18
                   ID counter -> [COMMA ,] 17
-                 ID counter -> [COMMA ,] 16
-                 found varref
-                found factor
-               found term
-              found expr
-               COMMA , -> [ID counter] 14
-                   ID counter -> [RPAREN )] 18
-                  ID counter -> [RPAREN )] 17
                   found varref
                  found factor
                 found term
                found expr
-             found actuals
-             RPAREN ) -> [RCURL }] 12
-            found call
-           found factor
-          found term
-         found expr
+                COMMA , -> [ID counter] 15
+                    ID counter -> [RPAREN )] 19
+                   ID counter -> [RPAREN )] 18
+                   found varref
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [RCURL }] 13
+             found call
+            found factor
+           found term
+          found expr
         found assign
        found statement
       RCURL } -> [RCURL }] 5
@@ -56,17 +56,17 @@ parseTree 65536 => 0 ✓
   RCURL } 1
  found block
 Symbol program Parsed until (9,1) 160 of 160
-definitionTree 10739 / 65% (23 0 6)
+definitionTree 11566 / 70% (26 0 6)
 parseTree      3759 / 5% (1 0 23)
 garbageCollect 2671 / 4%
 Destruct Lexer
 parse 0 ✓
 
 Optimizer
-              symbol to shrink factor in term = {"varref":{"ID":"counter"}} from {"factor":{"varref":{"ID":"counter"}}}
-                  symbol to shrink factor in term = {"varref":{"ID":"counter"}} from {"factor":{"varref":{"ID":"counter"}}}
-                    symbol to shrink factor in term = {"varref":{"ID":"counter"}} from {"factor":{"varref":{"ID":"counter"}}}
-             symbol to shrink factor in term = {"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"counter"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"counter"}}}}]}}} from {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"counter"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"counter"}}}}]}}}}
+              symbol to shrink factor in term : {"factor":{"varref":{"ID":"counter"}}} from {"term":{"factor":{"varref":{"ID":"counter"}}},"*":["multiple"]}
+                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"counter"}}} from {"term":{"factor":{"varref":{"ID":"counter"}}},"*":["multiple"]}
+                    symbol to shrink factor in term : {"factor":{"varref":{"ID":"counter"}}} from {"term":{"factor":{"varref":{"ID":"counter"}}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"counter"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"counter"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"counter"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"counter"}}}}]}}}},"*":["multiple"]}
 optimize 0 ✓
 
 Analyzer
@@ -89,18 +89,18 @@ Interpret main 0 ✓
                  varref ext.counter = 0.000000 (push 1)
                    varref ext.counter = 0.000000 (push 2)
                      varref ext.counter = 0.000000 (push 3)
-                Call colorFromPalette(0.000000, 0.000000) = 0.000000
+                Call colorFromPalette(0.000000, 0.000000) = 0.000000 (Pop 1, Push 2)
 arti_set_external_variable: leds(0.000000) := 0.000000
-             assign set ext.leds[0.000000] = 0.000000 (1)
+             assign set ext.leds[0.000000] = 0.000000 (Pop 0)
 Destruct activation record renderFrame
 setPixels(leds)
          Call renderFrame (1)
                  varref ext.counter = 1.000000 (push 1)
                    varref ext.counter = 1.000000 (push 2)
                      varref ext.counter = 1.000000 (push 3)
-                Call colorFromPalette(1.000000, 1.000000) = 2.000000
+                Call colorFromPalette(1.000000, 1.000000) = 2.000000 (Pop 1, Push 2)
 arti_set_external_variable: leds(1.000000) := 2.000000
-             assign set ext.leds[1.000000] = 2.000000 (1)
+             assign set ext.leds[1.000000] = 2.000000 (Pop 0)
 Destruct activation record renderFrame
 setPixels(leds)
 closing Arti 0
@@ -109,6 +109,6 @@ Destruct valueStack
 Destruct ScopedSymbolTable renderFrame (0)
 Destruct Symbol renderFrame (0)
 Destruct ScopedSymbolTable default (0)
-definitionJson  10739 / 65% (23 0 6)
+definitionJson  11566 / 70% (26 0 6)
 parseTree       3471 / 5% (1 0 21)
 closed Arti 0 ✓

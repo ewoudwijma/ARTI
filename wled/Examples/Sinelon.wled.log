@@ -34,168 +34,168 @@ parseTree 65536 => 0 ✓
          found varref
            ASSIGN = -> [ID millis] 10
          found assignoperator
-             ID millis -> [LPAREN (] 12
-             LPAREN ( -> [RPAREN )] 12
-             found actuals
-             RPAREN ) -> [DIV /] 12
-            found call
-           found factor
-             DIV / -> [LPAREN (] 12
-              LPAREN ( -> [LPAREN (] 13
-                  LPAREN ( -> [INTEGER_CONST 256] 17
-                     INTEGER_CONST 256 -> [MINUS -] 20
-                    found factor
-                   found term
-                     MINUS - -> [ID speedSlider] 20
-                       ID speedSlider -> [RPAREN )] 22
-                      ID speedSlider -> [RPAREN )] 21
-                      found varref
+              ID millis -> [LPAREN (] 13
+              LPAREN ( -> [RPAREN )] 13
+              found actuals
+              RPAREN ) -> [DIV /] 13
+             found call
+            found factor
+              DIV / -> [LPAREN (] 13
+               LPAREN ( -> [LPAREN (] 14
+                   LPAREN ( -> [INTEGER_CONST 256] 18
+                      INTEGER_CONST 256 -> [MINUS -] 21
                      found factor
                     found term
-                  found expr
-                  RPAREN ) -> [MUL *] 17
-                found factor
-                  MUL * -> [INTEGER_CONST 4] 17
-                  INTEGER_CONST 4 -> [RPAREN )] 17
+                      MINUS - -> [ID speedSlider] 21
+                        ID speedSlider -> [RPAREN )] 23
+                       ID speedSlider -> [RPAREN )] 22
+                       found varref
+                      found factor
+                     found term
+                   found expr
+                   RPAREN ) -> [MUL *] 18
                  found factor
-               found term
-              found expr
-              RPAREN ) -> [ID newVal] 13
-            found factor
-          found term
-         found expr
+                   MUL * -> [INTEGER_CONST 4] 18
+                   INTEGER_CONST 4 -> [RPAREN )] 18
+                  found factor
+                found term
+               found expr
+               RPAREN ) -> [ID newVal] 14
+             found factor
+           found term
+          found expr
         found assign
        found statement
          ID newVal -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [LPAREN (] 10
          found assignoperator
-             LPAREN ( -> [ID sin] 12
-                 ID sin -> [LPAREN (] 16
-                 LPAREN ( -> [ID locn] 16
+              LPAREN ( -> [ID sin] 13
+                  ID sin -> [LPAREN (] 17
+                  LPAREN ( -> [ID locn] 17
+                       ID locn -> [RPAREN )] 22
                       ID locn -> [RPAREN )] 21
-                     ID locn -> [RPAREN )] 20
-                     found varref
-                    found factor
-                   found term
-                  found expr
-                 found actuals
-                 RPAREN ) -> [PLUS +] 16
-                found call
-               found factor
-              found term
-                PLUS + -> [INTEGER_CONST 1] 15
-                 INTEGER_CONST 1 -> [RPAREN )] 16
+                      found varref
+                     found factor
+                    found term
+                   found expr
+                  found actuals
+                  RPAREN ) -> [PLUS +] 17
+                 found call
                 found factor
                found term
-             found expr
-             RPAREN ) -> [ID locn2] 12
-           found factor
-          found term
-         found expr
+                 PLUS + -> [INTEGER_CONST 1] 16
+                  INTEGER_CONST 1 -> [RPAREN )] 17
+                 found factor
+                found term
+              found expr
+              RPAREN ) -> [ID locn2] 13
+            found factor
+           found term
+          found expr
         found assign
        found statement
          ID locn2 -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [ID millis] 10
          found assignoperator
-             ID millis -> [LPAREN (] 12
-             LPAREN ( -> [RPAREN )] 12
-             found actuals
-             RPAREN ) -> [DIV /] 12
-            found call
-           found factor
-             DIV / -> [LPAREN (] 12
-              LPAREN ( -> [LPAREN (] 13
-                  LPAREN ( -> [INTEGER_CONST 256] 17
-                     INTEGER_CONST 256 -> [MINUS -] 20
-                    found factor
-                   found term
-                     MINUS - -> [ID custom1Slider] 20
-                       ID custom1Slider -> [RPAREN )] 22
-                      ID custom1Slider -> [RPAREN )] 21
-                      found varref
+              ID millis -> [LPAREN (] 13
+              LPAREN ( -> [RPAREN )] 13
+              found actuals
+              RPAREN ) -> [DIV /] 13
+             found call
+            found factor
+              DIV / -> [LPAREN (] 13
+               LPAREN ( -> [LPAREN (] 14
+                   LPAREN ( -> [INTEGER_CONST 256] 18
+                      INTEGER_CONST 256 -> [MINUS -] 21
                      found factor
                     found term
-                  found expr
-                  RPAREN ) -> [MUL *] 17
-                found factor
-                  MUL * -> [INTEGER_CONST 4] 17
-                  INTEGER_CONST 4 -> [RPAREN )] 17
+                      MINUS - -> [ID custom1Slider] 21
+                        ID custom1Slider -> [RPAREN )] 23
+                       ID custom1Slider -> [RPAREN )] 22
+                       found varref
+                      found factor
+                     found term
+                   found expr
+                   RPAREN ) -> [MUL *] 18
                  found factor
-               found term
-              found expr
-              RPAREN ) -> [ID newVal2] 13
-            found factor
-          found term
-         found expr
+                   MUL * -> [INTEGER_CONST 4] 18
+                   INTEGER_CONST 4 -> [RPAREN )] 18
+                  found factor
+                found term
+               found expr
+               RPAREN ) -> [ID newVal2] 14
+             found factor
+           found term
+          found expr
         found assign
        found statement
          ID newVal2 -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [LPAREN (] 10
          found assignoperator
-             LPAREN ( -> [ID sin] 12
-                 ID sin -> [LPAREN (] 16
-                 LPAREN ( -> [ID locn2] 16
+              LPAREN ( -> [ID sin] 13
+                  ID sin -> [LPAREN (] 17
+                  LPAREN ( -> [ID locn2] 17
+                       ID locn2 -> [RPAREN )] 22
                       ID locn2 -> [RPAREN )] 21
-                     ID locn2 -> [RPAREN )] 20
-                     found varref
-                    found factor
-                   found term
-                  found expr
-                 found actuals
-                 RPAREN ) -> [PLUS +] 16
-                found call
-               found factor
-              found term
-                PLUS + -> [INTEGER_CONST 1] 15
-                 INTEGER_CONST 1 -> [RPAREN )] 16
+                      found varref
+                     found factor
+                    found term
+                   found expr
+                  found actuals
+                  RPAREN ) -> [PLUS +] 17
+                 found call
                 found factor
                found term
-             found expr
-             RPAREN ) -> [ID location] 12
-           found factor
-          found term
-         found expr
+                 PLUS + -> [INTEGER_CONST 1] 16
+                  INTEGER_CONST 1 -> [RPAREN )] 17
+                 found factor
+                found term
+              found expr
+              RPAREN ) -> [ID location] 13
+            found factor
+           found term
+          found expr
         found assign
        found statement
          ID location -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [LPAREN (] 10
          found assignoperator
-             LPAREN ( -> [ID newVal] 12
+              LPAREN ( -> [ID newVal] 13
+                  ID newVal -> [PLUS +] 17
                  ID newVal -> [PLUS +] 16
-                ID newVal -> [PLUS +] 15
-                found varref
-               found factor
-              found term
-                PLUS + -> [ID newVal2] 15
-                  ID newVal2 -> [RPAREN )] 17
-                 ID newVal2 -> [RPAREN )] 16
                  found varref
                 found factor
                found term
-             found expr
-             RPAREN ) -> [DIV /] 12
-           found factor
-             DIV / -> [INTEGER_CONST 4] 12
-             INTEGER_CONST 4 -> [ID location] 12
+                 PLUS + -> [ID newVal2] 16
+                   ID newVal2 -> [RPAREN )] 18
+                  ID newVal2 -> [RPAREN )] 17
+                  found varref
+                 found factor
+                found term
+              found expr
+              RPAREN ) -> [DIV /] 13
             found factor
-          found term
-         found expr
+              DIV / -> [INTEGER_CONST 4] 13
+              INTEGER_CONST 4 -> [ID location] 13
+             found factor
+           found term
+          found expr
         found assign
        found statement
          ID location -> [ASSIGN* *=] 8
          found varref
            ASSIGN* *= -> [ID ledCount] 10
          found assignoperator
+              ID ledCount -> [ID leds] 13
              ID ledCount -> [ID leds] 12
-            ID ledCount -> [ID leds] 11
-            found varref
-           found factor
-          found term
-         found expr
+             found varref
+            found factor
+           found term
+          found expr
         found assign
        found statement
          ID leds -> [LBRACKET [] 8
@@ -211,23 +211,23 @@ parseTree 65536 => 0 ✓
           RBRACKET ] -> [ASSIGN =] 9
            ASSIGN = -> [ID colorFromPalette] 10
          found assignoperator
-             ID colorFromPalette -> [LPAREN (] 12
-             LPAREN ( -> [INTEGER_CONST 0] 12
-                 INTEGER_CONST 0 -> [COMMA ,] 16
-                found factor
-               found term
-              found expr
-               COMMA , -> [INTEGER_CONST 255] 14
-                  INTEGER_CONST 255 -> [RPAREN )] 17
+              ID colorFromPalette -> [LPAREN (] 13
+              LPAREN ( -> [INTEGER_CONST 0] 13
+                  INTEGER_CONST 0 -> [COMMA ,] 17
                  found factor
                 found term
                found expr
-             found actuals
-             RPAREN ) -> [RCURL }] 12
-            found call
-           found factor
-          found term
-         found expr
+                COMMA , -> [INTEGER_CONST 255] 15
+                   INTEGER_CONST 255 -> [RPAREN )] 18
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [RCURL }] 13
+             found call
+            found factor
+           found term
+          found expr
         found assign
        found statement
       RCURL } -> [RCURL }] 5
@@ -237,32 +237,32 @@ parseTree 65536 => 0 ✓
   RCURL } 1
  found block
 Symbol program Parsed until (43,1) 1524 of 1524
-definitionTree 10739 / 65% (23 0 6)
+definitionTree 11566 / 70% (26 0 6)
 parseTree      16476 / 25% (1 0 26)
 garbageCollect 11868 / 18%
 Destruct Lexer
 parse 0 ✓
 
 Optimizer
-                     symbol to shrink factor in term = {"INTEGER_CONST":"256"} from {"factor":{"INTEGER_CONST":"256"}}
-                       symbol to shrink factor in term = {"varref":{"ID":"speedSlider"}} from {"factor":{"varref":{"ID":"speedSlider"}}}
-                     symbol to shrink factor in term = {"varref":{"ID":"locn"}} from {"factor":{"varref":{"ID":"locn"}}}
-                symbol to shrink factor in term = {"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}}}}} from {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}}}}}}
-                  symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
-             symbol to shrink factor in term = {"expr":{"term":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}}}}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}} from {"factor":{"expr":{"term":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}}}}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}}}
-                     symbol to shrink factor in term = {"INTEGER_CONST":"256"} from {"factor":{"INTEGER_CONST":"256"}}
-                       symbol to shrink factor in term = {"varref":{"ID":"custom1Slider"}} from {"factor":{"varref":{"ID":"custom1Slider"}}}
-                     symbol to shrink factor in term = {"varref":{"ID":"locn2"}} from {"factor":{"varref":{"ID":"locn2"}}}
-                symbol to shrink factor in term = {"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn2"}}}}}} from {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn2"}}}}}}}
-                  symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
-             symbol to shrink factor in term = {"expr":{"term":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn2"}}}}}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}} from {"factor":{"expr":{"term":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn2"}}}}}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}}}
-                symbol to shrink factor in term = {"varref":{"ID":"newVal"}} from {"factor":{"varref":{"ID":"newVal"}}}
-                  symbol to shrink factor in term = {"varref":{"ID":"newVal2"}} from {"factor":{"varref":{"ID":"newVal2"}}}
-             symbol to shrink factor in term = {"varref":{"ID":"ledCount"}} from {"factor":{"varref":{"ID":"ledCount"}}}
-              symbol to shrink factor in term = {"varref":{"ID":"location"}} from {"factor":{"varref":{"ID":"location"}}}
-                  symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
-                    symbol to shrink factor in term = {"INTEGER_CONST":"255"} from {"factor":{"INTEGER_CONST":"255"}}
-             symbol to shrink factor in term = {"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}} from {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}}
+                     symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"256"}} from {"term":{"factor":{"INTEGER_CONST":"256"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"speedSlider"}},"*":["multiple"]}}]}
+                       symbol to shrink factor in term : {"factor":{"varref":{"ID":"speedSlider"}}} from {"term":{"factor":{"varref":{"ID":"speedSlider"}}}}
+                     symbol to shrink factor in term : {"factor":{"varref":{"ID":"locn"}}} from {"term":{"factor":{"varref":{"ID":"locn"}}},"*":["multiple"]}
+                symbol to shrink factor in term : {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}}}}}} from {"term":{"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}}}}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+             symbol to shrink factor in term : {"factor":{"expr":{"term":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}}}}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}}} from {"term":{"factor":{"expr":{"term":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn"}}}}}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}}},"*":["multiple"]}
+                     symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"256"}} from {"term":{"factor":{"INTEGER_CONST":"256"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"custom1Slider"}},"*":["multiple"]}}]}
+                       symbol to shrink factor in term : {"factor":{"varref":{"ID":"custom1Slider"}}} from {"term":{"factor":{"varref":{"ID":"custom1Slider"}}}}
+                     symbol to shrink factor in term : {"factor":{"varref":{"ID":"locn2"}}} from {"term":{"factor":{"varref":{"ID":"locn2"}}},"*":["multiple"]}
+                symbol to shrink factor in term : {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn2"}}}}}}} from {"term":{"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn2"}}}}}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+             symbol to shrink factor in term : {"factor":{"expr":{"term":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn2"}}}}}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}}} from {"term":{"factor":{"expr":{"term":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"locn2"}}}}}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]}}},"*":["multiple"]}
+                symbol to shrink factor in term : {"factor":{"varref":{"ID":"newVal"}}} from {"term":{"factor":{"varref":{"ID":"newVal"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"newVal2"}},"*":["multiple"]}}]}
+                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"newVal2"}}} from {"term":{"factor":{"varref":{"ID":"newVal2"}}}}
+             symbol to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}},"*":["multiple"]}
+              symbol to shrink factor in term : {"factor":{"varref":{"ID":"location"}}} from {"term":{"factor":{"varref":{"ID":"location"}}},"*":["multiple"]}
+                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+                    symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"255"}} from {"term":{"factor":{"INTEGER_CONST":"255"}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}},"*":["multiple"]}
 optimize 0 ✓
 
 Analyzer
@@ -291,8 +291,8 @@ Analyzer
                VarRef found DualSinelon.newVal (14)
                  VarRef found DualSinelon.newVal2 (16)
          assign location = (8)
+         *=
             Ext Variable found ledCount (11) varref
-         asop *=
          Ext Variable found leds (8) assign
          assign leds = (8)
             Ext Function found colorFromPalette (11)
@@ -313,116 +313,116 @@ Interpret main 0 ✓
                  varref ext.intensitySlider = 17.000000 (push 1)
                   DIV / (Push 2)
                    INTEGER_CONST 4 (Push 3)
-               17.000000 / 4.000000 = 4.250000 (push 4)
-             Call fadeToBlackBy(4.250000) = 4.250000
-                 Call millis() = 1000.000000
+               17.000000 / 4.000000 = 4.250000 (pop 0, push 1)
+             Call fadeToBlackBy(4.250000) = 4.250000 (Pop 0, Push 1)
+                 Call millis() = 1000.000000 (Pop 1, Push 2)
                   DIV / (Push 3)
                         INTEGER_CONST 256 (Push 4)
                          MINUS - (Push 5)
                           varref ext.speedSlider = 16.000000 (push 6)
-                      256.000000 - 16.000000 = 240.000000 (push 7)
+                      256.000000 - 16.000000 = 240.000000 (pop 3, push 4)
                        MUL * (Push 5)
                         INTEGER_CONST 4 (Push 6)
-                    240.000000 * 4.000000 = 960.000000 (push 7)
-               1000.000000 / 960.000000 = 1.041667 (push 5)
+                    240.000000 * 4.000000 = 960.000000 (pop 3, push 4)
+               1000.000000 / 960.000000 = 1.041667 (pop 1, push 2)
              DualSinelon.locn := 1.041667 (pop 1) 1-1
                      varref DualSinelon.locn = 1.041667 (push 2) 1-1
-                  Call sin(1.041667) = 0.863247
+                  Call sin(1.041667) = 0.863247 (Pop 1, Push 2)
                    PLUS + (Push 3)
                     INTEGER_CONST 1 (Push 4)
-                0.863247 + 1.000000 = 1.863247 (push 5)
+                0.863247 + 1.000000 = 1.863247 (pop 1, push 2)
              DualSinelon.newVal := 1.863247 (pop 1) 1-2
-                 Call millis() = 1000.000000
+                 Call millis() = 1000.000000 (Pop 1, Push 2)
                   DIV / (Push 3)
                         INTEGER_CONST 256 (Push 4)
                          MINUS - (Push 5)
                           varref ext.custom1Slider = 18.000000 (push 6)
-                      256.000000 - 18.000000 = 238.000000 (push 7)
+                      256.000000 - 18.000000 = 238.000000 (pop 3, push 4)
                        MUL * (Push 5)
                         INTEGER_CONST 4 (Push 6)
-                    238.000000 * 4.000000 = 952.000000 (push 7)
-               1000.000000 / 952.000000 = 1.050420 (push 5)
+                    238.000000 * 4.000000 = 952.000000 (pop 3, push 4)
+               1000.000000 / 952.000000 = 1.050420 (pop 1, push 2)
              DualSinelon.locn2 := 1.050420 (pop 1) 1-3
                      varref DualSinelon.locn2 = 1.050420 (push 2) 1-3
-                  Call sin(1.050420) = 0.867632
+                  Call sin(1.050420) = 0.867632 (Pop 1, Push 2)
                    PLUS + (Push 3)
                     INTEGER_CONST 1 (Push 4)
-                0.867632 + 1.000000 = 1.867632 (push 5)
+                0.867632 + 1.000000 = 1.867632 (pop 1, push 2)
              DualSinelon.newVal2 := 1.867632 (pop 1) 1-4
                    varref DualSinelon.newVal = 1.863247 (push 2) 1-2
                     PLUS + (Push 3)
                      varref DualSinelon.newVal2 = 1.867632 (push 4) 1-4
-                 1.863247 + 1.867632 = 3.730879 (push 5)
+                 1.863247 + 1.867632 = 3.730879 (pop 1, push 2)
                   DIV / (Push 3)
                    INTEGER_CONST 4 (Push 4)
-               3.730879 / 4.000000 = 0.932720 (push 5)
+               3.730879 / 4.000000 = 0.932720 (pop 1, push 2)
              DualSinelon.location := 0.932720 (pop 1) 1-5
                 varref ext.ledCount = 3.000000 (push 2)
              DualSinelon.location *= 2.798159 (pop 1) 1-5
                  varref DualSinelon.location = 2.798159 (push 2) 1-5
                    INTEGER_CONST 0 (Push 3)
                      INTEGER_CONST 255 (Push 4)
-                Call colorFromPalette(0.000000, 255.000000) = 255.000000
+                Call colorFromPalette(0.000000, 255.000000) = 255.000000 (Pop 2, Push 3)
 arti_set_external_variable: leds(2.798159) := 255.000000
-             assign set ext.leds[2.798159] = 255.000000 (2)
+             assign set ext.leds[2.798159] = 255.000000 (Pop 1)
 Destruct activation record renderFrame
 setPixels(leds)
          Call renderFrame (1)
                  varref ext.intensitySlider = 17.000000 (push 2)
                   DIV / (Push 3)
                    INTEGER_CONST 4 (Push 4)
-               17.000000 / 4.000000 = 4.250000 (push 5)
-             Call fadeToBlackBy(4.250000) = 4.250000
-                 Call millis() = 1000.000000
+               17.000000 / 4.000000 = 4.250000 (pop 1, push 2)
+             Call fadeToBlackBy(4.250000) = 4.250000 (Pop 1, Push 2)
+                 Call millis() = 1000.000000 (Pop 2, Push 3)
                   DIV / (Push 4)
                         INTEGER_CONST 256 (Push 5)
                          MINUS - (Push 6)
                           varref ext.speedSlider = 16.000000 (push 7)
-                      256.000000 - 16.000000 = 240.000000 (push 8)
+                      256.000000 - 16.000000 = 240.000000 (pop 4, push 5)
                        MUL * (Push 6)
                         INTEGER_CONST 4 (Push 7)
-                    240.000000 * 4.000000 = 960.000000 (push 8)
-               1000.000000 / 960.000000 = 1.041667 (push 6)
+                    240.000000 * 4.000000 = 960.000000 (pop 4, push 5)
+               1000.000000 / 960.000000 = 1.041667 (pop 2, push 3)
              DualSinelon.locn := 1.041667 (pop 2) 1-1
                      varref DualSinelon.locn = 1.041667 (push 3) 1-1
-                  Call sin(1.041667) = 0.863247
+                  Call sin(1.041667) = 0.863247 (Pop 2, Push 3)
                    PLUS + (Push 4)
                     INTEGER_CONST 1 (Push 5)
-                0.863247 + 1.000000 = 1.863247 (push 6)
+                0.863247 + 1.000000 = 1.863247 (pop 2, push 3)
              DualSinelon.newVal := 1.863247 (pop 2) 1-2
-                 Call millis() = 1000.000000
+                 Call millis() = 1000.000000 (Pop 2, Push 3)
                   DIV / (Push 4)
                         INTEGER_CONST 256 (Push 5)
                          MINUS - (Push 6)
                           varref ext.custom1Slider = 18.000000 (push 7)
-                      256.000000 - 18.000000 = 238.000000 (push 8)
+                      256.000000 - 18.000000 = 238.000000 (pop 4, push 5)
                        MUL * (Push 6)
                         INTEGER_CONST 4 (Push 7)
-                    238.000000 * 4.000000 = 952.000000 (push 8)
-               1000.000000 / 952.000000 = 1.050420 (push 6)
+                    238.000000 * 4.000000 = 952.000000 (pop 4, push 5)
+               1000.000000 / 952.000000 = 1.050420 (pop 2, push 3)
              DualSinelon.locn2 := 1.050420 (pop 2) 1-3
                      varref DualSinelon.locn2 = 1.050420 (push 3) 1-3
-                  Call sin(1.050420) = 0.867632
+                  Call sin(1.050420) = 0.867632 (Pop 2, Push 3)
                    PLUS + (Push 4)
                     INTEGER_CONST 1 (Push 5)
-                0.867632 + 1.000000 = 1.867632 (push 6)
+                0.867632 + 1.000000 = 1.867632 (pop 2, push 3)
              DualSinelon.newVal2 := 1.867632 (pop 2) 1-4
                    varref DualSinelon.newVal = 1.863247 (push 3) 1-2
                     PLUS + (Push 4)
                      varref DualSinelon.newVal2 = 1.867632 (push 5) 1-4
-                 1.863247 + 1.867632 = 3.730879 (push 6)
+                 1.863247 + 1.867632 = 3.730879 (pop 2, push 3)
                   DIV / (Push 4)
                    INTEGER_CONST 4 (Push 5)
-               3.730879 / 4.000000 = 0.932720 (push 6)
+               3.730879 / 4.000000 = 0.932720 (pop 2, push 3)
              DualSinelon.location := 0.932720 (pop 2) 1-5
                 varref ext.ledCount = 3.000000 (push 3)
              DualSinelon.location *= 2.798159 (pop 2) 1-5
                  varref DualSinelon.location = 2.798159 (push 3) 1-5
                    INTEGER_CONST 0 (Push 4)
                      INTEGER_CONST 255 (Push 5)
-                Call colorFromPalette(0.000000, 255.000000) = 255.000000
+                Call colorFromPalette(0.000000, 255.000000) = 255.000000 (Pop 3, Push 4)
 arti_set_external_variable: leds(2.798159) := 255.000000
-             assign set ext.leds[2.798159] = 255.000000 (3)
+             assign set ext.leds[2.798159] = 255.000000 (Pop 2)
 Destruct activation record renderFrame
 setPixels(leds)
 closing Arti 0
@@ -436,6 +436,6 @@ Destruct Symbol locn2 (0)
 Destruct Symbol newVal2 (0)
 Destruct Symbol location (0)
 Destruct ScopedSymbolTable DualSinelon (0)
-definitionJson  10739 / 65% (23 0 6)
+definitionJson  11566 / 70% (26 0 6)
 parseTree       16092 / 24% (1 0 25)
 closed Arti 0 ✓

@@ -11,20 +11,20 @@ parseTree 65536 => 0 ✓
      found varref
        ASSIGN = -> [INTEGER_CONST 3] 6
      found assignoperator
-        INTEGER_CONST 3 -> [ID countAdd] 7
-       found factor
-      found term
-     found expr
+         INTEGER_CONST 3 -> [ID countAdd] 8
+        found factor
+       found term
+      found expr
     found assign
    found statement
      ID countAdd -> [ASSIGN =] 4
      found varref
        ASSIGN = -> [INTEGER_CONST 1] 6
      found assignoperator
-        INTEGER_CONST 1 -> [FUNCTION FUNCTION] 7
-       found factor
-      found term
-     found expr
+         INTEGER_CONST 1 -> [FUNCTION FUNCTION] 8
+        found factor
+       found term
+      found expr
     found assign
    found statement
      FUNCTION FUNCTION -> [ID renderFrame] 4
@@ -37,12 +37,12 @@ parseTree 65536 => 0 ✓
          found varref
            ASSIGN+ += -> [ID countAdd] 10
          found assignoperator
+              ID countAdd -> [IF IF] 13
              ID countAdd -> [IF IF] 12
-            ID countAdd -> [IF IF] 11
-            found varref
-           found factor
-          found term
-         found expr
+             found varref
+            found factor
+           found term
+          found expr
         found assign
        found statement
          IF IF -> [LPAREN (] 8
@@ -63,14 +63,14 @@ parseTree 65536 => 0 ✓
              found varref
                ASSIGN = -> [INTEGER_CONST 0] 14
              found assignoperator
-                INTEGER_CONST 0 -> [MINUS -] 15
-               found factor
-              found term
-                MINUS - -> [INTEGER_CONST 1] 15
-                 INTEGER_CONST 1 -> [RCURL }] 16
+                 INTEGER_CONST 0 -> [MINUS -] 16
                 found factor
                found term
-             found expr
+                 MINUS - -> [INTEGER_CONST 1] 16
+                  INTEGER_CONST 1 -> [RCURL }] 17
+                 found factor
+                found term
+              found expr
             found assign
            found statement
           RCURL } -> [IF IF] 9
@@ -95,10 +95,10 @@ parseTree 65536 => 0 ✓
              found varref
                ASSIGN = -> [INTEGER_CONST 1] 14
              found assignoperator
-                INTEGER_CONST 1 -> [RCURL }] 15
-               found factor
-              found term
-             found expr
+                 INTEGER_CONST 1 -> [RCURL }] 16
+                found factor
+               found term
+              found expr
             found assign
            found statement
           RCURL } -> [RCURL }] 9
@@ -150,24 +150,24 @@ parseTree 65536 => 0 ✓
   RCURL } 1
  found block
 Symbol program Parsed until (30,0) 366 of 366
-definitionTree 10739 / 65% (23 0 6)
+definitionTree 11566 / 70% (26 0 6)
 parseTree      10283 / 15% (1 0 22)
 garbageCollect 7211 / 11%
 Destruct Lexer
 parse 0 ✓
 
 Optimizer
-        symbol to shrink factor in term = {"INTEGER_CONST":"3"} from {"factor":{"INTEGER_CONST":"3"}}
-        symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
-             symbol to shrink factor in term = {"varref":{"ID":"countAdd"}} from {"factor":{"varref":{"ID":"countAdd"}}}
-             symbol to shrink factor in term = {"varref":{"ID":"pixelCounter"}} from {"factor":{"varref":{"ID":"pixelCounter"}}}
-               symbol to shrink factor in term = {"INTEGER_CONST":"15"} from {"factor":{"INTEGER_CONST":"15"}}
-                  symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
-                    symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
-             symbol to shrink factor in term = {"varref":{"ID":"pixelCounter"}} from {"factor":{"varref":{"ID":"pixelCounter"}}}
-               symbol to shrink factor in term = {"INTEGER_CONST":"3"} from {"factor":{"INTEGER_CONST":"3"}}
-                  symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
-              symbol to shrink factor in term = {"varref":{"ID":"i"}} from {"factor":{"varref":{"ID":"i"}}}
+        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"3"}} from {"term":{"factor":{"INTEGER_CONST":"3"}},"*":["multiple"]}
+        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"varref":{"ID":"countAdd"}}} from {"term":{"factor":{"varref":{"ID":"countAdd"}}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"GT":">"},{"term":{"factor":{"INTEGER_CONST":"15"},"*":["multiple"]}}]}
+               symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"15"}} from {"term":{"factor":{"INTEGER_CONST":"15"}}}
+                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+                    symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+             symbol to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"LT":"<"},{"term":{"factor":{"INTEGER_CONST":"3"},"*":["multiple"]}}]}
+               symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"3"}} from {"term":{"factor":{"INTEGER_CONST":"3"}}}
+                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+              symbol to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}},"*":["multiple"]}
 optimize 0 ✓
 
 Analyzer
@@ -178,8 +178,8 @@ Analyzer
      assign countAdd = (4)
      Function PhaseShift.renderFrame
          assign pixelCounter = (8)
+         +=
             VarRef found PhaseShift.countAdd (11)
-         asop +=
             VarRef found PhaseShift.pixelCounter (11)
               assign countAdd = (13)
             VarRef found PhaseShift.pixelCounter (11)
@@ -209,82 +209,82 @@ Interpret main 0 ✓
          Call renderFrame (1)
                 varref PhaseShift.countAdd = 1.000000 (push 1) 1-1
              PhaseShift.pixelCounter += 4.000000 (pop 0) 1-0
-             If (0)
-             if condition
+             If (stack 0)
+             condition
                 varref PhaseShift.pixelCounter = 4.000000 (push 1) 1-0
                  GT > (Push 2)
                   INTEGER_CONST 15 (Push 3)
-              4.000000 > 15.000000 = 0.000000 (push 4)
+              4.000000 > 15.000000 = 0.000000 (pop 0, push 1)
              (pop 0)
-             If (0)
-             if condition
+             If (stack 0)
+             condition
                 varref PhaseShift.pixelCounter = 4.000000 (push 1) 1-0
                  LT < (Push 2)
                   INTEGER_CONST 3 (Push 3)
-              4.000000 < 3.000000 = 0.000000 (push 4)
+              4.000000 < 3.000000 = 0.000000 (pop 0, push 1)
              (pop 0)
 Destruct activation record renderFrame
                 varref renderLed.i = 0.000000 (push 1) 2-0
                    varref renderLed.i = 0.000000 (push 2) 2-0
                     MUL * (Push 3)
                      varref PhaseShift.pixelCounter = 4.000000 (push 4) 1-0
-                 0.000000 * 4.000000 = 0.000000 (push 5)
+                 0.000000 * 4.000000 = 0.000000 (pop 1, push 2)
 setPixelColor(0.000000, 0.000000)
-             Call setPixelColor(0.000000, 0.000000)
+             Call setPixelColor(0.000000, 0.000000) (Pop 0)
                 varref renderLed.i = 1.000000 (push 1) 2-0
                    varref renderLed.i = 1.000000 (push 2) 2-0
                     MUL * (Push 3)
                      varref PhaseShift.pixelCounter = 4.000000 (push 4) 1-0
-                 1.000000 * 4.000000 = 4.000000 (push 5)
+                 1.000000 * 4.000000 = 4.000000 (pop 1, push 2)
 setPixelColor(1.000000, 4.000000)
-             Call setPixelColor(1.000000, 4.000000)
+             Call setPixelColor(1.000000, 4.000000) (Pop 0)
                 varref renderLed.i = 2.000000 (push 1) 2-0
                    varref renderLed.i = 2.000000 (push 2) 2-0
                     MUL * (Push 3)
                      varref PhaseShift.pixelCounter = 4.000000 (push 4) 1-0
-                 2.000000 * 4.000000 = 8.000000 (push 5)
+                 2.000000 * 4.000000 = 8.000000 (pop 1, push 2)
 setPixelColor(2.000000, 8.000000)
-             Call setPixelColor(2.000000, 8.000000)
+             Call setPixelColor(2.000000, 8.000000) (Pop 0)
 Destruct activation record renderLed
          Call renderFrame (1)
                 varref PhaseShift.countAdd = 1.000000 (push 1) 1-1
              PhaseShift.pixelCounter += 5.000000 (pop 0) 1-0
-             If (0)
-             if condition
+             If (stack 0)
+             condition
                 varref PhaseShift.pixelCounter = 5.000000 (push 1) 1-0
                  GT > (Push 2)
                   INTEGER_CONST 15 (Push 3)
-              5.000000 > 15.000000 = 0.000000 (push 4)
+              5.000000 > 15.000000 = 0.000000 (pop 0, push 1)
              (pop 0)
-             If (0)
-             if condition
+             If (stack 0)
+             condition
                 varref PhaseShift.pixelCounter = 5.000000 (push 1) 1-0
                  LT < (Push 2)
                   INTEGER_CONST 3 (Push 3)
-              5.000000 < 3.000000 = 0.000000 (push 4)
+              5.000000 < 3.000000 = 0.000000 (pop 0, push 1)
              (pop 0)
 Destruct activation record renderFrame
                 varref renderLed.i = 0.000000 (push 1) 2-0
                    varref renderLed.i = 0.000000 (push 2) 2-0
                     MUL * (Push 3)
                      varref PhaseShift.pixelCounter = 5.000000 (push 4) 1-0
-                 0.000000 * 5.000000 = 0.000000 (push 5)
+                 0.000000 * 5.000000 = 0.000000 (pop 1, push 2)
 setPixelColor(0.000000, 0.000000)
-             Call setPixelColor(0.000000, 0.000000)
+             Call setPixelColor(0.000000, 0.000000) (Pop 0)
                 varref renderLed.i = 1.000000 (push 1) 2-0
                    varref renderLed.i = 1.000000 (push 2) 2-0
                     MUL * (Push 3)
                      varref PhaseShift.pixelCounter = 5.000000 (push 4) 1-0
-                 1.000000 * 5.000000 = 5.000000 (push 5)
+                 1.000000 * 5.000000 = 5.000000 (pop 1, push 2)
 setPixelColor(1.000000, 5.000000)
-             Call setPixelColor(1.000000, 5.000000)
+             Call setPixelColor(1.000000, 5.000000) (Pop 0)
                 varref renderLed.i = 2.000000 (push 1) 2-0
                    varref renderLed.i = 2.000000 (push 2) 2-0
                     MUL * (Push 3)
                      varref PhaseShift.pixelCounter = 5.000000 (push 4) 1-0
-                 2.000000 * 5.000000 = 10.000000 (push 5)
+                 2.000000 * 5.000000 = 10.000000 (pop 1, push 2)
 setPixelColor(2.000000, 10.000000)
-             Call setPixelColor(2.000000, 10.000000)
+             Call setPixelColor(2.000000, 10.000000) (Pop 0)
 Destruct activation record renderLed
 closing Arti 0
 Destruct callstack
@@ -297,6 +297,6 @@ Destruct Symbol countAdd (0)
 Destruct Symbol renderFrame (0)
 Destruct Symbol renderLed (0)
 Destruct ScopedSymbolTable PhaseShift (0)
-definitionJson  10739 / 65% (23 0 6)
+definitionJson  11566 / 70% (26 0 6)
 parseTree       8779 / 13% (1 0 21)
 closed Arti 0 ✓

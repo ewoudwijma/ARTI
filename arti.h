@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti.h
-   @version 0.2.1
-   @date    20211212
+   @version 0.2.2
+   @date    20211216
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
    @remarks
@@ -16,32 +16,29 @@
           - Definition improvements
             - support string (e.g. for print)
             - add integer and string stacks
-            - Add unary operators
-            - Add ++, --
             - print every x seconds (to use it in loops. e.g. to show free memory)
             - reserved words (ext functions and variables cannot be used as variables)
             - check on return values
             - arrays (indices) for varref
           - WLED improvements
             - rename program to sketch?
-   @done
-          - add button to show(edit) wled file in wled segments
-          - upload files in wled ui (instead of /edit)
-          - arti_wled include setup and loop...
-          - update images to arti repo
-          - add upload presets button...
-          - underscores in ids 
-          - assigned variables global?
-   @done?
    @progress
           - SetPixelColor without colorwheel
           - extend errorOccurred and add warnings (continue) next to errors (stop). Include stack full/empty
           - WLED: *arti in SEGENV.data: not working well as change mode will free(data)
           - move code from interpreter to analyzer to speed up interpreting
+   @done?
+   @done
+          - change doubles to floats (faster!)
+          - Conditional expression ?x?a:b
+          - Add unary operators: -1, ++, --
+          - support .12345 notation
+          - bug fix !=
    @todo
           - check why statement is not 'shrinked'
           - minimize value["x"]
-          - make default work in js
+          - make default work in js (remove default as we have now load template)
+          - save log after first run of loop to get runtime errors included (or 30 iterations to also capture any stack overflows)
   */
 
 #pragma once
@@ -183,7 +180,7 @@ void artiPrintf(char const * format, ...)
 #define fileNameLength 50
 #define arrayLength 30
 
-#define doubleNull -32768
+#define floatNull -32768
 
 const char * stringOrEmpty(const char *charS)  {
   if (charS == nullptr)
@@ -222,7 +219,9 @@ enum Operators
   F_greaterThen,
   F_greaterThenOrEqual,
   F_and,
-  F_or
+  F_or,
+  F_plusplus,
+  F_minmin
 };
 
 const char * operatorToString(uint8_t key)
@@ -279,6 +278,12 @@ const char * operatorToString(uint8_t key)
   case F_or:
     return "||";
     break;
+  case F_plusplus:
+    return "++";
+    break;
+  case F_minmin:
+    return "--";
+    break;
   }
   return "unknown key";
 }
@@ -294,6 +299,7 @@ enum Constructs
   F_VarRef,
   F_For,
   F_If,
+  F_Cex,
   F_Expr,
   F_Term
 };
@@ -328,6 +334,9 @@ const char * constructToString(uint8_t key)
   case F_If:
     return "if";
     break;
+  case F_Cex:
+    return "cex";
+    break;
   case F_Expr:
     return "expr";
     break;
@@ -358,6 +367,8 @@ uint8_t stringToConstruct(const char * construct)
     return F_For;
   else if (strcmp(construct, "if") == 0)
     return F_If;
+  else if (strcmp(construct, "cex") == 0)
+    return F_Cex;
   else if (strcmp(construct, "expr") == 0)
     return F_Expr;
   else if (strcmp(construct, "term") == 0)
@@ -446,7 +457,8 @@ class Lexer {
       strcpy(current_token.value, "");
 
       char result[charLength] = "";
-      while (this->current_char != -1 && isdigit(this->current_char)) {
+      while (this->current_char != -1 && isdigit(this->current_char)) 
+      {
         result[strlen(result)] = this->current_char;
         this->advance();
       }
@@ -537,7 +549,7 @@ class Lexer {
           return;
         }
         
-        if (isdigit(this->current_char)) {
+        if (isdigit(this->current_char) || this->current_char == '.') {
           this->number();
           return;
         }
@@ -728,7 +740,7 @@ class ActivationRecord
     char type[charLength];
     int nesting_level;
     // char charMembers[charLength][nrOfVariables];
-    double doubleMembers[nrOfVariables];
+    float floatMembers[nrOfVariables];
     char lastSet[charLength];
     uint8_t lastSetIndex;
 
@@ -750,10 +762,10 @@ class ActivationRecord
     //   strcpy(charMembers[index], value);
     // }
 
-    void set(uint8_t index, double value) 
+    void set(uint8_t index, float value) 
     {
       lastSetIndex = index;
-      doubleMembers[index] = value;
+      floatMembers[index] = value;
     }
 
     // const char * getChar(uint8_t index) 
@@ -761,9 +773,9 @@ class ActivationRecord
     //   return charMembers[index];
     // }
 
-    double getDouble(uint8_t index) 
+    float getFloat(uint8_t index) 
     {
-      return doubleMembers[index];
+      return floatMembers[index];
     }
 
 }; //ActivationRecord
@@ -821,8 +833,8 @@ class ValueStack
 {
 private:
 public:
-  // char charStack[arrayLength][charLength]; //currently only doubleStack used.
-  double doubleStack[arrayLength];
+  // char charStack[arrayLength][charLength]; //currently only floatStack used.
+  float floatStack[arrayLength];
   uint8_t stack_index = 0;
 
   ValueStack() 
@@ -839,25 +851,25 @@ public:
   //     ERROR_ARTI("Push charStack full %u of %u\n", stack_index, arrayLength);
   //   else if (value == nullptr) {
   //     strcpy(charStack[stack_index++], "empty");
-  //     ERROR_ARTI("Push null pointer on double stack\n");
+  //     ERROR_ARTI("Push null pointer on float stack\n");
   //   }
   //   else
   //     // RUNLOG_ARTI("calc push %s %s\n", key, value);
   //     strcpy(charStack[stack_index++], value);
   // }
 
-  void push(double value) 
+  void push(float value) 
   {
     if (stack_index >= arrayLength) 
     {
-      ERROR_ARTI("Push doubleStack full %u of %u\n", stack_index, arrayLength);
+      ERROR_ARTI("Push floatStack full %u of %u\n", stack_index, arrayLength);
       errorOccurred = true;
     }
-    else if (value == doubleNull)
-      ERROR_ARTI("Push null value on double stack\n");
+    else if (value == floatNull)
+      ERROR_ARTI("Push null value on float stack\n");
     else
       // RUNLOG_ARTI("calc push %s %s\n", key, value);
-      doubleStack[stack_index++] = value;
+      floatStack[stack_index++] = value;
   }
 
   // const char * peekChar() {
@@ -865,10 +877,10 @@ public:
   //   return charStack[stack_index-1];
   // }
 
-  double peekDouble() 
+  float peekFloat() 
   {
-    // RUNLOG_ARTI("Calc Peek %s\n", doubleStack[stack_index-1]);
-    return doubleStack[stack_index-1];
+    // RUNLOG_ARTI("Calc Peek %s\n", floatStack[stack_index-1]);
+    return floatStack[stack_index-1];
   }
 
   // const char * popChar() {
@@ -884,17 +896,17 @@ public:
   //   }
   // }
 
-  double popDouble() 
+  float popFloat() 
   {
     if (stack_index>0) 
     {
       stack_index--;
-      return doubleStack[stack_index];
+      return floatStack[stack_index];
     }
     else 
     {
-      ERROR_ARTI("Pop doubleStack empty\n");
-    // RUNLOG_ARTI("Calc Pop %s\n", doubleStack[stack_index]);
+      ERROR_ARTI("Pop floatStack empty\n");
+    // RUNLOG_ARTI("Calc Pop %s\n", floatStack[stack_index]);
       errorOccurred = true;
       return -1;
     }
@@ -917,7 +929,7 @@ private:
   CallStack *callStack = nullptr;
   ValueStack *valueStack = nullptr;
 
-  uint8_t stages = 5; //for debugging: 1:parseFile, 2:Lexer, 3:parse, 4:analyze, 5:interpret should be 5 if no debugging
+  uint8_t stages = 5; //for debugging: 0:parseFile, 1:Lexer, 2:parse, 3:optimize, 4:analyze, 5:interpret should be 5 if no debugging
 
   char logFileName[fileNameLength];
 
@@ -933,9 +945,9 @@ public:
   }
 
   //defined in arti_definition.h e.g. arti_wled.h!
-  double arti_external_function(uint8_t function, double par1 = doubleNull, double par2 = doubleNull, double par3 = doubleNull, double par4 = doubleNull, double par5 = doubleNull);
-  double arti_get_external_variable(uint8_t variable, double par1 = doubleNull, double par2 = doubleNull, double par3 = doubleNull);
-  void arti_set_external_variable(double value, uint8_t variable, double par1 = doubleNull, double par2 = doubleNull, double par3 = doubleNull);
+  float arti_external_function(uint8_t function, float par1 = floatNull, float par2 = floatNull, float par3 = floatNull, float par4 = floatNull, float par5 = floatNull);
+  float arti_get_external_variable(uint8_t variable, float par1 = floatNull, float par2 = floatNull, float par3 = floatNull);
+  void arti_set_external_variable(float value, uint8_t variable, float par1 = floatNull, float par2 = floatNull, float par3 = floatNull);
   bool loop(); 
   
   uint8_t parse(JsonVariant parseTree, const char * symbol_name, char operatorx, JsonVariant expression, uint8_t depth = 0) 
@@ -1115,9 +1127,18 @@ public:
           }
           else //success
           {
+            DEBUG_ARTI("%s found %s\n", spaces+50-depth, nextSymbol_name);
+
             //parseTree optimization moved to optimize function
 
-            DEBUG_ARTI("%s found %s\n", spaces+50-depth, nextSymbol_name);
+            // if (parseTree.is<JsonObject>() )//&& parseTree.size() == 1
+            // {
+            //   JsonObject nextParseTreeObject = parseTree.as<JsonObject>();
+
+            //   DEBUG_ARTI("%s found %s:%s\n", spaces+50-depth, symbol_name, parseTree.as<std::string>().c_str());
+            //   DEBUG_ARTI("%s found %s:%s\n", spaces+50-depth, nextSymbol_name, nextParseTree.as<std::string>().c_str());
+            // }
+
           }
         } // if symbol
 
@@ -1257,7 +1278,7 @@ public:
                   strcpy(param_type, "notype");
 
                 //check if external variable
-                bool found = false;
+                bool externalFound = false;
                 uint8_t index = 0;
                 for (JsonPair externalsPair: definitionJson["EXTERNALS"].as<JsonObject>()) {
                   if (strcmp(variable_name, externalsPair.key().c_str()) == 0) {
@@ -1266,12 +1287,12 @@ public:
                     else
                       value["external"] = index; //add external index to parseTree
                     ANDBG_ARTI("%s Ext Variable found %s (%u) %s\n", spaces+50-depth, variable_name, depth, key);
-                    found = true;
+                    externalFound = true;
                   }
                   index++;
                 }
 
-                if (!found) {
+                if (!externalFound) {
                   Symbol* var_symbol = current_scope->lookup(variable_name); //lookup here and parent scopes
                   if (construct == F_VarRef) 
                   {
@@ -1310,18 +1331,11 @@ public:
                 {
                   ANDBG_ARTI("%s %s %s = (%u)\n", spaces+50-depth, key, variable_name, depth);
 
-                  if (!value["expr"].isNull()) 
-                  {
-                    analyze(value, "expr", current_scope, depth + 1);
-                  }
-                  else
-                    ERROR_ARTI("%s %s %s: no expr in parseTree\n", spaces+50-depth, key, variable_name); 
-
                   if (!value["assignoperator"].isNull()) 
                   {
                     JsonObject asop = value["assignoperator"];
                     JsonObject::iterator asopBegin = asop.begin();
-                    ANDBG_ARTI("%s asop %s\n", spaces+50-depth, asopBegin->value().as<std::string>().c_str());
+                    ANDBG_ARTI("%s %s\n", spaces+50-depth, asopBegin->value().as<std::string>().c_str());
                     if (strcmp(asopBegin->value(), "+=") == 0) 
                       value["assignoperator"] = F_plus;
                     else if (strcmp(asopBegin->value(), "-=") == 0) 
@@ -1330,7 +1344,17 @@ public:
                       value["assignoperator"] = F_multiplication;
                     else if (strcmp(asopBegin->value(), "/=") == 0) 
                       value["assignoperator"] = F_division;
+                    else if (strcmp(asopBegin->value(), "++") == 0) 
+                      value["assignoperator"] = F_plusplus;
+                    else if (strcmp(asopBegin->value(), "--") == 0) 
+                      value["assignoperator"] = F_minmin;
                   }
+
+                  if (!value["expr"].isNull()) 
+                    analyze(value, "expr", current_scope, depth + 1);
+                  else if (value["assignoperator"].as<uint8_t>() != F_plusplus && value["assignoperator"].as<uint8_t>() != F_minmin)
+                    ERROR_ARTI("%s %s %s: Assign without expression\n", spaces+50-depth, key, variable_name); 
+
                 }
 
                 if (!value["indices"].isNull()) {
@@ -1344,7 +1368,7 @@ public:
                 const char * function_name = value["ID"];
 
                 //check if external function
-                bool found = false;
+                bool externalFound = false;
                 uint8_t index = 0;
                 for (JsonPair externalsPair: definitionJson["EXTERNALS"].as<JsonObject>()) 
                 {
@@ -1354,12 +1378,12 @@ public:
                     value["external"] = index; //add external index to parseTree 
                     if (!value["actuals"].isNull())
                       analyze(value["actuals"], nullptr, current_scope, depth + 1);
-                    found = true;
+                    externalFound = true;
                   }
                   index++;
                 }
 
-                if (!found) 
+                if (!externalFound) 
                 {
                   Symbol* function_symbol = current_scope->lookup(function_name); //lookup here and parent scopes
                   if (function_symbol != nullptr) 
@@ -1381,8 +1405,7 @@ public:
             } //switch
 
           } // is symbol_name
-
-          else if (!this->definitionJson["TOKENS"][key].isNull()) 
+          else if (!this->definitionJson["TOKENS"][key].isNull()) // if token
           {
             const char * valueStr = value;
 
@@ -1483,54 +1506,68 @@ public:
           {
             //- check if a symbol is not used in analyzer / interpreter and has only one element: go to the parent and replace itself with its child (shrink)
 
+            // DEBUG_ARTI("%s symbol try to shrink %s : %s (%u)\n", spaces+50-depth, key, value.as<std::string>().c_str(), value.size());
+
             JsonObject::iterator objectIterator = value.as<JsonObject>().begin();
 
-            if (!definitionJson[objectIterator->key().c_str()].isNull()) 
+            if (!definitionJson[objectIterator->key().c_str()].isNull())  // if value key is a symbol
             {
-              // //symbolObjectKey should be a symbol on itself and the value must consist of one element
-              // bool found = false;
-              // for (JsonPair semanticsPair : definitionJson["SEMANTICS"].as<JsonObject>()) 
+              // if (objectIterator->value().is<JsonObject>() && objectIterator->value().size() == 1) //
               // {
-              //   const char * semanticsKey = semanticsPair.key().c_str();
-              //   JsonVariant semanticsValue = semanticsPair.value();
+              //   // JsonObject::iterator objectIterator2 = objectIterator->value().as<JsonObject>().begin();
 
-              //   if (strcmp(objectIterator->key().c_str(), semanticsKey) == 0){
-              //     found = true;
-              //     break;
+              //   // if (objectIterator2->value().is<JsonObject>() ) //&& objectIterator.size() == 1
+              //   {
+              //     DEBUG_ARTI("%s symbol to shrink %s : %s from %s\n", spaces+50-depth, key, value.as<std::string>().c_str(), parseTree.as<std::string>().c_str());
+              //     DEBUG_ARTI("%s symbol to shrink %s : %s\n", spaces+50-depth, objectIterator->key().c_str(), objectIterator->value().as<std::string>().c_str());
+              //     // DEBUG_ARTI("%s symbol to shrink %s : %s\n", spaces+50-depth, objectIterator2->key().c_str(), objectIterator2->value().as<std::string>().c_str());
+              //     DEBUG_ARTI("%s symbol to shrink replace %s\n", spaces+50-depth, parseTree[key].as<std::string>().c_str());
+              //     DEBUG_ARTI("%s symbol to shrink      by %s\n", spaces+50-depth, objectIterator->value().as<std::string>().c_str());
+              //     // parseTree[key][objectIterator->key().c_str()] = objectIterator2->value();
+              //     parseTree[key] = objectIterator->value();
               //   }
-              //   for (JsonPair semanticsVariables : semanticsValue.as<JsonObject>()) {
-              //     JsonVariant variableValue = semanticsVariables.value();
-              //     if (variableValue.is<const char *>() && strcmp(objectIterator->key().c_str(), variableValue.as<const char *>()) == 0) {
-              //       found = true;
-              //       break;
-              //     }
-              //   }
+              //   // else
+              //   // {
+              //   //   DEBUG_ARTI("%s symbol to shrink2 %s : %s\n", spaces+50-depth, objectIterator2->key().c_str(), objectIterator2->value().as<std::string>().c_str());
+              //   // }
               // }
-              
-              if (stringToConstruct(objectIterator->key().c_str()) == 255)
-              // if (false && !found) // not used in analyzer / interpreter
+              // else
+              //   DEBUG_ARTI("%s value should be an object %s in %s : %s from %s\n", spaces+50-depth, objectIterator->key().c_str(), key, objectIterator->value().as<std::string>().c_str(), value.as<std::string>().c_str());
+              if (stringToConstruct(objectIterator->key().c_str()) == 255) // if key not a construct
+              // if (objectIterator->value().size() == 1)
               {
-                DEBUG_ARTI("%s symbol to shrink %s in %s = %s from %s\n", spaces+50-depth, objectIterator->key().c_str(), key, objectIterator->value().as<std::string>().c_str(), parseTree[key].as<std::string>().c_str());
-                parseTree[key] = objectIterator->value();
+                DEBUG_ARTI("%s symbol to shrink %s in %s : %s from %s\n", spaces+50-depth, objectIterator->key().c_str(), key, value.as<std::string>().c_str(), parseTree.as<std::string>().c_str());
+                // DEBUG_ARTI("%s symbol to shrink %s in %s = %s from %s\n", spaces+50-depth, objectIterator->key().c_str(), key, objectIterator->value().as<std::string>().c_str(), parseTree[key].as<std::string>().c_str());
+                 parseTree[key] = objectIterator->value();
+
+                // parseTree[key]["old"] = objectIterator->key();
+
+                // parseTreePair.key() = objectIterator->key();
+                // parseTreePair._key = objectIterator->key();
+                // parseTree[objectIterator->key()] = objectIterator->value();
+                // parseTree.remove(key);
+                // parseTree[key][objectIterator2->key().c_str()] = objectIterator2->value();
               }
-            } // symbolObjectKey should by a symbol on itself and value is one element
-          } // symbolObjectKey should by a symbol on itself and value is one element
+            }
+          } //shrink
 
           visitedAlready = true;
         }
-        else if (!this->definitionJson["TOKENS"][key].isNull()) {
+        else if (!this->definitionJson["TOKENS"][key].isNull()) // if key is token
+        {
           const char * valueStr = value;
-          if (strcmp(key, "ID") == 0 || strcmp(key, "INTEGER_CONST") == 0 || strcmp(key, "REAL_CONST") == 0 || 
-                          strcmp(key, "INTEGER") == 0 || strcmp(key, "REAL") == 0 || 
-                          strcmp(valueStr, "+") == 0 || strcmp(valueStr, "-") == 0 || strcmp(valueStr, "*") == 0 || strcmp(valueStr, "/") == 0 || strcmp(valueStr, "%") == 0 || 
-                          strcmp(valueStr, "+=") == 0 || strcmp(valueStr, "-=") == 0 || 
-                          strcmp(valueStr, "*=") == 0 || strcmp(valueStr, "/=") == 0 || 
-                          strcmp(valueStr, "<<") == 0 || strcmp(valueStr, ">>") == 0 || 
-                          strcmp(valueStr, "==") == 0 || strcmp(valueStr, "!=") == 0 || 
-                          strcmp(valueStr, "&&") == 0 || strcmp(valueStr, "||") == 0 || 
-                          strcmp(valueStr, ">") == 0 || strcmp(valueStr, ">=") == 0 || strcmp(valueStr, "<") == 0 || strcmp(valueStr, "<=") == 0) {
-          }
-          else 
+          //if key not one of below tokens then remove
+          if (strcmp(key, "ID") != 0 && strcmp(key, "INTEGER_CONST") != 0 && strcmp(key, "REAL_CONST") != 0 && 
+                          strcmp(key, "INTEGER") != 0 && strcmp(key, "REAL") != 0 && 
+                          strcmp(valueStr, "+") != 0 && strcmp(valueStr, "-") != 0 && strcmp(valueStr, "*") != 0 && strcmp(valueStr, "/") != 0 && strcmp(valueStr, "%") != 0 && 
+                          strcmp(valueStr, "+=") != 0 && strcmp(valueStr, "-=") != 0 && 
+                          strcmp(valueStr, "*=") != 0 && strcmp(valueStr, "/=") != 0 && 
+                          strcmp(valueStr, "<<") != 0 && strcmp(valueStr, ">>") != 0 && 
+                          strcmp(valueStr, "==") != 0 && strcmp(valueStr, "!=") != 0 && 
+                          strcmp(valueStr, "&&") != 0 && strcmp(valueStr, "||") != 0 && 
+                          strcmp(valueStr, ">") != 0 && strcmp(valueStr, ">=") != 0 && strcmp(valueStr, "<") != 0 && strcmp(valueStr, "<=") != 0 &&
+                          strcmp(valueStr, "++") != 0 && strcmp(valueStr, "--") != 0
+              )
           {
             // DEBUG_ARTI("%s remove key/value %s %s (%u)\n", spaces+50-depth, key, valueStr, depth);
             parseTree.remove(key);
@@ -1538,7 +1575,7 @@ public:
 
           visitedAlready = true;
         }
-        else if (strcmp(key, "*") == 0 ) 
+        else if (strcmp(key, "*") == 0 ) // multiple
         {
           optimize(value, depth + 1);
 
@@ -1550,11 +1587,10 @@ public:
         else
           DEBUG_ARTI("%s unknown status for %s %s (%u)\n", spaces+50-depth, key, value.as<std::string>().c_str(), depth);
 
-          if (!visitedAlready && value.size() > 0) // if size == 0 then injected key/value like operator
-            optimize(value, depth + 1);
+        if (!visitedAlready && value.size() > 0) // if size == 0 then injected key/value like operator
+          optimize(value, depth + 1);
 
       } ///for elements in object
-
     }
     else if (parseTree.is<JsonArray>())
     {
@@ -1570,26 +1606,19 @@ public:
           // DEBUG_ARTI("%s remove array element 'multiple' of %s array (%u)\n", spaces+50-depth, element.as<std::string>().c_str(), arrayIndex);
           parseTreeArray.remove(it);
         }
-        else if (it->size() == 0)
+        else if (it->size() == 0) //remove {} elements (added by * arrays, don't know where added)
         {
           // DEBUG_ARTI("%s remove array element {} of %s array (%u)\n", spaces+50-depth, element.as<std::string>().c_str(), arrayIndex);
-          parseTreeArray.remove(it); //remove {} elements (added by * arrays, don't know where added)
+          parseTreeArray.remove(it);
         }
         else 
           optimize(*it, depth + 1);
 
         arrayIndex++;
       }
-
-      // for (JsonVariant newParseTree: parseTree.as<JsonArray>()) {
-      //   DEBUG_ARTI("%s Array element %s\n", spaces+50-depth, newParseTree.as<std::string>().c_str());
-      //   if (newParseTree.is<JsonObject>() || newParseTree.is<JsonArray>())
-      //     optimize(newParseTree, depth + 1);
-      //   else
-      //     ERROR_ARTI("%s Error: parseTree not object %s (%u)\n", spaces+50-depth, newParseTree.as<std::string>().c_str(), depth);
-      // }
     }
-    else { //not array
+    else //not array
+    {
       // string element = parseTree;
       //for some weird reason this causes a crash on esp32
       ERROR_ARTI("%s Error: parseTree should be array or object %s (%u)\n", spaces+50-depth, parseTree.as<std::string>().c_str(), depth);
@@ -1673,31 +1702,32 @@ public:
                   if (!value["actuals"].isNull())
                     interpret(value["actuals"], nullptr, current_scope, depth + 1);
 
-                  double returnValue = doubleNull;
+                  float returnValue = floatNull;
 
-                  returnValue = arti_external_function(value["external"], valueStack->doubleStack[oldIndex]
-                                                                        , (valueStack->stack_index - oldIndex>1)?valueStack->doubleStack[oldIndex+1]:doubleNull
-                                                                        , (valueStack->stack_index - oldIndex>2)?valueStack->doubleStack[oldIndex+2]:doubleNull
-                                                                        , (valueStack->stack_index - oldIndex>3)?valueStack->doubleStack[oldIndex+3]:doubleNull
-                                                                        , (valueStack->stack_index - oldIndex>4)?valueStack->doubleStack[oldIndex+4]:doubleNull);
+                  returnValue = arti_external_function(value["external"], valueStack->floatStack[oldIndex]
+                                                                        , (valueStack->stack_index - oldIndex>1)?valueStack->floatStack[oldIndex+1]:floatNull
+                                                                        , (valueStack->stack_index - oldIndex>2)?valueStack->floatStack[oldIndex+2]:floatNull
+                                                                        , (valueStack->stack_index - oldIndex>3)?valueStack->floatStack[oldIndex+3]:floatNull
+                                                                        , (valueStack->stack_index - oldIndex>4)?valueStack->floatStack[oldIndex+4]:floatNull);
 
                   #if ARTI_PLATFORM != ARTI_ARDUINO // because arduino runs the code instead of showing the code
                     uint8_t lastIndex = oldIndex;
                     RUNLOG_ARTI("%s Call %s(", spaces+50-depth, function_name);
                     char sep[3] = "";
                     for (int i = oldIndex; i< valueStack->stack_index; i++) {
-                      RUNLOG_ARTI("%s%f", sep, valueStack->doubleStack[i]);
+                      RUNLOG_ARTI("%s%f", sep, valueStack->floatStack[i]);
                       strcpy(sep, ", ");
                     }
-                    if ( returnValue != doubleNull)
-                      RUNLOG_ARTI(") = %f\n", returnValue);
+                    if ( returnValue != floatNull)
+                      RUNLOG_ARTI(") = %f (Pop %u, Push %u)\n", returnValue, oldIndex, oldIndex + 1);
                     else
-                      RUNLOG_ARTI(")\n");
+                      RUNLOG_ARTI(") (Pop %u)\n", oldIndex);
+
                   #endif
 
                   valueStack->stack_index = oldIndex;
 
-                  if (returnValue != doubleNull)
+                  if (returnValue != floatNull)
                     valueStack->push(returnValue);
 
                 }
@@ -1720,8 +1750,8 @@ public:
                     {
                       if (function_symbol->function_scope->symbols[i]->symbol_type == F_Formal) //select formal parameters
                       {
-                        //determine type, for now assume double
-                        double result = valueStack->doubleStack[lastIndex++];
+                        //determine type, for now assume float
+                        float result = valueStack->floatStack[lastIndex++];
                         ar->set(function_symbol->function_scope->symbols[i]->scope_index, result);
                         RUNLOG_ARTI("%s Actual %s.%s = %f (pop %u)\n", spaces+50-depth, function_name, function_symbol->function_scope->symbols[i]->name, result, valueStack->stack_index);
                       }
@@ -1772,8 +1802,8 @@ public:
                   for (uint8_t i = oldIndex; i< valueStack->stack_index; i++) {
                     strcat(indices, sep);
                     char itoaChar[charLength];
-                    // itoa(valueStack->doubleStack[i], itoaChar, 10);
-                    snprintf(itoaChar, sizeof(itoaChar), "%f", valueStack->doubleStack[i]);
+                    // itoa(valueStack->floatStack[i], itoaChar, 10);
+                    snprintf(itoaChar, sizeof(itoaChar), "%f", valueStack->floatStack[i]);
                     strcat(indices, itoaChar);
                     strcpy(sep, ",");
                   }
@@ -1790,25 +1820,20 @@ public:
 
                   if (!value["expr"].isNull()) //value assignment
                     interpret(value, "expr", current_scope, depth + 1); //value pushed
-                  else 
-                  {
-                    ERROR_ARTI("%s Assign %s has no expr\n", spaces+50-depth, variable_name);
-                    valueStack->push(doubleNull);
-                  }
                 }
 
                 //check if external variable
                 if (!value["external"].isNull() || !value["varref"]["external"].isNull()) //added by Analyze
                 {
-                  double returnValue = doubleNull;
+                  float returnValue = floatNull;
 
                   if (construct == F_VarRef) { //get the value
 
-                    returnValue = arti_get_external_variable(variable_external, (valueStack->stack_index - oldIndex>0)?valueStack->doubleStack[oldIndex]:doubleNull, (valueStack->stack_index - oldIndex>1)?valueStack->doubleStack[oldIndex+1]:doubleNull);
+                    returnValue = arti_get_external_variable(variable_external, (valueStack->stack_index - oldIndex>0)?valueStack->floatStack[oldIndex]:floatNull, (valueStack->stack_index - oldIndex>1)?valueStack->floatStack[oldIndex+1]:floatNull);
 
               valueStack->stack_index = oldIndex;
 
-                    if (returnValue != doubleNull) 
+                    if (returnValue != floatNull) 
                     {
                       valueStack->push(returnValue);
                       RUNLOG_ARTI("%s %s ext.%s = %f (push %u)\n", spaces+50-depth, key, variable_name, returnValue, valueStack->stack_index); //key is variable_declaration name is ID
@@ -1818,11 +1843,11 @@ public:
                   }
                   else //assign: set the external value...
                   {
-                    returnValue = valueStack->popDouble(); //result of interpret value
+                    returnValue = valueStack->popFloat(); //result of interpret value
 
-                    arti_set_external_variable(returnValue, variable_external, (valueStack->stack_index - oldIndex>0)?valueStack->doubleStack[oldIndex]:doubleNull, (valueStack->stack_index - oldIndex>1)?valueStack->doubleStack[oldIndex+1]:doubleNull);
+                    arti_set_external_variable(returnValue, variable_external, (valueStack->stack_index - oldIndex>0)?valueStack->floatStack[oldIndex]:floatNull, (valueStack->stack_index - oldIndex>1)?valueStack->floatStack[oldIndex+1]:floatNull);
 
-                    RUNLOG_ARTI("%s %s set ext.%s%s = %f (%u)\n", spaces+50-depth, key, variable_name, indices, returnValue, valueStack->stack_index);
+                    RUNLOG_ARTI("%s %s set ext.%s%s = %f (Pop %u)\n", spaces+50-depth, key, variable_name, indices, returnValue, oldIndex);
               valueStack->stack_index = oldIndex;
                   }
                 }
@@ -1846,8 +1871,8 @@ public:
 
                   if (ar != nullptr) {
                     if (construct == F_VarRef) { //get the value
-                      //determine type, for now assume double
-                      double varValue = ar->getDouble(variable_index);
+                      //determine type, for now assume float
+                      float varValue = ar->getFloat(variable_index);
 
                       valueStack->push(varValue);
                       #if ARTI_PLATFORM != ARTI_ARDUINO  //for some weird reason this causes a crash on esp32
@@ -1861,39 +1886,45 @@ public:
                         switch (value["assignoperator"].as<uint8_t>()) 
                         {
                           case F_plus:
-                            ar->set(variable_index, ar->getDouble(variable_index) + valueStack->popDouble());
+                            ar->set(variable_index, ar->getFloat(variable_index) + valueStack->popFloat());
                             break;
                           case F_minus:
-                            ar->set(variable_index, ar->getDouble(variable_index) - valueStack->popDouble());
+                            ar->set(variable_index, ar->getFloat(variable_index) - valueStack->popFloat());
                             break;
                           case F_multiplication:
-                            ar->set(variable_index, ar->getDouble(variable_index) * valueStack->popDouble());
+                            ar->set(variable_index, ar->getFloat(variable_index) * valueStack->popFloat());
                             break;
                           case F_division: {
-                            double divisor = valueStack->popDouble();
+                            float divisor = valueStack->popFloat();
                             if (divisor == 0)
                             {
                               divisor = 1;
-                              ERROR_ARTI("%s /= division by 0 not possible, divisor ignored for %f\n", spaces+50-depth, ar->getDouble(variable_index));
+                              ERROR_ARTI("%s /= division by 0 not possible, divisor ignored for %f\n", spaces+50-depth, ar->getFloat(variable_index));
                             }
-                            ar->set(variable_index, ar->getDouble(variable_index) / divisor);
+                            ar->set(variable_index, ar->getFloat(variable_index) / divisor);
                             break;
                           }
+                          case F_plusplus:
+                            ar->set(variable_index, ar->getFloat(variable_index) + 1);
+                            break;
+                          case F_minmin:
+                            ar->set(variable_index, ar->getFloat(variable_index) - 1);
+                            break;
                         }
 
-                        RUNLOG_ARTI("%s %s.%s%s %s= %f (pop %u) %u-%u\n", spaces+50-depth, ar->name, variable_name, indices, operatorToString(value["assignoperator"]), ar->getDouble(variable_index), valueStack->stack_index, variable_level, variable_index);
+                        RUNLOG_ARTI("%s %s.%s%s %s= %f (pop %u) %u-%u\n", spaces+50-depth, ar->name, variable_name, indices, operatorToString(value["assignoperator"]), ar->getFloat(variable_index), valueStack->stack_index, variable_level, variable_index);
                       }
                       else 
                       {
-                        ar->set(variable_index, valueStack->popDouble());
-                        RUNLOG_ARTI("%s %s.%s%s := %f (pop %u) %u-%u\n", spaces+50-depth, ar->name, variable_name, indices, ar->getDouble(variable_index), valueStack->stack_index, variable_level, variable_index);
+                        ar->set(variable_index, valueStack->popFloat());
+                        RUNLOG_ARTI("%s %s.%s%s := %f (pop %u) %u-%u\n", spaces+50-depth, ar->name, variable_name, indices, ar->getFloat(variable_index), valueStack->stack_index, variable_level, variable_index);
                       }
                       valueStack->stack_index = oldIndex;
                     }
                   }
                   else { //unknown variable
                     ERROR_ARTI("%s %s %s unknown\n", spaces+50-depth, key, variable_name);
-                    valueStack->push(doubleNull);
+                    valueStack->push(floatNull);
                   }
                 } // ! founnd
                 visitedAlready = true;
@@ -1902,8 +1933,6 @@ public:
               case F_Expr:
               case F_Term: 
               {
-                // RUNLOG_ARTI("%s %s interpret < %s\n", spaces+50-depth, key, value.as<std::string>().c_str());
-
                 uint8_t oldIndex = valueStack->stack_index;
 
                 interpret(value, nullptr, current_scope, depth + 1); //pushes results
@@ -1913,13 +1942,13 @@ public:
                 // always 3, 5, 7 ... values
                 if (valueStack->stack_index - oldIndex >= 3) 
                 {
-                  double left = valueStack->doubleStack[oldIndex];
+                  float left = valueStack->floatStack[oldIndex];
                   for (int i = 3; i <= valueStack->stack_index - oldIndex; i += 2)
                   {
-                    uint8_t operatorx = valueStack->doubleStack[oldIndex + i - 2];
-                    double right = valueStack->doubleStack[oldIndex + i - 1];
+                    uint8_t operatorx = valueStack->floatStack[oldIndex + i - 2];
+                    float right = valueStack->floatStack[oldIndex + i - 1];
 
-                    double evaluation = 0;
+                    float evaluation = 0;
 
                     switch (operatorx) {
                       case F_plus: 
@@ -1983,15 +2012,26 @@ public:
                         ERROR_ARTI("%s Programming error: unknown operator %u\n", spaces+50-depth, operatorx);
                     }
 
-                    RUNLOG_ARTI("%s %f %s %f = %f (push %u)\n", spaces+50-depth, left, operatorToString(operatorx), right, evaluation, valueStack->stack_index+1);
+                    RUNLOG_ARTI("%s %f %s %f = %f (pop %u, push %u)\n", spaces+50-depth, left, operatorToString(operatorx), right, evaluation, valueStack->stack_index - i, valueStack->stack_index - i + 1);
 
                     left = evaluation;
-
                   }
 
                   valueStack->stack_index = oldIndex;
     
                   valueStack->push(left);
+                }
+                else if (valueStack->stack_index - oldIndex == 2) // unary: operator and 1 operand
+                {
+                  uint8_t operatorx = valueStack->floatStack[oldIndex];
+                  if (operatorx == F_minus) 
+                  {
+                    valueStack->stack_index = oldIndex;
+                    valueStack->push(-valueStack->floatStack[oldIndex + 1]);
+                    RUNLOG_ARTI("%s unary - %f (push %u)\n", spaces+50-depth, valueStack->floatStack[oldIndex + 1], valueStack->stack_index );
+                  }
+                  else
+                    RUNLOG_ARTI("%s unary operator not supported %u %s\n", spaces+50-depth, operatorx, operatorToString(operatorx));
                 }
 
                 visitedAlready = true;
@@ -2013,7 +2053,7 @@ public:
                   RUNLOG_ARTI("%s check to condition\n", spaces+50-depth);
                   interpret(value, "expr", current_scope, depth + 1); //pushes result of to
 
-                  double conditionResult = valueStack->popDouble();
+                  float conditionResult = valueStack->popFloat();
 
                   RUNLOG_ARTI("%s conditionResult (pop %u)\n", spaces+50-depth, valueStack->stack_index);
 
@@ -2034,9 +2074,9 @@ public:
                     else // conditionResult is a value (e.g. in pascal)
                     {
                       //get the variable from assignment
-                      double varValue = ar->getDouble(ar->lastSetIndex);
+                      float varValue = ar->getFloat(ar->lastSetIndex);
 
-                      double evaluation = varValue <= conditionResult;
+                      float evaluation = varValue <= conditionResult;
                       RUNLOG_ARTI("%s %s.(%u) %f <= %f = %f\n", spaces+50-depth, ar->name, ar->lastSetIndex, varValue, conditionResult, evaluation);
 
                       if (evaluation == 1) 
@@ -2065,12 +2105,12 @@ public:
               }  // case
               case F_If: 
               {
-                RUNLOG_ARTI("%s If (%u)\n", spaces+50-depth, valueStack->stack_index);
+                RUNLOG_ARTI("%s If (stack %u)\n", spaces+50-depth, valueStack->stack_index);
 
-                RUNLOG_ARTI("%s if condition\n", spaces+50-depth);
+                RUNLOG_ARTI("%s condition\n", spaces+50-depth);
                 interpret(value, "expr", current_scope, depth + 1);
 
-                double conditionResult = valueStack->popDouble();
+                float conditionResult = valueStack->popFloat();
 
                 RUNLOG_ARTI("%s (pop %u)\n", spaces+50-depth, valueStack->stack_index);
 
@@ -2078,6 +2118,25 @@ public:
                   interpret(value, "block", current_scope, depth + 1);
                 else
                   interpret(value, "elseBlock", current_scope, depth + 1);
+
+                visitedAlready = true;
+                break;
+              }  // case
+              case F_Cex: 
+              {
+                RUNLOG_ARTI("%s Cex (stack %u)\n", spaces+50-depth, valueStack->stack_index);
+
+                RUNLOG_ARTI("%s condition\n", spaces+50-depth);
+                interpret(value, "expr", current_scope, depth + 1);
+
+                float conditionResult = valueStack->popFloat();
+
+                RUNLOG_ARTI("%s (pop %u)\n", spaces+50-depth, valueStack->stack_index);
+
+                if (conditionResult == 1) //conditionResult is true
+                  interpret(value, "trueExpr", current_scope, depth + 1);
+                else
+                  interpret(value, "falseExpr", current_scope, depth + 1);
 
                 visitedAlready = true;
                 break;
@@ -2167,7 +2226,7 @@ public:
 
     MEMORY_ARTI("setup %u bytes free\n", FREE_SIZE);
 
-    if (stages < 1) {close(); return true;}
+    if (stages < 1) {closeLog(); close(); return true;}
     bool loadParseTreeFile = false;
 
     #if ARTI_PLATFORM == ARTI_ARDUINO
@@ -2212,8 +2271,8 @@ public:
     JsonObject::iterator objectIterator = definitionJson.begin();
     JsonObject metaData = objectIterator->value();
     const char * version = metaData["version"];
-    if (strcmp(version, "0.2.1") < 0) {
-      ERROR_ARTI("Version of definition.json file (%s) should be 0.2.1 or higher. Press Download wled.json\n", version);
+    if (strcmp(version, "0.2.2") < 0) {
+      ERROR_ARTI("Version of definition.json file (%s) should be 0.2.2 or higher. Press Download wled.json\n", version);
       closeLog();
       return false;
     }
@@ -2280,7 +2339,7 @@ public:
       #endif
     #endif
 
-    if (stages < 1) {close(); return true;}
+    if (stages < 1) {closeLog(); close(); return true;}
 
     if (!loadParseTreeFile) {
       parseTreeJson = parseTreeJsonDoc->as<JsonVariant>();
@@ -2288,7 +2347,7 @@ public:
       lexer = new Lexer(programText, definitionJson);
       lexer->get_next_token();
 
-      if (stages < 2) {close(); return true;}
+      if (stages < 2) {closeLog(); close(); return true;}
 
       uint8_t result = parse(parseTreeJson, startSymbol, '&', lexer->definitionJson[startSymbol], 0);
 
@@ -2332,29 +2391,31 @@ public:
 
     MEMORY_ARTI("parse %u ✓\n", FREE_SIZE);
 
-    if (stages < 3) {close(); return true;}
-
-    DEBUG_ARTI("\nOptimizer\n");
-    if (!optimize(parseTreeJson)) 
+    if (stages >= 3)
     {
-      ERROR_ARTI("Optimize failed\n");
-      closeLog();
-      return false;
+      DEBUG_ARTI("\nOptimizer\n");
+      if (!optimize(parseTreeJson)) 
+      {
+        ERROR_ARTI("Optimize failed\n");
+        closeLog();
+        return false;
+      }
+
+      MEMORY_ARTI("optimize %u ✓\n", FREE_SIZE);
+
+      if (stages >= 4)
+      {
+        ANDBG_ARTI("\nAnalyzer\n");
+        if (!analyze(parseTreeJson)) 
+        {
+          ERROR_ARTI("Analyze failed\n");
+          closeLog();
+          return false;
+        }
+
+        MEMORY_ARTI("analyze %u ✓\n", FREE_SIZE);
+      }
     }
-
-    MEMORY_ARTI("optimize %u ✓\n", FREE_SIZE);
-
-    if (stages < 4) {close(); return true;}
-
-    ANDBG_ARTI("\nAnalyzer\n");
-    if (!analyze(parseTreeJson)) 
-    {
-      ERROR_ARTI("Analyze failed\n");
-      closeLog();
-      return false;
-    }
-
-    MEMORY_ARTI("analyze %u ✓\n", FREE_SIZE);
 
     #ifdef ARTI_DEBUG // only write parseTree file if debug is on
       if (!loadParseTreeFile)
@@ -2362,7 +2423,7 @@ public:
       parseTreeFile.close();
     #endif
 
-    if (stages < 5) {close(); return true;}
+    if (stages < 5) {closeLog(); close(); return true;}
 
     //interpret main
     callStack = new CallStack();

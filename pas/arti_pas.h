@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_pas_plugin.h
-   @version 0.2.1
-   @date    20211212
+   @version 0.2.2
+   @date    20211216
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */
@@ -24,13 +24,13 @@ enum Externals
   F_printf
 };
 
-double ARTI::arti_external_function(uint8_t function, double par1, double par2, double par3, double par4, double par5) 
+float ARTI::arti_external_function(uint8_t function, float par1, float par2, float par3, float par4, float par5) 
 {
   switch (function)
   {
     case F_printf: {
-      if (par3 == doubleNull) {
-        if (par2 == doubleNull) {
+      if (par3 == floatNull) {
+        if (par2 == floatNull) {
           PRINT_ARTI("%s(%f)\n", "printf", par1);
         }
         else
@@ -38,7 +38,7 @@ double ARTI::arti_external_function(uint8_t function, double par1, double par2, 
       }
       else
         PRINT_ARTI("%s(%f, %f, %f)\n", "printf", par1, par2, par3);
-      return doubleNull;
+      return floatNull;
     }
   }
 
@@ -46,12 +46,12 @@ double ARTI::arti_external_function(uint8_t function, double par1, double par2, 
   return function;
 }
 
-double ARTI::arti_get_external_variable(uint8_t variable, double par1, double par2, double par3) 
+float ARTI::arti_get_external_variable(uint8_t variable, float par1, float par2, float par3) 
 {
-  return doubleNull;
+  return floatNull;
 }
 
-void ARTI::arti_set_external_variable(double value, uint8_t variable, double par1, double par2, double par3) {
+void ARTI::arti_set_external_variable(float value, uint8_t variable, float par1, float par2, float par3) {
 }
 
 bool ARTI::loop() {

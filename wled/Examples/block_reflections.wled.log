@@ -17,78 +17,78 @@ parseTree 65536 => 0 ✓
          found varref
            ASSIGN = -> [ID time] 10
          found assignoperator
-             ID time -> [LPAREN (] 12
-             LPAREN ( -> [REAL_CONST 0.1] 12
-                 REAL_CONST 0.1 -> [RPAREN )] 16
-                found factor
-               found term
-              found expr
-             found actuals
-             RPAREN ) -> [MUL *] 12
-            found call
-           found factor
-             MUL * -> [REAL_CONST 6.2832] 12
-             REAL_CONST 6.2832 -> [ID t1] 12
+              ID time -> [LPAREN (] 13
+              LPAREN ( -> [REAL_CONST 0.1] 13
+                  REAL_CONST 0.1 -> [RPAREN )] 17
+                 found factor
+                found term
+               found expr
+              found actuals
+              RPAREN ) -> [MUL *] 13
+             found call
             found factor
-          found term
-         found expr
+              MUL * -> [REAL_CONST 6.2832] 13
+              REAL_CONST 6.2832 -> [ID t1] 13
+             found factor
+           found term
+          found expr
         found assign
        found statement
          ID t1 -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [ID time] 10
          found assignoperator
-             ID time -> [LPAREN (] 12
-             LPAREN ( -> [REAL_CONST 0.1] 12
-                 REAL_CONST 0.1 -> [RPAREN )] 16
-                found factor
-               found term
-              found expr
-             found actuals
-             RPAREN ) -> [ID t3] 12
-            found call
-           found factor
-          found term
-         found expr
+              ID time -> [LPAREN (] 13
+              LPAREN ( -> [REAL_CONST 0.1] 13
+                  REAL_CONST 0.1 -> [RPAREN )] 17
+                 found factor
+                found term
+               found expr
+              found actuals
+              RPAREN ) -> [ID t3] 13
+             found call
+            found factor
+           found term
+          found expr
         found assign
        found statement
          ID t3 -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [ID time] 10
          found assignoperator
-             ID time -> [LPAREN (] 12
-             LPAREN ( -> [REAL_CONST 0.5] 12
-                 REAL_CONST 0.5 -> [RPAREN )] 16
-                found factor
-               found term
-              found expr
-             found actuals
-             RPAREN ) -> [ID t4] 12
-            found call
-           found factor
-          found term
-         found expr
+              ID time -> [LPAREN (] 13
+              LPAREN ( -> [REAL_CONST 0.5] 13
+                  REAL_CONST 0.5 -> [RPAREN )] 17
+                 found factor
+                found term
+               found expr
+              found actuals
+              RPAREN ) -> [ID t4] 13
+             found call
+            found factor
+           found term
+          found expr
         found assign
        found statement
          ID t4 -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [ID time] 10
          found assignoperator
-             ID time -> [LPAREN (] 12
-             LPAREN ( -> [REAL_CONST 0.2] 12
-                 REAL_CONST 0.2 -> [RPAREN )] 16
-                found factor
-               found term
-              found expr
-             found actuals
-             RPAREN ) -> [MUL *] 12
-            found call
-           found factor
-             MUL * -> [REAL_CONST 6.2832] 12
-             REAL_CONST 6.2832 -> [RCURL }] 12
+              ID time -> [LPAREN (] 13
+              LPAREN ( -> [REAL_CONST 0.2] 13
+                  REAL_CONST 0.2 -> [RPAREN )] 17
+                 found factor
+                found term
+               found expr
+              found actuals
+              RPAREN ) -> [MUL *] 13
+             found call
             found factor
-          found term
-         found expr
+              MUL * -> [REAL_CONST 6.2832] 13
+              REAL_CONST 6.2832 -> [RCURL }] 13
+             found factor
+           found term
+          found expr
         found assign
        found statement
       RCURL } -> [FUNCTION FUNCTION] 5
@@ -107,185 +107,171 @@ parseTree 65536 => 0 ✓
          found varref
            ASSIGN = -> [ID sin] 10
          found assignoperator
-             ID sin -> [LPAREN (] 12
-             LPAREN ( -> [ID t2] 12
+              ID sin -> [LPAREN (] 13
+              LPAREN ( -> [ID t2] 13
+                   ID t2 -> [RPAREN )] 18
                   ID t2 -> [RPAREN )] 17
-                 ID t2 -> [RPAREN )] 16
-                 found varref
-                found factor
-               found term
-              found expr
-             found actuals
-             RPAREN ) -> [ID m] 12
-            found call
-           found factor
-          found term
-         found expr
+                  found varref
+                 found factor
+                found term
+               found expr
+              found actuals
+              RPAREN ) -> [ID m] 13
+             found call
+            found factor
+           found term
+          found expr
         found assign
        found statement
          ID m -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [LPAREN (] 10
          found assignoperator
-             LPAREN ( -> [REAL_CONST 0.3] 12
-                REAL_CONST 0.3 -> [PLUS +] 15
-               found factor
-              found term
-                PLUS + -> [ID triangle] 15
-                  ID triangle -> [LPAREN (] 17
-                  LPAREN ( -> [ID t1] 17
-                       ID t1 -> [RPAREN )] 22
-                      ID t1 -> [RPAREN )] 21
-                      found varref
-                     found factor
-                    found term
-                   found expr
-                  found actuals
-                  RPAREN ) -> [MUL *] 17
-                 found call
+              LPAREN ( -> [REAL_CONST 0.3] 13
+                 REAL_CONST 0.3 -> [PLUS +] 16
                 found factor
-                  MUL * -> [REAL_CONST 0.2] 17
-                  REAL_CONST 0.2 -> [RPAREN )] 17
-                 found factor
                found term
-             found expr
-             RPAREN ) -> [ID hh] 12
-           found factor
-          found term
-         found expr
+                 PLUS + -> [ID triangle] 16
+                   ID triangle -> [LPAREN (] 18
+                   LPAREN ( -> [ID t1] 18
+                        ID t1 -> [RPAREN )] 23
+                       ID t1 -> [RPAREN )] 22
+                       found varref
+                      found factor
+                     found term
+                    found expr
+                   found actuals
+                   RPAREN ) -> [MUL *] 18
+                  found call
+                 found factor
+                   MUL * -> [REAL_CONST 0.2] 18
+                   REAL_CONST 0.2 -> [RPAREN )] 18
+                  found factor
+                found term
+              found expr
+              RPAREN ) -> [ID hh] 13
+            found factor
+           found term
+          found expr
         found assign
        found statement
          ID hh -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [LPAREN (] 10
          found assignoperator
-             LPAREN ( -> [ID index] 12
+              LPAREN ( -> [ID index] 13
+                  ID index -> [MINUS -] 17
                  ID index -> [MINUS -] 16
-                ID index -> [MINUS -] 15
-                found varref
-               found factor
-              found term
-                MINUS - -> [ID ledCount] 15
-                  ID ledCount -> [DIV /] 17
-                 ID ledCount -> [DIV /] 16
                  found varref
                 found factor
-                  DIV / -> [INTEGER_CONST 2] 17
-                  INTEGER_CONST 2 -> [RPAREN )] 17
-                 found factor
                found term
-             found expr
-             RPAREN ) -> [DIV /] 12
-           found factor
-             DIV / -> [ID ledCount] 12
-              ID ledCount -> [ID hhh] 13
-             ID ledCount -> [ID hhh] 12
-             found varref
+                 MINUS - -> [ID ledCount] 16
+                   ID ledCount -> [DIV /] 18
+                  ID ledCount -> [DIV /] 17
+                  found varref
+                 found factor
+                   DIV / -> [INTEGER_CONST 2] 18
+                   INTEGER_CONST 2 -> [RPAREN )] 18
+                  found factor
+                found term
+              found expr
+              RPAREN ) -> [DIV /] 13
             found factor
-          found term
-         found expr
+              DIV / -> [ID ledCount] 13
+               ID ledCount -> [ID hhh] 14
+              ID ledCount -> [ID hhh] 13
+              found varref
+             found factor
+           found term
+          found expr
         found assign
        found statement
          ID hhh -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [ID triangle] 10
          found assignoperator
-             ID triangle -> [LPAREN (] 12
-             LPAREN ( -> [ID t3] 12
+              ID triangle -> [LPAREN (] 13
+              LPAREN ( -> [ID t3] 13
+                   ID t3 -> [RPAREN )] 18
                   ID t3 -> [RPAREN )] 17
-                 ID t3 -> [RPAREN )] 16
-                 found varref
-                found factor
-               found term
-              found expr
-             found actuals
-             RPAREN ) -> [MUL *] 12
-            found call
-           found factor
-             MUL * -> [INTEGER_CONST 10] 12
-             INTEGER_CONST 10 -> [PLUS +] 12
+                  found varref
+                 found factor
+                found term
+               found expr
+              found actuals
+              RPAREN ) -> [MUL *] 13
+             found call
             found factor
-          found term
-            PLUS + -> [INTEGER_CONST 4] 11
-             INTEGER_CONST 4 -> [MUL *] 12
-            found factor
-              MUL * -> [ID sin] 13
-               ID sin -> [LPAREN (] 14
-               LPAREN ( -> [ID t4] 14
-                    ID t4 -> [RPAREN )] 19
-                   ID t4 -> [RPAREN )] 18
-                   found varref
-                  found factor
-                 found term
-                found expr
-               found actuals
-               RPAREN ) -> [ID h] 14
-              found call
+              MUL * -> [INTEGER_CONST 10] 13
+              INTEGER_CONST 10 -> [PLUS +] 13
              found factor
            found term
-         found expr
+             PLUS + -> [INTEGER_CONST 4] 12
+              INTEGER_CONST 4 -> [MUL *] 13
+             found factor
+               MUL * -> [ID sin] 14
+                ID sin -> [LPAREN (] 15
+                LPAREN ( -> [ID t4] 15
+                     ID t4 -> [RPAREN )] 20
+                    ID t4 -> [RPAREN )] 19
+                    found varref
+                   found factor
+                  found term
+                 found expr
+                found actuals
+                RPAREN ) -> [ID h] 15
+               found call
+              found factor
+            found term
+          found expr
         found assign
        found statement
          ID h -> [ASSIGN+ +=] 8
          found varref
            ASSIGN+ += -> [LPAREN (] 10
          found assignoperator
-             LPAREN ( -> [ID hh] 12
+              LPAREN ( -> [ID hh] 13
+                  ID hh -> [MUL *] 17
                  ID hh -> [MUL *] 16
-                ID hh -> [MUL *] 15
-                found varref
-               found factor
-                 MUL * -> [ID hhh] 16
-                  ID hhh -> [RPAREN )] 17
-                 ID hhh -> [RPAREN )] 16
                  found varref
                 found factor
-              found term
-             found expr
-             RPAREN ) -> [MOD %] 12
-           found factor
-             MOD % -> [ID m] 12
-              ID m -> [ID s] 13
-             ID m -> [ID s] 12
-             found varref
+                  MUL * -> [ID hhh] 17
+                   ID hhh -> [RPAREN )] 18
+                  ID hhh -> [RPAREN )] 17
+                  found varref
+                 found factor
+               found term
+              found expr
+              RPAREN ) -> [MOD %] 13
             found factor
-          found term
-         found expr
+              MOD % -> [ID m] 13
+               ID m -> [ID s] 14
+              ID m -> [ID s] 13
+              found varref
+             found factor
+           found term
+          found expr
         found assign
        found statement
          ID s -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [INTEGER_CONST 1] 10
          found assignoperator
-            INTEGER_CONST 1 -> [ID v] 11
-           found factor
-          found term
-         found expr
+             INTEGER_CONST 1 -> [ID v] 12
+            found factor
+           found term
+          found expr
         found assign
        found statement
          ID v -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [LPAREN (] 10
          found assignoperator
-             LPAREN ( -> [ID abs] 12
-                 ID abs -> [LPAREN (] 16
-                 LPAREN ( -> [ID h] 16
-                      ID h -> [RPAREN )] 21
-                     ID h -> [RPAREN )] 20
-                     found varref
-                    found factor
-                   found term
-                  found expr
-                 found actuals
-                 RPAREN ) -> [PLUS +] 16
-                found call
-               found factor
-              found term
-                PLUS + -> [ID abs] 15
+              LPAREN ( -> [ID abs] 13
                   ID abs -> [LPAREN (] 17
-                  LPAREN ( -> [ID m] 17
-                       ID m -> [RPAREN )] 22
-                      ID m -> [RPAREN )] 21
+                  LPAREN ( -> [ID h] 17
+                       ID h -> [RPAREN )] 22
+                      ID h -> [RPAREN )] 21
                       found varref
                      found factor
                     found term
@@ -295,37 +281,51 @@ parseTree 65536 => 0 ✓
                  found call
                 found factor
                found term
-                PLUS + -> [ID t1] 15
+                 PLUS + -> [ID abs] 16
+                   ID abs -> [LPAREN (] 18
+                   LPAREN ( -> [ID m] 18
+                        ID m -> [RPAREN )] 23
+                       ID m -> [RPAREN )] 22
+                       found varref
+                      found factor
+                     found term
+                    found expr
+                   found actuals
+                   RPAREN ) -> [PLUS +] 18
+                  found call
+                 found factor
+                found term
+                 PLUS + -> [ID t1] 16
+                   ID t1 -> [RPAREN )] 18
                   ID t1 -> [RPAREN )] 17
-                 ID t1 -> [RPAREN )] 16
-                 found varref
-                found factor
-               found term
-             found expr
-             RPAREN ) -> [MOD %] 12
-           found factor
-             MOD % -> [INTEGER_CONST 1] 12
-             INTEGER_CONST 1 -> [ID v] 12
+                  found varref
+                 found factor
+                found term
+              found expr
+              RPAREN ) -> [MOD %] 13
             found factor
-          found term
-         found expr
+              MOD % -> [INTEGER_CONST 1] 13
+              INTEGER_CONST 1 -> [ID v] 13
+             found factor
+           found term
+          found expr
         found assign
        found statement
          ID v -> [ASSIGN =] 8
          found varref
            ASSIGN = -> [ID v] 10
          found assignoperator
+              ID v -> [MUL *] 13
              ID v -> [MUL *] 12
-            ID v -> [MUL *] 11
-            found varref
-           found factor
-             MUL * -> [ID v] 12
-              ID v -> [ID leds] 13
-             ID v -> [ID leds] 12
              found varref
             found factor
-          found term
-         found expr
+              MUL * -> [ID v] 13
+               ID v -> [ID leds] 14
+              ID v -> [ID leds] 13
+              found varref
+             found factor
+           found term
+          found expr
         found assign
        found statement
          ID leds -> [LBRACKET [] 8
@@ -341,20 +341,10 @@ parseTree 65536 => 0 ✓
           RBRACKET ] -> [ASSIGN =] 9
            ASSIGN = -> [ID hsv] 10
          found assignoperator
-             ID hsv -> [LPAREN (] 12
-             LPAREN ( -> [ID h] 12
+              ID hsv -> [LPAREN (] 13
+              LPAREN ( -> [ID h] 13
+                   ID h -> [MUL *] 18
                   ID h -> [MUL *] 17
-                 ID h -> [MUL *] 16
-                 found varref
-                found factor
-                  MUL * -> [INTEGER_CONST 255] 17
-                  INTEGER_CONST 255 -> [COMMA ,] 17
-                 found factor
-               found term
-              found expr
-               COMMA , -> [ID s] 14
-                   ID s -> [MUL *] 18
-                  ID s -> [MUL *] 17
                   found varref
                  found factor
                    MUL * -> [INTEGER_CONST 255] 18
@@ -362,22 +352,32 @@ parseTree 65536 => 0 ✓
                   found factor
                 found term
                found expr
-               COMMA , -> [ID v] 14
-                   ID v -> [MUL *] 18
-                  ID v -> [MUL *] 17
-                  found varref
-                 found factor
-                   MUL * -> [INTEGER_CONST 255] 18
-                   INTEGER_CONST 255 -> [RPAREN )] 18
+                COMMA , -> [ID s] 15
+                    ID s -> [MUL *] 19
+                   ID s -> [MUL *] 18
+                   found varref
                   found factor
-                found term
-               found expr
-             found actuals
-             RPAREN ) -> [RCURL }] 12
-            found call
-           found factor
-          found term
-         found expr
+                    MUL * -> [INTEGER_CONST 255] 19
+                    INTEGER_CONST 255 -> [COMMA ,] 19
+                   found factor
+                 found term
+                found expr
+                COMMA , -> [ID v] 15
+                    ID v -> [MUL *] 19
+                   ID v -> [MUL *] 18
+                   found varref
+                  found factor
+                    MUL * -> [INTEGER_CONST 255] 19
+                    INTEGER_CONST 255 -> [RPAREN )] 19
+                   found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [RCURL }] 13
+             found call
+            found factor
+           found term
+          found expr
         found assign
        found statement
       RCURL } -> [RCURL }] 5
@@ -387,35 +387,35 @@ parseTree 65536 => 0 ✓
   RCURL } 1
  found block
 Symbol program Parsed until (63,1) 1439 of 1439
-definitionTree 10739 / 65% (23 0 6)
+definitionTree 11566 / 70% (26 0 6)
 parseTree      26007 / 39% (1 0 26)
 garbageCollect 19191 / 29%
 Destruct Lexer
 parse 0 ✓
 
 Optimizer
-                  symbol to shrink factor in term = {"REAL_CONST":"0.1"} from {"factor":{"REAL_CONST":"0.1"}}
-                  symbol to shrink factor in term = {"REAL_CONST":"0.1"} from {"factor":{"REAL_CONST":"0.1"}}
-             symbol to shrink factor in term = {"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.1"}}}}} from {"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.1"}}}}}}
-                  symbol to shrink factor in term = {"REAL_CONST":"0.5"} from {"factor":{"REAL_CONST":"0.5"}}
-             symbol to shrink factor in term = {"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.5"}}}}} from {"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.5"}}}}}}
-                  symbol to shrink factor in term = {"REAL_CONST":"0.2"} from {"factor":{"REAL_CONST":"0.2"}}
-                  symbol to shrink factor in term = {"varref":{"ID":"t2"}} from {"factor":{"varref":{"ID":"t2"}}}
-             symbol to shrink factor in term = {"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"t2"}}}}}} from {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"t2"}}}}}}}
-                symbol to shrink factor in term = {"REAL_CONST":"0.3"} from {"factor":{"REAL_CONST":"0.3"}}
-                       symbol to shrink factor in term = {"varref":{"ID":"t1"}} from {"factor":{"varref":{"ID":"t1"}}}
-             symbol to shrink factor in term = {"expr":{"term":{"REAL_CONST":"0.3"},"*":[{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"triangle","actuals":{"expr":{"term":{"varref":{"ID":"t1"}}}}}},"*":[{"MUL":"*"},{"factor":{"REAL_CONST":"0.2"}}]}}]}} from {"factor":{"expr":{"term":{"REAL_CONST":"0.3"},"*":[{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"triangle","actuals":{"expr":{"term":{"varref":{"ID":"t1"}}}}}},"*":[{"MUL":"*"},{"factor":{"REAL_CONST":"0.2"}}]}}]}}}
-                symbol to shrink factor in term = {"varref":{"ID":"index"}} from {"factor":{"varref":{"ID":"index"}}}
-                  symbol to shrink factor in term = {"varref":{"ID":"t3"}} from {"factor":{"varref":{"ID":"t3"}}}
-                      symbol to shrink factor in term = {"varref":{"ID":"t4"}} from {"factor":{"varref":{"ID":"t4"}}}
-             symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
-                     symbol to shrink factor in term = {"varref":{"ID":"h"}} from {"factor":{"varref":{"ID":"h"}}}
-                symbol to shrink factor in term = {"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"h"}}}}}} from {"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"h"}}}}}}}
-                       symbol to shrink factor in term = {"varref":{"ID":"m"}} from {"factor":{"varref":{"ID":"m"}}}
-                  symbol to shrink factor in term = {"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"m"}}}}}} from {"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"m"}}}}}}}
-                  symbol to shrink factor in term = {"varref":{"ID":"t1"}} from {"factor":{"varref":{"ID":"t1"}}}
-              symbol to shrink factor in term = {"varref":{"ID":"index"}} from {"factor":{"varref":{"ID":"index"}}}
-             symbol to shrink factor in term = {"call":{"ID":"hsv","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"h"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}},"*":[{},{"expr":{"term":{"factor":{"varref":{"ID":"s"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}},{},{"expr":{"term":{"factor":{"varref":{"ID":"v"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}}]}}} from {"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"h"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}},"*":[{},{"expr":{"term":{"factor":{"varref":{"ID":"s"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}},{},{"expr":{"term":{"factor":{"varref":{"ID":"v"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}}]}}}}
+                  symbol to shrink factor in term : {"factor":{"REAL_CONST":"0.1"}} from {"term":{"factor":{"REAL_CONST":"0.1"}},"*":["multiple"]}
+                  symbol to shrink factor in term : {"factor":{"REAL_CONST":"0.1"}} from {"term":{"factor":{"REAL_CONST":"0.1"}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.1"}}}}}} from {"term":{"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.1"}}}}}},"*":["multiple"]}
+                  symbol to shrink factor in term : {"factor":{"REAL_CONST":"0.5"}} from {"term":{"factor":{"REAL_CONST":"0.5"}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.5"}}}}}} from {"term":{"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.5"}}}}}},"*":["multiple"]}
+                  symbol to shrink factor in term : {"factor":{"REAL_CONST":"0.2"}} from {"term":{"factor":{"REAL_CONST":"0.2"}},"*":["multiple"]}
+                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"t2"}}} from {"term":{"factor":{"varref":{"ID":"t2"}}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"t2"}}}}}}} from {"term":{"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"t2"}}}}}}},"*":["multiple"]}
+                symbol to shrink factor in term : {"factor":{"REAL_CONST":"0.3"}} from {"term":{"factor":{"REAL_CONST":"0.3"}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"triangle","LPAREN":"(","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"t1"}},"*":["multiple"]},"*":["multiple"]},"*":["multiple"]},"RPAREN":")"}},"*":["multiple",{"MUL":"*"},{"factor":{"REAL_CONST":"0.2"}}]}}]}
+                       symbol to shrink factor in term : {"factor":{"varref":{"ID":"t1"}}} from {"term":{"factor":{"varref":{"ID":"t1"}}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"expr":{"term":{"REAL_CONST":"0.3"},"*":[{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"triangle","actuals":{"expr":{"term":{"varref":{"ID":"t1"}}}}}},"*":[{"MUL":"*"},{"factor":{"REAL_CONST":"0.2"}}]}}]}}} from {"term":{"factor":{"expr":{"term":{"REAL_CONST":"0.3"},"*":[{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"triangle","actuals":{"expr":{"term":{"varref":{"ID":"t1"}}}}}},"*":[{"MUL":"*"},{"factor":{"REAL_CONST":"0.2"}}]}}]}}},"*":["multiple"]}
+                symbol to shrink factor in term : {"factor":{"varref":{"ID":"index"}}} from {"term":{"factor":{"varref":{"ID":"index"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple",{"DIV":"/"},{"factor":{"INTEGER_CONST":"2"}}]}}]}
+                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"t3"}}} from {"term":{"factor":{"varref":{"ID":"t3"}}},"*":["multiple"]}
+                      symbol to shrink factor in term : {"factor":{"varref":{"ID":"t4"}}} from {"term":{"factor":{"varref":{"ID":"t4"}}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+                     symbol to shrink factor in term : {"factor":{"varref":{"ID":"h"}}} from {"term":{"factor":{"varref":{"ID":"h"}}},"*":["multiple"]}
+                symbol to shrink factor in term : {"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"h"}}}}}}} from {"term":{"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"h"}}}}}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"abs","LPAREN":"(","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"m"}},"*":["multiple"]},"*":["multiple"]},"*":["multiple"]},"RPAREN":")"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"t1"}},"*":["multiple"]}}]}
+                       symbol to shrink factor in term : {"factor":{"varref":{"ID":"m"}}} from {"term":{"factor":{"varref":{"ID":"m"}}},"*":["multiple"]}
+                  symbol to shrink factor in term : {"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"m"}}}}}}} from {"term":{"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"m"}}}}}}}}
+                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"t1"}}} from {"term":{"factor":{"varref":{"ID":"t1"}}}}
+              symbol to shrink factor in term : {"factor":{"varref":{"ID":"index"}}} from {"term":{"factor":{"varref":{"ID":"index"}}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"h"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}},"*":[{},{"expr":{"term":{"factor":{"varref":{"ID":"s"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}},{},{"expr":{"term":{"factor":{"varref":{"ID":"v"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}}]}}}} from {"term":{"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"h"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}},"*":[{},{"expr":{"term":{"factor":{"varref":{"ID":"s"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}},{},{"expr":{"term":{"factor":{"varref":{"ID":"v"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}}]}}}},"*":["multiple"]}
 optimize 0 ✓
 
 Analyzer
@@ -455,10 +455,10 @@ Analyzer
                  Ext Function found sin (16)
                     VarRef found block_reflections.t4 (19)
          assign h = (8)
+         +=
                 VarRef found block_reflections.hh (15)
                   VarRef found block_reflections.hhh (17)
                VarRef found block_reflections.m (14)
-         asop +=
          assign block_reflections.s of notype
          assign s = (8)
          assign block_reflections.v of notype
@@ -500,532 +500,532 @@ interpret block_reflections 1 12
 Interpret main 0 ✓
          Call renderFrame (1)
                     REAL_CONST 0.1 (Push 1)
-                 Call time(0.100000) = 0.152590
+                 Call time(0.100000) = 0.152590 (Pop 0, Push 1)
                   MUL * (Push 2)
                    REAL_CONST 6.2832 (Push 3)
-               0.152590 * 6.283200 = 0.958754 (push 4)
-             block_reflections.t2 := 0.958754 (pop 0) 1-1
+               0.152590 * 6.283200 = 0.958753 (pop 0, push 1)
+             block_reflections.t2 := 0.958753 (pop 0) 1-1
                    REAL_CONST 0.1 (Push 1)
-                Call time(0.100000) = 0.152590
+                Call time(0.100000) = 0.152590 (Pop 0, Push 1)
              block_reflections.t1 := 0.152590 (pop 0) 1-2
                    REAL_CONST 0.5 (Push 1)
-                Call time(0.500000) = 0.030518
+                Call time(0.500000) = 0.030518 (Pop 0, Push 1)
              block_reflections.t3 := 0.030518 (pop 0) 1-3
                     REAL_CONST 0.2 (Push 1)
-                 Call time(0.200000) = 0.076295
+                 Call time(0.200000) = 0.076295 (Pop 0, Push 1)
                   MUL * (Push 2)
                    REAL_CONST 6.2832 (Push 3)
-               0.076295 * 6.283200 = 0.479377 (push 4)
+               0.076295 * 6.283200 = 0.479377 (pop 0, push 1)
              block_reflections.t4 := 0.479377 (pop 0) 1-4
 Destruct activation record renderFrame
-                   varref block_reflections.t2 = 0.958754 (push 1) 1-1
-                Call sin(0.958754) = 0.818476
+                   varref block_reflections.t2 = 0.958753 (push 1) 1-1
+                Call sin(0.958753) = 0.818476 (Pop 0, Push 1)
              block_reflections.h := 0.818476 (pop 0) 1-6
                   REAL_CONST 0.3 (Push 1)
                    PLUS + (Push 2)
                         varref block_reflections.t1 = 0.152590 (push 3) 1-2
-                     Call triangle(0.152590) = 0.305180
+                     Call triangle(0.152590) = 0.305180 (Pop 2, Push 3)
                       MUL * (Push 4)
                        REAL_CONST 0.2 (Push 5)
-                   0.305180 * 0.200000 = 0.061036 (push 6)
-                0.300000 + 0.061036 = 0.361036 (push 4)
+                   0.305180 * 0.200000 = 0.061036 (pop 2, push 3)
+                0.300000 + 0.061036 = 0.361036 (pop 0, push 1)
              block_reflections.m := 0.361036 (pop 0) 1-7
                    varref renderLed.index = 0.000000 (push 1) 2-0
                     MINUS - (Push 2)
                       varref ext.ledCount = 3.000000 (push 3)
                        DIV / (Push 4)
                         INTEGER_CONST 2 (Push 5)
-                    3.000000 / 2.000000 = 1.500000 (push 6)
-                 0.000000 - 1.500000 = -1.500000 (push 4)
+                    3.000000 / 2.000000 = 1.500000 (pop 2, push 3)
+                 0.000000 - 1.500000 = -1.500000 (pop 0, push 1)
                   DIV / (Push 2)
                    varref ext.ledCount = 3.000000 (push 3)
-               -1.500000 / 3.000000 = -0.500000 (push 4)
+               -1.500000 / 3.000000 = -0.500000 (pop 0, push 1)
              block_reflections.hh := -0.500000 (pop 0) 1-8
                     varref block_reflections.t3 = 0.030518 (push 1) 1-3
-                 Call triangle(0.030518) = 0.061036
+                 Call triangle(0.030518) = 0.061036 (Pop 0, Push 1)
                   MUL * (Push 2)
                    INTEGER_CONST 10 (Push 3)
-               0.061036 * 10.000000 = 0.610360 (push 4)
+               0.061036 * 10.000000 = 0.610360 (pop 0, push 1)
                  PLUS + (Push 2)
                    INTEGER_CONST 4 (Push 3)
                     MUL * (Push 4)
                         varref block_reflections.t4 = 0.479377 (push 5) 1-4
-                     Call sin(0.479377) = 0.461226
-                 4.000000 * 0.461226 = 1.844905 (push 6)
-              0.610360 + 1.844905 = 2.455265 (push 4)
+                     Call sin(0.479377) = 0.461226 (Pop 4, Push 5)
+                 4.000000 * 0.461226 = 1.844905 (pop 2, push 3)
+              0.610360 + 1.844905 = 2.455265 (pop 0, push 1)
              block_reflections.hhh := 2.455265 (pop 0) 1-9
                     varref block_reflections.hh = -0.500000 (push 1) 1-8
                      MUL * (Push 2)
                       varref block_reflections.hhh = 2.455265 (push 3) 1-9
-                  -0.500000 * 2.455265 = -1.227633 (push 4)
+                  -0.500000 * 2.455265 = -1.227632 (pop 0, push 1)
                   MOD % (Push 2)
                    varref block_reflections.m = 0.361036 (push 3) 1-7
-               -1.227633 % 0.361036 = -0.144525 (push 4)
+               -1.227632 % 0.361036 = -0.144524 (pop 0, push 1)
              block_reflections.h += 0.673952 (pop 0) 1-6
                 INTEGER_CONST 1 (Push 1)
              block_reflections.s := 1.000000 (pop 0) 1-10
                       varref block_reflections.h = 0.673952 (push 1) 1-6
-                   Call abs(0.673952) = 0.673952
+                   Call abs(0.673952) = 0.673952 (Pop 0, Push 1)
                     PLUS + (Push 2)
                         varref block_reflections.m = 0.361036 (push 3) 1-7
-                     Call abs(0.361036) = 0.361036
+                     Call abs(0.361036) = 0.361036 (Pop 2, Push 3)
                     PLUS + (Push 4)
                      varref block_reflections.t1 = 0.152590 (push 5) 1-2
-                 0.673952 + 0.361036 = 1.034988 (push 6)
-                 1.034988 + 0.152590 = 1.187578 (push 6)
+                 0.673952 + 0.361036 = 1.034988 (pop 2, push 3)
+                 1.034988 + 0.152590 = 1.187578 (pop 0, push 1)
                   MOD % (Push 2)
                    INTEGER_CONST 1 (Push 3)
-               1.187578 % 1.000000 = 0.187578 (push 4)
+               1.187578 % 1.000000 = 0.187578 (pop 0, push 1)
              block_reflections.v := 0.187578 (pop 0) 1-11
                  varref block_reflections.v = 0.187578 (push 1) 1-11
                   MUL * (Push 2)
                    varref block_reflections.v = 0.187578 (push 3) 1-11
-               0.187578 * 0.187578 = 0.035185 (push 4)
+               0.187578 * 0.187578 = 0.035185 (pop 0, push 1)
              block_reflections.v := 0.035185 (pop 0) 1-11
                  varref renderLed.index = 0.000000 (push 1) 2-0
                     varref block_reflections.h = 0.673952 (push 2) 1-6
                      MUL * (Push 3)
                       INTEGER_CONST 255 (Push 4)
-                  0.673952 * 255.000000 = 171.857636 (push 5)
+                  0.673952 * 255.000000 = 171.857666 (pop 1, push 2)
                       varref block_reflections.s = 1.000000 (push 3) 1-10
                        MUL * (Push 4)
                         INTEGER_CONST 255 (Push 5)
-                    1.000000 * 255.000000 = 255.000000 (push 6)
+                    1.000000 * 255.000000 = 255.000000 (pop 2, push 3)
                       varref block_reflections.v = 0.035185 (push 4) 1-11
                        MUL * (Push 5)
                         INTEGER_CONST 255 (Push 6)
-                    0.035185 * 255.000000 = 8.972259 (push 7)
-hsv(171.857636, 255.000000, 8.972259)
-                Call hsv(171.857636, 255.000000, 8.972259) = 435.829895
-arti_set_external_variable: leds(0.000000) := 435.829895
-             assign set ext.leds[0.000000] = 435.829895 (1)
-                   varref block_reflections.t2 = 0.958754 (push 1) 1-1
-                Call sin(0.958754) = 0.818476
+                    0.035185 * 255.000000 = 8.972278 (pop 3, push 4)
+hsv(171.857666, 255.000000, 8.972278)
+                Call hsv(171.857666, 255.000000, 8.972278) = 435.829956 (Pop 1, Push 2)
+arti_set_external_variable: leds(0.000000) := 435.829956
+             assign set ext.leds[0.000000] = 435.829956 (Pop 0)
+                   varref block_reflections.t2 = 0.958753 (push 1) 1-1
+                Call sin(0.958753) = 0.818476 (Pop 0, Push 1)
              block_reflections.h := 0.818476 (pop 0) 1-6
                   REAL_CONST 0.3 (Push 1)
                    PLUS + (Push 2)
                         varref block_reflections.t1 = 0.152590 (push 3) 1-2
-                     Call triangle(0.152590) = 0.305180
+                     Call triangle(0.152590) = 0.305180 (Pop 2, Push 3)
                       MUL * (Push 4)
                        REAL_CONST 0.2 (Push 5)
-                   0.305180 * 0.200000 = 0.061036 (push 6)
-                0.300000 + 0.061036 = 0.361036 (push 4)
+                   0.305180 * 0.200000 = 0.061036 (pop 2, push 3)
+                0.300000 + 0.061036 = 0.361036 (pop 0, push 1)
              block_reflections.m := 0.361036 (pop 0) 1-7
                    varref renderLed.index = 1.000000 (push 1) 2-0
                     MINUS - (Push 2)
                       varref ext.ledCount = 3.000000 (push 3)
                        DIV / (Push 4)
                         INTEGER_CONST 2 (Push 5)
-                    3.000000 / 2.000000 = 1.500000 (push 6)
-                 1.000000 - 1.500000 = -0.500000 (push 4)
+                    3.000000 / 2.000000 = 1.500000 (pop 2, push 3)
+                 1.000000 - 1.500000 = -0.500000 (pop 0, push 1)
                   DIV / (Push 2)
                    varref ext.ledCount = 3.000000 (push 3)
-               -0.500000 / 3.000000 = -0.166667 (push 4)
+               -0.500000 / 3.000000 = -0.166667 (pop 0, push 1)
              block_reflections.hh := -0.166667 (pop 0) 1-8
                     varref block_reflections.t3 = 0.030518 (push 1) 1-3
-                 Call triangle(0.030518) = 0.061036
+                 Call triangle(0.030518) = 0.061036 (Pop 0, Push 1)
                   MUL * (Push 2)
                    INTEGER_CONST 10 (Push 3)
-               0.061036 * 10.000000 = 0.610360 (push 4)
+               0.061036 * 10.000000 = 0.610360 (pop 0, push 1)
                  PLUS + (Push 2)
                    INTEGER_CONST 4 (Push 3)
                     MUL * (Push 4)
                         varref block_reflections.t4 = 0.479377 (push 5) 1-4
-                     Call sin(0.479377) = 0.461226
-                 4.000000 * 0.461226 = 1.844905 (push 6)
-              0.610360 + 1.844905 = 2.455265 (push 4)
+                     Call sin(0.479377) = 0.461226 (Pop 4, Push 5)
+                 4.000000 * 0.461226 = 1.844905 (pop 2, push 3)
+              0.610360 + 1.844905 = 2.455265 (pop 0, push 1)
              block_reflections.hhh := 2.455265 (pop 0) 1-9
                     varref block_reflections.hh = -0.166667 (push 1) 1-8
                      MUL * (Push 2)
                       varref block_reflections.hhh = 2.455265 (push 3) 1-9
-                  -0.166667 * 2.455265 = -0.409211 (push 4)
+                  -0.166667 * 2.455265 = -0.409211 (pop 0, push 1)
                   MOD % (Push 2)
                    varref block_reflections.m = 0.361036 (push 3) 1-7
-               -0.409211 % 0.361036 = -0.048175 (push 4)
+               -0.409211 % 0.361036 = -0.048175 (pop 0, push 1)
              block_reflections.h += 0.770301 (pop 0) 1-6
                 INTEGER_CONST 1 (Push 1)
              block_reflections.s := 1.000000 (pop 0) 1-10
                       varref block_reflections.h = 0.770301 (push 1) 1-6
-                   Call abs(0.770301) = 0.770301
+                   Call abs(0.770301) = 0.770301 (Pop 0, Push 1)
                     PLUS + (Push 2)
                         varref block_reflections.m = 0.361036 (push 3) 1-7
-                     Call abs(0.361036) = 0.361036
+                     Call abs(0.361036) = 0.361036 (Pop 2, Push 3)
                     PLUS + (Push 4)
                      varref block_reflections.t1 = 0.152590 (push 5) 1-2
-                 0.770301 + 0.361036 = 1.131337 (push 6)
-                 1.131337 + 0.152590 = 1.283927 (push 6)
+                 0.770301 + 0.361036 = 1.131337 (pop 2, push 3)
+                 1.131337 + 0.152590 = 1.283927 (pop 0, push 1)
                   MOD % (Push 2)
                    INTEGER_CONST 1 (Push 3)
-               1.283927 % 1.000000 = 0.283927 (push 4)
+               1.283927 % 1.000000 = 0.283927 (pop 0, push 1)
              block_reflections.v := 0.283927 (pop 0) 1-11
                  varref block_reflections.v = 0.283927 (push 1) 1-11
                   MUL * (Push 2)
                    varref block_reflections.v = 0.283927 (push 3) 1-11
-               0.283927 * 0.283927 = 0.080615 (push 4)
+               0.283927 * 0.283927 = 0.080615 (pop 0, push 1)
              block_reflections.v := 0.080615 (pop 0) 1-11
                  varref renderLed.index = 1.000000 (push 1) 2-0
                     varref block_reflections.h = 0.770301 (push 2) 1-6
                      MUL * (Push 3)
                       INTEGER_CONST 255 (Push 4)
-                  0.770301 * 255.000000 = 196.426808 (push 5)
+                  0.770301 * 255.000000 = 196.426819 (pop 1, push 2)
                       varref block_reflections.s = 1.000000 (push 3) 1-10
                        MUL * (Push 4)
                         INTEGER_CONST 255 (Push 5)
-                    1.000000 * 255.000000 = 255.000000 (push 6)
+                    1.000000 * 255.000000 = 255.000000 (pop 2, push 3)
                       varref block_reflections.v = 0.080615 (push 4) 1-11
                        MUL * (Push 5)
                         INTEGER_CONST 255 (Push 6)
-                    0.080615 * 255.000000 = 20.556740 (push 7)
-hsv(196.426808, 255.000000, 20.556740)
-                Call hsv(196.426808, 255.000000, 20.556740) = 471.983548
-arti_set_external_variable: leds(1.000000) := 471.983548
-             assign set ext.leds[1.000000] = 471.983548 (1)
-                   varref block_reflections.t2 = 0.958754 (push 1) 1-1
-                Call sin(0.958754) = 0.818476
+                    0.080615 * 255.000000 = 20.556738 (pop 3, push 4)
+hsv(196.426819, 255.000000, 20.556738)
+                Call hsv(196.426819, 255.000000, 20.556738) = 471.983551 (Pop 1, Push 2)
+arti_set_external_variable: leds(1.000000) := 471.983551
+             assign set ext.leds[1.000000] = 471.983551 (Pop 0)
+                   varref block_reflections.t2 = 0.958753 (push 1) 1-1
+                Call sin(0.958753) = 0.818476 (Pop 0, Push 1)
              block_reflections.h := 0.818476 (pop 0) 1-6
                   REAL_CONST 0.3 (Push 1)
                    PLUS + (Push 2)
                         varref block_reflections.t1 = 0.152590 (push 3) 1-2
-                     Call triangle(0.152590) = 0.305180
+                     Call triangle(0.152590) = 0.305180 (Pop 2, Push 3)
                       MUL * (Push 4)
                        REAL_CONST 0.2 (Push 5)
-                   0.305180 * 0.200000 = 0.061036 (push 6)
-                0.300000 + 0.061036 = 0.361036 (push 4)
+                   0.305180 * 0.200000 = 0.061036 (pop 2, push 3)
+                0.300000 + 0.061036 = 0.361036 (pop 0, push 1)
              block_reflections.m := 0.361036 (pop 0) 1-7
                    varref renderLed.index = 2.000000 (push 1) 2-0
                     MINUS - (Push 2)
                       varref ext.ledCount = 3.000000 (push 3)
                        DIV / (Push 4)
                         INTEGER_CONST 2 (Push 5)
-                    3.000000 / 2.000000 = 1.500000 (push 6)
-                 2.000000 - 1.500000 = 0.500000 (push 4)
+                    3.000000 / 2.000000 = 1.500000 (pop 2, push 3)
+                 2.000000 - 1.500000 = 0.500000 (pop 0, push 1)
                   DIV / (Push 2)
                    varref ext.ledCount = 3.000000 (push 3)
-               0.500000 / 3.000000 = 0.166667 (push 4)
+               0.500000 / 3.000000 = 0.166667 (pop 0, push 1)
              block_reflections.hh := 0.166667 (pop 0) 1-8
                     varref block_reflections.t3 = 0.030518 (push 1) 1-3
-                 Call triangle(0.030518) = 0.061036
+                 Call triangle(0.030518) = 0.061036 (Pop 0, Push 1)
                   MUL * (Push 2)
                    INTEGER_CONST 10 (Push 3)
-               0.061036 * 10.000000 = 0.610360 (push 4)
+               0.061036 * 10.000000 = 0.610360 (pop 0, push 1)
                  PLUS + (Push 2)
                    INTEGER_CONST 4 (Push 3)
                     MUL * (Push 4)
                         varref block_reflections.t4 = 0.479377 (push 5) 1-4
-                     Call sin(0.479377) = 0.461226
-                 4.000000 * 0.461226 = 1.844905 (push 6)
-              0.610360 + 1.844905 = 2.455265 (push 4)
+                     Call sin(0.479377) = 0.461226 (Pop 4, Push 5)
+                 4.000000 * 0.461226 = 1.844905 (pop 2, push 3)
+              0.610360 + 1.844905 = 2.455265 (pop 0, push 1)
              block_reflections.hhh := 2.455265 (pop 0) 1-9
                     varref block_reflections.hh = 0.166667 (push 1) 1-8
                      MUL * (Push 2)
                       varref block_reflections.hhh = 2.455265 (push 3) 1-9
-                  0.166667 * 2.455265 = 0.409211 (push 4)
+                  0.166667 * 2.455265 = 0.409211 (pop 0, push 1)
                   MOD % (Push 2)
                    varref block_reflections.m = 0.361036 (push 3) 1-7
-               0.409211 % 0.361036 = 0.048175 (push 4)
+               0.409211 % 0.361036 = 0.048175 (pop 0, push 1)
              block_reflections.h += 0.866651 (pop 0) 1-6
                 INTEGER_CONST 1 (Push 1)
              block_reflections.s := 1.000000 (pop 0) 1-10
                       varref block_reflections.h = 0.866651 (push 1) 1-6
-                   Call abs(0.866651) = 0.866651
+                   Call abs(0.866651) = 0.866651 (Pop 0, Push 1)
                     PLUS + (Push 2)
                         varref block_reflections.m = 0.361036 (push 3) 1-7
-                     Call abs(0.361036) = 0.361036
+                     Call abs(0.361036) = 0.361036 (Pop 2, Push 3)
                     PLUS + (Push 4)
                      varref block_reflections.t1 = 0.152590 (push 5) 1-2
-                 0.866651 + 0.361036 = 1.227687 (push 6)
-                 1.227687 + 0.152590 = 1.380277 (push 6)
+                 0.866651 + 0.361036 = 1.227687 (pop 2, push 3)
+                 1.227687 + 0.152590 = 1.380277 (pop 0, push 1)
                   MOD % (Push 2)
                    INTEGER_CONST 1 (Push 3)
-               1.380277 % 1.000000 = 0.380277 (push 4)
+               1.380277 % 1.000000 = 0.380277 (pop 0, push 1)
              block_reflections.v := 0.380277 (pop 0) 1-11
                  varref block_reflections.v = 0.380277 (push 1) 1-11
                   MUL * (Push 2)
                    varref block_reflections.v = 0.380277 (push 3) 1-11
-               0.380277 * 0.380277 = 0.144611 (push 4)
+               0.380277 * 0.380277 = 0.144611 (pop 0, push 1)
              block_reflections.v := 0.144611 (pop 0) 1-11
                  varref renderLed.index = 2.000000 (push 1) 2-0
                     varref block_reflections.h = 0.866651 (push 2) 1-6
                      MUL * (Push 3)
                       INTEGER_CONST 255 (Push 4)
-                  0.866651 * 255.000000 = 220.995980 (push 5)
+                  0.866651 * 255.000000 = 220.995956 (pop 1, push 2)
                       varref block_reflections.s = 1.000000 (push 3) 1-10
                        MUL * (Push 4)
                         INTEGER_CONST 255 (Push 5)
-                    1.000000 * 255.000000 = 255.000000 (push 6)
+                    1.000000 * 255.000000 = 255.000000 (pop 2, push 3)
                       varref block_reflections.v = 0.144611 (push 4) 1-11
                        MUL * (Push 5)
                         INTEGER_CONST 255 (Push 6)
-                    0.144611 * 255.000000 = 36.875685 (push 7)
-hsv(220.995980, 255.000000, 36.875685)
-                Call hsv(220.995980, 255.000000, 36.875685) = 512.871666
-arti_set_external_variable: leds(2.000000) := 512.871666
-             assign set ext.leds[2.000000] = 512.871666 (1)
+                    0.144611 * 255.000000 = 36.875687 (pop 3, push 4)
+hsv(220.995956, 255.000000, 36.875687)
+                Call hsv(220.995956, 255.000000, 36.875687) = 512.871643 (Pop 1, Push 2)
+arti_set_external_variable: leds(2.000000) := 512.871643
+             assign set ext.leds[2.000000] = 512.871643 (Pop 0)
 Destruct activation record renderLed
 setPixels(leds)
          Call renderFrame (1)
                     REAL_CONST 0.1 (Push 1)
-                 Call time(0.100000) = 0.152590
+                 Call time(0.100000) = 0.152590 (Pop 0, Push 1)
                   MUL * (Push 2)
                    REAL_CONST 6.2832 (Push 3)
-               0.152590 * 6.283200 = 0.958754 (push 4)
-             block_reflections.t2 := 0.958754 (pop 0) 1-1
+               0.152590 * 6.283200 = 0.958753 (pop 0, push 1)
+             block_reflections.t2 := 0.958753 (pop 0) 1-1
                    REAL_CONST 0.1 (Push 1)
-                Call time(0.100000) = 0.152590
+                Call time(0.100000) = 0.152590 (Pop 0, Push 1)
              block_reflections.t1 := 0.152590 (pop 0) 1-2
                    REAL_CONST 0.5 (Push 1)
-                Call time(0.500000) = 0.030518
+                Call time(0.500000) = 0.030518 (Pop 0, Push 1)
              block_reflections.t3 := 0.030518 (pop 0) 1-3
                     REAL_CONST 0.2 (Push 1)
-                 Call time(0.200000) = 0.076295
+                 Call time(0.200000) = 0.076295 (Pop 0, Push 1)
                   MUL * (Push 2)
                    REAL_CONST 6.2832 (Push 3)
-               0.076295 * 6.283200 = 0.479377 (push 4)
+               0.076295 * 6.283200 = 0.479377 (pop 0, push 1)
              block_reflections.t4 := 0.479377 (pop 0) 1-4
 Destruct activation record renderFrame
-                   varref block_reflections.t2 = 0.958754 (push 1) 1-1
-                Call sin(0.958754) = 0.818476
+                   varref block_reflections.t2 = 0.958753 (push 1) 1-1
+                Call sin(0.958753) = 0.818476 (Pop 0, Push 1)
              block_reflections.h := 0.818476 (pop 0) 1-6
                   REAL_CONST 0.3 (Push 1)
                    PLUS + (Push 2)
                         varref block_reflections.t1 = 0.152590 (push 3) 1-2
-                     Call triangle(0.152590) = 0.305180
+                     Call triangle(0.152590) = 0.305180 (Pop 2, Push 3)
                       MUL * (Push 4)
                        REAL_CONST 0.2 (Push 5)
-                   0.305180 * 0.200000 = 0.061036 (push 6)
-                0.300000 + 0.061036 = 0.361036 (push 4)
+                   0.305180 * 0.200000 = 0.061036 (pop 2, push 3)
+                0.300000 + 0.061036 = 0.361036 (pop 0, push 1)
              block_reflections.m := 0.361036 (pop 0) 1-7
                    varref renderLed.index = 0.000000 (push 1) 2-0
                     MINUS - (Push 2)
                       varref ext.ledCount = 3.000000 (push 3)
                        DIV / (Push 4)
                         INTEGER_CONST 2 (Push 5)
-                    3.000000 / 2.000000 = 1.500000 (push 6)
-                 0.000000 - 1.500000 = -1.500000 (push 4)
+                    3.000000 / 2.000000 = 1.500000 (pop 2, push 3)
+                 0.000000 - 1.500000 = -1.500000 (pop 0, push 1)
                   DIV / (Push 2)
                    varref ext.ledCount = 3.000000 (push 3)
-               -1.500000 / 3.000000 = -0.500000 (push 4)
+               -1.500000 / 3.000000 = -0.500000 (pop 0, push 1)
              block_reflections.hh := -0.500000 (pop 0) 1-8
                     varref block_reflections.t3 = 0.030518 (push 1) 1-3
-                 Call triangle(0.030518) = 0.061036
+                 Call triangle(0.030518) = 0.061036 (Pop 0, Push 1)
                   MUL * (Push 2)
                    INTEGER_CONST 10 (Push 3)
-               0.061036 * 10.000000 = 0.610360 (push 4)
+               0.061036 * 10.000000 = 0.610360 (pop 0, push 1)
                  PLUS + (Push 2)
                    INTEGER_CONST 4 (Push 3)
                     MUL * (Push 4)
                         varref block_reflections.t4 = 0.479377 (push 5) 1-4
-                     Call sin(0.479377) = 0.461226
-                 4.000000 * 0.461226 = 1.844905 (push 6)
-              0.610360 + 1.844905 = 2.455265 (push 4)
+                     Call sin(0.479377) = 0.461226 (Pop 4, Push 5)
+                 4.000000 * 0.461226 = 1.844905 (pop 2, push 3)
+              0.610360 + 1.844905 = 2.455265 (pop 0, push 1)
              block_reflections.hhh := 2.455265 (pop 0) 1-9
                     varref block_reflections.hh = -0.500000 (push 1) 1-8
                      MUL * (Push 2)
                       varref block_reflections.hhh = 2.455265 (push 3) 1-9
-                  -0.500000 * 2.455265 = -1.227633 (push 4)
+                  -0.500000 * 2.455265 = -1.227632 (pop 0, push 1)
                   MOD % (Push 2)
                    varref block_reflections.m = 0.361036 (push 3) 1-7
-               -1.227633 % 0.361036 = -0.144525 (push 4)
+               -1.227632 % 0.361036 = -0.144524 (pop 0, push 1)
              block_reflections.h += 0.673952 (pop 0) 1-6
                 INTEGER_CONST 1 (Push 1)
              block_reflections.s := 1.000000 (pop 0) 1-10
                       varref block_reflections.h = 0.673952 (push 1) 1-6
-                   Call abs(0.673952) = 0.673952
+                   Call abs(0.673952) = 0.673952 (Pop 0, Push 1)
                     PLUS + (Push 2)
                         varref block_reflections.m = 0.361036 (push 3) 1-7
-                     Call abs(0.361036) = 0.361036
+                     Call abs(0.361036) = 0.361036 (Pop 2, Push 3)
                     PLUS + (Push 4)
                      varref block_reflections.t1 = 0.152590 (push 5) 1-2
-                 0.673952 + 0.361036 = 1.034988 (push 6)
-                 1.034988 + 0.152590 = 1.187578 (push 6)
+                 0.673952 + 0.361036 = 1.034988 (pop 2, push 3)
+                 1.034988 + 0.152590 = 1.187578 (pop 0, push 1)
                   MOD % (Push 2)
                    INTEGER_CONST 1 (Push 3)
-               1.187578 % 1.000000 = 0.187578 (push 4)
+               1.187578 % 1.000000 = 0.187578 (pop 0, push 1)
              block_reflections.v := 0.187578 (pop 0) 1-11
                  varref block_reflections.v = 0.187578 (push 1) 1-11
                   MUL * (Push 2)
                    varref block_reflections.v = 0.187578 (push 3) 1-11
-               0.187578 * 0.187578 = 0.035185 (push 4)
+               0.187578 * 0.187578 = 0.035185 (pop 0, push 1)
              block_reflections.v := 0.035185 (pop 0) 1-11
                  varref renderLed.index = 0.000000 (push 1) 2-0
                     varref block_reflections.h = 0.673952 (push 2) 1-6
                      MUL * (Push 3)
                       INTEGER_CONST 255 (Push 4)
-                  0.673952 * 255.000000 = 171.857636 (push 5)
+                  0.673952 * 255.000000 = 171.857666 (pop 1, push 2)
                       varref block_reflections.s = 1.000000 (push 3) 1-10
                        MUL * (Push 4)
                         INTEGER_CONST 255 (Push 5)
-                    1.000000 * 255.000000 = 255.000000 (push 6)
+                    1.000000 * 255.000000 = 255.000000 (pop 2, push 3)
                       varref block_reflections.v = 0.035185 (push 4) 1-11
                        MUL * (Push 5)
                         INTEGER_CONST 255 (Push 6)
-                    0.035185 * 255.000000 = 8.972259 (push 7)
-hsv(171.857636, 255.000000, 8.972259)
-                Call hsv(171.857636, 255.000000, 8.972259) = 435.829895
-arti_set_external_variable: leds(0.000000) := 435.829895
-             assign set ext.leds[0.000000] = 435.829895 (1)
-                   varref block_reflections.t2 = 0.958754 (push 1) 1-1
-                Call sin(0.958754) = 0.818476
+                    0.035185 * 255.000000 = 8.972278 (pop 3, push 4)
+hsv(171.857666, 255.000000, 8.972278)
+                Call hsv(171.857666, 255.000000, 8.972278) = 435.829956 (Pop 1, Push 2)
+arti_set_external_variable: leds(0.000000) := 435.829956
+             assign set ext.leds[0.000000] = 435.829956 (Pop 0)
+                   varref block_reflections.t2 = 0.958753 (push 1) 1-1
+                Call sin(0.958753) = 0.818476 (Pop 0, Push 1)
              block_reflections.h := 0.818476 (pop 0) 1-6
                   REAL_CONST 0.3 (Push 1)
                    PLUS + (Push 2)
                         varref block_reflections.t1 = 0.152590 (push 3) 1-2
-                     Call triangle(0.152590) = 0.305180
+                     Call triangle(0.152590) = 0.305180 (Pop 2, Push 3)
                       MUL * (Push 4)
                        REAL_CONST 0.2 (Push 5)
-                   0.305180 * 0.200000 = 0.061036 (push 6)
-                0.300000 + 0.061036 = 0.361036 (push 4)
+                   0.305180 * 0.200000 = 0.061036 (pop 2, push 3)
+                0.300000 + 0.061036 = 0.361036 (pop 0, push 1)
              block_reflections.m := 0.361036 (pop 0) 1-7
                    varref renderLed.index = 1.000000 (push 1) 2-0
                     MINUS - (Push 2)
                       varref ext.ledCount = 3.000000 (push 3)
                        DIV / (Push 4)
                         INTEGER_CONST 2 (Push 5)
-                    3.000000 / 2.000000 = 1.500000 (push 6)
-                 1.000000 - 1.500000 = -0.500000 (push 4)
+                    3.000000 / 2.000000 = 1.500000 (pop 2, push 3)
+                 1.000000 - 1.500000 = -0.500000 (pop 0, push 1)
                   DIV / (Push 2)
                    varref ext.ledCount = 3.000000 (push 3)
-               -0.500000 / 3.000000 = -0.166667 (push 4)
+               -0.500000 / 3.000000 = -0.166667 (pop 0, push 1)
              block_reflections.hh := -0.166667 (pop 0) 1-8
                     varref block_reflections.t3 = 0.030518 (push 1) 1-3
-                 Call triangle(0.030518) = 0.061036
+                 Call triangle(0.030518) = 0.061036 (Pop 0, Push 1)
                   MUL * (Push 2)
                    INTEGER_CONST 10 (Push 3)
-               0.061036 * 10.000000 = 0.610360 (push 4)
+               0.061036 * 10.000000 = 0.610360 (pop 0, push 1)
                  PLUS + (Push 2)
                    INTEGER_CONST 4 (Push 3)
                     MUL * (Push 4)
                         varref block_reflections.t4 = 0.479377 (push 5) 1-4
-                     Call sin(0.479377) = 0.461226
-                 4.000000 * 0.461226 = 1.844905 (push 6)
-              0.610360 + 1.844905 = 2.455265 (push 4)
+                     Call sin(0.479377) = 0.461226 (Pop 4, Push 5)
+                 4.000000 * 0.461226 = 1.844905 (pop 2, push 3)
+              0.610360 + 1.844905 = 2.455265 (pop 0, push 1)
              block_reflections.hhh := 2.455265 (pop 0) 1-9
                     varref block_reflections.hh = -0.166667 (push 1) 1-8
                      MUL * (Push 2)
                       varref block_reflections.hhh = 2.455265 (push 3) 1-9
-                  -0.166667 * 2.455265 = -0.409211 (push 4)
+                  -0.166667 * 2.455265 = -0.409211 (pop 0, push 1)
                   MOD % (Push 2)
                    varref block_reflections.m = 0.361036 (push 3) 1-7
-               -0.409211 % 0.361036 = -0.048175 (push 4)
+               -0.409211 % 0.361036 = -0.048175 (pop 0, push 1)
              block_reflections.h += 0.770301 (pop 0) 1-6
                 INTEGER_CONST 1 (Push 1)
              block_reflections.s := 1.000000 (pop 0) 1-10
                       varref block_reflections.h = 0.770301 (push 1) 1-6
-                   Call abs(0.770301) = 0.770301
+                   Call abs(0.770301) = 0.770301 (Pop 0, Push 1)
                     PLUS + (Push 2)
                         varref block_reflections.m = 0.361036 (push 3) 1-7
-                     Call abs(0.361036) = 0.361036
+                     Call abs(0.361036) = 0.361036 (Pop 2, Push 3)
                     PLUS + (Push 4)
                      varref block_reflections.t1 = 0.152590 (push 5) 1-2
-                 0.770301 + 0.361036 = 1.131337 (push 6)
-                 1.131337 + 0.152590 = 1.283927 (push 6)
+                 0.770301 + 0.361036 = 1.131337 (pop 2, push 3)
+                 1.131337 + 0.152590 = 1.283927 (pop 0, push 1)
                   MOD % (Push 2)
                    INTEGER_CONST 1 (Push 3)
-               1.283927 % 1.000000 = 0.283927 (push 4)
+               1.283927 % 1.000000 = 0.283927 (pop 0, push 1)
              block_reflections.v := 0.283927 (pop 0) 1-11
                  varref block_reflections.v = 0.283927 (push 1) 1-11
                   MUL * (Push 2)
                    varref block_reflections.v = 0.283927 (push 3) 1-11
-               0.283927 * 0.283927 = 0.080615 (push 4)
+               0.283927 * 0.283927 = 0.080615 (pop 0, push 1)
              block_reflections.v := 0.080615 (pop 0) 1-11
                  varref renderLed.index = 1.000000 (push 1) 2-0
                     varref block_reflections.h = 0.770301 (push 2) 1-6
                      MUL * (Push 3)
                       INTEGER_CONST 255 (Push 4)
-                  0.770301 * 255.000000 = 196.426808 (push 5)
+                  0.770301 * 255.000000 = 196.426819 (pop 1, push 2)
                       varref block_reflections.s = 1.000000 (push 3) 1-10
                        MUL * (Push 4)
                         INTEGER_CONST 255 (Push 5)
-                    1.000000 * 255.000000 = 255.000000 (push 6)
+                    1.000000 * 255.000000 = 255.000000 (pop 2, push 3)
                       varref block_reflections.v = 0.080615 (push 4) 1-11
                        MUL * (Push 5)
                         INTEGER_CONST 255 (Push 6)
-                    0.080615 * 255.000000 = 20.556740 (push 7)
-hsv(196.426808, 255.000000, 20.556740)
-                Call hsv(196.426808, 255.000000, 20.556740) = 471.983548
-arti_set_external_variable: leds(1.000000) := 471.983548
-             assign set ext.leds[1.000000] = 471.983548 (1)
-                   varref block_reflections.t2 = 0.958754 (push 1) 1-1
-                Call sin(0.958754) = 0.818476
+                    0.080615 * 255.000000 = 20.556738 (pop 3, push 4)
+hsv(196.426819, 255.000000, 20.556738)
+                Call hsv(196.426819, 255.000000, 20.556738) = 471.983551 (Pop 1, Push 2)
+arti_set_external_variable: leds(1.000000) := 471.983551
+             assign set ext.leds[1.000000] = 471.983551 (Pop 0)
+                   varref block_reflections.t2 = 0.958753 (push 1) 1-1
+                Call sin(0.958753) = 0.818476 (Pop 0, Push 1)
              block_reflections.h := 0.818476 (pop 0) 1-6
                   REAL_CONST 0.3 (Push 1)
                    PLUS + (Push 2)
                         varref block_reflections.t1 = 0.152590 (push 3) 1-2
-                     Call triangle(0.152590) = 0.305180
+                     Call triangle(0.152590) = 0.305180 (Pop 2, Push 3)
                       MUL * (Push 4)
                        REAL_CONST 0.2 (Push 5)
-                   0.305180 * 0.200000 = 0.061036 (push 6)
-                0.300000 + 0.061036 = 0.361036 (push 4)
+                   0.305180 * 0.200000 = 0.061036 (pop 2, push 3)
+                0.300000 + 0.061036 = 0.361036 (pop 0, push 1)
              block_reflections.m := 0.361036 (pop 0) 1-7
                    varref renderLed.index = 2.000000 (push 1) 2-0
                     MINUS - (Push 2)
                       varref ext.ledCount = 3.000000 (push 3)
                        DIV / (Push 4)
                         INTEGER_CONST 2 (Push 5)
-                    3.000000 / 2.000000 = 1.500000 (push 6)
-                 2.000000 - 1.500000 = 0.500000 (push 4)
+                    3.000000 / 2.000000 = 1.500000 (pop 2, push 3)
+                 2.000000 - 1.500000 = 0.500000 (pop 0, push 1)
                   DIV / (Push 2)
                    varref ext.ledCount = 3.000000 (push 3)
-               0.500000 / 3.000000 = 0.166667 (push 4)
+               0.500000 / 3.000000 = 0.166667 (pop 0, push 1)
              block_reflections.hh := 0.166667 (pop 0) 1-8
                     varref block_reflections.t3 = 0.030518 (push 1) 1-3
-                 Call triangle(0.030518) = 0.061036
+                 Call triangle(0.030518) = 0.061036 (Pop 0, Push 1)
                   MUL * (Push 2)
                    INTEGER_CONST 10 (Push 3)
-               0.061036 * 10.000000 = 0.610360 (push 4)
+               0.061036 * 10.000000 = 0.610360 (pop 0, push 1)
                  PLUS + (Push 2)
                    INTEGER_CONST 4 (Push 3)
                     MUL * (Push 4)
                         varref block_reflections.t4 = 0.479377 (push 5) 1-4
-                     Call sin(0.479377) = 0.461226
-                 4.000000 * 0.461226 = 1.844905 (push 6)
-              0.610360 + 1.844905 = 2.455265 (push 4)
+                     Call sin(0.479377) = 0.461226 (Pop 4, Push 5)
+                 4.000000 * 0.461226 = 1.844905 (pop 2, push 3)
+              0.610360 + 1.844905 = 2.455265 (pop 0, push 1)
              block_reflections.hhh := 2.455265 (pop 0) 1-9
                     varref block_reflections.hh = 0.166667 (push 1) 1-8
                      MUL * (Push 2)
                       varref block_reflections.hhh = 2.455265 (push 3) 1-9
-                  0.166667 * 2.455265 = 0.409211 (push 4)
+                  0.166667 * 2.455265 = 0.409211 (pop 0, push 1)
                   MOD % (Push 2)
                    varref block_reflections.m = 0.361036 (push 3) 1-7
-               0.409211 % 0.361036 = 0.048175 (push 4)
+               0.409211 % 0.361036 = 0.048175 (pop 0, push 1)
              block_reflections.h += 0.866651 (pop 0) 1-6
                 INTEGER_CONST 1 (Push 1)
              block_reflections.s := 1.000000 (pop 0) 1-10
                       varref block_reflections.h = 0.866651 (push 1) 1-6
-                   Call abs(0.866651) = 0.866651
+                   Call abs(0.866651) = 0.866651 (Pop 0, Push 1)
                     PLUS + (Push 2)
                         varref block_reflections.m = 0.361036 (push 3) 1-7
-                     Call abs(0.361036) = 0.361036
+                     Call abs(0.361036) = 0.361036 (Pop 2, Push 3)
                     PLUS + (Push 4)
                      varref block_reflections.t1 = 0.152590 (push 5) 1-2
-                 0.866651 + 0.361036 = 1.227687 (push 6)
-                 1.227687 + 0.152590 = 1.380277 (push 6)
+                 0.866651 + 0.361036 = 1.227687 (pop 2, push 3)
+                 1.227687 + 0.152590 = 1.380277 (pop 0, push 1)
                   MOD % (Push 2)
                    INTEGER_CONST 1 (Push 3)
-               1.380277 % 1.000000 = 0.380277 (push 4)
+               1.380277 % 1.000000 = 0.380277 (pop 0, push 1)
              block_reflections.v := 0.380277 (pop 0) 1-11
                  varref block_reflections.v = 0.380277 (push 1) 1-11
                   MUL * (Push 2)
                    varref block_reflections.v = 0.380277 (push 3) 1-11
-               0.380277 * 0.380277 = 0.144611 (push 4)
+               0.380277 * 0.380277 = 0.144611 (pop 0, push 1)
              block_reflections.v := 0.144611 (pop 0) 1-11
                  varref renderLed.index = 2.000000 (push 1) 2-0
                     varref block_reflections.h = 0.866651 (push 2) 1-6
                      MUL * (Push 3)
                       INTEGER_CONST 255 (Push 4)
-                  0.866651 * 255.000000 = 220.995980 (push 5)
+                  0.866651 * 255.000000 = 220.995956 (pop 1, push 2)
                       varref block_reflections.s = 1.000000 (push 3) 1-10
                        MUL * (Push 4)
                         INTEGER_CONST 255 (Push 5)
-                    1.000000 * 255.000000 = 255.000000 (push 6)
+                    1.000000 * 255.000000 = 255.000000 (pop 2, push 3)
                       varref block_reflections.v = 0.144611 (push 4) 1-11
                        MUL * (Push 5)
                         INTEGER_CONST 255 (Push 6)
-                    0.144611 * 255.000000 = 36.875685 (push 7)
-hsv(220.995980, 255.000000, 36.875685)
-                Call hsv(220.995980, 255.000000, 36.875685) = 512.871666
-arti_set_external_variable: leds(2.000000) := 512.871666
-             assign set ext.leds[2.000000] = 512.871666 (1)
+                    0.144611 * 255.000000 = 36.875687 (pop 3, push 4)
+hsv(220.995956, 255.000000, 36.875687)
+                Call hsv(220.995956, 255.000000, 36.875687) = 512.871643 (Pop 1, Push 2)
+arti_set_external_variable: leds(2.000000) := 512.871643
+             assign set ext.leds[2.000000] = 512.871643 (Pop 0)
 Destruct activation record renderLed
 setPixels(leds)
 closing Arti 0
@@ -1047,6 +1047,6 @@ Destruct Symbol hhh (0)
 Destruct Symbol s (0)
 Destruct Symbol v (0)
 Destruct ScopedSymbolTable block_reflections (0)
-definitionJson  10739 / 65% (23 0 6)
+definitionJson  11566 / 70% (26 0 6)
 parseTree       26455 / 40% (1 0 24)
 closed Arti 0 ✓

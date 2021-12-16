@@ -11,30 +11,30 @@ parseTree 65536 => 0 ✓
      found varref
        ASSIGN = -> [INTEGER_CONST 0] 6
      found assignoperator
-        INTEGER_CONST 0 -> [ID colr] 7
-       found factor
-      found term
-     found expr
+         INTEGER_CONST 0 -> [ID colr] 8
+        found factor
+       found term
+      found expr
     found assign
    found statement
      ID colr -> [ASSIGN =] 4
      found varref
        ASSIGN = -> [INTEGER_CONST 1] 6
      found assignoperator
-        INTEGER_CONST 1 -> [ID bri] 7
-       found factor
-      found term
-     found expr
+         INTEGER_CONST 1 -> [ID bri] 8
+        found factor
+       found term
+      found expr
     found assign
    found statement
      ID bri -> [ASSIGN =] 4
      found varref
        ASSIGN = -> [INTEGER_CONST 64] 6
      found assignoperator
-        INTEGER_CONST 64 -> [FUNCTION FUNCTION] 7
-       found factor
-      found term
-     found expr
+         INTEGER_CONST 64 -> [FUNCTION FUNCTION] 8
+        found factor
+       found term
+      found expr
     found assign
    found statement
      FUNCTION FUNCTION -> [ID renderFrame] 4
@@ -47,15 +47,15 @@ parseTree 65536 => 0 ✓
          found varref
            ASSIGN = -> [ID speedSlider] 10
          found assignoperator
+              ID speedSlider -> [DIV /] 13
              ID speedSlider -> [DIV /] 12
-            ID speedSlider -> [DIV /] 11
-            found varref
-           found factor
-             DIV / -> [INTEGER_CONST 1000] 12
-             INTEGER_CONST 1000 -> [ID fadeToBlackBy] 12
+             found varref
             found factor
-          found term
-         found expr
+              DIV / -> [INTEGER_CONST 1000] 13
+              INTEGER_CONST 1000 -> [ID fadeToBlackBy] 13
+             found factor
+           found term
+          found expr
         found assign
        found statement
          ID fadeToBlackBy -> [LPAREN (] 8
@@ -79,24 +79,24 @@ parseTree 65536 => 0 ✓
          found varref
            ASSIGN+ += -> [ID grav] 10
          found assignoperator
+              ID grav -> [ID dripLocn] 13
              ID grav -> [ID dripLocn] 12
-            ID grav -> [ID dripLocn] 11
-            found varref
-           found factor
-          found term
-         found expr
+             found varref
+            found factor
+           found term
+          found expr
         found assign
        found statement
          ID dripLocn -> [ASSIGN- -=] 8
          found varref
            ASSIGN- -= -> [ID dripSpd] 10
          found assignoperator
+              ID dripSpd -> [IF IF] 13
              ID dripSpd -> [IF IF] 12
-            ID dripSpd -> [IF IF] 11
-            found varref
-           found factor
-          found term
-         found expr
+             found varref
+            found factor
+           found term
+          found expr
         found assign
        found statement
          IF IF -> [LPAREN (] 8
@@ -126,27 +126,27 @@ parseTree 65536 => 0 ✓
               RBRACKET ] -> [ASSIGN =] 13
                ASSIGN = -> [ID colorFromPalette] 14
              found assignoperator
-                 ID colorFromPalette -> [LPAREN (] 16
-                 LPAREN ( -> [ID colr] 16
+                  ID colorFromPalette -> [LPAREN (] 17
+                  LPAREN ( -> [ID colr] 17
+                       ID colr -> [COMMA ,] 22
                       ID colr -> [COMMA ,] 21
-                     ID colr -> [COMMA ,] 20
-                     found varref
-                    found factor
-                   found term
-                  found expr
-                   COMMA , -> [ID bri] 18
-                       ID bri -> [RPAREN )] 22
-                      ID bri -> [RPAREN )] 21
                       found varref
                      found factor
                     found term
                    found expr
-                 found actuals
-                 RPAREN ) -> [RCURL }] 16
-                found call
-               found factor
-              found term
-             found expr
+                    COMMA , -> [ID bri] 19
+                        ID bri -> [RPAREN )] 23
+                       ID bri -> [RPAREN )] 22
+                       found varref
+                      found factor
+                     found term
+                    found expr
+                  found actuals
+                  RPAREN ) -> [RCURL }] 17
+                 found call
+                found factor
+               found term
+              found expr
             found assign
            found statement
           RCURL } -> [IF IF] 9
@@ -171,26 +171,26 @@ parseTree 65536 => 0 ✓
              found varref
                ASSIGN = -> [ID ledCount] 14
              found assignoperator
+                  ID ledCount -> [MINUS -] 17
                  ID ledCount -> [MINUS -] 16
-                ID ledCount -> [MINUS -] 15
-                found varref
-               found factor
-              found term
-                MINUS - -> [INTEGER_CONST 1] 15
-                 INTEGER_CONST 1 -> [ID dripSpd] 16
+                 found varref
                 found factor
                found term
-             found expr
+                 MINUS - -> [INTEGER_CONST 1] 16
+                  INTEGER_CONST 1 -> [ID dripSpd] 17
+                 found factor
+                found term
+              found expr
             found assign
            found statement
              ID dripSpd -> [ASSIGN =] 12
              found varref
                ASSIGN = -> [INTEGER_CONST 0] 14
              found assignoperator
-                INTEGER_CONST 0 -> [RCURL }] 15
-               found factor
-              found term
-             found expr
+                 INTEGER_CONST 0 -> [RCURL }] 16
+                found factor
+               found term
+              found expr
             found assign
            found statement
           RCURL } -> [RCURL }] 9
@@ -204,29 +204,29 @@ parseTree 65536 => 0 ✓
   RCURL } 1
  found block
 Symbol program Parsed until (40,0) 888 of 888
-definitionTree 10739 / 65% (23 0 6)
+definitionTree 11566 / 70% (26 0 6)
 parseTree      13797 / 21% (1 0 28)
 garbageCollect 9797 / 14%
 Destruct Lexer
 parse 0 ✓
 
 Optimizer
-        symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
-        symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
-        symbol to shrink factor in term = {"INTEGER_CONST":"64"} from {"factor":{"INTEGER_CONST":"64"}}
-             symbol to shrink factor in term = {"varref":{"ID":"grav"}} from {"factor":{"varref":{"ID":"grav"}}}
-             symbol to shrink factor in term = {"varref":{"ID":"dripSpd"}} from {"factor":{"varref":{"ID":"dripSpd"}}}
-             symbol to shrink factor in term = {"varref":{"ID":"dripLocn"}} from {"factor":{"varref":{"ID":"dripLocn"}}}
-               symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
-                   symbol to shrink factor in term = {"varref":{"ID":"dripLocn"}} from {"factor":{"varref":{"ID":"dripLocn"}}}
-                       symbol to shrink factor in term = {"varref":{"ID":"colr"}} from {"factor":{"varref":{"ID":"colr"}}}
-                         symbol to shrink factor in term = {"varref":{"ID":"bri"}} from {"factor":{"varref":{"ID":"bri"}}}
-                  symbol to shrink factor in term = {"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colr"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}} from {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colr"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}}
-             symbol to shrink factor in term = {"varref":{"ID":"dripLocn"}} from {"factor":{"varref":{"ID":"dripLocn"}}}
-               symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
-                  symbol to shrink factor in term = {"varref":{"ID":"ledCount"}} from {"factor":{"varref":{"ID":"ledCount"}}}
-                    symbol to shrink factor in term = {"INTEGER_CONST":"1"} from {"factor":{"INTEGER_CONST":"1"}}
-                  symbol to shrink factor in term = {"INTEGER_CONST":"0"} from {"factor":{"INTEGER_CONST":"0"}}
+        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"64"}} from {"term":{"factor":{"INTEGER_CONST":"64"}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"varref":{"ID":"grav"}}} from {"term":{"factor":{"varref":{"ID":"grav"}}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"varref":{"ID":"dripSpd"}}} from {"term":{"factor":{"varref":{"ID":"dripSpd"}}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"varref":{"ID":"dripLocn"}}} from {"term":{"factor":{"varref":{"ID":"dripLocn"}}},"*":["multiple",{"GT":">"},{"term":{"factor":{"INTEGER_CONST":"0"},"*":["multiple"]}}]}
+               symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}}}
+                   symbol to shrink factor in term : {"factor":{"varref":{"ID":"dripLocn"}}} from {"term":{"factor":{"varref":{"ID":"dripLocn"}}},"*":["multiple"]}
+                       symbol to shrink factor in term : {"factor":{"varref":{"ID":"colr"}}} from {"term":{"factor":{"varref":{"ID":"colr"}}},"*":["multiple"]}
+                         symbol to shrink factor in term : {"factor":{"varref":{"ID":"bri"}}} from {"term":{"factor":{"varref":{"ID":"bri"}}},"*":["multiple"]}
+                  symbol to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colr"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colr"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"varref":{"ID":"dripLocn"}}} from {"term":{"factor":{"varref":{"ID":"dripLocn"}}},"*":["multiple",{"LTE":"<="},{"term":{"factor":{"INTEGER_CONST":"0"},"*":["multiple"]}}]}
+               symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}}}
+                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+                    symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
 optimize 0 ✓
 
 Analyzer
@@ -244,12 +244,12 @@ Analyzer
          Ext Function found fadeToBlackBy (8)
              Ext Variable found intensitySlider (12) varref
          assign dripSpd = (8)
+         +=
             VarRef found Drip.grav (11)
-         asop +=
          assign Drip.dripLocn of notype
          assign dripLocn = (8)
+         -=
             VarRef found Drip.dripSpd (11)
-         asop -=
             VarRef found Drip.dripLocn (11)
               Ext Variable found leds (13) assign
               assign leds = (13)
@@ -283,35 +283,35 @@ Interpret main 0 ✓
                  varref ext.speedSlider = 16.000000 (push 1)
                   DIV / (Push 2)
                    INTEGER_CONST 1000 (Push 3)
-               16.000000 / 1000.000000 = 0.016000 (push 4)
+               16.000000 / 1000.000000 = 0.016000 (pop 0, push 1)
              Drip.grav := 0.016000 (pop 0) 1-4
                  varref ext.intensitySlider = 17.000000 (push 1)
                   DIV / (Push 2)
                    INTEGER_CONST 4 (Push 3)
-               17.000000 / 4.000000 = 4.250000 (push 4)
-             Call fadeToBlackBy(4.250000) = 4.250000
+               17.000000 / 4.000000 = 4.250000 (pop 0, push 1)
+             Call fadeToBlackBy(4.250000) = 4.250000 (Pop 0, Push 1)
                 varref Drip.grav = 0.016000 (push 2) 1-4
              Drip.dripSpd += 0.016000 (pop 1) 1-0
                 varref Drip.dripSpd = 0.016000 (push 2) 1-0
              Drip.dripLocn -= -0.016000 (pop 1) 1-5
-             If (1)
-             if condition
+             If (stack 1)
+             condition
                 varref Drip.dripLocn = -0.016000 (push 2) 1-5
                  GT > (Push 3)
                   INTEGER_CONST 0 (Push 4)
-              -0.016000 > 0.000000 = 0.000000 (push 5)
+              -0.016000 > 0.000000 = 0.000000 (pop 1, push 2)
              (pop 1)
-             If (1)
-             if condition
+             If (stack 1)
+             condition
                 varref Drip.dripLocn = -0.016000 (push 2) 1-5
                  LTE <= (Push 3)
                   INTEGER_CONST 0 (Push 4)
-              -0.016000 <=> 0.000000 = 1.000000 (push 5)
+              -0.016000 <=> 0.000000 = 1.000000 (pop 1, push 2)
              (pop 1)
                      varref ext.ledCount = 3.000000 (push 2)
                       MINUS - (Push 3)
                        INTEGER_CONST 1 (Push 4)
-                   3.000000 - 1.000000 = 2.000000 (push 5)
+                   3.000000 - 1.000000 = 2.000000 (pop 1, push 2)
                   Drip.dripLocn := 2.000000 (pop 1) 1-5
                      INTEGER_CONST 0 (Push 2)
                   Drip.dripSpd := 0.000000 (pop 1) 1-0
@@ -320,36 +320,36 @@ Destruct activation record renderFrame
                  varref ext.speedSlider = 16.000000 (push 2)
                   DIV / (Push 3)
                    INTEGER_CONST 1000 (Push 4)
-               16.000000 / 1000.000000 = 0.016000 (push 5)
+               16.000000 / 1000.000000 = 0.016000 (pop 1, push 2)
              Drip.grav := 0.016000 (pop 1) 1-4
                  varref ext.intensitySlider = 17.000000 (push 2)
                   DIV / (Push 3)
                    INTEGER_CONST 4 (Push 4)
-               17.000000 / 4.000000 = 4.250000 (push 5)
-             Call fadeToBlackBy(4.250000) = 4.250000
+               17.000000 / 4.000000 = 4.250000 (pop 1, push 2)
+             Call fadeToBlackBy(4.250000) = 4.250000 (Pop 1, Push 2)
                 varref Drip.grav = 0.016000 (push 3) 1-4
              Drip.dripSpd += 0.016000 (pop 2) 1-0
                 varref Drip.dripSpd = 0.016000 (push 3) 1-0
              Drip.dripLocn -= 1.984000 (pop 2) 1-5
-             If (2)
-             if condition
+             If (stack 2)
+             condition
                 varref Drip.dripLocn = 1.984000 (push 3) 1-5
                  GT > (Push 4)
                   INTEGER_CONST 0 (Push 5)
-              1.984000 > 0.000000 = 1.000000 (push 6)
+              1.984000 > 0.000000 = 1.000000 (pop 2, push 3)
              (pop 2)
                       varref Drip.dripLocn = 1.984000 (push 3) 1-5
                         varref Drip.colr = 1.000000 (push 4) 1-1
                           varref Drip.bri = 64.000000 (push 5) 1-2
-                     Call colorFromPalette(1.000000, 64.000000) = 65.000000
+                     Call colorFromPalette(1.000000, 64.000000) = 65.000000 (Pop 3, Push 4)
 arti_set_external_variable: leds(1.984000) := 65.000000
-                  assign set ext.leds[1.984000] = 65.000000 (3)
-             If (2)
-             if condition
+                  assign set ext.leds[1.984000] = 65.000000 (Pop 2)
+             If (stack 2)
+             condition
                 varref Drip.dripLocn = 1.984000 (push 3) 1-5
                  LTE <= (Push 4)
                   INTEGER_CONST 0 (Push 5)
-              1.984000 <=> 0.000000 = 0.000000 (push 6)
+              1.984000 <=> 0.000000 = 0.000000 (pop 2, push 3)
              (pop 2)
 Destruct activation record renderFrame
 setPixels(leds)
@@ -364,6 +364,6 @@ Destruct Symbol renderFrame (0)
 Destruct Symbol grav (0)
 Destruct Symbol dripLocn (0)
 Destruct ScopedSymbolTable Drip (0)
-definitionJson  10739 / 65% (23 0 6)
+definitionJson  11566 / 70% (26 0 6)
 parseTree       12581 / 19% (1 0 26)
 closed Arti 0 ✓

@@ -1,0 +1,640 @@
+setup 0 bytes free
+open wled.json 0 ✓
+definitionTree 16384 => 0 ✓
+open Examples/ripple.wled 0 ✓
+programFile size 1010 bytes
+parseTree 65536 => 0 ✓
+ PROGRAM PROGRAM -> [ID Ripple] 0
+ ID Ripple -> [LCURL {] 0
+  LCURL { -> [ID step] 1
+     ID step -> [ASSIGN =] 4
+     found varref
+       ASSIGN = -> [INTEGER_CONST 0] 6
+     found assignoperator
+         INTEGER_CONST 0 -> [MINUS -] 8
+        found factor
+       found term
+         MINUS - -> [INTEGER_CONST 1] 8
+          INTEGER_CONST 1 -> [ID center] 9
+         found factor
+        found term
+      found expr
+    found assign
+   found statement
+     ID center -> [ASSIGN =] 4
+     found varref
+       ASSIGN = -> [INTEGER_CONST 0] 6
+     found assignoperator
+         INTEGER_CONST 0 -> [ID colour] 8
+        found factor
+       found term
+      found expr
+    found assign
+   found statement
+     ID colour -> [ASSIGN =] 4
+     found varref
+       ASSIGN = -> [INTEGER_CONST 0] 6
+     found assignoperator
+         INTEGER_CONST 0 -> [ID maxsteps] 8
+        found factor
+       found term
+      found expr
+    found assign
+   found statement
+     ID maxsteps -> [ASSIGN =] 4
+     found varref
+       ASSIGN = -> [INTEGER_CONST 16] 6
+     found assignoperator
+         INTEGER_CONST 16 -> [FUNCTION FUNCTION] 8
+        found factor
+       found term
+      found expr
+    found assign
+   found statement
+     FUNCTION FUNCTION -> [ID renderFrame] 4
+     ID renderFrame -> [LPAREN (] 4
+      LPAREN ( -> [RPAREN )] 5
+      found formals
+      RPAREN ) -> [LCURL {] 5
+      LCURL { -> [ID fadeToBlackBy] 5
+         ID fadeToBlackBy -> [LPAREN (] 8
+         found varref
+         ID fadeToBlackBy -> [LPAREN (] 8
+         LPAREN ( -> [ID intensitySlider] 8
+              ID intensitySlider -> [DIV /] 13
+             ID intensitySlider -> [DIV /] 12
+             found varref
+            found factor
+              DIV / -> [INTEGER_CONST 4] 13
+              INTEGER_CONST 4 -> [RPAREN )] 13
+             found factor
+           found term
+          found expr
+         found actuals
+         RPAREN ) -> [IF IF] 8
+        found call
+       found statement
+         IF IF -> [LPAREN (] 8
+         LPAREN ( -> [ID step] 8
+             ID step -> [EQ ==] 12
+            ID step -> [EQ ==] 11
+            found varref
+           found factor
+          found term
+            EQ == -> [LPAREN (] 11
+              LPAREN ( -> [INTEGER_CONST 0] 13
+                 INTEGER_CONST 0 -> [MINUS -] 16
+                found factor
+               found term
+                 MINUS - -> [INTEGER_CONST 1] 16
+                  INTEGER_CONST 1 -> [RPAREN )] 17
+                 found factor
+                found term
+              found expr
+              RPAREN ) -> [RPAREN )] 13
+            found factor
+           found term
+         found expr
+         RPAREN ) -> [LCURL {] 8
+          LCURL { -> [ID center] 9
+             ID center -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [ID random] 14
+             found assignoperator
+                  ID random -> [LPAREN (] 17
+                  LPAREN ( -> [RPAREN )] 17
+                  found actuals
+                  RPAREN ) -> [MOD %] 17
+                 found call
+                found factor
+                  MOD % -> [ID ledCount] 17
+                   ID ledCount -> [ID colour] 18
+                  ID ledCount -> [ID colour] 17
+                  found varref
+                 found factor
+               found term
+              found expr
+            found assign
+           found statement
+             ID colour -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [ID random] 14
+             found assignoperator
+                  ID random -> [LPAREN (] 17
+                  LPAREN ( -> [RPAREN )] 17
+                  found actuals
+                  RPAREN ) -> [MOD %] 17
+                 found call
+                found factor
+                  MOD % -> [INTEGER_CONST 255] 17
+                  INTEGER_CONST 255 -> [ID step] 17
+                 found factor
+               found term
+              found expr
+            found assign
+           found statement
+             ID step -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [INTEGER_CONST 0] 14
+             found assignoperator
+                 INTEGER_CONST 0 -> [RCURL }] 16
+                found factor
+               found term
+              found expr
+            found assign
+           found statement
+          RCURL } -> [ID ledL] 9
+         found block
+        found if
+       found statement
+         ID ledL -> [ASSIGN =] 8
+         found varref
+           ASSIGN = -> [LPAREN (] 10
+         found assignoperator
+              LPAREN ( -> [ID center] 13
+                  ID center -> [PLUS +] 17
+                 ID center -> [PLUS +] 16
+                 found varref
+                found factor
+               found term
+                 PLUS + -> [ID step] 16
+                   ID step -> [PLUS +] 18
+                  ID step -> [PLUS +] 17
+                  found varref
+                 found factor
+                found term
+                 PLUS + -> [ID ledCount] 16
+                   ID ledCount -> [RPAREN )] 18
+                  ID ledCount -> [RPAREN )] 17
+                  found varref
+                 found factor
+                found term
+              found expr
+              RPAREN ) -> [MOD %] 13
+            found factor
+              MOD % -> [ID ledCount] 13
+               ID ledCount -> [ID ledR] 14
+              ID ledCount -> [ID ledR] 13
+              found varref
+             found factor
+           found term
+          found expr
+        found assign
+       found statement
+         ID ledR -> [ASSIGN =] 8
+         found varref
+           ASSIGN = -> [LPAREN (] 10
+         found assignoperator
+              LPAREN ( -> [ID center] 13
+                  ID center -> [MINUS -] 17
+                 ID center -> [MINUS -] 16
+                 found varref
+                found factor
+               found term
+                 MINUS - -> [ID step] 16
+                   ID step -> [PLUS +] 18
+                  ID step -> [PLUS +] 17
+                  found varref
+                 found factor
+                found term
+                 PLUS + -> [ID ledCount] 16
+                   ID ledCount -> [RPAREN )] 18
+                  ID ledCount -> [RPAREN )] 17
+                  found varref
+                 found factor
+                found term
+              found expr
+              RPAREN ) -> [MOD %] 13
+            found factor
+              MOD % -> [ID ledCount] 13
+               ID ledCount -> [ID bri] 14
+              ID ledCount -> [ID bri] 13
+              found varref
+             found factor
+           found term
+          found expr
+        found assign
+       found statement
+         ID bri -> [ASSIGN =] 8
+         found varref
+           ASSIGN = -> [INTEGER_CONST 255] 10
+         found assignoperator
+             INTEGER_CONST 255 -> [DIV /] 12
+            found factor
+              DIV / -> [ID step] 13
+               ID step -> [MUL *] 14
+              ID step -> [MUL *] 13
+              found varref
+             found factor
+              MUL * -> [REAL_CONST .932] 13
+              REAL_CONST .932 -> [ID leds] 13
+             found factor
+           found term
+          found expr
+        found assign
+       found statement
+         ID leds -> [LBRACKET [] 8
+         found varref
+          LBRACKET [ -> [ID ledL] 9
+               ID ledL -> [RBRACKET ]] 14
+              ID ledL -> [RBRACKET ]] 13
+              found varref
+             found factor
+            found term
+           found expr
+          found indices
+          RBRACKET ] -> [ASSIGN =] 9
+           ASSIGN = -> [ID colorFromPalette] 10
+         found assignoperator
+              ID colorFromPalette -> [LPAREN (] 13
+              LPAREN ( -> [ID colour] 13
+                   ID colour -> [COMMA ,] 18
+                  ID colour -> [COMMA ,] 17
+                  found varref
+                 found factor
+                found term
+               found expr
+                COMMA , -> [ID bri] 15
+                    ID bri -> [RPAREN )] 19
+                   ID bri -> [RPAREN )] 18
+                   found varref
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID leds] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+         ID leds -> [LBRACKET [] 8
+         found varref
+          LBRACKET [ -> [ID ledR] 9
+               ID ledR -> [RBRACKET ]] 14
+              ID ledR -> [RBRACKET ]] 13
+              found varref
+             found factor
+            found term
+           found expr
+          found indices
+          RBRACKET ] -> [ASSIGN =] 9
+           ASSIGN = -> [ID colorFromPalette] 10
+         found assignoperator
+              ID colorFromPalette -> [LPAREN (] 13
+              LPAREN ( -> [ID colour] 13
+                   ID colour -> [COMMA ,] 18
+                  ID colour -> [COMMA ,] 17
+                  found varref
+                 found factor
+                found term
+               found expr
+                COMMA , -> [ID bri] 15
+                    ID bri -> [RPAREN )] 19
+                   ID bri -> [RPAREN )] 18
+                   found varref
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID step] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+         ID step -> [ASSIGN+ +=] 8
+         found varref
+           ASSIGN+ += -> [INTEGER_CONST 1] 10
+         found assignoperator
+             INTEGER_CONST 1 -> [IF IF] 12
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+         IF IF -> [LPAREN (] 8
+         LPAREN ( -> [ID step] 8
+             ID step -> [EQ ==] 12
+            ID step -> [EQ ==] 11
+            found varref
+           found factor
+          found term
+            EQ == -> [ID maxsteps] 11
+              ID maxsteps -> [RPAREN )] 13
+             ID maxsteps -> [RPAREN )] 12
+             found varref
+            found factor
+           found term
+         found expr
+         RPAREN ) -> [LCURL {] 8
+          LCURL { -> [ID step] 9
+             ID step -> [ASSIGN =] 12
+             found varref
+               ASSIGN = -> [INTEGER_CONST 0] 14
+             found assignoperator
+                 INTEGER_CONST 0 -> [MINUS -] 16
+                found factor
+               found term
+                 MINUS - -> [INTEGER_CONST 1] 16
+                  INTEGER_CONST 1 -> [RCURL }] 17
+                 found factor
+                found term
+              found expr
+            found assign
+           found statement
+          RCURL } -> [RCURL }] 9
+         found block
+        found if
+       found statement
+      RCURL } -> [RCURL }] 5
+     found block
+    found function
+   found statement
+  RCURL } 1
+ found block
+Symbol program Parsed until (44,0) 1010 of 1010
+definitionTree 11566 / 70% (26 0 6)
+parseTree      24286 / 37% (1 0 23)
+garbageCollect 17214 / 26%
+Destruct Lexer
+parse 0 ✓
+
+Optimizer
+        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+          symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"16"}} from {"term":{"factor":{"INTEGER_CONST":"16"}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}},"*":["multiple",{"EQ":"=="},{"term":{"factor":{"LPAREN":"(","expr":{"term":{"factor":{"INTEGER_CONST":"0"},"*":["multiple"]},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]},"RPAREN":")"},"*":["multiple"]}}]}
+                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+                    symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+               symbol to shrink factor in term : {"factor":{"expr":{"term":{"INTEGER_CONST":"0"},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"1"}}]}}} from {"term":{"factor":{"expr":{"term":{"INTEGER_CONST":"0"},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"1"}}]}}}}
+                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+                symbol to shrink factor in term : {"factor":{"varref":{"ID":"center"}}} from {"term":{"factor":{"varref":{"ID":"center"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"step"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple"]}}]}
+                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}}}
+                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}}}
+                symbol to shrink factor in term : {"factor":{"varref":{"ID":"center"}}} from {"term":{"factor":{"varref":{"ID":"center"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"step"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple"]}}]}
+                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}}}
+                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}}}
+              symbol to shrink factor in term : {"factor":{"varref":{"ID":"ledL"}}} from {"term":{"factor":{"varref":{"ID":"ledL"}}},"*":["multiple"]}
+                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"colour"}}} from {"term":{"factor":{"varref":{"ID":"colour"}}},"*":["multiple"]}
+                    symbol to shrink factor in term : {"factor":{"varref":{"ID":"bri"}}} from {"term":{"factor":{"varref":{"ID":"bri"}}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}},"*":["multiple"]}
+              symbol to shrink factor in term : {"factor":{"varref":{"ID":"ledR"}}} from {"term":{"factor":{"varref":{"ID":"ledR"}}},"*":["multiple"]}
+                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"colour"}}} from {"term":{"factor":{"varref":{"ID":"colour"}}},"*":["multiple"]}
+                    symbol to shrink factor in term : {"factor":{"varref":{"ID":"bri"}}} from {"term":{"factor":{"varref":{"ID":"bri"}}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+             symbol to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}},"*":["multiple",{"EQ":"=="},{"term":{"factor":{"varref":{"ID":"maxsteps"}},"*":["multiple"]}}]}
+               symbol to shrink factor in term : {"factor":{"varref":{"ID":"maxsteps"}}} from {"term":{"factor":{"varref":{"ID":"maxsteps"}}}}
+                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+                    symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+optimize 0 ✓
+
+Analyzer
+ Program Ripple 1 0
+     assign Ripple.step of notype
+     assign step = (4)
+     assign Ripple.center of notype
+     assign center = (4)
+     assign Ripple.colour of notype
+     assign colour = (4)
+     assign Ripple.maxsteps of notype
+     assign maxsteps = (4)
+     Function Ripple.renderFrame
+         Ext Function found fadeToBlackBy (8)
+             Ext Variable found intensitySlider (12) varref
+            VarRef found Ripple.step (11)
+              assign center = (13)
+                  Ext Function found random (17)
+                    Ext Variable found ledCount (19) varref
+              assign colour = (13)
+                  Ext Function found random (17)
+              assign step = (13)
+         assign Ripple.ledL of notype
+         assign ledL = (8)
+               VarRef found Ripple.center (14)
+                 VarRef found Ripple.step (16)
+                 Ext Variable found ledCount (16) varref
+               Ext Variable found ledCount (14) varref
+         assign Ripple.ledR of notype
+         assign ledR = (8)
+               VarRef found Ripple.center (14)
+                 VarRef found Ripple.step (16)
+                 Ext Variable found ledCount (16) varref
+               Ext Variable found ledCount (14) varref
+         assign Ripple.bri of notype
+         assign bri = (8)
+               VarRef found Ripple.step (14)
+         Ext Variable found leds (8) assign
+         assign leds = (8)
+            Ext Function found colorFromPalette (11)
+               VarRef found Ripple.colour (14)
+                 VarRef found Ripple.bri (16)
+             VarRef found Ripple.ledL (12)
+         Ext Variable found leds (8) assign
+         assign leds = (8)
+            Ext Function found colorFromPalette (11)
+               VarRef found Ripple.colour (14)
+                 VarRef found Ripple.bri (16)
+             VarRef found Ripple.ledR (12)
+         assign step = (8)
+         +=
+            VarRef found Ripple.step (11)
+              VarRef found Ripple.maxsteps (13)
+              assign step = (13)
+ 0 assign Ripple.step of 9 (1)
+ 1 assign Ripple.center of 9 (1)
+ 2 assign Ripple.colour of 9 (1)
+ 3 assign Ripple.maxsteps of 9 (1)
+ 4 function Ripple.renderFrame of 9 (1)
+ 5 assign Ripple.ledL of 9 (1)
+ 6 assign Ripple.ledR of 9 (1)
+ 7 assign Ripple.bri of 9 (1)
+analyze 0 ✓
+
+interpret Ripple 1 8
+ program Ripple
+        INTEGER_CONST 0 (Push 1)
+         MINUS - (Push 2)
+          INTEGER_CONST 1 (Push 3)
+      0.000000 - 1.000000 = -1.000000 (pop 0, push 1)
+     Ripple.step := -1.000000 (pop 0) 1-0
+        INTEGER_CONST 0 (Push 1)
+     Ripple.center := 0.000000 (pop 0) 1-1
+        INTEGER_CONST 0 (Push 1)
+     Ripple.colour := 0.000000 (pop 0) 1-2
+        INTEGER_CONST 16 (Push 1)
+     Ripple.maxsteps := 16.000000 (pop 0) 1-3
+     Save block of renderFrame
+Interpret main 0 ✓
+         Call renderFrame (1)
+                 varref ext.intensitySlider = 17.000000 (push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 4 (Push 3)
+               17.000000 / 4.000000 = 4.250000 (pop 0, push 1)
+             Call fadeToBlackBy(4.250000) = 4.250000 (Pop 0, Push 1)
+             If (stack 1)
+             condition
+                varref Ripple.step = -1.000000 (push 2) 1-0
+                 EQ == (Push 3)
+                    INTEGER_CONST 0 (Push 4)
+                     MINUS - (Push 5)
+                      INTEGER_CONST 1 (Push 6)
+                  0.000000 - 1.000000 = -1.000000 (pop 3, push 4)
+              -1.000000 == -1.000000 = 1.000000 (pop 1, push 2)
+             (pop 1)
+                      Call random() = 16807.000000 (Pop 1, Push 2)
+                       MOD % (Push 3)
+                        varref ext.ledCount = 3.000000 (push 4)
+                    16807.000000 % 3.000000 = 1.000000 (pop 1, push 2)
+                  Ripple.center := 1.000000 (pop 1) 1-1
+                      Call random() = 282475264.000000 (Pop 1, Push 2)
+                       MOD % (Push 3)
+                        INTEGER_CONST 255 (Push 4)
+                    282475264.000000 % 255.000000 = 34.000000 (pop 1, push 2)
+                  Ripple.colour := 34.000000 (pop 1) 1-2
+                     INTEGER_CONST 0 (Push 2)
+                  Ripple.step := 0.000000 (pop 1) 1-0
+                   varref Ripple.center = 1.000000 (push 2) 1-1
+                    PLUS + (Push 3)
+                     varref Ripple.step = 0.000000 (push 4) 1-0
+                    PLUS + (Push 5)
+                     varref ext.ledCount = 3.000000 (push 6)
+                 1.000000 + 0.000000 = 1.000000 (pop 3, push 4)
+                 1.000000 + 3.000000 = 4.000000 (pop 1, push 2)
+                  MOD % (Push 3)
+                   varref ext.ledCount = 3.000000 (push 4)
+               4.000000 % 3.000000 = 1.000000 (pop 1, push 2)
+             Ripple.ledL := 1.000000 (pop 1) 1-5
+                   varref Ripple.center = 1.000000 (push 2) 1-1
+                    MINUS - (Push 3)
+                     varref Ripple.step = 0.000000 (push 4) 1-0
+                    PLUS + (Push 5)
+                     varref ext.ledCount = 3.000000 (push 6)
+                 1.000000 - 0.000000 = 1.000000 (pop 3, push 4)
+                 1.000000 + 3.000000 = 4.000000 (pop 1, push 2)
+                  MOD % (Push 3)
+                   varref ext.ledCount = 3.000000 (push 4)
+               4.000000 % 3.000000 = 1.000000 (pop 1, push 2)
+             Ripple.ledR := 1.000000 (pop 1) 1-6
+                 INTEGER_CONST 255 (Push 2)
+                  DIV / (Push 3)
+                   varref Ripple.step = 0.000000 (push 4) 1-0
+                  MUL * (Push 5)
+                   REAL_CONST .932 (Push 6)
+               division by 0 not possible, divisor ignored for 255.000000
+               255.000000 / 1.000000 = 255.000000 (pop 3, push 4)
+               255.000000 * 0.932000 = 237.659988 (pop 1, push 2)
+             Ripple.bri := 237.659988 (pop 1) 1-7
+                 varref Ripple.ledL = 1.000000 (push 2) 1-5
+                   varref Ripple.colour = 34.000000 (push 3) 1-2
+                     varref Ripple.bri = 237.659988 (push 4) 1-7
+                Call colorFromPalette(34.000000, 237.659988) = 271.659973 (Pop 2, Push 3)
+arti_set_external_variable: leds(1.000000) := 271.659973
+             assign set ext.leds[1.000000] = 271.659973 (Pop 1)
+                 varref Ripple.ledR = 1.000000 (push 2) 1-6
+                   varref Ripple.colour = 34.000000 (push 3) 1-2
+                     varref Ripple.bri = 237.659988 (push 4) 1-7
+                Call colorFromPalette(34.000000, 237.659988) = 271.659973 (Pop 2, Push 3)
+arti_set_external_variable: leds(1.000000) := 271.659973
+             assign set ext.leds[1.000000] = 271.659973 (Pop 1)
+                INTEGER_CONST 1 (Push 2)
+             Ripple.step += 1.000000 (pop 1) 1-0
+             If (stack 1)
+             condition
+                varref Ripple.step = 1.000000 (push 2) 1-0
+                 EQ == (Push 3)
+                  varref Ripple.maxsteps = 16.000000 (push 4) 1-3
+              1.000000 == 16.000000 = 0.000000 (pop 1, push 2)
+             (pop 1)
+Destruct activation record renderFrame
+setPixels(leds)
+         Call renderFrame (1)
+                 varref ext.intensitySlider = 17.000000 (push 2)
+                  DIV / (Push 3)
+                   INTEGER_CONST 4 (Push 4)
+               17.000000 / 4.000000 = 4.250000 (pop 1, push 2)
+             Call fadeToBlackBy(4.250000) = 4.250000 (Pop 1, Push 2)
+             If (stack 2)
+             condition
+                varref Ripple.step = 1.000000 (push 3) 1-0
+                 EQ == (Push 4)
+                    INTEGER_CONST 0 (Push 5)
+                     MINUS - (Push 6)
+                      INTEGER_CONST 1 (Push 7)
+                  0.000000 - 1.000000 = -1.000000 (pop 4, push 5)
+              1.000000 == -1.000000 = 0.000000 (pop 2, push 3)
+             (pop 2)
+                   varref Ripple.center = 1.000000 (push 3) 1-1
+                    PLUS + (Push 4)
+                     varref Ripple.step = 1.000000 (push 5) 1-0
+                    PLUS + (Push 6)
+                     varref ext.ledCount = 3.000000 (push 7)
+                 1.000000 + 1.000000 = 2.000000 (pop 4, push 5)
+                 2.000000 + 3.000000 = 5.000000 (pop 2, push 3)
+                  MOD % (Push 4)
+                   varref ext.ledCount = 3.000000 (push 5)
+               5.000000 % 3.000000 = 2.000000 (pop 2, push 3)
+             Ripple.ledL := 2.000000 (pop 2) 1-5
+                   varref Ripple.center = 1.000000 (push 3) 1-1
+                    MINUS - (Push 4)
+                     varref Ripple.step = 1.000000 (push 5) 1-0
+                    PLUS + (Push 6)
+                     varref ext.ledCount = 3.000000 (push 7)
+                 1.000000 - 1.000000 = 0.000000 (pop 4, push 5)
+                 0.000000 + 3.000000 = 3.000000 (pop 2, push 3)
+                  MOD % (Push 4)
+                   varref ext.ledCount = 3.000000 (push 5)
+               3.000000 % 3.000000 = 0.000000 (pop 2, push 3)
+             Ripple.ledR := 0.000000 (pop 2) 1-6
+                 INTEGER_CONST 255 (Push 3)
+                  DIV / (Push 4)
+                   varref Ripple.step = 1.000000 (push 5) 1-0
+                  MUL * (Push 6)
+                   REAL_CONST .932 (Push 7)
+               255.000000 / 1.000000 = 255.000000 (pop 4, push 5)
+               255.000000 * 0.932000 = 237.659988 (pop 2, push 3)
+             Ripple.bri := 237.659988 (pop 2) 1-7
+                 varref Ripple.ledL = 2.000000 (push 3) 1-5
+                   varref Ripple.colour = 34.000000 (push 4) 1-2
+                     varref Ripple.bri = 237.659988 (push 5) 1-7
+                Call colorFromPalette(34.000000, 237.659988) = 271.659973 (Pop 3, Push 4)
+arti_set_external_variable: leds(2.000000) := 271.659973
+             assign set ext.leds[2.000000] = 271.659973 (Pop 2)
+                 varref Ripple.ledR = 0.000000 (push 3) 1-6
+                   varref Ripple.colour = 34.000000 (push 4) 1-2
+                     varref Ripple.bri = 237.659988 (push 5) 1-7
+                Call colorFromPalette(34.000000, 237.659988) = 271.659973 (Pop 3, Push 4)
+arti_set_external_variable: leds(0.000000) := 271.659973
+             assign set ext.leds[0.000000] = 271.659973 (Pop 2)
+                INTEGER_CONST 1 (Push 3)
+             Ripple.step += 2.000000 (pop 2) 1-0
+             If (stack 2)
+             condition
+                varref Ripple.step = 2.000000 (push 3) 1-0
+                 EQ == (Push 4)
+                  varref Ripple.maxsteps = 16.000000 (push 5) 1-3
+              2.000000 == 16.000000 = 0.000000 (pop 2, push 3)
+             (pop 2)
+Destruct activation record renderFrame
+setPixels(leds)
+closing Arti 0
+Destruct callstack
+Destruct valueStack
+Destruct ScopedSymbolTable renderFrame (0)
+Destruct Symbol step (0)
+Destruct Symbol center (0)
+Destruct Symbol colour (0)
+Destruct Symbol maxsteps (0)
+Destruct Symbol renderFrame (0)
+Destruct Symbol ledL (0)
+Destruct Symbol ledR (0)
+Destruct Symbol bri (0)
+Destruct ScopedSymbolTable Ripple (0)
+definitionJson  11566 / 70% (26 0 6)
+parseTree       22782 / 34% (1 0 23)
+closed Arti 0 ✓

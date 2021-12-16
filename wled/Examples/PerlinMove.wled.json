@@ -115,13 +115,7 @@
                               "level": 1,
                               "index": 1
                             },
-                            "assignoperator": 2,
-                            "expr": {
-                              "term": {
-                                "INTEGER_CONST": "1",
-                                "operator": 0
-                              }
-                            }
+                            "assignoperator": 17
                           }
                         },
                         "block": {
