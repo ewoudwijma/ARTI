@@ -28,12 +28,12 @@
                             "*": [
                               {
                                 "DIV": "/",
-                                "operator": 5
+                                "token": 5
                               },
                               {
                                 "factor": {
                                   "INTEGER_CONST": "100",
-                                  "operator": 0
+                                  "token": 0
                                 }
                               }
                             ]
@@ -54,7 +54,7 @@
                           "expr": {
                             "term": {
                               "INTEGER_CONST": "0",
-                              "operator": 0
+                              "token": 0
                             }
                           }
                         },
@@ -69,7 +69,7 @@
                           "*": [
                             {
                               "LT": "<",
-                              "operator": 11
+                              "token": 11
                             },
                             {
                               "term": {
@@ -92,7 +92,7 @@
                             "expr": {
                               "term": {
                                 "INTEGER_CONST": "30",
-                                "operator": 0
+                                "token": 0
                               }
                             }
                           }
@@ -118,7 +118,7 @@
                                       "*": [
                                         {
                                           "PLUS": "+",
-                                          "operator": 2
+                                          "token": 2
                                         },
                                         {
                                           "term": {
@@ -140,7 +140,7 @@
                                           "expr": {
                                             "term": {
                                               "INTEGER_CONST": "50",
-                                              "operator": 0
+                                              "token": 0
                                             }
                                           }
                                         },
@@ -170,7 +170,7 @@
                                       "*": [
                                         {
                                           "PLUS": "+",
-                                          "operator": 2
+                                          "token": 2
                                         },
                                         {
                                           "term": {
@@ -183,12 +183,12 @@
                                         },
                                         {
                                           "PLUS": "+",
-                                          "operator": 2
+                                          "token": 2
                                         },
                                         {
                                           "term": {
                                             "INTEGER_CONST": "10",
-                                            "operator": 0
+                                            "token": 0
                                           }
                                         }
                                       ]
@@ -202,7 +202,7 @@
                                           "expr": {
                                             "term": {
                                               "INTEGER_CONST": "125",
-                                              "operator": 0
+                                              "token": 0
                                             }
                                           }
                                         },
@@ -232,7 +232,7 @@
                                       "*": [
                                         {
                                           "PLUS": "+",
-                                          "operator": 2
+                                          "token": 2
                                         },
                                         {
                                           "term": {
@@ -245,12 +245,12 @@
                                         },
                                         {
                                           "PLUS": "+",
-                                          "operator": 2
+                                          "token": 2
                                         },
                                         {
                                           "term": {
                                             "INTEGER_CONST": "20",
-                                            "operator": 0
+                                            "token": 0
                                           }
                                         }
                                       ]
@@ -264,7 +264,7 @@
                                           "expr": {
                                             "term": {
                                               "INTEGER_CONST": "200",
-                                              "operator": 0
+                                              "token": 0
                                             }
                                           }
                                         },

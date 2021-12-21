@@ -198,31 +198,31 @@ parseTree 65536 => 0 ✓
      found block
     found function
    found statement
-  RCURL } 1
+  RCURL } -> [ ] 1
  found block
-Symbol program Parsed until (26,0) 954 of 954
+Node program Parsed until (26,0) 954 of 954
 definitionTree 11566 / 70% (26 0 6)
-parseTree      13907 / 21% (1 0 28)
-garbageCollect 10099 / 15%
+parseTree      12441 / 18% (1 0 28)
+garbageCollect 8633 / 13%
 Destruct Lexer
 parse 0 ✓
 
 Optimizer
-                symbol to shrink factor in term : {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"factor":{"call":{"ID":"millis"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"1000"}}]}}}}}} from {"term":{"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"factor":{"call":{"ID":"millis"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"1000"}}]}}}}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
-                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
-             symbol to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"256"}} from {"term":{"factor":{"INTEGER_CONST":"256"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":["multiple"]}}]}
-               symbol to shrink factor in term : {"factor":{"varref":{"ID":"intensitySlider"}}} from {"term":{"factor":{"varref":{"ID":"intensitySlider"}}}}
-                       symbol to shrink factor in term : {"factor":{"varref":{"ID":"t"}}} from {"term":{"factor":{"varref":{"ID":"t"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"i"}},"*":["multiple"]}}]}
-                         symbol to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}}}
-                  symbol to shrink factor in term : {"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}} from {"term":{"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"call":{"ID":"min","actuals":{"expr":{"term":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}},"*":[{},{"expr":{"term":{"factor":{"INTEGER_CONST":"256"},"*":[{"DIV":"/"},{"factor":{"varref":{"ID":"reverseSlider"}}}]}}}]}}}} from {"term":{"factor":{"call":{"ID":"min","actuals":{"expr":{"term":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}},"*":[{},{"expr":{"term":{"factor":{"INTEGER_CONST":"256"},"*":[{"DIV":"/"},{"factor":{"varref":{"ID":"reverseSlider"}}}]}}}]}}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"256"}} from {"term":{"factor":{"INTEGER_CONST":"256"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"diff"}},"*":["multiple",{"MUL":"*"},{"factor":{"varref":{"ID":"reverseSlider"}}}]}}]}
-              symbol to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}},"*":["multiple"]}
-                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
-                    symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"255"}} from {"term":{"factor":{"INTEGER_CONST":"255"}},"*":["multiple"]}
-                    symbol to shrink factor in term : {"factor":{"varref":{"ID":"bri"}}} from {"term":{"factor":{"varref":{"ID":"bri"}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"255"}}},{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{},{"expr":{"term":{"INTEGER_CONST":"255"}}},{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}},"*":["multiple"]}
+                node to shrink factor in term : {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"factor":{"call":{"ID":"millis"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"1000"}}]}}}}}} from {"term":{"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"factor":{"call":{"ID":"millis"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"1000"}}]}}}}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+                  node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+             node to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"INTEGER_CONST":"256"}} from {"term":{"factor":{"INTEGER_CONST":"256"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":["multiple"]}}]}
+               node to shrink factor in term : {"factor":{"varref":{"ID":"intensitySlider"}}} from {"term":{"factor":{"varref":{"ID":"intensitySlider"}}}}
+                       node to shrink factor in term : {"factor":{"varref":{"ID":"t"}}} from {"term":{"factor":{"varref":{"ID":"t"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"i"}},"*":["multiple"]}}]}
+                         node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}}}
+                  node to shrink factor in term : {"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}} from {"term":{"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"min","actuals":{"expr":{"term":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}},"*":[{"expr":{"term":{"factor":{"INTEGER_CONST":"256"},"*":[{"DIV":"/"},{"factor":{"varref":{"ID":"reverseSlider"}}}]}}}]}}}} from {"term":{"factor":{"call":{"ID":"min","actuals":{"expr":{"term":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}},"*":[{"expr":{"term":{"factor":{"INTEGER_CONST":"256"},"*":[{"DIV":"/"},{"factor":{"varref":{"ID":"reverseSlider"}}}]}}}]}}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"INTEGER_CONST":"256"}} from {"term":{"factor":{"INTEGER_CONST":"256"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"diff"}},"*":["multiple",{"MUL":"*"},{"factor":{"varref":{"ID":"reverseSlider"}}}]}}]}
+              node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"255"}} from {"term":{"factor":{"INTEGER_CONST":"255"}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"bri"}}} from {"term":{"factor":{"varref":{"ID":"bri"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{"expr":{"term":{"INTEGER_CONST":"255"}}},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{"expr":{"term":{"INTEGER_CONST":"255"}}},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}},"*":["multiple"]}
 optimize 0 ✓
 
 Analyzer
@@ -492,5 +492,5 @@ Destruct Symbol diff (0)
 Destruct Symbol bri (0)
 Destruct ScopedSymbolTable Subpixel (0)
 definitionJson  11566 / 70% (26 0 6)
-parseTree       14707 / 22% (1 0 25)
+parseTree       13145 / 20% (1 0 25)
 closed Arti 0 ✓

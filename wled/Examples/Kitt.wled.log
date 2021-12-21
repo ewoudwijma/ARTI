@@ -210,38 +210,38 @@ parseTree 65536 => 0 ✓
      found block
     found function
    found statement
-  RCURL } 1
+  RCURL } -> [ ] 1
  found block
-Symbol program Parsed until (29,1) 484 of 484
+Node program Parsed until (29,1) 484 of 484
 definitionTree 11566 / 70% (26 0 6)
-parseTree      15056 / 22% (1 0 24)
-garbageCollect 10512 / 16%
+parseTree      13540 / 20% (1 0 24)
+garbageCollect 8900 / 13%
 Destruct Lexer
 parse 0 ✓
 
 Optimizer
-        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
-        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"GT":">"},{"term":{"factor":{"LPAREN":"(","expr":{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple"]},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"5"},"*":["multiple"]}}]},"RPAREN":")"},"*":["multiple"]}}]}
-                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"5"},"*":["multiple"]}}]}
-                    symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"5"}} from {"term":{"factor":{"INTEGER_CONST":"5"}}}
-               symbol to shrink factor in term : {"factor":{"expr":{"term":{"varref":{"ID":"ledCount"}},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"5"}}]}}} from {"term":{"factor":{"expr":{"term":{"varref":{"ID":"ledCount"}},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"5"}}]}}}}
-                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"EQ":"=="},{"term":{"factor":{"INTEGER_CONST":"0"},"*":["multiple"]}}]}
-               symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}}}
-                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
-              symbol to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple"]}
-                symbol to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"varref":{"ID":"goingUp"}}} from {"term":{"factor":{"varref":{"ID":"goingUp"}}},"*":["multiple"]}
-                   symbol to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"5"},"*":["multiple"]}}]}
-                     symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"5"}} from {"term":{"factor":{"INTEGER_CONST":"5"}}}
-                     symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
-                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
-                    symbol to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"5"},"*":["multiple"]}}]}
-                      symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"5"}} from {"term":{"factor":{"INTEGER_CONST":"5"}}}
-                      symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
-                   symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
-            symbol to shrink block in elseBlock : {"block":{"*":[{"statement":{"call":{"ID":"setPixelColor","actuals":{"expr":{"term":{"varref":{"ID":"pixelCounter"}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{},{"expr":{"term":{"INTEGER_CONST":"0"}}}]}}}},{"statement":{"assign":{"varref":{"ID":"pixelCounter"},"assignoperator":{"ASSIGN-":"-="},"expr":{"term":{"INTEGER_CONST":"1"}}}}}]}} from {"expr":{"term":{"varref":{"ID":"goingUp"}}},"block":{"*":[{"statement":{"call":{"ID":"setPixelColor","actuals":{"expr":{"term":{"varref":{"ID":"pixelCounter"}},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{},{"expr":{"term":{"INTEGER_CONST":"0"}}}]}}}},{"statement":{"assign":{"varref":{"ID":"pixelCounter"},"assignoperator":{"ASSIGN+":"+="},"expr":{"term":{"INTEGER_CONST":"1"}}}}}]},"elseBlock":{"block":{"*":[{"statement":{"call":{"ID":"setPixelColor","actuals":{"expr":{"term":{"varref":{"ID":"pixelCounter"}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{},{"expr":{"term":{"INTEGER_CONST":"0"}}}]}}}},{"statement":{"assign":{"varref":{"ID":"pixelCounter"},"assignoperator":{"ASSIGN-":"-="},"expr":{"term":{"INTEGER_CONST":"1"}}}}}]}}}
+        node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+        node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"GT":">"},{"term":{"factor":{"expr":{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple"]},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"5"},"*":["multiple"]}}]}},"*":["multiple"]}}]}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"5"},"*":["multiple"]}}]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"5"}} from {"term":{"factor":{"INTEGER_CONST":"5"}}}
+               node to shrink factor in term : {"factor":{"expr":{"term":{"varref":{"ID":"ledCount"}},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"5"}}]}}} from {"term":{"factor":{"expr":{"term":{"varref":{"ID":"ledCount"}},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"5"}}]}}}}
+                  node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"EQ":"=="},{"term":{"factor":{"INTEGER_CONST":"0"},"*":["multiple"]}}]}
+               node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}}}
+                  node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+              node to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple"]}
+                node to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"varref":{"ID":"goingUp"}}} from {"term":{"factor":{"varref":{"ID":"goingUp"}}},"*":["multiple"]}
+                   node to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"5"},"*":["multiple"]}}]}
+                     node to shrink factor in term : {"factor":{"INTEGER_CONST":"5"}} from {"term":{"factor":{"INTEGER_CONST":"5"}}}
+                     node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"5"},"*":["multiple"]}}]}
+                      node to shrink factor in term : {"factor":{"INTEGER_CONST":"5"}} from {"term":{"factor":{"INTEGER_CONST":"5"}}}
+                      node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+                   node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+            node to shrink block in elseBlock : {"block":{"*":[{"statement":{"call":{"ID":"setPixelColor","actuals":{"expr":{"term":{"varref":{"ID":"pixelCounter"}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}}]}}}},{"statement":{"assign":{"varref":{"ID":"pixelCounter"},"assignoperator":{"ASSIGN-":"-="},"expr":{"term":{"INTEGER_CONST":"1"}}}}}]}} from {"expr":{"term":{"varref":{"ID":"goingUp"}}},"block":{"*":[{"statement":{"call":{"ID":"setPixelColor","actuals":{"expr":{"term":{"varref":{"ID":"pixelCounter"}},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}}]}}}},{"statement":{"assign":{"varref":{"ID":"pixelCounter"},"assignoperator":{"ASSIGN+":"+="},"expr":{"term":{"INTEGER_CONST":"1"}}}}}]},"elseBlock":{"block":{"*":[{"statement":{"call":{"ID":"setPixelColor","actuals":{"expr":{"term":{"varref":{"ID":"pixelCounter"}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}}]}}}},{"statement":{"assign":{"varref":{"ID":"pixelCounter"},"assignoperator":{"ASSIGN-":"-="},"expr":{"term":{"INTEGER_CONST":"1"}}}}}]}}}
 optimize 0 ✓
 
 Analyzer
@@ -446,5 +446,5 @@ Destruct Symbol goingUp (0)
 Destruct Symbol renderFrame (0)
 Destruct ScopedSymbolTable Kitt (0)
 definitionJson  11566 / 70% (26 0 6)
-parseTree       14256 / 21% (1 0 22)
+parseTree       12612 / 19% (1 0 22)
 closed Arti 0 ✓

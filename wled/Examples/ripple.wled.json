@@ -14,17 +14,17 @@
               "expr": {
                 "term": {
                   "INTEGER_CONST": "0",
-                  "operator": 0
+                  "token": 0
                 },
                 "*": [
                   {
                     "MINUS": "-",
-                    "operator": 3
+                    "token": 3
                   },
                   {
                     "term": {
                       "INTEGER_CONST": "1",
-                      "operator": 0
+                      "token": 0
                     }
                   }
                 ]
@@ -43,7 +43,7 @@
               "expr": {
                 "term": {
                   "INTEGER_CONST": "0",
-                  "operator": 0
+                  "token": 0
                 }
               }
             }
@@ -60,7 +60,7 @@
               "expr": {
                 "term": {
                   "INTEGER_CONST": "0",
-                  "operator": 0
+                  "token": 0
                 }
               }
             }
@@ -77,7 +77,7 @@
               "expr": {
                 "term": {
                   "INTEGER_CONST": "16",
-                  "operator": 0
+                  "token": 0
                 }
               }
             }
@@ -105,12 +105,12 @@
                               "*": [
                                 {
                                   "DIV": "/",
-                                  "operator": 5
+                                  "token": 5
                                 },
                                 {
                                   "factor": {
                                     "INTEGER_CONST": "4",
-                                    "operator": 0
+                                    "token": 0
                                   }
                                 }
                               ]
@@ -135,24 +135,24 @@
                           "*": [
                             {
                               "EQ": "==",
-                              "operator": 9
+                              "token": 9
                             },
                             {
                               "term": {
                                 "expr": {
                                   "term": {
                                     "INTEGER_CONST": "0",
-                                    "operator": 0
+                                    "token": 0
                                   },
                                   "*": [
                                     {
                                       "MINUS": "-",
-                                      "operator": 3
+                                      "token": 3
                                     },
                                     {
                                       "term": {
                                         "INTEGER_CONST": "1",
-                                        "operator": 0
+                                        "token": 0
                                       }
                                     }
                                   ]
@@ -182,7 +182,7 @@
                                       "*": [
                                         {
                                           "MOD": "%",
-                                          "operator": 6
+                                          "token": 6
                                         },
                                         {
                                           "factor": {
@@ -217,12 +217,12 @@
                                       "*": [
                                         {
                                           "MOD": "%",
-                                          "operator": 6
+                                          "token": 6
                                         },
                                         {
                                           "factor": {
                                             "INTEGER_CONST": "255",
-                                            "operator": 0
+                                            "token": 0
                                           }
                                         }
                                       ]
@@ -242,7 +242,7 @@
                                   "expr": {
                                     "term": {
                                       "INTEGER_CONST": "0",
-                                      "operator": 0
+                                      "token": 0
                                     }
                                   }
                                 }
@@ -275,7 +275,7 @@
                                 "*": [
                                   {
                                     "PLUS": "+",
-                                    "operator": 2
+                                    "token": 2
                                   },
                                   {
                                     "term": {
@@ -288,7 +288,7 @@
                                   },
                                   {
                                     "PLUS": "+",
-                                    "operator": 2
+                                    "token": 2
                                   },
                                   {
                                     "term": {
@@ -304,7 +304,7 @@
                             "*": [
                               {
                                 "MOD": "%",
-                                "operator": 6
+                                "token": 6
                               },
                               {
                                 "factor": {
@@ -342,7 +342,7 @@
                                 "*": [
                                   {
                                     "MINUS": "-",
-                                    "operator": 3
+                                    "token": 3
                                   },
                                   {
                                     "term": {
@@ -355,7 +355,7 @@
                                   },
                                   {
                                     "PLUS": "+",
-                                    "operator": 2
+                                    "token": 2
                                   },
                                   {
                                     "term": {
@@ -371,7 +371,7 @@
                             "*": [
                               {
                                 "MOD": "%",
-                                "operator": 6
+                                "token": 6
                               },
                               {
                                 "factor": {
@@ -399,12 +399,12 @@
                           "term": {
                             "factor": {
                               "INTEGER_CONST": "255",
-                              "operator": 0
+                              "token": 0
                             },
                             "*": [
                               {
                                 "DIV": "/",
-                                "operator": 5
+                                "token": 5
                               },
                               {
                                 "factor": {
@@ -413,16 +413,6 @@
                                     "level": 1,
                                     "index": 0
                                   }
-                                }
-                              },
-                              {
-                                "MUL": "*",
-                                "operator": 4
-                              },
-                              {
-                                "factor": {
-                                  "REAL_CONST": ".932",
-                                  "operator": 1
                                 }
                               }
                             ]
@@ -464,7 +454,6 @@
                                   }
                                 },
                                 "*": [
-                                  {},
                                   {
                                     "expr": {
                                       "term": {
@@ -518,7 +507,6 @@
                                   }
                                 },
                                 "*": [
-                                  {},
                                   {
                                     "expr": {
                                       "term": {
@@ -551,7 +539,7 @@
                         "expr": {
                           "term": {
                             "INTEGER_CONST": "1",
-                            "operator": 0
+                            "token": 0
                           }
                         }
                       }
@@ -571,7 +559,7 @@
                           "*": [
                             {
                               "EQ": "==",
-                              "operator": 9
+                              "token": 9
                             },
                             {
                               "term": {
@@ -597,17 +585,17 @@
                                   "expr": {
                                     "term": {
                                       "INTEGER_CONST": "0",
-                                      "operator": 0
+                                      "token": 0
                                     },
                                     "*": [
                                       {
                                         "MINUS": "-",
-                                        "operator": 3
+                                        "token": 3
                                       },
                                       {
                                         "term": {
                                           "INTEGER_CONST": "1",
-                                          "operator": 0
+                                          "token": 0
                                         }
                                       }
                                     ]

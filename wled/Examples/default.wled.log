@@ -53,20 +53,20 @@ parseTree 65536 => 0 ✓
      found block
     found function
    found statement
-  RCURL } 1
+  RCURL } -> [ ] 1
  found block
-Symbol program Parsed until (9,1) 160 of 160
+Node program Parsed until (9,1) 160 of 160
 definitionTree 11566 / 70% (26 0 6)
-parseTree      3759 / 5% (1 0 23)
-garbageCollect 2671 / 4%
+parseTree      3157 / 4% (1 0 23)
+garbageCollect 2069 / 3%
 Destruct Lexer
 parse 0 ✓
 
 Optimizer
-              symbol to shrink factor in term : {"factor":{"varref":{"ID":"counter"}}} from {"term":{"factor":{"varref":{"ID":"counter"}}},"*":["multiple"]}
-                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"counter"}}} from {"term":{"factor":{"varref":{"ID":"counter"}}},"*":["multiple"]}
-                    symbol to shrink factor in term : {"factor":{"varref":{"ID":"counter"}}} from {"term":{"factor":{"varref":{"ID":"counter"}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"counter"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"counter"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"counter"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"counter"}}}}]}}}},"*":["multiple"]}
+              node to shrink factor in term : {"factor":{"varref":{"ID":"counter"}}} from {"term":{"factor":{"varref":{"ID":"counter"}}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"counter"}}} from {"term":{"factor":{"varref":{"ID":"counter"}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"counter"}}} from {"term":{"factor":{"varref":{"ID":"counter"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"counter"}}},"*":[{"expr":{"term":{"varref":{"ID":"counter"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"counter"}}},"*":[{"expr":{"term":{"varref":{"ID":"counter"}}}}]}}}},"*":["multiple"]}
 optimize 0 ✓
 
 Analyzer
@@ -110,5 +110,5 @@ Destruct ScopedSymbolTable renderFrame (0)
 Destruct Symbol renderFrame (0)
 Destruct ScopedSymbolTable default (0)
 definitionJson  11566 / 70% (26 0 6)
-parseTree       3471 / 5% (1 0 21)
+parseTree       2837 / 4% (1 0 21)
 closed Arti 0 ✓

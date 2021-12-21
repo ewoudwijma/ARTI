@@ -12,7 +12,6 @@
               }
             }
           },
-          {},
           {
             "function": {
               "ID": "Alpha",
@@ -24,7 +23,6 @@
                   }
                 },
                 "*": [
-                  {},
                   {
                     "formal": {
                       "ID": "b",
@@ -46,7 +44,6 @@
                         }
                       }
                     },
-                    {},
                     {
                       "function": {
                         "ID": "Beta",
@@ -58,7 +55,6 @@
                             }
                           },
                           "*": [
-                            {},
                             {
                               "formal": {
                                 "ID": "b",
@@ -79,8 +75,7 @@
                                     "INTEGER": "INTEGER"
                                   }
                                 }
-                              },
-                              {}
+                              }
                             ]
                           },
                           "compound_statement": {
@@ -103,12 +98,12 @@
                                     "*": [
                                       {
                                         "MUL": "*",
-                                        "operator": 4
+                                        "token": 4
                                       },
                                       {
                                         "factor": {
                                           "INTEGER_CONST": "10",
-                                          "operator": 0
+                                          "token": 0
                                         }
                                       }
                                     ]
@@ -116,7 +111,7 @@
                                   "*": [
                                     {
                                       "PLUS": "+",
-                                      "operator": 2
+                                      "token": 2
                                     },
                                     {
                                       "term": {
@@ -130,12 +125,12 @@
                                         "*": [
                                           {
                                             "MUL": "*",
-                                            "operator": 4
+                                            "token": 4
                                           },
                                           {
                                             "factor": {
                                               "INTEGER_CONST": "2",
-                                              "operator": 0
+                                              "token": 0
                                             }
                                           }
                                         ]
@@ -146,7 +141,6 @@
                               }
                             },
                             "*": [
-                              {},
                               {
                                 "statement": {
                                   "call": {
@@ -165,8 +159,7 @@
                                     "external": 0
                                   }
                                 }
-                              },
-                              {}
+                              }
                             ]
                           }
                         }
@@ -196,7 +189,7 @@
                               "*": [
                                 {
                                   "PLUS": "+",
-                                  "operator": 2
+                                  "token": 2
                                 },
                                 {
                                   "term": {
@@ -213,12 +206,12 @@
                           "*": [
                             {
                               "MUL": "*",
-                              "operator": 4
+                              "token": 4
                             },
                             {
                               "factor": {
                                 "INTEGER_CONST": "2",
-                                "operator": 0
+                                "token": 0
                               }
                             }
                           ]
@@ -227,7 +220,6 @@
                     }
                   },
                   "*": [
-                    {},
                     {
                       "statement": {
                         "call": {
@@ -247,7 +239,6 @@
                         }
                       }
                     },
-                    {},
                     {
                       "statement": {
                         "call": {
@@ -256,16 +247,15 @@
                             "expr": {
                               "term": {
                                 "INTEGER_CONST": "5",
-                                "operator": 0
+                                "token": 0
                               }
                             },
                             "*": [
-                              {},
                               {
                                 "expr": {
                                   "term": {
                                     "INTEGER_CONST": "10",
-                                    "operator": 0
+                                    "token": 0
                                   }
                                 }
                               }
@@ -273,8 +263,7 @@
                           }
                         }
                       }
-                    },
-                    {}
+                    }
                   ]
                 }
               }
@@ -290,28 +279,27 @@
               "expr": {
                 "term": {
                   "INTEGER_CONST": "3",
-                  "operator": 0
+                  "token": 0
                 },
                 "*": [
                   {
                     "PLUS": "+",
-                    "operator": 2
+                    "token": 2
                   },
                   {
                     "term": {
                       "INTEGER_CONST": "5",
-                      "operator": 0
+                      "token": 0
                     }
                   }
                 ]
               },
               "*": [
-                {},
                 {
                   "expr": {
                     "term": {
                       "INTEGER_CONST": "7",
-                      "operator": 0
+                      "token": 0
                     }
                   }
                 }
@@ -320,7 +308,6 @@
           }
         },
         "*": [
-          {},
           {
             "statement": {
               "for": {
@@ -333,52 +320,45 @@
                   "expr": {
                     "term": {
                       "INTEGER_CONST": "1",
-                      "operator": 0
+                      "token": 0
                     }
                   }
                 },
                 "expr": {
                   "term": {
                     "INTEGER_CONST": "2",
-                    "operator": 0
+                    "token": 0
                   }
                 },
                 "block": {
-                  "statement": {
-                    "call": {
-                      "ID": "Alpha",
-                      "actuals": {
-                        "expr": {
-                          "term": {
-                            "INTEGER_CONST": "35",
-                            "operator": 0
-                          }
-                        },
-                        "*": [
-                          {},
-                          {
-                            "expr": {
-                              "term": {
-                                "varref": {
-                                  "ID": "y",
-                                  "level": 1,
-                                  "index": 0
-                                }
+                  "call": {
+                    "ID": "Alpha",
+                    "actuals": {
+                      "expr": {
+                        "term": {
+                          "INTEGER_CONST": "35",
+                          "token": 0
+                        }
+                      },
+                      "*": [
+                        {
+                          "expr": {
+                            "term": {
+                              "varref": {
+                                "ID": "y",
+                                "level": 1,
+                                "index": 0
                               }
                             }
                           }
-                        ]
-                      }
+                        }
+                      ]
                     }
-                  },
-                  "*": [
-                    {}
-                  ]
+                  }
                 }
               }
             }
-          },
-          {}
+          }
         ]
       }
     }

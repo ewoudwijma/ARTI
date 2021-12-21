@@ -384,38 +384,38 @@ parseTree 65536 => 0 ✓
      found block
     found function
    found statement
-  RCURL } 1
+  RCURL } -> [ ] 1
  found block
-Symbol program Parsed until (63,1) 1439 of 1439
+Node program Parsed until (63,1) 1439 of 1439
 definitionTree 11566 / 70% (26 0 6)
-parseTree      26007 / 39% (1 0 26)
-garbageCollect 19191 / 29%
+parseTree      23581 / 35% (1 0 26)
+garbageCollect 16765 / 25%
 Destruct Lexer
 parse 0 ✓
 
 Optimizer
-                  symbol to shrink factor in term : {"factor":{"REAL_CONST":"0.1"}} from {"term":{"factor":{"REAL_CONST":"0.1"}},"*":["multiple"]}
-                  symbol to shrink factor in term : {"factor":{"REAL_CONST":"0.1"}} from {"term":{"factor":{"REAL_CONST":"0.1"}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.1"}}}}}} from {"term":{"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.1"}}}}}},"*":["multiple"]}
-                  symbol to shrink factor in term : {"factor":{"REAL_CONST":"0.5"}} from {"term":{"factor":{"REAL_CONST":"0.5"}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.5"}}}}}} from {"term":{"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.5"}}}}}},"*":["multiple"]}
-                  symbol to shrink factor in term : {"factor":{"REAL_CONST":"0.2"}} from {"term":{"factor":{"REAL_CONST":"0.2"}},"*":["multiple"]}
-                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"t2"}}} from {"term":{"factor":{"varref":{"ID":"t2"}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"t2"}}}}}}} from {"term":{"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"t2"}}}}}}},"*":["multiple"]}
-                symbol to shrink factor in term : {"factor":{"REAL_CONST":"0.3"}} from {"term":{"factor":{"REAL_CONST":"0.3"}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"triangle","LPAREN":"(","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"t1"}},"*":["multiple"]},"*":["multiple"]},"*":["multiple"]},"RPAREN":")"}},"*":["multiple",{"MUL":"*"},{"factor":{"REAL_CONST":"0.2"}}]}}]}
-                       symbol to shrink factor in term : {"factor":{"varref":{"ID":"t1"}}} from {"term":{"factor":{"varref":{"ID":"t1"}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"expr":{"term":{"REAL_CONST":"0.3"},"*":[{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"triangle","actuals":{"expr":{"term":{"varref":{"ID":"t1"}}}}}},"*":[{"MUL":"*"},{"factor":{"REAL_CONST":"0.2"}}]}}]}}} from {"term":{"factor":{"expr":{"term":{"REAL_CONST":"0.3"},"*":[{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"triangle","actuals":{"expr":{"term":{"varref":{"ID":"t1"}}}}}},"*":[{"MUL":"*"},{"factor":{"REAL_CONST":"0.2"}}]}}]}}},"*":["multiple"]}
-                symbol to shrink factor in term : {"factor":{"varref":{"ID":"index"}}} from {"term":{"factor":{"varref":{"ID":"index"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple",{"DIV":"/"},{"factor":{"INTEGER_CONST":"2"}}]}}]}
-                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"t3"}}} from {"term":{"factor":{"varref":{"ID":"t3"}}},"*":["multiple"]}
-                      symbol to shrink factor in term : {"factor":{"varref":{"ID":"t4"}}} from {"term":{"factor":{"varref":{"ID":"t4"}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
-                     symbol to shrink factor in term : {"factor":{"varref":{"ID":"h"}}} from {"term":{"factor":{"varref":{"ID":"h"}}},"*":["multiple"]}
-                symbol to shrink factor in term : {"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"h"}}}}}}} from {"term":{"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"h"}}}}}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"abs","LPAREN":"(","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"m"}},"*":["multiple"]},"*":["multiple"]},"*":["multiple"]},"RPAREN":")"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"t1"}},"*":["multiple"]}}]}
-                       symbol to shrink factor in term : {"factor":{"varref":{"ID":"m"}}} from {"term":{"factor":{"varref":{"ID":"m"}}},"*":["multiple"]}
-                  symbol to shrink factor in term : {"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"m"}}}}}}} from {"term":{"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"m"}}}}}}}}
-                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"t1"}}} from {"term":{"factor":{"varref":{"ID":"t1"}}}}
-              symbol to shrink factor in term : {"factor":{"varref":{"ID":"index"}}} from {"term":{"factor":{"varref":{"ID":"index"}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"h"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}},"*":[{},{"expr":{"term":{"factor":{"varref":{"ID":"s"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}},{},{"expr":{"term":{"factor":{"varref":{"ID":"v"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}}]}}}} from {"term":{"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"h"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}},"*":[{},{"expr":{"term":{"factor":{"varref":{"ID":"s"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}},{},{"expr":{"term":{"factor":{"varref":{"ID":"v"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}}]}}}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"REAL_CONST":"0.1"}} from {"term":{"factor":{"REAL_CONST":"0.1"}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"REAL_CONST":"0.1"}} from {"term":{"factor":{"REAL_CONST":"0.1"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.1"}}}}}} from {"term":{"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.1"}}}}}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"REAL_CONST":"0.5"}} from {"term":{"factor":{"REAL_CONST":"0.5"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.5"}}}}}} from {"term":{"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":"0.5"}}}}}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"REAL_CONST":"0.2"}} from {"term":{"factor":{"REAL_CONST":"0.2"}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"t2"}}} from {"term":{"factor":{"varref":{"ID":"t2"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"t2"}}}}}}} from {"term":{"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"t2"}}}}}}},"*":["multiple"]}
+                node to shrink factor in term : {"factor":{"REAL_CONST":"0.3"}} from {"term":{"factor":{"REAL_CONST":"0.3"}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"triangle","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"t1"}},"*":["multiple"]},"*":["multiple"]},"*":["multiple"]}}},"*":["multiple",{"MUL":"*"},{"factor":{"REAL_CONST":"0.2"}}]}}]}
+                       node to shrink factor in term : {"factor":{"varref":{"ID":"t1"}}} from {"term":{"factor":{"varref":{"ID":"t1"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"expr":{"term":{"REAL_CONST":"0.3"},"*":[{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"triangle","actuals":{"expr":{"term":{"varref":{"ID":"t1"}}}}}},"*":[{"MUL":"*"},{"factor":{"REAL_CONST":"0.2"}}]}}]}}} from {"term":{"factor":{"expr":{"term":{"REAL_CONST":"0.3"},"*":[{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"triangle","actuals":{"expr":{"term":{"varref":{"ID":"t1"}}}}}},"*":[{"MUL":"*"},{"factor":{"REAL_CONST":"0.2"}}]}}]}}},"*":["multiple"]}
+                node to shrink factor in term : {"factor":{"varref":{"ID":"index"}}} from {"term":{"factor":{"varref":{"ID":"index"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple",{"DIV":"/"},{"factor":{"INTEGER_CONST":"2"}}]}}]}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"t3"}}} from {"term":{"factor":{"varref":{"ID":"t3"}}},"*":["multiple"]}
+                      node to shrink factor in term : {"factor":{"varref":{"ID":"t4"}}} from {"term":{"factor":{"varref":{"ID":"t4"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+                     node to shrink factor in term : {"factor":{"varref":{"ID":"h"}}} from {"term":{"factor":{"varref":{"ID":"h"}}},"*":["multiple"]}
+                node to shrink factor in term : {"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"h"}}}}}}} from {"term":{"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"h"}}}}}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"m"}},"*":["multiple"]},"*":["multiple"]},"*":["multiple"]}}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"t1"}},"*":["multiple"]}}]}
+                       node to shrink factor in term : {"factor":{"varref":{"ID":"m"}}} from {"term":{"factor":{"varref":{"ID":"m"}}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"m"}}}}}}} from {"term":{"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"m"}}}}}}}}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"t1"}}} from {"term":{"factor":{"varref":{"ID":"t1"}}}}
+              node to shrink factor in term : {"factor":{"varref":{"ID":"index"}}} from {"term":{"factor":{"varref":{"ID":"index"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"h"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}},"*":[{"expr":{"term":{"factor":{"varref":{"ID":"s"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}},{"expr":{"term":{"factor":{"varref":{"ID":"v"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}}]}}}} from {"term":{"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"h"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}},"*":[{"expr":{"term":{"factor":{"varref":{"ID":"s"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}},{"expr":{"term":{"factor":{"varref":{"ID":"v"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}}]}}}},"*":["multiple"]}
 optimize 0 ✓
 
 Analyzer
@@ -1048,5 +1048,5 @@ Destruct Symbol s (0)
 Destruct Symbol v (0)
 Destruct ScopedSymbolTable block_reflections (0)
 definitionJson  11566 / 70% (26 0 6)
-parseTree       26455 / 40% (1 0 24)
+parseTree       23965 / 36% (1 0 24)
 closed Arti 0 ✓

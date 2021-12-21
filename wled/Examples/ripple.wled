@@ -29,7 +29,7 @@ Program Ripple
 
     ledL = (center + step + ledCount) % ledCount
     ledR = (center - step + ledCount) % ledCount
-    bri = 255/step * .932
+    bri = 255/step
     leds[ledL] = colorFromPalette(colour,bri)
     leds[ledR] = colorFromPalette(colour,bri)
     step += 1

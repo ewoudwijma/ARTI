@@ -2,7 +2,7 @@ setup 0 bytes free
 open wled.json 0 ✓
 definitionTree 16384 => 0 ✓
 open Examples/ripple.wled 0 ✓
-programFile size 1010 bytes
+programFile size 1003 bytes
 parseTree 65536 => 0 ✓
  PROGRAM PROGRAM -> [ID Ripple] 0
  ID Ripple -> [LCURL {] 0
@@ -222,12 +222,9 @@ parseTree 65536 => 0 ✓
              INTEGER_CONST 255 -> [DIV /] 12
             found factor
               DIV / -> [ID step] 13
-               ID step -> [MUL *] 14
-              ID step -> [MUL *] 13
+               ID step -> [ID leds] 14
+              ID step -> [ID leds] 13
               found varref
-             found factor
-              MUL * -> [REAL_CONST .932] 13
-              REAL_CONST .932 -> [ID leds] 13
              found factor
            found term
           found expr
@@ -353,45 +350,45 @@ parseTree 65536 => 0 ✓
      found block
     found function
    found statement
-  RCURL } 1
+  RCURL } -> [ ] 1
  found block
-Symbol program Parsed until (44,0) 1010 of 1010
+Node program Parsed until (44,0) 1003 of 1003
 definitionTree 11566 / 70% (26 0 6)
-parseTree      24286 / 37% (1 0 23)
-garbageCollect 17214 / 26%
+parseTree      21867 / 33% (1 0 23)
+garbageCollect 14763 / 22%
 Destruct Lexer
 parse 0 ✓
 
 Optimizer
-        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
-          symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
-        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
-        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
-        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"16"}} from {"term":{"factor":{"INTEGER_CONST":"16"}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}},"*":["multiple",{"EQ":"=="},{"term":{"factor":{"LPAREN":"(","expr":{"term":{"factor":{"INTEGER_CONST":"0"},"*":["multiple"]},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]},"RPAREN":")"},"*":["multiple"]}}]}
-                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
-                    symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
-               symbol to shrink factor in term : {"factor":{"expr":{"term":{"INTEGER_CONST":"0"},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"1"}}]}}} from {"term":{"factor":{"expr":{"term":{"INTEGER_CONST":"0"},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"1"}}]}}}}
-                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
-                symbol to shrink factor in term : {"factor":{"varref":{"ID":"center"}}} from {"term":{"factor":{"varref":{"ID":"center"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"step"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple"]}}]}
-                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}}}
-                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}}}
-                symbol to shrink factor in term : {"factor":{"varref":{"ID":"center"}}} from {"term":{"factor":{"varref":{"ID":"center"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"step"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple"]}}]}
-                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}}}
-                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}}}
-              symbol to shrink factor in term : {"factor":{"varref":{"ID":"ledL"}}} from {"term":{"factor":{"varref":{"ID":"ledL"}}},"*":["multiple"]}
-                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"colour"}}} from {"term":{"factor":{"varref":{"ID":"colour"}}},"*":["multiple"]}
-                    symbol to shrink factor in term : {"factor":{"varref":{"ID":"bri"}}} from {"term":{"factor":{"varref":{"ID":"bri"}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}},"*":["multiple"]}
-              symbol to shrink factor in term : {"factor":{"varref":{"ID":"ledR"}}} from {"term":{"factor":{"varref":{"ID":"ledR"}}},"*":["multiple"]}
-                  symbol to shrink factor in term : {"factor":{"varref":{"ID":"colour"}}} from {"term":{"factor":{"varref":{"ID":"colour"}}},"*":["multiple"]}
-                    symbol to shrink factor in term : {"factor":{"varref":{"ID":"bri"}}} from {"term":{"factor":{"varref":{"ID":"bri"}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}},"*":["multiple",{"EQ":"=="},{"term":{"factor":{"varref":{"ID":"maxsteps"}},"*":["multiple"]}}]}
-               symbol to shrink factor in term : {"factor":{"varref":{"ID":"maxsteps"}}} from {"term":{"factor":{"varref":{"ID":"maxsteps"}}}}
-                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
-                    symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+        node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+          node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+        node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+        node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+        node to shrink factor in term : {"factor":{"INTEGER_CONST":"16"}} from {"term":{"factor":{"INTEGER_CONST":"16"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}},"*":["multiple",{"EQ":"=="},{"term":{"factor":{"expr":{"term":{"factor":{"INTEGER_CONST":"0"},"*":["multiple"]},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}},"*":["multiple"]}}]}
+                  node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+               node to shrink factor in term : {"factor":{"expr":{"term":{"INTEGER_CONST":"0"},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"1"}}]}}} from {"term":{"factor":{"expr":{"term":{"INTEGER_CONST":"0"},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"1"}}]}}}}
+                  node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+                node to shrink factor in term : {"factor":{"varref":{"ID":"center"}}} from {"term":{"factor":{"varref":{"ID":"center"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"step"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple"]}}]}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}}}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}}}
+                node to shrink factor in term : {"factor":{"varref":{"ID":"center"}}} from {"term":{"factor":{"varref":{"ID":"center"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"step"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple"]}}]}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}}}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}}}
+              node to shrink factor in term : {"factor":{"varref":{"ID":"ledL"}}} from {"term":{"factor":{"varref":{"ID":"ledL"}}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"colour"}}} from {"term":{"factor":{"varref":{"ID":"colour"}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"bri"}}} from {"term":{"factor":{"varref":{"ID":"bri"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}},"*":["multiple"]}
+              node to shrink factor in term : {"factor":{"varref":{"ID":"ledR"}}} from {"term":{"factor":{"varref":{"ID":"ledR"}}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"colour"}}} from {"term":{"factor":{"varref":{"ID":"colour"}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"bri"}}} from {"term":{"factor":{"varref":{"ID":"bri"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}},"*":["multiple",{"EQ":"=="},{"term":{"factor":{"varref":{"ID":"maxsteps"}},"*":["multiple"]}}]}
+               node to shrink factor in term : {"factor":{"varref":{"ID":"maxsteps"}}} from {"term":{"factor":{"varref":{"ID":"maxsteps"}}}}
+                  node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
 optimize 0 ✓
 
 Analyzer
@@ -524,24 +521,21 @@ Interpret main 0 ✓
                  INTEGER_CONST 255 (Push 2)
                   DIV / (Push 3)
                    varref Ripple.step = 0.000000 (push 4) 1-0
-                  MUL * (Push 5)
-                   REAL_CONST .932 (Push 6)
                division by 0 not possible, divisor ignored for 255.000000
-               255.000000 / 1.000000 = 255.000000 (pop 3, push 4)
-               255.000000 * 0.932000 = 237.659988 (pop 1, push 2)
-             Ripple.bri := 237.659988 (pop 1) 1-7
+               255.000000 / 1.000000 = 255.000000 (pop 1, push 2)
+             Ripple.bri := 255.000000 (pop 1) 1-7
                  varref Ripple.ledL = 1.000000 (push 2) 1-5
                    varref Ripple.colour = 34.000000 (push 3) 1-2
-                     varref Ripple.bri = 237.659988 (push 4) 1-7
-                Call colorFromPalette(34.000000, 237.659988) = 271.659973 (Pop 2, Push 3)
-arti_set_external_variable: leds(1.000000) := 271.659973
-             assign set ext.leds[1.000000] = 271.659973 (Pop 1)
+                     varref Ripple.bri = 255.000000 (push 4) 1-7
+                Call colorFromPalette(34.000000, 255.000000) = 289.000000 (Pop 2, Push 3)
+arti_set_external_variable: leds(1.000000) := 289.000000
+             assign set ext.leds[1.000000] = 289.000000 (Pop 1)
                  varref Ripple.ledR = 1.000000 (push 2) 1-6
                    varref Ripple.colour = 34.000000 (push 3) 1-2
-                     varref Ripple.bri = 237.659988 (push 4) 1-7
-                Call colorFromPalette(34.000000, 237.659988) = 271.659973 (Pop 2, Push 3)
-arti_set_external_variable: leds(1.000000) := 271.659973
-             assign set ext.leds[1.000000] = 271.659973 (Pop 1)
+                     varref Ripple.bri = 255.000000 (push 4) 1-7
+                Call colorFromPalette(34.000000, 255.000000) = 289.000000 (Pop 2, Push 3)
+arti_set_external_variable: leds(1.000000) := 289.000000
+             assign set ext.leds[1.000000] = 289.000000 (Pop 1)
                 INTEGER_CONST 1 (Push 2)
              Ripple.step += 1.000000 (pop 1) 1-0
              If (stack 1)
@@ -594,23 +588,20 @@ setPixels(leds)
                  INTEGER_CONST 255 (Push 3)
                   DIV / (Push 4)
                    varref Ripple.step = 1.000000 (push 5) 1-0
-                  MUL * (Push 6)
-                   REAL_CONST .932 (Push 7)
-               255.000000 / 1.000000 = 255.000000 (pop 4, push 5)
-               255.000000 * 0.932000 = 237.659988 (pop 2, push 3)
-             Ripple.bri := 237.659988 (pop 2) 1-7
+               255.000000 / 1.000000 = 255.000000 (pop 2, push 3)
+             Ripple.bri := 255.000000 (pop 2) 1-7
                  varref Ripple.ledL = 2.000000 (push 3) 1-5
                    varref Ripple.colour = 34.000000 (push 4) 1-2
-                     varref Ripple.bri = 237.659988 (push 5) 1-7
-                Call colorFromPalette(34.000000, 237.659988) = 271.659973 (Pop 3, Push 4)
-arti_set_external_variable: leds(2.000000) := 271.659973
-             assign set ext.leds[2.000000] = 271.659973 (Pop 2)
+                     varref Ripple.bri = 255.000000 (push 5) 1-7
+                Call colorFromPalette(34.000000, 255.000000) = 289.000000 (Pop 3, Push 4)
+arti_set_external_variable: leds(2.000000) := 289.000000
+             assign set ext.leds[2.000000] = 289.000000 (Pop 2)
                  varref Ripple.ledR = 0.000000 (push 3) 1-6
                    varref Ripple.colour = 34.000000 (push 4) 1-2
-                     varref Ripple.bri = 237.659988 (push 5) 1-7
-                Call colorFromPalette(34.000000, 237.659988) = 271.659973 (Pop 3, Push 4)
-arti_set_external_variable: leds(0.000000) := 271.659973
-             assign set ext.leds[0.000000] = 271.659973 (Pop 2)
+                     varref Ripple.bri = 255.000000 (push 5) 1-7
+                Call colorFromPalette(34.000000, 255.000000) = 289.000000 (Pop 3, Push 4)
+arti_set_external_variable: leds(0.000000) := 289.000000
+             assign set ext.leds[0.000000] = 289.000000 (Pop 2)
                 INTEGER_CONST 1 (Push 3)
              Ripple.step += 2.000000 (pop 2) 1-0
              If (stack 2)
@@ -636,5 +627,5 @@ Destruct Symbol ledR (0)
 Destruct Symbol bri (0)
 Destruct ScopedSymbolTable Ripple (0)
 definitionJson  11566 / 70% (26 0 6)
-parseTree       22782 / 34% (1 0 23)
+parseTree       20203 / 30% (1 0 23)
 closed Arti 0 ✓

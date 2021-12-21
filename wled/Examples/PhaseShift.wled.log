@@ -147,27 +147,27 @@ parseTree 65536 => 0 ✓
      found block
     found function
    found statement
-  RCURL } 1
+  RCURL } -> [ ] 1
  found block
-Symbol program Parsed until (30,0) 366 of 366
+Node program Parsed until (30,0) 366 of 366
 definitionTree 11566 / 70% (26 0 6)
-parseTree      10283 / 15% (1 0 22)
-garbageCollect 7211 / 11%
+parseTree      9156 / 13% (1 0 22)
+garbageCollect 6020 / 9%
 Destruct Lexer
 parse 0 ✓
 
 Optimizer
-        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"3"}} from {"term":{"factor":{"INTEGER_CONST":"3"}},"*":["multiple"]}
-        symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"varref":{"ID":"countAdd"}}} from {"term":{"factor":{"varref":{"ID":"countAdd"}}},"*":["multiple"]}
-             symbol to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"GT":">"},{"term":{"factor":{"INTEGER_CONST":"15"},"*":["multiple"]}}]}
-               symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"15"}} from {"term":{"factor":{"INTEGER_CONST":"15"}}}
-                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
-                    symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
-             symbol to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"LT":"<"},{"term":{"factor":{"INTEGER_CONST":"3"},"*":["multiple"]}}]}
-               symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"3"}} from {"term":{"factor":{"INTEGER_CONST":"3"}}}
-                  symbol to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
-              symbol to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}},"*":["multiple"]}
+        node to shrink factor in term : {"factor":{"INTEGER_CONST":"3"}} from {"term":{"factor":{"INTEGER_CONST":"3"}},"*":["multiple"]}
+        node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"varref":{"ID":"countAdd"}}} from {"term":{"factor":{"varref":{"ID":"countAdd"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"GT":">"},{"term":{"factor":{"INTEGER_CONST":"15"},"*":["multiple"]}}]}
+               node to shrink factor in term : {"factor":{"INTEGER_CONST":"15"}} from {"term":{"factor":{"INTEGER_CONST":"15"}}}
+                  node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+             node to shrink factor in term : {"factor":{"varref":{"ID":"pixelCounter"}}} from {"term":{"factor":{"varref":{"ID":"pixelCounter"}}},"*":["multiple",{"LT":"<"},{"term":{"factor":{"INTEGER_CONST":"3"},"*":["multiple"]}}]}
+               node to shrink factor in term : {"factor":{"INTEGER_CONST":"3"}} from {"term":{"factor":{"INTEGER_CONST":"3"}}}
+                  node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
+              node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}},"*":["multiple"]}
 optimize 0 ✓
 
 Analyzer
@@ -298,5 +298,5 @@ Destruct Symbol renderFrame (0)
 Destruct Symbol renderLed (0)
 Destruct ScopedSymbolTable PhaseShift (0)
 definitionJson  11566 / 70% (26 0 6)
-parseTree       8779 / 13% (1 0 21)
+parseTree       7588 / 11% (1 0 21)
 closed Arti 0 ✓
