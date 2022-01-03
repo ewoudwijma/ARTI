@@ -198,18 +198,18 @@
                                 "assign": {
                                   "varref": {
                                     "ID": "leds",
-                                    "external": 2
-                                  },
-                                  "indices": {
-                                    "expr": {
-                                      "term": {
-                                        "varref": {
-                                          "ID": "dripLocn",
-                                          "level": 1,
-                                          "index": 5
+                                    "indices": {
+                                      "expr": {
+                                        "term": {
+                                          "varref": {
+                                            "ID": "dripLocn",
+                                            "level": 1,
+                                            "index": 5
+                                          }
                                         }
                                       }
-                                    }
+                                    },
+                                    "external": 2
                                   },
                                   "expr": {
                                     "term": {

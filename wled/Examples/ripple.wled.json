@@ -426,18 +426,18 @@
                       "assign": {
                         "varref": {
                           "ID": "leds",
-                          "external": 2
-                        },
-                        "indices": {
-                          "expr": {
-                            "term": {
-                              "varref": {
-                                "ID": "ledL",
-                                "level": 1,
-                                "index": 5
+                          "indices": {
+                            "expr": {
+                              "term": {
+                                "varref": {
+                                  "ID": "ledL",
+                                  "level": 1,
+                                  "index": 5
+                                }
                               }
                             }
-                          }
+                          },
+                          "external": 2
                         },
                         "expr": {
                           "term": {
@@ -479,18 +479,18 @@
                       "assign": {
                         "varref": {
                           "ID": "leds",
-                          "external": 2
-                        },
-                        "indices": {
-                          "expr": {
-                            "term": {
-                              "varref": {
-                                "ID": "ledR",
-                                "level": 1,
-                                "index": 6
+                          "indices": {
+                            "expr": {
+                              "term": {
+                                "varref": {
+                                  "ID": "ledR",
+                                  "level": 1,
+                                  "index": 6
+                                }
                               }
                             }
-                          }
+                          },
+                          "external": 2
                         },
                         "expr": {
                           "term": {

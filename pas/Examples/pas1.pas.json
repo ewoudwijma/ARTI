@@ -9,7 +9,9 @@
               "ID": "y",
               "type": {
                 "INTEGER": "INTEGER"
-              }
+              },
+              "level": 1,
+              "index": 0
             }
           },
           {
@@ -20,7 +22,9 @@
                   "ID": "a",
                   "type": {
                     "INTEGER": "INTEGER"
-                  }
+                  },
+                  "level": 2,
+                  "index": 0
                 },
                 "*": [
                   {
@@ -28,7 +32,9 @@
                       "ID": "b",
                       "type": {
                         "INTEGER": "INTEGER"
-                      }
+                      },
+                      "level": 2,
+                      "index": 1
                     }
                   }
                 ]
@@ -41,7 +47,9 @@
                         "ID": "x",
                         "type": {
                           "INTEGER": "INTEGER"
-                        }
+                        },
+                        "level": 2,
+                        "index": 2
                       }
                     },
                     {
@@ -52,7 +60,9 @@
                             "ID": "a",
                             "type": {
                               "INTEGER": "INTEGER"
-                            }
+                            },
+                            "level": 3,
+                            "index": 0
                           },
                           "*": [
                             {
@@ -60,7 +70,9 @@
                                 "ID": "b",
                                 "type": {
                                   "INTEGER": "INTEGER"
-                                }
+                                },
+                                "level": 3,
+                                "index": 1
                               }
                             }
                           ]
@@ -73,7 +85,9 @@
                                   "ID": "x",
                                   "type": {
                                     "INTEGER": "INTEGER"
-                                  }
+                                  },
+                                  "level": 3,
+                                  "index": 2
                                 }
                               }
                             ]

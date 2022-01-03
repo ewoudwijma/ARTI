@@ -7,7 +7,7 @@ parseTree 65536 => 0 ✓
  PROGRAM PROGRAM -> [ID PhaseShift] 0
  ID PhaseShift -> [LCURL {] 0
   LCURL { -> [ID pixelCounter] 1
-     ID pixelCounter -> [ASSIGN =] 4
+      ID pixelCounter -> [ASSIGN =] 5
      found varref
        ASSIGN = -> [INTEGER_CONST 3] 6
      found assignoperator
@@ -17,7 +17,7 @@ parseTree 65536 => 0 ✓
       found expr
     found assign
    found statement
-     ID countAdd -> [ASSIGN =] 4
+      ID countAdd -> [ASSIGN =] 5
      found varref
        ASSIGN = -> [INTEGER_CONST 1] 6
      found assignoperator
@@ -33,12 +33,12 @@ parseTree 65536 => 0 ✓
       found formals
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID pixelCounter] 5
-         ID pixelCounter -> [ASSIGN+ +=] 8
+          ID pixelCounter -> [ASSIGN+ +=] 9
          found varref
            ASSIGN+ += -> [ID countAdd] 10
          found assignoperator
               ID countAdd -> [IF IF] 13
-             ID countAdd -> [IF IF] 12
+              ID countAdd -> [IF IF] 13
              found varref
             found factor
            found term
@@ -48,7 +48,7 @@ parseTree 65536 => 0 ✓
          IF IF -> [LPAREN (] 8
          LPAREN ( -> [ID pixelCounter] 8
              ID pixelCounter -> [GT >] 12
-            ID pixelCounter -> [GT >] 11
+             ID pixelCounter -> [GT >] 12
             found varref
            found factor
           found term
@@ -59,7 +59,7 @@ parseTree 65536 => 0 ✓
          found expr
          RPAREN ) -> [LCURL {] 8
           LCURL { -> [ID countAdd] 9
-             ID countAdd -> [ASSIGN =] 12
+              ID countAdd -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [INTEGER_CONST 0] 14
              found assignoperator
@@ -80,7 +80,7 @@ parseTree 65536 => 0 ✓
          IF IF -> [LPAREN (] 8
          LPAREN ( -> [ID pixelCounter] 8
              ID pixelCounter -> [LT <] 12
-            ID pixelCounter -> [LT <] 11
+             ID pixelCounter -> [LT <] 12
             found varref
            found factor
           found term
@@ -91,7 +91,7 @@ parseTree 65536 => 0 ✓
          found expr
          RPAREN ) -> [LCURL {] 8
           LCURL { -> [ID countAdd] 9
-             ID countAdd -> [ASSIGN =] 12
+              ID countAdd -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [INTEGER_CONST 1] 14
              found assignoperator
@@ -117,24 +117,24 @@ parseTree 65536 => 0 ✓
       found formals
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID setPixelColor] 5
-         ID setPixelColor -> [LPAREN (] 8
+          ID setPixelColor -> [LPAREN (] 9
          found varref
          ID setPixelColor -> [LPAREN (] 8
          LPAREN ( -> [ID i] 8
               ID i -> [COMMA ,] 13
-             ID i -> [COMMA ,] 12
+              ID i -> [COMMA ,] 13
              found varref
             found factor
            found term
           found expr
            COMMA , -> [ID i] 10
                ID i -> [MUL *] 14
-              ID i -> [MUL *] 13
+               ID i -> [MUL *] 14
               found varref
              found factor
                MUL * -> [ID pixelCounter] 14
                 ID pixelCounter -> [RPAREN )] 15
-               ID pixelCounter -> [RPAREN )] 14
+                ID pixelCounter -> [RPAREN )] 15
                found varref
               found factor
             found term
@@ -150,11 +150,11 @@ parseTree 65536 => 0 ✓
   RCURL } -> [ ] 1
  found block
 Node program Parsed until (30,0) 366 of 366
-definitionTree 11566 / 70% (26 0 6)
-parseTree      9156 / 13% (1 0 22)
-garbageCollect 6020 / 9%
-Destruct Lexer
 parse 0 ✓
+definitionTree 11598 / 70% (26 0 6)
+parseTree      9156 / 13% (1 0 22)
+garbageCollect 9156 / 13% -> 6020 / 9%
+Destruct Lexer
 
 Optimizer
         node to shrink factor in term : {"factor":{"INTEGER_CONST":"3"}} from {"term":{"factor":{"INTEGER_CONST":"3"}},"*":["multiple"]}
@@ -169,6 +169,7 @@ Optimizer
                   node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
               node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}},"*":["multiple"]}
 optimize 0 ✓
+garbageCollect 6500 / 9% -> 4004 / 6%
 
 Analyzer
  Program PhaseShift 1 0
@@ -196,6 +197,7 @@ Analyzer
  2 function PhaseShift.renderFrame of 9 (1)
  3 function PhaseShift.renderLed of 9 (1)
 analyze 0 ✓
+garbageCollect 5156 / 7% -> 5113 / 7%
 
 interpret PhaseShift 1 4
  program PhaseShift
@@ -297,6 +299,6 @@ Destruct Symbol countAdd (0)
 Destruct Symbol renderFrame (0)
 Destruct Symbol renderLed (0)
 Destruct ScopedSymbolTable PhaseShift (0)
-definitionJson  11566 / 70% (26 0 6)
-parseTree       7588 / 11% (1 0 21)
+definitionJson  11598 / 70% (26 0 6)
+parseTree       5113 / 7% (1 0 21)
 closed Arti 0 ✓

@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti.h
-   @version 0.2.2
-   @date    20211216
+   @version 0.2.3
+   @date    20220103
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
    @remarks
@@ -34,9 +34,9 @@
           - Add unary operators: -1, ++, --
           - support .12345 notation
           - bug fix !=
+          - minimize value["x"]
    @todo
           - check why statement is not 'shrinked'
-          - minimize value["x"]
           - make default work in js (remove default as we have now load template)
           - save log after first run of loop to get runtime errors included (or 30 iterations to also capture any stack overflows)
           - add PI
@@ -350,7 +350,7 @@ enum Nodes
   F_Program,
   F_Function,
   F_Call,
-  F_Var,
+  F_VarDef,
   F_Assign,
   F_Formal,
   F_VarRef,
@@ -399,7 +399,7 @@ const char * nodeToString(uint8_t key)
     return "function";
   case F_Call:
     return "call";
-  case F_Var:
+  case F_VarDef:
     return "variable";
   case F_Assign:
     return "assign";
@@ -444,7 +444,7 @@ uint8_t stringToNode(const char * node)
   else if (strcmp(node, "call") == 0)
     return F_Call;
   else if (strcmp(node, "variable") == 0)
-    return F_Var;
+    return F_VarDef;
   else if (strcmp(node, "assign") == 0)
     return F_Assign;
   else if (strcmp(node, "formal") == 0)
@@ -481,14 +481,6 @@ uint8_t stringToNode(const char * node)
   #endif
   return F_NoNode;
 }
-
-// char * stringToNodeStr(const char * node, char *itoaChar)
-// {
-//   // char itoaChar[charLength];
-//   snprintf(itoaChar, sizeof(itoaChar), "%u", stringToNode(node));
-
-//   return itoaChar;
-// }
 
 bool errorOccurred = false;
 
@@ -1088,50 +1080,32 @@ public:
 
     if (expression.is<JsonArray>()) //should always be the case
     {
-      for (JsonVariant arrayElement: expression.as<JsonArray>()) 
+      for (JsonVariant expressionElement: expression.as<JsonArray>()) //e.g. ["PROGRAM","ID","block"]
       {
-        JsonVariant nextExpression = arrayElement;
-        const char * nextNode_name = node_name;
+        const char * nextNode_name = node_name; //e.g. "program": 
+        JsonVariant nextExpression = expressionElement; // e.g. block
         JsonVariant nextParseTree = parseTree;
-        JsonArray arr;
 
-        JsonVariant nodeExpression = lexer->definitionJson[arrayElement.as<const char *>()];
+        JsonVariant nodeExpression = lexer->definitionJson[expressionElement.as<const char *>()];
 
-        if (!nodeExpression.isNull()) //is arrayElement a Node e.g. "compound" : ["CURLYOPEN", "block*", "CURLYCLOSE"],
+        if (!nodeExpression.isNull()) //is expressionElement a Node e.g. "block" : ["LCURL",{"*": ["statement"]},"RCURL"]
         {
-          nextNode_name = arrayElement.as<const char *>();
-          nextExpression = nodeExpression;
+          nextNode_name = expressionElement; //e.g. block
+          nextExpression = nodeExpression; // e.g. ["LCURL",{"*": ["statement"]},"RCURL"]
 
           // DEBUG_ARTI("%s %s %u\n", spaces+50-depth, nextNode_name, depth); //, parseTree.as<std::string>().c_str()
 
           if (parseTree.is<JsonArray>()) 
           {
-            #ifdef OPTIMIZED_TREE
-              char itoaChar[charLength];
-              snprintf(itoaChar, sizeof(itoaChar), "%u", stringToNode(nextNode_name));
-              DEBUG_ARTI("%s OptimizedTree1 %s %s %u\n", spaces+50-depth, nextNode_name, itoaChar, depth);
-              parseTree[parseTree.size()][itoaChar]["connect"] = "array";
-            #else
-              parseTree[parseTree.size()][nextNode_name]["connect"] = "array";
-            #endif
+            parseTree[parseTree.size()][nextNode_name]["connect"] = "array";
             nextParseTree = parseTree[parseTree.size()-1]; //nextparsetree is last element in the array (which is always an object)
           }
           else //no list, create object
           { 
-            #ifdef OPTIMIZED_TREE
-              char itoaChar[charLength];
-              snprintf(itoaChar, sizeof(itoaChar), "%u", stringToNode(node_name));
-              DEBUG_ARTI("%s OptimizedTree2 %s %s %u\n", spaces+50-depth, node_name, itoaChar, depth);
-              if (parseTree[itoaChar].isNull()) //no object yet
-                parseTree[itoaChar]["connect"] = "object"; //make the connection, new object item
+            if (parseTree[node_name].isNull()) //no object yet
+              parseTree[node_name]["connect"] = "object"; //make the connection, new object item
 
-              nextParseTree = parseTree[itoaChar];
-            #else
-              if (parseTree[node_name].isNull()) //no object yet
-                parseTree[node_name]["connect"] = "object"; //make the connection, new object item
-
-              nextParseTree = parseTree[node_name];
-            #endif
+            nextParseTree = parseTree[node_name];
           }
         }
 
@@ -1148,16 +1122,8 @@ public:
           {
             if (objectOperator == '*' || objectOperator == '+') 
             {
-              #ifdef OPTIMIZED_TREE
-                char itoaChar[charLength];
-                snprintf(itoaChar, sizeof(itoaChar), "%u", stringToNode(nextNode_name));
-                DEBUG_ARTI("%s OptimizedTree3 %s %s %u\n", spaces+50-depth, nextNode_name, itoaChar, depth);
-                nextParseTree[itoaChar]["*"][0] = "multiple"; // * is another object in the list of objects
-                nextParseTree = nextParseTree[itoaChar]["*"];
-              #else
-                nextParseTree[nextNode_name]["*"][0] = "multiple"; // * is another object in the list of objects
-                nextParseTree = nextParseTree[nextNode_name]["*"];
-              #endif
+              nextParseTree[nextNode_name]["*"][0] = "multiple"; // * is another object in the list of objects
+              nextParseTree = nextParseTree[nextNode_name]["*"];
             }
 
             //and: see 'is array'
@@ -1239,21 +1205,9 @@ public:
             else
             {
               if (nextParseTree.is<JsonArray>()) 
-              {
-                JsonArray arr = nextParseTree.as<JsonArray>();
-                arr[arr.size()][lexer->current_token.type] = lexer->current_token.value; //add in last element of array
-              }
+                nextParseTree.as<JsonArray>()[nextParseTree.size()][lexer->current_token.type] = lexer->current_token.value; //add in last element of array
               else
-              {
-                #ifdef OPTIMIZED_TREE
-                  char itoaChar[charLength];
-                  snprintf(itoaChar, sizeof(itoaChar), "%u", stringToNode(nextNode_name));
-                  DEBUG_ARTI("%s OptimizedTree4 %s %s %u\n", spaces+50-depth, nextNode_name, itoaChar, depth);
-                  nextParseTree[itoaChar][lexer->current_token.type] = lexer->current_token.value;
-                #else
-                  nextParseTree[nextNode_name][lexer->current_token.type] = lexer->current_token.value;
-                #endif
-              }
+                nextParseTree[nextNode_name][lexer->current_token.type] = lexer->current_token.value;
             }
 
             lexer->eat(token_type);
@@ -1263,11 +1217,9 @@ public:
             resultChild = ResultContinue;
           }
           else //deadend
-          {
             resultChild = ResultFail;
-          }
         } // if token
-        else //arrayElement is not a node, not a token, not an array and not an object
+        else //expressionElement is not a node, not a token, not an array and not an object
         {
           if (lexer->definitionJson.containsKey(nextExpression.as<const char *>()))
             ERROR_ARTI("%s Programming error: %s not a node, token, array or object in %s\n", spaces+50-depth, nextExpression.as<std::string>().c_str(), stringOrEmpty(nextNode_name));
@@ -1280,30 +1232,41 @@ public:
           nextParseTree.remove("connect"); //remove connector
 
           if (resultChild == ResultFail) { //remove result of parse
-            #ifdef OPTIMIZED_TREE
-              char itoaChar[charLength];
-              snprintf(itoaChar, sizeof(itoaChar), "%u", stringToNode(nextNode_name));
-              DEBUG_ARTI("%s OptimizedTree5 %s %s %u\n", spaces+50-depth, nextNode_name, itoaChar, depth);
-              nextParseTree.remove(itoaChar); //remove the failed stuff
-            #else
-              nextParseTree.remove(nextNode_name); //remove the failed stuff
-            #endif
+            nextParseTree.remove(nextNode_name); //remove the failed stuff
 
             // DEBUG_ARTI("%s fail %s\n", spaces+50-depth, nextNode_name);
           }
           else //success
           {
-            DEBUG_ARTI("%s found %s\n", spaces+50-depth, nextNode_name);
-
+            DEBUG_ARTI("%s found %s\n", spaces+50-depth, nextNode_name);//, nextParseTree.as<std::string>().c_str());
             //parseTree optimization moved to optimize function
 
-            // if (parseTree.is<JsonObject>() )//&& parseTree.size() == 1
+            // if (nextParseTree.is<JsonObject>())
             // {
-            //   JsonObject nextParseTreeObject = parseTree.as<JsonObject>();
 
-              // DEBUG_ARTI("%s found %s:%s\n", spaces+50-depth, node_name, parseTree.as<std::string>().c_str());
-              // DEBUG_ARTI("%s found %s:%s\n", spaces+50-depth, nextNode_name, nextParseTree.as<std::string>().c_str());
-              // DEBUG_ARTI("%s found %s\n", spaces+50-depth, nextParseTree[nextNode_name].as<std::string>().c_str());
+            //   // optimize(nextParseTree, depth);
+
+            //   JsonObject innerObject = nextParseTree[nextNode_name].as<JsonObject>();
+
+            //   JsonObject::iterator begin = innerObject.begin();
+            //   if (fnextParseTree.size() == 1 && nextParseTree[nextNode_name].size() == 1 && lexer->definitionJson.containsKey(nextNode_name) && lexer->definitionJson.containsKey(nextNode_name) && lexer->definitionJson.containsKey(begin->key()))
+            //   {
+            //     // JsonObject nextParseTreeObject = nextParseTree.as<JsonObject>();
+
+            //     DEBUG_ARTI("%s found %s:%s\n", spaces+50-depth, node_name, parseTree.as<std::string>().c_str());
+            //     DEBUG_ARTI("%s found replace %s by %s %s\n", spaces+50-depth, nextNode_name, begin->key().c_str(), nextParseTree.as<std::string>().c_str());
+            //     DEBUG_ARTI("%s expression %s\n", spaces+50-depth, expression.as<std::string>().c_str());
+            //     DEBUG_ARTI("%s found %s\n", spaces+50-depth, nextParseTree[nextNode_name].as<std::string>().c_str());
+
+            //     nextParseTree.remove(nextNode_name);
+            //     // char temp[charLength];
+            //     // strcpy(temp, nextNode_name);
+            //     // strcat(temp, "-");
+            //     // strcat(temp, begin->key().c_str());
+            //     nextParseTree[begin->key()] = begin->value();
+
+            //     DEBUG_ARTI("%s found %s:%s\n", spaces+50-depth, node_name, parseTree.as<std::string>().c_str());
+            //   }
             // }
             // else
             //   DEBUG_ARTI("%s no jsonobject??? %s\n", spaces+50-depth, parseTree.as<std::string>().c_str());
@@ -1311,7 +1274,7 @@ public:
           }
         } // if node
 
-        //determine result of arrayElement
+        //determine result of expressionElement
         if (operatorx == '|') {
           if (resultChild == ResultFail) {//if fail, go back and try another
             // result = ResultContinue;
@@ -1330,9 +1293,10 @@ public:
         if (result != ResultContinue) //if no reason to continue then stop
           break;
 
-      } //for arrayelement
+      } //for expressionElement
 
-      if (operatorx == '|') {
+      if (operatorx == '|') 
+      {
         if (result != ResultStop) //still looking but nothing to look for
           result = ResultFail;
       }
@@ -1368,29 +1332,59 @@ public:
           if (strcmp(key, "*") == 0 ) // multiple
           {
           }
-          else if (strcmp(key, "token") == 0)
+          else if (strcmp(key, "token") == 0) // do nothing with added tokens
             visitedAlready = true;
           else if (this->definitionJson["TOKENS"].containsKey(key)) // if token
           {
-            if (stringToToken(key, value) != F_NoToken)
-              parseTree["token"] = stringToToken(key, value);
+           const char * valueStr = value;
+
+            if (strcmp(key, "INTEGER_CONST") == 0)
+              parseTree["token"] = F_integerConstant;
+            else if (strcmp(key, "REAL_CONST") == 0)
+              parseTree["token"] = F_realConstant;
+            else if (strcmp(valueStr, "+") == 0)
+              parseTree["token"] = F_plus;
+            else if (strcmp(valueStr, "-") == 0)
+              parseTree["token"] = F_minus;
+            else if (strcmp(valueStr, "*") == 0)
+              parseTree["token"] = F_multiplication;
+            else if (strcmp(valueStr, "/") == 0)
+              parseTree["token"] = F_division;
+            else if (strcmp(valueStr, "%") == 0)
+              parseTree["token"] = F_modulo;
+            else if (strcmp(valueStr, "<<") == 0)
+              parseTree["token"] = F_bitShiftLeft;
+            else if (strcmp(valueStr, ">>") == 0)
+              parseTree["token"] = F_bitShiftRight;
+            else if (strcmp(valueStr, "==") == 0)
+              parseTree["token"] = F_equal;
+            else if (strcmp(valueStr, "!=") == 0)
+              parseTree["token"] = F_notEqual;
+            else if (strcmp(valueStr, ">") == 0)
+              parseTree["token"] = F_greaterThen;
+            else if (strcmp(valueStr, ">=") == 0)
+              parseTree["token"] = F_greaterThenOrEqual;
+            else if (strcmp(valueStr, "<") == 0)
+              parseTree["token"] = F_lessThen;
+            else if (strcmp(valueStr, "<=") == 0)
+              parseTree["token"] = F_lessThenOrEqual;
+            else if (strcmp(valueStr, "&&") == 0)
+              parseTree["token"] = F_and;
+            else if (strcmp(valueStr, "||") == 0)
+              parseTree["token"] = F_or;
             else
               ERROR_ARTI("%s Programming error: token not defined as operator %s %s (%u)\n", spaces+50-depth, key, value.as<std::string>().c_str(), depth);
 
             visitedAlready = true;
           }
-          else if (true || definitionJson.containsKey(key)) //if key is node_name
+          else //if key is node_name
           {
-            #ifdef OPTIMIZED_TREE
-              uint8_t node = atoi(key);
-              DEBUG_ARTI("%s OptimizedTree5 %s %u (%u)\n", spaces+50-depth, key, node, depth);
-            #else
-              uint8_t node = stringToNode(key);
-            #endif
+            uint8_t node = stringToNode(key);
 
             switch (node) 
             {
-              case F_Program: {
+              case F_Program: 
+              {
                 const char * program_name = value["ID"];
                 global_scope = new ScopedSymbolTable(program_name, 1, nullptr); //current_scope
 
@@ -1418,8 +1412,8 @@ public:
                 visitedAlready = true;
                 break;
               }
-              case F_Function: {
-
+              case F_Function: 
+              {
                 //find the function name (so we must know this is a function...)
                 const char * function_name = value["ID"];
                 Symbol* function_symbol = new Symbol(node, function_name);
@@ -1451,75 +1445,73 @@ public:
                 visitedAlready = true;
                 break;
               }
-              case F_Var:
+              case F_VarDef:
               case F_Formal:
               case F_Assign:
               case F_VarRef: 
               {
-                char itoaChar[charLength];
-                #ifdef OPTIMIZED_TREE
-                  snprintf(itoaChar, sizeof(itoaChar), "%u", F_VarRef);
-                #else
-                  strcpy(itoaChar, "varref");
-                #endif
-
-                const char * variable_name = value["ID"];
-                if (node == F_Assign)
-                  variable_name = value[itoaChar]["ID"];
-
-                char param_type[charLength]; 
-                if (value.containsKey("type")) 
-                  serializeJson(value["type"], param_type); //current_scope.lookup(param.type_node.value); //need string, lookup also used to find types...
+                JsonObject variable_value;
+                if (node == F_Assign) 
+                  variable_value = value["varref"];
                 else
-                  strcpy(param_type, "notype");
+                  variable_value = value;
+
+                const char * variable_name;
+                variable_name = variable_value["ID"];
+
+                if (variable_value.containsKey("indices"))
+                  analyze(variable_value, "indices", current_scope, depth + 1);
 
                 //check if external variable
                 bool externalFound = false;
                 uint8_t index = 0;
                 for (JsonPair externalsPair: definitionJson["EXTERNALS"].as<JsonObject>()) {
                   if (strcmp(variable_name, externalsPair.key().c_str()) == 0) {
-                    if (node == F_Assign)
-                      value[itoaChar]["external"] = index; //add external index to parseTree
-                    else
-                      value["external"] = index; //add external index to parseTree
+                      variable_value["external"] = index; //add external index to parseTree
                     ANDBG_ARTI("%s Ext Variable found %s (%u) %s\n", spaces+50-depth, variable_name, depth, key);
                     externalFound = true;
                   }
                   index++;
                 }
 
-                if (!externalFound) {
+                if (!externalFound) 
+                {
                   Symbol* var_symbol = current_scope->lookup(variable_name); //lookup here and parent scopes
                   if (node == F_VarRef) 
                   {
                     if (var_symbol == nullptr)
                       ERROR_ARTI("%s VarRef %s ID not found in scope of %s\n", spaces+50-depth, variable_name, current_scope->scope_name); 
                     else 
-                    {
-                      value["level"] = var_symbol->scope_level;
-                      value["index"] = var_symbol->scope_index;
                       ANDBG_ARTI("%s VarRef found %s.%s (%u)\n", spaces+50-depth, var_symbol->scope->scope_name, variable_name, depth);
-                    }
                   }
                   else //assign and var/formal
                   {
                     //if variable not already defined, then add
-                    if (node != F_Assign || var_symbol == nullptr) { //only assign needs to check if not exists
+                    if (node != F_Assign || var_symbol == nullptr) //only assign needs to check if not exists
+                    {
+                      char param_type[charLength]; 
+                      if (variable_value.containsKey("type")) 
+                        serializeJson(variable_value["type"], param_type); //current_scope.lookup(param.type_node.value); //need string, lookup also used to find types...
+                      else
+                        strcpy(param_type, "notype");
+
                       var_symbol = new Symbol(node, variable_name, 9); // no type support yet
                       if (node == F_Assign)
                         global_scope->insert(var_symbol); // assigned variables are global scope
                       else
                         current_scope->insert(var_symbol);
+
                       ANDBG_ARTI("%s %s %s.%s of %s\n", spaces+50-depth, key, var_symbol->scope->scope_name, variable_name, param_type);
                     }
                     else if (node != F_Assign && var_symbol != nullptr)
                       ERROR_ARTI("%s %s Duplicate ID %s.%s\n", spaces+50-depth, key, var_symbol->scope->scope_name, variable_name); 
 
-                    if (node == F_Assign) 
-                    {
-                      value[itoaChar]["level"] = var_symbol->scope_level;
-                      value[itoaChar]["index"] = var_symbol->scope_index;;
-                    }
+                  }
+
+                  if (var_symbol != nullptr)
+                  {
+                    variable_value["level"] = var_symbol->scope_level;
+                    variable_value["index"] = var_symbol->scope_index;;
                   }
                 }
 
@@ -1555,13 +1547,11 @@ public:
                   }
                 }
 
-                if (value.containsKey("indices"))
-                  analyze(value, "indices", current_scope, depth + 1);
-
                 visitedAlready = true;
                 break;
               }
-              case F_Call: {
+              case F_Call: 
+              {
                 const char * function_name = value["ID"];
 
                 //check if external function
@@ -1573,8 +1563,6 @@ public:
                   {
                     ANDBG_ARTI("%s Ext Function found %s (%u)\n", spaces+50-depth, function_name, depth);
                     value["external"] = index; //add external index to parseTree 
-                    if (value.containsKey("actuals"))
-                      analyze(value["actuals"], nullptr, current_scope, depth + 1);
                     externalFound = true;
                   }
                   index++;
@@ -1584,26 +1572,21 @@ public:
                 {
                   Symbol* function_symbol = current_scope->lookup(function_name); //lookup here and parent scopes
                   if (function_symbol != nullptr) 
-                  {
-                    if (value.containsKey("actuals"))
-                      analyze(value["actuals"], nullptr, current_scope, depth + 1);
-
                     analyze(function_symbol->block, nullptr, current_scope, depth + 1);
-                  } //function_symbol != nullptr
                   else 
-                  {
                     ERROR_ARTI("%s Function %s not found in scope of %s\n", spaces+50-depth, function_name, current_scope->scope_name); 
-                  }
                 } //external functions
 
-                visitedAlready = true;
-              } // case
-              break;
-            } //switch
+                if (value.containsKey("actuals"))
+                  analyze(value["actuals"], nullptr, current_scope, depth + 1);
 
+                visitedAlready = true;
+                break;
+              } // case
+              default: //visitedalready false => recursive call
+                break;
+            } //switch
           } // is node_name
-          else
-            ERROR_ARTI("%s Programming Error: key no node and no token %s %s (%u)\n", spaces+50-depth, key, value.as<std::string>().c_str(), depth);
 
           if (!visitedAlready && value.size() > 0) // if size == 0 then injected key/value like operator
             analyze(value, nullptr, current_scope, depth + 1);
@@ -1614,9 +1597,7 @@ public:
     else if (parseTree.is<JsonArray>()) 
     {
       for (JsonVariant newParseTree: parseTree.as<JsonArray>()) 
-      {
         analyze(newParseTree, nullptr, current_scope, depth + 1);
-      }
     }
     else //not array
     {
@@ -1659,42 +1640,25 @@ public:
           if (value.size() == 0) 
           {
             parseTree.remove(key);
-            // DEBUG_ARTI("%s remove empty %s %s (%u)\n", spaces+50-depth, key, value.as<std::string>().c_str(), depth);
+            // DEBUG_ARTI("%s optimize: remove empty %s %s (%u)\n", spaces+50-depth, key, value.as<std::string>().c_str(), depth);
           }
 
           visitedAlready = true;
         }
         else if (this->definitionJson["TOKENS"].containsKey(key)) // if key is token (moved to parse)
         {
-          const char * valueStr = value;
-          //if key not one of below tokens then remove
-          if (strcmp(key, "ID") != 0 && strcmp(key, "INTEGER_CONST") != 0 && strcmp(key, "REAL_CONST") != 0 && 
-                          strcmp(key, "INTEGER") != 0 && strcmp(key, "REAL") != 0 && 
-                          strcmp(valueStr, "+") != 0 && strcmp(valueStr, "-") != 0 && strcmp(valueStr, "*") != 0 && strcmp(valueStr, "/") != 0 && strcmp(valueStr, "%") != 0 && 
-                          strcmp(valueStr, "+=") != 0 && strcmp(valueStr, "-=") != 0 && strcmp(valueStr, "*=") != 0 && strcmp(valueStr, "/=") != 0 &&
-                          strcmp(valueStr, "<<") != 0 && strcmp(valueStr, ">>") != 0 && 
-                          strcmp(valueStr, "==") != 0 && strcmp(valueStr, "!=") != 0 && 
-                          strcmp(valueStr, "&&") != 0 && strcmp(valueStr, "||") != 0 && 
-                          strcmp(valueStr, ">") != 0 && strcmp(valueStr, ">=") != 0 && strcmp(valueStr, "<") != 0 && strcmp(valueStr, "<=") != 0 &&
-                          strcmp(valueStr, "++") != 0 && strcmp(valueStr, "--") != 0
-              )
-          {
-            // DEBUG_ARTI("%s remove key/value %s %s (%u)\n", spaces+50-depth, key, valueStr, depth);
-            parseTree.remove(key);
-          }
-
           visitedAlready = true;
         }
-        else if (definitionJson.containsKey(key) && value.is<JsonObject>()) //if key is node_name
+        else if (value.is<JsonObject>()) //if key is node_name
         {
           optimize(value, depth + 1);
 
           if (value.size() == 0) 
           {
-            // DEBUG_ARTI("%s remove key %s with empty object (%u)\n", spaces+50-depth, key, depth);
+            // DEBUG_ARTI("%s optimize: remove key %s with empty object (%u)\n", spaces+50-depth, key, depth);
             parseTree.remove(key);
           }
-          else if (value.size() == 1) //try to shrink
+          else if (value.size() == 1) //try to shrink, moved to below
           {
             //- check if a node is not used in analyzer / interpreter and has only one element: go to the parent and replace itself with its child (shrink)
 
@@ -1752,6 +1716,69 @@ public:
           optimize(value, depth + 1);
 
       } ///for elements in object
+
+      //shrink
+      for (JsonPair parseTreePair : parseTree.as<JsonObject>()) 
+      {
+        const char * key = parseTreePair.key().c_str();
+        JsonVariant value = parseTreePair.value();
+
+        if (false && value.is<JsonObject>() && parseTree.size() == 1 && value.size() == 1 && definitionJson.containsKey(key)) //if key is node_name
+        {
+          JsonObject::iterator objectIterator = value.as<JsonObject>().begin();
+
+          // DEBUG_ARTI("%s try replace %s by %s %s\n", spaces+50-depth, key, objectIterator->key().c_str(), parseTree.as<std::string>().c_str());
+
+          if (strcmp(objectIterator->key().c_str(), "ID") != 0) //&& definitionJson.containsKey(objectIterator->key())???
+          {
+            // DEBUG_ARTI("%s found %s:%s\n", spaces+50-depth, node_name, parseTree.as<std::string>().c_str());
+            // DEBUG_ARTI("%s found replace %s by %s %s\n", spaces+50-depth, key, objectIterator->key().c_str(), parseTree.as<std::string>().c_str());
+            // DEBUG_ARTI("%s found %s\n", spaces+50-depth, value.as<std::string>().c_str());
+
+            // DEBUG_ARTI("%s found %s\n", spaces+50-depth, parseTree.as<std::string>().c_str());
+            DEBUG_ARTI("%s replace %s by %s %s\n", spaces+50-depth, key, objectIterator->key().c_str(), parseTree.as<std::string>().c_str());
+
+            parseTree.remove(key);
+            // parseTree[key] = value;
+            parseTree[objectIterator->key()] = objectIterator->value();
+
+            // DEBUG_ARTI("%s found %s:%s\n", spaces+50-depth, node_name, parseTree.as<std::string>().c_str());
+
+          }
+          // else
+          // {
+          //   DEBUG_ARTI("%s not shrinkable %s %s\n", spaces+50-depth, key, value.as<std::string>().c_str());
+          //   if (depth > 12) {
+          //   // parseTree.remove(key);
+          //       char temp[charLength];
+          //       strcpy(temp, key);
+          //       strcat(temp, "-");
+          //       // strcat(temp, objectIterator->key().c_str());
+          //   // parseTree[temp] = value;
+          //   }
+          // }
+
+          if (false && definitionJson.containsKey(objectIterator->key().c_str()))  // if value key is a node
+          {
+            if (stringToNode(objectIterator->key().c_str()) == F_NoNode) // if key not a node
+            // if (objectIterator->value().size() == 1)
+            {
+              DEBUG_ARTI("%s node to shrink %s in %s : %s from %s\n", spaces+50-depth, objectIterator->key().c_str(), key, value.as<std::string>().c_str(), parseTree.as<std::string>().c_str());
+              // DEBUG_ARTI("%s node to shrink %s in %s = %s from %s\n", spaces+50-depth, objectIterator->key().c_str(), key, objectIterator->value().as<std::string>().c_str(), parseTree[key].as<std::string>().c_str());
+                parseTree[key] = objectIterator->value();
+
+              // parseTree[key]["old"] = objectIterator->key();
+
+              // parseTreePair.key() = objectIterator->key();
+              // parseTreePair._key = objectIterator->key();
+              // parseTree[objectIterator->key()] = objectIterator->value();
+              // parseTree.remove(key);
+              // parseTree[key][objectIterator2->key().c_str()] = objectIterator2->value();
+            }
+          }
+        } //value is jsonObject
+
+      } // for
     }
     else if (parseTree.is<JsonArray>())
     {
@@ -1764,12 +1791,12 @@ public:
 
         if (element == "multiple") 
         {
-          // DEBUG_ARTI("%s remove array element 'multiple' of array (%u)\n", spaces+50-depth, arrayIndex);
+          // DEBUG_ARTI("%s optimize: remove array element 'multiple' of array (%u)\n", spaces+50-depth, arrayIndex);
           parseTreeArray.remove(it);
         }
         else if (it->size() == 0) //remove {} elements (added by * arrays, don't know where added)
         {
-          // DEBUG_ARTI("%s remove array element {} of %s array (%u)\n", spaces+50-depth, element.as<std::string>().c_str(), arrayIndex);
+          // DEBUG_ARTI("%s optimize: remove array element {} of %s array (%u)\n", spaces+50-depth, element.as<std::string>().c_str(), arrayIndex);
           parseTreeArray.remove(it);
         }
         else 
@@ -1790,8 +1817,7 @@ public:
     return !errorOccurred;
   } //optimize
 
-            // ["PLUS2", "factor"],
-          // [ "MINUS2", "factor"],
+  // bool visit_ID(JsonVariant parseTree, const char * treeElement = nullptr, ScopedSymbolTable* current_scope = nullptr, uint8_t depth = 0) 
 
   bool interpret(JsonVariant parseTree, const char * treeElement = nullptr, ScopedSymbolTable* current_scope = nullptr, uint8_t depth = 0) 
   {
@@ -1812,12 +1838,13 @@ public:
         JsonVariant value = parseTreePair.value();
         if (treeElement == nullptr || strcmp(treeElement, key) == 0) 
         {
-          // RUNLOG_ARTI("%s Interpret object element %s\n", spaces+50-depth, key); //, value.as<std::string>().c_str()
+          // RUNLOG_ARTI("%s Interpret object element %s %s\n", spaces+50-depth, key, value.as<std::string>().c_str());
 
           bool visitedAlready = false;
 
           if (strcmp(key, "*") == 0)
           {
+            // do the recursive call below
           }
           else if (strcmp(key, "token") == 0 || strcmp(key, "variable") == 0) //variable decls done in analyze (see pas)
             visitedAlready = true;
@@ -1844,7 +1871,7 @@ public:
             }
             visitedAlready = true;
           }
-          else if (this->definitionJson.containsKey(key)) //if key is node_name (OPTIMIZED_TREE: check not needed)
+          else //if key is node_name
           {
             uint8_t node = stringToNode(key);
 
@@ -1975,20 +2002,45 @@ public:
               case F_VarRef:
               case F_Assign: //get or set a variable
               {
-                const char * variable_name = value["ID"];
-                uint8_t variable_level = value["level"];
-                uint8_t variable_index = value["index"];
-                uint8_t variable_external = value["external"];
+                const char * variable_name;
+                uint8_t variable_level;
+                uint8_t variable_index;
+                uint8_t variable_external;
+                JsonObject variable_indices;
+                JsonObject variable_value;
+
+                float resultValue = floatNull;
+
+                if (node == F_Assign) 
+                {
+                  variable_value = value["varref"];
+
+                  if (value.containsKey("expr")) //value assignment
+                  {
+                    interpret(value, "expr", current_scope, depth + 1); //value pushed
+
+                    resultValue = valueStack->popFloat(); //result of interpret expr (but not for -- and ++ !!!!)
+                  }
+                }
+                else
+                  variable_value = value;
+
+                variable_name = variable_value["ID"];
+                variable_level = variable_value["level"];
+                variable_index = variable_value["index"];
+                variable_external = variable_value["external"];
+                variable_indices = variable_value["indices"];
 
                 uint8_t oldIndex = valueStack->stack_index;
 
                 //array indices
                 char indices[charLength]; //used in RUNLOG_ARTI only
                 strcpy(indices, "");
-                if (value.containsKey("indices")) {
+                if (!variable_indices.isNull()) 
+                {
                   strcat(indices, "[");
 
-                  interpret(value, "indices", current_scope, depth + 1); //values of indices pushed
+                  interpret(variable_value, "indices", current_scope, depth + 1); //values of indices pushed
 
                   char sep[3] = "";
                   for (uint8_t i = oldIndex; i< valueStack->stack_index; i++) {
@@ -2003,51 +2055,29 @@ public:
                   strcat(indices, "]");
                 }
 
-                char itoaChar[charLength];
-                #ifdef OPTIMIZED_TREE
-                  snprintf(itoaChar, sizeof(itoaChar), "%u", F_VarRef);
-                #else
-                  strcpy(itoaChar, "varref");
-                #endif
-
-                if (node == F_Assign) 
-                {
-                  variable_name = value[itoaChar]["ID"];
-                  variable_level = value[itoaChar]["level"];
-                  variable_index = value[itoaChar]["index"];
-                  variable_external = value[itoaChar]["external"];
-
-                  if (value.containsKey("expr")) //value assignment
-                    interpret(value, "expr", current_scope, depth + 1); //value pushed
-                }
-
                 //check if external variable
-                if (value.containsKey("external") || value[itoaChar].containsKey("external")) //added by Analyze
+                if (variable_value.containsKey("external")) //added by Analyze
                 {
-                  float returnValue = floatNull;
 
                   if (node == F_VarRef) { //get the value
 
-                    returnValue = arti_get_external_variable(variable_external, (valueStack->stack_index - oldIndex>0)?valueStack->floatStack[oldIndex]:floatNull, (valueStack->stack_index - oldIndex>1)?valueStack->floatStack[oldIndex+1]:floatNull);
+                    resultValue = arti_get_external_variable(variable_external, (valueStack->stack_index - oldIndex>0)?valueStack->floatStack[oldIndex]:floatNull, (valueStack->stack_index - oldIndex>1)?valueStack->floatStack[oldIndex+1]:floatNull);
+                    valueStack->stack_index = oldIndex;
 
-              valueStack->stack_index = oldIndex;
-
-                    if (returnValue != floatNull) 
+                    if (resultValue != floatNull) 
                     {
-                      valueStack->push(returnValue);
-                      RUNLOG_ARTI("%s %s ext.%s = %f (push %u)\n", spaces+50-depth, key, variable_name, returnValue, valueStack->stack_index); //key is variable_declaration name is ID
+                      valueStack->push(resultValue);
+                      RUNLOG_ARTI("%s %s ext.%s = %f (push %u)\n", spaces+50-depth, key, variable_name, resultValue, valueStack->stack_index); //key is variable_declaration name is ID
                     }
                     else
                       ERROR_ARTI("%s Error: %s ext.%s no value\n", spaces+50-depth, key, variable_name);
                   }
                   else //assign: set the external value...
                   {
-                    returnValue = valueStack->popFloat(); //result of interpret value
+                    arti_set_external_variable(resultValue, variable_external, (valueStack->stack_index - oldIndex>0)?valueStack->floatStack[oldIndex]:floatNull, (valueStack->stack_index - oldIndex>1)?valueStack->floatStack[oldIndex+1]:floatNull);
+                    valueStack->stack_index = oldIndex;
 
-                    arti_set_external_variable(returnValue, variable_external, (valueStack->stack_index - oldIndex>0)?valueStack->floatStack[oldIndex]:floatNull, (valueStack->stack_index - oldIndex>1)?valueStack->floatStack[oldIndex+1]:floatNull);
-
-                    RUNLOG_ARTI("%s %s set ext.%s%s = %f (Pop %u)\n", spaces+50-depth, key, variable_name, indices, returnValue, oldIndex);
-              valueStack->stack_index = oldIndex;
+                    RUNLOG_ARTI("%s %s set ext.%s%s = %f (Pop %u)\n", spaces+50-depth, key, variable_name, indices, resultValue, oldIndex);
                   }
                 }
                 else //not external, get er set the variable
@@ -2067,7 +2097,7 @@ public:
                   else //var created here
                     ar = this->callStack->peek();
 
-                  if (ar != nullptr) 
+                  if (ar != nullptr) // variable found
                   {
                     if (node == F_VarRef) //get the value
                     {
@@ -2086,22 +2116,22 @@ public:
                         switch (value["assignoperator"].as<uint8_t>()) 
                         {
                           case F_plus:
-                            ar->set(variable_index, ar->getFloat(variable_index) + valueStack->popFloat());
+                            ar->set(variable_index, ar->getFloat(variable_index) + resultValue);
                             break;
                           case F_minus:
-                            ar->set(variable_index, ar->getFloat(variable_index) - valueStack->popFloat());
+                            ar->set(variable_index, ar->getFloat(variable_index) - resultValue);
                             break;
                           case F_multiplication:
-                            ar->set(variable_index, ar->getFloat(variable_index) * valueStack->popFloat());
+                            ar->set(variable_index, ar->getFloat(variable_index) * resultValue);
                             break;
-                          case F_division: {
-                            float divisor = valueStack->popFloat();
-                            if (divisor == 0)
+                          case F_division: 
+                          {
+                            if (resultValue == 0) // divisor
                             {
-                              divisor = 1;
+                              resultValue = 1;
                               ERROR_ARTI("%s /= division by 0 not possible, divisor ignored for %f\n", spaces+50-depth, ar->getFloat(variable_index));
                             }
-                            ar->set(variable_index, ar->getFloat(variable_index) / divisor);
+                            ar->set(variable_index, ar->getFloat(variable_index) / resultValue);
                             break;
                           }
                           case F_plusplus:
@@ -2116,12 +2146,12 @@ public:
                       }
                       else 
                       {
-                        ar->set(variable_index, valueStack->popFloat());
+                        ar->set(variable_index, resultValue);
                         RUNLOG_ARTI("%s %s.%s%s := %f (pop %u) %u-%u\n", spaces+50-depth, ar->name, variable_name, indices, ar->getFloat(variable_index), valueStack->stack_index, variable_level, variable_index);
                       }
                       valueStack->stack_index = oldIndex;
                     }
-                  }
+                  } //ar != nullptr
                   else { //unknown variable
                     ERROR_ARTI("%s %s %s unknown\n", spaces+50-depth, key, variable_name);
                     valueStack->push(floatNull);
@@ -2135,6 +2165,7 @@ public:
               {
                 uint8_t oldIndex = valueStack->stack_index;
 
+                // RUNLOG_ARTI("%s before expr term interpret %s %s\n", spaces+50-depth, key, value.as<std::string>().c_str());
                 interpret(value, nullptr, current_scope, depth + 1); //pushes results
 
                 // RUNLOG_ARTI("%s %s interpret > (%u - %u = %u)\n", spaces+50-depth, key, valueStack->stack_index, oldIndex, valueStack->stack_index - oldIndex);
@@ -2308,7 +2339,10 @@ public:
                 RUNLOG_ARTI("%s If (stack %u)\n", spaces+50-depth, valueStack->stack_index);
 
                 RUNLOG_ARTI("%s condition\n", spaces+50-depth);
-                interpret(value, "expr", current_scope, depth + 1);
+                if (value.containsKey("expr"))
+                  interpret(value, "expr", current_scope, depth + 1);
+                // else if (value.containsKey("varref"))
+                //   interpret(value, "varref", current_scope, depth + 1);
 
                 float conditionResult = valueStack->popFloat();
 
@@ -2341,14 +2375,15 @@ public:
                 visitedAlready = true;
                 break;
               }  // case
+              default:  //visitedalready false => recursive call
+                break;
             }
           } // is key is node_name
-          else
-            ERROR_ARTI("%s Programming Error: key no node and no token %s %s (%u)\n", spaces+50-depth, key, value.as<std::string>().c_str(), depth);
 
           if (!visitedAlready && value.size() > 0) // if size == 0 then injected key/value like operator
             interpret(value, nullptr, current_scope, depth + 1);
         } // if treeelement
+                // RUNLOG_ARTI("%s before end for %u\n", spaces+50-depth, depth);
       } // for (JsonPair)
     }
     else if (parseTree.is<JsonArray>()) 
@@ -2444,8 +2479,8 @@ public:
     JsonObject::iterator objectIterator = definitionJson.begin();
     JsonObject metaData = objectIterator->value();
     const char * version = metaData["version"];
-    if (strcmp(version, "0.2.2") < 0) {
-      ERROR_ARTI("Version of definition.json file (%s) should be 0.2.2 or higher. Press Download wled.json\n", version);
+    if (strcmp(version, "0.2.3") < 0) {
+      ERROR_ARTI("Version of definition.json file (%s) should be 0.2.3 or higher. Press Download wled.json\n", version);
       closeLog();
       return false;
     }
@@ -2493,9 +2528,9 @@ public:
     //   strcpy(parseTreeName, "Gen");
     strcat(parseTreeName, ".json");
     #if ARTI_PLATFORM == ARTI_ARDUINO
-      parseTreeJsonDoc = new DynamicJsonDocument(32768); // current largest (Subpixel) 5624 //strlen(programText) * 50); //less memory on arduino: 32 vs 64 bit?
+      parseTreeJsonDoc = new DynamicJsonDocument(32768); //less memory on arduino: 32 vs 64 bit?
     #else
-      parseTreeJsonDoc = new DynamicJsonDocument(65536);  // current largest (Subpixel) 7926 //strlen(programText) * 100
+      parseTreeJsonDoc = new DynamicJsonDocument(65536);
     #endif
 
     MEMORY_ARTI("parseTree %u => %u ✓\n", (unsigned int)parseTreeJsonDoc->capacity(), FREE_SIZE);
@@ -2514,7 +2549,8 @@ public:
 
     if (stages < 1) {closeLog(); close(); return true;}
 
-    if (!loadParseTreeFile) {
+    if (!loadParseTreeFile) 
+    {
       parseTreeJson = parseTreeJsonDoc->as<JsonVariant>();
 
       lexer = new Lexer(programText, definitionJson);
@@ -2524,7 +2560,8 @@ public:
 
       uint8_t result = parse(parseTreeJson, startNode, '&', lexer->definitionJson[startNode], 0);
 
-      if (this->lexer->pos != strlen(this->lexer->text)) {
+      if (this->lexer->pos != strlen(this->lexer->text)) 
+      {
         ERROR_ARTI("Node %s Program not entirely parsed (%u,%u) %u of %u\n", startNode, this->lexer->lineno, this->lexer->column, this->lexer->pos, (unsigned int)strlen(this->lexer->text));
         closeLog();
         return false;
@@ -2535,14 +2572,16 @@ public:
         return false;
       }
       else
+      {
         DEBUG_ARTI("Node %s Parsed until (%u,%u) %u of %u\n", startNode, this->lexer->lineno, this->lexer->column, this->lexer->pos, (unsigned int)strlen(this->lexer->text));
+        MEMORY_ARTI("parse %u ✓\n", FREE_SIZE);
+      }
 
       MEMORY_ARTI("definitionTree %u / %u%% (%u %u %u)\n", (unsigned int)definitionJsonDoc->memoryUsage(), 100 * definitionJsonDoc->memoryUsage() / definitionJsonDoc->capacity(), (unsigned int)definitionJsonDoc->size(), definitionJsonDoc->overflowed(), (unsigned int)definitionJsonDoc->nesting());
       MEMORY_ARTI("parseTree      %u / %u%% (%u %u %u)\n", (unsigned int)parseTreeJsonDoc->memoryUsage(), 100 * parseTreeJsonDoc->memoryUsage() / parseTreeJsonDoc->capacity(), (unsigned int)parseTreeJsonDoc->size(), parseTreeJsonDoc->overflowed(), (unsigned int)parseTreeJsonDoc->nesting());
+      size_t memBefore = parseTreeJsonDoc->memoryUsage();
       parseTreeJsonDoc->garbageCollect();
-      MEMORY_ARTI("garbageCollect %u / %u%%\n", (unsigned int)parseTreeJsonDoc->memoryUsage(), 100 * parseTreeJsonDoc->memoryUsage() / parseTreeJsonDoc->capacity());
-      //199 -> 6905 (34.69)
-      //469 -> 15923 (33.95)
+      MEMORY_ARTI("garbageCollect %u / %u%% -> %u / %u%%\n", (unsigned int)memBefore, 100 * memBefore / parseTreeJsonDoc->capacity(), (unsigned int)parseTreeJsonDoc->memoryUsage(), 100 * parseTreeJsonDoc->memoryUsage() / parseTreeJsonDoc->capacity());
 
       delete lexer; lexer =  nullptr;
     }
@@ -2562,8 +2601,6 @@ public:
       free(programText);
     #endif
 
-    MEMORY_ARTI("parse %u ✓\n", FREE_SIZE);
-
     if (stages >= 3)
     {
       DEBUG_ARTI("\nOptimizer\n");
@@ -2573,8 +2610,12 @@ public:
         closeLog();
         return false;
       }
+      else
+        MEMORY_ARTI("optimize %u ✓\n", FREE_SIZE);
 
-      MEMORY_ARTI("optimize %u ✓\n", FREE_SIZE);
+        size_t memBefore = parseTreeJsonDoc->memoryUsage();
+        parseTreeJsonDoc->garbageCollect();
+        MEMORY_ARTI("garbageCollect %u / %u%% -> %u / %u%%\n", (unsigned int)memBefore, 100 * memBefore / parseTreeJsonDoc->capacity(), (unsigned int)parseTreeJsonDoc->memoryUsage(), 100 * parseTreeJsonDoc->memoryUsage() / parseTreeJsonDoc->capacity());
 
       if (stages >= 4)
       {
@@ -2588,6 +2629,10 @@ public:
           MEMORY_ARTI("analyze %u ✓\n", FREE_SIZE);
       }
     }
+
+    size_t memBefore = parseTreeJsonDoc->memoryUsage();
+    parseTreeJsonDoc->garbageCollect();
+    MEMORY_ARTI("garbageCollect %u / %u%% -> %u / %u%%\n", (unsigned int)memBefore, 100 * memBefore / parseTreeJsonDoc->capacity(), (unsigned int)parseTreeJsonDoc->memoryUsage(), 100 * parseTreeJsonDoc->memoryUsage() / parseTreeJsonDoc->capacity());
 
     #ifdef ARTI_DEBUG // only write parseTree file if debug is on
       if (!loadParseTreeFile)

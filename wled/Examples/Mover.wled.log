@@ -13,7 +13,7 @@ parseTree 65536 => 0 ✓
       found formals
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID locn] 5
-         ID locn -> [ASSIGN =] 8
+          ID locn -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [ID millis] 10
          found assignoperator
@@ -32,7 +32,7 @@ parseTree 65536 => 0 ✓
        found statement
          FOR FOR -> [LPAREN (] 8
          LPAREN ( -> [ID i] 8
-          ID i -> [ASSIGN =] 9
+           ID i -> [ASSIGN =] 10
           found varref
             ASSIGN = -> [INTEGER_CONST 0] 11
           found assignoperator
@@ -43,19 +43,19 @@ parseTree 65536 => 0 ✓
          found assign
          SEMI ; -> [ID i] 8
              ID i -> [LT <] 12
-            ID i -> [LT <] 11
+             ID i -> [LT <] 12
             found varref
            found factor
           found term
             LT < -> [ID ledCount] 11
               ID ledCount -> [SEMI ;] 13
-             ID ledCount -> [SEMI ;] 12
+              ID ledCount -> [SEMI ;] 13
              found varref
             found factor
            found term
          found expr
          SEMI ; -> [ID i] 8
-           ID i -> [ASSIGN+ +=] 10
+            ID i -> [ASSIGN+ +=] 11
            found varref
              ASSIGN+ += -> [INTEGER_CONST 30] 12
            found assignoperator
@@ -67,23 +67,23 @@ parseTree 65536 => 0 ✓
          found increment
          RPAREN ) -> [LCURL {] 8
           LCURL { -> [ID leds] 9
-             ID leds -> [LBRACKET [] 12
-             found varref
-              LBRACKET [ -> [ID locn] 13
-                   ID locn -> [PLUS +] 18
-                  ID locn -> [PLUS +] 17
-                  found varref
-                 found factor
-                found term
-                  PLUS + -> [ID i] 17
-                    ID i -> [RBRACKET ]] 19
-                   ID i -> [RBRACKET ]] 18
+              ID leds -> [LBRACKET [] 13
+               LBRACKET [ -> [ID locn] 14
+                    ID locn -> [PLUS +] 19
+                    ID locn -> [PLUS +] 19
                    found varref
                   found factor
                  found term
-               found expr
-              found indices
-              RBRACKET ] -> [ASSIGN =] 13
+                   PLUS + -> [ID i] 18
+                     ID i -> [RBRACKET ]] 20
+                     ID i -> [RBRACKET ]] 20
+                    found varref
+                   found factor
+                  found term
+                found expr
+               found indices
+               RBRACKET ] -> [ASSIGN =] 14
+             found varref
                ASSIGN = -> [ID colorWheel] 14
              found assignoperator
                   ID colorWheel -> [LPAREN (] 17
@@ -100,27 +100,27 @@ parseTree 65536 => 0 ✓
               found expr
             found assign
            found statement
-             ID leds -> [LBRACKET [] 12
-             found varref
-              LBRACKET [ -> [ID locn] 13
-                   ID locn -> [PLUS +] 18
-                  ID locn -> [PLUS +] 17
-                  found varref
-                 found factor
-                found term
-                  PLUS + -> [ID i] 17
-                    ID i -> [PLUS +] 19
-                   ID i -> [PLUS +] 18
+              ID leds -> [LBRACKET [] 13
+               LBRACKET [ -> [ID locn] 14
+                    ID locn -> [PLUS +] 19
+                    ID locn -> [PLUS +] 19
                    found varref
                   found factor
                  found term
-                  PLUS + -> [INTEGER_CONST 10] 17
-                   INTEGER_CONST 10 -> [RBRACKET ]] 18
-                  found factor
-                 found term
-               found expr
-              found indices
-              RBRACKET ] -> [ASSIGN =] 13
+                   PLUS + -> [ID i] 18
+                     ID i -> [PLUS +] 20
+                     ID i -> [PLUS +] 20
+                    found varref
+                   found factor
+                  found term
+                   PLUS + -> [INTEGER_CONST 10] 18
+                    INTEGER_CONST 10 -> [RBRACKET ]] 19
+                   found factor
+                  found term
+                found expr
+               found indices
+               RBRACKET ] -> [ASSIGN =] 14
+             found varref
                ASSIGN = -> [ID colorWheel] 14
              found assignoperator
                   ID colorWheel -> [LPAREN (] 17
@@ -137,27 +137,27 @@ parseTree 65536 => 0 ✓
               found expr
             found assign
            found statement
-             ID leds -> [LBRACKET [] 12
-             found varref
-              LBRACKET [ -> [ID locn] 13
-                   ID locn -> [PLUS +] 18
-                  ID locn -> [PLUS +] 17
-                  found varref
-                 found factor
-                found term
-                  PLUS + -> [ID i] 17
-                    ID i -> [PLUS +] 19
-                   ID i -> [PLUS +] 18
+              ID leds -> [LBRACKET [] 13
+               LBRACKET [ -> [ID locn] 14
+                    ID locn -> [PLUS +] 19
+                    ID locn -> [PLUS +] 19
                    found varref
                   found factor
                  found term
-                  PLUS + -> [INTEGER_CONST 20] 17
-                   INTEGER_CONST 20 -> [RBRACKET ]] 18
-                  found factor
-                 found term
-               found expr
-              found indices
-              RBRACKET ] -> [ASSIGN =] 13
+                   PLUS + -> [ID i] 18
+                     ID i -> [PLUS +] 20
+                     ID i -> [PLUS +] 20
+                    found varref
+                   found factor
+                  found term
+                   PLUS + -> [INTEGER_CONST 20] 18
+                    INTEGER_CONST 20 -> [RBRACKET ]] 19
+                   found factor
+                  found term
+                found expr
+               found indices
+               RBRACKET ] -> [ASSIGN =] 14
+             found varref
                ASSIGN = -> [ID colorWheel] 14
              found assignoperator
                   ID colorWheel -> [LPAREN (] 17
@@ -185,32 +185,33 @@ parseTree 65536 => 0 ✓
   RCURL } -> [ ] 1
  found block
 Node program Parsed until (18,1) 475 of 475
-definitionTree 11566 / 70% (26 0 6)
-parseTree      11361 / 17% (1 0 25)
-garbageCollect 7777 / 11%
-Destruct Lexer
 parse 0 ✓
+definitionTree 11598 / 70% (26 0 6)
+parseTree      11361 / 17% (1 0 25)
+garbageCollect 11361 / 17% -> 7777 / 11%
+Destruct Lexer
 
 Optimizer
               node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
              node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}},"*":["multiple",{"LT":"<"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple"]}}]}
                node to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}}}
                node to shrink factor in term : {"factor":{"INTEGER_CONST":"30"}} from {"term":{"factor":{"INTEGER_CONST":"30"}},"*":["multiple"]}
-                   node to shrink factor in term : {"factor":{"varref":{"ID":"locn"}}} from {"term":{"factor":{"varref":{"ID":"locn"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"i"}},"*":["multiple"]}}]}
-                     node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}}}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"locn"}}} from {"term":{"factor":{"varref":{"ID":"locn"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"i"}},"*":["multiple"]}}]}
+                      node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}}}
                        node to shrink factor in term : {"factor":{"INTEGER_CONST":"50"}} from {"term":{"factor":{"INTEGER_CONST":"50"}},"*":["multiple"]}
                   node to shrink factor in term : {"factor":{"call":{"ID":"colorWheel","actuals":{"expr":{"term":{"INTEGER_CONST":"50"}}}}}} from {"term":{"factor":{"call":{"ID":"colorWheel","actuals":{"expr":{"term":{"INTEGER_CONST":"50"}}}}}},"*":["multiple"]}
-                   node to shrink factor in term : {"factor":{"varref":{"ID":"locn"}}} from {"term":{"factor":{"varref":{"ID":"locn"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"i"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"10"},"*":["multiple"]}}]}
-                     node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}}}
-                     node to shrink factor in term : {"factor":{"INTEGER_CONST":"10"}} from {"term":{"factor":{"INTEGER_CONST":"10"}}}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"locn"}}} from {"term":{"factor":{"varref":{"ID":"locn"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"i"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"10"},"*":["multiple"]}}]}
+                      node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}}}
+                      node to shrink factor in term : {"factor":{"INTEGER_CONST":"10"}} from {"term":{"factor":{"INTEGER_CONST":"10"}}}
                        node to shrink factor in term : {"factor":{"INTEGER_CONST":"125"}} from {"term":{"factor":{"INTEGER_CONST":"125"}},"*":["multiple"]}
                   node to shrink factor in term : {"factor":{"call":{"ID":"colorWheel","actuals":{"expr":{"term":{"INTEGER_CONST":"125"}}}}}} from {"term":{"factor":{"call":{"ID":"colorWheel","actuals":{"expr":{"term":{"INTEGER_CONST":"125"}}}}}},"*":["multiple"]}
-                   node to shrink factor in term : {"factor":{"varref":{"ID":"locn"}}} from {"term":{"factor":{"varref":{"ID":"locn"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"i"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"20"},"*":["multiple"]}}]}
-                     node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}}}
-                     node to shrink factor in term : {"factor":{"INTEGER_CONST":"20"}} from {"term":{"factor":{"INTEGER_CONST":"20"}}}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"locn"}}} from {"term":{"factor":{"varref":{"ID":"locn"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"i"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"20"},"*":["multiple"]}}]}
+                      node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}}}
+                      node to shrink factor in term : {"factor":{"INTEGER_CONST":"20"}} from {"term":{"factor":{"INTEGER_CONST":"20"}}}
                        node to shrink factor in term : {"factor":{"INTEGER_CONST":"200"}} from {"term":{"factor":{"INTEGER_CONST":"200"}},"*":["multiple"]}
                   node to shrink factor in term : {"factor":{"call":{"ID":"colorWheel","actuals":{"expr":{"term":{"INTEGER_CONST":"200"}}}}}} from {"term":{"factor":{"call":{"ID":"colorWheel","actuals":{"expr":{"term":{"INTEGER_CONST":"200"}}}}}},"*":["multiple"]}
 optimize 0 ✓
+garbageCollect 9089 / 13% -> 4673 / 7%
 
 Analyzer
  Program Mover 1 0
@@ -224,9 +225,6 @@ Analyzer
               Ext Variable found ledCount (13) varref
            assign i = (10)
            +=
-              Ext Variable found leds (13) assign
-              assign leds = (13)
-                 Ext Function found colorWheel (16)
                   VarRef found Mover.locn (17)
                     VarRef found Mover.i (19)
               Ext Variable found leds (13) assign
@@ -239,10 +237,14 @@ Analyzer
                  Ext Function found colorWheel (16)
                   VarRef found Mover.locn (17)
                     VarRef found Mover.i (19)
+              Ext Variable found leds (13) assign
+              assign leds = (13)
+                 Ext Function found colorWheel (16)
  0 function Mover.renderFrame of 9 (1)
  1 assign Mover.locn of 9 (1)
  2 assign Mover.i of 9 (1)
 analyze 0 ✓
+garbageCollect 6049 / 9% -> 6006 / 9%
 
 interpret Mover 1 3
  program Mover
@@ -265,14 +267,16 @@ Interpret main 0 ✓
               0.000000 < 3.000000 = 1.000000 (pop 0, push 1)
              conditionResult (pop 0)
              1 => run block
+                       INTEGER_CONST 50 (Push 1)
+                    Call colorWheel(50.000000) = 50.000000 (Pop 0, Push 1)
                      varref Mover.locn = 10.000000 (push 1) 1-1
                       PLUS + (Push 2)
                        varref Mover.i = 0.000000 (push 3) 1-2
                    10.000000 + 0.000000 = 10.000000 (pop 0, push 1)
-                       INTEGER_CONST 50 (Push 2)
-                    Call colorWheel(50.000000) = 50.000000 (Pop 1, Push 2)
 arti_set_external_variable: leds(10.000000) := 50.000000
                  assign set ext.leds[10.000000] = 50.000000 (Pop 0)
+                       INTEGER_CONST 125 (Push 1)
+                    Call colorWheel(125.000000) = 125.000000 (Pop 0, Push 1)
                      varref Mover.locn = 10.000000 (push 1) 1-1
                       PLUS + (Push 2)
                        varref Mover.i = 0.000000 (push 3) 1-2
@@ -280,10 +284,10 @@ arti_set_external_variable: leds(10.000000) := 50.000000
                        INTEGER_CONST 10 (Push 5)
                    10.000000 + 0.000000 = 10.000000 (pop 2, push 3)
                    10.000000 + 10.000000 = 20.000000 (pop 0, push 1)
-                       INTEGER_CONST 125 (Push 2)
-                    Call colorWheel(125.000000) = 125.000000 (Pop 1, Push 2)
 arti_set_external_variable: leds(20.000000) := 125.000000
                  assign set ext.leds[20.000000] = 125.000000 (Pop 0)
+                       INTEGER_CONST 200 (Push 1)
+                    Call colorWheel(200.000000) = 200.000000 (Pop 0, Push 1)
                      varref Mover.locn = 10.000000 (push 1) 1-1
                       PLUS + (Push 2)
                        varref Mover.i = 0.000000 (push 3) 1-2
@@ -291,8 +295,6 @@ arti_set_external_variable: leds(20.000000) := 125.000000
                        INTEGER_CONST 20 (Push 5)
                    10.000000 + 0.000000 = 10.000000 (pop 2, push 3)
                    10.000000 + 20.000000 = 30.000000 (pop 0, push 1)
-                       INTEGER_CONST 200 (Push 2)
-                    Call colorWheel(200.000000) = 200.000000 (Pop 1, Push 2)
 arti_set_external_variable: leds(30.000000) := 200.000000
                  assign set ext.leds[30.000000] = 200.000000 (Pop 0)
              assign next value
@@ -325,14 +327,16 @@ setPixels(leds)
               0.000000 < 3.000000 = 1.000000 (pop 0, push 1)
              conditionResult (pop 0)
              1 => run block
+                       INTEGER_CONST 50 (Push 1)
+                    Call colorWheel(50.000000) = 50.000000 (Pop 0, Push 1)
                      varref Mover.locn = 10.000000 (push 1) 1-1
                       PLUS + (Push 2)
                        varref Mover.i = 0.000000 (push 3) 1-2
                    10.000000 + 0.000000 = 10.000000 (pop 0, push 1)
-                       INTEGER_CONST 50 (Push 2)
-                    Call colorWheel(50.000000) = 50.000000 (Pop 1, Push 2)
 arti_set_external_variable: leds(10.000000) := 50.000000
                  assign set ext.leds[10.000000] = 50.000000 (Pop 0)
+                       INTEGER_CONST 125 (Push 1)
+                    Call colorWheel(125.000000) = 125.000000 (Pop 0, Push 1)
                      varref Mover.locn = 10.000000 (push 1) 1-1
                       PLUS + (Push 2)
                        varref Mover.i = 0.000000 (push 3) 1-2
@@ -340,10 +344,10 @@ arti_set_external_variable: leds(10.000000) := 50.000000
                        INTEGER_CONST 10 (Push 5)
                    10.000000 + 0.000000 = 10.000000 (pop 2, push 3)
                    10.000000 + 10.000000 = 20.000000 (pop 0, push 1)
-                       INTEGER_CONST 125 (Push 2)
-                    Call colorWheel(125.000000) = 125.000000 (Pop 1, Push 2)
 arti_set_external_variable: leds(20.000000) := 125.000000
                  assign set ext.leds[20.000000] = 125.000000 (Pop 0)
+                       INTEGER_CONST 200 (Push 1)
+                    Call colorWheel(200.000000) = 200.000000 (Pop 0, Push 1)
                      varref Mover.locn = 10.000000 (push 1) 1-1
                       PLUS + (Push 2)
                        varref Mover.i = 0.000000 (push 3) 1-2
@@ -351,8 +355,6 @@ arti_set_external_variable: leds(20.000000) := 125.000000
                        INTEGER_CONST 20 (Push 5)
                    10.000000 + 0.000000 = 10.000000 (pop 2, push 3)
                    10.000000 + 20.000000 = 30.000000 (pop 0, push 1)
-                       INTEGER_CONST 200 (Push 2)
-                    Call colorWheel(200.000000) = 200.000000 (Pop 1, Push 2)
 arti_set_external_variable: leds(30.000000) := 200.000000
                  assign set ext.leds[30.000000] = 200.000000 (Pop 0)
              assign next value
@@ -376,6 +378,6 @@ Destruct Symbol renderFrame (0)
 Destruct Symbol locn (0)
 Destruct Symbol i (0)
 Destruct ScopedSymbolTable Mover (0)
-definitionJson  11566 / 70% (26 0 6)
-parseTree       10465 / 15% (1 0 23)
+definitionJson  11598 / 70% (26 0 6)
+parseTree       6006 / 9% (1 0 24)
 closed Arti 0 ✓

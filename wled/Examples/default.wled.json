@@ -14,17 +14,17 @@
                       "assign": {
                         "varref": {
                           "ID": "leds",
-                          "external": 2
-                        },
-                        "indices": {
-                          "expr": {
-                            "term": {
-                              "varref": {
-                                "ID": "counter",
-                                "external": 14
+                          "indices": {
+                            "expr": {
+                              "term": {
+                                "varref": {
+                                  "ID": "counter",
+                                  "external": 14
+                                }
                               }
                             }
-                          }
+                          },
+                          "external": 2
                         },
                         "expr": {
                           "term": {

@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_wled_plugin.h
-   @version 0.2.2
-   @date    20211216
+   @version 0.2.3
+   @date    20220103
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */
@@ -134,9 +134,9 @@ float WS2812FX::arti_external_function(uint8_t function, float par1, float par2,
     switch (function) {
       case F_setPixelColor: {
         if (par2 == 0)
-          setPixelColor(((uint16_t)par1)%ledCount, CRGB::Black);
+          setPixelColor(((uint16_t)par1)%SEGLEN, CRGB::Black);
         else
-          setPixelColor(((uint16_t)par1)%ledCount, color_from_palette(((uint8_t)par2)%256, true, (paletteBlend == 1 || paletteBlend == 3), 0));
+          setPixelColor(((uint16_t)par1)%SEGLEN, color_from_palette(((uint8_t)par2)%256, true, (paletteBlend == 1 || paletteBlend == 3), 0));
         return floatNull;
       }
       case F_setPixels:
@@ -175,11 +175,11 @@ float WS2812FX::arti_external_function(uint8_t function, float par1, float par2,
 
       case F_shift: {
         uint32_t saveFirstPixel = getPixelColor(0);
-        for (uint16_t i=0; i<ledCount-1; i++)
+        for (uint16_t i=0; i<SEGLEN-1; i++)
         {
-          setPixelColor(i, getPixelColor((uint16_t)(i + par1)%ledCount));
+          setPixelColor(i, getPixelColor((uint16_t)(i + par1)%SEGLEN));
         }
-        setPixelColor(ledCount - 1, saveFirstPixel);
+        setPixelColor(SEGLEN - 1, saveFirstPixel);
         return floatNull;
       }
       case F_circle2D: {
@@ -427,7 +427,7 @@ void WS2812FX::arti_set_external_variable(float value, uint8_t variable, float p
           errorOccurred = true;
         }
         else if (par2 == floatNull)
-          leds[realPixelIndex((uint16_t)par1%ledCount)] = value;
+          leds[realPixelIndex((uint16_t)par1%SEGLEN)] = value;
         else
           leds[XY((uint16_t)par1%SEGMENT.width, (uint16_t)par2%SEGMENT.height)] = value; //2D value!!
 
@@ -531,7 +531,8 @@ bool ARTI::loop()
     // else
     //   Serial.println("not ledsSet");
 
-    if (!foundRenderFunction) {
+    if (!foundRenderFunction) 
+    {
       ERROR_ARTI("%s renderFrame or renderLed not found\n", spaces+50-depth);
       errorOccurred = true;
       return false;
@@ -556,8 +557,8 @@ ARTI * arti;
 //   ARTI * arti;
 // } artiWrapper;
 
-uint16_t WS2812FX::mode_customEffect(void) {
-
+uint16_t WS2812FX::mode_customEffect(void) 
+{
   // //brightpulse
   // uint8_t lum = constrain(sampleAvg * 256.0 / (256.0 - SEGMENT.speed), 0, 255);
   // fill(color_blend(SEGCOLOR(1), SEGCOLOR(0), lum));
@@ -624,11 +625,13 @@ uint16_t WS2812FX::mode_customEffect(void) {
   char currentEffect[charLength];
   strcpy(currentEffect, (SEGMENT.name != nullptr)?SEGMENT.name:"default"); //note: switching preset with segment name to preset without does not clear the SEGMENT.name variable, but not gonna solve here ;-)
 
-  if (strcmp(previousEffect, currentEffect) != 0) {
+  if (strcmp(previousEffect, currentEffect) != 0) 
+  {
     strcpy(previousEffect, currentEffect);
 
     // if (artiWrapper != nullptr && artiWrapper->arti != nullptr) {
-    if (arti != nullptr) {
+    if (arti != nullptr) 
+    {
       arti->close();
       delete arti; arti = nullptr;
     }
@@ -644,19 +647,21 @@ uint16_t WS2812FX::mode_customEffect(void) {
 
     succesful = arti->setup("/wled.json", programFileName);
 
-    if (!succesful) {
+    if (!succesful)
       ERROR_ARTI("Setup not succesful\n");
-    }
   }
-  else {
-
-    if (succesful) {// && SEGENV.call < 250 for each frame
-      if (esp_get_free_heap_size() <= 20000) {
+  else 
+  {
+    if (succesful) // && SEGENV.call < 250 for each frame
+    {
+      if (esp_get_free_heap_size() <= 20000) 
+      {
         ERROR_ARTI("Not enough free heap (%u <= 30000)\n", esp_get_free_heap_size());
         notEnoughHeap = true;
         succesful = false;
       }
-      else {
+      else
+      {
         // static int previousMillis;
         // static int previousCall;
         // if (millis() - previousMillis > 5000) { //tried SEGENV.aux0 but that looks to be overwritten!!! (dangling pointer???)
@@ -676,9 +681,8 @@ uint16_t WS2812FX::mode_customEffect(void) {
         notEnoughHeap = false;
         strcpy(previousEffect, ""); // force new create
       }
-      else {
+      else
         return mode_blink();
-      }
     }
   }
 

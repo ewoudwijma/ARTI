@@ -156,7 +156,9 @@
               "ID": "renderLed",
               "formals": {
                 "formal": {
-                  "ID": "index"
+                  "ID": "index",
+                  "level": 2,
+                  "index": 0
                 }
               },
               "block": {
@@ -606,18 +608,18 @@
                       "assign": {
                         "varref": {
                           "ID": "leds",
-                          "external": 2
-                        },
-                        "indices": {
-                          "expr": {
-                            "term": {
-                              "varref": {
-                                "ID": "index",
-                                "level": 2,
-                                "index": 0
+                          "indices": {
+                            "expr": {
+                              "term": {
+                                "varref": {
+                                  "ID": "index",
+                                  "level": 2,
+                                  "index": 0
+                                }
                               }
                             }
-                          }
+                          },
+                          "external": 2
                         },
                         "expr": {
                           "term": {

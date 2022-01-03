@@ -7,7 +7,7 @@ parseTree 65536 => 0 ✓
  PROGRAM PROGRAM -> [ID Ripple] 0
  ID Ripple -> [LCURL {] 0
   LCURL { -> [ID step] 1
-     ID step -> [ASSIGN =] 4
+      ID step -> [ASSIGN =] 5
      found varref
        ASSIGN = -> [INTEGER_CONST 0] 6
      found assignoperator
@@ -21,7 +21,7 @@ parseTree 65536 => 0 ✓
       found expr
     found assign
    found statement
-     ID center -> [ASSIGN =] 4
+      ID center -> [ASSIGN =] 5
      found varref
        ASSIGN = -> [INTEGER_CONST 0] 6
      found assignoperator
@@ -31,7 +31,7 @@ parseTree 65536 => 0 ✓
       found expr
     found assign
    found statement
-     ID colour -> [ASSIGN =] 4
+      ID colour -> [ASSIGN =] 5
      found varref
        ASSIGN = -> [INTEGER_CONST 0] 6
      found assignoperator
@@ -41,7 +41,7 @@ parseTree 65536 => 0 ✓
       found expr
     found assign
    found statement
-     ID maxsteps -> [ASSIGN =] 4
+      ID maxsteps -> [ASSIGN =] 5
      found varref
        ASSIGN = -> [INTEGER_CONST 16] 6
      found assignoperator
@@ -57,12 +57,12 @@ parseTree 65536 => 0 ✓
       found formals
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID fadeToBlackBy] 5
-         ID fadeToBlackBy -> [LPAREN (] 8
+          ID fadeToBlackBy -> [LPAREN (] 9
          found varref
          ID fadeToBlackBy -> [LPAREN (] 8
          LPAREN ( -> [ID intensitySlider] 8
               ID intensitySlider -> [DIV /] 13
-             ID intensitySlider -> [DIV /] 12
+              ID intensitySlider -> [DIV /] 13
              found varref
             found factor
               DIV / -> [INTEGER_CONST 4] 13
@@ -77,7 +77,7 @@ parseTree 65536 => 0 ✓
          IF IF -> [LPAREN (] 8
          LPAREN ( -> [ID step] 8
              ID step -> [EQ ==] 12
-            ID step -> [EQ ==] 11
+             ID step -> [EQ ==] 12
             found varref
            found factor
           found term
@@ -97,7 +97,7 @@ parseTree 65536 => 0 ✓
          found expr
          RPAREN ) -> [LCURL {] 8
           LCURL { -> [ID center] 9
-             ID center -> [ASSIGN =] 12
+              ID center -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [ID random] 14
              found assignoperator
@@ -109,14 +109,14 @@ parseTree 65536 => 0 ✓
                 found factor
                   MOD % -> [ID ledCount] 17
                    ID ledCount -> [ID colour] 18
-                  ID ledCount -> [ID colour] 17
+                   ID ledCount -> [ID colour] 18
                   found varref
                  found factor
                found term
               found expr
             found assign
            found statement
-             ID colour -> [ASSIGN =] 12
+              ID colour -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [ID random] 14
              found assignoperator
@@ -133,7 +133,7 @@ parseTree 65536 => 0 ✓
               found expr
             found assign
            found statement
-             ID step -> [ASSIGN =] 12
+              ID step -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [INTEGER_CONST 0] 14
              found assignoperator
@@ -147,25 +147,25 @@ parseTree 65536 => 0 ✓
          found block
         found if
        found statement
-         ID ledL -> [ASSIGN =] 8
+          ID ledL -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [LPAREN (] 10
          found assignoperator
               LPAREN ( -> [ID center] 13
                   ID center -> [PLUS +] 17
-                 ID center -> [PLUS +] 16
+                  ID center -> [PLUS +] 17
                  found varref
                 found factor
                found term
                  PLUS + -> [ID step] 16
                    ID step -> [PLUS +] 18
-                  ID step -> [PLUS +] 17
+                   ID step -> [PLUS +] 18
                   found varref
                  found factor
                 found term
                  PLUS + -> [ID ledCount] 16
                    ID ledCount -> [RPAREN )] 18
-                  ID ledCount -> [RPAREN )] 17
+                   ID ledCount -> [RPAREN )] 18
                   found varref
                  found factor
                 found term
@@ -174,32 +174,32 @@ parseTree 65536 => 0 ✓
             found factor
               MOD % -> [ID ledCount] 13
                ID ledCount -> [ID ledR] 14
-              ID ledCount -> [ID ledR] 13
+               ID ledCount -> [ID ledR] 14
               found varref
              found factor
            found term
           found expr
         found assign
        found statement
-         ID ledR -> [ASSIGN =] 8
+          ID ledR -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [LPAREN (] 10
          found assignoperator
               LPAREN ( -> [ID center] 13
                   ID center -> [MINUS -] 17
-                 ID center -> [MINUS -] 16
+                  ID center -> [MINUS -] 17
                  found varref
                 found factor
                found term
                  MINUS - -> [ID step] 16
                    ID step -> [PLUS +] 18
-                  ID step -> [PLUS +] 17
+                   ID step -> [PLUS +] 18
                   found varref
                  found factor
                 found term
                  PLUS + -> [ID ledCount] 16
                    ID ledCount -> [RPAREN )] 18
-                  ID ledCount -> [RPAREN )] 17
+                   ID ledCount -> [RPAREN )] 18
                   found varref
                  found factor
                 found term
@@ -208,14 +208,14 @@ parseTree 65536 => 0 ✓
             found factor
               MOD % -> [ID ledCount] 13
                ID ledCount -> [ID bri] 14
-              ID ledCount -> [ID bri] 13
+               ID ledCount -> [ID bri] 14
               found varref
              found factor
            found term
           found expr
         found assign
        found statement
-         ID bri -> [ASSIGN =] 8
+          ID bri -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [INTEGER_CONST 255] 10
          found assignoperator
@@ -223,37 +223,37 @@ parseTree 65536 => 0 ✓
             found factor
               DIV / -> [ID step] 13
                ID step -> [ID leds] 14
-              ID step -> [ID leds] 13
+               ID step -> [ID leds] 14
               found varref
              found factor
            found term
           found expr
         found assign
        found statement
-         ID leds -> [LBRACKET [] 8
+          ID leds -> [LBRACKET [] 9
+           LBRACKET [ -> [ID ledL] 10
+                ID ledL -> [RBRACKET ]] 15
+                ID ledL -> [RBRACKET ]] 15
+               found varref
+              found factor
+             found term
+            found expr
+           found indices
+           RBRACKET ] -> [ASSIGN =] 10
          found varref
-          LBRACKET [ -> [ID ledL] 9
-               ID ledL -> [RBRACKET ]] 14
-              ID ledL -> [RBRACKET ]] 13
-              found varref
-             found factor
-            found term
-           found expr
-          found indices
-          RBRACKET ] -> [ASSIGN =] 9
            ASSIGN = -> [ID colorFromPalette] 10
          found assignoperator
               ID colorFromPalette -> [LPAREN (] 13
               LPAREN ( -> [ID colour] 13
                    ID colour -> [COMMA ,] 18
-                  ID colour -> [COMMA ,] 17
+                   ID colour -> [COMMA ,] 18
                   found varref
                  found factor
                 found term
                found expr
                 COMMA , -> [ID bri] 15
                     ID bri -> [RPAREN )] 19
-                   ID bri -> [RPAREN )] 18
+                    ID bri -> [RPAREN )] 19
                    found varref
                   found factor
                  found term
@@ -266,30 +266,30 @@ parseTree 65536 => 0 ✓
           found expr
         found assign
        found statement
-         ID leds -> [LBRACKET [] 8
+          ID leds -> [LBRACKET [] 9
+           LBRACKET [ -> [ID ledR] 10
+                ID ledR -> [RBRACKET ]] 15
+                ID ledR -> [RBRACKET ]] 15
+               found varref
+              found factor
+             found term
+            found expr
+           found indices
+           RBRACKET ] -> [ASSIGN =] 10
          found varref
-          LBRACKET [ -> [ID ledR] 9
-               ID ledR -> [RBRACKET ]] 14
-              ID ledR -> [RBRACKET ]] 13
-              found varref
-             found factor
-            found term
-           found expr
-          found indices
-          RBRACKET ] -> [ASSIGN =] 9
            ASSIGN = -> [ID colorFromPalette] 10
          found assignoperator
               ID colorFromPalette -> [LPAREN (] 13
               LPAREN ( -> [ID colour] 13
                    ID colour -> [COMMA ,] 18
-                  ID colour -> [COMMA ,] 17
+                   ID colour -> [COMMA ,] 18
                   found varref
                  found factor
                 found term
                found expr
                 COMMA , -> [ID bri] 15
                     ID bri -> [RPAREN )] 19
-                   ID bri -> [RPAREN )] 18
+                    ID bri -> [RPAREN )] 19
                    found varref
                   found factor
                  found term
@@ -302,7 +302,7 @@ parseTree 65536 => 0 ✓
           found expr
         found assign
        found statement
-         ID step -> [ASSIGN+ +=] 8
+          ID step -> [ASSIGN+ +=] 9
          found varref
            ASSIGN+ += -> [INTEGER_CONST 1] 10
          found assignoperator
@@ -315,20 +315,20 @@ parseTree 65536 => 0 ✓
          IF IF -> [LPAREN (] 8
          LPAREN ( -> [ID step] 8
              ID step -> [EQ ==] 12
-            ID step -> [EQ ==] 11
+             ID step -> [EQ ==] 12
             found varref
            found factor
           found term
             EQ == -> [ID maxsteps] 11
               ID maxsteps -> [RPAREN )] 13
-             ID maxsteps -> [RPAREN )] 12
+              ID maxsteps -> [RPAREN )] 13
              found varref
             found factor
            found term
          found expr
          RPAREN ) -> [LCURL {] 8
           LCURL { -> [ID step] 9
-             ID step -> [ASSIGN =] 12
+              ID step -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [INTEGER_CONST 0] 14
              found assignoperator
@@ -353,11 +353,11 @@ parseTree 65536 => 0 ✓
   RCURL } -> [ ] 1
  found block
 Node program Parsed until (44,0) 1003 of 1003
-definitionTree 11566 / 70% (26 0 6)
-parseTree      21867 / 33% (1 0 23)
-garbageCollect 14763 / 22%
-Destruct Lexer
 parse 0 ✓
+definitionTree 11598 / 70% (26 0 6)
+parseTree      21867 / 33% (1 0 23)
+garbageCollect 21867 / 33% -> 14763 / 22%
+Destruct Lexer
 
 Optimizer
         node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
@@ -376,11 +376,11 @@ Optimizer
                 node to shrink factor in term : {"factor":{"varref":{"ID":"center"}}} from {"term":{"factor":{"varref":{"ID":"center"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"step"}},"*":["multiple"]}},{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":["multiple"]}}]}
                   node to shrink factor in term : {"factor":{"varref":{"ID":"step"}}} from {"term":{"factor":{"varref":{"ID":"step"}}}}
                   node to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}}}
-              node to shrink factor in term : {"factor":{"varref":{"ID":"ledL"}}} from {"term":{"factor":{"varref":{"ID":"ledL"}}},"*":["multiple"]}
+               node to shrink factor in term : {"factor":{"varref":{"ID":"ledL"}}} from {"term":{"factor":{"varref":{"ID":"ledL"}}},"*":["multiple"]}
                   node to shrink factor in term : {"factor":{"varref":{"ID":"colour"}}} from {"term":{"factor":{"varref":{"ID":"colour"}}},"*":["multiple"]}
                     node to shrink factor in term : {"factor":{"varref":{"ID":"bri"}}} from {"term":{"factor":{"varref":{"ID":"bri"}}},"*":["multiple"]}
              node to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}},"*":["multiple"]}
-              node to shrink factor in term : {"factor":{"varref":{"ID":"ledR"}}} from {"term":{"factor":{"varref":{"ID":"ledR"}}},"*":["multiple"]}
+               node to shrink factor in term : {"factor":{"varref":{"ID":"ledR"}}} from {"term":{"factor":{"varref":{"ID":"ledR"}}},"*":["multiple"]}
                   node to shrink factor in term : {"factor":{"varref":{"ID":"colour"}}} from {"term":{"factor":{"varref":{"ID":"colour"}}},"*":["multiple"]}
                     node to shrink factor in term : {"factor":{"varref":{"ID":"bri"}}} from {"term":{"factor":{"varref":{"ID":"bri"}}},"*":["multiple"]}
              node to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colour"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}},"*":["multiple"]}
@@ -390,6 +390,7 @@ Optimizer
                   node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
                     node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
 optimize 0 ✓
+garbageCollect 17195 / 26% -> 9739 / 14%
 
 Analyzer
  Program Ripple 1 0
@@ -426,11 +427,6 @@ Analyzer
          assign Ripple.bri of notype
          assign bri = (8)
                VarRef found Ripple.step (14)
-         Ext Variable found leds (8) assign
-         assign leds = (8)
-            Ext Function found colorFromPalette (11)
-               VarRef found Ripple.colour (14)
-                 VarRef found Ripple.bri (16)
              VarRef found Ripple.ledL (12)
          Ext Variable found leds (8) assign
          assign leds = (8)
@@ -438,6 +434,11 @@ Analyzer
                VarRef found Ripple.colour (14)
                  VarRef found Ripple.bri (16)
              VarRef found Ripple.ledR (12)
+         Ext Variable found leds (8) assign
+         assign leds = (8)
+            Ext Function found colorFromPalette (11)
+               VarRef found Ripple.colour (14)
+                 VarRef found Ripple.bri (16)
          assign step = (8)
          +=
             VarRef found Ripple.step (11)
@@ -452,6 +453,7 @@ Analyzer
  6 assign Ripple.ledR of 9 (1)
  7 assign Ripple.bri of 9 (1)
 analyze 0 ✓
+garbageCollect 12747 / 19% -> 12704 / 19%
 
 interpret Ripple 1 8
  program Ripple
@@ -524,16 +526,16 @@ Interpret main 0 ✓
                division by 0 not possible, divisor ignored for 255.000000
                255.000000 / 1.000000 = 255.000000 (pop 1, push 2)
              Ripple.bri := 255.000000 (pop 1) 1-7
+                   varref Ripple.colour = 34.000000 (push 2) 1-2
+                     varref Ripple.bri = 255.000000 (push 3) 1-7
+                Call colorFromPalette(34.000000, 255.000000) = 289.000000 (Pop 1, Push 2)
                  varref Ripple.ledL = 1.000000 (push 2) 1-5
-                   varref Ripple.colour = 34.000000 (push 3) 1-2
-                     varref Ripple.bri = 255.000000 (push 4) 1-7
-                Call colorFromPalette(34.000000, 255.000000) = 289.000000 (Pop 2, Push 3)
 arti_set_external_variable: leds(1.000000) := 289.000000
              assign set ext.leds[1.000000] = 289.000000 (Pop 1)
+                   varref Ripple.colour = 34.000000 (push 2) 1-2
+                     varref Ripple.bri = 255.000000 (push 3) 1-7
+                Call colorFromPalette(34.000000, 255.000000) = 289.000000 (Pop 1, Push 2)
                  varref Ripple.ledR = 1.000000 (push 2) 1-6
-                   varref Ripple.colour = 34.000000 (push 3) 1-2
-                     varref Ripple.bri = 255.000000 (push 4) 1-7
-                Call colorFromPalette(34.000000, 255.000000) = 289.000000 (Pop 2, Push 3)
 arti_set_external_variable: leds(1.000000) := 289.000000
              assign set ext.leds[1.000000] = 289.000000 (Pop 1)
                 INTEGER_CONST 1 (Push 2)
@@ -590,16 +592,16 @@ setPixels(leds)
                    varref Ripple.step = 1.000000 (push 5) 1-0
                255.000000 / 1.000000 = 255.000000 (pop 2, push 3)
              Ripple.bri := 255.000000 (pop 2) 1-7
+                   varref Ripple.colour = 34.000000 (push 3) 1-2
+                     varref Ripple.bri = 255.000000 (push 4) 1-7
+                Call colorFromPalette(34.000000, 255.000000) = 289.000000 (Pop 2, Push 3)
                  varref Ripple.ledL = 2.000000 (push 3) 1-5
-                   varref Ripple.colour = 34.000000 (push 4) 1-2
-                     varref Ripple.bri = 255.000000 (push 5) 1-7
-                Call colorFromPalette(34.000000, 255.000000) = 289.000000 (Pop 3, Push 4)
 arti_set_external_variable: leds(2.000000) := 289.000000
              assign set ext.leds[2.000000] = 289.000000 (Pop 2)
+                   varref Ripple.colour = 34.000000 (push 3) 1-2
+                     varref Ripple.bri = 255.000000 (push 4) 1-7
+                Call colorFromPalette(34.000000, 255.000000) = 289.000000 (Pop 2, Push 3)
                  varref Ripple.ledR = 0.000000 (push 3) 1-6
-                   varref Ripple.colour = 34.000000 (push 4) 1-2
-                     varref Ripple.bri = 255.000000 (push 5) 1-7
-                Call colorFromPalette(34.000000, 255.000000) = 289.000000 (Pop 3, Push 4)
 arti_set_external_variable: leds(0.000000) := 289.000000
              assign set ext.leds[0.000000] = 289.000000 (Pop 2)
                 INTEGER_CONST 1 (Push 3)
@@ -626,6 +628,6 @@ Destruct Symbol ledL (0)
 Destruct Symbol ledR (0)
 Destruct Symbol bri (0)
 Destruct ScopedSymbolTable Ripple (0)
-definitionJson  11566 / 70% (26 0 6)
-parseTree       20203 / 30% (1 0 23)
+definitionJson  11598 / 70% (26 0 6)
+parseTree       12704 / 19% (1 0 23)
 closed Arti 0 ✓

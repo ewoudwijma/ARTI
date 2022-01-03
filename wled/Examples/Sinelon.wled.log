@@ -13,12 +13,12 @@ parseTree 65536 => 0 ✓
       found formals
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID fadeToBlackBy] 5
-         ID fadeToBlackBy -> [LPAREN (] 8
+          ID fadeToBlackBy -> [LPAREN (] 9
          found varref
          ID fadeToBlackBy -> [LPAREN (] 8
          LPAREN ( -> [ID intensitySlider] 8
               ID intensitySlider -> [DIV /] 13
-             ID intensitySlider -> [DIV /] 12
+              ID intensitySlider -> [DIV /] 13
              found varref
             found factor
               DIV / -> [INTEGER_CONST 4] 13
@@ -30,7 +30,7 @@ parseTree 65536 => 0 ✓
          RPAREN ) -> [ID locn] 8
         found call
        found statement
-         ID locn -> [ASSIGN =] 8
+          ID locn -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [ID millis] 10
          found assignoperator
@@ -48,7 +48,7 @@ parseTree 65536 => 0 ✓
                     found term
                       MINUS - -> [ID speedSlider] 21
                         ID speedSlider -> [RPAREN )] 23
-                       ID speedSlider -> [RPAREN )] 22
+                        ID speedSlider -> [RPAREN )] 23
                        found varref
                       found factor
                      found term
@@ -66,7 +66,7 @@ parseTree 65536 => 0 ✓
           found expr
         found assign
        found statement
-         ID newVal -> [ASSIGN =] 8
+          ID newVal -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [LPAREN (] 10
          found assignoperator
@@ -74,7 +74,7 @@ parseTree 65536 => 0 ✓
                   ID sin -> [LPAREN (] 17
                   LPAREN ( -> [ID locn] 17
                        ID locn -> [RPAREN )] 22
-                      ID locn -> [RPAREN )] 21
+                       ID locn -> [RPAREN )] 22
                       found varref
                      found factor
                     found term
@@ -95,7 +95,7 @@ parseTree 65536 => 0 ✓
           found expr
         found assign
        found statement
-         ID locn2 -> [ASSIGN =] 8
+          ID locn2 -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [ID millis] 10
          found assignoperator
@@ -113,7 +113,7 @@ parseTree 65536 => 0 ✓
                     found term
                       MINUS - -> [ID custom1Slider] 21
                         ID custom1Slider -> [RPAREN )] 23
-                       ID custom1Slider -> [RPAREN )] 22
+                        ID custom1Slider -> [RPAREN )] 23
                        found varref
                       found factor
                      found term
@@ -131,7 +131,7 @@ parseTree 65536 => 0 ✓
           found expr
         found assign
        found statement
-         ID newVal2 -> [ASSIGN =] 8
+          ID newVal2 -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [LPAREN (] 10
          found assignoperator
@@ -139,7 +139,7 @@ parseTree 65536 => 0 ✓
                   ID sin -> [LPAREN (] 17
                   LPAREN ( -> [ID locn2] 17
                        ID locn2 -> [RPAREN )] 22
-                      ID locn2 -> [RPAREN )] 21
+                       ID locn2 -> [RPAREN )] 22
                       found varref
                      found factor
                     found term
@@ -160,19 +160,19 @@ parseTree 65536 => 0 ✓
           found expr
         found assign
        found statement
-         ID location -> [ASSIGN =] 8
+          ID location -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [LPAREN (] 10
          found assignoperator
               LPAREN ( -> [ID newVal] 13
                   ID newVal -> [PLUS +] 17
-                 ID newVal -> [PLUS +] 16
+                  ID newVal -> [PLUS +] 17
                  found varref
                 found factor
                found term
                  PLUS + -> [ID newVal2] 16
                    ID newVal2 -> [RPAREN )] 18
-                  ID newVal2 -> [RPAREN )] 17
+                   ID newVal2 -> [RPAREN )] 18
                   found varref
                  found factor
                 found term
@@ -186,29 +186,29 @@ parseTree 65536 => 0 ✓
           found expr
         found assign
        found statement
-         ID location -> [ASSIGN* *=] 8
+          ID location -> [ASSIGN* *=] 9
          found varref
            ASSIGN* *= -> [ID ledCount] 10
          found assignoperator
               ID ledCount -> [ID leds] 13
-             ID ledCount -> [ID leds] 12
+              ID ledCount -> [ID leds] 13
              found varref
             found factor
            found term
           found expr
         found assign
        found statement
-         ID leds -> [LBRACKET [] 8
+          ID leds -> [LBRACKET [] 9
+           LBRACKET [ -> [ID location] 10
+                ID location -> [RBRACKET ]] 15
+                ID location -> [RBRACKET ]] 15
+               found varref
+              found factor
+             found term
+            found expr
+           found indices
+           RBRACKET ] -> [ASSIGN =] 10
          found varref
-          LBRACKET [ -> [ID location] 9
-               ID location -> [RBRACKET ]] 14
-              ID location -> [RBRACKET ]] 13
-              found varref
-             found factor
-            found term
-           found expr
-          found indices
-          RBRACKET ] -> [ASSIGN =] 9
            ASSIGN = -> [ID colorFromPalette] 10
          found assignoperator
               ID colorFromPalette -> [LPAREN (] 13
@@ -237,11 +237,11 @@ parseTree 65536 => 0 ✓
   RCURL } -> [ ] 1
  found block
 Node program Parsed until (43,1) 1524 of 1524
-definitionTree 11566 / 70% (26 0 6)
-parseTree      14786 / 22% (1 0 26)
-garbageCollect 10178 / 15%
-Destruct Lexer
 parse 0 ✓
+definitionTree 11598 / 70% (26 0 6)
+parseTree      14786 / 22% (1 0 26)
+garbageCollect 14786 / 22% -> 10178 / 15%
+Destruct Lexer
 
 Optimizer
                      node to shrink factor in term : {"factor":{"INTEGER_CONST":"256"}} from {"term":{"factor":{"INTEGER_CONST":"256"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"speedSlider"}},"*":["multiple"]}}]}
@@ -259,11 +259,12 @@ Optimizer
                 node to shrink factor in term : {"factor":{"varref":{"ID":"newVal"}}} from {"term":{"factor":{"varref":{"ID":"newVal"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"newVal2"}},"*":["multiple"]}}]}
                   node to shrink factor in term : {"factor":{"varref":{"ID":"newVal2"}}} from {"term":{"factor":{"varref":{"ID":"newVal2"}}}}
              node to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}},"*":["multiple"]}
-              node to shrink factor in term : {"factor":{"varref":{"ID":"location"}}} from {"term":{"factor":{"varref":{"ID":"location"}}},"*":["multiple"]}
+               node to shrink factor in term : {"factor":{"varref":{"ID":"location"}}} from {"term":{"factor":{"varref":{"ID":"location"}}},"*":["multiple"]}
                   node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
                     node to shrink factor in term : {"factor":{"INTEGER_CONST":"255"}} from {"term":{"factor":{"INTEGER_CONST":"255"}},"*":["multiple"]}
              node to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}},"*":["multiple"]}
 optimize 0 ✓
+garbageCollect 12642 / 19% -> 6530 / 9%
 
 Analyzer
  Program DualSinelon 1 0
@@ -293,10 +294,10 @@ Analyzer
          assign location = (8)
          *=
             Ext Variable found ledCount (11) varref
+             VarRef found DualSinelon.location (12)
          Ext Variable found leds (8) assign
          assign leds = (8)
             Ext Function found colorFromPalette (11)
-             VarRef found DualSinelon.location (12)
  0 function DualSinelon.renderFrame of 9 (1)
  1 assign DualSinelon.locn of 9 (1)
  2 assign DualSinelon.newVal of 9 (1)
@@ -304,6 +305,7 @@ Analyzer
  4 assign DualSinelon.newVal2 of 9 (1)
  5 assign DualSinelon.location of 9 (1)
 analyze 0 ✓
+garbageCollect 8258 / 12% -> 8215 / 12%
 
 interpret DualSinelon 1 6
  program DualSinelon
@@ -359,10 +361,10 @@ Interpret main 0 ✓
              DualSinelon.location := 0.932720 (pop 1) 1-5
                 varref ext.ledCount = 3.000000 (push 2)
              DualSinelon.location *= 2.798159 (pop 1) 1-5
+                   INTEGER_CONST 0 (Push 2)
+                     INTEGER_CONST 255 (Push 3)
+                Call colorFromPalette(0.000000, 255.000000) = 255.000000 (Pop 1, Push 2)
                  varref DualSinelon.location = 2.798159 (push 2) 1-5
-                   INTEGER_CONST 0 (Push 3)
-                     INTEGER_CONST 255 (Push 4)
-                Call colorFromPalette(0.000000, 255.000000) = 255.000000 (Pop 2, Push 3)
 arti_set_external_variable: leds(2.798159) := 255.000000
              assign set ext.leds[2.798159] = 255.000000 (Pop 1)
 Destruct activation record renderFrame
@@ -417,10 +419,10 @@ setPixels(leds)
              DualSinelon.location := 0.932720 (pop 2) 1-5
                 varref ext.ledCount = 3.000000 (push 3)
              DualSinelon.location *= 2.798159 (pop 2) 1-5
+                   INTEGER_CONST 0 (Push 3)
+                     INTEGER_CONST 255 (Push 4)
+                Call colorFromPalette(0.000000, 255.000000) = 255.000000 (Pop 2, Push 3)
                  varref DualSinelon.location = 2.798159 (push 3) 1-5
-                   INTEGER_CONST 0 (Push 4)
-                     INTEGER_CONST 255 (Push 5)
-                Call colorFromPalette(0.000000, 255.000000) = 255.000000 (Pop 3, Push 4)
 arti_set_external_variable: leds(2.798159) := 255.000000
              assign set ext.leds[2.798159] = 255.000000 (Pop 2)
 Destruct activation record renderFrame
@@ -436,6 +438,6 @@ Destruct Symbol locn2 (0)
 Destruct Symbol newVal2 (0)
 Destruct Symbol location (0)
 Destruct ScopedSymbolTable DualSinelon (0)
-definitionJson  11566 / 70% (26 0 6)
-parseTree       14370 / 21% (1 0 25)
+definitionJson  11598 / 70% (26 0 6)
+parseTree       8215 / 12% (1 0 25)
 closed Arti 0 ✓

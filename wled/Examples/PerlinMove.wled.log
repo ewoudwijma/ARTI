@@ -13,7 +13,7 @@ parseTree 65536 => 0 ✓
       found formals
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID fadeOut] 5
-         ID fadeOut -> [LPAREN (] 8
+          ID fadeOut -> [LPAREN (] 9
          found varref
          ID fadeOut -> [LPAREN (] 8
          LPAREN ( -> [INTEGER_CONST 255] 8
@@ -22,7 +22,7 @@ parseTree 65536 => 0 ✓
            found term
              MINUS - -> [ID custom1Slider] 12
                ID custom1Slider -> [RPAREN )] 14
-              ID custom1Slider -> [RPAREN )] 13
+               ID custom1Slider -> [RPAREN )] 14
               found varref
              found factor
             found term
@@ -33,7 +33,7 @@ parseTree 65536 => 0 ✓
        found statement
          FOR FOR -> [LPAREN (] 8
          LPAREN ( -> [ID i] 8
-          ID i -> [ASSIGN =] 9
+           ID i -> [ASSIGN =] 10
           found varref
             ASSIGN = -> [INTEGER_CONST 0] 11
           found assignoperator
@@ -44,14 +44,14 @@ parseTree 65536 => 0 ✓
          found assign
          SEMI ; -> [ID i] 8
              ID i -> [LT <] 12
-            ID i -> [LT <] 11
+             ID i -> [LT <] 12
             found varref
            found factor
           found term
             LT < -> [LPAREN (] 11
               LPAREN ( -> [ID intensitySlider] 13
                   ID intensitySlider -> [DIV /] 17
-                 ID intensitySlider -> [DIV /] 16
+                  ID intensitySlider -> [DIV /] 17
                  found varref
                 found factor
                   DIV / -> [INTEGER_CONST 16] 17
@@ -68,7 +68,7 @@ parseTree 65536 => 0 ✓
            found term
          found expr
          SEMI ; -> [ID i] 8
-           ID i -> [PLUSPLUS ++] 10
+            ID i -> [PLUSPLUS ++] 11
            found varref
              PLUSPLUS ++ -> [RPAREN )] 12
            found assignoperator
@@ -76,7 +76,7 @@ parseTree 65536 => 0 ✓
          found increment
          RPAREN ) -> [LCURL {] 8
           LCURL { -> [ID y] 9
-             ID y -> [ASSIGN =] 12
+              ID y -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [ID millis] 14
              found assignoperator
@@ -96,7 +96,7 @@ parseTree 65536 => 0 ✓
                     found term
                       MINUS - -> [ID speedSlider] 21
                         ID speedSlider -> [RPAREN )] 23
-                       ID speedSlider -> [RPAREN )] 22
+                        ID speedSlider -> [RPAREN )] 23
                        found varref
                       found factor
                      found term
@@ -107,18 +107,18 @@ parseTree 65536 => 0 ✓
               found expr
             found assign
            found statement
-             ID x -> [ASSIGN =] 12
+              ID x -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [ID y] 14
              found assignoperator
                   ID y -> [PLUS +] 17
-                 ID y -> [PLUS +] 16
+                  ID y -> [PLUS +] 17
                  found varref
                 found factor
                found term
                  PLUS + -> [ID i] 16
                    ID i -> [MUL *] 18
-                  ID i -> [MUL *] 17
+                   ID i -> [MUL *] 18
                   found varref
                  found factor
                    MUL * -> [INTEGER_CONST 15000] 18
@@ -128,21 +128,21 @@ parseTree 65536 => 0 ✓
               found expr
             found assign
            found statement
-             ID locn -> [ASSIGN =] 12
+              ID locn -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [ID iNoise] 14
              found assignoperator
                   ID iNoise -> [LPAREN (] 17
                   LPAREN ( -> [ID x] 17
                        ID x -> [COMMA ,] 22
-                      ID x -> [COMMA ,] 21
+                       ID x -> [COMMA ,] 22
                       found varref
                      found factor
                     found term
                    found expr
                     COMMA , -> [ID y] 19
                         ID y -> [RPAREN )] 23
-                       ID y -> [RPAREN )] 22
+                        ID y -> [RPAREN )] 23
                        found varref
                       found factor
                      found term
@@ -155,7 +155,7 @@ parseTree 65536 => 0 ✓
               found expr
             found assign
            found statement
-             ID x -> [ASSIGN =] 12
+              ID x -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [ID millis] 14
              found assignoperator
@@ -171,7 +171,7 @@ parseTree 65536 => 0 ✓
                found term
                  PLUS + -> [ID i] 16
                    ID i -> [MUL *] 18
-                  ID i -> [MUL *] 17
+                   ID i -> [MUL *] 18
                   found varref
                  found factor
                    MUL * -> [INTEGER_CONST 15000] 18
@@ -181,14 +181,14 @@ parseTree 65536 => 0 ✓
               found expr
             found assign
            found statement
-             ID clr -> [ASSIGN =] 12
+              ID clr -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [ID iNoise] 14
              found assignoperator
                   ID iNoise -> [LPAREN (] 17
                   LPAREN ( -> [ID x] 17
                        ID x -> [COMMA ,] 22
-                      ID x -> [COMMA ,] 21
+                       ID x -> [COMMA ,] 22
                       found varref
                      found factor
                     found term
@@ -206,14 +206,14 @@ parseTree 65536 => 0 ✓
               found expr
             found assign
            found statement
-             ID pixloc -> [ASSIGN =] 12
+              ID pixloc -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [ID map] 14
              found assignoperator
                   ID map -> [LPAREN (] 17
                   LPAREN ( -> [ID locn] 17
                        ID locn -> [COMMA ,] 22
-                      ID locn -> [COMMA ,] 21
+                       ID locn -> [COMMA ,] 22
                       found varref
                      found factor
                     found term
@@ -241,7 +241,7 @@ parseTree 65536 => 0 ✓
                     found expr
                     COMMA , -> [ID ledCount] 19
                         ID ledCount -> [RPAREN )] 23
-                       ID ledCount -> [RPAREN )] 22
+                        ID ledCount -> [RPAREN )] 23
                        found varref
                       found factor
                      found term
@@ -254,14 +254,14 @@ parseTree 65536 => 0 ✓
               found expr
             found assign
            found statement
-             ID pixclr -> [ASSIGN =] 12
+              ID pixclr -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [ID map] 14
              found assignoperator
                   ID map -> [LPAREN (] 17
                   LPAREN ( -> [ID clr] 17
                        ID clr -> [COMMA ,] 22
-                      ID clr -> [COMMA ,] 21
+                       ID clr -> [COMMA ,] 22
                       found varref
                      found factor
                     found term
@@ -300,19 +300,19 @@ parseTree 65536 => 0 ✓
               found expr
             found assign
            found statement
-             ID setPixelColor -> [LPAREN (] 12
+              ID setPixelColor -> [LPAREN (] 13
              found varref
              ID setPixelColor -> [LPAREN (] 12
              LPAREN ( -> [ID pixloc] 12
                   ID pixloc -> [COMMA ,] 17
-                 ID pixloc -> [COMMA ,] 16
+                  ID pixloc -> [COMMA ,] 17
                  found varref
                 found factor
                found term
               found expr
                COMMA , -> [ID pixclr] 14
                    ID pixclr -> [RPAREN )] 18
-                  ID pixclr -> [RPAREN )] 17
+                   ID pixclr -> [RPAREN )] 18
                   found varref
                  found factor
                 found term
@@ -332,11 +332,11 @@ parseTree 65536 => 0 ✓
   RCURL } -> [ ] 1
  found block
 Node program Parsed until (26,0) 785 of 785
-definitionTree 11566 / 70% (26 0 6)
-parseTree      21202 / 32% (1 0 29)
-garbageCollect 14514 / 22%
-Destruct Lexer
 parse 0 ✓
+definitionTree 11598 / 70% (26 0 6)
+parseTree      21202 / 32% (1 0 29)
+garbageCollect 21202 / 32% -> 14514 / 22%
+Destruct Lexer
 
 Optimizer
               node to shrink factor in term : {"factor":{"INTEGER_CONST":"255"}} from {"term":{"factor":{"INTEGER_CONST":"255"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"custom1Slider"}},"*":["multiple"]}}]}
@@ -365,6 +365,7 @@ Optimizer
                    node to shrink factor in term : {"factor":{"varref":{"ID":"pixloc"}}} from {"term":{"factor":{"varref":{"ID":"pixloc"}}},"*":["multiple"]}
                      node to shrink factor in term : {"factor":{"varref":{"ID":"pixclr"}}} from {"term":{"factor":{"varref":{"ID":"pixclr"}}},"*":["multiple"]}
 optimize 0 ✓
+garbageCollect 19346 / 29% -> 9714 / 14%
 
 Analyzer
  Program PerlinMove 1 0
@@ -418,6 +419,7 @@ Analyzer
  6 assign PerlinMove.pixloc of 9 (1)
  7 assign PerlinMove.pixclr of 9 (1)
 analyze 0 ✓
+garbageCollect 12562 / 19% -> 12518 / 19%
 
 interpret PerlinMove 1 8
  program PerlinMove
@@ -988,6 +990,6 @@ Destruct Symbol clr (0)
 Destruct Symbol pixloc (0)
 Destruct Symbol pixclr (0)
 Destruct ScopedSymbolTable PerlinMove (0)
-definitionJson  11566 / 70% (26 0 6)
-parseTree       22194 / 33% (1 0 28)
+definitionJson  11598 / 70% (26 0 6)
+parseTree       12518 / 19% (1 0 28)
 closed Arti 0 ✓

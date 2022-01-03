@@ -235,11 +235,11 @@ parseTree 65536 => 0 ✓
  found block
  DOT . -> [ ] 0
 Node program Parsed until (31,6) 382 of 382
+parse 0 ✓
 definitionTree 5511 / 33% (23 0 6)
 parseTree      13685 / 20% (1 0 24)
-garbageCollect 9781 / 14%
+garbageCollect 13685 / 20% -> 9781 / 14%
 Destruct Lexer
-parse 0 ✓
 
 Optimizer
                      node to shrink factor in term : {"factor":{"varref":{"ID":"x"}}} from {"term":{"factor":{"varref":{"ID":"x"}}},"*":["multiple"]}
@@ -262,6 +262,7 @@ Optimizer
          node to shrink compound_statement in block : {"compound_statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{"expr":{"term":{"varref":{"ID":"y"}}}}]}}}} from {"assign":{"varref":{"ID":"y"},"expr":{"term":{"INTEGER_CONST":"1"}}},"expr":{"term":{"INTEGER_CONST":"2"}},"block":{"compound_statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{"expr":{"term":{"varref":{"ID":"y"}}}}]}}}}}
    node to shrink statement_list in compound_statement : {"statement_list":{"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"3"},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"7"}}}]}}},"*":[{"statement":{"for":{"assign":{"varref":{"ID":"y"},"expr":{"term":{"INTEGER_CONST":"1"}}},"expr":{"term":{"INTEGER_CONST":"2"}},"block":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{"expr":{"term":{"varref":{"ID":"y"}}}}]}}}}}}]}} from {"declarations":{"*":[{"variable":{"ID":"y","type":{"INTEGER":"INTEGER"}}},{"function":{"ID":"Alpha","formals":{"formal":{"ID":"a","type":{"INTEGER":"INTEGER"}},"*":[{"formal":{"ID":"b","type":{"INTEGER":"INTEGER"}}}]},"block":{"declarations":{"*":[{"variable":{"ID":"x","type":{"INTEGER":"INTEGER"}}},{"function":{"ID":"Beta","formals":{"formal":{"ID":"a","type":{"INTEGER":"INTEGER"}},"*":[{"formal":{"ID":"b","type":{"INTEGER":"INTEGER"}}}]},"block":{"declarations":{"*":[{"variable":{"ID":"x","type":{"INTEGER":"INTEGER"}}}]},"compound_statement":{"statement":{"assign":{"varref":{"ID":"x"},"expr":{"term":{"factor":{"varref":{"ID":"a"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"10"}}]},"*":[{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"b"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}}]}}},"*":[{"statement":{"call":{"ID":"printf","actuals":{"expr":{"term":{"varref":{"ID":"x"}}}}}}}]}}}}]},"compound_statement":{"statement":{"assign":{"varref":{"ID":"x"},"expr":{"term":{"factor":{"expr":{"term":{"varref":{"ID":"a"}},"*":[{"PLUS":"+"},{"term":{"varref":{"ID":"b"}}}]}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]}}}},"*":[{"statement":{"call":{"ID":"printf","actuals":{"expr":{"term":{"varref":{"ID":"x"}}}}}}},{"statement":{"call":{"ID":"Beta","actuals":{"expr":{"term":{"INTEGER_CONST":"5"}},"*":[{"expr":{"term":{"INTEGER_CONST":"10"}}}]}}}}]}}}}]},"compound_statement":{"statement_list":{"statement":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"3"},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"7"}}}]}}},"*":[{"statement":{"for":{"assign":{"varref":{"ID":"y"},"expr":{"term":{"INTEGER_CONST":"1"}}},"expr":{"term":{"INTEGER_CONST":"2"}},"block":{"call":{"ID":"Alpha","actuals":{"expr":{"term":{"INTEGER_CONST":"35"}},"*":[{"expr":{"term":{"varref":{"ID":"y"}}}}]}}}}}}]}}}
 optimize 0 ✓
+garbageCollect 15669 / 23% -> 6069 / 9%
 
 Analyzer
  Program Main 1 0
@@ -296,6 +297,7 @@ Analyzer
  0 variable Main.y of 9 (1)
  1 function Main.Alpha of 9 (1)
 analyze 0 ✓
+garbageCollect 7765 / 11% -> 7765 / 11%
 
 interpret Main 1 2
  program Main
@@ -455,5 +457,5 @@ Destruct Symbol y (0)
 Destruct Symbol Alpha (0)
 Destruct ScopedSymbolTable Main (0)
 definitionJson  5511 / 33% (23 0 6)
-parseTree       16917 / 25% (1 0 23)
+parseTree       7765 / 11% (1 0 23)
 closed Arti 0 ✓

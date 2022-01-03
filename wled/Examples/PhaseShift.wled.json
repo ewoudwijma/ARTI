@@ -183,7 +183,9 @@
               "ID": "renderLed",
               "formals": {
                 "formal": {
-                  "ID": "i"
+                  "ID": "i",
+                  "level": 2,
+                  "index": 0
                 }
               },
               "block": {

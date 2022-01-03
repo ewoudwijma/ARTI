@@ -7,7 +7,7 @@ parseTree 65536 => 0 ✓
  PROGRAM PROGRAM -> [ID Kitt] 0
  ID Kitt -> [LCURL {] 0
   LCURL { -> [ID pixelCounter] 1
-     ID pixelCounter -> [ASSIGN =] 4
+      ID pixelCounter -> [ASSIGN =] 5
      found varref
        ASSIGN = -> [INTEGER_CONST 0] 6
      found assignoperator
@@ -17,7 +17,7 @@ parseTree 65536 => 0 ✓
       found expr
     found assign
    found statement
-     ID goingUp -> [ASSIGN =] 4
+      ID goingUp -> [ASSIGN =] 5
      found varref
        ASSIGN = -> [INTEGER_CONST 1] 6
      found assignoperator
@@ -36,14 +36,14 @@ parseTree 65536 => 0 ✓
          IF IF -> [LPAREN (] 8
          LPAREN ( -> [ID pixelCounter] 8
              ID pixelCounter -> [GT >] 12
-            ID pixelCounter -> [GT >] 11
+             ID pixelCounter -> [GT >] 12
             found varref
            found factor
           found term
             GT > -> [LPAREN (] 11
               LPAREN ( -> [ID ledCount] 13
                   ID ledCount -> [MINUS -] 17
-                 ID ledCount -> [MINUS -] 16
+                  ID ledCount -> [MINUS -] 17
                  found varref
                 found factor
                found term
@@ -58,7 +58,7 @@ parseTree 65536 => 0 ✓
          found expr
          RPAREN ) -> [LCURL {] 8
           LCURL { -> [ID goingUp] 9
-             ID goingUp -> [ASSIGN =] 12
+              ID goingUp -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [INTEGER_CONST 0] 14
              found assignoperator
@@ -75,7 +75,7 @@ parseTree 65536 => 0 ✓
          IF IF -> [LPAREN (] 8
          LPAREN ( -> [ID pixelCounter] 8
              ID pixelCounter -> [EQ ==] 12
-            ID pixelCounter -> [EQ ==] 11
+             ID pixelCounter -> [EQ ==] 12
             found varref
            found factor
           found term
@@ -86,7 +86,7 @@ parseTree 65536 => 0 ✓
          found expr
          RPAREN ) -> [LCURL {] 8
           LCURL { -> [ID goingUp] 9
-             ID goingUp -> [ASSIGN =] 12
+              ID goingUp -> [ASSIGN =] 13
              found varref
                ASSIGN = -> [INTEGER_CONST 1] 14
              found assignoperator
@@ -100,19 +100,19 @@ parseTree 65536 => 0 ✓
          found block
         found if
        found statement
-         ID setPixelColor -> [LPAREN (] 8
+          ID setPixelColor -> [LPAREN (] 9
          found varref
          ID setPixelColor -> [LPAREN (] 8
          LPAREN ( -> [ID pixelCounter] 8
               ID pixelCounter -> [COMMA ,] 13
-             ID pixelCounter -> [COMMA ,] 12
+              ID pixelCounter -> [COMMA ,] 13
              found varref
             found factor
            found term
           found expr
            COMMA , -> [ID pixelCounter] 10
                ID pixelCounter -> [RPAREN )] 14
-              ID pixelCounter -> [RPAREN )] 13
+               ID pixelCounter -> [RPAREN )] 14
               found varref
              found factor
             found term
@@ -124,19 +124,19 @@ parseTree 65536 => 0 ✓
          IF IF -> [LPAREN (] 8
          LPAREN ( -> [ID goingUp] 8
              ID goingUp -> [RPAREN )] 12
-            ID goingUp -> [RPAREN )] 11
+             ID goingUp -> [RPAREN )] 12
             found varref
            found factor
           found term
          found expr
          RPAREN ) -> [LCURL {] 8
           LCURL { -> [ID setPixelColor] 9
-             ID setPixelColor -> [LPAREN (] 12
+              ID setPixelColor -> [LPAREN (] 13
              found varref
              ID setPixelColor -> [LPAREN (] 12
              LPAREN ( -> [ID pixelCounter] 12
                   ID pixelCounter -> [MINUS -] 17
-                 ID pixelCounter -> [MINUS -] 16
+                  ID pixelCounter -> [MINUS -] 17
                  found varref
                 found factor
                found term
@@ -154,7 +154,7 @@ parseTree 65536 => 0 ✓
              RPAREN ) -> [ID pixelCounter] 12
             found call
            found statement
-             ID pixelCounter -> [ASSIGN+ +=] 12
+              ID pixelCounter -> [ASSIGN+ +=] 13
              found varref
                ASSIGN+ += -> [INTEGER_CONST 1] 14
              found assignoperator
@@ -168,12 +168,12 @@ parseTree 65536 => 0 ✓
          found block
           ELSE ELSE -> [LCURL {] 9
             LCURL { -> [ID setPixelColor] 11
-               ID setPixelColor -> [LPAREN (] 14
+                ID setPixelColor -> [LPAREN (] 15
                found varref
                ID setPixelColor -> [LPAREN (] 14
                LPAREN ( -> [ID pixelCounter] 14
                     ID pixelCounter -> [PLUS +] 19
-                   ID pixelCounter -> [PLUS +] 18
+                    ID pixelCounter -> [PLUS +] 19
                    found varref
                   found factor
                  found term
@@ -191,7 +191,7 @@ parseTree 65536 => 0 ✓
                RPAREN ) -> [ID pixelCounter] 14
               found call
              found statement
-               ID pixelCounter -> [ASSIGN- -=] 14
+                ID pixelCounter -> [ASSIGN- -=] 15
                found varref
                  ASSIGN- -= -> [INTEGER_CONST 1] 16
                found assignoperator
@@ -213,11 +213,11 @@ parseTree 65536 => 0 ✓
   RCURL } -> [ ] 1
  found block
 Node program Parsed until (29,1) 484 of 484
-definitionTree 11566 / 70% (26 0 6)
-parseTree      13540 / 20% (1 0 24)
-garbageCollect 8900 / 13%
-Destruct Lexer
 parse 0 ✓
+definitionTree 11598 / 70% (26 0 6)
+parseTree      13540 / 20% (1 0 24)
+garbageCollect 13540 / 20% -> 8900 / 13%
+Destruct Lexer
 
 Optimizer
         node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
@@ -243,6 +243,7 @@ Optimizer
                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple"]}
             node to shrink block in elseBlock : {"block":{"*":[{"statement":{"call":{"ID":"setPixelColor","actuals":{"expr":{"term":{"varref":{"ID":"pixelCounter"}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}}]}}}},{"statement":{"assign":{"varref":{"ID":"pixelCounter"},"assignoperator":{"ASSIGN-":"-="},"expr":{"term":{"INTEGER_CONST":"1"}}}}}]}} from {"expr":{"term":{"varref":{"ID":"goingUp"}}},"block":{"*":[{"statement":{"call":{"ID":"setPixelColor","actuals":{"expr":{"term":{"varref":{"ID":"pixelCounter"}},"*":[{"MINUS":"-"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}}]}}}},{"statement":{"assign":{"varref":{"ID":"pixelCounter"},"assignoperator":{"ASSIGN+":"+="},"expr":{"term":{"INTEGER_CONST":"1"}}}}}]},"elseBlock":{"block":{"*":[{"statement":{"call":{"ID":"setPixelColor","actuals":{"expr":{"term":{"varref":{"ID":"pixelCounter"}},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"5"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}}]}}}},{"statement":{"assign":{"varref":{"ID":"pixelCounter"},"assignoperator":{"ASSIGN-":"-="},"expr":{"term":{"INTEGER_CONST":"1"}}}}}]}}}
 optimize 0 ✓
+garbageCollect 11108 / 16% -> 5476 / 8%
 
 Analyzer
  Program Kitt 1 0
@@ -272,6 +273,7 @@ Analyzer
  1 assign Kitt.goingUp of 9 (1)
  2 function Kitt.renderFrame of 9 (1)
 analyze 0 ✓
+garbageCollect 6980 / 10% -> 6894 / 10%
 
 interpret Kitt 1 3
  program Kitt
@@ -445,6 +447,6 @@ Destruct Symbol pixelCounter (0)
 Destruct Symbol goingUp (0)
 Destruct Symbol renderFrame (0)
 Destruct ScopedSymbolTable Kitt (0)
-definitionJson  11566 / 70% (26 0 6)
-parseTree       12612 / 19% (1 0 22)
+definitionJson  11598 / 70% (26 0 6)
+parseTree       6894 / 10% (1 0 22)
 closed Arti 0 ✓

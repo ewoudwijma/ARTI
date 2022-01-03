@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_test.cpp
-   @version 0.2.2
-   @date    20211216
+   @version 0.2.3
+   @date    20220103
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */

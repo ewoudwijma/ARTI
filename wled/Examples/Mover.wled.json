@@ -104,33 +104,33 @@
                                 "assign": {
                                   "varref": {
                                     "ID": "leds",
-                                    "external": 2
-                                  },
-                                  "indices": {
-                                    "expr": {
-                                      "term": {
-                                        "varref": {
-                                          "ID": "locn",
-                                          "level": 1,
-                                          "index": 1
-                                        }
-                                      },
-                                      "*": [
-                                        {
-                                          "PLUS": "+",
-                                          "token": 2
+                                    "indices": {
+                                      "expr": {
+                                        "term": {
+                                          "varref": {
+                                            "ID": "locn",
+                                            "level": 1,
+                                            "index": 1
+                                          }
                                         },
-                                        {
-                                          "term": {
-                                            "varref": {
-                                              "ID": "i",
-                                              "level": 1,
-                                              "index": 2
+                                        "*": [
+                                          {
+                                            "PLUS": "+",
+                                            "token": 2
+                                          },
+                                          {
+                                            "term": {
+                                              "varref": {
+                                                "ID": "i",
+                                                "level": 1,
+                                                "index": 2
+                                              }
                                             }
                                           }
-                                        }
-                                      ]
-                                    }
+                                        ]
+                                      }
+                                    },
+                                    "external": 2
                                   },
                                   "expr": {
                                     "term": {
@@ -156,43 +156,43 @@
                                 "assign": {
                                   "varref": {
                                     "ID": "leds",
-                                    "external": 2
-                                  },
-                                  "indices": {
-                                    "expr": {
-                                      "term": {
-                                        "varref": {
-                                          "ID": "locn",
-                                          "level": 1,
-                                          "index": 1
-                                        }
-                                      },
-                                      "*": [
-                                        {
-                                          "PLUS": "+",
-                                          "token": 2
+                                    "indices": {
+                                      "expr": {
+                                        "term": {
+                                          "varref": {
+                                            "ID": "locn",
+                                            "level": 1,
+                                            "index": 1
+                                          }
                                         },
-                                        {
-                                          "term": {
-                                            "varref": {
-                                              "ID": "i",
-                                              "level": 1,
-                                              "index": 2
+                                        "*": [
+                                          {
+                                            "PLUS": "+",
+                                            "token": 2
+                                          },
+                                          {
+                                            "term": {
+                                              "varref": {
+                                                "ID": "i",
+                                                "level": 1,
+                                                "index": 2
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "PLUS": "+",
+                                            "token": 2
+                                          },
+                                          {
+                                            "term": {
+                                              "INTEGER_CONST": "10",
+                                              "token": 0
                                             }
                                           }
-                                        },
-                                        {
-                                          "PLUS": "+",
-                                          "token": 2
-                                        },
-                                        {
-                                          "term": {
-                                            "INTEGER_CONST": "10",
-                                            "token": 0
-                                          }
-                                        }
-                                      ]
-                                    }
+                                        ]
+                                      }
+                                    },
+                                    "external": 2
                                   },
                                   "expr": {
                                     "term": {
@@ -218,43 +218,43 @@
                                 "assign": {
                                   "varref": {
                                     "ID": "leds",
-                                    "external": 2
-                                  },
-                                  "indices": {
-                                    "expr": {
-                                      "term": {
-                                        "varref": {
-                                          "ID": "locn",
-                                          "level": 1,
-                                          "index": 1
-                                        }
-                                      },
-                                      "*": [
-                                        {
-                                          "PLUS": "+",
-                                          "token": 2
+                                    "indices": {
+                                      "expr": {
+                                        "term": {
+                                          "varref": {
+                                            "ID": "locn",
+                                            "level": 1,
+                                            "index": 1
+                                          }
                                         },
-                                        {
-                                          "term": {
-                                            "varref": {
-                                              "ID": "i",
-                                              "level": 1,
-                                              "index": 2
+                                        "*": [
+                                          {
+                                            "PLUS": "+",
+                                            "token": 2
+                                          },
+                                          {
+                                            "term": {
+                                              "varref": {
+                                                "ID": "i",
+                                                "level": 1,
+                                                "index": 2
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "PLUS": "+",
+                                            "token": 2
+                                          },
+                                          {
+                                            "term": {
+                                              "INTEGER_CONST": "20",
+                                              "token": 0
                                             }
                                           }
-                                        },
-                                        {
-                                          "PLUS": "+",
-                                          "token": 2
-                                        },
-                                        {
-                                          "term": {
-                                            "INTEGER_CONST": "20",
-                                            "token": 0
-                                          }
-                                        }
-                                      ]
-                                    }
+                                        ]
+                                      }
+                                    },
+                                    "external": 2
                                   },
                                   "expr": {
                                     "term": {

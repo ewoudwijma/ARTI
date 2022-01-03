@@ -1,0 +1,1049 @@
+setup 0 bytes free
+open wled.json 0 ✓
+definitionTree 16384 => 0 ✓
+open Examples/beatmania.wled 0 ✓
+programFile size 1068 bytes
+parseTree 65536 => 0 ✓
+ PROGRAM PROGRAM -> [ID Beatmania] 0
+ ID Beatmania -> [LCURL {] 0
+  LCURL { -> [FUNCTION FUNCTION] 1
+     FUNCTION FUNCTION -> [ID renderFrame] 4
+     ID renderFrame -> [LPAREN (] 4
+      LPAREN ( -> [RPAREN )] 5
+      found formals
+      RPAREN ) -> [LCURL {] 5
+      LCURL { -> [ID fadeToBlackBy] 5
+          ID fadeToBlackBy -> [LPAREN (] 9
+         found varref
+         ID fadeToBlackBy -> [LPAREN (] 8
+         LPAREN ( -> [ID intensitySlider] 8
+              ID intensitySlider -> [DIV /] 13
+              ID intensitySlider -> [DIV /] 13
+             found varref
+            found factor
+              DIV / -> [INTEGER_CONST 8] 13
+              INTEGER_CONST 8 -> [RPAREN )] 13
+             found factor
+           found term
+          found expr
+         found actuals
+         RPAREN ) -> [ID locn1] 8
+        found call
+       found statement
+          ID locn1 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID beatSin] 10
+         found assignoperator
+              ID beatSin -> [LPAREN (] 13
+              LPAREN ( -> [ID speedSlider] 13
+                   ID speedSlider -> [DIV /] 18
+                   ID speedSlider -> [DIV /] 18
+                  found varref
+                 found factor
+                   DIV / -> [INTEGER_CONST 3] 18
+                   INTEGER_CONST 3 -> [PLUS +] 18
+                  found factor
+                found term
+                  PLUS + -> [INTEGER_CONST 1] 17
+                   INTEGER_CONST 1 -> [COMMA ,] 18
+                  found factor
+                 found term
+               found expr
+                COMMA , -> [INTEGER_CONST 0] 15
+                   INTEGER_CONST 0 -> [COMMA ,] 18
+                  found factor
+                 found term
+                found expr
+                COMMA , -> [ID ledCount] 15
+                    ID ledCount -> [RPAREN )] 19
+                    ID ledCount -> [RPAREN )] 19
+                   found varref
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID locn2] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID locn2 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID beatSin] 10
+         found assignoperator
+              ID beatSin -> [LPAREN (] 13
+              LPAREN ( -> [ID speedSlider] 13
+                   ID speedSlider -> [DIV /] 18
+                   ID speedSlider -> [DIV /] 18
+                  found varref
+                 found factor
+                   DIV / -> [INTEGER_CONST 4] 18
+                   INTEGER_CONST 4 -> [PLUS +] 18
+                  found factor
+                found term
+                  PLUS + -> [INTEGER_CONST 1] 17
+                   INTEGER_CONST 1 -> [COMMA ,] 18
+                  found factor
+                 found term
+               found expr
+                COMMA , -> [INTEGER_CONST 0] 15
+                   INTEGER_CONST 0 -> [COMMA ,] 18
+                  found factor
+                 found term
+                found expr
+                COMMA , -> [ID ledCount] 15
+                    ID ledCount -> [RPAREN )] 19
+                    ID ledCount -> [RPAREN )] 19
+                   found varref
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID locn3] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID locn3 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID beatSin] 10
+         found assignoperator
+              ID beatSin -> [LPAREN (] 13
+              LPAREN ( -> [ID speedSlider] 13
+                   ID speedSlider -> [DIV /] 18
+                   ID speedSlider -> [DIV /] 18
+                  found varref
+                 found factor
+                   DIV / -> [INTEGER_CONST 5] 18
+                   INTEGER_CONST 5 -> [PLUS +] 18
+                  found factor
+                found term
+                  PLUS + -> [INTEGER_CONST 1] 17
+                   INTEGER_CONST 1 -> [COMMA ,] 18
+                  found factor
+                 found term
+               found expr
+                COMMA , -> [INTEGER_CONST 0] 15
+                   INTEGER_CONST 0 -> [COMMA ,] 18
+                  found factor
+                 found term
+                found expr
+                COMMA , -> [ID ledCount] 15
+                    ID ledCount -> [DIV /] 19
+                    ID ledCount -> [DIV /] 19
+                   found varref
+                  found factor
+                    DIV / -> [INTEGER_CONST 2] 19
+                    INTEGER_CONST 2 -> [PLUS +] 19
+                   found factor
+                 found term
+                   PLUS + -> [ID ledCount] 18
+                     ID ledCount -> [DIV /] 20
+                     ID ledCount -> [DIV /] 20
+                    found varref
+                   found factor
+                     DIV / -> [INTEGER_CONST 3] 20
+                     INTEGER_CONST 3 -> [RPAREN )] 20
+                    found factor
+                  found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID colr1] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID colr1 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID beatSin] 10
+         found assignoperator
+              ID beatSin -> [LPAREN (] 13
+              LPAREN ( -> [ID intensitySlider] 13
+                   ID intensitySlider -> [DIV /] 18
+                   ID intensitySlider -> [DIV /] 18
+                  found varref
+                 found factor
+                   DIV / -> [INTEGER_CONST 6] 18
+                   INTEGER_CONST 6 -> [PLUS +] 18
+                  found factor
+                found term
+                  PLUS + -> [INTEGER_CONST 1] 17
+                   INTEGER_CONST 1 -> [COMMA ,] 18
+                  found factor
+                 found term
+               found expr
+                COMMA , -> [INTEGER_CONST 0] 15
+                   INTEGER_CONST 0 -> [COMMA ,] 18
+                  found factor
+                 found term
+                found expr
+                COMMA , -> [INTEGER_CONST 255] 15
+                   INTEGER_CONST 255 -> [RPAREN )] 18
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID colr2] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID colr2 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID beatSin] 10
+         found assignoperator
+              ID beatSin -> [LPAREN (] 13
+              LPAREN ( -> [ID intensitySlider] 13
+                   ID intensitySlider -> [DIV /] 18
+                   ID intensitySlider -> [DIV /] 18
+                  found varref
+                 found factor
+                   DIV / -> [INTEGER_CONST 7] 18
+                   INTEGER_CONST 7 -> [PLUS +] 18
+                  found factor
+                found term
+                  PLUS + -> [INTEGER_CONST 1] 17
+                   INTEGER_CONST 1 -> [COMMA ,] 18
+                  found factor
+                 found term
+               found expr
+                COMMA , -> [INTEGER_CONST 0] 15
+                   INTEGER_CONST 0 -> [COMMA ,] 18
+                  found factor
+                 found term
+                found expr
+                COMMA , -> [INTEGER_CONST 255] 15
+                   INTEGER_CONST 255 -> [RPAREN )] 18
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID colr3] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID colr3 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID beatSin] 10
+         found assignoperator
+              ID beatSin -> [LPAREN (] 13
+              LPAREN ( -> [ID intensitySlider] 13
+                   ID intensitySlider -> [DIV /] 18
+                   ID intensitySlider -> [DIV /] 18
+                  found varref
+                 found factor
+                   DIV / -> [INTEGER_CONST 8] 18
+                   INTEGER_CONST 8 -> [PLUS +] 18
+                  found factor
+                found term
+                  PLUS + -> [INTEGER_CONST 1] 17
+                   INTEGER_CONST 1 -> [COMMA ,] 18
+                  found factor
+                 found term
+               found expr
+                COMMA , -> [INTEGER_CONST 0] 15
+                   INTEGER_CONST 0 -> [COMMA ,] 18
+                  found factor
+                 found term
+                found expr
+                COMMA , -> [INTEGER_CONST 255] 15
+                   INTEGER_CONST 255 -> [RPAREN )] 18
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID bri1] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID bri1 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID beatSin] 10
+         found assignoperator
+              ID beatSin -> [LPAREN (] 13
+              LPAREN ( -> [ID intensitySlider] 13
+                   ID intensitySlider -> [DIV /] 18
+                   ID intensitySlider -> [DIV /] 18
+                  found varref
+                 found factor
+                   DIV / -> [INTEGER_CONST 6] 18
+                   INTEGER_CONST 6 -> [PLUS +] 18
+                  found factor
+                found term
+                  PLUS + -> [INTEGER_CONST 1] 17
+                   INTEGER_CONST 1 -> [COMMA ,] 18
+                  found factor
+                 found term
+               found expr
+                COMMA , -> [INTEGER_CONST 32] 15
+                   INTEGER_CONST 32 -> [COMMA ,] 18
+                  found factor
+                 found term
+                found expr
+                COMMA , -> [INTEGER_CONST 255] 15
+                   INTEGER_CONST 255 -> [RPAREN )] 18
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID bri2] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID bri2 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID beatSin] 10
+         found assignoperator
+              ID beatSin -> [LPAREN (] 13
+              LPAREN ( -> [ID intensitySlider] 13
+                   ID intensitySlider -> [DIV /] 18
+                   ID intensitySlider -> [DIV /] 18
+                  found varref
+                 found factor
+                   DIV / -> [INTEGER_CONST 7] 18
+                   INTEGER_CONST 7 -> [PLUS +] 18
+                  found factor
+                found term
+                  PLUS + -> [INTEGER_CONST 1] 17
+                   INTEGER_CONST 1 -> [COMMA ,] 18
+                  found factor
+                 found term
+               found expr
+                COMMA , -> [INTEGER_CONST 32] 15
+                   INTEGER_CONST 32 -> [COMMA ,] 18
+                  found factor
+                 found term
+                found expr
+                COMMA , -> [INTEGER_CONST 255] 15
+                   INTEGER_CONST 255 -> [RPAREN )] 18
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID bri3] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID bri3 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID beatSin] 10
+         found assignoperator
+              ID beatSin -> [LPAREN (] 13
+              LPAREN ( -> [ID intensitySlider] 13
+                   ID intensitySlider -> [DIV /] 18
+                   ID intensitySlider -> [DIV /] 18
+                  found varref
+                 found factor
+                   DIV / -> [INTEGER_CONST 8] 18
+                   INTEGER_CONST 8 -> [PLUS +] 18
+                  found factor
+                found term
+                  PLUS + -> [INTEGER_CONST 132] 17
+                   INTEGER_CONST 132 -> [COMMA ,] 18
+                  found factor
+                 found term
+               found expr
+                COMMA , -> [INTEGER_CONST 255] 15
+                   INTEGER_CONST 255 -> [RPAREN )] 18
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID locn12] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID locn12 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID locn1] 10
+         found assignoperator
+              ID locn1 -> [PLUS +] 13
+              ID locn1 -> [PLUS +] 13
+             found varref
+            found factor
+           found term
+             PLUS + -> [ID locn2] 12
+               ID locn2 -> [ID colr12] 14
+               ID locn2 -> [ID colr12] 14
+              found varref
+             found factor
+            found term
+          found expr
+        found assign
+       found statement
+          ID colr12 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID colr1] 10
+         found assignoperator
+              ID colr1 -> [PLUS +] 13
+              ID colr1 -> [PLUS +] 13
+             found varref
+            found factor
+           found term
+             PLUS + -> [ID colr2] 12
+               ID colr2 -> [ID bri12] 14
+               ID colr2 -> [ID bri12] 14
+              found varref
+             found factor
+            found term
+          found expr
+        found assign
+       found statement
+          ID bri12 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID bri1] 10
+         found assignoperator
+              ID bri1 -> [PLUS +] 13
+              ID bri1 -> [PLUS +] 13
+             found varref
+            found factor
+           found term
+             PLUS + -> [ID bri2] 12
+               ID bri2 -> [ID leds] 14
+               ID bri2 -> [ID leds] 14
+              found varref
+             found factor
+            found term
+          found expr
+        found assign
+       found statement
+          ID leds -> [LBRACKET [] 9
+           LBRACKET [ -> [ID locn12] 10
+                ID locn12 -> [RBRACKET ]] 15
+                ID locn12 -> [RBRACKET ]] 15
+               found varref
+              found factor
+             found term
+            found expr
+           found indices
+           RBRACKET ] -> [ASSIGN =] 10
+         found varref
+           ASSIGN = -> [ID colorFromPalette] 10
+         found assignoperator
+              ID colorFromPalette -> [LPAREN (] 13
+              LPAREN ( -> [ID colr12] 13
+                   ID colr12 -> [COMMA ,] 18
+                   ID colr12 -> [COMMA ,] 18
+                  found varref
+                 found factor
+                found term
+               found expr
+                COMMA , -> [ID bri12] 15
+                    ID bri12 -> [RPAREN )] 19
+                    ID bri12 -> [RPAREN )] 19
+                   found varref
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID leds] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID leds -> [LBRACKET [] 9
+           LBRACKET [ -> [ID locn1] 10
+                ID locn1 -> [RBRACKET ]] 15
+                ID locn1 -> [RBRACKET ]] 15
+               found varref
+              found factor
+             found term
+            found expr
+           found indices
+           RBRACKET ] -> [ASSIGN =] 10
+         found varref
+           ASSIGN = -> [ID colorFromPalette] 10
+         found assignoperator
+              ID colorFromPalette -> [LPAREN (] 13
+              LPAREN ( -> [ID colr2] 13
+                   ID colr2 -> [COMMA ,] 18
+                   ID colr2 -> [COMMA ,] 18
+                  found varref
+                 found factor
+                found term
+               found expr
+                COMMA , -> [ID bri1] 15
+                    ID bri1 -> [RPAREN )] 19
+                    ID bri1 -> [RPAREN )] 19
+                   found varref
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [ID leds] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID leds -> [LBRACKET [] 9
+           LBRACKET [ -> [ID locn2] 10
+                ID locn2 -> [MOD %] 15
+                ID locn2 -> [MOD %] 15
+               found varref
+              found factor
+                MOD % -> [LPAREN (] 15
+                 LPAREN ( -> [ID ledCount] 16
+                     ID ledCount -> [MINUS -] 20
+                     ID ledCount -> [MINUS -] 20
+                    found varref
+                   found factor
+                  found term
+                    MINUS - -> [INTEGER_CONST 1] 19
+                     INTEGER_CONST 1 -> [RPAREN )] 20
+                    found factor
+                   found term
+                 found expr
+                 RPAREN ) -> [RBRACKET ]] 16
+               found factor
+             found term
+            found expr
+           found indices
+           RBRACKET ] -> [ASSIGN =] 10
+         found varref
+           ASSIGN = -> [ID colorFromPalette] 10
+         found assignoperator
+              ID colorFromPalette -> [LPAREN (] 13
+              LPAREN ( -> [ID colr1] 13
+                   ID colr1 -> [COMMA ,] 18
+                   ID colr1 -> [COMMA ,] 18
+                  found varref
+                 found factor
+                found term
+               found expr
+                COMMA , -> [ID bri2] 15
+                    ID bri2 -> [RPAREN )] 19
+                    ID bri2 -> [RPAREN )] 19
+                   found varref
+                  found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [RCURL }] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+      RCURL } -> [RCURL }] 5
+     found block
+    found function
+   found statement
+  RCURL } -> [ ] 1
+ found block
+Node program Parsed until (37,1) 1068 of 1068
+parse 0 ✓
+definitionTree 11598 / 70% (26 0 6)
+parseTree      35959 / 54% (1 0 26)
+garbageCollect 35959 / 54% -> 25719 / 39%
+Destruct Lexer
+
+Optimizer
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"speedSlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"3"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}},{"expr":{"term":{"varref":{"ID":"ledCount"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"speedSlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"3"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}},{"expr":{"term":{"varref":{"ID":"ledCount"}}}}]}}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"speedSlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"4"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}},{"expr":{"term":{"varref":{"ID":"ledCount"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"speedSlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"4"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}},{"expr":{"term":{"varref":{"ID":"ledCount"}}}}]}}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"speedSlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"5"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}},{"expr":{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"2"}}]},"*":[{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"3"}}]}}]}}]}}}} from {"term":{"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"speedSlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"5"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}},{"expr":{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"2"}}]},"*":[{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"ledCount"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"3"}}]}}]}}]}}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"255"}} from {"term":{"factor":{"INTEGER_CONST":"255"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"6"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}} from {"term":{"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"6"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"255"}} from {"term":{"factor":{"INTEGER_CONST":"255"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"7"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}} from {"term":{"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"7"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"255"}} from {"term":{"factor":{"INTEGER_CONST":"255"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"8"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}} from {"term":{"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"8"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"0"}}},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"32"}} from {"term":{"factor":{"INTEGER_CONST":"32"}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"255"}} from {"term":{"factor":{"INTEGER_CONST":"255"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"6"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"32"}}},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}} from {"term":{"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"6"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"32"}}},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"32"}} from {"term":{"factor":{"INTEGER_CONST":"32"}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"255"}} from {"term":{"factor":{"INTEGER_CONST":"255"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"7"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"32"}}},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}} from {"term":{"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"7"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"1"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"32"}}},{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"132"}} from {"term":{"factor":{"INTEGER_CONST":"132"}}}
+                    node to shrink factor in term : {"factor":{"INTEGER_CONST":"255"}} from {"term":{"factor":{"INTEGER_CONST":"255"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"8"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"132"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}} from {"term":{"factor":{"call":{"ID":"beatSin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"intensitySlider"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"8"}}]},"*":[{"PLUS":"+"},{"term":{"INTEGER_CONST":"132"}}]},"*":[{"expr":{"term":{"INTEGER_CONST":"255"}}}]}}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"varref":{"ID":"locn1"}}} from {"term":{"factor":{"varref":{"ID":"locn1"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"locn2"}},"*":["multiple"]}}]}
+               node to shrink factor in term : {"factor":{"varref":{"ID":"locn2"}}} from {"term":{"factor":{"varref":{"ID":"locn2"}}}}
+             node to shrink factor in term : {"factor":{"varref":{"ID":"colr1"}}} from {"term":{"factor":{"varref":{"ID":"colr1"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"colr2"}},"*":["multiple"]}}]}
+               node to shrink factor in term : {"factor":{"varref":{"ID":"colr2"}}} from {"term":{"factor":{"varref":{"ID":"colr2"}}}}
+             node to shrink factor in term : {"factor":{"varref":{"ID":"bri1"}}} from {"term":{"factor":{"varref":{"ID":"bri1"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"bri2"}},"*":["multiple"]}}]}
+               node to shrink factor in term : {"factor":{"varref":{"ID":"bri2"}}} from {"term":{"factor":{"varref":{"ID":"bri2"}}}}
+               node to shrink factor in term : {"factor":{"varref":{"ID":"locn12"}}} from {"term":{"factor":{"varref":{"ID":"locn12"}}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"colr12"}}} from {"term":{"factor":{"varref":{"ID":"colr12"}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"bri12"}}} from {"term":{"factor":{"varref":{"ID":"bri12"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colr12"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri12"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colr12"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri12"}}}}]}}}},"*":["multiple"]}
+               node to shrink factor in term : {"factor":{"varref":{"ID":"locn1"}}} from {"term":{"factor":{"varref":{"ID":"locn1"}}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"colr2"}}} from {"term":{"factor":{"varref":{"ID":"colr2"}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"bri1"}}} from {"term":{"factor":{"varref":{"ID":"bri1"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colr2"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri1"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colr2"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri1"}}}}]}}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"ledCount"}}} from {"term":{"factor":{"varref":{"ID":"ledCount"}}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
+                      node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}}}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"colr1"}}} from {"term":{"factor":{"varref":{"ID":"colr1"}}},"*":["multiple"]}
+                    node to shrink factor in term : {"factor":{"varref":{"ID":"bri2"}}} from {"term":{"factor":{"varref":{"ID":"bri2"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colr1"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri2"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"colorFromPalette","actuals":{"expr":{"term":{"varref":{"ID":"colr1"}}},"*":[{"expr":{"term":{"varref":{"ID":"bri2"}}}}]}}}},"*":["multiple"]}
+optimize 0 ✓
+garbageCollect 37815 / 57% -> 16535 / 25%
+
+Analyzer
+ Program Beatmania 1 0
+     Function Beatmania.renderFrame
+         Ext Function found fadeToBlackBy (8)
+             Ext Variable found intensitySlider (12) varref
+         assign Beatmania.locn1 of notype
+         assign locn1 = (8)
+            Ext Function found beatSin (11)
+                Ext Variable found speedSlider (15) varref
+                 Ext Variable found ledCount (16) varref
+         assign Beatmania.locn2 of notype
+         assign locn2 = (8)
+            Ext Function found beatSin (11)
+                Ext Variable found speedSlider (15) varref
+                 Ext Variable found ledCount (16) varref
+         assign Beatmania.locn3 of notype
+         assign locn3 = (8)
+            Ext Function found beatSin (11)
+                Ext Variable found speedSlider (15) varref
+                  Ext Variable found ledCount (17) varref
+                    Ext Variable found ledCount (19) varref
+         assign Beatmania.colr1 of notype
+         assign colr1 = (8)
+            Ext Function found beatSin (11)
+                Ext Variable found intensitySlider (15) varref
+         assign Beatmania.colr2 of notype
+         assign colr2 = (8)
+            Ext Function found beatSin (11)
+                Ext Variable found intensitySlider (15) varref
+         assign Beatmania.colr3 of notype
+         assign colr3 = (8)
+            Ext Function found beatSin (11)
+                Ext Variable found intensitySlider (15) varref
+         assign Beatmania.bri1 of notype
+         assign bri1 = (8)
+            Ext Function found beatSin (11)
+                Ext Variable found intensitySlider (15) varref
+         assign Beatmania.bri2 of notype
+         assign bri2 = (8)
+            Ext Function found beatSin (11)
+                Ext Variable found intensitySlider (15) varref
+         assign Beatmania.bri3 of notype
+         assign bri3 = (8)
+            Ext Function found beatSin (11)
+                Ext Variable found intensitySlider (15) varref
+         assign Beatmania.locn12 of notype
+         assign locn12 = (8)
+            VarRef found Beatmania.locn1 (11)
+              VarRef found Beatmania.locn2 (13)
+         assign Beatmania.colr12 of notype
+         assign colr12 = (8)
+            VarRef found Beatmania.colr1 (11)
+              VarRef found Beatmania.colr2 (13)
+         assign Beatmania.bri12 of notype
+         assign bri12 = (8)
+            VarRef found Beatmania.bri1 (11)
+              VarRef found Beatmania.bri2 (13)
+             VarRef found Beatmania.locn12 (12)
+         Ext Variable found leds (8) assign
+         assign leds = (8)
+            Ext Function found colorFromPalette (11)
+               VarRef found Beatmania.colr12 (14)
+                 VarRef found Beatmania.bri12 (16)
+             VarRef found Beatmania.locn1 (12)
+         Ext Variable found leds (8) assign
+         assign leds = (8)
+            Ext Function found colorFromPalette (11)
+               VarRef found Beatmania.colr2 (14)
+                 VarRef found Beatmania.bri1 (16)
+              VarRef found Beatmania.locn2 (13)
+                  Ext Variable found ledCount (17) varref
+         Ext Variable found leds (8) assign
+         assign leds = (8)
+            Ext Function found colorFromPalette (11)
+               VarRef found Beatmania.colr1 (14)
+                 VarRef found Beatmania.bri2 (16)
+ 0 function Beatmania.renderFrame of 9 (1)
+ 1 assign Beatmania.locn1 of 9 (1)
+ 2 assign Beatmania.locn2 of 9 (1)
+ 3 assign Beatmania.locn3 of 9 (1)
+ 4 assign Beatmania.colr1 of 9 (1)
+ 5 assign Beatmania.colr2 of 9 (1)
+ 6 assign Beatmania.colr3 of 9 (1)
+ 7 assign Beatmania.bri1 of 9 (1)
+ 8 assign Beatmania.bri2 of 9 (1)
+ 9 assign Beatmania.bri3 of 9 (1)
+ 10 assign Beatmania.locn12 of 9 (1)
+ 11 assign Beatmania.colr12 of 9 (1)
+ 12 assign Beatmania.bri12 of 9 (1)
+analyze 0 ✓
+garbageCollect 21271 / 32% -> 21271 / 32%
+
+interpret Beatmania 1 13
+ program Beatmania
+     Save block of renderFrame
+Interpret main 0 ✓
+         Call renderFrame (1)
+                 varref ext.intensitySlider = 17.000000 (push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 8 (Push 3)
+               17.000000 / 8.000000 = 2.125000 (pop 0, push 1)
+             Call fadeToBlackBy(2.125000) = 2.125000 (Pop 0, Push 1)
+                    varref ext.speedSlider = 16.000000 (push 2)
+                     DIV / (Push 3)
+                      INTEGER_CONST 3 (Push 4)
+                  16.000000 / 3.000000 = 5.333333 (pop 1, push 2)
+                    PLUS + (Push 3)
+                     INTEGER_CONST 1 (Push 4)
+                 5.333333 + 1.000000 = 6.333333 (pop 1, push 2)
+                     INTEGER_CONST 0 (Push 3)
+                     varref ext.ledCount = 3.000000 (push 4)
+                Call beatSin(6.333333, 0.000000, 3.000000) = -65526.664062 (Pop 1, Push 2)
+             Beatmania.locn1 := -65526.664062 (pop 1) 1-1
+                    varref ext.speedSlider = 16.000000 (push 2)
+                     DIV / (Push 3)
+                      INTEGER_CONST 4 (Push 4)
+                  16.000000 / 4.000000 = 4.000000 (pop 1, push 2)
+                    PLUS + (Push 3)
+                     INTEGER_CONST 1 (Push 4)
+                 4.000000 + 1.000000 = 5.000000 (pop 1, push 2)
+                     INTEGER_CONST 0 (Push 3)
+                     varref ext.ledCount = 3.000000 (push 4)
+                Call beatSin(5.000000, 0.000000, 3.000000) = -65528.000000 (Pop 1, Push 2)
+             Beatmania.locn2 := -65528.000000 (pop 1) 1-2
+                    varref ext.speedSlider = 16.000000 (push 2)
+                     DIV / (Push 3)
+                      INTEGER_CONST 5 (Push 4)
+                  16.000000 / 5.000000 = 3.200000 (pop 1, push 2)
+                    PLUS + (Push 3)
+                     INTEGER_CONST 1 (Push 4)
+                 3.200000 + 1.000000 = 4.200000 (pop 1, push 2)
+                     INTEGER_CONST 0 (Push 3)
+                      varref ext.ledCount = 3.000000 (push 4)
+                       DIV / (Push 5)
+                        INTEGER_CONST 2 (Push 6)
+                    3.000000 / 2.000000 = 1.500000 (pop 3, push 4)
+                      PLUS + (Push 5)
+                        varref ext.ledCount = 3.000000 (push 6)
+                         DIV / (Push 7)
+                          INTEGER_CONST 3 (Push 8)
+                      3.000000 / 3.000000 = 1.000000 (pop 5, push 6)
+                   1.500000 + 1.000000 = 2.500000 (pop 3, push 4)
+                Call beatSin(4.200000, 0.000000, 2.500000) = -65529.300781 (Pop 1, Push 2)
+             Beatmania.locn3 := -65529.300781 (pop 1) 1-3
+                    varref ext.intensitySlider = 17.000000 (push 2)
+                     DIV / (Push 3)
+                      INTEGER_CONST 6 (Push 4)
+                  17.000000 / 6.000000 = 2.833333 (pop 1, push 2)
+                    PLUS + (Push 3)
+                     INTEGER_CONST 1 (Push 4)
+                 2.833333 + 1.000000 = 3.833333 (pop 1, push 2)
+                     INTEGER_CONST 0 (Push 3)
+                     INTEGER_CONST 255 (Push 4)
+                Call beatSin(3.833333, 0.000000, 255.000000) = -65277.164062 (Pop 1, Push 2)
+             Beatmania.colr1 := -65277.164062 (pop 1) 1-4
+                    varref ext.intensitySlider = 17.000000 (push 2)
+                     DIV / (Push 3)
+                      INTEGER_CONST 7 (Push 4)
+                  17.000000 / 7.000000 = 2.428571 (pop 1, push 2)
+                    PLUS + (Push 3)
+                     INTEGER_CONST 1 (Push 4)
+                 2.428571 + 1.000000 = 3.428571 (pop 1, push 2)
+                     INTEGER_CONST 0 (Push 3)
+                     INTEGER_CONST 255 (Push 4)
+                Call beatSin(3.428571, 0.000000, 255.000000) = -65277.570312 (Pop 1, Push 2)
+             Beatmania.colr2 := -65277.570312 (pop 1) 1-5
+                    varref ext.intensitySlider = 17.000000 (push 2)
+                     DIV / (Push 3)
+                      INTEGER_CONST 8 (Push 4)
+                  17.000000 / 8.000000 = 2.125000 (pop 1, push 2)
+                    PLUS + (Push 3)
+                     INTEGER_CONST 1 (Push 4)
+                 2.125000 + 1.000000 = 3.125000 (pop 1, push 2)
+                     INTEGER_CONST 0 (Push 3)
+                     INTEGER_CONST 255 (Push 4)
+                Call beatSin(3.125000, 0.000000, 255.000000) = -65277.875000 (Pop 1, Push 2)
+             Beatmania.colr3 := -65277.875000 (pop 1) 1-6
+                    varref ext.intensitySlider = 17.000000 (push 2)
+                     DIV / (Push 3)
+                      INTEGER_CONST 6 (Push 4)
+                  17.000000 / 6.000000 = 2.833333 (pop 1, push 2)
+                    PLUS + (Push 3)
+                     INTEGER_CONST 1 (Push 4)
+                 2.833333 + 1.000000 = 3.833333 (pop 1, push 2)
+                     INTEGER_CONST 32 (Push 3)
+                     INTEGER_CONST 255 (Push 4)
+                Call beatSin(3.833333, 32.000000, 255.000000) = -65245.164062 (Pop 1, Push 2)
+             Beatmania.bri1 := -65245.164062 (pop 1) 1-7
+                    varref ext.intensitySlider = 17.000000 (push 2)
+                     DIV / (Push 3)
+                      INTEGER_CONST 7 (Push 4)
+                  17.000000 / 7.000000 = 2.428571 (pop 1, push 2)
+                    PLUS + (Push 3)
+                     INTEGER_CONST 1 (Push 4)
+                 2.428571 + 1.000000 = 3.428571 (pop 1, push 2)
+                     INTEGER_CONST 32 (Push 3)
+                     INTEGER_CONST 255 (Push 4)
+                Call beatSin(3.428571, 32.000000, 255.000000) = -65245.570312 (Pop 1, Push 2)
+             Beatmania.bri2 := -65245.570312 (pop 1) 1-8
+                    varref ext.intensitySlider = 17.000000 (push 2)
+                     DIV / (Push 3)
+                      INTEGER_CONST 8 (Push 4)
+                  17.000000 / 8.000000 = 2.125000 (pop 1, push 2)
+                    PLUS + (Push 3)
+                     INTEGER_CONST 132 (Push 4)
+                 2.125000 + 132.000000 = 134.125000 (pop 1, push 2)
+                     INTEGER_CONST 255 (Push 3)
+                Call beatSin(134.125000, 255.000000) = -97914.875000 (Pop 1, Push 2)
+             Beatmania.bri3 := -97914.875000 (pop 1) 1-9
+                varref Beatmania.locn1 = -65526.664062 (push 2) 1-1
+                 PLUS + (Push 3)
+                  varref Beatmania.locn2 = -65528.000000 (push 4) 1-2
+              -65526.664062 + -65528.000000 = -131054.664062 (pop 1, push 2)
+             Beatmania.locn12 := -131054.664062 (pop 1) 1-10
+                varref Beatmania.colr1 = -65277.164062 (push 2) 1-4
+                 PLUS + (Push 3)
+                  varref Beatmania.colr2 = -65277.570312 (push 4) 1-5
+              -65277.164062 + -65277.570312 = -130554.734375 (pop 1, push 2)
+             Beatmania.colr12 := -130554.734375 (pop 1) 1-11
+                varref Beatmania.bri1 = -65245.164062 (push 2) 1-7
+                 PLUS + (Push 3)
+                  varref Beatmania.bri2 = -65245.570312 (push 4) 1-8
+              -65245.164062 + -65245.570312 = -130490.734375 (pop 1, push 2)
+             Beatmania.bri12 := -130490.734375 (pop 1) 1-12
+                   varref Beatmania.colr12 = -130554.734375 (push 2) 1-11
+                     varref Beatmania.bri12 = -130490.734375 (push 3) 1-12
+                Call colorFromPalette(-130554.734375, -130490.734375) = -261045.468750 (Pop 1, Push 2)
+                 varref Beatmania.locn12 = -131054.664062 (push 2) 1-10
+arti_set_external_variable: leds(-131054.664062) := -261045.468750
+             assign set ext.leds[-131054.664062] = -261045.468750 (Pop 1)
+                   varref Beatmania.colr2 = -65277.570312 (push 2) 1-5
+                     varref Beatmania.bri1 = -65245.164062 (push 3) 1-7
+                Call colorFromPalette(-65277.570312, -65245.164062) = -130522.734375 (Pop 1, Push 2)
+                 varref Beatmania.locn1 = -65526.664062 (push 2) 1-1
+arti_set_external_variable: leds(-65526.664062) := -130522.734375
+             assign set ext.leds[-65526.664062] = -130522.734375 (Pop 1)
+                   varref Beatmania.colr1 = -65277.164062 (push 2) 1-4
+                     varref Beatmania.bri2 = -65245.570312 (push 3) 1-8
+                Call colorFromPalette(-65277.164062, -65245.570312) = -130522.734375 (Pop 1, Push 2)
+                  varref Beatmania.locn2 = -65528.000000 (push 2) 1-2
+                   MOD % (Push 3)
+                      varref ext.ledCount = 3.000000 (push 4)
+                       MINUS - (Push 5)
+                        INTEGER_CONST 1 (Push 6)
+                    3.000000 - 1.000000 = 2.000000 (pop 3, push 4)
+                -65528.000000 % 2.000000 = -0.000000 (pop 1, push 2)
+arti_set_external_variable: leds(-0.000000) := -130522.734375
+             assign set ext.leds[-0.000000] = -130522.734375 (Pop 1)
+Destruct activation record renderFrame
+setPixels(leds)
+         Call renderFrame (1)
+                 varref ext.intensitySlider = 17.000000 (push 2)
+                  DIV / (Push 3)
+                   INTEGER_CONST 8 (Push 4)
+               17.000000 / 8.000000 = 2.125000 (pop 1, push 2)
+             Call fadeToBlackBy(2.125000) = 2.125000 (Pop 1, Push 2)
+                    varref ext.speedSlider = 16.000000 (push 3)
+                     DIV / (Push 4)
+                      INTEGER_CONST 3 (Push 5)
+                  16.000000 / 3.000000 = 5.333333 (pop 2, push 3)
+                    PLUS + (Push 4)
+                     INTEGER_CONST 1 (Push 5)
+                 5.333333 + 1.000000 = 6.333333 (pop 2, push 3)
+                     INTEGER_CONST 0 (Push 4)
+                     varref ext.ledCount = 3.000000 (push 5)
+                Call beatSin(6.333333, 0.000000, 3.000000) = -65526.664062 (Pop 2, Push 3)
+             Beatmania.locn1 := -65526.664062 (pop 2) 1-1
+                    varref ext.speedSlider = 16.000000 (push 3)
+                     DIV / (Push 4)
+                      INTEGER_CONST 4 (Push 5)
+                  16.000000 / 4.000000 = 4.000000 (pop 2, push 3)
+                    PLUS + (Push 4)
+                     INTEGER_CONST 1 (Push 5)
+                 4.000000 + 1.000000 = 5.000000 (pop 2, push 3)
+                     INTEGER_CONST 0 (Push 4)
+                     varref ext.ledCount = 3.000000 (push 5)
+                Call beatSin(5.000000, 0.000000, 3.000000) = -65528.000000 (Pop 2, Push 3)
+             Beatmania.locn2 := -65528.000000 (pop 2) 1-2
+                    varref ext.speedSlider = 16.000000 (push 3)
+                     DIV / (Push 4)
+                      INTEGER_CONST 5 (Push 5)
+                  16.000000 / 5.000000 = 3.200000 (pop 2, push 3)
+                    PLUS + (Push 4)
+                     INTEGER_CONST 1 (Push 5)
+                 3.200000 + 1.000000 = 4.200000 (pop 2, push 3)
+                     INTEGER_CONST 0 (Push 4)
+                      varref ext.ledCount = 3.000000 (push 5)
+                       DIV / (Push 6)
+                        INTEGER_CONST 2 (Push 7)
+                    3.000000 / 2.000000 = 1.500000 (pop 4, push 5)
+                      PLUS + (Push 6)
+                        varref ext.ledCount = 3.000000 (push 7)
+                         DIV / (Push 8)
+                          INTEGER_CONST 3 (Push 9)
+                      3.000000 / 3.000000 = 1.000000 (pop 6, push 7)
+                   1.500000 + 1.000000 = 2.500000 (pop 4, push 5)
+                Call beatSin(4.200000, 0.000000, 2.500000) = -65529.300781 (Pop 2, Push 3)
+             Beatmania.locn3 := -65529.300781 (pop 2) 1-3
+                    varref ext.intensitySlider = 17.000000 (push 3)
+                     DIV / (Push 4)
+                      INTEGER_CONST 6 (Push 5)
+                  17.000000 / 6.000000 = 2.833333 (pop 2, push 3)
+                    PLUS + (Push 4)
+                     INTEGER_CONST 1 (Push 5)
+                 2.833333 + 1.000000 = 3.833333 (pop 2, push 3)
+                     INTEGER_CONST 0 (Push 4)
+                     INTEGER_CONST 255 (Push 5)
+                Call beatSin(3.833333, 0.000000, 255.000000) = -65277.164062 (Pop 2, Push 3)
+             Beatmania.colr1 := -65277.164062 (pop 2) 1-4
+                    varref ext.intensitySlider = 17.000000 (push 3)
+                     DIV / (Push 4)
+                      INTEGER_CONST 7 (Push 5)
+                  17.000000 / 7.000000 = 2.428571 (pop 2, push 3)
+                    PLUS + (Push 4)
+                     INTEGER_CONST 1 (Push 5)
+                 2.428571 + 1.000000 = 3.428571 (pop 2, push 3)
+                     INTEGER_CONST 0 (Push 4)
+                     INTEGER_CONST 255 (Push 5)
+                Call beatSin(3.428571, 0.000000, 255.000000) = -65277.570312 (Pop 2, Push 3)
+             Beatmania.colr2 := -65277.570312 (pop 2) 1-5
+                    varref ext.intensitySlider = 17.000000 (push 3)
+                     DIV / (Push 4)
+                      INTEGER_CONST 8 (Push 5)
+                  17.000000 / 8.000000 = 2.125000 (pop 2, push 3)
+                    PLUS + (Push 4)
+                     INTEGER_CONST 1 (Push 5)
+                 2.125000 + 1.000000 = 3.125000 (pop 2, push 3)
+                     INTEGER_CONST 0 (Push 4)
+                     INTEGER_CONST 255 (Push 5)
+                Call beatSin(3.125000, 0.000000, 255.000000) = -65277.875000 (Pop 2, Push 3)
+             Beatmania.colr3 := -65277.875000 (pop 2) 1-6
+                    varref ext.intensitySlider = 17.000000 (push 3)
+                     DIV / (Push 4)
+                      INTEGER_CONST 6 (Push 5)
+                  17.000000 / 6.000000 = 2.833333 (pop 2, push 3)
+                    PLUS + (Push 4)
+                     INTEGER_CONST 1 (Push 5)
+                 2.833333 + 1.000000 = 3.833333 (pop 2, push 3)
+                     INTEGER_CONST 32 (Push 4)
+                     INTEGER_CONST 255 (Push 5)
+                Call beatSin(3.833333, 32.000000, 255.000000) = -65245.164062 (Pop 2, Push 3)
+             Beatmania.bri1 := -65245.164062 (pop 2) 1-7
+                    varref ext.intensitySlider = 17.000000 (push 3)
+                     DIV / (Push 4)
+                      INTEGER_CONST 7 (Push 5)
+                  17.000000 / 7.000000 = 2.428571 (pop 2, push 3)
+                    PLUS + (Push 4)
+                     INTEGER_CONST 1 (Push 5)
+                 2.428571 + 1.000000 = 3.428571 (pop 2, push 3)
+                     INTEGER_CONST 32 (Push 4)
+                     INTEGER_CONST 255 (Push 5)
+                Call beatSin(3.428571, 32.000000, 255.000000) = -65245.570312 (Pop 2, Push 3)
+             Beatmania.bri2 := -65245.570312 (pop 2) 1-8
+                    varref ext.intensitySlider = 17.000000 (push 3)
+                     DIV / (Push 4)
+                      INTEGER_CONST 8 (Push 5)
+                  17.000000 / 8.000000 = 2.125000 (pop 2, push 3)
+                    PLUS + (Push 4)
+                     INTEGER_CONST 132 (Push 5)
+                 2.125000 + 132.000000 = 134.125000 (pop 2, push 3)
+                     INTEGER_CONST 255 (Push 4)
+                Call beatSin(134.125000, 255.000000) = -97914.875000 (Pop 2, Push 3)
+             Beatmania.bri3 := -97914.875000 (pop 2) 1-9
+                varref Beatmania.locn1 = -65526.664062 (push 3) 1-1
+                 PLUS + (Push 4)
+                  varref Beatmania.locn2 = -65528.000000 (push 5) 1-2
+              -65526.664062 + -65528.000000 = -131054.664062 (pop 2, push 3)
+             Beatmania.locn12 := -131054.664062 (pop 2) 1-10
+                varref Beatmania.colr1 = -65277.164062 (push 3) 1-4
+                 PLUS + (Push 4)
+                  varref Beatmania.colr2 = -65277.570312 (push 5) 1-5
+              -65277.164062 + -65277.570312 = -130554.734375 (pop 2, push 3)
+             Beatmania.colr12 := -130554.734375 (pop 2) 1-11
+                varref Beatmania.bri1 = -65245.164062 (push 3) 1-7
+                 PLUS + (Push 4)
+                  varref Beatmania.bri2 = -65245.570312 (push 5) 1-8
+              -65245.164062 + -65245.570312 = -130490.734375 (pop 2, push 3)
+             Beatmania.bri12 := -130490.734375 (pop 2) 1-12
+                   varref Beatmania.colr12 = -130554.734375 (push 3) 1-11
+                     varref Beatmania.bri12 = -130490.734375 (push 4) 1-12
+                Call colorFromPalette(-130554.734375, -130490.734375) = -261045.468750 (Pop 2, Push 3)
+                 varref Beatmania.locn12 = -131054.664062 (push 3) 1-10
+arti_set_external_variable: leds(-131054.664062) := -261045.468750
+             assign set ext.leds[-131054.664062] = -261045.468750 (Pop 2)
+                   varref Beatmania.colr2 = -65277.570312 (push 3) 1-5
+                     varref Beatmania.bri1 = -65245.164062 (push 4) 1-7
+                Call colorFromPalette(-65277.570312, -65245.164062) = -130522.734375 (Pop 2, Push 3)
+                 varref Beatmania.locn1 = -65526.664062 (push 3) 1-1
+arti_set_external_variable: leds(-65526.664062) := -130522.734375
+             assign set ext.leds[-65526.664062] = -130522.734375 (Pop 2)
+                   varref Beatmania.colr1 = -65277.164062 (push 3) 1-4
+                     varref Beatmania.bri2 = -65245.570312 (push 4) 1-8
+                Call colorFromPalette(-65277.164062, -65245.570312) = -130522.734375 (Pop 2, Push 3)
+                  varref Beatmania.locn2 = -65528.000000 (push 3) 1-2
+                   MOD % (Push 4)
+                      varref ext.ledCount = 3.000000 (push 5)
+                       MINUS - (Push 6)
+                        INTEGER_CONST 1 (Push 7)
+                    3.000000 - 1.000000 = 2.000000 (pop 4, push 5)
+                -65528.000000 % 2.000000 = -0.000000 (pop 2, push 3)
+arti_set_external_variable: leds(-0.000000) := -130522.734375
+             assign set ext.leds[-0.000000] = -130522.734375 (Pop 2)
+Destruct activation record renderFrame
+setPixels(leds)
+closing Arti 0
+Destruct callstack
+Destruct valueStack
+Destruct ScopedSymbolTable renderFrame (0)
+Destruct Symbol renderFrame (0)
+Destruct Symbol locn1 (0)
+Destruct Symbol locn2 (0)
+Destruct Symbol locn3 (0)
+Destruct Symbol colr1 (0)
+Destruct Symbol colr2 (0)
+Destruct Symbol colr3 (0)
+Destruct Symbol bri1 (0)
+Destruct Symbol bri2 (0)
+Destruct Symbol bri3 (0)
+Destruct Symbol locn12 (0)
+Destruct Symbol colr12 (0)
+Destruct Symbol bri12 (0)
+Destruct ScopedSymbolTable Beatmania (0)
+definitionJson  11598 / 70% (26 0 6)
+parseTree       21271 / 32% (1 0 25)
+closed Arti 0 ✓

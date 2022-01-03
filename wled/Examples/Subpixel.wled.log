@@ -13,7 +13,7 @@ parseTree 65536 => 0 ✓
       found formals
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID t] 5
-         ID t -> [ASSIGN =] 8
+          ID t -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [LPAREN (] 10
          found assignoperator
@@ -50,19 +50,19 @@ parseTree 65536 => 0 ✓
           found expr
         found assign
        found statement
-         ID t -> [ASSIGN* *=] 8
+          ID t -> [ASSIGN* *=] 9
          found varref
            ASSIGN* *= -> [ID ledCount] 10
          found assignoperator
               ID ledCount -> [ID reverseSlider] 13
-             ID ledCount -> [ID reverseSlider] 12
+              ID ledCount -> [ID reverseSlider] 13
              found varref
             found factor
            found term
           found expr
         found assign
        found statement
-         ID reverseSlider -> [ASSIGN =] 8
+          ID reverseSlider -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [INTEGER_CONST 256] 10
          found assignoperator
@@ -71,7 +71,7 @@ parseTree 65536 => 0 ✓
            found term
              MINUS - -> [ID intensitySlider] 12
                ID intensitySlider -> [RCURL }] 14
-              ID intensitySlider -> [RCURL }] 13
+               ID intensitySlider -> [RCURL }] 14
               found varref
              found factor
             found term
@@ -90,7 +90,7 @@ parseTree 65536 => 0 ✓
       found formals
       RPAREN ) -> [LCURL {] 5
       LCURL { -> [ID diff] 5
-         ID diff -> [ASSIGN =] 8
+          ID diff -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [ID min] 10
          found assignoperator
@@ -99,13 +99,13 @@ parseTree 65536 => 0 ✓
                    ID abs -> [LPAREN (] 18
                    LPAREN ( -> [ID t] 18
                         ID t -> [MINUS -] 23
-                       ID t -> [MINUS -] 22
+                        ID t -> [MINUS -] 23
                        found varref
                       found factor
                      found term
                        MINUS - -> [ID i] 22
                          ID i -> [RPAREN )] 24
-                        ID i -> [RPAREN )] 23
+                         ID i -> [RPAREN )] 24
                         found varref
                        found factor
                       found term
@@ -121,7 +121,7 @@ parseTree 65536 => 0 ✓
                   found factor
                     DIV / -> [ID reverseSlider] 19
                      ID reverseSlider -> [RPAREN )] 20
-                    ID reverseSlider -> [RPAREN )] 19
+                     ID reverseSlider -> [RPAREN )] 20
                     found varref
                    found factor
                  found term
@@ -134,7 +134,7 @@ parseTree 65536 => 0 ✓
           found expr
         found assign
        found statement
-         ID bri -> [ASSIGN =] 8
+          ID bri -> [ASSIGN =] 9
          found varref
            ASSIGN = -> [INTEGER_CONST 256] 10
          found assignoperator
@@ -143,29 +143,29 @@ parseTree 65536 => 0 ✓
            found term
              MINUS - -> [ID diff] 12
                ID diff -> [MUL *] 14
-              ID diff -> [MUL *] 13
+               ID diff -> [MUL *] 14
               found varref
              found factor
                MUL * -> [ID reverseSlider] 14
                 ID reverseSlider -> [ID leds] 15
-               ID reverseSlider -> [ID leds] 14
+                ID reverseSlider -> [ID leds] 15
                found varref
               found factor
             found term
           found expr
         found assign
        found statement
-         ID leds -> [LBRACKET [] 8
+          ID leds -> [LBRACKET [] 9
+           LBRACKET [ -> [ID i] 10
+                ID i -> [RBRACKET ]] 15
+                ID i -> [RBRACKET ]] 15
+               found varref
+              found factor
+             found term
+            found expr
+           found indices
+           RBRACKET ] -> [ASSIGN =] 10
          found varref
-          LBRACKET [ -> [ID i] 9
-               ID i -> [RBRACKET ]] 14
-              ID i -> [RBRACKET ]] 13
-              found varref
-             found factor
-            found term
-           found expr
-          found indices
-          RBRACKET ] -> [ASSIGN =] 9
            ASSIGN = -> [ID hsv] 10
          found assignoperator
               ID hsv -> [LPAREN (] 13
@@ -181,7 +181,7 @@ parseTree 65536 => 0 ✓
                 found expr
                 COMMA , -> [ID bri] 15
                     ID bri -> [RPAREN )] 19
-                   ID bri -> [RPAREN )] 18
+                    ID bri -> [RPAREN )] 19
                    found varref
                   found factor
                  found term
@@ -201,11 +201,11 @@ parseTree 65536 => 0 ✓
   RCURL } -> [ ] 1
  found block
 Node program Parsed until (26,0) 954 of 954
-definitionTree 11566 / 70% (26 0 6)
-parseTree      12441 / 18% (1 0 28)
-garbageCollect 8633 / 13%
-Destruct Lexer
 parse 0 ✓
+definitionTree 11598 / 70% (26 0 6)
+parseTree      12441 / 18% (1 0 28)
+garbageCollect 12441 / 18% -> 8633 / 13%
+Destruct Lexer
 
 Optimizer
                 node to shrink factor in term : {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"factor":{"call":{"ID":"millis"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"1000"}}]}}}}}} from {"term":{"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"factor":{"call":{"ID":"millis"}},"*":[{"DIV":"/"},{"factor":{"INTEGER_CONST":"1000"}}]}}}}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"INTEGER_CONST":"1"},"*":["multiple"]}}]}
@@ -218,12 +218,13 @@ Optimizer
                   node to shrink factor in term : {"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}} from {"term":{"factor":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}},"*":["multiple"]}
              node to shrink factor in term : {"factor":{"call":{"ID":"min","actuals":{"expr":{"term":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}},"*":[{"expr":{"term":{"factor":{"INTEGER_CONST":"256"},"*":[{"DIV":"/"},{"factor":{"varref":{"ID":"reverseSlider"}}}]}}}]}}}} from {"term":{"factor":{"call":{"ID":"min","actuals":{"expr":{"term":{"call":{"ID":"abs","actuals":{"expr":{"term":{"varref":{"ID":"t"}},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"i"}}}]}}}}},"*":[{"expr":{"term":{"factor":{"INTEGER_CONST":"256"},"*":[{"DIV":"/"},{"factor":{"varref":{"ID":"reverseSlider"}}}]}}}]}}}},"*":["multiple"]}
              node to shrink factor in term : {"factor":{"INTEGER_CONST":"256"}} from {"term":{"factor":{"INTEGER_CONST":"256"}},"*":["multiple",{"MINUS":"-"},{"term":{"factor":{"varref":{"ID":"diff"}},"*":["multiple",{"MUL":"*"},{"factor":{"varref":{"ID":"reverseSlider"}}}]}}]}
-              node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}},"*":["multiple"]}
+               node to shrink factor in term : {"factor":{"varref":{"ID":"i"}}} from {"term":{"factor":{"varref":{"ID":"i"}}},"*":["multiple"]}
                   node to shrink factor in term : {"factor":{"INTEGER_CONST":"0"}} from {"term":{"factor":{"INTEGER_CONST":"0"}},"*":["multiple"]}
                     node to shrink factor in term : {"factor":{"INTEGER_CONST":"255"}} from {"term":{"factor":{"INTEGER_CONST":"255"}},"*":["multiple"]}
                     node to shrink factor in term : {"factor":{"varref":{"ID":"bri"}}} from {"term":{"factor":{"varref":{"ID":"bri"}}},"*":["multiple"]}
              node to shrink factor in term : {"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{"expr":{"term":{"INTEGER_CONST":"255"}}},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}} from {"term":{"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"INTEGER_CONST":"0"}},"*":[{"expr":{"term":{"INTEGER_CONST":"255"}}},{"expr":{"term":{"varref":{"ID":"bri"}}}}]}}}},"*":["multiple"]}
 optimize 0 ✓
+garbageCollect 11609 / 17% -> 5657 / 8%
 
 Analyzer
  Program Subpixel 1 0
@@ -251,11 +252,11 @@ Analyzer
          assign bri = (8)
                VarRef found Subpixel.diff (14)
                  VarRef found Subpixel.reverseSlider (16)
+             VarRef found renderLed.i (12)
          Ext Variable found leds (8) assign
          assign leds = (8)
             Ext Function found hsv (11)
                  VarRef found Subpixel.bri (16)
-             VarRef found renderLed.i (12)
      0 formal renderLed.i of 9 (2)
  0 function Subpixel.renderFrame of 9 (1)
  1 assign Subpixel.t of 9 (1)
@@ -264,6 +265,7 @@ Analyzer
  4 assign Subpixel.diff of 9 (1)
  5 assign Subpixel.bri of 9 (1)
 analyze 0 ✓
+garbageCollect 7257 / 11% -> 7214 / 11%
 
 interpret Subpixel 1 6
  program Subpixel
@@ -310,12 +312,12 @@ Destruct activation record renderFrame
                  1.071130 * 239.000000 = 256.000000 (pop 2, push 3)
               256.000000 - 256.000000 = 0.000000 (pop 0, push 1)
              Subpixel.bri := 0.000000 (pop 0) 1-5
-                 varref renderLed.i = 0.000000 (push 1) 2-0
-                   INTEGER_CONST 0 (Push 2)
-                     INTEGER_CONST 255 (Push 3)
-                     varref Subpixel.bri = 0.000000 (push 4) 1-5
+                   INTEGER_CONST 0 (Push 1)
+                     INTEGER_CONST 255 (Push 2)
+                     varref Subpixel.bri = 0.000000 (push 3) 1-5
 hsv(0.000000, 255.000000, 0.000000)
-                Call hsv(0.000000, 255.000000, 0.000000) = 255.000000 (Pop 1, Push 2)
+                Call hsv(0.000000, 255.000000, 0.000000) = 255.000000 (Pop 0, Push 1)
+                 varref renderLed.i = 0.000000 (push 1) 2-0
 arti_set_external_variable: leds(0.000000) := 255.000000
              assign set ext.leds[0.000000] = 255.000000 (Pop 0)
                       varref Subpixel.t = 2.762207 (push 1) 1-1
@@ -337,12 +339,12 @@ arti_set_external_variable: leds(0.000000) := 255.000000
                  1.071130 * 239.000000 = 256.000000 (pop 2, push 3)
               256.000000 - 256.000000 = 0.000000 (pop 0, push 1)
              Subpixel.bri := 0.000000 (pop 0) 1-5
-                 varref renderLed.i = 1.000000 (push 1) 2-0
-                   INTEGER_CONST 0 (Push 2)
-                     INTEGER_CONST 255 (Push 3)
-                     varref Subpixel.bri = 0.000000 (push 4) 1-5
+                   INTEGER_CONST 0 (Push 1)
+                     INTEGER_CONST 255 (Push 2)
+                     varref Subpixel.bri = 0.000000 (push 3) 1-5
 hsv(0.000000, 255.000000, 0.000000)
-                Call hsv(0.000000, 255.000000, 0.000000) = 255.000000 (Pop 1, Push 2)
+                Call hsv(0.000000, 255.000000, 0.000000) = 255.000000 (Pop 0, Push 1)
+                 varref renderLed.i = 1.000000 (push 1) 2-0
 arti_set_external_variable: leds(1.000000) := 255.000000
              assign set ext.leds[1.000000] = 255.000000 (Pop 0)
                       varref Subpixel.t = 2.762207 (push 1) 1-1
@@ -364,12 +366,12 @@ arti_set_external_variable: leds(1.000000) := 255.000000
                  0.762207 * 239.000000 = 182.167374 (pop 2, push 3)
               256.000000 - 182.167374 = 73.832626 (pop 0, push 1)
              Subpixel.bri := 73.832626 (pop 0) 1-5
-                 varref renderLed.i = 2.000000 (push 1) 2-0
-                   INTEGER_CONST 0 (Push 2)
-                     INTEGER_CONST 255 (Push 3)
-                     varref Subpixel.bri = 73.832626 (push 4) 1-5
+                   INTEGER_CONST 0 (Push 1)
+                     INTEGER_CONST 255 (Push 2)
+                     varref Subpixel.bri = 73.832626 (push 3) 1-5
 hsv(0.000000, 255.000000, 73.832626)
-                Call hsv(0.000000, 255.000000, 73.832626) = 328.832642 (Pop 1, Push 2)
+                Call hsv(0.000000, 255.000000, 73.832626) = 328.832642 (Pop 0, Push 1)
+                 varref renderLed.i = 2.000000 (push 1) 2-0
 arti_set_external_variable: leds(2.000000) := 328.832642
              assign set ext.leds[2.000000] = 328.832642 (Pop 0)
 Destruct activation record renderLed
@@ -414,12 +416,12 @@ Destruct activation record renderFrame
                  1.071130 * 239.000000 = 256.000000 (pop 2, push 3)
               256.000000 - 256.000000 = 0.000000 (pop 0, push 1)
              Subpixel.bri := 0.000000 (pop 0) 1-5
-                 varref renderLed.i = 0.000000 (push 1) 2-0
-                   INTEGER_CONST 0 (Push 2)
-                     INTEGER_CONST 255 (Push 3)
-                     varref Subpixel.bri = 0.000000 (push 4) 1-5
+                   INTEGER_CONST 0 (Push 1)
+                     INTEGER_CONST 255 (Push 2)
+                     varref Subpixel.bri = 0.000000 (push 3) 1-5
 hsv(0.000000, 255.000000, 0.000000)
-                Call hsv(0.000000, 255.000000, 0.000000) = 255.000000 (Pop 1, Push 2)
+                Call hsv(0.000000, 255.000000, 0.000000) = 255.000000 (Pop 0, Push 1)
+                 varref renderLed.i = 0.000000 (push 1) 2-0
 arti_set_external_variable: leds(0.000000) := 255.000000
              assign set ext.leds[0.000000] = 255.000000 (Pop 0)
                       varref Subpixel.t = 2.762207 (push 1) 1-1
@@ -441,12 +443,12 @@ arti_set_external_variable: leds(0.000000) := 255.000000
                  1.071130 * 239.000000 = 256.000000 (pop 2, push 3)
               256.000000 - 256.000000 = 0.000000 (pop 0, push 1)
              Subpixel.bri := 0.000000 (pop 0) 1-5
-                 varref renderLed.i = 1.000000 (push 1) 2-0
-                   INTEGER_CONST 0 (Push 2)
-                     INTEGER_CONST 255 (Push 3)
-                     varref Subpixel.bri = 0.000000 (push 4) 1-5
+                   INTEGER_CONST 0 (Push 1)
+                     INTEGER_CONST 255 (Push 2)
+                     varref Subpixel.bri = 0.000000 (push 3) 1-5
 hsv(0.000000, 255.000000, 0.000000)
-                Call hsv(0.000000, 255.000000, 0.000000) = 255.000000 (Pop 1, Push 2)
+                Call hsv(0.000000, 255.000000, 0.000000) = 255.000000 (Pop 0, Push 1)
+                 varref renderLed.i = 1.000000 (push 1) 2-0
 arti_set_external_variable: leds(1.000000) := 255.000000
              assign set ext.leds[1.000000] = 255.000000 (Pop 0)
                       varref Subpixel.t = 2.762207 (push 1) 1-1
@@ -468,12 +470,12 @@ arti_set_external_variable: leds(1.000000) := 255.000000
                  0.762207 * 239.000000 = 182.167374 (pop 2, push 3)
               256.000000 - 182.167374 = 73.832626 (pop 0, push 1)
              Subpixel.bri := 73.832626 (pop 0) 1-5
-                 varref renderLed.i = 2.000000 (push 1) 2-0
-                   INTEGER_CONST 0 (Push 2)
-                     INTEGER_CONST 255 (Push 3)
-                     varref Subpixel.bri = 73.832626 (push 4) 1-5
+                   INTEGER_CONST 0 (Push 1)
+                     INTEGER_CONST 255 (Push 2)
+                     varref Subpixel.bri = 73.832626 (push 3) 1-5
 hsv(0.000000, 255.000000, 73.832626)
-                Call hsv(0.000000, 255.000000, 73.832626) = 328.832642 (Pop 1, Push 2)
+                Call hsv(0.000000, 255.000000, 73.832626) = 328.832642 (Pop 0, Push 1)
+                 varref renderLed.i = 2.000000 (push 1) 2-0
 arti_set_external_variable: leds(2.000000) := 328.832642
              assign set ext.leds[2.000000] = 328.832642 (Pop 0)
 Destruct activation record renderLed
@@ -491,6 +493,6 @@ Destruct Symbol renderLed (0)
 Destruct Symbol diff (0)
 Destruct Symbol bri (0)
 Destruct ScopedSymbolTable Subpixel (0)
-definitionJson  11566 / 70% (26 0 6)
-parseTree       13145 / 20% (1 0 25)
+definitionJson  11598 / 70% (26 0 6)
+parseTree       7214 / 11% (1 0 25)
 closed Arti 0 ✓

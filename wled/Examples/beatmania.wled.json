@@ -1,0 +1,1045 @@
+{
+  "program": {
+    "ID": "Beatmania",
+    "block": {
+      "*": [
+        {
+          "statement": {
+            "function": {
+              "ID": "renderFrame",
+              "block": {
+                "*": [
+                  {
+                    "statement": {
+                      "call": {
+                        "ID": "fadeToBlackBy",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "factor": {
+                                "varref": {
+                                  "ID": "intensitySlider",
+                                  "external": 17
+                                }
+                              },
+                              "*": [
+                                {
+                                  "DIV": "/",
+                                  "token": 5
+                                },
+                                {
+                                  "factor": {
+                                    "INTEGER_CONST": "8",
+                                    "token": 0
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "external": 11
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "locn1",
+                          "level": 1,
+                          "index": 1
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "beatSin",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "factor": {
+                                      "varref": {
+                                        "ID": "speedSlider",
+                                        "external": 16
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "DIV": "/",
+                                        "token": 5
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "3",
+                                          "token": 0
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "*": [
+                                    {
+                                      "PLUS": "+",
+                                      "token": 2
+                                    },
+                                    {
+                                      "term": {
+                                        "INTEGER_CONST": "1",
+                                        "token": 0
+                                      }
+                                    }
+                                  ]
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "0",
+                                        "token": 0
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "varref": {
+                                          "ID": "ledCount",
+                                          "external": 0
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 10
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "locn2",
+                          "level": 1,
+                          "index": 2
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "beatSin",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "factor": {
+                                      "varref": {
+                                        "ID": "speedSlider",
+                                        "external": 16
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "DIV": "/",
+                                        "token": 5
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "4",
+                                          "token": 0
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "*": [
+                                    {
+                                      "PLUS": "+",
+                                      "token": 2
+                                    },
+                                    {
+                                      "term": {
+                                        "INTEGER_CONST": "1",
+                                        "token": 0
+                                      }
+                                    }
+                                  ]
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "0",
+                                        "token": 0
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "varref": {
+                                          "ID": "ledCount",
+                                          "external": 0
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 10
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "locn3",
+                          "level": 1,
+                          "index": 3
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "beatSin",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "factor": {
+                                      "varref": {
+                                        "ID": "speedSlider",
+                                        "external": 16
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "DIV": "/",
+                                        "token": 5
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "5",
+                                          "token": 0
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "*": [
+                                    {
+                                      "PLUS": "+",
+                                      "token": 2
+                                    },
+                                    {
+                                      "term": {
+                                        "INTEGER_CONST": "1",
+                                        "token": 0
+                                      }
+                                    }
+                                  ]
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "0",
+                                        "token": 0
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "factor": {
+                                          "varref": {
+                                            "ID": "ledCount",
+                                            "external": 0
+                                          }
+                                        },
+                                        "*": [
+                                          {
+                                            "DIV": "/",
+                                            "token": 5
+                                          },
+                                          {
+                                            "factor": {
+                                              "INTEGER_CONST": "2",
+                                              "token": 0
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "*": [
+                                        {
+                                          "PLUS": "+",
+                                          "token": 2
+                                        },
+                                        {
+                                          "term": {
+                                            "factor": {
+                                              "varref": {
+                                                "ID": "ledCount",
+                                                "external": 0
+                                              }
+                                            },
+                                            "*": [
+                                              {
+                                                "DIV": "/",
+                                                "token": 5
+                                              },
+                                              {
+                                                "factor": {
+                                                  "INTEGER_CONST": "3",
+                                                  "token": 0
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 10
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "colr1",
+                          "level": 1,
+                          "index": 4
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "beatSin",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "factor": {
+                                      "varref": {
+                                        "ID": "intensitySlider",
+                                        "external": 17
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "DIV": "/",
+                                        "token": 5
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "6",
+                                          "token": 0
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "*": [
+                                    {
+                                      "PLUS": "+",
+                                      "token": 2
+                                    },
+                                    {
+                                      "term": {
+                                        "INTEGER_CONST": "1",
+                                        "token": 0
+                                      }
+                                    }
+                                  ]
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "0",
+                                        "token": 0
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "255",
+                                        "token": 0
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 10
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "colr2",
+                          "level": 1,
+                          "index": 5
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "beatSin",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "factor": {
+                                      "varref": {
+                                        "ID": "intensitySlider",
+                                        "external": 17
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "DIV": "/",
+                                        "token": 5
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "7",
+                                          "token": 0
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "*": [
+                                    {
+                                      "PLUS": "+",
+                                      "token": 2
+                                    },
+                                    {
+                                      "term": {
+                                        "INTEGER_CONST": "1",
+                                        "token": 0
+                                      }
+                                    }
+                                  ]
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "0",
+                                        "token": 0
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "255",
+                                        "token": 0
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 10
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "colr3",
+                          "level": 1,
+                          "index": 6
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "beatSin",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "factor": {
+                                      "varref": {
+                                        "ID": "intensitySlider",
+                                        "external": 17
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "DIV": "/",
+                                        "token": 5
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "8",
+                                          "token": 0
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "*": [
+                                    {
+                                      "PLUS": "+",
+                                      "token": 2
+                                    },
+                                    {
+                                      "term": {
+                                        "INTEGER_CONST": "1",
+                                        "token": 0
+                                      }
+                                    }
+                                  ]
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "0",
+                                        "token": 0
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "255",
+                                        "token": 0
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 10
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "bri1",
+                          "level": 1,
+                          "index": 7
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "beatSin",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "factor": {
+                                      "varref": {
+                                        "ID": "intensitySlider",
+                                        "external": 17
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "DIV": "/",
+                                        "token": 5
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "6",
+                                          "token": 0
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "*": [
+                                    {
+                                      "PLUS": "+",
+                                      "token": 2
+                                    },
+                                    {
+                                      "term": {
+                                        "INTEGER_CONST": "1",
+                                        "token": 0
+                                      }
+                                    }
+                                  ]
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "32",
+                                        "token": 0
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "255",
+                                        "token": 0
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 10
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "bri2",
+                          "level": 1,
+                          "index": 8
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "beatSin",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "factor": {
+                                      "varref": {
+                                        "ID": "intensitySlider",
+                                        "external": 17
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "DIV": "/",
+                                        "token": 5
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "7",
+                                          "token": 0
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "*": [
+                                    {
+                                      "PLUS": "+",
+                                      "token": 2
+                                    },
+                                    {
+                                      "term": {
+                                        "INTEGER_CONST": "1",
+                                        "token": 0
+                                      }
+                                    }
+                                  ]
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "32",
+                                        "token": 0
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "255",
+                                        "token": 0
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 10
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "bri3",
+                          "level": 1,
+                          "index": 9
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "beatSin",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "factor": {
+                                      "varref": {
+                                        "ID": "intensitySlider",
+                                        "external": 17
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "DIV": "/",
+                                        "token": 5
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "8",
+                                          "token": 0
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "*": [
+                                    {
+                                      "PLUS": "+",
+                                      "token": 2
+                                    },
+                                    {
+                                      "term": {
+                                        "INTEGER_CONST": "132",
+                                        "token": 0
+                                      }
+                                    }
+                                  ]
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "255",
+                                        "token": 0
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 10
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "locn12",
+                          "level": 1,
+                          "index": 10
+                        },
+                        "expr": {
+                          "term": {
+                            "varref": {
+                              "ID": "locn1",
+                              "level": 1,
+                              "index": 1
+                            }
+                          },
+                          "*": [
+                            {
+                              "PLUS": "+",
+                              "token": 2
+                            },
+                            {
+                              "term": {
+                                "varref": {
+                                  "ID": "locn2",
+                                  "level": 1,
+                                  "index": 2
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "colr12",
+                          "level": 1,
+                          "index": 11
+                        },
+                        "expr": {
+                          "term": {
+                            "varref": {
+                              "ID": "colr1",
+                              "level": 1,
+                              "index": 4
+                            }
+                          },
+                          "*": [
+                            {
+                              "PLUS": "+",
+                              "token": 2
+                            },
+                            {
+                              "term": {
+                                "varref": {
+                                  "ID": "colr2",
+                                  "level": 1,
+                                  "index": 5
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "bri12",
+                          "level": 1,
+                          "index": 12
+                        },
+                        "expr": {
+                          "term": {
+                            "varref": {
+                              "ID": "bri1",
+                              "level": 1,
+                              "index": 7
+                            }
+                          },
+                          "*": [
+                            {
+                              "PLUS": "+",
+                              "token": 2
+                            },
+                            {
+                              "term": {
+                                "varref": {
+                                  "ID": "bri2",
+                                  "level": 1,
+                                  "index": 8
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "leds",
+                          "indices": {
+                            "expr": {
+                              "term": {
+                                "varref": {
+                                  "ID": "locn12",
+                                  "level": 1,
+                                  "index": 10
+                                }
+                              }
+                            }
+                          },
+                          "external": 2
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "colorFromPalette",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "varref": {
+                                      "ID": "colr12",
+                                      "level": 1,
+                                      "index": 11
+                                    }
+                                  }
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "varref": {
+                                          "ID": "bri12",
+                                          "level": 1,
+                                          "index": 12
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 9
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "leds",
+                          "indices": {
+                            "expr": {
+                              "term": {
+                                "varref": {
+                                  "ID": "locn1",
+                                  "level": 1,
+                                  "index": 1
+                                }
+                              }
+                            }
+                          },
+                          "external": 2
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "colorFromPalette",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "varref": {
+                                      "ID": "colr2",
+                                      "level": 1,
+                                      "index": 5
+                                    }
+                                  }
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "varref": {
+                                          "ID": "bri1",
+                                          "level": 1,
+                                          "index": 7
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 9
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "leds",
+                          "indices": {
+                            "expr": {
+                              "term": {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "locn2",
+                                    "level": 1,
+                                    "index": 2
+                                  }
+                                },
+                                "*": [
+                                  {
+                                    "MOD": "%",
+                                    "token": 6
+                                  },
+                                  {
+                                    "factor": {
+                                      "expr": {
+                                        "term": {
+                                          "varref": {
+                                            "ID": "ledCount",
+                                            "external": 0
+                                          }
+                                        },
+                                        "*": [
+                                          {
+                                            "MINUS": "-",
+                                            "token": 3
+                                          },
+                                          {
+                                            "term": {
+                                              "INTEGER_CONST": "1",
+                                              "token": 0
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "external": 2
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "colorFromPalette",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "varref": {
+                                      "ID": "colr1",
+                                      "level": 1,
+                                      "index": 4
+                                    }
+                                  }
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "varref": {
+                                          "ID": "bri2",
+                                          "level": 1,
+                                          "index": 8
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 9
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

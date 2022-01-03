@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_test.cpp
-   @version 0.2.2
-   @date    20211216
+   @version 0.2.3
+   @date    20220103
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */
@@ -48,4 +48,24 @@ int main()
   execute("wled.json", "Examples/block_reflections.wled");
   execute("wled.json", "Examples/ripple.wled");
   execute("wled.json", "Examples/Kitt.wled");
+  execute("wled.json", "Examples/beatmania.wled");
 }
+
+// Performance (fps) leds 50  300
+// ================= =======  ===
+// 02 CE Default          41  41      
+// 03 ColorRandom         41  19
+// 04 Kitt                41  41
+// 05 Shift               41  25 ?
+// 06 PhaseShift          41  20
+// 07 Subpixel            24  6
+// 11 Mover               41  30
+// 12 WaveSins            17  4
+// 13 Sinelon             41  41
+// 14 drip                41  41
+// 15 ripple              41  41
+// 16 beatmania           41  38
+// 17 PerlinMove          35  25
+// 18 twinkleup           16  4
+// 19 block reflections   13  3
+// }
