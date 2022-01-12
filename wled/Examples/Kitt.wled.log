@@ -214,7 +214,7 @@ parseTree 65536 => 0 ✓
  found block
 Node program Parsed until (29,1) 484 of 484
 parse 0 ✓
-definitionTree 11598 / 70% (26 0 6)
+definitionTree 11885 / 72% (26 0 6)
 parseTree      13540 / 20% (1 0 24)
 garbageCollect 13540 / 20% -> 8900 / 13%
 Destruct Lexer
@@ -447,6 +447,6 @@ Destruct Symbol pixelCounter (0)
 Destruct Symbol goingUp (0)
 Destruct Symbol renderFrame (0)
 Destruct ScopedSymbolTable Kitt (0)
-definitionJson  11598 / 70% (26 0 6)
+definitionJson  11885 / 72% (26 0 6)
 parseTree       6894 / 10% (1 0 22)
 closed Arti 0 ✓

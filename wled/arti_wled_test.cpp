@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_test.cpp
-   @version 0.2.3
-   @date    20220103
+   @version 0.3.0
+   @date    20220112
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */
@@ -37,7 +37,6 @@ void execute(const char *definitionName, const char *programName)
 
 int main() 
 {
-  execute("wled.json", "Examples/default.wled");
   execute("wled.json", "Examples/Subpixel.wled");
   execute("wled.json", "Examples/PhaseShift.wled");
   execute("wled.json", "Examples/Mover.wled");
@@ -49,23 +48,26 @@ int main()
   execute("wled.json", "Examples/ripple.wled");
   execute("wled.json", "Examples/Kitt.wled");
   execute("wled.json", "Examples/beatmania.wled");
+  execute("wled.json", "Examples/halloween_color_twinkles.wled");
+  execute("wled.json", "Examples/matrix_2D_pulse.wled");
 }
 
-// Performance (fps) leds 50  300
-// ================= =======  ===
+// Performance (fps) leds 50  300 prev 50  300   
+// ================= =======  === =======  ===
 // 02 CE Default          41  41      
 // 03 ColorRandom         41  19
 // 04 Kitt                41  41
 // 05 Shift               41  25 ?
 // 06 PhaseShift          41  20
-// 07 Subpixel            24  6
+// 07 Subpixel            24  6       14
 // 11 Mover               41  30
-// 12 WaveSins            17  4
+// 12 WaveSins            17  4       12
 // 13 Sinelon             41  41
 // 14 drip                41  41
 // 15 ripple              41  41
 // 16 beatmania           41  38
 // 17 PerlinMove          35  25
-// 18 twinkleup           16  4
-// 19 block reflections   13  3
+// 18 twinkleup           16  4       10
+// 19 block reflections   13  3       7
+// glitch bands            8          4
 // }

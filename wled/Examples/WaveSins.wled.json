@@ -35,7 +35,7 @@
                                       "factor": {
                                         "call": {
                                           "ID": "millis",
-                                          "external": 36
+                                          "external": 39
                                         }
                                       },
                                       "*": [
@@ -74,7 +74,7 @@
                                               "factor": {
                                                 "varref": {
                                                   "ID": "intensitySlider",
-                                                  "external": 17
+                                                  "external": 19
                                                 }
                                               }
                                             }
@@ -84,7 +84,7 @@
                                     ]
                                   }
                                 },
-                                "external": 28
+                                "external": 30
                               }
                             },
                             "*": [
@@ -132,7 +132,7 @@
                               }
                             }
                           },
-                          "external": 2
+                          "external": 4
                         },
                         "expr": {
                           "term": {
@@ -148,7 +148,7 @@
                                           "term": {
                                             "varref": {
                                               "ID": "speedSlider",
-                                              "external": 16
+                                              "external": 18
                                             }
                                           }
                                         },
@@ -158,7 +158,7 @@
                                               "term": {
                                                 "varref": {
                                                   "ID": "custom1Slider",
-                                                  "external": 18
+                                                  "external": 20
                                                 }
                                               }
                                             }
@@ -168,7 +168,7 @@
                                               "term": {
                                                 "varref": {
                                                   "ID": "custom1Slider",
-                                                  "external": 18
+                                                  "external": 20
                                                 }
                                               },
                                               "*": [
@@ -180,7 +180,7 @@
                                                   "term": {
                                                     "varref": {
                                                       "ID": "custom2Slider",
-                                                      "external": 19
+                                                      "external": 21
                                                     }
                                                   }
                                                 }
@@ -214,7 +214,7 @@
                                                     "factor": {
                                                       "varref": {
                                                         "ID": "custom3Slider",
-                                                        "external": 20
+                                                        "external": 22
                                                       }
                                                     }
                                                   }
@@ -224,7 +224,7 @@
                                           }
                                         ]
                                       },
-                                      "external": 10
+                                      "external": 12
                                     }
                                   }
                                 },
@@ -242,7 +242,7 @@
                                   }
                                 ]
                               },
-                              "external": 9
+                              "external": 11
                             }
                           }
                         }

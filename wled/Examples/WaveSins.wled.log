@@ -147,7 +147,7 @@ parseTree 65536 => 0 ✓
  found block
 Node program Parsed until (15,1) 402 of 402
 parse 0 ✓
-definitionTree 11598 / 70% (26 0 6)
+definitionTree 11885 / 72% (26 0 6)
 parseTree      9236 / 14% (1 0 30)
 garbageCollect 9236 / 14% -> 6356 / 9%
 Destruct Lexer
@@ -205,8 +205,8 @@ Interpret main 0 ✓
                      PLUS + (Push 2)
                        varref renderLed.i = 0.000000 (push 3) 2-0
                         MUL * (Push 4)
-                         varref ext.intensitySlider = 17.000000 (push 5)
-                     0.000000 * 17.000000 = 0.000000 (pop 2, push 3)
+                         varref ext.intensitySlider = 19.000000 (push 5)
+                     0.000000 * 19.000000 = 0.000000 (pop 2, push 3)
                   250.000000 + 0.000000 = 250.000000 (pop 0, push 1)
                  Call sin(250.000000) = -0.970528 (Pop 0, Push 1)
                   MUL * (Push 2)
@@ -216,23 +216,23 @@ Interpret main 0 ✓
                   INTEGER_CONST 128 (Push 3)
               -124.227585 + 128.000000 = 3.772415 (pop 0, push 1)
              WaveSins.bri := 3.772415 (pop 0) 1-1
-                      varref ext.speedSlider = 16.000000 (push 1)
-                        varref ext.custom1Slider = 18.000000 (push 2)
-                        varref ext.custom1Slider = 18.000000 (push 3)
+                      varref ext.speedSlider = 18.000000 (push 1)
+                        varref ext.custom1Slider = 20.000000 (push 2)
+                        varref ext.custom1Slider = 20.000000 (push 3)
                          PLUS + (Push 4)
-                          varref ext.custom2Slider = 19.000000 (push 5)
-                      18.000000 + 19.000000 = 37.000000 (pop 2, push 3)
+                          varref ext.custom2Slider = 21.000000 (push 5)
+                      20.000000 + 21.000000 = 41.000000 (pop 2, push 3)
                         INTEGER_CONST 0 (Push 4)
                          varref renderLed.i = 0.000000 (push 5) 2-0
                           MUL * (Push 6)
-                           varref ext.custom3Slider = 20.000000 (push 7)
-                       0.000000 * 20.000000 = 0.000000 (pop 4, push 5)
-                   Call beatSin(16.000000, 18.000000, 37.000000, 0.000000, 0.000000) = 71.000000 (Pop 0, Push 1)
+                           varref ext.custom3Slider = 22.000000 (push 7)
+                       0.000000 * 22.000000 = 0.000000 (pop 4, push 5)
+                   Call beatSin(18.000000, 20.000000, 41.000000, 0.000000, 0.000000) = 79.000000 (Pop 0, Push 1)
                      varref WaveSins.bri = 3.772415 (push 2) 1-1
-                Call colorFromPalette(71.000000, 3.772415) = 74.772415 (Pop 0, Push 1)
+                Call colorFromPalette(79.000000, 3.772415) = 82.772415 (Pop 0, Push 1)
                  varref renderLed.i = 0.000000 (push 1) 2-0
-arti_set_external_variable: leds(0.000000) := 74.772415
-             assign set ext.leds[0.000000] = 74.772415 (Pop 0)
+arti_set_external_variable: leds(0.000000) := 82.772415
+             assign set ext.leds[0.000000] = 82.772415 (Pop 0)
                      Call millis() = 1000.000000 (Pop 0, Push 1)
                       DIV / (Push 2)
                        INTEGER_CONST 4 (Push 3)
@@ -240,34 +240,34 @@ arti_set_external_variable: leds(0.000000) := 74.772415
                      PLUS + (Push 2)
                        varref renderLed.i = 1.000000 (push 3) 2-0
                         MUL * (Push 4)
-                         varref ext.intensitySlider = 17.000000 (push 5)
-                     1.000000 * 17.000000 = 17.000000 (pop 2, push 3)
-                  250.000000 + 17.000000 = 267.000000 (pop 0, push 1)
-                 Call sin(267.000000) = 0.035368 (Pop 0, Push 1)
+                         varref ext.intensitySlider = 19.000000 (push 5)
+                     1.000000 * 19.000000 = 19.000000 (pop 2, push 3)
+                  250.000000 + 19.000000 = 269.000000 (pop 0, push 1)
+                 Call sin(269.000000) = -0.923447 (Pop 0, Push 1)
                   MUL * (Push 2)
                    INTEGER_CONST 128 (Push 3)
-               0.035368 * 128.000000 = 4.527127 (pop 0, push 1)
+               -0.923447 * 128.000000 = -118.201202 (pop 0, push 1)
                  PLUS + (Push 2)
                   INTEGER_CONST 128 (Push 3)
-              4.527127 + 128.000000 = 132.527130 (pop 0, push 1)
-             WaveSins.bri := 132.527130 (pop 0) 1-1
-                      varref ext.speedSlider = 16.000000 (push 1)
-                        varref ext.custom1Slider = 18.000000 (push 2)
-                        varref ext.custom1Slider = 18.000000 (push 3)
+              -118.201202 + 128.000000 = 9.798798 (pop 0, push 1)
+             WaveSins.bri := 9.798798 (pop 0) 1-1
+                      varref ext.speedSlider = 18.000000 (push 1)
+                        varref ext.custom1Slider = 20.000000 (push 2)
+                        varref ext.custom1Slider = 20.000000 (push 3)
                          PLUS + (Push 4)
-                          varref ext.custom2Slider = 19.000000 (push 5)
-                      18.000000 + 19.000000 = 37.000000 (pop 2, push 3)
+                          varref ext.custom2Slider = 21.000000 (push 5)
+                      20.000000 + 21.000000 = 41.000000 (pop 2, push 3)
                         INTEGER_CONST 0 (Push 4)
                          varref renderLed.i = 1.000000 (push 5) 2-0
                           MUL * (Push 6)
-                           varref ext.custom3Slider = 20.000000 (push 7)
-                       1.000000 * 20.000000 = 20.000000 (pop 4, push 5)
-                   Call beatSin(16.000000, 18.000000, 37.000000, 0.000000, 20.000000) = 91.000000 (Pop 0, Push 1)
-                     varref WaveSins.bri = 132.527130 (push 2) 1-1
-                Call colorFromPalette(91.000000, 132.527130) = 223.527130 (Pop 0, Push 1)
+                           varref ext.custom3Slider = 22.000000 (push 7)
+                       1.000000 * 22.000000 = 22.000000 (pop 4, push 5)
+                   Call beatSin(18.000000, 20.000000, 41.000000, 0.000000, 22.000000) = 101.000000 (Pop 0, Push 1)
+                     varref WaveSins.bri = 9.798798 (push 2) 1-1
+                Call colorFromPalette(101.000000, 9.798798) = 110.798798 (Pop 0, Push 1)
                  varref renderLed.i = 1.000000 (push 1) 2-0
-arti_set_external_variable: leds(1.000000) := 223.527130
-             assign set ext.leds[1.000000] = 223.527130 (Pop 0)
+arti_set_external_variable: leds(1.000000) := 110.798798
+             assign set ext.leds[1.000000] = 110.798798 (Pop 0)
                      Call millis() = 1000.000000 (Pop 0, Push 1)
                       DIV / (Push 2)
                        INTEGER_CONST 4 (Push 3)
@@ -275,34 +275,34 @@ arti_set_external_variable: leds(1.000000) := 223.527130
                      PLUS + (Push 2)
                        varref renderLed.i = 2.000000 (push 3) 2-0
                         MUL * (Push 4)
-                         varref ext.intensitySlider = 17.000000 (push 5)
-                     2.000000 * 17.000000 = 34.000000 (pop 2, push 3)
-                  250.000000 + 34.000000 = 284.000000 (pop 0, push 1)
-                 Call sin(284.000000) = 0.951064 (Pop 0, Push 1)
+                         varref ext.intensitySlider = 19.000000 (push 5)
+                     2.000000 * 19.000000 = 38.000000 (pop 2, push 3)
+                  250.000000 + 38.000000 = 288.000000 (pop 0, push 1)
+                 Call sin(288.000000) = -0.855504 (Pop 0, Push 1)
                   MUL * (Push 2)
                    INTEGER_CONST 128 (Push 3)
-               0.951064 * 128.000000 = 121.736191 (pop 0, push 1)
+               -0.855504 * 128.000000 = -109.504555 (pop 0, push 1)
                  PLUS + (Push 2)
                   INTEGER_CONST 128 (Push 3)
-              121.736191 + 128.000000 = 249.736191 (pop 0, push 1)
-             WaveSins.bri := 249.736191 (pop 0) 1-1
-                      varref ext.speedSlider = 16.000000 (push 1)
-                        varref ext.custom1Slider = 18.000000 (push 2)
-                        varref ext.custom1Slider = 18.000000 (push 3)
+              -109.504555 + 128.000000 = 18.495445 (pop 0, push 1)
+             WaveSins.bri := 18.495445 (pop 0) 1-1
+                      varref ext.speedSlider = 18.000000 (push 1)
+                        varref ext.custom1Slider = 20.000000 (push 2)
+                        varref ext.custom1Slider = 20.000000 (push 3)
                          PLUS + (Push 4)
-                          varref ext.custom2Slider = 19.000000 (push 5)
-                      18.000000 + 19.000000 = 37.000000 (pop 2, push 3)
+                          varref ext.custom2Slider = 21.000000 (push 5)
+                      20.000000 + 21.000000 = 41.000000 (pop 2, push 3)
                         INTEGER_CONST 0 (Push 4)
                          varref renderLed.i = 2.000000 (push 5) 2-0
                           MUL * (Push 6)
-                           varref ext.custom3Slider = 20.000000 (push 7)
-                       2.000000 * 20.000000 = 40.000000 (pop 4, push 5)
-                   Call beatSin(16.000000, 18.000000, 37.000000, 0.000000, 40.000000) = 111.000000 (Pop 0, Push 1)
-                     varref WaveSins.bri = 249.736191 (push 2) 1-1
-                Call colorFromPalette(111.000000, 249.736191) = 360.736206 (Pop 0, Push 1)
+                           varref ext.custom3Slider = 22.000000 (push 7)
+                       2.000000 * 22.000000 = 44.000000 (pop 4, push 5)
+                   Call beatSin(18.000000, 20.000000, 41.000000, 0.000000, 44.000000) = 123.000000 (Pop 0, Push 1)
+                     varref WaveSins.bri = 18.495445 (push 2) 1-1
+                Call colorFromPalette(123.000000, 18.495445) = 141.495453 (Pop 0, Push 1)
                  varref renderLed.i = 2.000000 (push 1) 2-0
-arti_set_external_variable: leds(2.000000) := 360.736206
-             assign set ext.leds[2.000000] = 360.736206 (Pop 0)
+arti_set_external_variable: leds(2.000000) := 141.495453
+             assign set ext.leds[2.000000] = 141.495453 (Pop 0)
 Destruct activation record renderLed
 setPixels(leds)
                      Call millis() = 1000.000000 (Pop 0, Push 1)
@@ -312,8 +312,8 @@ setPixels(leds)
                      PLUS + (Push 2)
                        varref renderLed.i = 0.000000 (push 3) 2-0
                         MUL * (Push 4)
-                         varref ext.intensitySlider = 17.000000 (push 5)
-                     0.000000 * 17.000000 = 0.000000 (pop 2, push 3)
+                         varref ext.intensitySlider = 19.000000 (push 5)
+                     0.000000 * 19.000000 = 0.000000 (pop 2, push 3)
                   250.000000 + 0.000000 = 250.000000 (pop 0, push 1)
                  Call sin(250.000000) = -0.970528 (Pop 0, Push 1)
                   MUL * (Push 2)
@@ -323,23 +323,23 @@ setPixels(leds)
                   INTEGER_CONST 128 (Push 3)
               -124.227585 + 128.000000 = 3.772415 (pop 0, push 1)
              WaveSins.bri := 3.772415 (pop 0) 1-1
-                      varref ext.speedSlider = 16.000000 (push 1)
-                        varref ext.custom1Slider = 18.000000 (push 2)
-                        varref ext.custom1Slider = 18.000000 (push 3)
+                      varref ext.speedSlider = 18.000000 (push 1)
+                        varref ext.custom1Slider = 20.000000 (push 2)
+                        varref ext.custom1Slider = 20.000000 (push 3)
                          PLUS + (Push 4)
-                          varref ext.custom2Slider = 19.000000 (push 5)
-                      18.000000 + 19.000000 = 37.000000 (pop 2, push 3)
+                          varref ext.custom2Slider = 21.000000 (push 5)
+                      20.000000 + 21.000000 = 41.000000 (pop 2, push 3)
                         INTEGER_CONST 0 (Push 4)
                          varref renderLed.i = 0.000000 (push 5) 2-0
                           MUL * (Push 6)
-                           varref ext.custom3Slider = 20.000000 (push 7)
-                       0.000000 * 20.000000 = 0.000000 (pop 4, push 5)
-                   Call beatSin(16.000000, 18.000000, 37.000000, 0.000000, 0.000000) = 71.000000 (Pop 0, Push 1)
+                           varref ext.custom3Slider = 22.000000 (push 7)
+                       0.000000 * 22.000000 = 0.000000 (pop 4, push 5)
+                   Call beatSin(18.000000, 20.000000, 41.000000, 0.000000, 0.000000) = 79.000000 (Pop 0, Push 1)
                      varref WaveSins.bri = 3.772415 (push 2) 1-1
-                Call colorFromPalette(71.000000, 3.772415) = 74.772415 (Pop 0, Push 1)
+                Call colorFromPalette(79.000000, 3.772415) = 82.772415 (Pop 0, Push 1)
                  varref renderLed.i = 0.000000 (push 1) 2-0
-arti_set_external_variable: leds(0.000000) := 74.772415
-             assign set ext.leds[0.000000] = 74.772415 (Pop 0)
+arti_set_external_variable: leds(0.000000) := 82.772415
+             assign set ext.leds[0.000000] = 82.772415 (Pop 0)
                      Call millis() = 1000.000000 (Pop 0, Push 1)
                       DIV / (Push 2)
                        INTEGER_CONST 4 (Push 3)
@@ -347,34 +347,34 @@ arti_set_external_variable: leds(0.000000) := 74.772415
                      PLUS + (Push 2)
                        varref renderLed.i = 1.000000 (push 3) 2-0
                         MUL * (Push 4)
-                         varref ext.intensitySlider = 17.000000 (push 5)
-                     1.000000 * 17.000000 = 17.000000 (pop 2, push 3)
-                  250.000000 + 17.000000 = 267.000000 (pop 0, push 1)
-                 Call sin(267.000000) = 0.035368 (Pop 0, Push 1)
+                         varref ext.intensitySlider = 19.000000 (push 5)
+                     1.000000 * 19.000000 = 19.000000 (pop 2, push 3)
+                  250.000000 + 19.000000 = 269.000000 (pop 0, push 1)
+                 Call sin(269.000000) = -0.923447 (Pop 0, Push 1)
                   MUL * (Push 2)
                    INTEGER_CONST 128 (Push 3)
-               0.035368 * 128.000000 = 4.527127 (pop 0, push 1)
+               -0.923447 * 128.000000 = -118.201202 (pop 0, push 1)
                  PLUS + (Push 2)
                   INTEGER_CONST 128 (Push 3)
-              4.527127 + 128.000000 = 132.527130 (pop 0, push 1)
-             WaveSins.bri := 132.527130 (pop 0) 1-1
-                      varref ext.speedSlider = 16.000000 (push 1)
-                        varref ext.custom1Slider = 18.000000 (push 2)
-                        varref ext.custom1Slider = 18.000000 (push 3)
+              -118.201202 + 128.000000 = 9.798798 (pop 0, push 1)
+             WaveSins.bri := 9.798798 (pop 0) 1-1
+                      varref ext.speedSlider = 18.000000 (push 1)
+                        varref ext.custom1Slider = 20.000000 (push 2)
+                        varref ext.custom1Slider = 20.000000 (push 3)
                          PLUS + (Push 4)
-                          varref ext.custom2Slider = 19.000000 (push 5)
-                      18.000000 + 19.000000 = 37.000000 (pop 2, push 3)
+                          varref ext.custom2Slider = 21.000000 (push 5)
+                      20.000000 + 21.000000 = 41.000000 (pop 2, push 3)
                         INTEGER_CONST 0 (Push 4)
                          varref renderLed.i = 1.000000 (push 5) 2-0
                           MUL * (Push 6)
-                           varref ext.custom3Slider = 20.000000 (push 7)
-                       1.000000 * 20.000000 = 20.000000 (pop 4, push 5)
-                   Call beatSin(16.000000, 18.000000, 37.000000, 0.000000, 20.000000) = 91.000000 (Pop 0, Push 1)
-                     varref WaveSins.bri = 132.527130 (push 2) 1-1
-                Call colorFromPalette(91.000000, 132.527130) = 223.527130 (Pop 0, Push 1)
+                           varref ext.custom3Slider = 22.000000 (push 7)
+                       1.000000 * 22.000000 = 22.000000 (pop 4, push 5)
+                   Call beatSin(18.000000, 20.000000, 41.000000, 0.000000, 22.000000) = 101.000000 (Pop 0, Push 1)
+                     varref WaveSins.bri = 9.798798 (push 2) 1-1
+                Call colorFromPalette(101.000000, 9.798798) = 110.798798 (Pop 0, Push 1)
                  varref renderLed.i = 1.000000 (push 1) 2-0
-arti_set_external_variable: leds(1.000000) := 223.527130
-             assign set ext.leds[1.000000] = 223.527130 (Pop 0)
+arti_set_external_variable: leds(1.000000) := 110.798798
+             assign set ext.leds[1.000000] = 110.798798 (Pop 0)
                      Call millis() = 1000.000000 (Pop 0, Push 1)
                       DIV / (Push 2)
                        INTEGER_CONST 4 (Push 3)
@@ -382,34 +382,34 @@ arti_set_external_variable: leds(1.000000) := 223.527130
                      PLUS + (Push 2)
                        varref renderLed.i = 2.000000 (push 3) 2-0
                         MUL * (Push 4)
-                         varref ext.intensitySlider = 17.000000 (push 5)
-                     2.000000 * 17.000000 = 34.000000 (pop 2, push 3)
-                  250.000000 + 34.000000 = 284.000000 (pop 0, push 1)
-                 Call sin(284.000000) = 0.951064 (Pop 0, Push 1)
+                         varref ext.intensitySlider = 19.000000 (push 5)
+                     2.000000 * 19.000000 = 38.000000 (pop 2, push 3)
+                  250.000000 + 38.000000 = 288.000000 (pop 0, push 1)
+                 Call sin(288.000000) = -0.855504 (Pop 0, Push 1)
                   MUL * (Push 2)
                    INTEGER_CONST 128 (Push 3)
-               0.951064 * 128.000000 = 121.736191 (pop 0, push 1)
+               -0.855504 * 128.000000 = -109.504555 (pop 0, push 1)
                  PLUS + (Push 2)
                   INTEGER_CONST 128 (Push 3)
-              121.736191 + 128.000000 = 249.736191 (pop 0, push 1)
-             WaveSins.bri := 249.736191 (pop 0) 1-1
-                      varref ext.speedSlider = 16.000000 (push 1)
-                        varref ext.custom1Slider = 18.000000 (push 2)
-                        varref ext.custom1Slider = 18.000000 (push 3)
+              -109.504555 + 128.000000 = 18.495445 (pop 0, push 1)
+             WaveSins.bri := 18.495445 (pop 0) 1-1
+                      varref ext.speedSlider = 18.000000 (push 1)
+                        varref ext.custom1Slider = 20.000000 (push 2)
+                        varref ext.custom1Slider = 20.000000 (push 3)
                          PLUS + (Push 4)
-                          varref ext.custom2Slider = 19.000000 (push 5)
-                      18.000000 + 19.000000 = 37.000000 (pop 2, push 3)
+                          varref ext.custom2Slider = 21.000000 (push 5)
+                      20.000000 + 21.000000 = 41.000000 (pop 2, push 3)
                         INTEGER_CONST 0 (Push 4)
                          varref renderLed.i = 2.000000 (push 5) 2-0
                           MUL * (Push 6)
-                           varref ext.custom3Slider = 20.000000 (push 7)
-                       2.000000 * 20.000000 = 40.000000 (pop 4, push 5)
-                   Call beatSin(16.000000, 18.000000, 37.000000, 0.000000, 40.000000) = 111.000000 (Pop 0, Push 1)
-                     varref WaveSins.bri = 249.736191 (push 2) 1-1
-                Call colorFromPalette(111.000000, 249.736191) = 360.736206 (Pop 0, Push 1)
+                           varref ext.custom3Slider = 22.000000 (push 7)
+                       2.000000 * 22.000000 = 44.000000 (pop 4, push 5)
+                   Call beatSin(18.000000, 20.000000, 41.000000, 0.000000, 44.000000) = 123.000000 (Pop 0, Push 1)
+                     varref WaveSins.bri = 18.495445 (push 2) 1-1
+                Call colorFromPalette(123.000000, 18.495445) = 141.495453 (Pop 0, Push 1)
                  varref renderLed.i = 2.000000 (push 1) 2-0
-arti_set_external_variable: leds(2.000000) := 360.736206
-             assign set ext.leds[2.000000] = 360.736206 (Pop 0)
+arti_set_external_variable: leds(2.000000) := 141.495453
+             assign set ext.leds[2.000000] = 141.495453 (Pop 0)
 Destruct activation record renderLed
 setPixels(leds)
 closing Arti 0
@@ -420,6 +420,6 @@ Destruct ScopedSymbolTable renderLed (0)
 Destruct Symbol renderLed (0)
 Destruct Symbol bri (0)
 Destruct ScopedSymbolTable WaveSins (0)
-definitionJson  11598 / 70% (26 0 6)
+definitionJson  11885 / 72% (26 0 6)
 parseTree       5332 / 8% (1 0 28)
 closed Arti 0 ✓

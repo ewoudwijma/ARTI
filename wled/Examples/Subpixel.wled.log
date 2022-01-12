@@ -202,7 +202,7 @@ parseTree 65536 => 0 ✓
  found block
 Node program Parsed until (26,0) 954 of 954
 parse 0 ✓
-definitionTree 11598 / 70% (26 0 6)
+definitionTree 11885 / 72% (26 0 6)
 parseTree      12441 / 18% (1 0 28)
 garbageCollect 12441 / 18% -> 8633 / 13%
 Destruct Lexer
@@ -289,9 +289,9 @@ Interpret main 0 ✓
              Subpixel.t *= 2.762207 (pop 0) 1-1
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                  varref ext.intensitySlider = 17.000000 (push 3)
-              256.000000 - 17.000000 = 239.000000 (pop 0, push 1)
-             Subpixel.reverseSlider := 239.000000 (pop 0) 1-2
+                  varref ext.intensitySlider = 19.000000 (push 3)
+              256.000000 - 19.000000 = 237.000000 (pop 0, push 1)
+             Subpixel.reverseSlider := 237.000000 (pop 0) 1-2
 Destruct activation record renderFrame
                       varref Subpixel.t = 2.762207 (push 1) 1-1
                        MINUS - (Push 2)
@@ -300,26 +300,26 @@ Destruct activation record renderFrame
                    Call abs(2.762207) = 2.762207 (Pop 0, Push 1)
                       INTEGER_CONST 256 (Push 2)
                        DIV / (Push 3)
-                        varref Subpixel.reverseSlider = 239.000000 (push 4) 1-2
-                    256.000000 / 239.000000 = 1.071130 (pop 1, push 2)
-                Call min(2.762207, 1.071130) = 1.071130 (Pop 0, Push 1)
-             Subpixel.diff := 1.071130 (pop 0) 1-4
+                        varref Subpixel.reverseSlider = 237.000000 (push 4) 1-2
+                    256.000000 / 237.000000 = 1.080169 (pop 1, push 2)
+                Call min(2.762207, 1.080169) = 1.080169 (Pop 0, Push 1)
+             Subpixel.diff := 1.080169 (pop 0) 1-4
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                   varref Subpixel.diff = 1.071130 (push 3) 1-4
+                   varref Subpixel.diff = 1.080169 (push 3) 1-4
                     MUL * (Push 4)
-                     varref Subpixel.reverseSlider = 239.000000 (push 5) 1-2
-                 1.071130 * 239.000000 = 256.000000 (pop 2, push 3)
-              256.000000 - 256.000000 = 0.000000 (pop 0, push 1)
-             Subpixel.bri := 0.000000 (pop 0) 1-5
+                     varref Subpixel.reverseSlider = 237.000000 (push 5) 1-2
+                 1.080169 * 237.000000 = 255.999985 (pop 2, push 3)
+              256.000000 - 255.999985 = 0.000015 (pop 0, push 1)
+             Subpixel.bri := 0.000015 (pop 0) 1-5
                    INTEGER_CONST 0 (Push 1)
                      INTEGER_CONST 255 (Push 2)
-                     varref Subpixel.bri = 0.000000 (push 3) 1-5
-hsv(0.000000, 255.000000, 0.000000)
-                Call hsv(0.000000, 255.000000, 0.000000) = 255.000000 (Pop 0, Push 1)
+                     varref Subpixel.bri = 0.000015 (push 3) 1-5
+hsv(0.000000, 255.000000, 0.000015)
+                Call hsv(0.000000, 255.000000, 0.000015) = 255.000015 (Pop 0, Push 1)
                  varref renderLed.i = 0.000000 (push 1) 2-0
-arti_set_external_variable: leds(0.000000) := 255.000000
-             assign set ext.leds[0.000000] = 255.000000 (Pop 0)
+arti_set_external_variable: leds(0.000000) := 255.000015
+             assign set ext.leds[0.000000] = 255.000015 (Pop 0)
                       varref Subpixel.t = 2.762207 (push 1) 1-1
                        MINUS - (Push 2)
                         varref renderLed.i = 1.000000 (push 3) 2-0
@@ -327,26 +327,26 @@ arti_set_external_variable: leds(0.000000) := 255.000000
                    Call abs(1.762207) = 1.762207 (Pop 0, Push 1)
                       INTEGER_CONST 256 (Push 2)
                        DIV / (Push 3)
-                        varref Subpixel.reverseSlider = 239.000000 (push 4) 1-2
-                    256.000000 / 239.000000 = 1.071130 (pop 1, push 2)
-                Call min(1.762207, 1.071130) = 1.071130 (Pop 0, Push 1)
-             Subpixel.diff := 1.071130 (pop 0) 1-4
+                        varref Subpixel.reverseSlider = 237.000000 (push 4) 1-2
+                    256.000000 / 237.000000 = 1.080169 (pop 1, push 2)
+                Call min(1.762207, 1.080169) = 1.080169 (Pop 0, Push 1)
+             Subpixel.diff := 1.080169 (pop 0) 1-4
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                   varref Subpixel.diff = 1.071130 (push 3) 1-4
+                   varref Subpixel.diff = 1.080169 (push 3) 1-4
                     MUL * (Push 4)
-                     varref Subpixel.reverseSlider = 239.000000 (push 5) 1-2
-                 1.071130 * 239.000000 = 256.000000 (pop 2, push 3)
-              256.000000 - 256.000000 = 0.000000 (pop 0, push 1)
-             Subpixel.bri := 0.000000 (pop 0) 1-5
+                     varref Subpixel.reverseSlider = 237.000000 (push 5) 1-2
+                 1.080169 * 237.000000 = 255.999985 (pop 2, push 3)
+              256.000000 - 255.999985 = 0.000015 (pop 0, push 1)
+             Subpixel.bri := 0.000015 (pop 0) 1-5
                    INTEGER_CONST 0 (Push 1)
                      INTEGER_CONST 255 (Push 2)
-                     varref Subpixel.bri = 0.000000 (push 3) 1-5
-hsv(0.000000, 255.000000, 0.000000)
-                Call hsv(0.000000, 255.000000, 0.000000) = 255.000000 (Pop 0, Push 1)
+                     varref Subpixel.bri = 0.000015 (push 3) 1-5
+hsv(0.000000, 255.000000, 0.000015)
+                Call hsv(0.000000, 255.000000, 0.000015) = 255.000015 (Pop 0, Push 1)
                  varref renderLed.i = 1.000000 (push 1) 2-0
-arti_set_external_variable: leds(1.000000) := 255.000000
-             assign set ext.leds[1.000000] = 255.000000 (Pop 0)
+arti_set_external_variable: leds(1.000000) := 255.000015
+             assign set ext.leds[1.000000] = 255.000015 (Pop 0)
                       varref Subpixel.t = 2.762207 (push 1) 1-1
                        MINUS - (Push 2)
                         varref renderLed.i = 2.000000 (push 3) 2-0
@@ -354,26 +354,26 @@ arti_set_external_variable: leds(1.000000) := 255.000000
                    Call abs(0.762207) = 0.762207 (Pop 0, Push 1)
                       INTEGER_CONST 256 (Push 2)
                        DIV / (Push 3)
-                        varref Subpixel.reverseSlider = 239.000000 (push 4) 1-2
-                    256.000000 / 239.000000 = 1.071130 (pop 1, push 2)
-                Call min(0.762207, 1.071130) = 0.762207 (Pop 0, Push 1)
+                        varref Subpixel.reverseSlider = 237.000000 (push 4) 1-2
+                    256.000000 / 237.000000 = 1.080169 (pop 1, push 2)
+                Call min(0.762207, 1.080169) = 0.762207 (Pop 0, Push 1)
              Subpixel.diff := 0.762207 (pop 0) 1-4
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
                    varref Subpixel.diff = 0.762207 (push 3) 1-4
                     MUL * (Push 4)
-                     varref Subpixel.reverseSlider = 239.000000 (push 5) 1-2
-                 0.762207 * 239.000000 = 182.167374 (pop 2, push 3)
-              256.000000 - 182.167374 = 73.832626 (pop 0, push 1)
-             Subpixel.bri := 73.832626 (pop 0) 1-5
+                     varref Subpixel.reverseSlider = 237.000000 (push 5) 1-2
+                 0.762207 * 237.000000 = 180.642960 (pop 2, push 3)
+              256.000000 - 180.642960 = 75.357040 (pop 0, push 1)
+             Subpixel.bri := 75.357040 (pop 0) 1-5
                    INTEGER_CONST 0 (Push 1)
                      INTEGER_CONST 255 (Push 2)
-                     varref Subpixel.bri = 73.832626 (push 3) 1-5
-hsv(0.000000, 255.000000, 73.832626)
-                Call hsv(0.000000, 255.000000, 73.832626) = 328.832642 (Pop 0, Push 1)
+                     varref Subpixel.bri = 75.357040 (push 3) 1-5
+hsv(0.000000, 255.000000, 75.357040)
+                Call hsv(0.000000, 255.000000, 75.357040) = 330.357056 (Pop 0, Push 1)
                  varref renderLed.i = 2.000000 (push 1) 2-0
-arti_set_external_variable: leds(2.000000) := 328.832642
-             assign set ext.leds[2.000000] = 328.832642 (Pop 0)
+arti_set_external_variable: leds(2.000000) := 330.357056
+             assign set ext.leds[2.000000] = 330.357056 (Pop 0)
 Destruct activation record renderLed
 setPixels(leds)
          Call renderFrame (1)
@@ -393,9 +393,9 @@ setPixels(leds)
              Subpixel.t *= 2.762207 (pop 0) 1-1
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                  varref ext.intensitySlider = 17.000000 (push 3)
-              256.000000 - 17.000000 = 239.000000 (pop 0, push 1)
-             Subpixel.reverseSlider := 239.000000 (pop 0) 1-2
+                  varref ext.intensitySlider = 19.000000 (push 3)
+              256.000000 - 19.000000 = 237.000000 (pop 0, push 1)
+             Subpixel.reverseSlider := 237.000000 (pop 0) 1-2
 Destruct activation record renderFrame
                       varref Subpixel.t = 2.762207 (push 1) 1-1
                        MINUS - (Push 2)
@@ -404,26 +404,26 @@ Destruct activation record renderFrame
                    Call abs(2.762207) = 2.762207 (Pop 0, Push 1)
                       INTEGER_CONST 256 (Push 2)
                        DIV / (Push 3)
-                        varref Subpixel.reverseSlider = 239.000000 (push 4) 1-2
-                    256.000000 / 239.000000 = 1.071130 (pop 1, push 2)
-                Call min(2.762207, 1.071130) = 1.071130 (Pop 0, Push 1)
-             Subpixel.diff := 1.071130 (pop 0) 1-4
+                        varref Subpixel.reverseSlider = 237.000000 (push 4) 1-2
+                    256.000000 / 237.000000 = 1.080169 (pop 1, push 2)
+                Call min(2.762207, 1.080169) = 1.080169 (Pop 0, Push 1)
+             Subpixel.diff := 1.080169 (pop 0) 1-4
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                   varref Subpixel.diff = 1.071130 (push 3) 1-4
+                   varref Subpixel.diff = 1.080169 (push 3) 1-4
                     MUL * (Push 4)
-                     varref Subpixel.reverseSlider = 239.000000 (push 5) 1-2
-                 1.071130 * 239.000000 = 256.000000 (pop 2, push 3)
-              256.000000 - 256.000000 = 0.000000 (pop 0, push 1)
-             Subpixel.bri := 0.000000 (pop 0) 1-5
+                     varref Subpixel.reverseSlider = 237.000000 (push 5) 1-2
+                 1.080169 * 237.000000 = 255.999985 (pop 2, push 3)
+              256.000000 - 255.999985 = 0.000015 (pop 0, push 1)
+             Subpixel.bri := 0.000015 (pop 0) 1-5
                    INTEGER_CONST 0 (Push 1)
                      INTEGER_CONST 255 (Push 2)
-                     varref Subpixel.bri = 0.000000 (push 3) 1-5
-hsv(0.000000, 255.000000, 0.000000)
-                Call hsv(0.000000, 255.000000, 0.000000) = 255.000000 (Pop 0, Push 1)
+                     varref Subpixel.bri = 0.000015 (push 3) 1-5
+hsv(0.000000, 255.000000, 0.000015)
+                Call hsv(0.000000, 255.000000, 0.000015) = 255.000015 (Pop 0, Push 1)
                  varref renderLed.i = 0.000000 (push 1) 2-0
-arti_set_external_variable: leds(0.000000) := 255.000000
-             assign set ext.leds[0.000000] = 255.000000 (Pop 0)
+arti_set_external_variable: leds(0.000000) := 255.000015
+             assign set ext.leds[0.000000] = 255.000015 (Pop 0)
                       varref Subpixel.t = 2.762207 (push 1) 1-1
                        MINUS - (Push 2)
                         varref renderLed.i = 1.000000 (push 3) 2-0
@@ -431,26 +431,26 @@ arti_set_external_variable: leds(0.000000) := 255.000000
                    Call abs(1.762207) = 1.762207 (Pop 0, Push 1)
                       INTEGER_CONST 256 (Push 2)
                        DIV / (Push 3)
-                        varref Subpixel.reverseSlider = 239.000000 (push 4) 1-2
-                    256.000000 / 239.000000 = 1.071130 (pop 1, push 2)
-                Call min(1.762207, 1.071130) = 1.071130 (Pop 0, Push 1)
-             Subpixel.diff := 1.071130 (pop 0) 1-4
+                        varref Subpixel.reverseSlider = 237.000000 (push 4) 1-2
+                    256.000000 / 237.000000 = 1.080169 (pop 1, push 2)
+                Call min(1.762207, 1.080169) = 1.080169 (Pop 0, Push 1)
+             Subpixel.diff := 1.080169 (pop 0) 1-4
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
-                   varref Subpixel.diff = 1.071130 (push 3) 1-4
+                   varref Subpixel.diff = 1.080169 (push 3) 1-4
                     MUL * (Push 4)
-                     varref Subpixel.reverseSlider = 239.000000 (push 5) 1-2
-                 1.071130 * 239.000000 = 256.000000 (pop 2, push 3)
-              256.000000 - 256.000000 = 0.000000 (pop 0, push 1)
-             Subpixel.bri := 0.000000 (pop 0) 1-5
+                     varref Subpixel.reverseSlider = 237.000000 (push 5) 1-2
+                 1.080169 * 237.000000 = 255.999985 (pop 2, push 3)
+              256.000000 - 255.999985 = 0.000015 (pop 0, push 1)
+             Subpixel.bri := 0.000015 (pop 0) 1-5
                    INTEGER_CONST 0 (Push 1)
                      INTEGER_CONST 255 (Push 2)
-                     varref Subpixel.bri = 0.000000 (push 3) 1-5
-hsv(0.000000, 255.000000, 0.000000)
-                Call hsv(0.000000, 255.000000, 0.000000) = 255.000000 (Pop 0, Push 1)
+                     varref Subpixel.bri = 0.000015 (push 3) 1-5
+hsv(0.000000, 255.000000, 0.000015)
+                Call hsv(0.000000, 255.000000, 0.000015) = 255.000015 (Pop 0, Push 1)
                  varref renderLed.i = 1.000000 (push 1) 2-0
-arti_set_external_variable: leds(1.000000) := 255.000000
-             assign set ext.leds[1.000000] = 255.000000 (Pop 0)
+arti_set_external_variable: leds(1.000000) := 255.000015
+             assign set ext.leds[1.000000] = 255.000015 (Pop 0)
                       varref Subpixel.t = 2.762207 (push 1) 1-1
                        MINUS - (Push 2)
                         varref renderLed.i = 2.000000 (push 3) 2-0
@@ -458,26 +458,26 @@ arti_set_external_variable: leds(1.000000) := 255.000000
                    Call abs(0.762207) = 0.762207 (Pop 0, Push 1)
                       INTEGER_CONST 256 (Push 2)
                        DIV / (Push 3)
-                        varref Subpixel.reverseSlider = 239.000000 (push 4) 1-2
-                    256.000000 / 239.000000 = 1.071130 (pop 1, push 2)
-                Call min(0.762207, 1.071130) = 0.762207 (Pop 0, Push 1)
+                        varref Subpixel.reverseSlider = 237.000000 (push 4) 1-2
+                    256.000000 / 237.000000 = 1.080169 (pop 1, push 2)
+                Call min(0.762207, 1.080169) = 0.762207 (Pop 0, Push 1)
              Subpixel.diff := 0.762207 (pop 0) 1-4
                 INTEGER_CONST 256 (Push 1)
                  MINUS - (Push 2)
                    varref Subpixel.diff = 0.762207 (push 3) 1-4
                     MUL * (Push 4)
-                     varref Subpixel.reverseSlider = 239.000000 (push 5) 1-2
-                 0.762207 * 239.000000 = 182.167374 (pop 2, push 3)
-              256.000000 - 182.167374 = 73.832626 (pop 0, push 1)
-             Subpixel.bri := 73.832626 (pop 0) 1-5
+                     varref Subpixel.reverseSlider = 237.000000 (push 5) 1-2
+                 0.762207 * 237.000000 = 180.642960 (pop 2, push 3)
+              256.000000 - 180.642960 = 75.357040 (pop 0, push 1)
+             Subpixel.bri := 75.357040 (pop 0) 1-5
                    INTEGER_CONST 0 (Push 1)
                      INTEGER_CONST 255 (Push 2)
-                     varref Subpixel.bri = 73.832626 (push 3) 1-5
-hsv(0.000000, 255.000000, 73.832626)
-                Call hsv(0.000000, 255.000000, 73.832626) = 328.832642 (Pop 0, Push 1)
+                     varref Subpixel.bri = 75.357040 (push 3) 1-5
+hsv(0.000000, 255.000000, 75.357040)
+                Call hsv(0.000000, 255.000000, 75.357040) = 330.357056 (Pop 0, Push 1)
                  varref renderLed.i = 2.000000 (push 1) 2-0
-arti_set_external_variable: leds(2.000000) := 328.832642
-             assign set ext.leds[2.000000] = 328.832642 (Pop 0)
+arti_set_external_variable: leds(2.000000) := 330.357056
+             assign set ext.leds[2.000000] = 330.357056 (Pop 0)
 Destruct activation record renderLed
 setPixels(leds)
 closing Arti 0
@@ -493,6 +493,6 @@ Destruct Symbol renderLed (0)
 Destruct Symbol diff (0)
 Destruct Symbol bri (0)
 Destruct ScopedSymbolTable Subpixel (0)
-definitionJson  11598 / 70% (26 0 6)
+definitionJson  11885 / 72% (26 0 6)
 parseTree       7214 / 11% (1 0 25)
 closed Arti 0 ✓

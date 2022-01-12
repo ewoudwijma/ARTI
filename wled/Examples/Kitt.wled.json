@@ -185,7 +185,7 @@
                             }
                           ]
                         },
-                        "external": 1
+                        "external": 3
                       }
                     }
                   },
@@ -240,7 +240,7 @@
                                       }
                                     ]
                                   },
-                                  "external": 1
+                                  "external": 3
                                 }
                               }
                             },
@@ -303,7 +303,7 @@
                                       }
                                     ]
                                   },
-                                  "external": 1
+                                  "external": 3
                                 }
                               }
                             },

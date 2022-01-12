@@ -354,7 +354,7 @@ parseTree 65536 => 0 ✓
  found block
 Node program Parsed until (44,0) 1003 of 1003
 parse 0 ✓
-definitionTree 11598 / 70% (26 0 6)
+definitionTree 11885 / 72% (26 0 6)
 parseTree      21867 / 33% (1 0 23)
 garbageCollect 21867 / 33% -> 14763 / 22%
 Destruct Lexer
@@ -471,11 +471,11 @@ interpret Ripple 1 8
      Save block of renderFrame
 Interpret main 0 ✓
          Call renderFrame (1)
-                 varref ext.intensitySlider = 17.000000 (push 1)
+                 varref ext.intensitySlider = 19.000000 (push 1)
                   DIV / (Push 2)
                    INTEGER_CONST 4 (Push 3)
-               17.000000 / 4.000000 = 4.250000 (pop 0, push 1)
-             Call fadeToBlackBy(4.250000) = 4.250000 (Pop 0, Push 1)
+               19.000000 / 4.000000 = 4.750000 (pop 0, push 1)
+             Call fadeToBlackBy(4.750000) = 4.750000 (Pop 0, Push 1)
              If (stack 1)
              condition
                 varref Ripple.step = -1.000000 (push 2) 1-0
@@ -550,11 +550,11 @@ arti_set_external_variable: leds(1.000000) := 289.000000
 Destruct activation record renderFrame
 setPixels(leds)
          Call renderFrame (1)
-                 varref ext.intensitySlider = 17.000000 (push 2)
+                 varref ext.intensitySlider = 19.000000 (push 2)
                   DIV / (Push 3)
                    INTEGER_CONST 4 (Push 4)
-               17.000000 / 4.000000 = 4.250000 (pop 1, push 2)
-             Call fadeToBlackBy(4.250000) = 4.250000 (Pop 1, Push 2)
+               19.000000 / 4.000000 = 4.750000 (pop 1, push 2)
+             Call fadeToBlackBy(4.750000) = 4.750000 (Pop 1, Push 2)
              If (stack 2)
              condition
                 varref Ripple.step = 1.000000 (push 3) 1-0
@@ -628,6 +628,6 @@ Destruct Symbol ledL (0)
 Destruct Symbol ledR (0)
 Destruct Symbol bri (0)
 Destruct ScopedSymbolTable Ripple (0)
-definitionJson  11598 / 70% (26 0 6)
+definitionJson  11885 / 72% (26 0 6)
 parseTree       12704 / 19% (1 0 23)
 closed Arti 0 ✓

@@ -1,8 +1,8 @@
 /*
    @title   Arduino Real Time Interpreter (ARTI)
    @file    arti_pas_plugin.h
-   @version 0.2.3
-   @date    20220103
+   @version 0.3.0
+   @date    20220112
    @author  Ewoud Wijma
    @repo    https://github.com/ewoudwijma/ARTI
  */

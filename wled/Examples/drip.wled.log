@@ -205,7 +205,7 @@ parseTree 65536 => 0 ✓
  found block
 Node program Parsed until (40,0) 888 of 888
 parse 0 ✓
-definitionTree 11598 / 70% (26 0 6)
+definitionTree 11885 / 72% (26 0 6)
 parseTree      12488 / 19% (1 0 28)
 garbageCollect 12488 / 19% -> 8424 / 12%
 Destruct Lexer
@@ -282,33 +282,33 @@ interpret Drip 1 6
      Save block of renderFrame
 Interpret main 0 ✓
          Call renderFrame (1)
-                 varref ext.speedSlider = 16.000000 (push 1)
+                 varref ext.speedSlider = 18.000000 (push 1)
                   DIV / (Push 2)
                    INTEGER_CONST 1000 (Push 3)
-               16.000000 / 1000.000000 = 0.016000 (pop 0, push 1)
-             Drip.grav := 0.016000 (pop 0) 1-4
-                 varref ext.intensitySlider = 17.000000 (push 1)
+               18.000000 / 1000.000000 = 0.018000 (pop 0, push 1)
+             Drip.grav := 0.018000 (pop 0) 1-4
+                 varref ext.intensitySlider = 19.000000 (push 1)
                   DIV / (Push 2)
                    INTEGER_CONST 4 (Push 3)
-               17.000000 / 4.000000 = 4.250000 (pop 0, push 1)
-             Call fadeToBlackBy(4.250000) = 4.250000 (Pop 0, Push 1)
-                varref Drip.grav = 0.016000 (push 2) 1-4
-             Drip.dripSpd += 0.016000 (pop 1) 1-0
-                varref Drip.dripSpd = 0.016000 (push 2) 1-0
-             Drip.dripLocn -= -0.016000 (pop 1) 1-5
+               19.000000 / 4.000000 = 4.750000 (pop 0, push 1)
+             Call fadeToBlackBy(4.750000) = 4.750000 (Pop 0, Push 1)
+                varref Drip.grav = 0.018000 (push 2) 1-4
+             Drip.dripSpd += 0.018000 (pop 1) 1-0
+                varref Drip.dripSpd = 0.018000 (push 2) 1-0
+             Drip.dripLocn -= -0.018000 (pop 1) 1-5
              If (stack 1)
              condition
-                varref Drip.dripLocn = -0.016000 (push 2) 1-5
+                varref Drip.dripLocn = -0.018000 (push 2) 1-5
                  GT > (Push 3)
                   INTEGER_CONST 0 (Push 4)
-              -0.016000 > 0.000000 = 0.000000 (pop 1, push 2)
+              -0.018000 > 0.000000 = 0.000000 (pop 1, push 2)
              (pop 1)
              If (stack 1)
              condition
-                varref Drip.dripLocn = -0.016000 (push 2) 1-5
+                varref Drip.dripLocn = -0.018000 (push 2) 1-5
                  LTE <= (Push 3)
                   INTEGER_CONST 0 (Push 4)
-              -0.016000 <= 0.000000 = 1.000000 (pop 1, push 2)
+              -0.018000 <= 0.000000 = 1.000000 (pop 1, push 2)
              (pop 1)
                      varref ext.ledCount = 3.000000 (push 2)
                       MINUS - (Push 3)
@@ -319,39 +319,39 @@ Interpret main 0 ✓
                   Drip.dripSpd := 0.000000 (pop 1) 1-0
 Destruct activation record renderFrame
          Call renderFrame (1)
-                 varref ext.speedSlider = 16.000000 (push 2)
+                 varref ext.speedSlider = 18.000000 (push 2)
                   DIV / (Push 3)
                    INTEGER_CONST 1000 (Push 4)
-               16.000000 / 1000.000000 = 0.016000 (pop 1, push 2)
-             Drip.grav := 0.016000 (pop 1) 1-4
-                 varref ext.intensitySlider = 17.000000 (push 2)
+               18.000000 / 1000.000000 = 0.018000 (pop 1, push 2)
+             Drip.grav := 0.018000 (pop 1) 1-4
+                 varref ext.intensitySlider = 19.000000 (push 2)
                   DIV / (Push 3)
                    INTEGER_CONST 4 (Push 4)
-               17.000000 / 4.000000 = 4.250000 (pop 1, push 2)
-             Call fadeToBlackBy(4.250000) = 4.250000 (Pop 1, Push 2)
-                varref Drip.grav = 0.016000 (push 3) 1-4
-             Drip.dripSpd += 0.016000 (pop 2) 1-0
-                varref Drip.dripSpd = 0.016000 (push 3) 1-0
-             Drip.dripLocn -= 1.984000 (pop 2) 1-5
+               19.000000 / 4.000000 = 4.750000 (pop 1, push 2)
+             Call fadeToBlackBy(4.750000) = 4.750000 (Pop 1, Push 2)
+                varref Drip.grav = 0.018000 (push 3) 1-4
+             Drip.dripSpd += 0.018000 (pop 2) 1-0
+                varref Drip.dripSpd = 0.018000 (push 3) 1-0
+             Drip.dripLocn -= 1.982000 (pop 2) 1-5
              If (stack 2)
              condition
-                varref Drip.dripLocn = 1.984000 (push 3) 1-5
+                varref Drip.dripLocn = 1.982000 (push 3) 1-5
                  GT > (Push 4)
                   INTEGER_CONST 0 (Push 5)
-              1.984000 > 0.000000 = 1.000000 (pop 2, push 3)
+              1.982000 > 0.000000 = 1.000000 (pop 2, push 3)
              (pop 2)
                         varref Drip.colr = 1.000000 (push 3) 1-1
                           varref Drip.bri = 64.000000 (push 4) 1-2
                      Call colorFromPalette(1.000000, 64.000000) = 65.000000 (Pop 2, Push 3)
-                      varref Drip.dripLocn = 1.984000 (push 3) 1-5
-arti_set_external_variable: leds(1.984000) := 65.000000
-                  assign set ext.leds[1.984000] = 65.000000 (Pop 2)
+                      varref Drip.dripLocn = 1.982000 (push 3) 1-5
+arti_set_external_variable: leds(1.982000) := 65.000000
+                  assign set ext.leds[1.982000] = 65.000000 (Pop 2)
              If (stack 2)
              condition
-                varref Drip.dripLocn = 1.984000 (push 3) 1-5
+                varref Drip.dripLocn = 1.982000 (push 3) 1-5
                  LTE <= (Push 4)
                   INTEGER_CONST 0 (Push 5)
-              1.984000 <= 0.000000 = 0.000000 (pop 2, push 3)
+              1.982000 <= 0.000000 = 0.000000 (pop 2, push 3)
              (pop 2)
 Destruct activation record renderFrame
 setPixels(leds)
@@ -366,6 +366,6 @@ Destruct Symbol renderFrame (0)
 Destruct Symbol grav (0)
 Destruct Symbol dripLocn (0)
 Destruct ScopedSymbolTable Drip (0)
-definitionJson  11598 / 70% (26 0 6)
+definitionJson  11885 / 72% (26 0 6)
 parseTree       7026 / 10% (1 0 26)
 closed Arti 0 ✓

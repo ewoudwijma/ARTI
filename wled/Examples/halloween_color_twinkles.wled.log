@@ -1,0 +1,833 @@
+setup 0 bytes free
+open wled.json 0 ✓
+definitionTree 16384 => 0 ✓
+open Examples/halloween_color_twinkles.wled 0 ✓
+programFile size 432 bytes
+parseTree 65536 => 0 ✓
+ PROGRAM PROGRAM -> [ID color_fade_pulse] 0
+ ID color_fade_pulse -> [LCURL {] 0
+  LCURL { -> [FUNCTION FUNCTION] 1
+     FUNCTION FUNCTION -> [ID renderFrame] 4
+     ID renderFrame -> [LPAREN (] 4
+      LPAREN ( -> [RPAREN )] 5
+      found formals
+      RPAREN ) -> [LCURL {] 5
+      LCURL { -> [ID PI] 5
+          ID PI -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [REAL_CONST 3.14159] 10
+         found assignoperator
+             REAL_CONST 3.14159 -> [ID PI2] 12
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID PI2 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [REAL_CONST 6.28318] 10
+         found assignoperator
+             REAL_CONST 6.28318 -> [ID t1] 12
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID t1 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID time] 10
+         found assignoperator
+              ID time -> [LPAREN (] 13
+              LPAREN ( -> [REAL_CONST .01] 13
+                  REAL_CONST .01 -> [RPAREN )] 17
+                 found factor
+                found term
+               found expr
+              found actuals
+              RPAREN ) -> [ID t2] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID t2 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID time] 10
+         found assignoperator
+              ID time -> [LPAREN (] 13
+              LPAREN ( -> [REAL_CONST .1] 13
+                  REAL_CONST .1 -> [RPAREN )] 17
+                 found factor
+                found term
+               found expr
+              found actuals
+              RPAREN ) -> [MUL *] 13
+             found call
+            found factor
+              MUL * -> [ID PI2] 13
+               ID PI2 -> [ID t3] 14
+               ID PI2 -> [ID t3] 14
+              found varref
+             found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID t3 -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID time] 10
+         found assignoperator
+              ID time -> [LPAREN (] 13
+              LPAREN ( -> [REAL_CONST .02] 13
+                  REAL_CONST .02 -> [RPAREN )] 17
+                 found factor
+                found term
+               found expr
+              found actuals
+              RPAREN ) -> [RCURL }] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+      RCURL } -> [FUNCTION FUNCTION] 5
+     found block
+    found function
+   found statement
+     FUNCTION FUNCTION -> [ID renderLed] 4
+     ID renderLed -> [LPAREN (] 4
+      LPAREN ( -> [ID index] 5
+       ID index -> [RPAREN )] 6
+       found formal
+      found formals
+      RPAREN ) -> [LCURL {] 5
+      LCURL { -> [ID h] 5
+          ID h -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [LPAREN (] 10
+         found assignoperator
+              LPAREN ( -> [ID index] 13
+                  ID index -> [DIV /] 17
+                  ID index -> [DIV /] 17
+                 found varref
+                found factor
+                  DIV / -> [ID ledCount] 17
+                   ID ledCount -> [MUL *] 18
+                   ID ledCount -> [MUL *] 18
+                  found varref
+                 found factor
+                  MUL * -> [INTEGER_CONST 2] 17
+                  INTEGER_CONST 2 -> [MINUS -] 17
+                 found factor
+               found term
+                 MINUS - -> [ID t1] 16
+                   ID t1 -> [RPAREN )] 18
+                   ID t1 -> [RPAREN )] 18
+                  found varref
+                 found factor
+                found term
+              found expr
+              RPAREN ) -> [ID s] 13
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID s -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [LPAREN (] 10
+         found assignoperator
+              LPAREN ( -> [INTEGER_CONST 1] 13
+                 INTEGER_CONST 1 -> [PLUS +] 16
+                found factor
+               found term
+                 PLUS + -> [ID sin] 16
+                   ID sin -> [LPAREN (] 18
+                   LPAREN ( -> [ID t2] 18
+                        ID t2 -> [PLUS +] 23
+                        ID t2 -> [PLUS +] 23
+                       found varref
+                      found factor
+                     found term
+                       PLUS + -> [ID index] 22
+                         ID index -> [DIV /] 24
+                         ID index -> [DIV /] 24
+                        found varref
+                       found factor
+                         DIV / -> [ID pixelCount] 24
+                          ID pixelCount -> [MUL *] 25
+                          ID pixelCount -> [MUL *] 25
+                         found varref
+                        found factor
+                         MUL * -> [ID PI] 24
+                          ID PI -> [RPAREN )] 25
+                          ID PI -> [RPAREN )] 25
+                         found varref
+                        found factor
+                      found term
+                    found expr
+                   found actuals
+                   RPAREN ) -> [RPAREN )] 18
+                  found call
+                 found factor
+                found term
+              found expr
+              RPAREN ) -> [DIV /] 13
+            found factor
+              DIV / -> [INTEGER_CONST 2] 13
+              INTEGER_CONST 2 -> [ID vt] 13
+             found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID vt -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [LPAREN (] 10
+         found assignoperator
+              LPAREN ( -> [ID t3] 13
+                  ID t3 -> [PLUS +] 17
+                  ID t3 -> [PLUS +] 17
+                 found varref
+                found factor
+               found term
+                 PLUS + -> [ID index] 16
+                   ID index -> [DIV /] 18
+                   ID index -> [DIV /] 18
+                  found varref
+                 found factor
+                   DIV / -> [ID ledCount] 18
+                    ID ledCount -> [MUL *] 19
+                    ID ledCount -> [MUL *] 19
+                   found varref
+                  found factor
+                   MUL * -> [INTEGER_CONST 4] 18
+                   INTEGER_CONST 4 -> [RPAREN )] 18
+                  found factor
+                found term
+              found expr
+              RPAREN ) -> [MOD %] 13
+            found factor
+              MOD % -> [INTEGER_CONST 1] 13
+              INTEGER_CONST 1 -> [ID v] 13
+             found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID v -> [ASSIGN =] 9
+         found varref
+           ASSIGN = -> [ID triangle] 10
+         found assignoperator
+              ID triangle -> [LPAREN (] 13
+              LPAREN ( -> [ID vt] 13
+                   ID vt -> [RPAREN )] 18
+                   ID vt -> [RPAREN )] 18
+                  found varref
+                 found factor
+                found term
+               found expr
+              found actuals
+              RPAREN ) -> [ID leds] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+          ID leds -> [LBRACKET [] 9
+           LBRACKET [ -> [ID index] 10
+                ID index -> [RBRACKET ]] 15
+                ID index -> [RBRACKET ]] 15
+               found varref
+              found factor
+             found term
+            found expr
+           found indices
+           RBRACKET ] -> [ASSIGN =] 10
+         found varref
+           ASSIGN = -> [ID hsv] 10
+         found assignoperator
+              ID hsv -> [LPAREN (] 13
+              LPAREN ( -> [ID h] 13
+                   ID h -> [MUL *] 18
+                   ID h -> [MUL *] 18
+                  found varref
+                 found factor
+                   MUL * -> [INTEGER_CONST 255] 18
+                   INTEGER_CONST 255 -> [COMMA ,] 18
+                  found factor
+                found term
+               found expr
+                COMMA , -> [ID s] 15
+                    ID s -> [MUL *] 19
+                    ID s -> [MUL *] 19
+                   found varref
+                  found factor
+                    MUL * -> [INTEGER_CONST 255] 19
+                    INTEGER_CONST 255 -> [COMMA ,] 19
+                   found factor
+                 found term
+                found expr
+                COMMA , -> [ID v] 15
+                    ID v -> [MUL *] 19
+                    ID v -> [MUL *] 19
+                   found varref
+                  found factor
+                    MUL * -> [INTEGER_CONST 255] 19
+                    INTEGER_CONST 255 -> [RPAREN )] 19
+                   found factor
+                 found term
+                found expr
+              found actuals
+              RPAREN ) -> [RCURL }] 13
+             found call
+            found factor
+           found term
+          found expr
+        found assign
+       found statement
+      RCURL } -> [RCURL }] 5
+     found block
+    found function
+   found statement
+  RCURL } -> [ ] 1
+ found block
+Node program Parsed until (20,1) 432 of 432
+parse 0 ✓
+definitionTree 11885 / 72% (26 0 6)
+parseTree      17911 / 27% (1 0 30)
+garbageCollect 17911 / 27% -> 12631 / 19%
+Destruct Lexer
+
+Optimizer
+             node to shrink factor in term : {"factor":{"REAL_CONST":"3.14159"}} from {"term":{"factor":{"REAL_CONST":"3.14159"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"REAL_CONST":"6.28318"}} from {"term":{"factor":{"REAL_CONST":"6.28318"}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"REAL_CONST":".01"}} from {"term":{"factor":{"REAL_CONST":".01"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":".01"}}}}}} from {"term":{"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":".01"}}}}}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"REAL_CONST":".1"}} from {"term":{"factor":{"REAL_CONST":".1"}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"REAL_CONST":".02"}} from {"term":{"factor":{"REAL_CONST":".02"}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":".02"}}}}}} from {"term":{"factor":{"call":{"ID":"time","actuals":{"expr":{"term":{"REAL_CONST":".02"}}}}}},"*":["multiple"]}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"t1"}}} from {"term":{"factor":{"varref":{"ID":"t1"}}}}
+             node to shrink factor in term : {"factor":{"expr":{"term":{"factor":{"varref":{"ID":"index"}},"*":[{"DIV":"/"},{"factor":{"varref":{"ID":"ledCount"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"t1"}}}]}}} from {"term":{"factor":{"expr":{"term":{"factor":{"varref":{"ID":"index"}},"*":[{"DIV":"/"},{"factor":{"varref":{"ID":"ledCount"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"2"}}]},"*":[{"MINUS":"-"},{"term":{"varref":{"ID":"t1"}}}]}}},"*":["multiple"]}
+                node to shrink factor in term : {"factor":{"INTEGER_CONST":"1"}} from {"term":{"factor":{"INTEGER_CONST":"1"}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"t2"}},"*":["multiple"]},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"index"}},"*":["multiple",{"DIV":"/"},{"factor":{"varref":{"ID":"pixelCount"}}},{"MUL":"*"},{"factor":{"varref":{"ID":"PI"}}}]}}]},"*":["multiple"]}}},"*":["multiple"]}}]}
+                       node to shrink factor in term : {"factor":{"varref":{"ID":"t2"}}} from {"term":{"factor":{"varref":{"ID":"t2"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"index"}},"*":["multiple",{"DIV":"/"},{"factor":{"varref":{"ID":"pixelCount"}}},{"MUL":"*"},{"factor":{"varref":{"ID":"PI"}}}]}}]}
+                  node to shrink factor in term : {"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"t2"}},"*":[{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"index"}},"*":[{"DIV":"/"},{"factor":{"varref":{"ID":"pixelCount"}}},{"MUL":"*"},{"factor":{"varref":{"ID":"PI"}}}]}}]}}}}} from {"term":{"factor":{"call":{"ID":"sin","actuals":{"expr":{"term":{"varref":{"ID":"t2"}},"*":[{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"index"}},"*":[{"DIV":"/"},{"factor":{"varref":{"ID":"pixelCount"}}},{"MUL":"*"},{"factor":{"varref":{"ID":"PI"}}}]}}]}}}}}}
+                node to shrink factor in term : {"factor":{"varref":{"ID":"t3"}}} from {"term":{"factor":{"varref":{"ID":"t3"}}},"*":["multiple",{"PLUS":"+"},{"term":{"factor":{"varref":{"ID":"index"}},"*":["multiple",{"DIV":"/"},{"factor":{"varref":{"ID":"ledCount"}}},{"MUL":"*"},{"factor":{"INTEGER_CONST":"4"}}]}}]}
+                  node to shrink factor in term : {"factor":{"varref":{"ID":"vt"}}} from {"term":{"factor":{"varref":{"ID":"vt"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"triangle","actuals":{"expr":{"term":{"varref":{"ID":"vt"}}}}}}} from {"term":{"factor":{"call":{"ID":"triangle","actuals":{"expr":{"term":{"varref":{"ID":"vt"}}}}}}},"*":["multiple"]}
+               node to shrink factor in term : {"factor":{"varref":{"ID":"index"}}} from {"term":{"factor":{"varref":{"ID":"index"}}},"*":["multiple"]}
+             node to shrink factor in term : {"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"h"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}},"*":[{"expr":{"term":{"factor":{"varref":{"ID":"s"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}},{"expr":{"term":{"factor":{"varref":{"ID":"v"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}}]}}}} from {"term":{"factor":{"call":{"ID":"hsv","actuals":{"expr":{"term":{"factor":{"varref":{"ID":"h"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}},"*":[{"expr":{"term":{"factor":{"varref":{"ID":"s"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}},{"expr":{"term":{"factor":{"varref":{"ID":"v"}},"*":[{"MUL":"*"},{"factor":{"INTEGER_CONST":"255"}}]}}}]}}}},"*":["multiple"]}
+optimize 0 ✓
+garbageCollect 16663 / 25% -> 8727 / 13%
+
+Analyzer
+ Program color_fade_pulse 1 0
+     Function color_fade_pulse.renderFrame
+         assign color_fade_pulse.PI of notype
+         assign PI = (8)
+         assign color_fade_pulse.PI2 of notype
+         assign PI2 = (8)
+         assign color_fade_pulse.t1 of notype
+         assign t1 = (8)
+            Ext Function found time (11)
+         assign color_fade_pulse.t2 of notype
+         assign t2 = (8)
+             Ext Function found time (12)
+               VarRef found color_fade_pulse.PI2 (14)
+         assign color_fade_pulse.t3 of notype
+         assign t3 = (8)
+            Ext Function found time (11)
+     Function color_fade_pulse.renderLed
+      formal renderLed.index of notype
+         assign color_fade_pulse.h of notype
+         assign h = (8)
+               VarRef found renderLed.index (14)
+                 Ext Variable found ledCount (16) varref
+                VarRef found color_fade_pulse.t1 (15)
+         assign color_fade_pulse.s of notype
+         assign s = (8)
+                 Ext Function found sin (16)
+                    VarRef found color_fade_pulse.t2 (19)
+                       VarRef found renderLed.index (22)
+                         VarRef pixelCount ID not found in scope of renderLed
+                         VarRef found color_fade_pulse.PI (24)
+         assign color_fade_pulse.vt of notype
+         assign vt = (8)
+               VarRef found color_fade_pulse.t3 (14)
+                  VarRef found renderLed.index (17)
+                    Ext Variable found ledCount (19) varref
+         assign color_fade_pulse.v of notype
+         assign v = (8)
+            Ext Function found triangle (11)
+               VarRef found color_fade_pulse.vt (14)
+             VarRef found renderLed.index (12)
+         Ext Variable found leds (8) assign
+         assign leds = (8)
+            Ext Function found hsv (11)
+                VarRef found color_fade_pulse.h (15)
+                  VarRef found color_fade_pulse.s (17)
+                  VarRef found color_fade_pulse.v (17)
+     0 formal renderLed.index of 9 (2)
+ 0 function color_fade_pulse.renderFrame of 9 (1)
+ 1 assign color_fade_pulse.PI of 9 (1)
+ 2 assign color_fade_pulse.PI2 of 9 (1)
+ 3 assign color_fade_pulse.t1 of 9 (1)
+ 4 assign color_fade_pulse.t2 of 9 (1)
+ 5 assign color_fade_pulse.t3 of 9 (1)
+ 6 function color_fade_pulse.renderLed of 9 (1)
+ 7 assign color_fade_pulse.h of 9 (1)
+ 8 assign color_fade_pulse.s of 9 (1)
+ 9 assign color_fade_pulse.vt of 9 (1)
+ 10 assign color_fade_pulse.v of 9 (1)
+analyze 0 ✓
+garbageCollect 11415 / 17% -> 11415 / 17%
+
+interpret color_fade_pulse 1 11
+ program color_fade_pulse
+     Save block of renderFrame
+     Save block of renderLed
+Interpret main 0 ✓
+         Call renderFrame (1)
+                REAL_CONST 3.14159 (Push 1)
+             color_fade_pulse.PI := 3.141590 (pop 0) 1-1
+                REAL_CONST 6.28318 (Push 1)
+             color_fade_pulse.PI2 := 6.283180 (pop 0) 1-2
+                   REAL_CONST .01 (Push 1)
+                Call time(0.010000) = 0.525902 (Pop 0, Push 1)
+             color_fade_pulse.t1 := 0.525902 (pop 0) 1-3
+                    REAL_CONST .1 (Push 1)
+                 Call time(0.100000) = 0.152590 (Pop 0, Push 1)
+                  MUL * (Push 2)
+                   varref color_fade_pulse.PI2 = 6.283180 (push 3) 1-2
+               0.152590 * 6.283180 = 0.958752 (pop 0, push 1)
+             color_fade_pulse.t2 := 0.958752 (pop 0) 1-4
+                   REAL_CONST .02 (Push 1)
+                Call time(0.020000) = 0.762951 (Pop 0, Push 1)
+             color_fade_pulse.t3 := 0.762951 (pop 0) 1-5
+Destruct activation record renderFrame
+                   varref renderLed.index = 0.000000 (push 1) 2-0
+                    DIV / (Push 2)
+                     varref ext.ledCount = 3.000000 (push 3)
+                    MUL * (Push 4)
+                     INTEGER_CONST 2 (Push 5)
+                 0.000000 / 3.000000 = 0.000000 (pop 2, push 3)
+                 0.000000 * 2.000000 = 0.000000 (pop 0, push 1)
+                   MINUS - (Push 2)
+                    varref color_fade_pulse.t1 = 0.525902 (push 3) 1-3
+                0.000000 - 0.525902 = -0.525902 (pop 0, push 1)
+             color_fade_pulse.h := -0.525902 (pop 0) 1-7
+                   INTEGER_CONST 1 (Push 1)
+                    PLUS + (Push 2)
+                        varref color_fade_pulse.t2 = 0.958752 (push 3) 1-4
+                         PLUS + (Push 4)
+                           varref renderLed.index = 0.000000 (push 5) 2-0
+                            DIV / (Push 6)
+                             varref renderLed.pixelCount = 0.000000 (push 7) 0-0
+                            MUL * (Push 8)
+                             varref color_fade_pulse.PI = 3.141590 (push 9) 1-1
+                         division by 0 not possible, divisor ignored for 0.000000
+                         0.000000 / 1.000000 = 0.000000 (pop 6, push 7)
+                         0.000000 * 3.141590 = 0.000000 (pop 4, push 5)
+                      0.958752 + 0.000000 = 0.958752 (pop 2, push 3)
+                     Call sin(0.958752) = 0.818475 (Pop 2, Push 3)
+                 1.000000 + 0.818475 = 1.818475 (pop 0, push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+               1.818475 / 2.000000 = 0.909238 (pop 0, push 1)
+             color_fade_pulse.s := 0.909238 (pop 0) 1-8
+                   varref color_fade_pulse.t3 = 0.762951 (push 1) 1-5
+                    PLUS + (Push 2)
+                      varref renderLed.index = 0.000000 (push 3) 2-0
+                       DIV / (Push 4)
+                        varref ext.ledCount = 3.000000 (push 5)
+                       MUL * (Push 6)
+                        INTEGER_CONST 4 (Push 7)
+                    0.000000 / 3.000000 = 0.000000 (pop 4, push 5)
+                    0.000000 * 4.000000 = 0.000000 (pop 2, push 3)
+                 0.762951 + 0.000000 = 0.762951 (pop 0, push 1)
+                  MOD % (Push 2)
+                   INTEGER_CONST 1 (Push 3)
+               0.762951 % 1.000000 = 0.762951 (pop 0, push 1)
+             color_fade_pulse.vt := 0.762951 (pop 0) 1-9
+                   varref color_fade_pulse.vt = 0.762951 (push 1) 1-9
+                Call triangle(0.762951) = 0.474098 (Pop 0, Push 1)
+             color_fade_pulse.v := 0.474098 (pop 0) 1-10
+                    varref color_fade_pulse.h = -0.525902 (push 1) 1-7
+                     MUL * (Push 2)
+                      INTEGER_CONST 255 (Push 3)
+                  -0.525902 * 255.000000 = -134.105072 (pop 0, push 1)
+                      varref color_fade_pulse.s = 0.909238 (push 2) 1-8
+                       MUL * (Push 3)
+                        INTEGER_CONST 255 (Push 4)
+                    0.909238 * 255.000000 = 231.855560 (pop 1, push 2)
+                      varref color_fade_pulse.v = 0.474098 (push 3) 1-10
+                       MUL * (Push 4)
+                        INTEGER_CONST 255 (Push 5)
+                    0.474098 * 255.000000 = 120.894920 (pop 2, push 3)
+hsv(-134.105072, 231.855560, 120.894920)
+                Call hsv(-134.105072, 231.855560, 120.894920) = 218.645416 (Pop 0, Push 1)
+                 varref renderLed.index = 0.000000 (push 1) 2-0
+arti_set_external_variable: leds(0.000000) := 218.645416
+             assign set ext.leds[0.000000] = 218.645416 (Pop 0)
+                   varref renderLed.index = 1.000000 (push 1) 2-0
+                    DIV / (Push 2)
+                     varref ext.ledCount = 3.000000 (push 3)
+                    MUL * (Push 4)
+                     INTEGER_CONST 2 (Push 5)
+                 1.000000 / 3.000000 = 0.333333 (pop 2, push 3)
+                 0.333333 * 2.000000 = 0.666667 (pop 0, push 1)
+                   MINUS - (Push 2)
+                    varref color_fade_pulse.t1 = 0.525902 (push 3) 1-3
+                0.666667 - 0.525902 = 0.140764 (pop 0, push 1)
+             color_fade_pulse.h := 0.140764 (pop 0) 1-7
+                   INTEGER_CONST 1 (Push 1)
+                    PLUS + (Push 2)
+                        varref color_fade_pulse.t2 = 0.958752 (push 3) 1-4
+                         PLUS + (Push 4)
+                           varref renderLed.index = 1.000000 (push 5) 2-0
+                            DIV / (Push 6)
+                             varref renderLed.pixelCount = 1.000000 (push 7) 0-0
+                            MUL * (Push 8)
+                             varref color_fade_pulse.PI = 3.141590 (push 9) 1-1
+                         1.000000 / 1.000000 = 1.000000 (pop 6, push 7)
+                         1.000000 * 3.141590 = 3.141590 (pop 4, push 5)
+                      0.958752 + 3.141590 = 4.100342 (pop 2, push 3)
+                     Call sin(4.100342) = -0.818474 (Pop 2, Push 3)
+                 1.000000 + -0.818474 = 0.181526 (pop 0, push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+               0.181526 / 2.000000 = 0.090763 (pop 0, push 1)
+             color_fade_pulse.s := 0.090763 (pop 0) 1-8
+                   varref color_fade_pulse.t3 = 0.762951 (push 1) 1-5
+                    PLUS + (Push 2)
+                      varref renderLed.index = 1.000000 (push 3) 2-0
+                       DIV / (Push 4)
+                        varref ext.ledCount = 3.000000 (push 5)
+                       MUL * (Push 6)
+                        INTEGER_CONST 4 (Push 7)
+                    1.000000 / 3.000000 = 0.333333 (pop 4, push 5)
+                    0.333333 * 4.000000 = 1.333333 (pop 2, push 3)
+                 0.762951 + 1.333333 = 2.096284 (pop 0, push 1)
+                  MOD % (Push 2)
+                   INTEGER_CONST 1 (Push 3)
+               2.096284 % 1.000000 = 0.096284 (pop 0, push 1)
+             color_fade_pulse.vt := 0.096284 (pop 0) 1-9
+                   varref color_fade_pulse.vt = 0.096284 (push 1) 1-9
+                Call triangle(0.096284) = 0.192569 (Pop 0, Push 1)
+             color_fade_pulse.v := 0.192569 (pop 0) 1-10
+                    varref color_fade_pulse.h = 0.140764 (push 1) 1-7
+                     MUL * (Push 2)
+                      INTEGER_CONST 255 (Push 3)
+                  0.140764 * 255.000000 = 35.894924 (pop 0, push 1)
+                      varref color_fade_pulse.s = 0.090763 (push 2) 1-8
+                       MUL * (Push 3)
+                        INTEGER_CONST 255 (Push 4)
+                    0.090763 * 255.000000 = 23.144627 (pop 1, push 2)
+                      varref color_fade_pulse.v = 0.192569 (push 3) 1-10
+                       MUL * (Push 4)
+                        INTEGER_CONST 255 (Push 5)
+                    0.192569 * 255.000000 = 49.105038 (pop 2, push 3)
+hsv(35.894924, 23.144627, 49.105038)
+                Call hsv(35.894924, 23.144627, 49.105038) = 108.144592 (Pop 0, Push 1)
+                 varref renderLed.index = 1.000000 (push 1) 2-0
+arti_set_external_variable: leds(1.000000) := 108.144592
+             assign set ext.leds[1.000000] = 108.144592 (Pop 0)
+                   varref renderLed.index = 2.000000 (push 1) 2-0
+                    DIV / (Push 2)
+                     varref ext.ledCount = 3.000000 (push 3)
+                    MUL * (Push 4)
+                     INTEGER_CONST 2 (Push 5)
+                 2.000000 / 3.000000 = 0.666667 (pop 2, push 3)
+                 0.666667 * 2.000000 = 1.333333 (pop 0, push 1)
+                   MINUS - (Push 2)
+                    varref color_fade_pulse.t1 = 0.525902 (push 3) 1-3
+                1.333333 - 0.525902 = 0.807431 (pop 0, push 1)
+             color_fade_pulse.h := 0.807431 (pop 0) 1-7
+                   INTEGER_CONST 1 (Push 1)
+                    PLUS + (Push 2)
+                        varref color_fade_pulse.t2 = 0.958752 (push 3) 1-4
+                         PLUS + (Push 4)
+                           varref renderLed.index = 2.000000 (push 5) 2-0
+                            DIV / (Push 6)
+                             varref renderLed.pixelCount = 2.000000 (push 7) 0-0
+                            MUL * (Push 8)
+                             varref color_fade_pulse.PI = 3.141590 (push 9) 1-1
+                         2.000000 / 2.000000 = 1.000000 (pop 6, push 7)
+                         1.000000 * 3.141590 = 3.141590 (pop 4, push 5)
+                      0.958752 + 3.141590 = 4.100342 (pop 2, push 3)
+                     Call sin(4.100342) = -0.818474 (Pop 2, Push 3)
+                 1.000000 + -0.818474 = 0.181526 (pop 0, push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+               0.181526 / 2.000000 = 0.090763 (pop 0, push 1)
+             color_fade_pulse.s := 0.090763 (pop 0) 1-8
+                   varref color_fade_pulse.t3 = 0.762951 (push 1) 1-5
+                    PLUS + (Push 2)
+                      varref renderLed.index = 2.000000 (push 3) 2-0
+                       DIV / (Push 4)
+                        varref ext.ledCount = 3.000000 (push 5)
+                       MUL * (Push 6)
+                        INTEGER_CONST 4 (Push 7)
+                    2.000000 / 3.000000 = 0.666667 (pop 4, push 5)
+                    0.666667 * 4.000000 = 2.666667 (pop 2, push 3)
+                 0.762951 + 2.666667 = 3.429618 (pop 0, push 1)
+                  MOD % (Push 2)
+                   INTEGER_CONST 1 (Push 3)
+               3.429618 % 1.000000 = 0.429618 (pop 0, push 1)
+             color_fade_pulse.vt := 0.429618 (pop 0) 1-9
+                   varref color_fade_pulse.vt = 0.429618 (push 1) 1-9
+                Call triangle(0.429618) = 0.859236 (Pop 0, Push 1)
+             color_fade_pulse.v := 0.859236 (pop 0) 1-10
+                    varref color_fade_pulse.h = 0.807431 (push 1) 1-7
+                     MUL * (Push 2)
+                      INTEGER_CONST 255 (Push 3)
+                  0.807431 * 255.000000 = 205.894928 (pop 0, push 1)
+                      varref color_fade_pulse.s = 0.090763 (push 2) 1-8
+                       MUL * (Push 3)
+                        INTEGER_CONST 255 (Push 4)
+                    0.090763 * 255.000000 = 23.144627 (pop 1, push 2)
+                      varref color_fade_pulse.v = 0.859236 (push 3) 1-10
+                       MUL * (Push 4)
+                        INTEGER_CONST 255 (Push 5)
+                    0.859236 * 255.000000 = 219.105118 (pop 2, push 3)
+hsv(205.894928, 23.144627, 219.105118)
+                Call hsv(205.894928, 23.144627, 219.105118) = 448.144653 (Pop 0, Push 1)
+                 varref renderLed.index = 2.000000 (push 1) 2-0
+arti_set_external_variable: leds(2.000000) := 448.144653
+             assign set ext.leds[2.000000] = 448.144653 (Pop 0)
+Destruct activation record renderLed
+setPixels(leds)
+         Call renderFrame (1)
+                REAL_CONST 3.14159 (Push 1)
+             color_fade_pulse.PI := 3.141590 (pop 0) 1-1
+                REAL_CONST 6.28318 (Push 1)
+             color_fade_pulse.PI2 := 6.283180 (pop 0) 1-2
+                   REAL_CONST .01 (Push 1)
+                Call time(0.010000) = 0.525902 (Pop 0, Push 1)
+             color_fade_pulse.t1 := 0.525902 (pop 0) 1-3
+                    REAL_CONST .1 (Push 1)
+                 Call time(0.100000) = 0.152590 (Pop 0, Push 1)
+                  MUL * (Push 2)
+                   varref color_fade_pulse.PI2 = 6.283180 (push 3) 1-2
+               0.152590 * 6.283180 = 0.958752 (pop 0, push 1)
+             color_fade_pulse.t2 := 0.958752 (pop 0) 1-4
+                   REAL_CONST .02 (Push 1)
+                Call time(0.020000) = 0.762951 (Pop 0, Push 1)
+             color_fade_pulse.t3 := 0.762951 (pop 0) 1-5
+Destruct activation record renderFrame
+                   varref renderLed.index = 0.000000 (push 1) 2-0
+                    DIV / (Push 2)
+                     varref ext.ledCount = 3.000000 (push 3)
+                    MUL * (Push 4)
+                     INTEGER_CONST 2 (Push 5)
+                 0.000000 / 3.000000 = 0.000000 (pop 2, push 3)
+                 0.000000 * 2.000000 = 0.000000 (pop 0, push 1)
+                   MINUS - (Push 2)
+                    varref color_fade_pulse.t1 = 0.525902 (push 3) 1-3
+                0.000000 - 0.525902 = -0.525902 (pop 0, push 1)
+             color_fade_pulse.h := -0.525902 (pop 0) 1-7
+                   INTEGER_CONST 1 (Push 1)
+                    PLUS + (Push 2)
+                        varref color_fade_pulse.t2 = 0.958752 (push 3) 1-4
+                         PLUS + (Push 4)
+                           varref renderLed.index = 0.000000 (push 5) 2-0
+                            DIV / (Push 6)
+                             varref renderLed.pixelCount = 0.000000 (push 7) 0-0
+                            MUL * (Push 8)
+                             varref color_fade_pulse.PI = 3.141590 (push 9) 1-1
+                         division by 0 not possible, divisor ignored for 0.000000
+                         0.000000 / 1.000000 = 0.000000 (pop 6, push 7)
+                         0.000000 * 3.141590 = 0.000000 (pop 4, push 5)
+                      0.958752 + 0.000000 = 0.958752 (pop 2, push 3)
+                     Call sin(0.958752) = 0.818475 (Pop 2, Push 3)
+                 1.000000 + 0.818475 = 1.818475 (pop 0, push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+               1.818475 / 2.000000 = 0.909238 (pop 0, push 1)
+             color_fade_pulse.s := 0.909238 (pop 0) 1-8
+                   varref color_fade_pulse.t3 = 0.762951 (push 1) 1-5
+                    PLUS + (Push 2)
+                      varref renderLed.index = 0.000000 (push 3) 2-0
+                       DIV / (Push 4)
+                        varref ext.ledCount = 3.000000 (push 5)
+                       MUL * (Push 6)
+                        INTEGER_CONST 4 (Push 7)
+                    0.000000 / 3.000000 = 0.000000 (pop 4, push 5)
+                    0.000000 * 4.000000 = 0.000000 (pop 2, push 3)
+                 0.762951 + 0.000000 = 0.762951 (pop 0, push 1)
+                  MOD % (Push 2)
+                   INTEGER_CONST 1 (Push 3)
+               0.762951 % 1.000000 = 0.762951 (pop 0, push 1)
+             color_fade_pulse.vt := 0.762951 (pop 0) 1-9
+                   varref color_fade_pulse.vt = 0.762951 (push 1) 1-9
+                Call triangle(0.762951) = 0.474098 (Pop 0, Push 1)
+             color_fade_pulse.v := 0.474098 (pop 0) 1-10
+                    varref color_fade_pulse.h = -0.525902 (push 1) 1-7
+                     MUL * (Push 2)
+                      INTEGER_CONST 255 (Push 3)
+                  -0.525902 * 255.000000 = -134.105072 (pop 0, push 1)
+                      varref color_fade_pulse.s = 0.909238 (push 2) 1-8
+                       MUL * (Push 3)
+                        INTEGER_CONST 255 (Push 4)
+                    0.909238 * 255.000000 = 231.855560 (pop 1, push 2)
+                      varref color_fade_pulse.v = 0.474098 (push 3) 1-10
+                       MUL * (Push 4)
+                        INTEGER_CONST 255 (Push 5)
+                    0.474098 * 255.000000 = 120.894920 (pop 2, push 3)
+hsv(-134.105072, 231.855560, 120.894920)
+                Call hsv(-134.105072, 231.855560, 120.894920) = 218.645416 (Pop 0, Push 1)
+                 varref renderLed.index = 0.000000 (push 1) 2-0
+arti_set_external_variable: leds(0.000000) := 218.645416
+             assign set ext.leds[0.000000] = 218.645416 (Pop 0)
+                   varref renderLed.index = 1.000000 (push 1) 2-0
+                    DIV / (Push 2)
+                     varref ext.ledCount = 3.000000 (push 3)
+                    MUL * (Push 4)
+                     INTEGER_CONST 2 (Push 5)
+                 1.000000 / 3.000000 = 0.333333 (pop 2, push 3)
+                 0.333333 * 2.000000 = 0.666667 (pop 0, push 1)
+                   MINUS - (Push 2)
+                    varref color_fade_pulse.t1 = 0.525902 (push 3) 1-3
+                0.666667 - 0.525902 = 0.140764 (pop 0, push 1)
+             color_fade_pulse.h := 0.140764 (pop 0) 1-7
+                   INTEGER_CONST 1 (Push 1)
+                    PLUS + (Push 2)
+                        varref color_fade_pulse.t2 = 0.958752 (push 3) 1-4
+                         PLUS + (Push 4)
+                           varref renderLed.index = 1.000000 (push 5) 2-0
+                            DIV / (Push 6)
+                             varref renderLed.pixelCount = 1.000000 (push 7) 0-0
+                            MUL * (Push 8)
+                             varref color_fade_pulse.PI = 3.141590 (push 9) 1-1
+                         1.000000 / 1.000000 = 1.000000 (pop 6, push 7)
+                         1.000000 * 3.141590 = 3.141590 (pop 4, push 5)
+                      0.958752 + 3.141590 = 4.100342 (pop 2, push 3)
+                     Call sin(4.100342) = -0.818474 (Pop 2, Push 3)
+                 1.000000 + -0.818474 = 0.181526 (pop 0, push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+               0.181526 / 2.000000 = 0.090763 (pop 0, push 1)
+             color_fade_pulse.s := 0.090763 (pop 0) 1-8
+                   varref color_fade_pulse.t3 = 0.762951 (push 1) 1-5
+                    PLUS + (Push 2)
+                      varref renderLed.index = 1.000000 (push 3) 2-0
+                       DIV / (Push 4)
+                        varref ext.ledCount = 3.000000 (push 5)
+                       MUL * (Push 6)
+                        INTEGER_CONST 4 (Push 7)
+                    1.000000 / 3.000000 = 0.333333 (pop 4, push 5)
+                    0.333333 * 4.000000 = 1.333333 (pop 2, push 3)
+                 0.762951 + 1.333333 = 2.096284 (pop 0, push 1)
+                  MOD % (Push 2)
+                   INTEGER_CONST 1 (Push 3)
+               2.096284 % 1.000000 = 0.096284 (pop 0, push 1)
+             color_fade_pulse.vt := 0.096284 (pop 0) 1-9
+                   varref color_fade_pulse.vt = 0.096284 (push 1) 1-9
+                Call triangle(0.096284) = 0.192569 (Pop 0, Push 1)
+             color_fade_pulse.v := 0.192569 (pop 0) 1-10
+                    varref color_fade_pulse.h = 0.140764 (push 1) 1-7
+                     MUL * (Push 2)
+                      INTEGER_CONST 255 (Push 3)
+                  0.140764 * 255.000000 = 35.894924 (pop 0, push 1)
+                      varref color_fade_pulse.s = 0.090763 (push 2) 1-8
+                       MUL * (Push 3)
+                        INTEGER_CONST 255 (Push 4)
+                    0.090763 * 255.000000 = 23.144627 (pop 1, push 2)
+                      varref color_fade_pulse.v = 0.192569 (push 3) 1-10
+                       MUL * (Push 4)
+                        INTEGER_CONST 255 (Push 5)
+                    0.192569 * 255.000000 = 49.105038 (pop 2, push 3)
+hsv(35.894924, 23.144627, 49.105038)
+                Call hsv(35.894924, 23.144627, 49.105038) = 108.144592 (Pop 0, Push 1)
+                 varref renderLed.index = 1.000000 (push 1) 2-0
+arti_set_external_variable: leds(1.000000) := 108.144592
+             assign set ext.leds[1.000000] = 108.144592 (Pop 0)
+                   varref renderLed.index = 2.000000 (push 1) 2-0
+                    DIV / (Push 2)
+                     varref ext.ledCount = 3.000000 (push 3)
+                    MUL * (Push 4)
+                     INTEGER_CONST 2 (Push 5)
+                 2.000000 / 3.000000 = 0.666667 (pop 2, push 3)
+                 0.666667 * 2.000000 = 1.333333 (pop 0, push 1)
+                   MINUS - (Push 2)
+                    varref color_fade_pulse.t1 = 0.525902 (push 3) 1-3
+                1.333333 - 0.525902 = 0.807431 (pop 0, push 1)
+             color_fade_pulse.h := 0.807431 (pop 0) 1-7
+                   INTEGER_CONST 1 (Push 1)
+                    PLUS + (Push 2)
+                        varref color_fade_pulse.t2 = 0.958752 (push 3) 1-4
+                         PLUS + (Push 4)
+                           varref renderLed.index = 2.000000 (push 5) 2-0
+                            DIV / (Push 6)
+                             varref renderLed.pixelCount = 2.000000 (push 7) 0-0
+                            MUL * (Push 8)
+                             varref color_fade_pulse.PI = 3.141590 (push 9) 1-1
+                         2.000000 / 2.000000 = 1.000000 (pop 6, push 7)
+                         1.000000 * 3.141590 = 3.141590 (pop 4, push 5)
+                      0.958752 + 3.141590 = 4.100342 (pop 2, push 3)
+                     Call sin(4.100342) = -0.818474 (Pop 2, Push 3)
+                 1.000000 + -0.818474 = 0.181526 (pop 0, push 1)
+                  DIV / (Push 2)
+                   INTEGER_CONST 2 (Push 3)
+               0.181526 / 2.000000 = 0.090763 (pop 0, push 1)
+             color_fade_pulse.s := 0.090763 (pop 0) 1-8
+                   varref color_fade_pulse.t3 = 0.762951 (push 1) 1-5
+                    PLUS + (Push 2)
+                      varref renderLed.index = 2.000000 (push 3) 2-0
+                       DIV / (Push 4)
+                        varref ext.ledCount = 3.000000 (push 5)
+                       MUL * (Push 6)
+                        INTEGER_CONST 4 (Push 7)
+                    2.000000 / 3.000000 = 0.666667 (pop 4, push 5)
+                    0.666667 * 4.000000 = 2.666667 (pop 2, push 3)
+                 0.762951 + 2.666667 = 3.429618 (pop 0, push 1)
+                  MOD % (Push 2)
+                   INTEGER_CONST 1 (Push 3)
+               3.429618 % 1.000000 = 0.429618 (pop 0, push 1)
+             color_fade_pulse.vt := 0.429618 (pop 0) 1-9
+                   varref color_fade_pulse.vt = 0.429618 (push 1) 1-9
+                Call triangle(0.429618) = 0.859236 (Pop 0, Push 1)
+             color_fade_pulse.v := 0.859236 (pop 0) 1-10
+                    varref color_fade_pulse.h = 0.807431 (push 1) 1-7
+                     MUL * (Push 2)
+                      INTEGER_CONST 255 (Push 3)
+                  0.807431 * 255.000000 = 205.894928 (pop 0, push 1)
+                      varref color_fade_pulse.s = 0.090763 (push 2) 1-8
+                       MUL * (Push 3)
+                        INTEGER_CONST 255 (Push 4)
+                    0.090763 * 255.000000 = 23.144627 (pop 1, push 2)
+                      varref color_fade_pulse.v = 0.859236 (push 3) 1-10
+                       MUL * (Push 4)
+                        INTEGER_CONST 255 (Push 5)
+                    0.859236 * 255.000000 = 219.105118 (pop 2, push 3)
+hsv(205.894928, 23.144627, 219.105118)
+                Call hsv(205.894928, 23.144627, 219.105118) = 448.144653 (Pop 0, Push 1)
+                 varref renderLed.index = 2.000000 (push 1) 2-0
+arti_set_external_variable: leds(2.000000) := 448.144653
+             assign set ext.leds[2.000000] = 448.144653 (Pop 0)
+Destruct activation record renderLed
+setPixels(leds)
+closing Arti 0
+Destruct callstack
+Destruct valueStack
+Destruct ScopedSymbolTable renderFrame (0)
+Destruct Symbol index (0)
+Destruct ScopedSymbolTable renderLed (0)
+Destruct Symbol renderFrame (0)
+Destruct Symbol PI (0)
+Destruct Symbol PI2 (0)
+Destruct Symbol t1 (0)
+Destruct Symbol t2 (0)
+Destruct Symbol t3 (0)
+Destruct Symbol renderLed (0)
+Destruct Symbol h (0)
+Destruct Symbol s (0)
+Destruct Symbol vt (0)
+Destruct Symbol v (0)
+Destruct ScopedSymbolTable color_fade_pulse (0)
+definitionJson  11885 / 72% (26 0 6)
+parseTree       11415 / 17% (1 0 29)
+closed Arti 0 ✓

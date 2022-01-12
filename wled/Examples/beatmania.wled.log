@@ -560,7 +560,7 @@ parseTree 65536 => 0 ✓
  found block
 Node program Parsed until (37,1) 1068 of 1068
 parse 0 ✓
-definitionTree 11598 / 70% (26 0 6)
+definitionTree 11885 / 72% (26 0 6)
 parseTree      35959 / 54% (1 0 26)
 garbageCollect 35959 / 54% -> 25719 / 39%
 Destruct Lexer
@@ -719,40 +719,40 @@ interpret Beatmania 1 13
      Save block of renderFrame
 Interpret main 0 ✓
          Call renderFrame (1)
-                 varref ext.intensitySlider = 17.000000 (push 1)
+                 varref ext.intensitySlider = 19.000000 (push 1)
                   DIV / (Push 2)
                    INTEGER_CONST 8 (Push 3)
-               17.000000 / 8.000000 = 2.125000 (pop 0, push 1)
-             Call fadeToBlackBy(2.125000) = 2.125000 (Pop 0, Push 1)
-                    varref ext.speedSlider = 16.000000 (push 2)
+               19.000000 / 8.000000 = 2.375000 (pop 0, push 1)
+             Call fadeToBlackBy(2.375000) = 2.375000 (Pop 0, Push 1)
+                    varref ext.speedSlider = 18.000000 (push 2)
                      DIV / (Push 3)
                       INTEGER_CONST 3 (Push 4)
-                  16.000000 / 3.000000 = 5.333333 (pop 1, push 2)
+                  18.000000 / 3.000000 = 6.000000 (pop 1, push 2)
                     PLUS + (Push 3)
                      INTEGER_CONST 1 (Push 4)
-                 5.333333 + 1.000000 = 6.333333 (pop 1, push 2)
+                 6.000000 + 1.000000 = 7.000000 (pop 1, push 2)
                      INTEGER_CONST 0 (Push 3)
                      varref ext.ledCount = 3.000000 (push 4)
-                Call beatSin(6.333333, 0.000000, 3.000000) = -65526.664062 (Pop 1, Push 2)
-             Beatmania.locn1 := -65526.664062 (pop 1) 1-1
-                    varref ext.speedSlider = 16.000000 (push 2)
+                Call beatSin(7.000000, 0.000000, 3.000000) = -65526.000000 (Pop 1, Push 2)
+             Beatmania.locn1 := -65526.000000 (pop 1) 1-1
+                    varref ext.speedSlider = 18.000000 (push 2)
                      DIV / (Push 3)
                       INTEGER_CONST 4 (Push 4)
-                  16.000000 / 4.000000 = 4.000000 (pop 1, push 2)
+                  18.000000 / 4.000000 = 4.500000 (pop 1, push 2)
                     PLUS + (Push 3)
                      INTEGER_CONST 1 (Push 4)
-                 4.000000 + 1.000000 = 5.000000 (pop 1, push 2)
+                 4.500000 + 1.000000 = 5.500000 (pop 1, push 2)
                      INTEGER_CONST 0 (Push 3)
                      varref ext.ledCount = 3.000000 (push 4)
-                Call beatSin(5.000000, 0.000000, 3.000000) = -65528.000000 (Pop 1, Push 2)
-             Beatmania.locn2 := -65528.000000 (pop 1) 1-2
-                    varref ext.speedSlider = 16.000000 (push 2)
+                Call beatSin(5.500000, 0.000000, 3.000000) = -65527.500000 (Pop 1, Push 2)
+             Beatmania.locn2 := -65527.500000 (pop 1) 1-2
+                    varref ext.speedSlider = 18.000000 (push 2)
                      DIV / (Push 3)
                       INTEGER_CONST 5 (Push 4)
-                  16.000000 / 5.000000 = 3.200000 (pop 1, push 2)
+                  18.000000 / 5.000000 = 3.600000 (pop 1, push 2)
                     PLUS + (Push 3)
                      INTEGER_CONST 1 (Push 4)
-                 3.200000 + 1.000000 = 4.200000 (pop 1, push 2)
+                 3.600000 + 1.000000 = 4.600000 (pop 1, push 2)
                      INTEGER_CONST 0 (Push 3)
                       varref ext.ledCount = 3.000000 (push 4)
                        DIV / (Push 5)
@@ -764,149 +764,149 @@ Interpret main 0 ✓
                           INTEGER_CONST 3 (Push 8)
                       3.000000 / 3.000000 = 1.000000 (pop 5, push 6)
                    1.500000 + 1.000000 = 2.500000 (pop 3, push 4)
-                Call beatSin(4.200000, 0.000000, 2.500000) = -65529.300781 (Pop 1, Push 2)
-             Beatmania.locn3 := -65529.300781 (pop 1) 1-3
-                    varref ext.intensitySlider = 17.000000 (push 2)
+                Call beatSin(4.600000, 0.000000, 2.500000) = -65528.898438 (Pop 1, Push 2)
+             Beatmania.locn3 := -65528.898438 (pop 1) 1-3
+                    varref ext.intensitySlider = 19.000000 (push 2)
                      DIV / (Push 3)
                       INTEGER_CONST 6 (Push 4)
-                  17.000000 / 6.000000 = 2.833333 (pop 1, push 2)
+                  19.000000 / 6.000000 = 3.166667 (pop 1, push 2)
                     PLUS + (Push 3)
                      INTEGER_CONST 1 (Push 4)
-                 2.833333 + 1.000000 = 3.833333 (pop 1, push 2)
+                 3.166667 + 1.000000 = 4.166667 (pop 1, push 2)
                      INTEGER_CONST 0 (Push 3)
                      INTEGER_CONST 255 (Push 4)
-                Call beatSin(3.833333, 0.000000, 255.000000) = -65277.164062 (Pop 1, Push 2)
-             Beatmania.colr1 := -65277.164062 (pop 1) 1-4
-                    varref ext.intensitySlider = 17.000000 (push 2)
+                Call beatSin(4.166667, 0.000000, 255.000000) = -65276.835938 (Pop 1, Push 2)
+             Beatmania.colr1 := -65276.835938 (pop 1) 1-4
+                    varref ext.intensitySlider = 19.000000 (push 2)
                      DIV / (Push 3)
                       INTEGER_CONST 7 (Push 4)
-                  17.000000 / 7.000000 = 2.428571 (pop 1, push 2)
+                  19.000000 / 7.000000 = 2.714286 (pop 1, push 2)
                     PLUS + (Push 3)
                      INTEGER_CONST 1 (Push 4)
-                 2.428571 + 1.000000 = 3.428571 (pop 1, push 2)
+                 2.714286 + 1.000000 = 3.714286 (pop 1, push 2)
                      INTEGER_CONST 0 (Push 3)
                      INTEGER_CONST 255 (Push 4)
-                Call beatSin(3.428571, 0.000000, 255.000000) = -65277.570312 (Pop 1, Push 2)
-             Beatmania.colr2 := -65277.570312 (pop 1) 1-5
-                    varref ext.intensitySlider = 17.000000 (push 2)
+                Call beatSin(3.714286, 0.000000, 255.000000) = -65277.285156 (Pop 1, Push 2)
+             Beatmania.colr2 := -65277.285156 (pop 1) 1-5
+                    varref ext.intensitySlider = 19.000000 (push 2)
                      DIV / (Push 3)
                       INTEGER_CONST 8 (Push 4)
-                  17.000000 / 8.000000 = 2.125000 (pop 1, push 2)
+                  19.000000 / 8.000000 = 2.375000 (pop 1, push 2)
                     PLUS + (Push 3)
                      INTEGER_CONST 1 (Push 4)
-                 2.125000 + 1.000000 = 3.125000 (pop 1, push 2)
+                 2.375000 + 1.000000 = 3.375000 (pop 1, push 2)
                      INTEGER_CONST 0 (Push 3)
                      INTEGER_CONST 255 (Push 4)
-                Call beatSin(3.125000, 0.000000, 255.000000) = -65277.875000 (Pop 1, Push 2)
-             Beatmania.colr3 := -65277.875000 (pop 1) 1-6
-                    varref ext.intensitySlider = 17.000000 (push 2)
+                Call beatSin(3.375000, 0.000000, 255.000000) = -65277.625000 (Pop 1, Push 2)
+             Beatmania.colr3 := -65277.625000 (pop 1) 1-6
+                    varref ext.intensitySlider = 19.000000 (push 2)
                      DIV / (Push 3)
                       INTEGER_CONST 6 (Push 4)
-                  17.000000 / 6.000000 = 2.833333 (pop 1, push 2)
+                  19.000000 / 6.000000 = 3.166667 (pop 1, push 2)
                     PLUS + (Push 3)
                      INTEGER_CONST 1 (Push 4)
-                 2.833333 + 1.000000 = 3.833333 (pop 1, push 2)
+                 3.166667 + 1.000000 = 4.166667 (pop 1, push 2)
                      INTEGER_CONST 32 (Push 3)
                      INTEGER_CONST 255 (Push 4)
-                Call beatSin(3.833333, 32.000000, 255.000000) = -65245.164062 (Pop 1, Push 2)
-             Beatmania.bri1 := -65245.164062 (pop 1) 1-7
-                    varref ext.intensitySlider = 17.000000 (push 2)
+                Call beatSin(4.166667, 32.000000, 255.000000) = -65244.835938 (Pop 1, Push 2)
+             Beatmania.bri1 := -65244.835938 (pop 1) 1-7
+                    varref ext.intensitySlider = 19.000000 (push 2)
                      DIV / (Push 3)
                       INTEGER_CONST 7 (Push 4)
-                  17.000000 / 7.000000 = 2.428571 (pop 1, push 2)
+                  19.000000 / 7.000000 = 2.714286 (pop 1, push 2)
                     PLUS + (Push 3)
                      INTEGER_CONST 1 (Push 4)
-                 2.428571 + 1.000000 = 3.428571 (pop 1, push 2)
+                 2.714286 + 1.000000 = 3.714286 (pop 1, push 2)
                      INTEGER_CONST 32 (Push 3)
                      INTEGER_CONST 255 (Push 4)
-                Call beatSin(3.428571, 32.000000, 255.000000) = -65245.570312 (Pop 1, Push 2)
-             Beatmania.bri2 := -65245.570312 (pop 1) 1-8
-                    varref ext.intensitySlider = 17.000000 (push 2)
+                Call beatSin(3.714286, 32.000000, 255.000000) = -65245.285156 (Pop 1, Push 2)
+             Beatmania.bri2 := -65245.285156 (pop 1) 1-8
+                    varref ext.intensitySlider = 19.000000 (push 2)
                      DIV / (Push 3)
                       INTEGER_CONST 8 (Push 4)
-                  17.000000 / 8.000000 = 2.125000 (pop 1, push 2)
+                  19.000000 / 8.000000 = 2.375000 (pop 1, push 2)
                     PLUS + (Push 3)
                      INTEGER_CONST 132 (Push 4)
-                 2.125000 + 132.000000 = 134.125000 (pop 1, push 2)
+                 2.375000 + 132.000000 = 134.375000 (pop 1, push 2)
                      INTEGER_CONST 255 (Push 3)
-                Call beatSin(134.125000, 255.000000) = -97914.875000 (Pop 1, Push 2)
-             Beatmania.bri3 := -97914.875000 (pop 1) 1-9
-                varref Beatmania.locn1 = -65526.664062 (push 2) 1-1
+                Call beatSin(134.375000, 255.000000) = -97914.625000 (Pop 1, Push 2)
+             Beatmania.bri3 := -97914.625000 (pop 1) 1-9
+                varref Beatmania.locn1 = -65526.000000 (push 2) 1-1
                  PLUS + (Push 3)
-                  varref Beatmania.locn2 = -65528.000000 (push 4) 1-2
-              -65526.664062 + -65528.000000 = -131054.664062 (pop 1, push 2)
-             Beatmania.locn12 := -131054.664062 (pop 1) 1-10
-                varref Beatmania.colr1 = -65277.164062 (push 2) 1-4
+                  varref Beatmania.locn2 = -65527.500000 (push 4) 1-2
+              -65526.000000 + -65527.500000 = -131053.500000 (pop 1, push 2)
+             Beatmania.locn12 := -131053.500000 (pop 1) 1-10
+                varref Beatmania.colr1 = -65276.835938 (push 2) 1-4
                  PLUS + (Push 3)
-                  varref Beatmania.colr2 = -65277.570312 (push 4) 1-5
-              -65277.164062 + -65277.570312 = -130554.734375 (pop 1, push 2)
-             Beatmania.colr12 := -130554.734375 (pop 1) 1-11
-                varref Beatmania.bri1 = -65245.164062 (push 2) 1-7
+                  varref Beatmania.colr2 = -65277.285156 (push 4) 1-5
+              -65276.835938 + -65277.285156 = -130554.125000 (pop 1, push 2)
+             Beatmania.colr12 := -130554.125000 (pop 1) 1-11
+                varref Beatmania.bri1 = -65244.835938 (push 2) 1-7
                  PLUS + (Push 3)
-                  varref Beatmania.bri2 = -65245.570312 (push 4) 1-8
-              -65245.164062 + -65245.570312 = -130490.734375 (pop 1, push 2)
-             Beatmania.bri12 := -130490.734375 (pop 1) 1-12
-                   varref Beatmania.colr12 = -130554.734375 (push 2) 1-11
-                     varref Beatmania.bri12 = -130490.734375 (push 3) 1-12
-                Call colorFromPalette(-130554.734375, -130490.734375) = -261045.468750 (Pop 1, Push 2)
-                 varref Beatmania.locn12 = -131054.664062 (push 2) 1-10
-arti_set_external_variable: leds(-131054.664062) := -261045.468750
-             assign set ext.leds[-131054.664062] = -261045.468750 (Pop 1)
-                   varref Beatmania.colr2 = -65277.570312 (push 2) 1-5
-                     varref Beatmania.bri1 = -65245.164062 (push 3) 1-7
-                Call colorFromPalette(-65277.570312, -65245.164062) = -130522.734375 (Pop 1, Push 2)
-                 varref Beatmania.locn1 = -65526.664062 (push 2) 1-1
-arti_set_external_variable: leds(-65526.664062) := -130522.734375
-             assign set ext.leds[-65526.664062] = -130522.734375 (Pop 1)
-                   varref Beatmania.colr1 = -65277.164062 (push 2) 1-4
-                     varref Beatmania.bri2 = -65245.570312 (push 3) 1-8
-                Call colorFromPalette(-65277.164062, -65245.570312) = -130522.734375 (Pop 1, Push 2)
-                  varref Beatmania.locn2 = -65528.000000 (push 2) 1-2
+                  varref Beatmania.bri2 = -65245.285156 (push 4) 1-8
+              -65244.835938 + -65245.285156 = -130490.125000 (pop 1, push 2)
+             Beatmania.bri12 := -130490.125000 (pop 1) 1-12
+                   varref Beatmania.colr12 = -130554.125000 (push 2) 1-11
+                     varref Beatmania.bri12 = -130490.125000 (push 3) 1-12
+                Call colorFromPalette(-130554.125000, -130490.125000) = -261044.250000 (Pop 1, Push 2)
+                 varref Beatmania.locn12 = -131053.500000 (push 2) 1-10
+arti_set_external_variable: leds(-131053.500000) := -261044.250000
+             assign set ext.leds[-131053.500000] = -261044.250000 (Pop 1)
+                   varref Beatmania.colr2 = -65277.285156 (push 2) 1-5
+                     varref Beatmania.bri1 = -65244.835938 (push 3) 1-7
+                Call colorFromPalette(-65277.285156, -65244.835938) = -130522.125000 (Pop 1, Push 2)
+                 varref Beatmania.locn1 = -65526.000000 (push 2) 1-1
+arti_set_external_variable: leds(-65526.000000) := -130522.125000
+             assign set ext.leds[-65526.000000] = -130522.125000 (Pop 1)
+                   varref Beatmania.colr1 = -65276.835938 (push 2) 1-4
+                     varref Beatmania.bri2 = -65245.285156 (push 3) 1-8
+                Call colorFromPalette(-65276.835938, -65245.285156) = -130522.125000 (Pop 1, Push 2)
+                  varref Beatmania.locn2 = -65527.500000 (push 2) 1-2
                    MOD % (Push 3)
                       varref ext.ledCount = 3.000000 (push 4)
                        MINUS - (Push 5)
                         INTEGER_CONST 1 (Push 6)
                     3.000000 - 1.000000 = 2.000000 (pop 3, push 4)
-                -65528.000000 % 2.000000 = -0.000000 (pop 1, push 2)
-arti_set_external_variable: leds(-0.000000) := -130522.734375
-             assign set ext.leds[-0.000000] = -130522.734375 (Pop 1)
+                -65527.500000 % 2.000000 = -1.500000 (pop 1, push 2)
+arti_set_external_variable: leds(-1.500000) := -130522.125000
+             assign set ext.leds[-1.500000] = -130522.125000 (Pop 1)
 Destruct activation record renderFrame
 setPixels(leds)
          Call renderFrame (1)
-                 varref ext.intensitySlider = 17.000000 (push 2)
+                 varref ext.intensitySlider = 19.000000 (push 2)
                   DIV / (Push 3)
                    INTEGER_CONST 8 (Push 4)
-               17.000000 / 8.000000 = 2.125000 (pop 1, push 2)
-             Call fadeToBlackBy(2.125000) = 2.125000 (Pop 1, Push 2)
-                    varref ext.speedSlider = 16.000000 (push 3)
+               19.000000 / 8.000000 = 2.375000 (pop 1, push 2)
+             Call fadeToBlackBy(2.375000) = 2.375000 (Pop 1, Push 2)
+                    varref ext.speedSlider = 18.000000 (push 3)
                      DIV / (Push 4)
                       INTEGER_CONST 3 (Push 5)
-                  16.000000 / 3.000000 = 5.333333 (pop 2, push 3)
+                  18.000000 / 3.000000 = 6.000000 (pop 2, push 3)
                     PLUS + (Push 4)
                      INTEGER_CONST 1 (Push 5)
-                 5.333333 + 1.000000 = 6.333333 (pop 2, push 3)
+                 6.000000 + 1.000000 = 7.000000 (pop 2, push 3)
                      INTEGER_CONST 0 (Push 4)
                      varref ext.ledCount = 3.000000 (push 5)
-                Call beatSin(6.333333, 0.000000, 3.000000) = -65526.664062 (Pop 2, Push 3)
-             Beatmania.locn1 := -65526.664062 (pop 2) 1-1
-                    varref ext.speedSlider = 16.000000 (push 3)
+                Call beatSin(7.000000, 0.000000, 3.000000) = -65526.000000 (Pop 2, Push 3)
+             Beatmania.locn1 := -65526.000000 (pop 2) 1-1
+                    varref ext.speedSlider = 18.000000 (push 3)
                      DIV / (Push 4)
                       INTEGER_CONST 4 (Push 5)
-                  16.000000 / 4.000000 = 4.000000 (pop 2, push 3)
+                  18.000000 / 4.000000 = 4.500000 (pop 2, push 3)
                     PLUS + (Push 4)
                      INTEGER_CONST 1 (Push 5)
-                 4.000000 + 1.000000 = 5.000000 (pop 2, push 3)
+                 4.500000 + 1.000000 = 5.500000 (pop 2, push 3)
                      INTEGER_CONST 0 (Push 4)
                      varref ext.ledCount = 3.000000 (push 5)
-                Call beatSin(5.000000, 0.000000, 3.000000) = -65528.000000 (Pop 2, Push 3)
-             Beatmania.locn2 := -65528.000000 (pop 2) 1-2
-                    varref ext.speedSlider = 16.000000 (push 3)
+                Call beatSin(5.500000, 0.000000, 3.000000) = -65527.500000 (Pop 2, Push 3)
+             Beatmania.locn2 := -65527.500000 (pop 2) 1-2
+                    varref ext.speedSlider = 18.000000 (push 3)
                      DIV / (Push 4)
                       INTEGER_CONST 5 (Push 5)
-                  16.000000 / 5.000000 = 3.200000 (pop 2, push 3)
+                  18.000000 / 5.000000 = 3.600000 (pop 2, push 3)
                     PLUS + (Push 4)
                      INTEGER_CONST 1 (Push 5)
-                 3.200000 + 1.000000 = 4.200000 (pop 2, push 3)
+                 3.600000 + 1.000000 = 4.600000 (pop 2, push 3)
                      INTEGER_CONST 0 (Push 4)
                       varref ext.ledCount = 3.000000 (push 5)
                        DIV / (Push 6)
@@ -918,112 +918,112 @@ setPixels(leds)
                           INTEGER_CONST 3 (Push 9)
                       3.000000 / 3.000000 = 1.000000 (pop 6, push 7)
                    1.500000 + 1.000000 = 2.500000 (pop 4, push 5)
-                Call beatSin(4.200000, 0.000000, 2.500000) = -65529.300781 (Pop 2, Push 3)
-             Beatmania.locn3 := -65529.300781 (pop 2) 1-3
-                    varref ext.intensitySlider = 17.000000 (push 3)
+                Call beatSin(4.600000, 0.000000, 2.500000) = -65528.898438 (Pop 2, Push 3)
+             Beatmania.locn3 := -65528.898438 (pop 2) 1-3
+                    varref ext.intensitySlider = 19.000000 (push 3)
                      DIV / (Push 4)
                       INTEGER_CONST 6 (Push 5)
-                  17.000000 / 6.000000 = 2.833333 (pop 2, push 3)
+                  19.000000 / 6.000000 = 3.166667 (pop 2, push 3)
                     PLUS + (Push 4)
                      INTEGER_CONST 1 (Push 5)
-                 2.833333 + 1.000000 = 3.833333 (pop 2, push 3)
+                 3.166667 + 1.000000 = 4.166667 (pop 2, push 3)
                      INTEGER_CONST 0 (Push 4)
                      INTEGER_CONST 255 (Push 5)
-                Call beatSin(3.833333, 0.000000, 255.000000) = -65277.164062 (Pop 2, Push 3)
-             Beatmania.colr1 := -65277.164062 (pop 2) 1-4
-                    varref ext.intensitySlider = 17.000000 (push 3)
+                Call beatSin(4.166667, 0.000000, 255.000000) = -65276.835938 (Pop 2, Push 3)
+             Beatmania.colr1 := -65276.835938 (pop 2) 1-4
+                    varref ext.intensitySlider = 19.000000 (push 3)
                      DIV / (Push 4)
                       INTEGER_CONST 7 (Push 5)
-                  17.000000 / 7.000000 = 2.428571 (pop 2, push 3)
+                  19.000000 / 7.000000 = 2.714286 (pop 2, push 3)
                     PLUS + (Push 4)
                      INTEGER_CONST 1 (Push 5)
-                 2.428571 + 1.000000 = 3.428571 (pop 2, push 3)
+                 2.714286 + 1.000000 = 3.714286 (pop 2, push 3)
                      INTEGER_CONST 0 (Push 4)
                      INTEGER_CONST 255 (Push 5)
-                Call beatSin(3.428571, 0.000000, 255.000000) = -65277.570312 (Pop 2, Push 3)
-             Beatmania.colr2 := -65277.570312 (pop 2) 1-5
-                    varref ext.intensitySlider = 17.000000 (push 3)
+                Call beatSin(3.714286, 0.000000, 255.000000) = -65277.285156 (Pop 2, Push 3)
+             Beatmania.colr2 := -65277.285156 (pop 2) 1-5
+                    varref ext.intensitySlider = 19.000000 (push 3)
                      DIV / (Push 4)
                       INTEGER_CONST 8 (Push 5)
-                  17.000000 / 8.000000 = 2.125000 (pop 2, push 3)
+                  19.000000 / 8.000000 = 2.375000 (pop 2, push 3)
                     PLUS + (Push 4)
                      INTEGER_CONST 1 (Push 5)
-                 2.125000 + 1.000000 = 3.125000 (pop 2, push 3)
+                 2.375000 + 1.000000 = 3.375000 (pop 2, push 3)
                      INTEGER_CONST 0 (Push 4)
                      INTEGER_CONST 255 (Push 5)
-                Call beatSin(3.125000, 0.000000, 255.000000) = -65277.875000 (Pop 2, Push 3)
-             Beatmania.colr3 := -65277.875000 (pop 2) 1-6
-                    varref ext.intensitySlider = 17.000000 (push 3)
+                Call beatSin(3.375000, 0.000000, 255.000000) = -65277.625000 (Pop 2, Push 3)
+             Beatmania.colr3 := -65277.625000 (pop 2) 1-6
+                    varref ext.intensitySlider = 19.000000 (push 3)
                      DIV / (Push 4)
                       INTEGER_CONST 6 (Push 5)
-                  17.000000 / 6.000000 = 2.833333 (pop 2, push 3)
+                  19.000000 / 6.000000 = 3.166667 (pop 2, push 3)
                     PLUS + (Push 4)
                      INTEGER_CONST 1 (Push 5)
-                 2.833333 + 1.000000 = 3.833333 (pop 2, push 3)
+                 3.166667 + 1.000000 = 4.166667 (pop 2, push 3)
                      INTEGER_CONST 32 (Push 4)
                      INTEGER_CONST 255 (Push 5)
-                Call beatSin(3.833333, 32.000000, 255.000000) = -65245.164062 (Pop 2, Push 3)
-             Beatmania.bri1 := -65245.164062 (pop 2) 1-7
-                    varref ext.intensitySlider = 17.000000 (push 3)
+                Call beatSin(4.166667, 32.000000, 255.000000) = -65244.835938 (Pop 2, Push 3)
+             Beatmania.bri1 := -65244.835938 (pop 2) 1-7
+                    varref ext.intensitySlider = 19.000000 (push 3)
                      DIV / (Push 4)
                       INTEGER_CONST 7 (Push 5)
-                  17.000000 / 7.000000 = 2.428571 (pop 2, push 3)
+                  19.000000 / 7.000000 = 2.714286 (pop 2, push 3)
                     PLUS + (Push 4)
                      INTEGER_CONST 1 (Push 5)
-                 2.428571 + 1.000000 = 3.428571 (pop 2, push 3)
+                 2.714286 + 1.000000 = 3.714286 (pop 2, push 3)
                      INTEGER_CONST 32 (Push 4)
                      INTEGER_CONST 255 (Push 5)
-                Call beatSin(3.428571, 32.000000, 255.000000) = -65245.570312 (Pop 2, Push 3)
-             Beatmania.bri2 := -65245.570312 (pop 2) 1-8
-                    varref ext.intensitySlider = 17.000000 (push 3)
+                Call beatSin(3.714286, 32.000000, 255.000000) = -65245.285156 (Pop 2, Push 3)
+             Beatmania.bri2 := -65245.285156 (pop 2) 1-8
+                    varref ext.intensitySlider = 19.000000 (push 3)
                      DIV / (Push 4)
                       INTEGER_CONST 8 (Push 5)
-                  17.000000 / 8.000000 = 2.125000 (pop 2, push 3)
+                  19.000000 / 8.000000 = 2.375000 (pop 2, push 3)
                     PLUS + (Push 4)
                      INTEGER_CONST 132 (Push 5)
-                 2.125000 + 132.000000 = 134.125000 (pop 2, push 3)
+                 2.375000 + 132.000000 = 134.375000 (pop 2, push 3)
                      INTEGER_CONST 255 (Push 4)
-                Call beatSin(134.125000, 255.000000) = -97914.875000 (Pop 2, Push 3)
-             Beatmania.bri3 := -97914.875000 (pop 2) 1-9
-                varref Beatmania.locn1 = -65526.664062 (push 3) 1-1
+                Call beatSin(134.375000, 255.000000) = -97914.625000 (Pop 2, Push 3)
+             Beatmania.bri3 := -97914.625000 (pop 2) 1-9
+                varref Beatmania.locn1 = -65526.000000 (push 3) 1-1
                  PLUS + (Push 4)
-                  varref Beatmania.locn2 = -65528.000000 (push 5) 1-2
-              -65526.664062 + -65528.000000 = -131054.664062 (pop 2, push 3)
-             Beatmania.locn12 := -131054.664062 (pop 2) 1-10
-                varref Beatmania.colr1 = -65277.164062 (push 3) 1-4
+                  varref Beatmania.locn2 = -65527.500000 (push 5) 1-2
+              -65526.000000 + -65527.500000 = -131053.500000 (pop 2, push 3)
+             Beatmania.locn12 := -131053.500000 (pop 2) 1-10
+                varref Beatmania.colr1 = -65276.835938 (push 3) 1-4
                  PLUS + (Push 4)
-                  varref Beatmania.colr2 = -65277.570312 (push 5) 1-5
-              -65277.164062 + -65277.570312 = -130554.734375 (pop 2, push 3)
-             Beatmania.colr12 := -130554.734375 (pop 2) 1-11
-                varref Beatmania.bri1 = -65245.164062 (push 3) 1-7
+                  varref Beatmania.colr2 = -65277.285156 (push 5) 1-5
+              -65276.835938 + -65277.285156 = -130554.125000 (pop 2, push 3)
+             Beatmania.colr12 := -130554.125000 (pop 2) 1-11
+                varref Beatmania.bri1 = -65244.835938 (push 3) 1-7
                  PLUS + (Push 4)
-                  varref Beatmania.bri2 = -65245.570312 (push 5) 1-8
-              -65245.164062 + -65245.570312 = -130490.734375 (pop 2, push 3)
-             Beatmania.bri12 := -130490.734375 (pop 2) 1-12
-                   varref Beatmania.colr12 = -130554.734375 (push 3) 1-11
-                     varref Beatmania.bri12 = -130490.734375 (push 4) 1-12
-                Call colorFromPalette(-130554.734375, -130490.734375) = -261045.468750 (Pop 2, Push 3)
-                 varref Beatmania.locn12 = -131054.664062 (push 3) 1-10
-arti_set_external_variable: leds(-131054.664062) := -261045.468750
-             assign set ext.leds[-131054.664062] = -261045.468750 (Pop 2)
-                   varref Beatmania.colr2 = -65277.570312 (push 3) 1-5
-                     varref Beatmania.bri1 = -65245.164062 (push 4) 1-7
-                Call colorFromPalette(-65277.570312, -65245.164062) = -130522.734375 (Pop 2, Push 3)
-                 varref Beatmania.locn1 = -65526.664062 (push 3) 1-1
-arti_set_external_variable: leds(-65526.664062) := -130522.734375
-             assign set ext.leds[-65526.664062] = -130522.734375 (Pop 2)
-                   varref Beatmania.colr1 = -65277.164062 (push 3) 1-4
-                     varref Beatmania.bri2 = -65245.570312 (push 4) 1-8
-                Call colorFromPalette(-65277.164062, -65245.570312) = -130522.734375 (Pop 2, Push 3)
-                  varref Beatmania.locn2 = -65528.000000 (push 3) 1-2
+                  varref Beatmania.bri2 = -65245.285156 (push 5) 1-8
+              -65244.835938 + -65245.285156 = -130490.125000 (pop 2, push 3)
+             Beatmania.bri12 := -130490.125000 (pop 2) 1-12
+                   varref Beatmania.colr12 = -130554.125000 (push 3) 1-11
+                     varref Beatmania.bri12 = -130490.125000 (push 4) 1-12
+                Call colorFromPalette(-130554.125000, -130490.125000) = -261044.250000 (Pop 2, Push 3)
+                 varref Beatmania.locn12 = -131053.500000 (push 3) 1-10
+arti_set_external_variable: leds(-131053.500000) := -261044.250000
+             assign set ext.leds[-131053.500000] = -261044.250000 (Pop 2)
+                   varref Beatmania.colr2 = -65277.285156 (push 3) 1-5
+                     varref Beatmania.bri1 = -65244.835938 (push 4) 1-7
+                Call colorFromPalette(-65277.285156, -65244.835938) = -130522.125000 (Pop 2, Push 3)
+                 varref Beatmania.locn1 = -65526.000000 (push 3) 1-1
+arti_set_external_variable: leds(-65526.000000) := -130522.125000
+             assign set ext.leds[-65526.000000] = -130522.125000 (Pop 2)
+                   varref Beatmania.colr1 = -65276.835938 (push 3) 1-4
+                     varref Beatmania.bri2 = -65245.285156 (push 4) 1-8
+                Call colorFromPalette(-65276.835938, -65245.285156) = -130522.125000 (Pop 2, Push 3)
+                  varref Beatmania.locn2 = -65527.500000 (push 3) 1-2
                    MOD % (Push 4)
                       varref ext.ledCount = 3.000000 (push 5)
                        MINUS - (Push 6)
                         INTEGER_CONST 1 (Push 7)
                     3.000000 - 1.000000 = 2.000000 (pop 4, push 5)
-                -65528.000000 % 2.000000 = -0.000000 (pop 2, push 3)
-arti_set_external_variable: leds(-0.000000) := -130522.734375
-             assign set ext.leds[-0.000000] = -130522.734375 (Pop 2)
+                -65527.500000 % 2.000000 = -1.500000 (pop 2, push 3)
+arti_set_external_variable: leds(-1.500000) := -130522.125000
+             assign set ext.leds[-1.500000] = -130522.125000 (Pop 2)
 Destruct activation record renderFrame
 setPixels(leds)
 closing Arti 0
@@ -1044,6 +1044,6 @@ Destruct Symbol locn12 (0)
 Destruct Symbol colr12 (0)
 Destruct Symbol bri12 (0)
 Destruct ScopedSymbolTable Beatmania (0)
-definitionJson  11598 / 70% (26 0 6)
+definitionJson  11885 / 72% (26 0 6)
 parseTree       21271 / 32% (1 0 25)
 closed Arti 0 ✓

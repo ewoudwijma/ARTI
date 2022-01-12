@@ -1,5 +1,5 @@
 {
-  "meta": {"version": "0.2.3", "start":"program"},
+  "meta": {"version": "0.3.0", "start":"program"},
   "program": [
     "PROGRAM",
     "ID",

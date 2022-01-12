@@ -1,0 +1,642 @@
+{
+  "program": {
+    "ID": "matrix_2D_pulse",
+    "block": {
+      "*": [
+        {
+          "statement": {
+            "assign": {
+              "varref": {
+                "ID": "PI2",
+                "level": 1,
+                "index": 0
+              },
+              "expr": {
+                "term": {
+                  "REAL_CONST": "6.28318",
+                  "token": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "statement": {
+            "function": {
+              "ID": "renderFrame",
+              "block": {
+                "*": [
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "t1",
+                          "level": 1,
+                          "index": 2
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "time",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "REAL_CONST": ".05",
+                                      "token": 1
+                                    }
+                                  }
+                                },
+                                "external": 40
+                              }
+                            },
+                            "*": [
+                              {
+                                "MUL": "*",
+                                "token": 4
+                              },
+                              {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "PI2",
+                                    "level": 1,
+                                    "index": 0
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "t2",
+                          "level": 1,
+                          "index": 3
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "call": {
+                                "ID": "time",
+                                "actuals": {
+                                  "expr": {
+                                    "term": {
+                                      "REAL_CONST": ".09",
+                                      "token": 1
+                                    }
+                                  }
+                                },
+                                "external": 40
+                              }
+                            },
+                            "*": [
+                              {
+                                "MUL": "*",
+                                "token": 4
+                              },
+                              {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "PI2",
+                                    "level": 1,
+                                    "index": 0
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "z",
+                          "level": 1,
+                          "index": 4
+                        },
+                        "expr": {
+                          "term": {
+                            "INTEGER_CONST": "1",
+                            "token": 0
+                          },
+                          "*": [
+                            {
+                              "PLUS": "+",
+                              "token": 2
+                            },
+                            {
+                              "term": {
+                                "factor": {
+                                  "call": {
+                                    "ID": "wave",
+                                    "actuals": {
+                                      "expr": {
+                                        "term": {
+                                          "call": {
+                                            "ID": "time",
+                                            "actuals": {
+                                              "expr": {
+                                                "term": {
+                                                  "REAL_CONST": ".2",
+                                                  "token": 1
+                                                }
+                                              }
+                                            },
+                                            "external": 40
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "external": 42
+                                  }
+                                },
+                                "*": [
+                                  {
+                                    "MUL": "*",
+                                    "token": 4
+                                  },
+                                  {
+                                    "factor": {
+                                      "INTEGER_CONST": "5",
+                                      "token": 0
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "t3",
+                          "level": 1,
+                          "index": 5
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "time",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "REAL_CONST": ".1",
+                                    "token": 1
+                                  }
+                                }
+                              },
+                              "external": 40
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "statement": {
+            "function": {
+              "ID": "renderLed",
+              "formals": {
+                "formal": {
+                  "ID": "x",
+                  "level": 2,
+                  "index": 0
+                },
+                "*": [
+                  {
+                    "formal": {
+                      "ID": "y",
+                      "level": 2,
+                      "index": 1
+                    }
+                  },
+                  {
+                    "formal": {
+                      "ID": "z",
+                      "level": 2,
+                      "index": 2
+                    }
+                  }
+                ]
+              },
+              "block": {
+                "*": [
+                  {
+                    "statement": {
+                      "call": {
+                        "ID": "printf",
+                        "actuals": {
+                          "expr": {
+                            "term": {
+                              "INTEGER_CONST": "99",
+                              "token": 0
+                            }
+                          },
+                          "*": [
+                            {
+                              "expr": {
+                                "term": {
+                                  "varref": {
+                                    "ID": "x",
+                                    "level": 2,
+                                    "index": 0
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "expr": {
+                                "term": {
+                                  "varref": {
+                                    "ID": "y",
+                                    "level": 2,
+                                    "index": 1
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "external": 45
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "h",
+                          "level": 1,
+                          "index": 7
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "expr": {
+                                "term": {
+                                  "INTEGER_CONST": "1",
+                                  "token": 0
+                                },
+                                "*": [
+                                  {
+                                    "PLUS": "+",
+                                    "token": 2
+                                  },
+                                  {
+                                    "term": {
+                                      "call": {
+                                        "ID": "sin",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "factor": {
+                                                "varref": {
+                                                  "ID": "x",
+                                                  "level": 2,
+                                                  "index": 0
+                                                }
+                                              },
+                                              "*": [
+                                                {
+                                                  "DIV": "/",
+                                                  "token": 5
+                                                },
+                                                {
+                                                  "factor": {
+                                                    "varref": {
+                                                      "ID": "matrixWidth",
+                                                      "external": 1
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "MUL": "*",
+                                                  "token": 4
+                                                },
+                                                {
+                                                  "factor": {
+                                                    "varref": {
+                                                      "ID": "z",
+                                                      "level": 2,
+                                                      "index": 2
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            },
+                                            "*": [
+                                              {
+                                                "PLUS": "+",
+                                                "token": 2
+                                              },
+                                              {
+                                                "term": {
+                                                  "varref": {
+                                                    "ID": "t1",
+                                                    "level": 1,
+                                                    "index": 2
+                                                  }
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        "external": 30
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "PLUS": "+",
+                                    "token": 2
+                                  },
+                                  {
+                                    "term": {
+                                      "call": {
+                                        "ID": "cos",
+                                        "actuals": {
+                                          "expr": {
+                                            "term": {
+                                              "factor": {
+                                                "varref": {
+                                                  "ID": "y",
+                                                  "level": 2,
+                                                  "index": 1
+                                                }
+                                              },
+                                              "*": [
+                                                {
+                                                  "DIV": "/",
+                                                  "token": 5
+                                                },
+                                                {
+                                                  "factor": {
+                                                    "varref": {
+                                                      "ID": "matrixWidth",
+                                                      "external": 1
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "MUL": "*",
+                                                  "token": 4
+                                                },
+                                                {
+                                                  "factor": {
+                                                    "varref": {
+                                                      "ID": "z",
+                                                      "level": 2,
+                                                      "index": 2
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            },
+                                            "*": [
+                                              {
+                                                "PLUS": "+",
+                                                "token": 2
+                                              },
+                                              {
+                                                "term": {
+                                                  "varref": {
+                                                    "ID": "t2",
+                                                    "level": 1,
+                                                    "index": 3
+                                                  }
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        "external": 31
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "*": [
+                              {
+                                "MUL": "*",
+                                "token": 4
+                              },
+                              {
+                                "factor": {
+                                  "REAL_CONST": ".5",
+                                  "token": 1
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "v",
+                          "level": 1,
+                          "index": 8
+                        },
+                        "expr": {
+                          "term": {
+                            "varref": {
+                              "ID": "h",
+                              "level": 1,
+                              "index": 7
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "v",
+                          "level": 1,
+                          "index": 8
+                        },
+                        "expr": {
+                          "term": {
+                            "factor": {
+                              "varref": {
+                                "ID": "v",
+                                "level": 1,
+                                "index": 8
+                              }
+                            },
+                            "*": [
+                              {
+                                "MUL": "*",
+                                "token": 4
+                              },
+                              {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "v",
+                                    "level": 1,
+                                    "index": 8
+                                  }
+                                }
+                              },
+                              {
+                                "MUL": "*",
+                                "token": 4
+                              },
+                              {
+                                "factor": {
+                                  "varref": {
+                                    "ID": "v",
+                                    "level": 1,
+                                    "index": 8
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "statement": {
+                      "assign": {
+                        "varref": {
+                          "ID": "leds",
+                          "indices": {
+                            "expr": {
+                              "term": {
+                                "varref": {
+                                  "ID": "x",
+                                  "level": 2,
+                                  "index": 0
+                                }
+                              }
+                            },
+                            "*": [
+                              {
+                                "expr": {
+                                  "term": {
+                                    "varref": {
+                                      "ID": "y",
+                                      "level": 2,
+                                      "index": 1
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "external": 4
+                        },
+                        "expr": {
+                          "term": {
+                            "call": {
+                              "ID": "hsv",
+                              "actuals": {
+                                "expr": {
+                                  "term": {
+                                    "factor": {
+                                      "varref": {
+                                        "ID": "h",
+                                        "level": 1,
+                                        "index": 7
+                                      }
+                                    },
+                                    "*": [
+                                      {
+                                        "MUL": "*",
+                                        "token": 4
+                                      },
+                                      {
+                                        "factor": {
+                                          "INTEGER_CONST": "255",
+                                          "token": 0
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "*": [
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "INTEGER_CONST": "255",
+                                        "token": 0
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "expr": {
+                                      "term": {
+                                        "factor": {
+                                          "varref": {
+                                            "ID": "v",
+                                            "level": 1,
+                                            "index": 8
+                                          }
+                                        },
+                                        "*": [
+                                          {
+                                            "DIV": "/",
+                                            "token": 5
+                                          },
+                                          {
+                                            "factor": {
+                                              "INTEGER_CONST": "2",
+                                              "token": 0
+                                            }
+                                          },
+                                          {
+                                            "MUL": "*",
+                                            "token": 4
+                                          },
+                                          {
+                                            "factor": {
+                                              "INTEGER_CONST": "255",
+                                              "token": 0
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "external": 6
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
